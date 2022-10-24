@@ -7,3 +7,7 @@ Makefile
 /CMakeFiles/
 
 /CMakeCache.txt
+
+dream.js
+
+dream.wasm
