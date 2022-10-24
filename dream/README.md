@@ -17,6 +17,5 @@ Install Emscripten once (ensure you do not have Emscripten globally installed th
 Build using CMake:
 
 ```shell
-cd build.web
-cmake .. -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
+./build-web.sh
 ```

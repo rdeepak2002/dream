@@ -5,12 +5,12 @@
 #include "emscripten.h"
 #endif
 
+auto* application = new Application();
+
 void mainLoop() {
     #ifdef EMSCRIPTEN
-    update();
+    application->update();
     #else
-    auto* application = new Application();
-
     while (!application->shouldClose()) {
         application->update();
     }

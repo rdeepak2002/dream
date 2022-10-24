@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Get the emsdk repo
 git clone https://github.com/emscripten-core/emsdk.git
 
