@@ -18,5 +18,5 @@ Build using CMake:
 
 ```shell
 cd build.web
-cmake .. -DCMAKE_TOOLCHAIN_PATH=../emscripten/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
+cmake .. -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
 ```
