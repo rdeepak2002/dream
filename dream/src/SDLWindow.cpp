@@ -4,9 +4,7 @@
 
 #include "dream/SDLWindow.h"
 
-#ifndef EMSCRIPTEN
 #include <glad/glad.h>
-#endif
 
 SDLWindow::SDLWindow(int windowWidth, int windowHeight) {
     // OPENGL VERSION
