@@ -77,24 +77,26 @@
             // var onMouseMovement = Module.cwrap('onMouseMovement', null, ['number', 'number']);
 
             var windowResizeListener = (event) => {
-                if (onResizeGraphicsWindow !== undefined) {
-                    var canvasWidth = canvas.clientWidth;
-                    var canvasHeight = canvas.clientHeight;
-
-                    if (canvasWidth !== undefined && canvasHeight !== undefined) {
-                        onResizeGraphicsWindow(parseInt(canvasWidth), parseInt(canvasHeight));
-                    } else {
-                        console.error("Unable to get canvas element width and height");
-                    }
-                } else {
-                    console.error("Unable to register external C function for handling window resize");
-                }
+                // TODO: uncomment
+                // if (onResizeGraphicsWindow !== undefined) {
+                //     var canvasWidth = canvas.clientWidth;
+                //     var canvasHeight = canvas.clientHeight;
+                //
+                //     if (canvasWidth !== undefined && canvasHeight !== undefined) {
+                //         onResizeGraphicsWindow(parseInt(canvasWidth), parseInt(canvasHeight));
+                //     } else {
+                //         console.error("Unable to get canvas element width and height");
+                //     }
+                // } else {
+                //     console.error("Unable to register external C function for handling window resize");
+                // }
             };
 
             var updatePosition = (event) => {
-                if (event && event.movementX && event.movementY) {
-                    onMouseMovement(event.movementX, event.movementY);
-                }
+                // TODO: uncomment
+                // if (event && event.movementX && event.movementY) {
+                //     onMouseMovement(event.movementX, event.movementY);
+                // }
             }
 
             windowResizeListener(undefined);
