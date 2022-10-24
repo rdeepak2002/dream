@@ -3,6 +3,12 @@ project(dream)
 
 set(CMAKE_CXX_STANDARD 17)
 
+if (EMSCRIPTEN)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build.emscripten)
+else()
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build.desktop/${CMAKE_SYSTEM_NAME})
+endif()
+
 if (NOT EMSCRIPTEN)
     # Link OpenGL library
     find_package(OpenGL REQUIRED)
@@ -28,4 +34,8 @@ endif()
 # header files
 include_directories(include)
 
-add_executable(dream src/glad.c src/main.cpp src/Application.cpp src/SDLWindow.cpp src/OpenGLRenderer.cpp)
+add_executable(${PROJECT_NAME} src/glad.c src/main.cpp src/Application.cpp src/SDLWindow.cpp src/OpenGLRenderer.cpp)
+
+if (EMSCRIPTEN)
+    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-s DEMANGLE_SUPPORT=1 --preload-file ${CMAKE_SOURCE_DIR}/assets --bind")
+endif()
