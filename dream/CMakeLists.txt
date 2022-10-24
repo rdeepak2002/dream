@@ -3,7 +3,6 @@ project(dream)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# TODO: link libraries for OpenGL and SDL2
 if (NOT EMSCRIPTEN)
     # Link OpenGL library
     find_package(OpenGL REQUIRED)
@@ -29,4 +28,4 @@ endif()
 # header files
 include_directories(include)
 
-add_executable(dream src/glad.c src/main.cpp)
+add_executable(dream src/glad.c src/main.cpp src/Application.cpp src/SDLWindow.cpp src/OpenGLRenderer.cpp)
