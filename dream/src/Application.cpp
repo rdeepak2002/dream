@@ -4,8 +4,8 @@
 
 #include "dream/Application.h"
 
-#define WinWidth 1024
-#define WinHeight 720
+#define WinWidth 600
+#define WinHeight 400
 
 Application::Application() {
     this->window = new SDLWindow(WinWidth, WinHeight);
