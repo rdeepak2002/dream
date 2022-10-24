@@ -40,9 +40,9 @@ const char *fragmentShaderSource = "#version 330 core\n"
 #endif
 
 OpenGLRenderer::OpenGLRenderer() {
-    printf("Vendor:   %s\n", glGetString(GL_VENDOR));
-    printf("Renderer: %s\n", glGetString(GL_RENDERER));
-    printf("Version:  %s\n", glGetString(GL_VERSION));
+//    printf("Vendor:   %s\n", glGetString(GL_VENDOR));
+//    printf("Renderer: %s\n", glGetString(GL_RENDERER));
+//    printf("Version:  %s\n", glGetString(GL_VERSION));
 
     // build and compile our shader program
     // ------------------------------------
