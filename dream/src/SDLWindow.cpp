@@ -11,9 +11,16 @@ SDLWindow::SDLWindow(int windowWidth, int windowHeight) {
     auto WindowFlags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
     WindowFlags |= SDL_WINDOW_ALLOW_HIGHDPI;
     this->Window = SDL_CreateWindow("OpenGL Test", 0, 0, windowWidth, windowHeight, WindowFlags);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); // TODO: set this to compatability for web build
+
+#ifdef EMSCRIPTEN
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+#else
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+#endif
     SDL_GLContext Context = SDL_GL_CreateContext(Window);
 
     // Check OpenGL properties
