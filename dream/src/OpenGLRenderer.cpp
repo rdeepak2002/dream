@@ -118,7 +118,11 @@ OpenGLRenderer::OpenGLRenderer() {
 }
 
 void OpenGLRenderer::render(int windowWidth, int windowHeight) {
+    #ifdef EMSCRIPTEN
     auto dpiScale = 2;
+    #else
+    auto dpiScale = 2;
+    #endif
     glViewport(0, 0, windowWidth * dpiScale, windowHeight * dpiScale);
     glClearColor(1.f, 1.f, 0.f, 0.f);
     glClear(GL_COLOR_BUFFER_BIT);
