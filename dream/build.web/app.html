@@ -73,8 +73,8 @@
         onRuntimeInitialized: function() {
             console.log("Runtime initialized");
 
-            var onResizeGraphicsWindow = Module.cwrap('onResizeWindow', null, ['number', 'number']);
-            var onMouseMovement = Module.cwrap('onMouseMovement', null, ['number', 'number']);
+            // var onResizeGraphicsWindow = Module.cwrap('onResizeWindow', null, ['number', 'number']);
+            // var onMouseMovement = Module.cwrap('onMouseMovement', null, ['number', 'number']);
 
             var windowResizeListener = (event) => {
                 if (onResizeGraphicsWindow !== undefined) {
@@ -158,13 +158,13 @@
     }
 
     // TODO: remove this
-    var jsDownload = download('/dream.js').then(function(data) {
-        if (element) element.value += "Downloaded js file\n";
-        if (element) element.scrollTop = element.scrollHeight; // focus on bottom
-
-        Module['mainScriptUrlOrBlob'] = new Blob([data]);
-        addScriptToDom(data);
-    });
+    // var jsDownload = download('/dream.js').then(function(data) {
+    //     if (element) element.value += "Downloaded js file\n";
+    //     if (element) element.scrollTop = element.scrollHeight; // focus on bottom
+    //
+    //     Module['mainScriptUrlOrBlob'] = new Blob([data]);
+    //     addScriptToDom(data);
+    // });
 
     // TODO: uncomment this
     // if (element) element.value += "Downloading data file...\n";
@@ -185,6 +185,6 @@
     //     });
     // });
 </script>
-<!-- <script async type="text/javascript" src="./DeepsEngine.js"></script> -->
+<script async type="text/javascript" src="./dream.js"></script>
 </body>
 </html>

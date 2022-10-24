@@ -6,6 +6,12 @@ cd cmake-build-debug-web
 cmake .. -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
 make
 
-cd ..
-cd build.web
-http-server -o app
+RESULT=$?
+
+if [ $RESULT -eq 0 ]; then
+  cd ..
+  cd build.web
+  http-server -o app
+else
+  echo "Build failed"
+fi

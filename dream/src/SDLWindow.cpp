@@ -19,10 +19,13 @@ SDLWindow::SDLWindow(int windowWidth, int windowHeight) {
     SDL_GLContext Context = SDL_GL_CreateContext(Window);
 
     // Check OpenGL properties
-    printf("OpenGL loaded\n");
-    #ifndef EMSCRIPTEN
+    printf("Going to load Glad function pointers\n");
+    #ifdef EMSCRIPTEN
+    gladLoadGLES2Loader(SDL_GL_GetProcAddress);
+    #else
     gladLoadGLLoader(SDL_GL_GetProcAddress);
     #endif
+    printf("Loaded Glad function pointers\n");
 
     this->shouldCloseFlag = false;
 }
