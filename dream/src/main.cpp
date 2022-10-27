@@ -28,5 +28,6 @@ void startUpdateLoop() {
 int main(int ArgCount, char **Args)
 {
     startUpdateLoop();
+    delete application;
     return EXIT_SUCCESS;
 }

@@ -3,19 +3,23 @@
 //
 
 #include "dream/Application.h"
-
-#define WinWidth 600
-#define WinHeight 400
+#include <iostream>
 
 Application::Application() {
-    this->window = new SDLWindow(WinWidth, WinHeight);
+    this->window = new SDLWindow();
     this->renderer = new OpenGLRenderer();
+}
+
+Application::~Application() {
+    delete this->window;
+    delete this->renderer;
 }
 
 void Application::update() {
     this->window->pollEvents();
+    std::pair<int, int> windowDimensions = this->window->getWindowDimensions();
     this->fixedUpdate();
-    this->renderer->render(WinWidth, WinHeight);
+    this->renderer->render(windowDimensions.first, windowDimensions.second);
     this->window->swapBuffers();
 }
 

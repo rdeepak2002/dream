@@ -11,6 +11,8 @@
         body {
             overflow: hidden;
             margin: 0;
+            width: 100%;
+            height: 100vh;
         }
         .fullwindow {
             top: 0;
@@ -38,7 +40,7 @@
 <body style="background-color: black;">
 <div class="fullwindow">
     <canvas class="window" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
-    <textarea class="console" id="output" rows="8" placeholder="Downloading..." disabled></textarea>
+<!--    <textarea class="console" id="output" rows="8" placeholder="Downloading..." disabled></textarea>-->
 </div>
 <script type="text/javascript">
     var canvas = document.getElementById('canvas');

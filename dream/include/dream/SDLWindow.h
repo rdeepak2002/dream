@@ -9,13 +9,16 @@
 
 class SDLWindow {
 public:
-    SDLWindow(int windowWidth, int windowHeight);
+    SDLWindow();
+    ~SDLWindow();
     void pollEvents();
     void swapBuffers();
     bool shouldClose();
+    std::pair<int, int> getWindowDimensions();
 private:
     SDL_Window *Window;
     bool shouldCloseFlag;
+    int windowWidth, windowHeight;
 };
 
 

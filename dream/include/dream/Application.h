@@ -11,6 +11,7 @@
 class Application {
 public:
     Application();
+    ~Application();
     void update();
     bool shouldClose();
 private:
