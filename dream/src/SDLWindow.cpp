@@ -63,6 +63,7 @@ void SDLWindow::pollEvents() {
                 case SDL_WINDOWEVENT_RESIZED:
                     this->windowWidth = Event.window.data1;
                     this->windowHeight = Event.window.data2;
+                    printf("new window size: (%d, %d)\n", this->windowWidth, this->windowHeight);
                     break;
             }
         }
