@@ -119,7 +119,7 @@ OpenGLRenderer::OpenGLRenderer() {
 
 void OpenGLRenderer::render(int windowWidth, int windowHeight) {
     #ifdef EMSCRIPTEN
-    auto dpiScale = 1;
+    auto dpiScale = 2;
     #else
     auto dpiScale = 2;
     #endif

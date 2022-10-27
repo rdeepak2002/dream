@@ -15,6 +15,8 @@ SDLWindow::SDLWindow() {
     auto WindowFlags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
     #ifndef EMSCRIPTEN
     WindowFlags |= SDL_WINDOW_ALLOW_HIGHDPI;
+    #else
+    WindowFlags |= SDL_WINDOW_ALLOW_HIGHDPI;
     #endif
     this->Window = SDL_CreateWindow("OpenGL Test", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
 
