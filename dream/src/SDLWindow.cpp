@@ -6,6 +6,7 @@
 
 #include <glad/glad.h>
 #include <iostream>
+#include "dream/Editor.h"
 
 namespace Dream {
     SDLWindow::SDLWindow() {
@@ -30,7 +31,7 @@ namespace Dream {
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
         #endif
-        SDL_GLContext Context = SDL_GL_CreateContext(Window);
+        glContext = SDL_GL_CreateContext(Window);
 
         // Check OpenGL properties
         #ifdef EMSCRIPTEN
@@ -50,6 +51,7 @@ namespace Dream {
         SDL_Event Event;
         while (SDL_PollEvent(&Event))
         {
+            Dream::Editor::pollEvents(Event);
             if (Event.type == SDL_KEYDOWN)
             {
                 switch (Event.key.keysym.sym)
@@ -86,5 +88,13 @@ namespace Dream {
 
     std::pair<int, int> SDLWindow::getWindowDimensions() {
         return std::make_pair(this->windowWidth, this->windowHeight);
+    }
+
+    SDL_Window *SDLWindow::getSDL2Window() {
+        return this->Window;
+    }
+
+    SDL_GLContext SDLWindow::getSDL2GLContext() {
+        return this->glContext;
     }
 }

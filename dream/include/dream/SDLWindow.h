@@ -16,10 +16,13 @@ namespace Dream {
         void swapBuffers();
         bool shouldClose();
         std::pair<int, int> getWindowDimensions();
+        SDL_Window *getSDL2Window();
+        SDL_GLContext getSDL2GLContext();
     private:
         SDL_Window *Window;
         bool shouldCloseFlag;
         int windowWidth, windowHeight;
+        SDL_GLContext glContext;
     };
 }
 

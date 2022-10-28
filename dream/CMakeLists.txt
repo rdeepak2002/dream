@@ -35,9 +35,20 @@ endif()
 
 # header files
 include_directories(include)
+include_directories(include/imgui)
 
-add_executable(${PROJECT_NAME} src/glad.c src/main.cpp src/Application.cpp src/SDLWindow.cpp src/OpenGLRenderer.cpp)
+# source files for engine code
+FILE(GLOB ENGINE_SOURCE_FILES
+        src/engine/renderer/glad.c
+        include/imgui/*.cpp
+        include/imgui/backends/imgui_impl_sdl.cpp
+        include/imgui/backends/imgui_impl_opengl3.cpp
+        src/*.cpp
+        src/glad.c)
+
+add_executable(${PROJECT_NAME} src/glad.c ${ENGINE_SOURCE_FILES})
 
 if (EMSCRIPTEN)
-    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--use-preload-plugins -std=c++1z -s ASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s USE_SDL=1 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"png\"]' -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s FORCE_FILESYSTEM=1")
+    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--use-preload-plugins -std=c++1z -s ASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"png\"]' -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s FORCE_FILESYSTEM=1")
+    set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-s USE_SDL=2")
 endif()
