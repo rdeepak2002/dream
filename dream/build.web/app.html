@@ -52,7 +52,7 @@
 <script type='text/javascript'>
     var Module = {
         print: (function(text) {
-            var element = document.getElementById('output');
+            let element = document.getElementById('output');
             if (element) element.value = ''; // clear browser cache
             return function(text) {
                 if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
@@ -65,7 +65,7 @@
         })(),
         printErr: function(text) { console.error(text); },
         setStatus: (function(text) {
-            var element = document.getElementById('status');
+            let element = document.getElementById('status');
             if (element) element.textContent = ''; // clear browser cache
             return function(text) { element.textContent = text; };
         })(),
