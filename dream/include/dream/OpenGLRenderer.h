@@ -5,13 +5,13 @@
 #ifndef DREAM_OPENGLRENDERER_H
 #define DREAM_OPENGLRENDERER_H
 
-
-class OpenGLRenderer {
-public:
-    OpenGLRenderer();
-    void render(int windowWidth, int windowHeight);
-    unsigned int VBO, VAO, shaderProgram;
-};
-
+namespace Dream {
+    class OpenGLRenderer {
+    public:
+        OpenGLRenderer();
+        void render(int windowWidth, int windowHeight);
+        unsigned int VBO, VAO, shaderProgram;
+    };
+}
 
 #endif //DREAM_OPENGLRENDERER_H

@@ -5,7 +5,7 @@
 #include "emscripten.h"
 #endif
 
-auto* application = new Application();
+auto* application = new Dream::Application();
 
 void mainLoop() {
     #ifdef EMSCRIPTEN

@@ -8,17 +8,18 @@
 #include "dream/SDLWindow.h"
 #include "dream/OpenGLRenderer.h"
 
-class Application {
-public:
-    Application();
-    ~Application();
-    void update();
-    bool shouldClose();
-private:
-    SDLWindow* window;
-    OpenGLRenderer* renderer;
-    void fixedUpdate();
-};
-
+namespace Dream {
+    class Application {
+    public:
+        Application();
+        ~Application();
+        void update();
+        bool shouldClose();
+    private:
+        SDLWindow* window;
+        OpenGLRenderer* renderer;
+        void fixedUpdate();
+    };
+}
 
 #endif //DREAM_APPLICATION_H

@@ -7,19 +7,20 @@
 
 #include <SDL2/SDL.h>
 
-class SDLWindow {
-public:
-    SDLWindow();
-    ~SDLWindow();
-    void pollEvents();
-    void swapBuffers();
-    bool shouldClose();
-    std::pair<int, int> getWindowDimensions();
-private:
-    SDL_Window *Window;
-    bool shouldCloseFlag;
-    int windowWidth, windowHeight;
-};
-
+namespace Dream {
+    class SDLWindow {
+    public:
+        SDLWindow();
+        ~SDLWindow();
+        void pollEvents();
+        void swapBuffers();
+        bool shouldClose();
+        std::pair<int, int> getWindowDimensions();
+    private:
+        SDL_Window *Window;
+        bool shouldCloseFlag;
+        int windowWidth, windowHeight;
+    };
+}
 
 #endif //DREAM_SDLWINDOW_H
