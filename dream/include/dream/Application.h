@@ -7,6 +7,7 @@
 
 #include "dream/SDLWindow.h"
 #include "dream/OpenGLRenderer.h"
+#include "dream/Editor.h"
 
 namespace Dream {
     class Application {
@@ -18,6 +19,7 @@ namespace Dream {
     private:
         SDLWindow* window;
         OpenGLRenderer* renderer;
+        Editor* editor;
         void fixedUpdate();
     };
 }

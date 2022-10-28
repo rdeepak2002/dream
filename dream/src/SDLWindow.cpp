@@ -6,8 +6,7 @@
 
 #include <glad/glad.h>
 #include <iostream>
-
-#include "backends/imgui_impl_sdl.h"
+#include "dream/Editor.h"
 
 namespace Dream {
     SDLWindow::SDLWindow() {
@@ -52,7 +51,7 @@ namespace Dream {
         SDL_Event Event;
         while (SDL_PollEvent(&Event))
         {
-            ImGui_ImplSDL2_ProcessEvent(&Event);
+            Dream::Editor::pollEvents(Event);
             if (Event.type == SDL_KEYDOWN)
             {
                 switch (Event.key.keysym.sym)
