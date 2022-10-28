@@ -47,28 +47,17 @@
 
 <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
 
-<textarea id="output" rows="8"></textarea>
-
 <script type='text/javascript'>
     var Module = {
         print: (function(text) {
-            let element = document.getElementById('output');
-            if (element) element.value = ''; // clear browser cache
             return function(text) {
                 if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
                 console.log(text);
-                if (element) {
-                    element.value += text + "\n";
-                    element.scrollTop = element.scrollHeight; // focus on bottom
-                }
             };
         })(),
-        printErr: function(text) { console.error(text); },
-        setStatus: (function(text) {
-            let element = document.getElementById('status');
-            if (element) element.textContent = ''; // clear browser cache
-            return function(text) { element.textContent = text; };
-        })(),
+        printErr: function(text) {
+            console.error(text);
+        },
         canvas: document.getElementById('canvas'),
     };
 </script>
