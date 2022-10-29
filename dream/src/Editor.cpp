@@ -13,6 +13,9 @@
 
 namespace Dream {
     Editor::Editor(Dream::SDLWindow *window) {
+        this->rendererViewportWidth = 520;
+        this->rendererViewportHeight = 557;
+
         // setup Dear ImGui context
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -28,7 +31,7 @@ namespace Dream {
         ImGui_ImplOpenGL3_Init(OpenGLShader::getShaderVersion().c_str());
     }
 
-    void Editor::update(Dream::SDLWindow *window) {
+    void Editor::update(Dream::SDLWindow *window, unsigned int frameBufferTexture) {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL2_NewFrame(window->getSDL2Window());
         ImGui::NewFrame();
@@ -95,21 +98,17 @@ namespace Dream {
         ImGuiWindowFlags renderer_window_flags = 0;
         renderer_window_flags |= ImGuiWindowFlags_NoScrollbar;
         ImGui::Begin("Renderer", nullptr, renderer_window_flags);
-//        ImGui::Text(" ");
         ImVec2 vMin = ImGui::GetWindowContentRegionMin();
         ImVec2 vMax = ImGui::GetWindowContentRegionMax();
-
         vMin.x += ImGui::GetWindowPos().x;
         vMin.y += ImGui::GetWindowPos().y;
         vMax.x += ImGui::GetWindowPos().x;
         vMax.y += ImGui::GetWindowPos().y;
-
         float width = vMax.x - vMin.x;
         float height = vMax.y - vMin.y;
-//        Application::getInstance().resizeWindow(width, height);
-//        ImGui::Text(" ");
-        int textureColorbuffer = 0; // TODO: remove this
-        ImGui::Image(reinterpret_cast<ImTextureID>(textureColorbuffer), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
+        this->rendererViewportWidth = int(width);
+        this->rendererViewportHeight = int(height);
+        ImGui::Image(reinterpret_cast<ImTextureID>(frameBufferTexture), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
         ImGui::End();
 
         ImGuiWindowClass inspector_window_class;
@@ -178,5 +177,9 @@ namespace Dream {
         colors[ImGuiCol_TitleBg] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
         colors[ImGuiCol_TitleBgActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
         colors[ImGuiCol_TitleBgCollapsed] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+    }
+
+    std::pair<int, int> Editor::getRendererViewportDimensions() {
+        return std::make_pair(this->rendererViewportWidth, this->rendererViewportHeight);
     }
 }

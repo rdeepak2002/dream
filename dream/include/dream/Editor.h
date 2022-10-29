@@ -11,9 +11,12 @@ namespace Dream {
     class Editor {
     public:
         Editor(Dream::SDLWindow *window);
-        void update(Dream::SDLWindow *window);
+        void update(Dream::SDLWindow *window, unsigned int frameBufferTexture);
         void style();
         static void pollEvents(SDL_Event Event);
+        std::pair<int, int> getRendererViewportDimensions();
+    private:
+        int rendererViewportWidth, rendererViewportHeight;
     };
 }
 

@@ -12,10 +12,13 @@ namespace Dream {
     public:
         OpenGLRenderer();
         ~OpenGLRenderer();
-        void render(int windowWidth, int windowHeight);
-        unsigned int VBO, VAO;
+        unsigned int render(int viewportWidth, int viewportHeight, bool fullscreen);
+        void initFrameBuffer(int viewportWidth, int viewportHeight);
+        void resizeFrameBuffer();
     private:
         OpenGLShader *shader;
+        OpenGLShader *screenShader;
+        unsigned int VBO, VAO, framebuffer, quadVAO, textureColorbuffer, rbo;
     };
 }
 

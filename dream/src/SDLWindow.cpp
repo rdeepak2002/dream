@@ -10,8 +10,8 @@
 
 namespace Dream {
     SDLWindow::SDLWindow() {
-        this->windowWidth = 1920;
-        this->windowHeight = 1080;
+        this->windowWidth = 1024;
+        this->windowHeight = 768;
 
         auto WindowFlags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
         this->Window = SDL_CreateWindow("Dream", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);

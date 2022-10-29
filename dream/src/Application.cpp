@@ -23,10 +23,18 @@ namespace Dream {
 
     void Application::update() {
         this->window->pollEvents();
-        std::pair<int, int> windowDimensions = this->window->getWindowDimensions();
         this->fixedUpdate();
-        this->renderer->render(windowDimensions.first, windowDimensions.second);
-        this->editor->update(this->window);
+        bool fullscreen = false;
+        std::pair<int, int> rendererViewportDimensions;
+        if (fullscreen) {
+            rendererViewportDimensions = this->window->getWindowDimensions();
+        } else {
+            rendererViewportDimensions = this->editor->getRendererViewportDimensions();
+        }
+        unsigned int frameBufferTexture = this->renderer->render(rendererViewportDimensions.first, rendererViewportDimensions.second, fullscreen);
+        if (!fullscreen) {
+            this->editor->update(this->window, frameBufferTexture);
+        }
         this->window->swapBuffers();
     }
 
