@@ -8,6 +8,7 @@
 #include "dream/SDLWindow.h"
 #include "dream/OpenGLRenderer.h"
 #include "dream/Editor.h"
+#include "dream/Project.h"
 
 namespace Dream {
     class Application {
@@ -21,6 +22,7 @@ namespace Dream {
         OpenGLRenderer* renderer;
         Editor* editor;
         void fixedUpdate();
+        std::filesystem::path getResourcesRoot();
     };
 }
 
