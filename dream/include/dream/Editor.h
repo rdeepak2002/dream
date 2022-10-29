@@ -12,6 +12,7 @@ namespace Dream {
     public:
         Editor(Dream::SDLWindow *window);
         void update(Dream::SDLWindow *window);
+        void style();
         static void pollEvents(SDL_Event Event);
     };
 }
