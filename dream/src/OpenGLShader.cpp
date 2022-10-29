@@ -8,6 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <format>
 
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
@@ -20,6 +21,21 @@
 
 namespace Dream {
     OpenGLShader::OpenGLShader(const char *vertexPath, const char *fragmentPath, const char *geometryPath) {
+        if (!std::filesystem::exists(vertexPath)) {
+            fprintf(stderr, "Error: vertex shader file does not exist %s\n", vertexPath);
+            exit(EXIT_FAILURE);
+        }
+
+        if (!std::filesystem::exists(fragmentPath)) {
+            fprintf(stderr, "Error: fragment shader file does not exist %s\n", fragmentPath);
+            exit(EXIT_FAILURE);
+        }
+
+        if (geometryPath != nullptr && !std::filesystem::exists(geometryPath)) {
+            fprintf(stderr, "Error: geometry shader file does not exist %s\n", geometryPath);
+            exit(EXIT_FAILURE);
+        }
+
         // 1. retrieve the vertex/fragment source code from filePath
         std::string vertexCode;
         std::string fragmentCode;
@@ -54,14 +70,18 @@ namespace Dream {
                 gShaderStream << gShaderFile.rdbuf();
                 gShaderFile.close();
                 geometryCode = gShaderStream.str();
+                geometryCode = OpenGLShader::getShaderVersion() + "\n" + geometryCode;
             }
+            // append shader versions to file
+            vertexCode = OpenGLShader::getShaderVersion() + "\n" + vertexCode;
+            fragmentCode = OpenGLShader::getShaderVersion() + "\n" + fragmentCode;
         }
         catch (std::ifstream::failure& e)
         {
             std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ: " << e.what() << std::endl;
         }
         const char* vShaderCode = vertexCode.c_str();
-        const char * fShaderCode = fragmentCode.c_str();
+        const char* fShaderCode = fragmentCode.c_str();
         // 2. compile shaders
         unsigned int vertex, fragment;
         // vertex shader
@@ -168,5 +188,13 @@ namespace Dream {
                 std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
             }
         }
+    }
+
+    std::string OpenGLShader::getShaderVersion() {
+        #ifdef EMSCRIPTEN
+        return "#version 300 es";
+        #else
+        return "#version 330 core";
+        #endif
     }
 }

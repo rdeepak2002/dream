@@ -9,6 +9,7 @@
 #include <imgui_internal.h>
 #include "backends/imgui_impl_sdl.h"
 #include "backends/imgui_impl_opengl3.h"
+#include "dream/OpenGLShader.h"
 
 namespace Dream {
     Editor::Editor(Dream::SDLWindow *window) {
@@ -24,12 +25,7 @@ namespace Dream {
 
         // setup platform/renderer bindings
         ImGui_ImplSDL2_InitForOpenGL(window->getSDL2Window(), window->getSDL2GLContext());
-        #ifdef EMSCRIPTEN
-        std::string glsl_version = "#version 300 es";
-        #else
-        std::string glsl_version = "#version 330 core";
-        #endif
-        ImGui_ImplOpenGL3_Init(glsl_version.c_str());
+        ImGui_ImplOpenGL3_Init(OpenGLShader::getShaderVersion().c_str());
     }
 
     void Editor::update(Dream::SDLWindow *window) {
