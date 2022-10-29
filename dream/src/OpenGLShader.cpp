@@ -146,7 +146,7 @@ void OpenGLShader::setMat4(const std::string &name, const glm::mat4 &mat) const 
     glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
 
-void OpenGLShader::checkCompileErrors(uint shader, std::string type) {
+void OpenGLShader::checkCompileErrors(int shader, std::string type) {
     GLint success;
     GLchar infoLog[1024];
     if(type != "PROGRAM")
