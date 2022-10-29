@@ -58,11 +58,7 @@ namespace Dream {
     }
 
     void OpenGLRenderer::render(int windowWidth, int windowHeight) {
-        #ifdef EMSCRIPTEN
         auto dpiScale = 2;
-        #else
-        auto dpiScale = 2;
-        #endif
         glViewport(0, 0, windowWidth * dpiScale, windowHeight * dpiScale);
         glClearColor(1.f, 1.f, 0.f, 0.f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -73,7 +69,6 @@ namespace Dream {
         glClear(GL_COLOR_BUFFER_BIT);
 
         // draw our first triangle
-//        glUseProgram(shaderProgram);
         this->shader->use();
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         glDrawArrays(GL_TRIANGLES, 0, 3);

@@ -13,19 +13,13 @@ namespace Dream {
         this->windowWidth = 1920;
         this->windowHeight = 1080;
 
-        // OPENGL VERSION
-        auto WindowFlags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
-        #ifndef EMSCRIPTEN
-        WindowFlags |= SDL_WINDOW_ALLOW_HIGHDPI;
-        #else
-        WindowFlags |= SDL_WINDOW_ALLOW_HIGHDPI;
-        #endif
+        auto WindowFlags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
         this->Window = SDL_CreateWindow("Dream", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
 
         #ifdef EMSCRIPTEN
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
         #else
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
