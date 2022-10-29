@@ -6,15 +6,26 @@
 
 #include <utility>
 
-Project::Project(std::filesystem::path filepath) {
-    if (std::filesystem::exists(filepath)) {
-        this->filepath = std::move(filepath);
-    } else {
-        fprintf(stderr, "Error: project folder does not exist\n");
-        exit(EXIT_FAILURE);
+namespace Dream {
+    void Project::open(std::filesystem::path filepath) {
+        Project::getInstance().openHelper(std::move(filepath));
     }
-}
 
-std::filesystem::path Project::getPath() {
-    return this->filepath;
+    std::filesystem::path Project::getPath() {
+        return Project::getInstance().getPathHelper();
+    }
+
+    void Project::openHelper(std::filesystem::path filepath) {
+        if (std::filesystem::exists(filepath)) {
+            this->path = std::move(filepath);
+        } else {
+            fprintf(stderr, "Error: project folder does not exist\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    std::filesystem::path Project::getPathHelper() {
+        return this->path;
+    }
+
 }

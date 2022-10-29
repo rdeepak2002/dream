@@ -9,17 +9,16 @@
 
 namespace Dream {
     Application::Application() {
+        Project::open(this->getResourcesRoot().append("examples").append("hello_world"));
         this->window = new SDLWindow();
         this->renderer = new OpenGLRenderer();
         this->editor = new Editor(this->window);
-        this->project = new Project(this->getResourcesRoot().append("examples").append("hello_world"));
     }
 
     Application::~Application() {
         delete this->window;
         delete this->renderer;
         delete this->editor;
-        delete this->project;
     }
 
     void Application::update() {

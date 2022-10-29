@@ -8,13 +8,25 @@
 #include <iostream>
 #include <filesystem>
 
-class Project {
-public:
-    explicit Project(std::filesystem::path filepath);
-    std::filesystem::path getPath();
-private:
-    std::filesystem::path filepath;
-};
-
+namespace Dream {
+    class Project {
+    public:
+        static Project& getInstance()
+        {
+            static Project instance;
+            return instance;
+        }
+    public:
+        Project(Project const&) = delete;
+        void operator=(Project const&) = delete;
+        static void open(std::filesystem::path filepath);
+        static std::filesystem::path getPath();
+    private:
+        Project() {}
+        std::filesystem::path path;
+        void openHelper(std::filesystem::path filepath);
+        std::filesystem::path getPathHelper();
+    };
+}
 
 #endif //DREAM_PROJECT_H

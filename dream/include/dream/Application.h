@@ -21,7 +21,6 @@ namespace Dream {
         SDLWindow* window;
         OpenGLRenderer* renderer;
         Editor* editor;
-        Project* project;
         void fixedUpdate();
         std::filesystem::path getResourcesRoot();
     };
