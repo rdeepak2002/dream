@@ -93,22 +93,53 @@ namespace Dream {
 
         this->style();
 
-        ImGui::Begin("Renderer");
-        ImGui::Text(" ");
+        ImGuiWindowClass renderer_window_class;
+        renderer_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
+        ImGui::SetNextWindowClass(&renderer_window_class);
+        ImGuiWindowFlags renderer_window_flags = 0;
+        renderer_window_flags |= ImGuiWindowFlags_NoScrollbar;
+        ImGui::Begin("Renderer", nullptr, renderer_window_flags);
+//        ImGui::Text(" ");
+        ImVec2 vMin = ImGui::GetWindowContentRegionMin();
+        ImVec2 vMax = ImGui::GetWindowContentRegionMax();
+
+        vMin.x += ImGui::GetWindowPos().x;
+        vMin.y += ImGui::GetWindowPos().y;
+        vMax.x += ImGui::GetWindowPos().x;
+        vMax.y += ImGui::GetWindowPos().y;
+
+        float width = vMax.x - vMin.x;
+        float height = vMax.y - vMin.y;
+//        Application::getInstance().resizeWindow(width, height);
+//        ImGui::Text(" ");
+        int textureColorbuffer = 0; // TODO: remove this
+        ImGui::Image(reinterpret_cast<ImTextureID>(textureColorbuffer), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
         ImGui::End();
 
+        ImGuiWindowClass inspector_window_class;
+        inspector_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
+        ImGui::SetNextWindowClass(&inspector_window_class);
         ImGui::Begin("Inspector");
         ImGui::Text(" ");
         ImGui::End();
 
+        ImGuiWindowClass project_window_class;
+        project_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
+        ImGui::SetNextWindowClass(&project_window_class);
         ImGui::Begin("Project");
         ImGui::Text(" ");
         ImGui::End();
 
+        ImGuiWindowClass console_window_class;
+        console_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
+        ImGui::SetNextWindowClass(&console_window_class);
         ImGui::Begin("Console");
         ImGui::Text(" ");
         ImGui::End();
 
+        ImGuiWindowClass scene_window_class;
+        scene_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
+        ImGui::SetNextWindowClass(&scene_window_class);
         ImGui::Begin("Scene");
         ImGui::Text(" ");
         ImGui::End();
