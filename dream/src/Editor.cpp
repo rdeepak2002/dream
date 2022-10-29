@@ -77,11 +77,12 @@ namespace Dream {
                 ImGui::DockBuilderSetNodeSize(dockspace_id, viewport->Size);
 
                 auto dock_id_right = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.25f, nullptr, &dockspace_id);
-                auto dock_id_down = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Down, 0.2f, nullptr, &dockspace_id);
+                auto dock_id_down = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Down, 0.25f, nullptr, &dockspace_id);
                 auto dock_id_left = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Left, 0.25f, nullptr, &dockspace_id);
 
                 ImGui::DockBuilderDockWindow("Renderer", dockspace_id);
                 ImGui::DockBuilderDockWindow("Inspector", dock_id_right);
+                ImGui::DockBuilderDockWindow("Project", dock_id_down);
                 ImGui::DockBuilderDockWindow("Console", dock_id_down);
                 ImGui::DockBuilderDockWindow("Scene", dock_id_left);
                 ImGui::DockBuilderFinish(dockspace_id);
@@ -97,6 +98,10 @@ namespace Dream {
         ImGui::End();
 
         ImGui::Begin("Inspector");
+        ImGui::Text(" ");
+        ImGui::End();
+
+        ImGui::Begin("Project");
         ImGui::Text(" ");
         ImGui::End();
 
