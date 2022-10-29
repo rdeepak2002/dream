@@ -20,7 +20,7 @@ namespace Dream {
         #else
         WindowFlags |= SDL_WINDOW_ALLOW_HIGHDPI;
         #endif
-        this->Window = SDL_CreateWindow("OpenGL Test", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
+        this->Window = SDL_CreateWindow("Dream", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
 
         #ifdef EMSCRIPTEN
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
