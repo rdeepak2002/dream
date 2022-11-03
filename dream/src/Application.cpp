@@ -5,6 +5,7 @@
 #include "dream/Application.h"
 
 #include "dream/editor/ImGuiSDL2OpenGLEditor.h"
+#include "dream/window/SDL2OpenGLWindow.h"
 #include <iostream>
 #include <filesystem>
 

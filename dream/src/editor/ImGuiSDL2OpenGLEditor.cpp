@@ -9,15 +9,22 @@
 #include "backends/imgui_impl_sdl.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "dream/OpenGLShader.h"
+#include "dream/window/SDL2OpenGLWindow.h"
 
 namespace Dream {
-    ImGuiSDL2OpenGLEditor::ImGuiSDL2OpenGLEditor(Dream::SDL2OpenGLWindow *window) : ImGuiEditor(window) {
+    ImGuiSDL2OpenGLEditor::ImGuiSDL2OpenGLEditor(Dream::SDL2Window *window) : ImGuiEditor(window) {
         // setup platform/renderer bindings
-        ImGui_ImplSDL2_InitForOpenGL(window->getSDL2Window(), window->getSDL2GLContext());
+        auto sdl2OpenGLWindow = dynamic_cast<SDL2OpenGLWindow*>(window);
+        if (sdl2OpenGLWindow) {
+            ImGui_ImplSDL2_InitForOpenGL(window->getSDL2Window(), sdl2OpenGLWindow->getSDL2GLContext());
+        } else {
+            printf("Window instance does not support OpenGL rendering");
+            exit(EXIT_FAILURE);
+        }
         ImGui_ImplOpenGL3_Init(OpenGLShader::getShaderVersion().c_str());
     }
 
-    void ImGuiSDL2OpenGLEditor::newFrame(Dream::SDL2OpenGLWindow *window) {
+    void ImGuiSDL2OpenGLEditor::newFrame(Dream::SDL2Window *window) {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL2_NewFrame(window->getSDL2Window());
     }
