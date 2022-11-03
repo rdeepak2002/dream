@@ -5,7 +5,7 @@
 #ifndef DREAM_IMGUIEDITOR_H
 #define DREAM_IMGUIEDITOR_H
 
-#include "dream/SDLWindow.h"
+#include "dream/window/SDLWindow.h"
 
 namespace Dream {
     class ImGuiEditor {

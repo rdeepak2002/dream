@@ -2,7 +2,7 @@
 // Created by Deepak Ramalingam on 10/24/22.
 //
 
-#include "dream/SDLWindow.h"
+#include "dream/window/SDLWindow.h"
 
 #include <glad/glad.h>
 #include <iostream>

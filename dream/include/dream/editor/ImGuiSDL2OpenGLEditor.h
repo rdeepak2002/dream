@@ -6,7 +6,6 @@
 #define DREAM_IMGUISDL2OPENGLEDITOR_H
 
 #include "dream/editor/ImGuiEditor.h"
-#include "dream/SDLWindow.h"
 
 namespace Dream {
     class ImGuiSDL2OpenGLEditor : public ImGuiEditor {

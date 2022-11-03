@@ -5,9 +5,9 @@
 #ifndef DREAM_APPLICATION_H
 #define DREAM_APPLICATION_H
 
-#include "dream/SDLWindow.h"
 #include "dream/OpenGLRenderer.h"
 #include "dream/editor/ImguiEditor.h"
+#include "dream/window/SDLWindow.h"
 #include "dream/Project.h"
 
 namespace Dream {

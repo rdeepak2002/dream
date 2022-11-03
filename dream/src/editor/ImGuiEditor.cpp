@@ -7,7 +7,6 @@
 #include <iostream>
 #include <imgui.h>
 #include <imgui_internal.h>
-#include "dream/OpenGLShader.h"
 
 namespace Dream {
     ImGuiEditor::ImGuiEditor(Dream::SDLWindow *window) {

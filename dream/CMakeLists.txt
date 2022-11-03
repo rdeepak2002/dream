@@ -44,6 +44,7 @@ FILE(GLOB ENGINE_SOURCE_FILES
         include/imgui/backends/imgui_impl_opengl3.cpp
         src/*.cpp
         src/editor/*.cpp
+        src/window/*.cpp
         src/glad.c)
 
 add_executable(${PROJECT_NAME} src/glad.c ${ENGINE_SOURCE_FILES})
