@@ -5,17 +5,17 @@
 #ifndef DREAM_IMGUIEDITOR_H
 #define DREAM_IMGUIEDITOR_H
 
-#include "dream/window/SDLWindow.h"
+#include "dream/window/SDL2OpenGLWindow.h"
 
 namespace Dream {
     class ImGuiEditor {
     public:
-        void update(Dream::SDLWindow *window, unsigned int frameBufferTexture);
+        void update(Dream::SDL2OpenGLWindow *window, unsigned int frameBufferTexture);
         void style();
         std::pair<int, int> getRendererViewportDimensions();
     protected:
-        explicit ImGuiEditor(Dream::SDLWindow *window);
-        virtual void newFrame(Dream::SDLWindow *window);
+        explicit ImGuiEditor(Dream::SDL2OpenGLWindow *window);
+        virtual void newFrame(Dream::SDL2OpenGLWindow *window);
         virtual void renderDrawData();
         int rendererViewportWidth, rendererViewportHeight;
     };

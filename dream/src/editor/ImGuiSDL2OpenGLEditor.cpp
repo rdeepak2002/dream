@@ -11,13 +11,13 @@
 #include "dream/OpenGLShader.h"
 
 namespace Dream {
-    ImGuiSDL2OpenGLEditor::ImGuiSDL2OpenGLEditor(Dream::SDLWindow *window) : ImGuiEditor(window) {
+    ImGuiSDL2OpenGLEditor::ImGuiSDL2OpenGLEditor(Dream::SDL2OpenGLWindow *window) : ImGuiEditor(window) {
         // setup platform/renderer bindings
         ImGui_ImplSDL2_InitForOpenGL(window->getSDL2Window(), window->getSDL2GLContext());
         ImGui_ImplOpenGL3_Init(OpenGLShader::getShaderVersion().c_str());
     }
 
-    void ImGuiSDL2OpenGLEditor::newFrame(Dream::SDLWindow *window) {
+    void ImGuiSDL2OpenGLEditor::newFrame(Dream::SDL2OpenGLWindow *window) {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL2_NewFrame(window->getSDL2Window());
     }

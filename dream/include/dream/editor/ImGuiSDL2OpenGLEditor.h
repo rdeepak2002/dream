@@ -10,10 +10,10 @@
 namespace Dream {
     class ImGuiSDL2OpenGLEditor : public ImGuiEditor {
     public:
-        explicit ImGuiSDL2OpenGLEditor(Dream::SDLWindow *window);
+        explicit ImGuiSDL2OpenGLEditor(Dream::SDL2OpenGLWindow *window);
         static void pollEvents(SDL_Event Event);
     protected:
-        void newFrame(Dream::SDLWindow *window) override;
+        void newFrame(Dream::SDL2OpenGLWindow *window) override;
         void renderDrawData() override;
     };
 }

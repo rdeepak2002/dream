@@ -7,7 +7,7 @@
 
 #include "dream/OpenGLRenderer.h"
 #include "dream/editor/ImguiEditor.h"
-#include "dream/window/SDLWindow.h"
+#include "dream/window/SDL2OpenGLWindow.h"
 #include "dream/Project.h"
 
 namespace Dream {
@@ -18,7 +18,7 @@ namespace Dream {
         void update();
         bool shouldClose();
     private:
-        SDLWindow* window;
+        SDL2OpenGLWindow* window;
         OpenGLRenderer* renderer;
         ImGuiEditor* editor;
         void fixedUpdate();
