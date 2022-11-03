@@ -6,7 +6,7 @@
 
 #include <glad/glad.h>
 #include <iostream>
-#include "dream/ImGuiSDL2OpenGLEditor.h"
+#include "dream/editor/ImGuiSDL2OpenGLEditor.h"
 
 namespace Dream {
     SDLWindow::SDLWindow() {

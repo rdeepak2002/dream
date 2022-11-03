@@ -2,7 +2,7 @@
 // Created by Deepak Ramalingam on 11/3/22.
 //
 
-#include "dream/ImGuiEditor.h"
+#include "dream/editor/ImGuiEditor.h"
 
 #include <iostream>
 #include <imgui.h>

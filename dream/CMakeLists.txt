@@ -39,11 +39,11 @@ include_directories(include/imgui)
 
 # source files for engine code
 FILE(GLOB ENGINE_SOURCE_FILES
-        src/engine/renderer/glad.c
         include/imgui/*.cpp
         include/imgui/backends/imgui_impl_sdl.cpp
         include/imgui/backends/imgui_impl_opengl3.cpp
         src/*.cpp
+        src/editor/*.cpp
         src/glad.c)
 
 add_executable(${PROJECT_NAME} src/glad.c ${ENGINE_SOURCE_FILES})

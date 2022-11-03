@@ -5,7 +5,7 @@
 #ifndef DREAM_IMGUISDL2OPENGLEDITOR_H
 #define DREAM_IMGUISDL2OPENGLEDITOR_H
 
-#include "dream/ImGuiEditor.h"
+#include "dream/editor/ImGuiEditor.h"
 #include "dream/SDLWindow.h"
 
 namespace Dream {

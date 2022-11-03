@@ -4,6 +4,7 @@
 
 #include "dream/Application.h"
 
+#include "dream/editor/ImGuiSDL2OpenGLEditor.h"
 #include <iostream>
 #include <filesystem>
 

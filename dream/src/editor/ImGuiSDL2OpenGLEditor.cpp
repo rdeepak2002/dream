@@ -2,9 +2,8 @@
 // Created by Deepak Ramalingam on 10/27/22.
 //
 
-#include "dream/ImGuiSDL2OpenGLEditor.h"
+#include "dream/editor/ImGuiSDL2OpenGLEditor.h"
 
-#include <iostream>
 #include <imgui.h>
 #include <imgui_internal.h>
 #include "backends/imgui_impl_sdl.h"
