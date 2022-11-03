@@ -12,7 +12,7 @@ namespace Dream {
         Project::open(this->getResourcesRoot().append("examples").append("hello_world"));
         this->window = new SDLWindow();
         this->renderer = new OpenGLRenderer();
-        this->editor = new Editor(this->window);
+        this->editor = new ImGuiSDL2OpenGLEditor(this->window);
     }
 
     Application::~Application() {

@@ -1,18 +1,16 @@
 //
-// Created by Deepak Ramalingam on 10/27/22.
+// Created by Deepak Ramalingam on 11/3/22.
 //
 
-#include "dream/Editor.h"
+#include "dream/ImGuiEditor.h"
 
 #include <iostream>
 #include <imgui.h>
 #include <imgui_internal.h>
-#include "backends/imgui_impl_sdl.h"
-#include "backends/imgui_impl_opengl3.h"
 #include "dream/OpenGLShader.h"
 
 namespace Dream {
-    Editor::Editor(Dream::SDLWindow *window) {
+    ImGuiEditor::ImGuiEditor(Dream::SDLWindow *window) {
         this->rendererViewportWidth = 520;
         this->rendererViewportHeight = 557;
 
@@ -25,15 +23,14 @@ namespace Dream {
 
         // setup Dear ImGui style
         ImGui::StyleColorsDark();
-
-        // setup platform/renderer bindings
-        ImGui_ImplSDL2_InitForOpenGL(window->getSDL2Window(), window->getSDL2GLContext());
-        ImGui_ImplOpenGL3_Init(OpenGLShader::getShaderVersion().c_str());
     }
 
-    void Editor::update(Dream::SDLWindow *window, unsigned int frameBufferTexture) {
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplSDL2_NewFrame(window->getSDL2Window());
+    void ImGuiEditor::newFrame(Dream::SDLWindow *window) {
+
+    }
+
+    void ImGuiEditor::update(Dream::SDLWindow *window, unsigned int frameBufferTexture) {
+        this->newFrame(window);
         ImGui::NewFrame();
 
         static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
@@ -140,14 +137,14 @@ namespace Dream {
         ImGui::End();
 
         ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        this->renderDrawData();
     }
 
-    void Editor::pollEvents(SDL_Event Event) {
-        ImGui_ImplSDL2_ProcessEvent(&Event);
+    void ImGuiEditor::renderDrawData() {
+
     }
 
-    void Editor::style() {
+    void ImGuiEditor::style() {
         auto& colors = ImGui::GetStyle().Colors;
         colors[ImGuiCol_WindowBg] = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };
 
@@ -179,7 +176,7 @@ namespace Dream {
         colors[ImGuiCol_TitleBgCollapsed] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
     }
 
-    std::pair<int, int> Editor::getRendererViewportDimensions() {
+    std::pair<int, int> ImGuiEditor::getRendererViewportDimensions() {
         return std::make_pair(this->rendererViewportWidth, this->rendererViewportHeight);
     }
 }

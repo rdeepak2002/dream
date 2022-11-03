@@ -7,7 +7,7 @@
 
 #include "dream/SDLWindow.h"
 #include "dream/OpenGLRenderer.h"
-#include "dream/Editor.h"
+#include "dream/ImGuiSDL2OpenGLEditor.h"
 #include "dream/Project.h"
 
 namespace Dream {
@@ -20,7 +20,7 @@ namespace Dream {
     private:
         SDLWindow* window;
         OpenGLRenderer* renderer;
-        Editor* editor;
+        ImGuiSDL2OpenGLEditor* editor;
         void fixedUpdate();
         std::filesystem::path getResourcesRoot();
     };
