@@ -45,9 +45,10 @@ FILE(GLOB ENGINE_SOURCE_FILES
         src/*.cpp
         src/editor/*.cpp
         src/window/*.cpp
-        src/glad.c)
+        src/renderer/*.cpp
+        src/renderer/glad.c)
 
-add_executable(${PROJECT_NAME} src/glad.c ${ENGINE_SOURCE_FILES})
+add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})
 
 if (EMSCRIPTEN)
     set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--use-preload-plugins -std=c++1z --preload-file ../../examples -s ASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"png\"]' -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s FORCE_FILESYSTEM=1")

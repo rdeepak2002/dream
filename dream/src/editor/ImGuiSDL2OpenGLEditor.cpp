@@ -8,7 +8,7 @@
 #include <imgui_internal.h>
 #include "backends/imgui_impl_sdl.h"
 #include "backends/imgui_impl_opengl3.h"
-#include "dream/OpenGLShader.h"
+#include "dream/renderer/OpenGLShader.h"
 #include "dream/window/SDL2OpenGLWindow.h"
 
 namespace Dream {

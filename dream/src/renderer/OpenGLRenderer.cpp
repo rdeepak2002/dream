@@ -2,7 +2,7 @@
 // Created by Deepak Ramalingam on 10/24/22.
 //
 
-#include "dream/OpenGLRenderer.h"
+#include "dream/renderer/OpenGLRenderer.h"
 #include <iostream>
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
@@ -15,7 +15,7 @@
 #include "dream/Project.h"
 
 namespace Dream {
-    OpenGLRenderer::OpenGLRenderer() {
+    OpenGLRenderer::OpenGLRenderer() : Renderer() {
         printf("GL Vendor:   %s\n", glGetString(GL_VENDOR));
         printf("GL Renderer: %s\n", glGetString(GL_RENDERER));
         printf("GL Version:  %s\n", glGetString(GL_VERSION));

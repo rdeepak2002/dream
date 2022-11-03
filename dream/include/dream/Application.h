@@ -5,7 +5,7 @@
 #ifndef DREAM_APPLICATION_H
 #define DREAM_APPLICATION_H
 
-#include "dream/OpenGLRenderer.h"
+#include "dream/renderer/Renderer.h"
 #include "dream/editor/Editor.h"
 #include "dream/window/Window.h"
 #include "dream/Project.h"
@@ -19,7 +19,7 @@ namespace Dream {
         bool shouldClose();
     private:
         Window* window;
-        OpenGLRenderer* renderer;
+        Renderer* renderer;
         Editor* editor;
         void fixedUpdate();
         std::filesystem::path getResourcesRoot();
