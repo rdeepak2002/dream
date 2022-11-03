@@ -7,17 +7,18 @@
 
 #include "dream/window/SDL2Window.h"
 #include "dream/window/Window.h"
+#include "dream/editor/Editor.h"
 
 namespace Dream {
-    class ImGuiEditor {
+    class ImGuiEditor : public Editor {
     public:
-        void update(Dream::Window *window, unsigned int frameBufferTexture);
+        void update(Dream::Window *window, unsigned int frameBufferTexture) override;
         void style();
-        std::pair<int, int> getRendererViewportDimensions();
+        std::pair<int, int> getRendererViewportDimensions() override;
     protected:
         explicit ImGuiEditor(Dream::Window *window);
-        virtual void newFrame(Dream::Window *window);
-        virtual void renderDrawData();
+        void newFrame(Dream::Window *window) override;
+        void renderDrawData() override;
         int rendererViewportWidth, rendererViewportHeight;
     };
 }

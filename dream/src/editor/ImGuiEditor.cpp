@@ -9,7 +9,7 @@
 #include <imgui_internal.h>
 
 namespace Dream {
-    ImGuiEditor::ImGuiEditor(Dream::Window *window) {
+    ImGuiEditor::ImGuiEditor(Dream::Window *window) : Editor(window) {
         this->rendererViewportWidth = 520;
         this->rendererViewportHeight = 557;
 

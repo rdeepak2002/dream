@@ -6,7 +6,7 @@
 #define DREAM_APPLICATION_H
 
 #include "dream/OpenGLRenderer.h"
-#include "dream/editor/ImguiEditor.h"
+#include "dream/editor/Editor.h"
 #include "dream/window/Window.h"
 #include "dream/Project.h"
 
@@ -20,7 +20,7 @@ namespace Dream {
     private:
         Window* window;
         OpenGLRenderer* renderer;
-        ImGuiEditor* editor;
+        Editor* editor;
         void fixedUpdate();
         std::filesystem::path getResourcesRoot();
     };
