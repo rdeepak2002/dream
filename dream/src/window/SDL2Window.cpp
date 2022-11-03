@@ -7,12 +7,11 @@
 #include <iostream>
 
 namespace Dream {
-    SDL2Window::SDL2Window(Uint32 flags) {
+    SDL2Window::SDL2Window(Uint32 flags) : Window() {
         this->windowWidth = 1024;
         this->windowHeight = 768;
         Uint32 WindowFlags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | flags;
         this->Window = SDL_CreateWindow("Dream", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
-        this->shouldCloseFlag = false;
     }
 
     SDL2Window::~SDL2Window() {
@@ -52,10 +51,6 @@ namespace Dream {
 
     void SDL2Window::swapBuffers() {
 
-    }
-
-    bool SDL2Window::shouldClose() const {
-        return this->shouldCloseFlag;
     }
 
     std::pair<int, int> SDL2Window::getWindowDimensions() {

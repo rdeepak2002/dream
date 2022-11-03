@@ -9,7 +9,7 @@
 #include <imgui_internal.h>
 
 namespace Dream {
-    ImGuiEditor::ImGuiEditor(Dream::SDL2Window *window) {
+    ImGuiEditor::ImGuiEditor(Dream::Window *window) {
         this->rendererViewportWidth = 520;
         this->rendererViewportHeight = 557;
 
@@ -24,11 +24,11 @@ namespace Dream {
         ImGui::StyleColorsDark();
     }
 
-    void ImGuiEditor::newFrame(Dream::SDL2Window *window) {
+    void ImGuiEditor::newFrame(Dream::Window *window) {
 
     }
 
-    void ImGuiEditor::update(Dream::SDL2Window *window, unsigned int frameBufferTexture) {
+    void ImGuiEditor::update(Dream::Window *window, unsigned int frameBufferTexture) {
         this->newFrame(window);
         ImGui::NewFrame();
 

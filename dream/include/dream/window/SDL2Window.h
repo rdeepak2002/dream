@@ -5,22 +5,21 @@
 #ifndef DREAM_SDL2WINDOW_H
 #define DREAM_SDL2WINDOW_H
 
+#include "dream/window/Window.h"
 #include <SDL2/SDL.h>
 
 namespace Dream {
-    class SDL2Window {
+    class SDL2Window : public Window {
     public:
         ~SDL2Window();
-        virtual void pollEvents();
-        virtual void swapBuffers();
-        [[nodiscard]] bool shouldClose() const;
-        std::pair<int, int> getWindowDimensions();
+        void pollEvents() override;
+        void swapBuffers() override;
+        std::pair<int, int> getWindowDimensions() override;
         SDL_Window *getSDL2Window();
     protected:
         SDL2Window(Uint32 flags);
         virtual void pollEditorEvents(SDL_Event &Event);
         SDL_Window *Window;
-        bool shouldCloseFlag;
         int windowWidth, windowHeight;
     };
 }
