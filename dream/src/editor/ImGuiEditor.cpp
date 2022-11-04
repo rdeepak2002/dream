@@ -5,6 +5,7 @@
 #include "dream/editor/ImGuiEditor.h"
 
 #include <iostream>
+#include <filesystem>
 #include <imgui.h>
 #include <imgui_internal.h>
 
@@ -19,6 +20,7 @@ namespace Dream {
         ImGuiIO& io = ImGui::GetIO(); (void)io;
         io.IniFilename = NULL;
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+        io.Fonts->AddFontFromFileTTF(std::filesystem::current_path().append("examples").append("resources").append("fonts").append("font.ttf").c_str(), 16);
 
         // setup Dear ImGui style
         ImGui::StyleColorsDark();
