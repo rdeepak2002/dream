@@ -105,3 +105,8 @@ void Dream::OpenGLFrameBuffer::clear() {
     glClearColor(0.1f, 0.105f, 0.11f, 1.0f); // set clear color to editor background
     glClear(GL_COLOR_BUFFER_BIT);
 }
+
+void Dream::OpenGLFrameBuffer::bindDefaultFrameBuffer() {
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
+}

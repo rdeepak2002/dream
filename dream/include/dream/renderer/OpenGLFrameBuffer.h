@@ -15,6 +15,7 @@ namespace Dream {
         void resize(int fbWidth, int fbHeight);
         void bindTexture();
         void bindFrameBuffer();
+        void bindDefaultFrameBuffer();
         void renderScreenQuad();
         void clear();
         int getTexture();

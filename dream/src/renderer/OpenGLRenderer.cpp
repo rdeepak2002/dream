@@ -77,14 +77,16 @@ namespace Dream {
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
+        // bind the default screen frame buffer
+        this->frameBuffer->bindDefaultFrameBuffer();
 
         // clear framebuffer and return its texture
         this->frameBuffer->clear();
+
         if (fullscreen) {
             this->frameBuffer->renderScreenQuad();
         }
+
         return this->frameBuffer->getTexture();
     }
 
