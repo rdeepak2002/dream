@@ -6,12 +6,35 @@
 
 #include <iostream>
 
+#ifdef BORDERLESS
+static SDL_HitTestResult SDLCALL hitTest(SDL_Window *window, const SDL_Point *pt, void *data) {
+    int w, h;
+    SDL_GetWindowSize(window, &w, &h);
+    const SDL_Rect dragAreas[] = {
+            { 0, 0, w, 30 },
+    };
+    int numDragAreas = SDL_arraysize(dragAreas);
+    for (int i = 0; i < numDragAreas; i++) {
+        if (SDL_PointInRect(pt, &dragAreas[i])) {
+            return SDL_HITTEST_DRAGGABLE;
+        }
+    }
+    return SDL_HITTEST_NORMAL;
+}
+#endif
+
 namespace Dream {
     SDL2Window::SDL2Window(Uint32 flags) : Window() {
         this->windowWidth = 1024;
         this->windowHeight = 768;
         Uint32 WindowFlags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | flags;
+        #ifdef BORDERLESS
+        WindowFlags |= SDL_WINDOW_BORDERLESS;
+        #endif
         this->Window = SDL_CreateWindow("Dream", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
+        #ifdef BORDERLESS
+        SDL_SetWindowHitTest(this->Window, hitTest, nullptr);
+        #endif
     }
 
     SDL2Window::~SDL2Window() {
