@@ -14,9 +14,9 @@ namespace Dream {
         OpenGLRenderer();
         ~OpenGLRenderer();
         unsigned int render(int viewportWidth, int viewportHeight, bool fullscreen) override;
-        void initFrameBuffer(int viewportWidth, int viewportHeight) override;
     private:
-        void resizeFrameBuffer(int width = 0, int height = 0);
+        void resizeFrameBuffer();
+        void printGLVersion();
         OpenGLShader *shader;
         OpenGLShader *screenShader;
         unsigned int VBO, VAO, framebuffer, quadVAO, textureColorbuffer, rbo;

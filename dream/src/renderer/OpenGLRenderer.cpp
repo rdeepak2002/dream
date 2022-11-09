@@ -16,9 +16,7 @@
 
 namespace Dream {
     OpenGLRenderer::OpenGLRenderer() : Renderer() {
-        printf("GL Vendor:   %s\n", glGetString(GL_VENDOR));
-        printf("GL Renderer: %s\n", glGetString(GL_RENDERER));
-        printf("GL Version:  %s\n", glGetString(GL_VERSION));
+        this->printGLVersion();
 
         // build and compile our shader program
         shader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shader.vert").c_str(),
@@ -78,7 +76,15 @@ namespace Dream {
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 
-        this->initFrameBuffer(520, 557);
+        // framebuffer configuration
+        // -------------------------
+        glGenFramebuffers(1, &framebuffer);
+        // create a color attachment texture
+        glGenTextures(1, &textureColorbuffer);
+        glGenRenderbuffers(1, &rbo);
+        // now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+            std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
     }
 
     OpenGLRenderer::~OpenGLRenderer() {
@@ -125,17 +131,11 @@ namespace Dream {
         return textureColorbuffer;
     }
 
-
-
-    void OpenGLRenderer::resizeFrameBuffer(int width, int height) {
-        GLint fbWidth = width;
-        GLint fbHeight = height;
-        if (fbWidth == 0 && fbHeight == 0) {
-            GLint dims[4] = {0};
-            glGetIntegerv(GL_VIEWPORT, dims);
-            fbWidth = dims[2];
-            fbHeight = dims[3];
-        }
+    void OpenGLRenderer::resizeFrameBuffer() {
+        GLint dims[4] = {0};
+        glGetIntegerv(GL_VIEWPORT, dims);
+        GLint fbWidth = dims[2];
+        GLint fbHeight = dims[3];
 
         glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, fbWidth, fbHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
@@ -148,15 +148,9 @@ namespace Dream {
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo); // now actually attach it
     }
 
-    void OpenGLRenderer::initFrameBuffer(int viewportWidth, int viewportHeight) {
-        // framebuffer configuration
-        // -------------------------
-        glGenFramebuffers(1, &framebuffer);
-        // create a color attachment texture
-        glGenTextures(1, &textureColorbuffer);
-        glGenRenderbuffers(1, &rbo);
-        // now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
-        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-            std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+    void OpenGLRenderer::printGLVersion() {
+        printf("GL Vendor:   %s\n", glGetString(GL_VENDOR));
+        printf("GL Renderer: %s\n", glGetString(GL_RENDERER));
+        printf("GL Version:  %s\n", glGetString(GL_VERSION));
     }
 }
