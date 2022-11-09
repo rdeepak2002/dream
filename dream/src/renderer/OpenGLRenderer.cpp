@@ -59,14 +59,18 @@ namespace Dream {
         delete this->frameBuffer;
     }
 
-    unsigned int OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
+    void OpenGLRenderer::preRender(int viewportWidth, int viewportHeight, bool fullscreen) {
         // bind framebuffer to draw screen contents to a texture
         this->frameBuffer->bindFrameBuffer();
         this->resizeFrameBuffer();
-
-//        glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
         // update gl viewport size
         this->updateViewportSize(viewportWidth, viewportHeight, fullscreen);
+    }
+
+    void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
+        this->preRender(viewportWidth, viewportHeight, fullscreen);
+
+        // glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
 
         // clear screen
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -77,6 +81,10 @@ namespace Dream {
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
+        this->postRender(fullscreen);
+    }
+
+    void OpenGLRenderer::postRender(bool fullscreen) {
         // bind the default screen frame buffer
         this->frameBuffer->bindDefaultFrameBuffer();
 
@@ -86,8 +94,6 @@ namespace Dream {
         if (fullscreen) {
             this->frameBuffer->renderScreenQuad();
         }
-
-        return this->frameBuffer->getTexture();
     }
 
     void OpenGLRenderer::resizeFrameBuffer() {
@@ -118,5 +124,9 @@ namespace Dream {
             glViewport(0, 0, viewportWidth * dpiScale, viewportHeight * dpiScale);
         }
         #endif
+    }
+
+    unsigned int OpenGLRenderer::getOutputRenderTexture() {
+        return this->frameBuffer->getTexture();
     }
 }

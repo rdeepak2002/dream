@@ -14,7 +14,8 @@ namespace Dream {
     public:
         OpenGLRenderer();
         ~OpenGLRenderer();
-        unsigned int render(int viewportWidth, int viewportHeight, bool fullscreen) override;
+        void render(int viewportWidth, int viewportHeight, bool fullscreen) override;
+        unsigned int getOutputRenderTexture() override;
     private:
         OpenGLShader *shader;
         OpenGLFrameBuffer* frameBuffer;
@@ -22,6 +23,8 @@ namespace Dream {
         void resizeFrameBuffer();
         void printGLVersion();
         void updateViewportSize(int viewportWidth, int viewportHeight, bool fullscreen);
+        void preRender(int viewportWidth, int viewportHeight, bool fullscreen);
+        void postRender(bool fullscreen);
         std::pair<int, int> getViewportDimensions();
     };
 }

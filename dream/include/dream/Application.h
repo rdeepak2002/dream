@@ -18,6 +18,7 @@ namespace Dream {
         void update();
         bool shouldClose();
     private:
+        bool fullscreen = false;
         Window* window;
         Renderer* renderer;
         Editor* editor;

@@ -8,6 +8,10 @@ Dream::Renderer::Renderer() {
 
 }
 
-unsigned int Dream::Renderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
+void Dream::Renderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
+
+}
+
+unsigned int Dream::Renderer::getOutputRenderTexture() {
     return 0;
 }

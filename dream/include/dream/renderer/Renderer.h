@@ -8,7 +8,8 @@
 namespace Dream {
     class Renderer {
     public:
-        virtual unsigned int render(int viewportWidth, int viewportHeight, bool fullscreen);
+        virtual void render(int viewportWidth, int viewportHeight, bool fullscreen);
+        virtual unsigned int getOutputRenderTexture();
     protected:
         Renderer();
     };
