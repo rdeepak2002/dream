@@ -89,7 +89,7 @@ namespace Dream {
     unsigned int OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
         frameBuffer->bind();
 
-        this->resizeFrameBuffer();  // TODO: only all when necessary
+        this->resizeFrameBuffer();
 
 //        glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
 
@@ -127,26 +127,23 @@ namespace Dream {
     }
 
     void OpenGLRenderer::resizeFrameBuffer() {
-        GLint dims[4] = {0};
-        glGetIntegerv(GL_VIEWPORT, dims);
-        GLint fbWidth = dims[2];
-        GLint fbHeight = dims[3];
-
-        frameBuffer->resize(fbWidth, fbHeight);
-//        glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
-//        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, fbWidth, fbHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-//        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-//        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-//        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
-//
-//        glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-//        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, fbWidth, fbHeight); // use a single renderbuffer object for both a depth AND stencil buffer.
-//        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo); // now actually attach it
+        // resize framebuffer whenever there is a new viewport size
+        GLint viewportWidth = this->getViewportDimensions().first;
+        GLint viewportHeight = this->getViewportDimensions().second;
+        if (frameBuffer->getWidth() != viewportWidth || frameBuffer->getHeight() != viewportHeight) {
+            frameBuffer->resize(viewportWidth, viewportHeight);
+        }
     }
 
     void OpenGLRenderer::printGLVersion() {
         printf("GL Vendor:   %s\n", glGetString(GL_VENDOR));
         printf("GL Renderer: %s\n", glGetString(GL_RENDERER));
         printf("GL Version:  %s\n", glGetString(GL_VERSION));
+    }
+
+    std::pair<int, int> OpenGLRenderer::getViewportDimensions() {
+        GLint dims[4] = {0};
+        glGetIntegerv(GL_VIEWPORT, dims);
+        return std::make_pair(dims[2], dims[3]);
     }
 }

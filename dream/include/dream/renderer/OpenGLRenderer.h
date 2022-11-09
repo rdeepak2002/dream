@@ -16,13 +16,14 @@ namespace Dream {
         ~OpenGLRenderer();
         unsigned int render(int viewportWidth, int viewportHeight, bool fullscreen) override;
     private:
-        void resizeFrameBuffer();
-        void printGLVersion();
         OpenGLShader *shader;
         OpenGLShader *screenShader;
+        OpenGLFrameBuffer* frameBuffer;
         unsigned int VBO, VAO;
         unsigned int screenQuadVAO;
-        OpenGLFrameBuffer* frameBuffer;
+        void resizeFrameBuffer();
+        void printGLVersion();
+        std::pair<int, int> getViewportDimensions();
     };
 }
 

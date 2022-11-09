@@ -11,9 +11,12 @@ namespace Dream {
         OpenGLFrameBuffer();
         void resize(int fbWidth, int fbHeight);
         void bindTexture();
-        int getTexture();
         void bind();
+        int getTexture();
+        int getWidth();
+        int getHeight();
     private:
+        int width, height;
         unsigned int framebuffer, textureColorbuffer, rbo;
     };
 }
