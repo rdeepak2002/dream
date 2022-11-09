@@ -20,7 +20,6 @@ Dream::OpenGLFrameBuffer::OpenGLFrameBuffer() {
     screenShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("screen_shader.vert").c_str(),
                                     Project::getPath().append("assets").append("shaders").append("screen_shader.frag").c_str(),
                                     nullptr);
-
     // screen quad VAO
     float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
             // positions   // texCoords
@@ -79,7 +78,7 @@ int Dream::OpenGLFrameBuffer::getTexture() {
     return this->textureColorbuffer;
 }
 
-void Dream::OpenGLFrameBuffer::bind() {
+void Dream::OpenGLFrameBuffer::bindFrameBuffer() {
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 }
 

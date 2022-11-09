@@ -61,7 +61,7 @@ namespace Dream {
 
     unsigned int OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
         // bind framebuffer to draw screen contents to a texture
-        this->frameBuffer->bind();
+        this->frameBuffer->bindFrameBuffer();
         this->resizeFrameBuffer();
 
 //        glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)

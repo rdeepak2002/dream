@@ -14,7 +14,7 @@ namespace Dream {
         ~OpenGLFrameBuffer();
         void resize(int fbWidth, int fbHeight);
         void bindTexture();
-        void bind();
+        void bindFrameBuffer();
         void renderScreenQuad();
         void clear();
         int getTexture();
