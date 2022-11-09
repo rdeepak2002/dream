@@ -35,14 +35,13 @@ namespace Dream {
         ImGui::NewFrame();
 
         static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
-
-        // We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
-        // because it would be confusing to have two docking targets within each others.
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
-
         ImGuiViewport* viewport = ImGui::GetMainViewport();
-        ImGui::SetNextWindowPos(viewport->Pos);
-        ImGui::SetNextWindowSize(viewport->Size);
+        float yViewportOffset = 20.0;
+        ImVec2 viewportPosition = ImVec2(viewport->Pos.x, viewport->Pos.y - yViewportOffset);
+        ImVec2 viewportSize = ImVec2(viewport->Size.x, viewport->Size.y + yViewportOffset);
+        ImGui::SetNextWindowPos(viewportPosition);
+        ImGui::SetNextWindowSize(viewportSize);
         ImGui::SetNextWindowViewport(viewport->ID);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -71,7 +70,7 @@ namespace Dream {
 
                 ImGui::DockBuilderRemoveNode(dockspace_id); // clear any previous layout
                 ImGui::DockBuilderAddNode(dockspace_id, dockspace_flags | ImGuiDockNodeFlags_DockSpace);
-                ImGui::DockBuilderSetNodeSize(dockspace_id, viewport->Size);
+                ImGui::DockBuilderSetNodeSize(dockspace_id, viewportSize);
 
                 auto dock_id_right = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.25f, nullptr, &dockspace_id);
                 auto dock_id_down = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Down, 0.25f, nullptr, &dockspace_id);
