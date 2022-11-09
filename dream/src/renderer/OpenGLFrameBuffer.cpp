@@ -13,9 +13,36 @@
 #include <glad/glad.h>
 #endif
 
+#include "dream/Project.h"
 #include <iostream>
 
 Dream::OpenGLFrameBuffer::OpenGLFrameBuffer() {
+    screenShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("screen_shader.vert").c_str(),
+                                    Project::getPath().append("assets").append("shaders").append("screen_shader.frag").c_str(),
+                                    nullptr);
+
+    // screen quad VAO
+    float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+            // positions   // texCoords
+            -1.0f,  1.0f,  0.0f, 1.0f,
+            -1.0f, -1.0f,  0.0f, 0.0f,
+            1.0f, -1.0f,  1.0f, 0.0f,
+
+            -1.0f,  1.0f,  0.0f, 1.0f,
+            1.0f, -1.0f,  1.0f, 0.0f,
+            1.0f,  1.0f,  1.0f, 1.0f
+    };
+    unsigned int screenQuadVBO;
+    glGenVertexArrays(1, &screenQuadVAO);
+    glGenBuffers(1, &screenQuadVBO);
+    glBindVertexArray(screenQuadVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, screenQuadVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+
     // framebuffer configuration
     // -------------------------
     glGenFramebuffers(1, &framebuffer);
@@ -62,4 +89,20 @@ int Dream::OpenGLFrameBuffer::getHeight() {
 
 int Dream::OpenGLFrameBuffer::getWidth() {
     return this->width;
+}
+
+void Dream::OpenGLFrameBuffer::renderScreenQuad() {
+    this->screenShader->use();
+    glBindVertexArray(screenQuadVAO);
+    this->bindTexture();
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
+Dream::OpenGLFrameBuffer::~OpenGLFrameBuffer() {
+    delete this->screenShader;
+}
+
+void Dream::OpenGLFrameBuffer::clear() {
+    glClearColor(0.1f, 0.105f, 0.11f, 1.0f); // set clear color to editor background
+    glClear(GL_COLOR_BUFFER_BIT);
 }

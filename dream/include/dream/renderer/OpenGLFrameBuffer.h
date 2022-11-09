@@ -5,19 +5,25 @@
 #ifndef DREAM_OPENGLFRAMEBUFFER_H
 #define DREAM_OPENGLFRAMEBUFFER_H
 
+#include "dream/renderer/OpenGLShader.h"
+
 namespace Dream {
     class OpenGLFrameBuffer {
     public:
         OpenGLFrameBuffer();
+        ~OpenGLFrameBuffer();
         void resize(int fbWidth, int fbHeight);
         void bindTexture();
         void bind();
+        void renderScreenQuad();
+        void clear();
         int getTexture();
         int getWidth();
         int getHeight();
     private:
         int width, height;
-        unsigned int framebuffer, textureColorbuffer, rbo;
+        unsigned int framebuffer, textureColorbuffer, rbo, screenQuadVAO;
+        OpenGLShader *screenShader;
     };
 }
 

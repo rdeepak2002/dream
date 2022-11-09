@@ -24,10 +24,6 @@ namespace Dream {
                                   Project::getPath().append("assets").append("shaders").append("shader.frag").c_str(),
                                   nullptr);
 
-        screenShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("screen_shader.vert").c_str(),
-                                  Project::getPath().append("assets").append("shaders").append("screen_shader.frag").c_str(),
-                                  nullptr);
-
         // set up vertex data (and buffer(s)) and configure vertex attributes
         // ------------------------------------------------------------------
         float vertices[] = {
@@ -55,50 +51,22 @@ namespace Dream {
         // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
         glBindVertexArray(0);
 
-        // screen quad VAO
-        float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-                // positions   // texCoords
-                -1.0f,  1.0f,  0.0f, 1.0f,
-                -1.0f, -1.0f,  0.0f, 0.0f,
-                1.0f, -1.0f,  1.0f, 0.0f,
-
-                -1.0f,  1.0f,  0.0f, 1.0f,
-                1.0f, -1.0f,  1.0f, 0.0f,
-                1.0f,  1.0f,  1.0f, 1.0f
-        };
-        unsigned int screenQuadVBO;
-        glGenVertexArrays(1, &screenQuadVAO);
-        glGenBuffers(1, &screenQuadVBO);
-        glBindVertexArray(screenQuadVAO);
-        glBindBuffer(GL_ARRAY_BUFFER, screenQuadVBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-
         frameBuffer = new OpenGLFrameBuffer();
     }
 
     OpenGLRenderer::~OpenGLRenderer() {
         delete this->shader;
-        delete this->screenShader;
         delete this->frameBuffer;
     }
 
     unsigned int OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
-        frameBuffer->bind();
-
+        // bind framebuffer to draw screen contents to a texture
+        this->frameBuffer->bind();
         this->resizeFrameBuffer();
 
 //        glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
-
-        #ifdef EMSCRIPTEN
-        if (fullscreen) {
-            auto dpiScale = 2;
-            glViewport(0, 0, viewportWidth * dpiScale, viewportHeight * dpiScale);
-        }
-        #endif
+        // update gl viewport size
+        this->updateViewportSize(viewportWidth, viewportHeight, fullscreen);
 
         // clear screen
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -112,18 +80,12 @@ namespace Dream {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
 
-        // clear all relevant buffers
-        glClearColor(0.1f, 0.105f, 0.11f, 1.0f); // set clear color to editor background
-        glClear(GL_COLOR_BUFFER_BIT);
-
+        // clear framebuffer and return its texture
+        this->frameBuffer->clear();
         if (fullscreen) {
-            screenShader->use();
-            glBindVertexArray(screenQuadVAO);
-            frameBuffer->bindTexture();
-            glDrawArrays(GL_TRIANGLES, 0, 6);
+            this->frameBuffer->renderScreenQuad();
         }
-
-        return frameBuffer->getTexture();
+        return this->frameBuffer->getTexture();
     }
 
     void OpenGLRenderer::resizeFrameBuffer() {
@@ -145,5 +107,14 @@ namespace Dream {
         GLint dims[4] = {0};
         glGetIntegerv(GL_VIEWPORT, dims);
         return std::make_pair(dims[2], dims[3]);
+    }
+
+    void OpenGLRenderer::updateViewportSize(int viewportWidth, int viewportHeight, bool fullscreen) {
+        #ifdef EMSCRIPTEN
+        if (fullscreen) {
+            auto dpiScale = 2;
+            glViewport(0, 0, viewportWidth * dpiScale, viewportHeight * dpiScale);
+        }
+        #endif
     }
 }
