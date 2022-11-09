@@ -15,7 +15,3 @@ unsigned int Dream::Renderer::render(int viewportWidth, int viewportHeight, bool
 void Dream::Renderer::initFrameBuffer(int viewportWidth, int viewportHeight) {
 
 }
-
-void Dream::Renderer::resizeFrameBuffer() {
-
-}

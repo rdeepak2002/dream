@@ -10,7 +10,6 @@ namespace Dream {
     public:
         virtual unsigned int render(int viewportWidth, int viewportHeight, bool fullscreen);
         virtual void initFrameBuffer(int viewportWidth, int viewportHeight);
-        virtual void resizeFrameBuffer();
     protected:
         Renderer();
     };
