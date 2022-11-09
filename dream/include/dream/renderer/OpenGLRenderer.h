@@ -7,6 +7,7 @@
 
 #include "dream/renderer/Renderer.h"
 #include "dream/renderer/OpenGLShader.h"
+#include "dream/renderer/OpenGLFrameBuffer.h"
 
 namespace Dream {
     class OpenGLRenderer : public Renderer {
@@ -19,7 +20,9 @@ namespace Dream {
         void printGLVersion();
         OpenGLShader *shader;
         OpenGLShader *screenShader;
-        unsigned int VBO, VAO, framebuffer, quadVAO, textureColorbuffer, rbo;
+        unsigned int VBO, VAO;
+        unsigned int screenQuadVAO;
+        OpenGLFrameBuffer* frameBuffer;
     };
 }
 
