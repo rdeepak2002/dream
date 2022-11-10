@@ -11,7 +11,13 @@ else()
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build.desktop/${CMAKE_SYSTEM_NAME})
 endif()
 
-if (NOT EMSCRIPTEN)
+if (EMSCRIPTEN)
+    # Link assimp library
+    # TODO: fix this
+    link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.2.5/lib/libassimp.a")
+    link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.2.5/lib/libIrrXML.a")
+    link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.2.5/lib/libzlib.a")
+else()
     # Link OpenGL library
     find_package(OpenGL REQUIRED)
     if(NOT OPENGL_FOUND)
@@ -31,6 +37,13 @@ if (NOT EMSCRIPTEN)
     include_directories(${SDL2_INCLUDE_DIRS})
     message(STATUS "SDL2_LIBRARIES = ${SDL2_LIBRARIES}")
     link_libraries(${SDL2_LIBRARIES})
+
+    # Link assimp library
+    find_package(ASSIMP REQUIRED)
+    message(STATUS "ASSIMP_INCLUDE_DIRS = ${ASSIMP_INCLUDE_DIRS}")
+    include_directories(${ASSIMP_INCLUDE_DIRS})
+    message(STATUS "ASSIMP_LIBRARIES = ${ASSIMP_LIBRARIES}")
+    link_libraries(${ASSIMP_LIBRARIES})
 endif()
 
 # header files

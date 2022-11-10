@@ -19,7 +19,8 @@ namespace Dream {
                                   nullptr);
 
 //        mesh = new OpenGLSphereMesh();
-        mesh = new OpenGLCubeMesh();
+//        mesh = new OpenGLCubeMesh();
+        mesh = new OpenGLMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
         texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("container.jpg"), GL_RGB, GL_RGB);
 
         // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
@@ -64,6 +65,7 @@ namespace Dream {
         glm::mat4 model         = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         glm::mat4 view          = glm::mat4(1.0f);
         glm::mat4 projection    = glm::mat4(1.0f);
+        model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
         model = glm::rotate(model, float(10.0), glm::vec3(0.5f, 1.0f, 0.0f));
         view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
         projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);

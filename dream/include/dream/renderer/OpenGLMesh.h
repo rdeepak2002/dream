@@ -13,6 +13,7 @@ namespace Dream {
     class OpenGLMesh {
     public:
         OpenGLMesh();
+        OpenGLMesh(std::string path);
         OpenGLMesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> uv, std::vector<glm::vec3> normals);
         void setPositions(std::vector<glm::vec3> positions);
         void setUVs(std::vector<glm::vec2> uv);
@@ -29,6 +30,8 @@ namespace Dream {
         unsigned int getEBO();
         std::vector<unsigned int> getIndices();
         void finalize(bool interleaved = true);
+    private:
+
     protected:
         unsigned int m_VAO = 0;
         unsigned int m_VBO;
