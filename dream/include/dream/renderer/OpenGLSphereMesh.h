@@ -11,7 +11,6 @@ namespace Dream {
     class OpenGLSphereMesh : public OpenGLMesh {
     public:
         OpenGLSphereMesh();
-        void Finalize(bool interleaved = true) override;
     };
 }
 

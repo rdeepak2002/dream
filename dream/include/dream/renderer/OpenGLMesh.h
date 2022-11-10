@@ -19,25 +19,19 @@ namespace Dream {
         std::vector<glm::vec3> Positions;
         std::vector<glm::vec2> UV;
         std::vector<glm::vec3> Normals;
-//        std::vector<glm::vec3> Tangents;
-//        std::vector<glm::vec3> Bitangents;
-
-//        TOPOLOGY Topology = TRIANGLES;
+        std::vector<glm::vec3> Tangents;
+        std::vector<glm::vec3> Bitangents;
         std::vector<unsigned int> Indices;
     public:
         OpenGLMesh();
-//        OpenGLMesh(std::vector<glm::vec3> positions, std::vector<unsigned int> indices);
-//        OpenGLMesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> uv, std::vector<unsigned int> indices);
-//        OpenGLMesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> uv, std::vector<glm::vec3> normals, std::vector<unsigned int> indices);
-//        OpenGLMesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> uv, std::vector<glm::vec3> normals, std::vector<glm::vec3> tangents, std::vector<glm::vec3> bitangents, std::vector<unsigned int> indices);
 
-        void SetPositions(std::vector<glm::vec3> positions);
-        void SetUVs(std::vector<glm::vec2> uv);
-        void SetNormals(std::vector<glm::vec3> normals);
-//        void SetTangents(std::vector<glm::vec3> tangents, std::vector<glm::vec3> bitangents);
+        void setPositions(std::vector<glm::vec3> positions);
+        void setUVs(std::vector<glm::vec2> uv);
+        void setNormals(std::vector<glm::vec3> normals);
+        void setTangents(std::vector<glm::vec3> tangents, std::vector<glm::vec3> bitangents);
 
         // commits all buffers and attributes to the GPU driver
-        virtual void Finalize(bool interleaved = true);
+        void finalize(bool interleaved = true);
     };
 }
 
