@@ -18,9 +18,9 @@ namespace Dream {
                                   Project::getPath().append("assets").append("shaders").append("shader.frag").c_str(),
                                   nullptr);
 
-        cubeMesh = new OpenGLSphereMesh();
-
-        texture1 = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("container.jpg"), GL_RGB, GL_RGB);
+//        mesh = new OpenGLSphereMesh();
+        mesh = new OpenGLCubeMesh();
+        texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("container.jpg"), GL_RGB, GL_RGB);
 
         // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
         // -------------------------------------------------------------------------------------------
@@ -34,7 +34,8 @@ namespace Dream {
     OpenGLRenderer::~OpenGLRenderer() {
         delete this->shader;
         delete this->frameBuffer;
-        delete this->texture1;
+        delete this->texture;
+        delete this->mesh;
     }
 
     void OpenGLRenderer::preRender(int viewportWidth, int viewportHeight, bool fullscreen) {
@@ -54,7 +55,7 @@ namespace Dream {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // also clear the depth buffer now!
 
         // bind textures on corresponding texture units
-        texture1->bind(0);
+        texture->bind(0);
 
         // activate shader
         shader->use();
@@ -75,13 +76,24 @@ namespace Dream {
         // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
         shader->setMat4("projection", projection);
 
-        // render box
-        auto VAO = cubeMesh->m_VAO;
-        auto VBO = cubeMesh->m_VBO;
-        auto numIndices = cubeMesh->Indices.size();
-        glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
+        // render mesh
+        auto VAO = mesh->m_VAO;
+
+        if (mesh->Indices.size() > 0) {
+            // case where vertices are indexed
+            auto numIndices = mesh->Indices.size();
+            glBindVertexArray(VAO);
+            glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
+            glBindVertexArray(0);
+        } else if (mesh->Positions.size() > 0) {
+            // case where vertices are not indexed
+            glBindVertexArray(VAO);
+            glDrawArrays(GL_TRIANGLES, 0, mesh->Positions.size());
+            glBindVertexArray(0);
+        } else {
+            std::cout << "Unable to render mesh" << std::endl;
+            exit(EXIT_FAILURE);
+        }
 
         this->postRender(fullscreen);
     }
