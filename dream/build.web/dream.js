@@ -132,6 +132,7 @@ Module['FS_createPath']("/", "examples", true, true);
 Module['FS_createPath']("/examples", "hello_world", true, true);
 Module['FS_createPath']("/examples/hello_world", ".idea", true, true);
 Module['FS_createPath']("/examples/hello_world", "assets", true, true);
+Module['FS_createPath']("/examples/hello_world/assets", "models", true, true);
 Module['FS_createPath']("/examples/hello_world/assets", "shaders", true, true);
 Module['FS_createPath']("/examples/hello_world/assets", "textures", true, true);
 Module['FS_createPath']("/examples/hello_world", "plugins", true, true);
@@ -233,7 +234,7 @@ Module['FS_createPath']("/examples/resources", "fonts", true, true);
     }
 
     }
-    loadPackage({"files": [{"filename": "/examples/.DS_Store", "start": 0, "end": 6148}, {"filename": "/examples/hello_world/.DS_Store", "start": 6148, "end": 12296}, {"filename": "/examples/hello_world/.gitignore", "start": 12296, "end": 13887}, {"filename": "/examples/hello_world/.idea/.gitignore", "start": 13887, "end": 14063}, {"filename": "/examples/hello_world/.idea/.name", "start": 14063, "end": 14069}, {"filename": "/examples/hello_world/.idea/hello_world.iml", "start": 14069, "end": 14166}, {"filename": "/examples/hello_world/.idea/misc.xml", "start": 14166, "end": 14616}, {"filename": "/examples/hello_world/.idea/modules.xml", "start": 14616, "end": 14890}, {"filename": "/examples/hello_world/.idea/vcs.xml", "start": 14890, "end": 15076}, {"filename": "/examples/hello_world/.idea/workspace.xml", "start": 15076, "end": 20500}, {"filename": "/examples/hello_world/README.md", "start": 20500, "end": 20656}, {"filename": "/examples/hello_world/assets/.DS_Store", "start": 20656, "end": 26804}, {"filename": "/examples/hello_world/assets/.gitkeep", "start": 26804, "end": 26804}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.frag", "start": 26804, "end": 27003}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.vert", "start": 27003, "end": 27198}, {"filename": "/examples/hello_world/assets/shaders/shader.frag", "start": 27198, "end": 27453}, {"filename": "/examples/hello_world/assets/shaders/shader.vert", "start": 27453, "end": 27781}, {"filename": "/examples/hello_world/assets/textures/.DS_Store", "start": 27781, "end": 33929}, {"filename": "/examples/hello_world/assets/textures/awesomeface.png", "start": 33929, "end": 77933}, {"filename": "/examples/hello_world/assets/textures/container.jpg", "start": 77933, "end": 200227}, {"filename": "/examples/hello_world/plugins/native/.gitignore", "start": 200227, "end": 201818}, {"filename": "/examples/hello_world/plugins/native/CMakeLists.txt", "start": 201818, "end": 202060}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/cache-v2", "start": 202060, "end": 202060}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/cmakeFiles-v1", "start": 202060, "end": 202060}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/codemodel-v2", "start": 202060, "end": 202060}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/toolchains-v1", "start": 202060, "end": 202060}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/cache-v2-47c6a3908a6ab5e015a6.json", "start": 202060, "end": 224043}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-7aa65675a33703f28db8.json", "start": 224043, "end": 231322}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-26d9509e136dda7430aa.json", "start": 231322, "end": 232366}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json", "start": 232366, "end": 232520}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/index-2022-10-19T03-29-13-0345.json", "start": 232520, "end": 234720}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/target-native-Debug-4c9f81c7c85e26c6c757.json", "start": 234720, "end": 236420}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-b1d3af272c5a84901840.json", "start": 236420, "end": 238565}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.ninja_deps", "start": 238565, "end": 282225}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.ninja_log", "start": 282225, "end": 282618}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeCache.txt", "start": 282618, "end": 297017}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeCCompiler.cmake", "start": 297017, "end": 299749}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeCXXCompiler.cmake", "start": 299749, "end": 305462}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_C.bin", "start": 305462, "end": 322461}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_CXX.bin", "start": 322461, "end": 339444}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeSystem.cmake", "start": 339444, "end": 339804}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdC/CMakeCCompilerId.c", "start": 339804, "end": 365501}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdC/CMakeCCompilerId.o", "start": 365501, "end": 367213}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdCXX/CMakeCXXCompilerId.cpp", "start": 367213, "end": 392654}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdCXX/CMakeCXXCompilerId.o", "start": 392654, "end": 394318}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/CMakeError.log", "start": 394318, "end": 394924}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/CMakeOutput.log", "start": 394924, "end": 426462}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/TargetDirectories.txt", "start": 426462, "end": 426848}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/clion-environment.txt", "start": 426848, "end": 427044}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/clion-log.txt", "start": 427044, "end": 427754}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/cmake.check_cache", "start": 427754, "end": 427839}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/native.dir/library.cpp.o", "start": 427839, "end": 524295}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/native.dir/src/library.cpp.o", "start": 524295, "end": 620751}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/rules.ninja", "start": 620751, "end": 623361}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/Testing/Temporary/LastTest.log", "start": 623361, "end": 623482}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/build.ninja", "start": 623482, "end": 637098}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/cmake_install.cmake", "start": 637098, "end": 638755}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/out/Darwin/libnative.dylib", "start": 638755, "end": 685471}, {"filename": "/examples/hello_world/plugins/native/include/library.h", "start": 685471, "end": 685578}, {"filename": "/examples/hello_world/plugins/native/out/Darwin/libnative.dylib", "start": 685578, "end": 732294}, {"filename": "/examples/hello_world/plugins/native/src/library.cpp", "start": 732294, "end": 732564}, {"filename": "/examples/resources/fonts/font.ttf", "start": 732564, "end": 936516}], "remote_package_size": 936516});
+    loadPackage({"files": [{"filename": "/examples/.DS_Store", "start": 0, "end": 6148}, {"filename": "/examples/hello_world/.DS_Store", "start": 6148, "end": 12296}, {"filename": "/examples/hello_world/.gitignore", "start": 12296, "end": 13887}, {"filename": "/examples/hello_world/.idea/.gitignore", "start": 13887, "end": 14063}, {"filename": "/examples/hello_world/.idea/.name", "start": 14063, "end": 14069}, {"filename": "/examples/hello_world/.idea/hello_world.iml", "start": 14069, "end": 14166}, {"filename": "/examples/hello_world/.idea/misc.xml", "start": 14166, "end": 14616}, {"filename": "/examples/hello_world/.idea/modules.xml", "start": 14616, "end": 14890}, {"filename": "/examples/hello_world/.idea/vcs.xml", "start": 14890, "end": 15076}, {"filename": "/examples/hello_world/.idea/workspace.xml", "start": 15076, "end": 20500}, {"filename": "/examples/hello_world/README.md", "start": 20500, "end": 20656}, {"filename": "/examples/hello_world/assets/.DS_Store", "start": 20656, "end": 28852}, {"filename": "/examples/hello_world/assets/.gitkeep", "start": 28852, "end": 28852}, {"filename": "/examples/hello_world/assets/models/.DS_Store", "start": 28852, "end": 35000}, {"filename": "/examples/hello_world/assets/models/teapot.stl", "start": 35000, "end": 506984}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.frag", "start": 506984, "end": 507183}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.vert", "start": 507183, "end": 507378}, {"filename": "/examples/hello_world/assets/shaders/shader.frag", "start": 507378, "end": 507633}, {"filename": "/examples/hello_world/assets/shaders/shader.vert", "start": 507633, "end": 507961}, {"filename": "/examples/hello_world/assets/textures/.DS_Store", "start": 507961, "end": 514109}, {"filename": "/examples/hello_world/assets/textures/awesomeface.png", "start": 514109, "end": 558113}, {"filename": "/examples/hello_world/assets/textures/container.jpg", "start": 558113, "end": 680407}, {"filename": "/examples/hello_world/plugins/native/.gitignore", "start": 680407, "end": 681998}, {"filename": "/examples/hello_world/plugins/native/CMakeLists.txt", "start": 681998, "end": 682240}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/cache-v2", "start": 682240, "end": 682240}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/cmakeFiles-v1", "start": 682240, "end": 682240}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/codemodel-v2", "start": 682240, "end": 682240}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/toolchains-v1", "start": 682240, "end": 682240}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/cache-v2-47c6a3908a6ab5e015a6.json", "start": 682240, "end": 704223}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-7aa65675a33703f28db8.json", "start": 704223, "end": 711502}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-26d9509e136dda7430aa.json", "start": 711502, "end": 712546}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json", "start": 712546, "end": 712700}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/index-2022-10-19T03-29-13-0345.json", "start": 712700, "end": 714900}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/target-native-Debug-4c9f81c7c85e26c6c757.json", "start": 714900, "end": 716600}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-b1d3af272c5a84901840.json", "start": 716600, "end": 718745}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.ninja_deps", "start": 718745, "end": 762405}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.ninja_log", "start": 762405, "end": 762798}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeCache.txt", "start": 762798, "end": 777197}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeCCompiler.cmake", "start": 777197, "end": 779929}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeCXXCompiler.cmake", "start": 779929, "end": 785642}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_C.bin", "start": 785642, "end": 802641}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_CXX.bin", "start": 802641, "end": 819624}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeSystem.cmake", "start": 819624, "end": 819984}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdC/CMakeCCompilerId.c", "start": 819984, "end": 845681}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdC/CMakeCCompilerId.o", "start": 845681, "end": 847393}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdCXX/CMakeCXXCompilerId.cpp", "start": 847393, "end": 872834}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdCXX/CMakeCXXCompilerId.o", "start": 872834, "end": 874498}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/CMakeError.log", "start": 874498, "end": 875104}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/CMakeOutput.log", "start": 875104, "end": 906642}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/TargetDirectories.txt", "start": 906642, "end": 907028}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/clion-environment.txt", "start": 907028, "end": 907224}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/clion-log.txt", "start": 907224, "end": 907934}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/cmake.check_cache", "start": 907934, "end": 908019}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/native.dir/library.cpp.o", "start": 908019, "end": 1004475}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/native.dir/src/library.cpp.o", "start": 1004475, "end": 1100931}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/rules.ninja", "start": 1100931, "end": 1103541}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/Testing/Temporary/LastTest.log", "start": 1103541, "end": 1103662}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/build.ninja", "start": 1103662, "end": 1117278}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/cmake_install.cmake", "start": 1117278, "end": 1118935}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/out/Darwin/libnative.dylib", "start": 1118935, "end": 1165651}, {"filename": "/examples/hello_world/plugins/native/include/library.h", "start": 1165651, "end": 1165758}, {"filename": "/examples/hello_world/plugins/native/out/Darwin/libnative.dylib", "start": 1165758, "end": 1212474}, {"filename": "/examples/hello_world/plugins/native/src/library.cpp", "start": 1212474, "end": 1212744}, {"filename": "/examples/resources/fonts/font.ttf", "start": 1212744, "end": 1416696}], "remote_package_size": 1416696});
 
   })();
 
@@ -1395,21 +1396,21 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  121688: () => { if (typeof(AudioContext) !== 'undefined') { return true; } else if (typeof(webkitAudioContext) !== 'undefined') { return true; } return false; },  
- 121835: () => { if ((typeof(navigator.mediaDevices) !== 'undefined') && (typeof(navigator.mediaDevices.getUserMedia) !== 'undefined')) { return true; } else if (typeof(navigator.webkitGetUserMedia) !== 'undefined') { return true; } return false; },  
- 122069: ($0) => { if(typeof(Module['SDL2']) === 'undefined') { Module['SDL2'] = {}; } var SDL2 = Module['SDL2']; if (!$0) { SDL2.audio = {}; } else { SDL2.capture = {}; } if (!SDL2.audioContext) { if (typeof(AudioContext) !== 'undefined') { SDL2.audioContext = new AudioContext(); } else if (typeof(webkitAudioContext) !== 'undefined') { SDL2.audioContext = new webkitAudioContext(); } if (SDL2.audioContext) { autoResumeAudioContext(SDL2.audioContext); } } return SDL2.audioContext === undefined ? -1 : 0; },  
- 122562: () => { var SDL2 = Module['SDL2']; return SDL2.audioContext.sampleRate; },  
- 122630: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; var have_microphone = function(stream) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); SDL2.capture.silenceTimer = undefined; } SDL2.capture.mediaStreamNode = SDL2.audioContext.createMediaStreamSource(stream); SDL2.capture.scriptProcessorNode = SDL2.audioContext.createScriptProcessor($1, $0, 1); SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) { if ((SDL2 === undefined) || (SDL2.capture === undefined)) { return; } audioProcessingEvent.outputBuffer.getChannelData(0).fill(0.0); SDL2.capture.currentCaptureBuffer = audioProcessingEvent.inputBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.mediaStreamNode.connect(SDL2.capture.scriptProcessorNode); SDL2.capture.scriptProcessorNode.connect(SDL2.audioContext.destination); SDL2.capture.stream = stream; }; var no_microphone = function(error) { }; SDL2.capture.silenceBuffer = SDL2.audioContext.createBuffer($0, $1, SDL2.audioContext.sampleRate); SDL2.capture.silenceBuffer.getChannelData(0).fill(0.0); var silence_callback = function() { SDL2.capture.currentCaptureBuffer = SDL2.capture.silenceBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.silenceTimer = setTimeout(silence_callback, ($1 / SDL2.audioContext.sampleRate) * 1000); if ((navigator.mediaDevices !== undefined) && (navigator.mediaDevices.getUserMedia !== undefined)) { navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(have_microphone).catch(no_microphone); } else if (navigator.webkitGetUserMedia !== undefined) { navigator.webkitGetUserMedia({ audio: true, video: false }, have_microphone, no_microphone); } },  
- 124282: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; SDL2.audio.scriptProcessorNode = SDL2.audioContext['createScriptProcessor']($1, 0, $0); SDL2.audio.scriptProcessorNode['onaudioprocess'] = function (e) { if ((SDL2 === undefined) || (SDL2.audio === undefined)) { return; } SDL2.audio.currentOutputBuffer = e['outputBuffer']; dynCall('vi', $2, [$3]); }; SDL2.audio.scriptProcessorNode['connect'](SDL2.audioContext['destination']); },  
- 124692: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.capture.currentCaptureBuffer.numberOfChannels; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.capture.currentCaptureBuffer.getChannelData(c); if (channelData.length != $1) { throw 'Web Audio capture buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } if (numChannels == 1) { for (var j = 0; j < $1; ++j) { setValue($0 + (j * 4), channelData[j], 'float'); } } else { for (var j = 0; j < $1; ++j) { setValue($0 + (((j * numChannels) + c) * 4), channelData[j], 'float'); } } } },  
- 125297: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.audio.currentOutputBuffer['numberOfChannels']; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.audio.currentOutputBuffer['getChannelData'](c); if (channelData.length != $1) { throw 'Web Audio output buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } for (var j = 0; j < $1; ++j) { channelData[j] = HEAPF32[$0 + ((j*numChannels + c) << 2) >> 2]; } } },  
- 125777: ($0) => { var SDL2 = Module['SDL2']; if ($0) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); } if (SDL2.capture.stream !== undefined) { var tracks = SDL2.capture.stream.getAudioTracks(); for (var i = 0; i < tracks.length; i++) { SDL2.capture.stream.removeTrack(tracks[i]); } SDL2.capture.stream = undefined; } if (SDL2.capture.scriptProcessorNode !== undefined) { SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) {}; SDL2.capture.scriptProcessorNode.disconnect(); SDL2.capture.scriptProcessorNode = undefined; } if (SDL2.capture.mediaStreamNode !== undefined) { SDL2.capture.mediaStreamNode.disconnect(); SDL2.capture.mediaStreamNode = undefined; } if (SDL2.capture.silenceBuffer !== undefined) { SDL2.capture.silenceBuffer = undefined } SDL2.capture = undefined; } else { if (SDL2.audio.scriptProcessorNode != undefined) { SDL2.audio.scriptProcessorNode.disconnect(); SDL2.audio.scriptProcessorNode = undefined; } SDL2.audio = undefined; } if ((SDL2.audioContext !== undefined) && (SDL2.audio === undefined) && (SDL2.capture === undefined)) { SDL2.audioContext.close(); SDL2.audioContext = undefined; } },  
- 126949: ($0, $1, $2) => { var w = $0; var h = $1; var pixels = $2; if (!Module['SDL2']) Module['SDL2'] = {}; var SDL2 = Module['SDL2']; if (SDL2.ctxCanvas !== Module['canvas']) { SDL2.ctx = Module['createContext'](Module['canvas'], false, true); SDL2.ctxCanvas = Module['canvas']; } if (SDL2.w !== w || SDL2.h !== h || SDL2.imageCtx !== SDL2.ctx) { SDL2.image = SDL2.ctx.createImageData(w, h); SDL2.w = w; SDL2.h = h; SDL2.imageCtx = SDL2.ctx; } var data = SDL2.image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = 0xff; src++; dst += 4; } } else { if (SDL2.data32Data !== data) { SDL2.data32 = new Int32Array(data.buffer); SDL2.data8 = new Uint8Array(data.buffer); SDL2.data32Data = data; } var data32 = SDL2.data32; num = data32.length; data32.set(HEAP32.subarray(src, src + num)); var data8 = SDL2.data8; var i = 3; var j = i + 4*num; if (num % 8 == 0) { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; } } else { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; } } } SDL2.ctx.putImageData(SDL2.image, 0, 0); },  
- 128418: ($0, $1, $2, $3, $4) => { var w = $0; var h = $1; var hot_x = $2; var hot_y = $3; var pixels = $4; var canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h; var ctx = canvas.getContext("2d"); var image = ctx.createImageData(w, h); var data = image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = (val >> 24) & 0xff; src++; dst += 4; } } else { var data32 = new Int32Array(data.buffer); num = data32.length; data32.set(HEAP32.subarray(src, src + num)); } ctx.putImageData(image, 0, 0); var url = hot_x === 0 && hot_y === 0 ? "url(" + canvas.toDataURL() + "), auto" : "url(" + canvas.toDataURL() + ") " + hot_x + " " + hot_y + ", auto"; var urlBuf = _malloc(url.length + 1); stringToUTF8(url, urlBuf, url.length + 1); return urlBuf; },  
- 129407: ($0) => { if (Module['canvas']) { Module['canvas'].style['cursor'] = UTF8ToString($0); } },  
- 129490: () => { if (Module['canvas']) { Module['canvas'].style['cursor'] = 'none'; } },  
- 129559: () => { return window.innerWidth; },  
- 129589: () => { return window.innerHeight; }
+  730844: () => { if (typeof(AudioContext) !== 'undefined') { return true; } else if (typeof(webkitAudioContext) !== 'undefined') { return true; } return false; },  
+ 730991: () => { if ((typeof(navigator.mediaDevices) !== 'undefined') && (typeof(navigator.mediaDevices.getUserMedia) !== 'undefined')) { return true; } else if (typeof(navigator.webkitGetUserMedia) !== 'undefined') { return true; } return false; },  
+ 731225: ($0) => { if(typeof(Module['SDL2']) === 'undefined') { Module['SDL2'] = {}; } var SDL2 = Module['SDL2']; if (!$0) { SDL2.audio = {}; } else { SDL2.capture = {}; } if (!SDL2.audioContext) { if (typeof(AudioContext) !== 'undefined') { SDL2.audioContext = new AudioContext(); } else if (typeof(webkitAudioContext) !== 'undefined') { SDL2.audioContext = new webkitAudioContext(); } if (SDL2.audioContext) { autoResumeAudioContext(SDL2.audioContext); } } return SDL2.audioContext === undefined ? -1 : 0; },  
+ 731718: () => { var SDL2 = Module['SDL2']; return SDL2.audioContext.sampleRate; },  
+ 731786: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; var have_microphone = function(stream) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); SDL2.capture.silenceTimer = undefined; } SDL2.capture.mediaStreamNode = SDL2.audioContext.createMediaStreamSource(stream); SDL2.capture.scriptProcessorNode = SDL2.audioContext.createScriptProcessor($1, $0, 1); SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) { if ((SDL2 === undefined) || (SDL2.capture === undefined)) { return; } audioProcessingEvent.outputBuffer.getChannelData(0).fill(0.0); SDL2.capture.currentCaptureBuffer = audioProcessingEvent.inputBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.mediaStreamNode.connect(SDL2.capture.scriptProcessorNode); SDL2.capture.scriptProcessorNode.connect(SDL2.audioContext.destination); SDL2.capture.stream = stream; }; var no_microphone = function(error) { }; SDL2.capture.silenceBuffer = SDL2.audioContext.createBuffer($0, $1, SDL2.audioContext.sampleRate); SDL2.capture.silenceBuffer.getChannelData(0).fill(0.0); var silence_callback = function() { SDL2.capture.currentCaptureBuffer = SDL2.capture.silenceBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.silenceTimer = setTimeout(silence_callback, ($1 / SDL2.audioContext.sampleRate) * 1000); if ((navigator.mediaDevices !== undefined) && (navigator.mediaDevices.getUserMedia !== undefined)) { navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(have_microphone).catch(no_microphone); } else if (navigator.webkitGetUserMedia !== undefined) { navigator.webkitGetUserMedia({ audio: true, video: false }, have_microphone, no_microphone); } },  
+ 733438: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; SDL2.audio.scriptProcessorNode = SDL2.audioContext['createScriptProcessor']($1, 0, $0); SDL2.audio.scriptProcessorNode['onaudioprocess'] = function (e) { if ((SDL2 === undefined) || (SDL2.audio === undefined)) { return; } SDL2.audio.currentOutputBuffer = e['outputBuffer']; dynCall('vi', $2, [$3]); }; SDL2.audio.scriptProcessorNode['connect'](SDL2.audioContext['destination']); },  
+ 733848: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.capture.currentCaptureBuffer.numberOfChannels; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.capture.currentCaptureBuffer.getChannelData(c); if (channelData.length != $1) { throw 'Web Audio capture buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } if (numChannels == 1) { for (var j = 0; j < $1; ++j) { setValue($0 + (j * 4), channelData[j], 'float'); } } else { for (var j = 0; j < $1; ++j) { setValue($0 + (((j * numChannels) + c) * 4), channelData[j], 'float'); } } } },  
+ 734453: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.audio.currentOutputBuffer['numberOfChannels']; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.audio.currentOutputBuffer['getChannelData'](c); if (channelData.length != $1) { throw 'Web Audio output buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } for (var j = 0; j < $1; ++j) { channelData[j] = HEAPF32[$0 + ((j*numChannels + c) << 2) >> 2]; } } },  
+ 734933: ($0) => { var SDL2 = Module['SDL2']; if ($0) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); } if (SDL2.capture.stream !== undefined) { var tracks = SDL2.capture.stream.getAudioTracks(); for (var i = 0; i < tracks.length; i++) { SDL2.capture.stream.removeTrack(tracks[i]); } SDL2.capture.stream = undefined; } if (SDL2.capture.scriptProcessorNode !== undefined) { SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) {}; SDL2.capture.scriptProcessorNode.disconnect(); SDL2.capture.scriptProcessorNode = undefined; } if (SDL2.capture.mediaStreamNode !== undefined) { SDL2.capture.mediaStreamNode.disconnect(); SDL2.capture.mediaStreamNode = undefined; } if (SDL2.capture.silenceBuffer !== undefined) { SDL2.capture.silenceBuffer = undefined } SDL2.capture = undefined; } else { if (SDL2.audio.scriptProcessorNode != undefined) { SDL2.audio.scriptProcessorNode.disconnect(); SDL2.audio.scriptProcessorNode = undefined; } SDL2.audio = undefined; } if ((SDL2.audioContext !== undefined) && (SDL2.audio === undefined) && (SDL2.capture === undefined)) { SDL2.audioContext.close(); SDL2.audioContext = undefined; } },  
+ 736105: ($0, $1, $2) => { var w = $0; var h = $1; var pixels = $2; if (!Module['SDL2']) Module['SDL2'] = {}; var SDL2 = Module['SDL2']; if (SDL2.ctxCanvas !== Module['canvas']) { SDL2.ctx = Module['createContext'](Module['canvas'], false, true); SDL2.ctxCanvas = Module['canvas']; } if (SDL2.w !== w || SDL2.h !== h || SDL2.imageCtx !== SDL2.ctx) { SDL2.image = SDL2.ctx.createImageData(w, h); SDL2.w = w; SDL2.h = h; SDL2.imageCtx = SDL2.ctx; } var data = SDL2.image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = 0xff; src++; dst += 4; } } else { if (SDL2.data32Data !== data) { SDL2.data32 = new Int32Array(data.buffer); SDL2.data8 = new Uint8Array(data.buffer); SDL2.data32Data = data; } var data32 = SDL2.data32; num = data32.length; data32.set(HEAP32.subarray(src, src + num)); var data8 = SDL2.data8; var i = 3; var j = i + 4*num; if (num % 8 == 0) { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; } } else { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; } } } SDL2.ctx.putImageData(SDL2.image, 0, 0); },  
+ 737574: ($0, $1, $2, $3, $4) => { var w = $0; var h = $1; var hot_x = $2; var hot_y = $3; var pixels = $4; var canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h; var ctx = canvas.getContext("2d"); var image = ctx.createImageData(w, h); var data = image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = (val >> 24) & 0xff; src++; dst += 4; } } else { var data32 = new Int32Array(data.buffer); num = data32.length; data32.set(HEAP32.subarray(src, src + num)); } ctx.putImageData(image, 0, 0); var url = hot_x === 0 && hot_y === 0 ? "url(" + canvas.toDataURL() + "), auto" : "url(" + canvas.toDataURL() + ") " + hot_x + " " + hot_y + ", auto"; var urlBuf = _malloc(url.length + 1); stringToUTF8(url, urlBuf, url.length + 1); return urlBuf; },  
+ 738563: ($0) => { if (Module['canvas']) { Module['canvas'].style['cursor'] = UTF8ToString($0); } },  
+ 738646: () => { if (Module['canvas']) { Module['canvas'].style['cursor'] = 'none'; } },  
+ 738715: () => { return window.innerWidth; },  
+ 738745: () => { return window.innerHeight; }
 };
 
 
@@ -4749,6 +4750,18 @@ var ASM_CONSTS = {
       throw ptr + " - Exception catching is disabled, this exception cannot be caught. Compile with -sNO_DISABLE_EXCEPTION_CATCHING or -sEXCEPTION_CATCHING_ALLOWED=[..] to catch.";
     }
 
+  function ___syscall_chdir(path) {
+  try {
+  
+      path = SYSCALLS.getStr(path);
+      FS.chdir(path);
+      return 0;
+    } catch (e) {
+    if (typeof FS == 'undefined' || !(e instanceof FS.ErrnoError)) throw e;
+    return -e.errno;
+  }
+  }
+
   function setErrNo(value) {
       HEAP32[((___errno_location())>>2)] = value;
       return value;
@@ -4903,6 +4916,23 @@ var ASM_CONSTS = {
   }
   }
 
+  function ___syscall_mkdirat(dirfd, path, mode) {
+  try {
+  
+      path = SYSCALLS.getStr(path);
+      path = SYSCALLS.calculateAt(dirfd, path);
+      // remove a trailing slash, if one - /a/b/ has basename of '', but
+      // we want to create b in the context of this function
+      path = PATH.normalize(path);
+      if (path[path.length-1] === '/') path = path.substr(0, path.length-1);
+      FS.mkdir(path, mode, 0);
+      return 0;
+    } catch (e) {
+    if (typeof FS == 'undefined' || !(e instanceof FS.ErrnoError)) throw e;
+    return -e.errno;
+  }
+  }
+
   function ___syscall_newfstatat(dirfd, path, buf, flags) {
   try {
   
@@ -4933,11 +4963,63 @@ var ASM_CONSTS = {
   }
   }
 
+  function ___syscall_readlinkat(dirfd, path, buf, bufsize) {
+  try {
+  
+      path = SYSCALLS.getStr(path);
+      path = SYSCALLS.calculateAt(dirfd, path);
+      if (bufsize <= 0) return -28;
+      var ret = FS.readlink(path);
+  
+      var len = Math.min(bufsize, lengthBytesUTF8(ret));
+      var endChar = HEAP8[buf+len];
+      stringToUTF8(ret, buf, bufsize+1);
+      // readlink is one of the rare functions that write out a C string, but does never append a null to the output buffer(!)
+      // stringToUTF8() always appends a null byte, so restore the character under the null byte after the write.
+      HEAP8[buf+len] = endChar;
+      return len;
+    } catch (e) {
+    if (typeof FS == 'undefined' || !(e instanceof FS.ErrnoError)) throw e;
+    return -e.errno;
+  }
+  }
+
+  function ___syscall_rmdir(path) {
+  try {
+  
+      path = SYSCALLS.getStr(path);
+      FS.rmdir(path);
+      return 0;
+    } catch (e) {
+    if (typeof FS == 'undefined' || !(e instanceof FS.ErrnoError)) throw e;
+    return -e.errno;
+  }
+  }
+
   function ___syscall_stat64(path, buf) {
   try {
   
       path = SYSCALLS.getStr(path);
       return SYSCALLS.doStat(FS.stat, path, buf);
+    } catch (e) {
+    if (typeof FS == 'undefined' || !(e instanceof FS.ErrnoError)) throw e;
+    return -e.errno;
+  }
+  }
+
+  function ___syscall_unlinkat(dirfd, path, flags) {
+  try {
+  
+      path = SYSCALLS.getStr(path);
+      path = SYSCALLS.calculateAt(dirfd, path);
+      if (flags === 0) {
+        FS.unlink(path);
+      } else if (flags === 512) {
+        FS.rmdir(path);
+      } else {
+        abort('Invalid flags passed to unlinkat');
+      }
+      return 0;
     } catch (e) {
     if (typeof FS == 'undefined' || !(e instanceof FS.ErrnoError)) throw e;
     return -e.errno;
@@ -10395,14 +10477,19 @@ var asmLibraryArg = {
   "__assert_fail": ___assert_fail,
   "__cxa_allocate_exception": ___cxa_allocate_exception,
   "__cxa_throw": ___cxa_throw,
+  "__syscall_chdir": ___syscall_chdir,
   "__syscall_fcntl64": ___syscall_fcntl64,
   "__syscall_fstat64": ___syscall_fstat64,
   "__syscall_getcwd": ___syscall_getcwd,
   "__syscall_ioctl": ___syscall_ioctl,
   "__syscall_lstat64": ___syscall_lstat64,
+  "__syscall_mkdirat": ___syscall_mkdirat,
   "__syscall_newfstatat": ___syscall_newfstatat,
   "__syscall_openat": ___syscall_openat,
+  "__syscall_readlinkat": ___syscall_readlinkat,
+  "__syscall_rmdir": ___syscall_rmdir,
   "__syscall_stat64": ___syscall_stat64,
+  "__syscall_unlinkat": ___syscall_unlinkat,
   "_emscripten_get_now_is_monotonic": __emscripten_get_now_is_monotonic,
   "abort": _abort,
   "eglBindAPI": _eglBindAPI,
@@ -10861,6 +10948,18 @@ var ___cxa_is_pointer_type = Module["___cxa_is_pointer_type"] = createExportWrap
 
 /** @type {function(...*):?} */
 var dynCall_iijii = Module["dynCall_iijii"] = createExportWrapper("dynCall_iijii");
+
+/** @type {function(...*):?} */
+var dynCall_jii = Module["dynCall_jii"] = createExportWrapper("dynCall_jii");
+
+/** @type {function(...*):?} */
+var dynCall_viji = Module["dynCall_viji"] = createExportWrapper("dynCall_viji");
+
+/** @type {function(...*):?} */
+var dynCall_vijii = Module["dynCall_vijii"] = createExportWrapper("dynCall_vijii");
+
+/** @type {function(...*):?} */
+var dynCall_iiiji = Module["dynCall_iiiji"] = createExportWrapper("dynCall_iiiji");
 
 /** @type {function(...*):?} */
 var dynCall_jiji = Module["dynCall_jiji"] = createExportWrapper("dynCall_jiji");

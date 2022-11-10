@@ -1,4 +1,11 @@
 #!/bin/bash
+
+# steps to build assimp:
+# 1. check if assimp already built
+# 2. ...
+
+# TODO: return back to dream/dream directory
+
 rm -rf cmake-build-debug-web
 mkdir cmake-build-debug-web
 

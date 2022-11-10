@@ -14,9 +14,10 @@ endif()
 if (EMSCRIPTEN)
     # Link assimp library
     # TODO: fix this
-    link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.2.5/lib/libassimp.a")
-    link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.2.5/lib/libIrrXML.a")
-    link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.2.5/lib/libzlib.a")
+    link_libraries("${CMAKE_CURRENT_SOURCE_DIR}/build.web/assimp-5.2.5/lib/libassimp.a")
+    include_directories("${CMAKE_CURRENT_SOURCE_DIR}/build.web/assimp-5.2.5/include")
+#    link_libraries("${CMAKE_CURRENT_SOURCE_DIR}/build.web/assimp-5.2.5/lib/libIrrXML.a")
+#    link_libraries("${CMAKE_CURRENT_SOURCE_DIR}/build.web/assimp-5.2.5/lib/libzlib.a")
 else()
     # Link OpenGL library
     find_package(OpenGL REQUIRED)
