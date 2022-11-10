@@ -77,18 +77,18 @@ namespace Dream {
         shader->setMat4("projection", projection);
 
         // render mesh
-        auto VAO = mesh->m_VAO;
+        auto VAO = mesh->getVAO();
 
-        if (mesh->Indices.size() > 0) {
+        if (mesh->getIndices().size() > 0) {
             // case where vertices are indexed
-            auto numIndices = mesh->Indices.size();
+            auto numIndices = mesh->getIndices().size();
             glBindVertexArray(VAO);
             glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
             glBindVertexArray(0);
-        } else if (mesh->Positions.size() > 0) {
+        } else if (mesh->getPositions().size() > 0) {
             // case where vertices are not indexed
             glBindVertexArray(VAO);
-            glDrawArrays(GL_TRIANGLES, 0, mesh->Positions.size());
+            glDrawArrays(GL_TRIANGLES, 0, mesh->getPositions().size());
             glBindVertexArray(0);
         } else {
             std::cout << "Unable to render mesh" << std::endl;

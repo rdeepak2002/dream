@@ -10,7 +10,7 @@
 namespace Dream {
     class OpenGLSphereMesh : public OpenGLMesh {
     public:
-        OpenGLSphereMesh();
+        OpenGLSphereMesh(unsigned int xSegments = 20, unsigned int ySegments = 20);
     };
 }
 

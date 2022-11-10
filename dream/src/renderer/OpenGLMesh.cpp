@@ -8,33 +8,40 @@
 #include <glad/glad.h>
 
 namespace Dream {
-    OpenGLMesh::OpenGLMesh()
-    {
+    OpenGLMesh::OpenGLMesh() {
 
+    }
+
+    OpenGLMesh::OpenGLMesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> uv, std::vector<glm::vec3> normals) {
+        this->positions = positions;
+        this->uv = uv;
+        this->normals = normals;
     }
 
     void OpenGLMesh::setPositions(std::vector<glm::vec3> positions)
     {
-        Positions = positions;
+        this->positions = positions;
     }
 
     void OpenGLMesh::setUVs(std::vector<glm::vec2> uv)
     {
-        UV = uv;
+        this->uv = uv;
     }
 
     void OpenGLMesh::setNormals(std::vector<glm::vec3> normals)
     {
-        Normals = normals;
+        this->normals = normals;
     }
 
-    void OpenGLMesh::setTangents(std::vector<glm::vec3> tangents, std::vector<glm::vec3> bitangents) {
-        Tangents = tangents;
-        Bitangents = bitangents;
+    void OpenGLMesh::setTangents(std::vector<glm::vec3> tangents) {
+        this->tangents = tangents;
     }
 
-    void OpenGLMesh::finalize(bool interleaved)
-    {
+    void OpenGLMesh::setBitangents(std::vector<glm::vec3> bitangents) {
+        this->bitangents = bitangents;
+    }
+
+    void OpenGLMesh::finalize(bool interleaved) {
         // initialize object IDs if not configured before
         glGenVertexArrays(1, &m_VAO);
         glGenBuffers(1, &m_VBO);
@@ -44,67 +51,60 @@ namespace Dream {
         std::vector<float> data;
         if (interleaved)
         {
-            for (int i = 0; i < Positions.size(); ++i)
+            for (int i = 0; i < positions.size(); ++i)
             {
-                data.push_back(Positions[i].x);
-                data.push_back(Positions[i].y);
-                data.push_back(Positions[i].z);
-                if (UV.size() > 0)
-                {
-                    data.push_back(UV[i].x);
-                    data.push_back(UV[i].y);
+                data.push_back(positions[i].x);
+                data.push_back(positions[i].y);
+                data.push_back(positions[i].z);
+                if (!uv.empty()) {
+                    data.push_back(uv[i].x);
+                    data.push_back(uv[i].y);
                 }
-                if (Normals.size() > 0)
-                {
-                    data.push_back(Normals[i].x);
-                    data.push_back(Normals[i].y);
-                    data.push_back(Normals[i].z);
+                if (!normals.empty()) {
+                    data.push_back(normals[i].x);
+                    data.push_back(normals[i].y);
+                    data.push_back(normals[i].z);
                 }
-                if (Tangents.size() > 0)
-                {
-                    data.push_back(Tangents[i].x);
-                    data.push_back(Tangents[i].y);
-                    data.push_back(Tangents[i].z);
+                if (!tangents.empty()) {
+                    data.push_back(tangents[i].x);
+                    data.push_back(tangents[i].y);
+                    data.push_back(tangents[i].z);
                 }
-                if (Bitangents.size() > 0)
-                {
-                    data.push_back(Bitangents[i].x);
-                    data.push_back(Bitangents[i].y);
-                    data.push_back(Bitangents[i].z);
+                if (!bitangents.empty()) {
+                    data.push_back(bitangents[i].x);
+                    data.push_back(bitangents[i].y);
+                    data.push_back(bitangents[i].z);
                 }
             }
         }
-        else
-        {
-            // if any of the float arrays are empty, data won't be filled by them.
-            for (int i = 0; i < Positions.size(); ++i)
-            {
-                data.push_back(Positions[i].x);
-                data.push_back(Positions[i].y);
-                data.push_back(Positions[i].z);
+        else {
+            for (auto & position : positions) {
+                data.push_back(position.x);
+                data.push_back(position.y);
+                data.push_back(position.z);
             }
-            for (int i = 0; i < UV.size(); ++i)
-            {
-                data.push_back(UV[i].x);
-                data.push_back(UV[i].y);
+
+            for (auto & i : uv) {
+                data.push_back(i.x);
+                data.push_back(i.y);
             }
-            for (int i = 0; i < Normals.size(); ++i)
-            {
-                data.push_back(Normals[i].x);
-                data.push_back(Normals[i].y);
-                data.push_back(Normals[i].z);
+
+            for (auto & normal : normals) {
+                data.push_back(normal.x);
+                data.push_back(normal.y);
+                data.push_back(normal.z);
             }
-            for (int i = 0; i < Tangents.size(); ++i)
-            {
-                data.push_back(Tangents[i].x);
-                data.push_back(Tangents[i].y);
-                data.push_back(Tangents[i].z);
+
+            for (auto & tangent : tangents) {
+                data.push_back(tangent.x);
+                data.push_back(tangent.y);
+                data.push_back(tangent.z);
             }
-            for (int i = 0; i < Bitangents.size(); ++i)
-            {
-                data.push_back(Bitangents[i].x);
-                data.push_back(Bitangents[i].y);
-                data.push_back(Bitangents[i].z);
+
+            for (auto & bitangent : bitangents) {
+                data.push_back(bitangent.x);
+                data.push_back(bitangent.y);
+                data.push_back(bitangent.z);
             }
         }
 
@@ -113,80 +113,117 @@ namespace Dream {
         glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
         glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), &data[0], GL_STATIC_DRAW);
         // only fill the index buffer if the index array is non-empty.
-        if (Indices.size() > 0)
-        {
+        if (indices.size() > 0) {
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices.size() * sizeof(unsigned int), &Indices[0], GL_STATIC_DRAW);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
         }
-        if (interleaved)
-        {
+        if (interleaved) {
             // calculate stride from number of non-empty vertex attribute arrays
-            size_t stride                      = 3 * sizeof(float);
-            if (UV.size() > 0)         stride += 2 * sizeof(float);
-            if (Normals.size() > 0)    stride += 3 * sizeof(float);
-            if (Tangents.size() > 0)   stride += 3 * sizeof(float);
-            if (Bitangents.size() > 0) stride += 3 * sizeof(float);
+            size_t stride = 3 * sizeof(float);
+
+            if (!uv.empty()) {
+                stride += 2 * sizeof(float);
+            }
+
+            if (!normals.empty()) {
+                stride += 3 * sizeof(float);
+            }
+
+            if (!tangents.empty()) {
+                stride += 3 * sizeof(float);
+            }
+
+            if (!bitangents.empty()) {
+                stride += 3 * sizeof(float);
+            }
 
             size_t offset = 0;
             glEnableVertexAttribArray(0);
             glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
             offset += 3 * sizeof(float);
-            if (UV.size() > 0)
-            {
+            if (!uv.empty()) {
                 glEnableVertexAttribArray(1);
                 glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
                 offset += 2 * sizeof(float);
             }
-            if (Normals.size() > 0)
-            {
+            if (!normals.empty()) {
                 glEnableVertexAttribArray(2);
                 glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
                 offset += 3 * sizeof(float);
             }
-            if (Tangents.size() > 0)
-            {
+            if (!tangents.empty()) {
                 glEnableVertexAttribArray(3);
                 glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
                 offset += 3 * sizeof(float);
             }
-            if (Bitangents.size() > 0)
-            {
+            if (!bitangents.empty()) {
                 glEnableVertexAttribArray(4);
                 glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
                 offset += 3 * sizeof(float);
             }
         }
-        else
-        {
+        else {
             size_t offset = 0;
             glEnableVertexAttribArray(0);
             glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)offset);
-            offset += Positions.size() * sizeof(float);
-            if (UV.size() > 0)
-            {
+            offset += positions.size() * sizeof(float);
+            if (!uv.empty()) {
                 glEnableVertexAttribArray(1);
                 glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)offset);
-                offset += UV.size() * sizeof(float);
+                offset += uv.size() * sizeof(float);
             }
-            if (Normals.size() > 0)
-            {
+            if (!normals.empty()) {
                 glEnableVertexAttribArray(2);
                 glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)offset);
-                offset += Normals.size() * sizeof(float);
+                offset += normals.size() * sizeof(float);
             }
-            if (Tangents.size() > 0)
-            {
+            if (!tangents.empty()) {
                 glEnableVertexAttribArray(3);
                 glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)offset);
-                offset += Tangents.size() * sizeof(float);
+                offset += tangents.size() * sizeof(float);
             }
-            if (Bitangents.size() > 0)
-            {
+            if (!bitangents.empty()) {
                 glEnableVertexAttribArray(4);
                 glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)offset);
-                offset += Bitangents.size() * sizeof(float);
+                offset += bitangents.size() * sizeof(float);
             }
         }
         glBindVertexArray(0);
+    }
+
+    unsigned int OpenGLMesh::getVAO() {
+        return m_VAO;
+    }
+
+    unsigned int OpenGLMesh::getVBO() {
+        return m_VBO;
+    }
+
+    unsigned int OpenGLMesh::getEBO() {
+        return m_EBO;
+    }
+
+    std::vector<glm::vec3> OpenGLMesh::getPositions() {
+        return positions;
+    }
+
+    std::vector<glm::vec2> OpenGLMesh::getUVs() {
+        return uv;
+    }
+
+    std::vector<glm::vec3> OpenGLMesh::getNormals() {
+        return normals;
+    }
+
+    std::vector<glm::vec3> OpenGLMesh::getTangents() {
+        return tangents;
+    }
+
+    std::vector<glm::vec3> OpenGLMesh::getBitangents() {
+        return bitangents;
+    }
+
+    std::vector<unsigned int> OpenGLMesh::getIndices() {
+        return indices;
     }
 }

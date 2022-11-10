@@ -12,26 +12,33 @@
 namespace Dream {
     class OpenGLMesh {
     public:
-        unsigned int m_VAO = 0;
-        unsigned int m_VBO;
-        unsigned int m_EBO;
-    public:
-        std::vector<glm::vec3> Positions;
-        std::vector<glm::vec2> UV;
-        std::vector<glm::vec3> Normals;
-        std::vector<glm::vec3> Tangents;
-        std::vector<glm::vec3> Bitangents;
-        std::vector<unsigned int> Indices;
-    public:
         OpenGLMesh();
-
+        OpenGLMesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> uv, std::vector<glm::vec3> normals);
         void setPositions(std::vector<glm::vec3> positions);
         void setUVs(std::vector<glm::vec2> uv);
         void setNormals(std::vector<glm::vec3> normals);
-        void setTangents(std::vector<glm::vec3> tangents, std::vector<glm::vec3> bitangents);
-
-        // commits all buffers and attributes to the GPU driver
+        void setTangents(std::vector<glm::vec3> tangents);
+        void setBitangents(std::vector<glm::vec3> bitangents);
+        std::vector<glm::vec3> getPositions();
+        std::vector<glm::vec2> getUVs();
+        std::vector<glm::vec3> getNormals();
+        std::vector<glm::vec3> getTangents();
+        std::vector<glm::vec3> getBitangents();
+        unsigned int getVAO();
+        unsigned int getVBO();
+        unsigned int getEBO();
+        std::vector<unsigned int> getIndices();
         void finalize(bool interleaved = true);
+    protected:
+        unsigned int m_VAO = 0;
+        unsigned int m_VBO;
+        unsigned int m_EBO;
+        std::vector<glm::vec3> positions;
+        std::vector<glm::vec2> uv;
+        std::vector<glm::vec3> normals;
+        std::vector<glm::vec3> tangents;
+        std::vector<glm::vec3> bitangents;
+        std::vector<unsigned int> indices;
     };
 }
 
