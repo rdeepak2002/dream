@@ -5,158 +5,49 @@
 #include "dream/renderer/OpenGLTexture.h"
 
 #include <cassert>
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb/stb_image.h>
 
 namespace Dream
 {
-    // --------------------------------------------------------------------------------------------
-    OpenGLTexture::OpenGLTexture()
+    OpenGLTexture::OpenGLTexture(std::string texturePath, GLenum internalFormat, GLenum format)
     {
-
+        glGenTextures(1, &id);
+        this->bind();
+        stbi_set_flip_vertically_on_load(true);
+        unsigned char *data = stbi_load(texturePath.c_str(), &width, &height, &nrChannels, 0);
+        if (data)
+        {
+            glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+            // set the texture wrapping parameters
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+            // set texture filtering parameters
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glGenerateMipmap(GL_TEXTURE_2D);
+        }
+        else
+        {
+            std::cout << "Failed to load texture" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        stbi_image_free(data);
     }
-    // --------------------------------------------------------------------------------------------
+
     OpenGLTexture::~OpenGLTexture()
     {
 
     }
-    // --------------------------------------------------------------------------------------------
-    void OpenGLTexture::Generate(unsigned int width, GLenum internalFormat, GLenum format, GLenum type, void* data)
-    {
-        glGenTextures(1, &ID);
 
-        Width          = width;
-        Height         = 0;
-        Depth          = 0;
-        InternalFormat = internalFormat;
-        Format         = format;
-        Type           = type;
-
-        assert(Target == GL_TEXTURE_1D);
-        Bind();
-        glTexImage1D(Target, 0, internalFormat, width, 0, format, type, data);
-        glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, FilterMin);
-        glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, FilterMax);
-        glTexParameteri(Target, GL_TEXTURE_WRAP_S, WrapS);
-        if(Mipmapping)
-            glGenerateMipmap(Target);
-        Unbind();
-    }
-    // --------------------------------------------------------------------------------------------
-    void OpenGLTexture::Generate(unsigned int width, unsigned int height, GLenum internalFormat, GLenum format, GLenum type, void* data)
-    {
-        glGenTextures(1, &ID);
-
-        Width          = width;
-        Height         = height;
-        Depth          = 0;
-        InternalFormat = internalFormat;
-        Format         = format;
-        Type           = type;
-
-        assert(Target == GL_TEXTURE_2D);
-        Bind();
-        glTexImage2D(Target, 0, internalFormat, width, height, 0, format, type, data);
-        glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, FilterMin);
-        glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, FilterMax);
-        glTexParameteri(Target, GL_TEXTURE_WRAP_S, WrapS);
-        glTexParameteri(Target, GL_TEXTURE_WRAP_T, WrapT);
-        if (Mipmapping)
-            glGenerateMipmap(Target);
-        Unbind();
-    }
-    // --------------------------------------------------------------------------------------------
-    void OpenGLTexture::Generate(unsigned int width, unsigned int height, unsigned int depth, GLenum internalFormat, GLenum format, GLenum type, void* data)
-    {
-        glGenTextures(1, &ID);
-
-        Width          = width;
-        Height         = height;
-        Depth          = depth;
-        InternalFormat = internalFormat;
-        Format         = format;
-        Type           = type;
-
-        assert(Target == GL_TEXTURE_3D);
-        Bind();
-        glTexImage3D(Target, 0, internalFormat, width, height, depth, 0, format, type, data);
-        glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, FilterMin);
-        glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, FilterMax);
-        glTexParameteri(Target, GL_TEXTURE_WRAP_S, WrapS);
-        glTexParameteri(Target, GL_TEXTURE_WRAP_T, WrapT);
-        glTexParameteri(Target, GL_TEXTURE_WRAP_R, WrapR);
-        if (Mipmapping)
-            glGenerateMipmap(Target);
-        Unbind();
-    }
-    // --------------------------------------------------------------------------------------------
-    void OpenGLTexture::Resize(unsigned int width, unsigned int height, unsigned int depth)
-    {
-        Bind();
-        if (Target == GL_TEXTURE_1D)
-        {
-            glTexImage1D(GL_TEXTURE_1D, 0, InternalFormat, width, 0, Format, Type, 0);
-        }
-        else if (Target == GL_TEXTURE_2D)
-        {
-            assert(height > 0);
-            glTexImage2D(GL_TEXTURE_2D, 0, InternalFormat, width, height, 0, Format, Type, 0);
-        }
-        else if (Target == GL_TEXTURE_3D)
-        {
-            assert(height > 0 && depth > 0);
-            glTexImage3D(GL_TEXTURE_3D, 0, InternalFormat, width, height, depth, 0, Format, Type, 0);
-        }
-    }
-    // --------------------------------------------------------------------------------------------
-    void OpenGLTexture::Bind(int unit)
+    void OpenGLTexture::bind(int unit)
     {
         if(unit >= 0)
             glActiveTexture(GL_TEXTURE0 + unit);
-        glBindTexture(Target, ID);
+        glBindTexture(GL_TEXTURE_2D, id);
     }
-    // --------------------------------------------------------------------------------------------
-    void OpenGLTexture::Unbind()
-    {
-        glBindTexture(Target, 0);
-    }
-    // --------------------------------------------------------------------------------------------
-    void OpenGLTexture::SetWrapMode(GLenum wrapMode, bool bind)
-    {
-        if(bind)
-            Bind();
-        if (Target == GL_TEXTURE_1D)
-        {
-            WrapS = wrapMode;
-            glTexParameteri(Target, GL_TEXTURE_WRAP_S, wrapMode);
-        }
-        else if (Target == GL_TEXTURE_2D)
-        {
-            WrapS = wrapMode;
-            WrapT = wrapMode;
-            glTexParameteri(Target, GL_TEXTURE_WRAP_S, wrapMode);
-            glTexParameteri(Target, GL_TEXTURE_WRAP_T, wrapMode);
-        }
-        else if (Target == GL_TEXTURE_3D)
-        {
-            WrapS = wrapMode;
-            WrapT = wrapMode;
-            WrapR = wrapMode;
-            glTexParameteri(Target, GL_TEXTURE_WRAP_S, wrapMode);
-            glTexParameteri(Target, GL_TEXTURE_WRAP_T, wrapMode);
-            glTexParameteri(Target, GL_TEXTURE_WRAP_R, wrapMode);
-        }
-    }
-    // --------------------------------------------------------------------------------------------
-    void OpenGLTexture::SetFilterMin(GLenum filter, bool bind)
-    {
-        if(bind)
-            Bind();
-        glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, filter);
-    }
-    // --------------------------------------------------------------------------------------------
-    void OpenGLTexture::SetFilterMax(GLenum filter, bool bind)
-    {
-        if (bind)
-            Bind();
-        glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, filter);
+
+    void OpenGLTexture::unbind() {
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 }
