@@ -9,6 +9,8 @@
 #include "dream/renderer/OpenGLShader.h"
 #include "dream/renderer/OpenGLFrameBuffer.h"
 #include "dream/renderer/OpenGLTexture.h"
+#include "dream/renderer/OpenGLMesh.h"
+#include "dream/renderer/OpenGLSphereMesh.h"
 
 namespace Dream {
     class OpenGLRenderer : public Renderer {
@@ -22,7 +24,8 @@ namespace Dream {
         OpenGLFrameBuffer* frameBuffer;
         OpenGLTexture* texture1;
         OpenGLTexture* texture2;
-        unsigned int VBO, VAO;
+        OpenGLMesh* cubeMesh;
+//        unsigned int VBO, VAO;
         void resizeFrameBuffer();
         void printGLVersion();
         void updateViewportSize(int viewportWidth, int viewportHeight, bool fullscreen);

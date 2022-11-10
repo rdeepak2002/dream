@@ -18,66 +18,67 @@ namespace Dream {
                                   Project::getPath().append("assets").append("shaders").append("shader.frag").c_str(),
                                   nullptr);
 
-        // set up vertex data (and buffer(s)) and configure vertex attributes
-        // ------------------------------------------------------------------
-        float vertices[] = {
-                -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-                0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-                0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-                0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-                -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-                -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-                -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-                0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-                0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-                0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-                -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-                -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-                -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-                -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-                -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-                -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-                -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-                -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-                0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-                0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-                0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-                0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-                0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-                0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-                -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-                0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-                0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-                0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-                -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-                -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-                -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-                0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-                0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-                0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-                -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-                -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-        };
-
-        glGenVertexArrays(1, &VAO);
-        glGenBuffers(1, &VBO);
-
-        glBindVertexArray(VAO);
-
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-        // position attribute
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
-        // texture coord attribute
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-        glEnableVertexAttribArray(1);
+        cubeMesh = new OpenGLSphereMesh();
+//        // set up vertex data (and buffer(s)) and configure vertex attributes
+//        // ------------------------------------------------------------------
+//        float vertices[] = {
+//                -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+//                0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+//                0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+//                0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+//                -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+//                -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+//
+//                -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+//                0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+//                0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+//                0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+//                -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+//                -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+//
+//                -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+//                -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+//                -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+//                -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+//                -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+//                -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+//
+//                0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+//                0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+//                0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+//                0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+//                0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+//                0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+//
+//                -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+//                0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+//                0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+//                0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+//                -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+//                -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+//
+//                -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+//                0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+//                0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+//                0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+//                -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+//                -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+//        };
+//
+//        glGenVertexArrays(1, &VAO);
+//        glGenBuffers(1, &VBO);
+//
+//        glBindVertexArray(VAO);
+//
+//        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+//
+//        // position attribute
+//        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+//        glEnableVertexAttribArray(0);
+//        // texture coord attribute
+//        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+//        glEnableVertexAttribArray(1);
 
         texture1 = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("container.jpg"), GL_RGB, GL_RGB);
         texture2 = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("awesomeface.png"), GL_RGBA, GL_RGBA);
@@ -116,7 +117,7 @@ namespace Dream {
 
         // bind textures on corresponding texture units
         texture1->bind(0);
-        texture2->bind(1);
+//        texture2->bind(1);
 
         // activate shader
         shader->use();
@@ -138,8 +139,14 @@ namespace Dream {
         shader->setMat4("projection", projection);
 
         // render box
+//        glBindVertexArray(VAO);
+//        glDrawArrays(GL_TRIANGLES, 0, 36);
+        auto VAO = cubeMesh->m_VAO;
+        auto VBO = cubeMesh->m_VBO;
+        auto numIndices = cubeMesh->Indices.size();
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
+//        glBindVertexArray(0);
 
         this->postRender(fullscreen);
     }
