@@ -8,6 +8,7 @@
 #include "dream/renderer/Renderer.h"
 #include "dream/renderer/OpenGLShader.h"
 #include "dream/renderer/OpenGLFrameBuffer.h"
+#include "dream/renderer/OpenGLTexture.h"
 
 namespace Dream {
     class OpenGLRenderer : public Renderer {

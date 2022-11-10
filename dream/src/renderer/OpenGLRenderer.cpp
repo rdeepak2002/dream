@@ -8,16 +8,8 @@
 #include <stb/stb_image.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glad/glad.h>
 #include "dream/Project.h"
-
-#ifdef EMSCRIPTEN
-#include <emscripten.h>
-#define GL_GLEXT_PROTOTYPES
-#define EGL_EGLEXT_PROTOTYPES
-#include <glad/glad.h>
-#else
-#include <glad/glad.h>
-#endif
 
 namespace Dream {
     OpenGLRenderer::OpenGLRenderer() : Renderer() {

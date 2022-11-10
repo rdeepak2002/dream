@@ -4,17 +4,9 @@
 
 #include "dream/renderer/OpenGLFrameBuffer.h"
 
-#ifdef EMSCRIPTEN
-#include <emscripten.h>
-#define GL_GLEXT_PROTOTYPES
-#define EGL_EGLEXT_PROTOTYPES
-#include <glad/glad.h>
-#else
-#include <glad/glad.h>
-#endif
-
-#include "dream/Project.h"
 #include <iostream>
+#include <glad/glad.h>
+#include "dream/Project.h"
 
 Dream::OpenGLFrameBuffer::OpenGLFrameBuffer() {
     screenShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("screen_shader.vert").c_str(),
