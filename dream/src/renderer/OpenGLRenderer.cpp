@@ -10,6 +10,7 @@
 #include "dream/Project.h"
 #include "dream/scene/Scene.h"
 #include "dream/scene/Entity.h"
+#include "dream/scene/component/Component.h"
 #include "dream/renderer/OpenGLMesh.h"
 
 namespace Dream {
@@ -23,7 +24,7 @@ namespace Dream {
 
 //        mesh = new OpenGLSphereMesh();
 //        mesh = new OpenGLCubeMesh();
-        mesh = new OpenGLMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
+//        mesh = new OpenGLMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
         texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("container.jpg"), GL_RGB, GL_RGB);
 
         // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
@@ -39,7 +40,7 @@ namespace Dream {
         delete this->shader;
         delete this->frameBuffer;
         delete this->texture;
-        delete this->mesh;
+//        delete this->mesh;
     }
 
     void OpenGLRenderer::preRender(int viewportWidth, int viewportHeight, bool fullscreen) {
@@ -82,26 +83,31 @@ namespace Dream {
         shader->setMat4("projection", projection);
 
         // render mesh
-        auto* openGLMesh = dynamic_cast<OpenGLMesh*>(mesh);
-        if (openGLMesh) {
-            if (!openGLMesh->getIndices().empty()) {
-                // case where vertices are indexed
-                auto numIndices = openGLMesh->getIndices().size();
-                glBindVertexArray(openGLMesh->getVAO());
-                glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
-                glBindVertexArray(0);
-            } else if (!openGLMesh->getPositions().empty()) {
-                // case where vertices are not indexed
-                glBindVertexArray(openGLMesh->getVAO());
-                glDrawArrays(GL_TRIANGLES, 0, openGLMesh->getPositions().size());
-                glBindVertexArray(0);
+        auto meshEntities = Project::getInstance().getScene().getEntitiesWithComponents<Component::MeshComponent>();
+        for(auto entityHandle : meshEntities) {
+            Entity entity = {entityHandle, &Project::getInstance().getScene()};
+            auto mesh = entity.getComponent<Component::MeshComponent>().mesh;
+            auto* openGLMesh = dynamic_cast<OpenGLMesh*>(mesh);
+            if (openGLMesh) {
+                if (!openGLMesh->getIndices().empty()) {
+                    // case where vertices are indexed
+                    auto numIndices = openGLMesh->getIndices().size();
+                    glBindVertexArray(openGLMesh->getVAO());
+                    glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
+                    glBindVertexArray(0);
+                } else if (!openGLMesh->getPositions().empty()) {
+                    // case where vertices are not indexed
+                    glBindVertexArray(openGLMesh->getVAO());
+                    glDrawArrays(GL_TRIANGLES, 0, openGLMesh->getPositions().size());
+                    glBindVertexArray(0);
+                } else {
+                    std::cout << "Unable to render mesh" << std::endl;
+                    exit(EXIT_FAILURE);
+                }
             } else {
-                std::cout << "Unable to render mesh" << std::endl;
+                std::cout << "Mesh cannot be rendered in OpenGL" << std::endl;
                 exit(EXIT_FAILURE);
             }
-        } else {
-            std::cout << "Mesh cannot be rendered in OpenGL" << std::endl;
-            exit(EXIT_FAILURE);
         }
 
         this->postRender(fullscreen);

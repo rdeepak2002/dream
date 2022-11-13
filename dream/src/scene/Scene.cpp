@@ -3,7 +3,7 @@
 //
 
 #include "dream/scene/Scene.h"
-#include "dream/scene/Component.h"
+#include "dream/scene/component/Component.h"
 #include "dream/scene/Entity.h"
 
 namespace Dream {
@@ -39,11 +39,6 @@ namespace Dream {
 
     void Scene::fixedUpdate() {
         // TODO: populate this
-    }
-
-    template<typename... Components>
-    auto Scene::getEntitiesWithComponents() {
-        return entityRegistry.view<Components ...>();
     }
 
     Entity Scene::getRootEntity() {

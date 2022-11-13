@@ -24,7 +24,6 @@ namespace Dream {
         OpenGLShader *shader;
         OpenGLFrameBuffer* frameBuffer;
         OpenGLTexture* texture;
-        Mesh* mesh;
         void resizeFrameBuffer();
         void printGLVersion();
         void updateViewportSize(int viewportWidth, int viewportHeight, bool fullscreen);

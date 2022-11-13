@@ -6,8 +6,7 @@
 
 #include <imgui.h>
 #include <imgui_internal.h>
-#include "dream/Project.h"
-#include "dream/scene/Component.h"
+#include "dream/scene/component/Component.h"
 
 Dream::ImGuiEditorInspectorView::ImGuiEditorInspectorView() {
     selectedEntity = Entity();

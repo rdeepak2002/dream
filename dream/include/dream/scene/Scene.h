@@ -19,7 +19,9 @@ namespace Dream {
         void update();
         void fixedUpdate();
         template<typename... Components>
-        auto getEntitiesWithComponents();
+        auto getEntitiesWithComponents() {
+            return entityRegistry.view<Components ...>();
+        }
         Entity getRootEntity();
     private:
         entt::registry entityRegistry;

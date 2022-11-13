@@ -4,14 +4,10 @@
 
 #include "dream/editor/ImGuiEditor.h"
 
-#include <iostream>
 #include <filesystem>
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <stack>
-#include "dream/Project.h"
-#include "dream/scene/Entity.h"
-#include "dream/scene/Component.h"
 
 namespace Dream {
     ImGuiEditor::ImGuiEditor(Dream::Window *window) : Editor(window) {

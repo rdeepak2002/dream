@@ -7,8 +7,8 @@
 #include "dream/renderer/OpenGLRenderer.h"
 #include "dream/editor/ImGuiSDL2OpenGLEditor.h"
 #include "dream/window/SDL2OpenGLWindow.h"
-#include "dream/scene/Entity.h"
-#include "dream/scene/Component.h"
+#include "dream/scene/component/Component.h"
+#include "dream/renderer/OpenGLCubeMesh.h"
 #include <iostream>
 #include <filesystem>
 
@@ -21,7 +21,11 @@ namespace Dream {
 
         // TODO: load from project's scene file
         auto sphereEntity = Project::getInstance().getScene().createEntity("Sphere");
+        sphereEntity.addComponent<Component::MeshComponent>(new OpenGLSphereMesh());
         auto cubeEntity = Project::getInstance().getScene().createEntity("Cube");
+        cubeEntity.addComponent<Component::MeshComponent>(new OpenGLCubeMesh());
+        auto teapotEntity = Project::getInstance().getScene().createEntity("Teapot");
+        teapotEntity.addComponent<Component::MeshComponent>(new OpenGLMesh(Project::getPath().append("assets").append("models").append("teapot.stl")));
     }
 
     Application::~Application() {

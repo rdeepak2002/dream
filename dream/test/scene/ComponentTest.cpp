@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include "dream/scene/Entity.h"
 #include "dream/scene/Scene.h"
-#include "dream/scene/Component.h"
+#include "dream/scene/component/Component.h"
 #include "dream/Project.h"
 
 TEST(HierarchyComponentTest, AddChild) {

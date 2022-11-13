@@ -3,7 +3,7 @@
 //
 
 #include "dream/scene/Entity.h"
-#include "dream/scene/Component.h"
+#include "dream/scene/component/Component.h"
 
 namespace Dream {
     Entity::Entity() {
