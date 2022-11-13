@@ -8,6 +8,7 @@
 #include <filesystem>
 #include <imgui.h>
 #include <imgui_internal.h>
+#include <stack>
 #include "dream/Project.h"
 #include "dream/scene/Entity.h"
 #include "dream/scene/Component.h"
@@ -136,24 +137,22 @@ namespace Dream {
         scene_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
         ImGui::SetNextWindowClass(&scene_window_class);
         ImGui::Begin("Scene");
-        // render entities
-        // TODO: use stack to make this recursive
+        // render scene hierarchy
+        std::stack<Entity> sceneEntities;
         Entity rootEntity = Project::getInstance().getScene().getRootEntity();
         std::string rootEntityTag = rootEntity.getComponent<Component::TagComponent>().tag;
-        std::vector<entt::entity> children = rootEntity.getComponent<Component::HierarchyComponent>().children;
-        if (ImGui::TreeNode(rootEntityTag.c_str())) {
-            for (auto child : children) {
-                auto childEntity = Entity(child, rootEntity.scene);
-                auto numGrandchildren = childEntity.getComponent<Component::HierarchyComponent>().children.size();
-                std::string childEntityTag = childEntity.getComponent<Component::TagComponent>().tag;
-                if (numGrandchildren == 0) {
-                    ImGui::Text("%s", childEntityTag.c_str());
-                } else if (ImGui::TreeNode(childEntityTag.c_str())) {
-                    ImGui::TreePop();
+        sceneEntities.push(rootEntity);
+        while (!sceneEntities.empty()) {
+            Entity topEntity = sceneEntities.top();
+            sceneEntities.pop();
+            if (ImGui::TreeNode(topEntity.getComponent<Component::TagComponent>().tag.c_str())) {
+                Entity child = topEntity.getComponent<Component::HierarchyComponent>().first;
+                while (child) {
+                    sceneEntities.push(child);
+                    child = child.getComponent<Component::HierarchyComponent>().next;
                 }
+                ImGui::TreePop();
             }
-
-            ImGui::TreePop();
         }
         ImGui::End();
 

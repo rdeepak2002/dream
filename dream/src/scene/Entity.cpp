@@ -3,6 +3,7 @@
 //
 
 #include "dream/scene/Entity.h"
+#include "dream/scene/Component.h"
 
 namespace Dream {
     Entity::Entity() {
@@ -28,5 +29,13 @@ namespace Dream {
 
     Entity::operator entt::entity() const {
         return entityHandle;
+    }
+
+    void Entity::addChild(Entity entity) {
+        getComponent<Component::HierarchyComponent>().addChild(entity, *this);
+    }
+
+    int Entity::numChildren() {
+        return getComponent<Component::HierarchyComponent>().numChildren();
     }
 }

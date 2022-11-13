@@ -28,8 +28,7 @@ namespace Dream {
         entity.addComponent<Component::HierarchyComponent>();
         // make new entity child of root
         if (!rootEntity) {
-            auto &rootHierarchy = getRootEntity().getComponent<Component::HierarchyComponent>();
-            rootHierarchy.addChild(entity.entityHandle);
+            getRootEntity().addChild(entity);
         }
         return entity;
     }

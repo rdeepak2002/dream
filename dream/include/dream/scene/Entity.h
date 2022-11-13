@@ -44,6 +44,8 @@ namespace Dream {
             }
             scene->entityRegistry.remove<T>(entityHandle);
         }
+        void addChild(Entity entity);
+        int numChildren();
         explicit operator bool() const;
         explicit operator entt::entity() const;
         bool operator==(const Entity& other) const;
