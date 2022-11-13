@@ -8,6 +8,9 @@
 #include "dream/scene/component/Component.h"
 #include "dream/Project.h"
 
+/**
+ * Test HierarchyComponent addChild()
+ */
 TEST(HierarchyComponentTest, AddChild) {
     auto entityA = Dream::Project::getInstance().getScene().createEntity("A");
     auto entityB = Dream::Project::getInstance().getScene().createEntity("B");
@@ -60,4 +63,4 @@ TEST(HierarchyComponentTest, AddChild) {
     EXPECT_EQ(entityC.numChildren(), 0);
 }
 
-// TODO: test for remove child
+// TODO: test HierarchyComponent removeChild()

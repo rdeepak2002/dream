@@ -66,26 +66,28 @@ namespace Dream {
         shader->use();
 
         // create transformations
-        glm::mat4 model         = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         glm::mat4 view          = glm::mat4(1.0f);
         glm::mat4 projection    = glm::mat4(1.0f);
-        model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
-        model = glm::rotate(model, float(10.0), glm::vec3(0.5f, 1.0f, 0.0f));
         view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
         projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
         // retrieve the matrix uniform locations
         unsigned int modelLoc = glGetUniformLocation(shader->ID, "model");
         unsigned int viewLoc  = glGetUniformLocation(shader->ID, "view");
         // pass them to the shaders (3 different ways)
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
         // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
         shader->setMat4("projection", projection);
 
-        // render mesh
+        // draw all entities with meshes
         auto meshEntities = Project::getInstance().getScene().getEntitiesWithComponents<Component::MeshComponent>();
         for(auto entityHandle : meshEntities) {
             Entity entity = {entityHandle, &Project::getInstance().getScene()};
+
+            // get transform of entity
+            glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform();
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+            // draw mesh of entity
             auto mesh = entity.getComponent<Component::MeshComponent>().mesh;
             auto* openGLMesh = dynamic_cast<OpenGLMesh*>(mesh);
             if (openGLMesh) {

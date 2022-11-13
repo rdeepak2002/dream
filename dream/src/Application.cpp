@@ -22,9 +22,15 @@ namespace Dream {
         // TODO: load from project's scene file
         auto sphereEntity = Project::getInstance().getScene().createEntity("Sphere");
         sphereEntity.addComponent<Component::MeshComponent>(new OpenGLSphereMesh());
+        sphereEntity.getComponent<Component::TransformComponent>().translation = {-0.5, -0.7, 0};
+        sphereEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
         auto cubeEntity = Project::getInstance().getScene().createEntity("Cube");
         cubeEntity.addComponent<Component::MeshComponent>(new OpenGLCubeMesh());
+        cubeEntity.getComponent<Component::TransformComponent>().translation = {1, 0.7, 0};
+        cubeEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
         auto teapotEntity = Project::getInstance().getScene().createEntity("Teapot");
+        teapotEntity.getComponent<Component::TransformComponent>().translation = {0, 0, 0};
+        teapotEntity.getComponent<Component::TransformComponent>().scale = {0.05, 0.05, 0.05};
         teapotEntity.addComponent<Component::MeshComponent>(new OpenGLMesh(Project::getPath().append("assets").append("models").append("teapot.stl")));
     }
 
