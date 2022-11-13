@@ -1,11 +1,15 @@
 #include "dream/Application.h"
 #include <iostream>
 
+#ifndef EMSCRIPTEN
+#include <gtest/gtest.h>
+#endif
+
 #ifdef EMSCRIPTEN
 #include "emscripten.h"
 #endif
 
-auto* application = new Dream::Application();
+Dream::Application* application = nullptr;
 
 void mainLoop() {
     #ifdef EMSCRIPTEN
@@ -25,8 +29,14 @@ void startUpdateLoop() {
     #endif
 }
 
-int main(int ArgCount, char **Args)
-{
+int main(int ArgCount, char **Args) {
+#ifndef EMSCRIPTEN
+    std::cout << Args[0] << std::endl;
+    ::testing::InitGoogleTest(&ArgCount, Args);
+    RUN_ALL_TESTS();
+#endif
+
+    application = new Dream::Application();
     startUpdateLoop();
     delete application;
     return EXIT_SUCCESS;

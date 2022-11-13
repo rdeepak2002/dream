@@ -19,51 +19,9 @@ namespace Dream {
         this->renderer = new OpenGLRenderer();
         this->editor = new ImGuiSDL2OpenGLEditor(this->window);
 
-        // TODO: make this unit test
-        auto entityA = Project::getInstance().getScene().createEntity("A");
-        auto entityB = Project::getInstance().getScene().createEntity("B");
-        auto entityC = Project::getInstance().getScene().createEntity("C");
-        // check root entity
-        Entity rootEntity = entityA.scene->getRootEntity();
-        assert(rootEntity.numChildren() == 3);
-        assert(rootEntity.getComponent<Component::HierarchyComponent>().first == entityC);
-        assert(rootEntity.getComponent<Component::HierarchyComponent>().first.getComponent<Component::HierarchyComponent>().next == entityB);
-        assert(rootEntity.getComponent<Component::HierarchyComponent>().first.getComponent<Component::HierarchyComponent>().next.getComponent<Component::HierarchyComponent>().next == entityA);
-        // check entity A
-        assert(entityA.numChildren() == 0);
-        assert(rootEntity == entityA.getComponent<Component::HierarchyComponent>().parent);
-        assert(!entityA.getComponent<Component::HierarchyComponent>().first);
-        assert(!entityA.getComponent<Component::HierarchyComponent>().next);
-        assert(entityA.getComponent<Component::HierarchyComponent>().prev == entityB);
-        // check entity B
-        assert(entityB.numChildren() == 0);
-        assert(rootEntity == entityB.getComponent<Component::HierarchyComponent>().parent);
-        assert(!entityB.getComponent<Component::HierarchyComponent>().first);
-        assert(entityB.getComponent<Component::HierarchyComponent>().next == entityA);
-        assert(entityB.getComponent<Component::HierarchyComponent>().prev == entityC);
-        // check entity C
-        assert(entityC.numChildren() == 0);
-        assert(rootEntity == entityC.getComponent<Component::HierarchyComponent>().parent);
-        assert(!entityC.getComponent<Component::HierarchyComponent>().first);
-        assert(entityC.getComponent<Component::HierarchyComponent>().next == entityB);
-        assert(!entityC.getComponent<Component::HierarchyComponent>().prev);
-        // make entity C child of entity A
-        entityA.addChild(entityC);
-        // check sizes
-        assert(rootEntity.numChildren() == 2);
-        assert(entityA.numChildren() == 1);
-        assert(entityB.numChildren() == 0);
-        // check entity C is only a child of entity A
-        assert(entityA.getComponent<Component::HierarchyComponent>().first == entityC);
-        // make entity C child of entity B
-        entityB.addChild(entityC);
-        // check sizes
-        assert(rootEntity.numChildren() == 2);
-        assert(entityB.numChildren() == 1);
-        assert(entityA.numChildren() == 0);
-        // check entity C is only a child of entity B
-        assert(entityB.getComponent<Component::HierarchyComponent>().first == entityC);
-
+        // TODO: load from project's scene file
+        auto sphereEntity = Project::getInstance().getScene().createEntity("Sphere");
+        auto cubeEntity = Project::getInstance().getScene().createEntity("Cube");
     }
 
     Application::~Application() {
