@@ -22,7 +22,15 @@ namespace Dream {
     }
 
     void ImGuiEditorSceneView::renderSceneViewEntity(Entity &entity) {
-        if (ImGui::TreeNode(entity.getComponent<Component::TagComponent>().tag.c_str())) {
+        std::string tagStr = entity.getComponent<Component::TagComponent>().tag;
+        auto treeNodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_None | ImGuiTreeNodeFlags_SpanFullWidth;
+        if (entity.numChildren() == 0) {
+            treeNodeFlags = treeNodeFlags | ImGuiTreeNodeFlags_Leaf;
+        }
+        if (ImGui::TreeNodeEx(tagStr.c_str(), treeNodeFlags, "%s", tagStr.c_str())) {
+            if (ImGui::IsItemClicked()) {
+                std::cout << "TODO: show entity info in inspector" << std::endl;
+            }
             Entity child = entity.getComponent<Component::HierarchyComponent>().first;
             while (child) {
                 this->renderSceneViewEntity(child);
