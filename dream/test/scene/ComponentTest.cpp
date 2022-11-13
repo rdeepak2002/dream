@@ -2,8 +2,6 @@
 // Created by Deepak Ramalingam on 11/13/22.
 //
 
-#include "dream/test/scene/HierarchyComponentTest.h"
-
 #include <gtest/gtest.h>
 #include "dream/scene/Entity.h"
 #include "dream/scene/Scene.h"

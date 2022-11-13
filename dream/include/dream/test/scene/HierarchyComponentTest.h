@@ -1,8 +1,0 @@
-//
-// Created by Deepak Ramalingam on 11/13/22.
-//
-
-#ifndef DREAM_HIERARCHYCOMPONENTTEST_H
-#define DREAM_HIERARCHYCOMPONENTTEST_H
-
-#endif //DREAM_HIERARCHYCOMPONENTTEST_H
