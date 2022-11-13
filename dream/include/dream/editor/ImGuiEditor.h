@@ -8,10 +8,12 @@
 #include "dream/window/SDL2Window.h"
 #include "dream/window/Window.h"
 #include "dream/editor/Editor.h"
+#include "dream/editor/ImGuiEditorSceneView.h"
 
 namespace Dream {
     class ImGuiEditor : public Editor {
     public:
+        ~ImGuiEditor();
         void update(Dream::Window *window, unsigned int frameBufferTexture) override;
         void style();
         std::pair<int, int> getRendererViewportDimensions() override;
@@ -20,6 +22,8 @@ namespace Dream {
         void newFrame(Dream::Window *window) override;
         void renderDrawData() override;
         int rendererViewportWidth, rendererViewportHeight;
+    private:
+        ImGuiEditorSceneView* sceneView;
     };
 }
 

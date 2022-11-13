@@ -15,6 +15,7 @@
 
 namespace Dream {
     ImGuiEditor::ImGuiEditor(Dream::Window *window) : Editor(window) {
+        this->sceneView = new ImGuiEditorSceneView();
         this->rendererViewportWidth = 520;
         this->rendererViewportHeight = 557;
 
@@ -133,28 +134,7 @@ namespace Dream {
         ImGui::Text(" ");
         ImGui::End();
 
-        ImGuiWindowClass scene_window_class;
-        scene_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
-        ImGui::SetNextWindowClass(&scene_window_class);
-        ImGui::Begin("Scene");
-        // render scene hierarchy
-        std::stack<Entity> sceneEntities;
-        Entity rootEntity = Project::getInstance().getScene().getRootEntity();
-        std::string rootEntityTag = rootEntity.getComponent<Component::TagComponent>().tag;
-        sceneEntities.push(rootEntity);
-        while (!sceneEntities.empty()) {
-            Entity topEntity = sceneEntities.top();
-            sceneEntities.pop();
-            if (ImGui::TreeNode(topEntity.getComponent<Component::TagComponent>().tag.c_str())) {
-                Entity child = topEntity.getComponent<Component::HierarchyComponent>().first;
-                while (child) {
-                    sceneEntities.push(child);
-                    child = child.getComponent<Component::HierarchyComponent>().next;
-                }
-                ImGui::TreePop();
-            }
-        }
-        ImGui::End();
+        sceneView->update();
 
         ImGui::Render();
         this->renderDrawData();
@@ -198,5 +178,9 @@ namespace Dream {
 
     std::pair<int, int> ImGuiEditor::getRendererViewportDimensions() {
         return std::make_pair(this->rendererViewportWidth, this->rendererViewportHeight);
+    }
+
+    ImGuiEditor::~ImGuiEditor() {
+        delete sceneView;
     }
 }
