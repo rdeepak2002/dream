@@ -16,6 +16,8 @@
 namespace Dream {
     ImGuiEditor::ImGuiEditor(Dream::Window *window) : Editor(window) {
         this->sceneView = new ImGuiEditorSceneView();
+        this->inspectorView = new ImGuiEditorInspectorView();
+        this->sceneView->setInspectorView(inspectorView);
         this->rendererViewportWidth = 520;
         this->rendererViewportHeight = 557;
 
@@ -29,6 +31,11 @@ namespace Dream {
 
         // setup Dear ImGui style
         ImGui::StyleColorsDark();
+    }
+
+    ImGuiEditor::~ImGuiEditor() {
+        delete sceneView;
+        delete inspectorView;
     }
 
     void ImGuiEditor::newFrame(Dream::Window *window) {
@@ -113,12 +120,7 @@ namespace Dream {
         ImGui::Image(reinterpret_cast<ImTextureID>(frameBufferTexture), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
         ImGui::End();
 
-        ImGuiWindowClass inspector_window_class;
-        inspector_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
-        ImGui::SetNextWindowClass(&inspector_window_class);
-        ImGui::Begin("Inspector");
-        ImGui::Text(" ");
-        ImGui::End();
+        inspectorView->update();
 
         ImGuiWindowClass project_window_class;
         project_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
@@ -178,9 +180,5 @@ namespace Dream {
 
     std::pair<int, int> ImGuiEditor::getRendererViewportDimensions() {
         return std::make_pair(this->rendererViewportWidth, this->rendererViewportHeight);
-    }
-
-    ImGuiEditor::~ImGuiEditor() {
-        delete sceneView;
     }
 }

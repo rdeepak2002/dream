@@ -9,6 +9,7 @@
 #include "dream/window/Window.h"
 #include "dream/editor/Editor.h"
 #include "dream/editor/ImGuiEditorSceneView.h"
+#include "dream/editor/ImGuiEditorInspectorView.h"
 
 namespace Dream {
     class ImGuiEditor : public Editor {
@@ -24,6 +25,7 @@ namespace Dream {
         int rendererViewportWidth, rendererViewportHeight;
     private:
         ImGuiEditorSceneView* sceneView;
+        ImGuiEditorInspectorView* inspectorView;
     };
 }
 

@@ -10,6 +10,10 @@
 #include "dream/scene/Component.h"
 
 namespace Dream {
+    ImGuiEditorSceneView::ImGuiEditorSceneView() {
+        inspectorView = nullptr;
+    }
+
     void ImGuiEditorSceneView::update() {
         ImGuiWindowClass scene_window_class;
         scene_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
@@ -29,7 +33,9 @@ namespace Dream {
         }
         if (ImGui::TreeNodeEx(tagStr.c_str(), treeNodeFlags, "%s", tagStr.c_str())) {
             if (ImGui::IsItemClicked()) {
-                std::cout << "TODO: show entity info in inspector" << std::endl;
+                if (inspectorView) {
+                    inspectorView->selectEntity(entity);
+                }
             }
             Entity child = entity.getComponent<Component::HierarchyComponent>().first;
             while (child) {
@@ -38,5 +44,9 @@ namespace Dream {
             }
             ImGui::TreePop();
         }
+    }
+
+    void ImGuiEditorSceneView::setInspectorView(ImGuiEditorInspectorView *inspectorView) {
+        this->inspectorView = inspectorView;
     }
 }
