@@ -7,6 +7,7 @@
 #include "dream/renderer/OpenGLRenderer.h"
 #include "dream/editor/ImGuiSDL2OpenGLEditor.h"
 #include "dream/window/SDL2OpenGLWindow.h"
+#include "dream/scene/Entity.h"
 #include <iostream>
 #include <filesystem>
 
@@ -16,6 +17,10 @@ namespace Dream {
         this->window = new SDL2OpenGLWindow();
         this->renderer = new OpenGLRenderer();
         this->editor = new ImGuiSDL2OpenGLEditor(this->window);
+
+        // add dummy entities
+        Project::getInstance().getScene().createEntity("cube");
+        Project::getInstance().getScene().createEntity("sphere");
     }
 
     Application::~Application() {

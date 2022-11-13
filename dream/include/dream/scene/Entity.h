@@ -11,22 +11,43 @@
 namespace Dream {
     class Entity {
     public:
+        entt::entity entityHandle { entt::null };
+        Scene* scene = nullptr;
+        Entity();
         Entity(entt::entity handle, Scene* scene);
         template<typename T, typename ... Args>
-        T& addComponent(Args&& ... args);
+        T& addComponent(Args&&... args) {
+            T& component = scene->entityRegistry.emplace_or_replace<T>(entityHandle, std::forward<Args>(args)...);
+            return component;
+        }
         template<typename T>
-        T& getComponent();
+        T& getComponent() {
+            if (!hasComponent<T>()) {
+                std::cout << "Entity does not have component" << std::endl;
+                exit(1);
+            }
+            return scene->entityRegistry.get<T>(entityHandle);
+        }
         template<typename T>
-        bool hasComponent();
+        bool hasComponent() {
+            if (auto *comp = scene->entityRegistry.try_get<T>(entityHandle)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         template<typename T>
-        void removeComponent();
+        void removeComponent() {
+            if (!hasComponent<T>()) {
+                std::cout << "Entity does not have component" << std::endl;
+                exit(1);
+            }
+            scene->entityRegistry.remove<T>(entityHandle);
+        }
         explicit operator bool() const;
         explicit operator entt::entity() const;
         bool operator==(const Entity& other) const;
         bool operator!=(const Entity& other) const;
-    private:
-        entt::entity entityHandle { entt::null };
-        Scene* scene = nullptr;
     };
 }
 

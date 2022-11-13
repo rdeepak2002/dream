@@ -3,33 +3,61 @@
 //
 
 #include "dream/scene/Scene.h"
+#include "dream/scene/Component.h"
 #include "dream/scene/Entity.h"
 
-Dream::Scene::Scene() {
+namespace Dream {
+    Scene::Scene() {
 
-}
+    }
 
-Dream::Scene::~Scene() {
+    Scene::~Scene() {
 
-}
+    }
 
-Dream::Entity Dream::Scene::createEntity(const std::string &name) {
-    Entity entity = { entityRegistry.create(), this };
-    // TODO: automatically add id component
-    // TODO: automatically add transform component
-    // TODO: automatically add tag component
-    return entity;
-}
+    Entity Dream::Scene::createEntity(const std::string &name, bool rootEntity) {
+        Entity entity = { entityRegistry.create(), this };
+        // TODO: automatically add id component
+        // TODO: automatically add transform component
+        // add tag component to entity
+        auto &tag = entity.addComponent<Component::TagComponent>("Entity");
+        if (!name.empty()) {
+            tag.tag = name;
+        }
+        // add hierarchy component to entity
+        entity.addComponent<Component::HierarchyComponent>();
+        // make new entity child of root
+        if (!rootEntity) {
+            auto &rootHierarchy = getRootEntity().getComponent<Component::HierarchyComponent>();
+            rootHierarchy.addChild(entity.entityHandle);
+        }
+        return entity;
+    }
 
-void Dream::Scene::update() {
-    // TODO: populate this
-}
+    void Scene::update() {
+        // TODO: populate this
+    }
 
-void Dream::Scene::fixedUpdate() {
-    // TODO: populate this
-}
+    void Scene::fixedUpdate() {
+        // TODO: populate this
+    }
 
-template<typename... Components>
-auto Dream::Scene::getAllEntitiesWithComponents() {
-    return entityRegistry.view<Components ...>();
+    template<typename... Components>
+    auto Scene::getEntitiesWithComponents() {
+        return entityRegistry.view<Components ...>();
+    }
+
+    Entity Scene::getRootEntity() {
+        auto rootEntities = getEntitiesWithComponents<Component::RootComponent>();
+        if (rootEntities.empty()) {
+            auto newRootEntity = createEntity("root", true);
+            newRootEntity.addComponent<Component::RootComponent>();
+            return newRootEntity;
+        } else if (rootEntities.size() == 1) {
+            return { rootEntities.front(), this };
+        } else {
+            std::cout << "More than one root entity" << std::endl;
+            exit(1);
+        }
+    }
 }

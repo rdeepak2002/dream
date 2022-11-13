@@ -15,14 +15,14 @@ namespace Dream {
     public:
         Scene();
         ~Scene();
-        Entity createEntity(const std::string& name = "Entity");
+        Entity createEntity(const std::string& name = "Entity", bool rootEntity = false);
         void update();
         void fixedUpdate();
         template<typename... Components>
-        auto getAllEntitiesWithComponents();
+        auto getEntitiesWithComponents();
+        Entity getRootEntity();
     private:
         entt::registry entityRegistry;
-
         friend class Entity;
     };
 }

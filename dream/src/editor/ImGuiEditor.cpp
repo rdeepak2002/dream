@@ -8,6 +8,9 @@
 #include <filesystem>
 #include <imgui.h>
 #include <imgui_internal.h>
+#include "dream/Project.h"
+#include "dream/scene/Entity.h"
+#include "dream/scene/Component.h"
 
 namespace Dream {
     ImGuiEditor::ImGuiEditor(Dream::Window *window) : Editor(window) {
@@ -133,7 +136,25 @@ namespace Dream {
         scene_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
         ImGui::SetNextWindowClass(&scene_window_class);
         ImGui::Begin("Scene");
-        ImGui::Text(" ");
+        // render entities
+        // TODO: use stack to make this recursive
+        Entity rootEntity = Project::getInstance().getScene().getRootEntity();
+        std::string rootEntityTag = rootEntity.getComponent<Component::TagComponent>().tag;
+        std::vector<entt::entity> children = rootEntity.getComponent<Component::HierarchyComponent>().children;
+        if (ImGui::TreeNode(rootEntityTag.c_str())) {
+            for (auto child : children) {
+                auto childEntity = Entity(child, rootEntity.scene);
+                auto numGrandchildren = childEntity.getComponent<Component::HierarchyComponent>().children.size();
+                std::string childEntityTag = childEntity.getComponent<Component::TagComponent>().tag;
+                if (numGrandchildren == 0) {
+                    ImGui::Text("%s", childEntityTag.c_str());
+                } else if (ImGui::TreeNode(childEntityTag.c_str())) {
+                    ImGui::TreePop();
+                }
+            }
+
+            ImGui::TreePop();
+        }
         ImGui::End();
 
         ImGui::Render();

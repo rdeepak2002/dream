@@ -7,6 +7,8 @@
 #include <utility>
 
 namespace Dream {
+    Project::Project() = default;
+
     void Project::open(std::filesystem::path filepath) {
         Project::getInstance().openHelper(std::move(filepath));
     }
@@ -28,4 +30,7 @@ namespace Dream {
         return this->path;
     }
 
+    Scene& Project::getScene() {
+        return scene;
+    }
 }
