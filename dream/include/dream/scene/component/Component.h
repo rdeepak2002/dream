@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include <utility>
+#include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include "dream/scene/Entity.h"
 #include "dream/renderer/Mesh.h"
 
@@ -28,6 +30,13 @@ namespace Dream::Component {
         void addChild(Entity &newChild, Entity &newParent);
         void removeChild(Entity &childToRemove);
         int numChildren();
+    };
+
+    struct TransformComponent {
+        glm::vec3 translation = {0, 0, 0};
+        glm::quat rotation = {0, 0, 0, 1};
+        glm::vec3 scale = {1, 1, 1};
+        glm::mat4 getTransform();
     };
 
     struct MeshComponent {
