@@ -4,5 +4,6 @@ Makefile
 /CMakeFiles/
 /CMakeCache.txt
 /assimp-5.2.5
+/yaml-cpp-yaml-cpp-0.7.0
 #dream.js
 #dream.wasm

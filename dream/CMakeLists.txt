@@ -13,11 +13,10 @@ endif()
 
 if (EMSCRIPTEN)
     # Link assimp library
-    # TODO: fix this
     link_libraries("${CMAKE_CURRENT_SOURCE_DIR}/build.web/assimp-5.2.5/lib/libassimp.a")
     include_directories("${CMAKE_CURRENT_SOURCE_DIR}/build.web/assimp-5.2.5/include")
-#    link_libraries("${CMAKE_CURRENT_SOURCE_DIR}/build.web/assimp-5.2.5/lib/libIrrXML.a")
-#    link_libraries("${CMAKE_CURRENT_SOURCE_DIR}/build.web/assimp-5.2.5/lib/libzlib.a")
+    # Link yaml-cpp library
+    link_libraries("${CMAKE_CURRENT_SOURCE_DIR}/build.web/yaml-cpp-yaml-cpp-0.7.0/src/libyaml-cpp.a")
 else()
     # Link OpenGL library
     find_package(OpenGL REQUIRED)
@@ -45,6 +44,9 @@ else()
     include_directories(${ASSIMP_INCLUDE_DIRS})
     message(STATUS "ASSIMP_LIBRARIES = ${ASSIMP_LIBRARIES}")
     link_libraries(${ASSIMP_LIBRARIES})
+
+    # Link yaml-cpp library
+    find_package(yaml-cpp CONFIG REQUIRED)
 endif()
 
 # header files
@@ -60,6 +62,7 @@ FILE(GLOB ENGINE_SOURCE_FILES
         src/editor/*.cpp
         src/window/*.cpp
         src/renderer/*.cpp
+        src/scene/*.cpp
         src/renderer/glad.c)
 
 add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})
