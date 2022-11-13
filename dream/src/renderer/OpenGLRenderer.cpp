@@ -10,6 +10,7 @@
 #include "dream/Project.h"
 #include "dream/scene/Scene.h"
 #include "dream/scene/Entity.h"
+#include "dream/renderer/OpenGLMesh.h"
 
 namespace Dream {
     OpenGLRenderer::OpenGLRenderer() : Renderer() {
@@ -81,21 +82,25 @@ namespace Dream {
         shader->setMat4("projection", projection);
 
         // render mesh
-        auto VAO = mesh->getVAO();
-
-        if (mesh->getIndices().size() > 0) {
-            // case where vertices are indexed
-            auto numIndices = mesh->getIndices().size();
-            glBindVertexArray(VAO);
-            glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
-            glBindVertexArray(0);
-        } else if (mesh->getPositions().size() > 0) {
-            // case where vertices are not indexed
-            glBindVertexArray(VAO);
-            glDrawArrays(GL_TRIANGLES, 0, mesh->getPositions().size());
-            glBindVertexArray(0);
+        auto* openGLMesh = dynamic_cast<OpenGLMesh*>(mesh);
+        if (openGLMesh) {
+            if (!openGLMesh->getIndices().empty()) {
+                // case where vertices are indexed
+                auto numIndices = openGLMesh->getIndices().size();
+                glBindVertexArray(openGLMesh->getVAO());
+                glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
+                glBindVertexArray(0);
+            } else if (!openGLMesh->getPositions().empty()) {
+                // case where vertices are not indexed
+                glBindVertexArray(openGLMesh->getVAO());
+                glDrawArrays(GL_TRIANGLES, 0, openGLMesh->getPositions().size());
+                glBindVertexArray(0);
+            } else {
+                std::cout << "Unable to render mesh" << std::endl;
+                exit(EXIT_FAILURE);
+            }
         } else {
-            std::cout << "Unable to render mesh" << std::endl;
+            std::cout << "Mesh cannot be rendered in OpenGL" << std::endl;
             exit(EXIT_FAILURE);
         }
 
