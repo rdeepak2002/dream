@@ -30,14 +30,15 @@ void startUpdateLoop() {
 }
 
 int main(int ArgCount, char **Args) {
+    if (ArgCount >= 2 && std::string(Args[1]) == "test") {
 #ifndef EMSCRIPTEN
-    std::cout << Args[0] << std::endl;
-    ::testing::InitGoogleTest(&ArgCount, Args);
-    RUN_ALL_TESTS();
+        ::testing::InitGoogleTest(&ArgCount, Args);
+        return RUN_ALL_TESTS();
 #endif
-
-    application = new Dream::Application();
-    startUpdateLoop();
-    delete application;
-    return EXIT_SUCCESS;
+    } else {
+        application = new Dream::Application();
+        startUpdateLoop();
+        delete application;
+        return EXIT_SUCCESS;
+    }
 }

@@ -17,7 +17,6 @@ DREAM_FIND_AND_LINK_LIBRARIES()
 DREAM_GLOB_SOURCE_CODE()
 
 # find and link the libraries and source code for testing
-# TODO: only do below if testing is enabled
 if(NOT EMSCRIPTEN)
     DREAM_FIND_AND_LINK_TEST_LIBRARIES()
     DREAM_GLOB_TEST_CODE()
@@ -26,7 +25,6 @@ endif()
 # define the executable application generated
 add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES} ${TEST_FILES})
 
-# TODO: only do below if testing is enabled
 if(NOT EMSCRIPTEN)
     target_link_libraries(${PROJECT_NAME} GTest::gtest_main)
 endif()
