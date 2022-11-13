@@ -8,6 +8,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glad/glad.h>
 #include "dream/Project.h"
+#include "dream/scene/Scene.h"
+#include "dream/scene/Entity.h"
 
 namespace Dream {
     OpenGLRenderer::OpenGLRenderer() : Renderer() {

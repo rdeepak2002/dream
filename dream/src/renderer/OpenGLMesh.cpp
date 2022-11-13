@@ -114,35 +114,6 @@ namespace Dream {
         this->finalize();
     }
 
-    OpenGLMesh::OpenGLMesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> uv, std::vector<glm::vec3> normals) {
-        this->positions = positions;
-        this->uv = uv;
-        this->normals = normals;
-    }
-
-    void OpenGLMesh::setPositions(std::vector<glm::vec3> positions)
-    {
-        this->positions = positions;
-    }
-
-    void OpenGLMesh::setUVs(std::vector<glm::vec2> uv)
-    {
-        this->uv = uv;
-    }
-
-    void OpenGLMesh::setNormals(std::vector<glm::vec3> normals)
-    {
-        this->normals = normals;
-    }
-
-    void OpenGLMesh::setTangents(std::vector<glm::vec3> tangents) {
-        this->tangents = tangents;
-    }
-
-    void OpenGLMesh::setBitangents(std::vector<glm::vec3> bitangents) {
-        this->bitangents = bitangents;
-    }
-
     void OpenGLMesh::finalize(bool interleaved) {
         // initialize object IDs if not configured before
         glGenVertexArrays(1, &m_VAO);
@@ -303,29 +274,5 @@ namespace Dream {
 
     unsigned int OpenGLMesh::getEBO() {
         return m_EBO;
-    }
-
-    std::vector<glm::vec3> OpenGLMesh::getPositions() {
-        return positions;
-    }
-
-    std::vector<glm::vec2> OpenGLMesh::getUVs() {
-        return uv;
-    }
-
-    std::vector<glm::vec3> OpenGLMesh::getNormals() {
-        return normals;
-    }
-
-    std::vector<glm::vec3> OpenGLMesh::getTangents() {
-        return tangents;
-    }
-
-    std::vector<glm::vec3> OpenGLMesh::getBitangents() {
-        return bitangents;
-    }
-
-    std::vector<unsigned int> OpenGLMesh::getIndices() {
-        return indices;
     }
 }
