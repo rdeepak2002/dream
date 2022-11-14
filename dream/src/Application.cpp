@@ -22,7 +22,7 @@ namespace Dream {
         // TODO: load from project's scene file
         auto sphereEntity = Project::getInstance().getScene().createEntity("Sphere");
         sphereEntity.addComponent<Component::MeshComponent>(new OpenGLSphereMesh());
-        sphereEntity.getComponent<Component::TransformComponent>().translation = {-0.5, -0.7, 0};
+        sphereEntity.getComponent<Component::TransformComponent>().translation = {-0.7, -0.7, 0};
         sphereEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
         auto cubeEntity = Project::getInstance().getScene().createEntity("Cube");
         cubeEntity.addComponent<Component::MeshComponent>(new OpenGLCubeMesh());
@@ -30,13 +30,22 @@ namespace Dream {
         cubeEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
 //        Entity teapotEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
 //        teapotEntity.getComponent<Component::TransformComponent>().scale = {0.05, 0.05, 0.05};
-        Entity knightEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("low-poly-knight").append("source").append("Knight_Showcase.fbx"));
+
+        Entity knightEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("strong_knight").append("scene.gltf"));
         if (knightEntity) {
-            knightEntity.getComponent<Component::TransformComponent>().scale = {0.5, 0.5, 0.5};
-            knightEntity.getComponent<Component::TransformComponent>().rotation = {0.707, 0.707, 0, 0};
+            knightEntity.getComponent<Component::TransformComponent>().translation = {0, -0.6, 0};
+            knightEntity.getComponent<Component::TransformComponent>().scale = {0.007, 0.007, 0.007};
         } else {
-            std::cout << "Error importing model" << std::endl;
+            std::cout << "Error importing knight model" << std::endl;
         }
+
+//        Entity dragonEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("alduin").append("scene.gltf"));
+//        if (dragonEntity) {
+//            dragonEntity.getComponent<Component::TransformComponent>().scale = {0.0015, 0.0015, 0.0015};
+//            dragonEntity.getComponent<Component::TransformComponent>().rotation = {0.707, 0.707, 0, 0};
+//        } else {
+//            std::cout << "Error importing dragon model" << std::endl;
+//        }
     }
 
     Application::~Application() {
