@@ -18,6 +18,6 @@ namespace Dream::Component {
         if (parent) {
             parentModel = parent.getComponent<TransformComponent>().getTransform(parent);
         }
-        return parentModel * model;
+        return model * parentModel;
     }
 }

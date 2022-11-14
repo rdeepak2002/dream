@@ -28,10 +28,10 @@ namespace Dream {
         cubeEntity.addComponent<Component::MeshComponent>(new OpenGLCubeMesh());
         cubeEntity.getComponent<Component::TransformComponent>().translation = {1, 0.7, 0};
         cubeEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
-//        Entity teapotEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
-//        teapotEntity.getComponent<Component::TransformComponent>().scale = {0.05, 0.05, 0.05};
-        Entity knightEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("strong_knight.glb"));
-        knightEntity.getComponent<Component::TransformComponent>().scale = {0.005, 0.005, 0.005};
+        Entity teapotEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
+        teapotEntity.getComponent<Component::TransformComponent>().scale = {0.05, 0.05, 0.05};
+//        Entity knightEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("strong_knight.glb"));
+//        knightEntity.getComponent<Component::TransformComponent>().scale = {0.005, 0.005, 0.005};
     }
 
     Application::~Application() {
