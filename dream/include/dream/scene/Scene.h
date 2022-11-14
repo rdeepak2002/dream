@@ -23,6 +23,7 @@ namespace Dream {
             return entityRegistry.view<Components ...>();
         }
         Entity getRootEntity();
+        void removeEntity(Entity &entity);
     private:
         entt::registry entityRegistry;
         friend class Entity;

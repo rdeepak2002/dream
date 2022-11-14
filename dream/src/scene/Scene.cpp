@@ -55,4 +55,15 @@ namespace Dream {
             exit(1);
         }
     }
+
+    void Scene::removeEntity(Entity& entity) {
+        Entity child = entity.getComponent<Component::HierarchyComponent>().first;
+        while (child) {
+            Entity nextChild = child.getComponent<Component::HierarchyComponent>().next;
+            removeEntity(child);
+            child = nextChild;
+        }
+        entity.getComponent<Component::HierarchyComponent>().parent.getComponent<Component::HierarchyComponent>().removeChild(entity);
+        entityRegistry.destroy(entity.entityHandle);
+    }
 }

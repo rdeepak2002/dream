@@ -64,3 +64,5 @@ TEST(HierarchyComponentTest, AddChild) {
 }
 
 // TODO: test HierarchyComponent removeChild()
+
+// TODO: test Scene removeEntity()

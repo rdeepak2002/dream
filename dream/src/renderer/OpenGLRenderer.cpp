@@ -79,16 +79,17 @@ namespace Dream {
         auto meshEntities = Project::getInstance().getScene().getEntitiesWithComponents<Component::MeshComponent>();
         for(auto entityHandle : meshEntities) {
             Entity entity = {entityHandle, &Project::getInstance().getScene()};
-
-            // TODO: rename to material component
             if (entity.hasComponent<Component::MaterialComponent>()) {
                 auto* openGLTexture = dynamic_cast<OpenGLTexture*>(entity.getComponent<Component::MaterialComponent>().texture);
                 if (openGLTexture) {
+                    shader->use();
+                    shader->setInt("texture_diffuse1", 0);
                     openGLTexture->bind(0);
+                    shader->use();
+                    shader->setInt("texture_diffuse1", 0);
                 }
             } else {
                 // TODO: this is unknown material - use purple
-                // bind textures on corresponding texture units
                 texture->bind(0);
             }
 
