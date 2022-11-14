@@ -122,7 +122,7 @@ namespace Dream {
         entity.addComponent<Component::MeshComponent>(dreamMesh);
         if (!texturePath.empty()) {
             auto* dreamTexture = new OpenGLTexture(texturePath, GL_RGB, GL_RGB);
-            entity.addComponent<Component::TextureComponent>(dreamTexture);
+            entity.addComponent<Component::MaterialComponent>(dreamTexture);
         }
         return entity;
     }

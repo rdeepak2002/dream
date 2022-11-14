@@ -81,8 +81,8 @@ namespace Dream {
             Entity entity = {entityHandle, &Project::getInstance().getScene()};
 
             // TODO: rename to material component
-            if (entity.hasComponent<Component::TextureComponent>()) {
-                auto* openGLTexture = dynamic_cast<OpenGLTexture*>(entity.getComponent<Component::TextureComponent>().texture);
+            if (entity.hasComponent<Component::MaterialComponent>()) {
+                auto* openGLTexture = dynamic_cast<OpenGLTexture*>(entity.getComponent<Component::MaterialComponent>().texture);
                 if (openGLTexture) {
                     openGLTexture->bind(0);
                 }

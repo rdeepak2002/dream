@@ -5,7 +5,7 @@
 #include "dream/scene/component/Component.h"
 
 namespace Dream::Component {
-    TextureComponent::TextureComponent(Texture* textureIn) {
+    MaterialComponent::MaterialComponent(Texture* textureIn) {
         this->texture = textureIn;
     }
 }

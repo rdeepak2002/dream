@@ -45,9 +45,9 @@ namespace Dream::Component {
         explicit MeshComponent(Mesh* meshIn);
     };
 
-    struct TextureComponent {
+    struct MaterialComponent {
         Texture* texture = nullptr;
-        explicit TextureComponent(Texture* textureIn);
+        explicit MaterialComponent(Texture* textureIn);
     };
 }
 
