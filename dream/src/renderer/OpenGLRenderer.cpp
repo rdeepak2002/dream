@@ -84,7 +84,7 @@ namespace Dream {
             Entity entity = {entityHandle, &Project::getInstance().getScene()};
 
             // get transform of entity
-            glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform();
+            glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
             // draw mesh of entity

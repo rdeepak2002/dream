@@ -10,8 +10,14 @@
 #include <glm/gtx/quaternion.hpp>
 
 namespace Dream::Component {
-    glm::mat4 TransformComponent::getTransform() {
+    glm::mat4 TransformComponent::getTransform(Entity &curEntity) {
         glm::mat4 rotMat4 = glm::toMat4(glm::quat(rotation));
-        return glm::translate(glm::mat4(1.0f), translation) * rotMat4 * glm::scale(glm::mat4(1.0f), scale);
+        glm::mat4 model = glm::translate(glm::mat4(1.0f), translation) * rotMat4 * glm::scale(glm::mat4(1.0f), scale);
+        glm::mat4 parentModel = glm::mat4(1.0);
+        Entity parent = curEntity.getComponent<HierarchyComponent>().parent;
+        if (parent) {
+            parentModel = parent.getComponent<TransformComponent>().getTransform(parent);
+        }
+        return parentModel * model;
     }
 }

@@ -102,7 +102,6 @@ namespace Dream {
         auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
         Entity entity = Project::getInstance().getScene().createEntity(mesh->mName.C_Str());
         entity.addComponent<Component::MeshComponent>(dreamMesh);
-        entity.getComponent<Component::TransformComponent>().scale = {0.05, 0.05, 0.05};
         return entity;
     }
 }

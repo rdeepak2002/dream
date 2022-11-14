@@ -36,7 +36,7 @@ namespace Dream::Component {
         glm::vec3 translation = {0, 0, 0};
         glm::quat rotation = {0, 0, 0, 1};
         glm::vec3 scale = {1, 1, 1};
-        glm::mat4 getTransform();
+        glm::mat4 getTransform(Entity &curEntity);
     };
 
     struct MeshComponent {
