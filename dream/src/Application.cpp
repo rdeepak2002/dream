@@ -31,13 +31,22 @@ namespace Dream {
 //        Entity teapotEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
 //        teapotEntity.getComponent<Component::TransformComponent>().scale = {0.05, 0.05, 0.05};
 
-//        Entity knightEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("knight").append("scene.gltf"));
-//        if (knightEntity) {
-//            knightEntity.getComponent<Component::TransformComponent>().translation = {0, -0.6, 0};
-//            knightEntity.getComponent<Component::TransformComponent>().scale = {0.007, 0.007, 0.007};
+//        Entity cuteGhostEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("cute-ghost").append("source").append("Ghost.fbx"));
+//        if (cuteGhostEntity) {
+//            cuteGhostEntity.getComponent<Component::TransformComponent>().translation = {0, 0, 0};
+//            cuteGhostEntity.getComponent<Component::TransformComponent>().scale = {0.2, 0.2, 0.2};
+//            cuteGhostEntity.getComponent<Component::TransformComponent>().rotation = {0.707, -0.707, 0, 0.0};
 //        } else {
-//            std::cout << "Error importing knight model" << std::endl;
+//            std::cout << "Error importing ghost model" << std::endl;
 //        }
+
+        Entity knightEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("knight").append("scene.gltf"));
+        if (knightEntity) {
+            knightEntity.getComponent<Component::TransformComponent>().translation = {0, -0.6, 0};
+            knightEntity.getComponent<Component::TransformComponent>().scale = {0.007, 0.007, 0.007};
+        } else {
+            std::cout << "Error importing knight model" << std::endl;
+        }
 
 //        Entity dragonEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("alduin").append("scene.gltf"));
 //        if (dragonEntity) {

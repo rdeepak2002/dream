@@ -25,7 +25,7 @@ namespace Dream {
 //        mesh = new OpenGLSphereMesh();
 //        mesh = new OpenGLCubeMesh();
 //        mesh = new OpenGLMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
-        texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("container.jpg"), GL_RGB, GL_RGB);
+        texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("container.jpg"));
 
         // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
         // -------------------------------------------------------------------------------------------

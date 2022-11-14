@@ -121,7 +121,7 @@ namespace Dream {
         Entity entity = Project::getInstance().getScene().createEntity(mesh->mName.C_Str());
         entity.addComponent<Component::MeshComponent>(dreamMesh);
         if (!texturePath.empty()) {
-            auto* dreamTexture = new OpenGLTexture(texturePath, GL_RGB, GL_RGB);
+            auto* dreamTexture = new OpenGLTexture(texturePath);
             entity.addComponent<Component::MaterialComponent>(dreamTexture);
         }
         return entity;

@@ -32,7 +32,7 @@ namespace Dream {
 //            unsigned int Depth  = 0;
         private:
         public:
-            OpenGLTexture(std::string texturePath, GLenum internalFormat, GLenum format);
+            OpenGLTexture(std::string texturePath);
             ~OpenGLTexture();
             void bind(int unit = -1);
             void unbind();
