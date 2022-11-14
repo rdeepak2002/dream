@@ -8,7 +8,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glad/glad.h>
 #include "dream/project/Project.h"
-#include "dream/scene/Scene.h"
 #include "dream/scene/Entity.h"
 #include "dream/scene/component/Component.h"
 #include "dream/renderer/OpenGLMesh.h"
@@ -22,10 +21,7 @@ namespace Dream {
                                   Project::getPath().append("assets").append("shaders").append("shader.frag").c_str(),
                                   nullptr);
 
-//        mesh = new OpenGLSphereMesh();
-//        mesh = new OpenGLCubeMesh();
-//        mesh = new OpenGLMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
-        texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("container.jpg"));
+        texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("missing.png"));
 
         // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
         // -------------------------------------------------------------------------------------------
@@ -39,7 +35,6 @@ namespace Dream {
         delete this->shader;
         delete this->frameBuffer;
         delete this->texture;
-//        delete this->mesh;
     }
 
     void OpenGLRenderer::preRender(int viewportWidth, int viewportHeight, bool fullscreen) {
@@ -68,8 +63,8 @@ namespace Dream {
         view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
         projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
         // retrieve the matrix uniform locations
-        unsigned int modelLoc = glGetUniformLocation(shader->ID, "model");
-        unsigned int viewLoc  = glGetUniformLocation(shader->ID, "view");
+        int modelLoc = glGetUniformLocation(shader->ID, "model");
+        int viewLoc  = glGetUniformLocation(shader->ID, "view");
         // pass them to the shaders (3 different ways)
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
         // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
@@ -105,12 +100,12 @@ namespace Dream {
                     // case where vertices are indexed
                     auto numIndices = openGLMesh->getIndices().size();
                     glBindVertexArray(openGLMesh->getVAO());
-                    glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
+                    glDrawElements(GL_TRIANGLES, (int) numIndices, GL_UNSIGNED_INT, nullptr);
                     glBindVertexArray(0);
                 } else if (!openGLMesh->getPositions().empty()) {
                     // case where vertices are not indexed
                     glBindVertexArray(openGLMesh->getVAO());
-                    glDrawArrays(GL_TRIANGLES, 0, openGLMesh->getPositions().size());
+                    glDrawArrays(GL_TRIANGLES, 0, (int) openGLMesh->getPositions().size());
                     glBindVertexArray(0);
                 } else {
                     std::cout << "Unable to render mesh" << std::endl;

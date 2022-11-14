@@ -113,8 +113,7 @@ namespace Dream {
             aiString str;
             material->GetTexture(textureType, i, &str);
             texturePath = std::filesystem::path(path).parent_path().append(str.C_Str());
-            std::cout << "texture file path: " << texturePath << std::endl;
-            std::cout << "TODO: optimize texture loading" << std::endl;
+            std::cout << "TODO: optimize texture loading memory usage (same textures are repeatedly loaded)" << std::endl;
         }
 
         auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
