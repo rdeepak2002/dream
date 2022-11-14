@@ -30,8 +30,7 @@ namespace Dream {
         // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
         // -------------------------------------------------------------------------------------------
         shader->use();
-        shader->setInt("texture1", 0);
-        shader->setInt("texture2", 1);
+        shader->setInt("texture_diffuse1", 0);
 
         frameBuffer = new OpenGLFrameBuffer();
     }
