@@ -5,7 +5,6 @@
 #include "dream/project/OpenGLAssetImporter.h"
 
 #include <iostream>
-#include <glad/glad.h>
 #include <filesystem>
 #include "dream/renderer/OpenGLMesh.h"
 #include "dream/project/Project.h"
@@ -27,27 +26,27 @@ namespace Dream {
         }
         // process root node
         auto node = scene->mRootNode;
-        Entity dreamEntityRootNode = processNode(node, scene);
+        Entity dreamEntityRootNode = processNode(path, node, scene);
         return dreamEntityRootNode;
     }
 
-    Entity OpenGLAssetImporter::processNode(aiNode *node, const aiScene *scene) {
+    Entity OpenGLAssetImporter::processNode(std::string path, aiNode *node, const aiScene *scene) {
         Entity dreamNode = Project::getInstance().getScene().createEntity(node->mName.C_Str());
         // process meshes for this node
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            Entity child = processMesh(mesh, scene);
+            Entity child = processMesh(path, mesh, scene);
             dreamNode.addChild(child);
         }
         // process child nodes
         for(unsigned int i = 0; i < node->mNumChildren; i++) {
-            Entity child = processNode(node->mChildren[i], scene);
+            Entity child = processNode(path, node->mChildren[i], scene);
             dreamNode.addChild(child);
         }
         return dreamNode;
     }
 
-    Entity OpenGLAssetImporter::processMesh(aiMesh *mesh, const aiScene *scene) {
+    Entity OpenGLAssetImporter::processMesh(std::string path, aiMesh *mesh, const aiScene *scene) {
         std::vector<glm::vec3> positions;
         std::vector<glm::vec3> normals;
         std::vector<glm::vec2> uv;
@@ -103,29 +102,18 @@ namespace Dream {
             for(unsigned int j = 0; j < face.mNumIndices; j++)
                 indices.push_back(face.mIndices[j]);
         }
-        // TODO: process materials and textures
         // process materials
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-        // we assume a convention for sampler names in the shaders. Each diffuse texture should be named
-        // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER.
-        // Same applies to other texture as the following list summarizes:
-        // diffuse: texture_diffuseN
-        // specular: texture_specularN
-        // normal: texture_normalN
-//        std::vector<Texture> textures;
-        // 1. diffuse maps
-//        std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-//        textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-//        // 2. specular maps
-//        std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-//        textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-//        // 3. normal maps
-//        std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
-//        textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-//        // 4. height maps
-//        std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
-//        textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
+        // TODO: optimize texture loading since right now we are loading same textures multiple times
+        auto textureType = aiTextureType_DIFFUSE;
+        for(unsigned int i = 0; i < material->GetTextureCount(textureType); i++) {
+            aiString str;
+            material->GetTexture(textureType, i, &str);
+            auto texturePath = std::filesystem::path(path).parent_path().append(str.C_Str());
+            std::cout << "texture file path: " << texturePath << std::endl;
+            // TODO: associate texture file path with material component
+        }
 
         auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
         Entity entity = Project::getInstance().getScene().createEntity(mesh->mName.C_Str());
