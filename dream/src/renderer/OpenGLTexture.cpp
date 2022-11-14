@@ -10,7 +10,7 @@
 
 namespace Dream
 {
-    OpenGLTexture::OpenGLTexture(std::string texturePath, GLenum internalFormat, GLenum format)
+    OpenGLTexture::OpenGLTexture(std::string texturePath, unsigned int internalFormat, unsigned int format)
     {
         glGenTextures(1, &id);
         this->bind();

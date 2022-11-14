@@ -11,6 +11,7 @@
 #include <glm/gtc/quaternion.hpp>
 #include "dream/scene/Entity.h"
 #include "dream/renderer/Mesh.h"
+#include "dream/renderer/Texture.h"
 
 namespace Dream::Component {
     struct RootComponent {
@@ -42,6 +43,11 @@ namespace Dream::Component {
     struct MeshComponent {
         Mesh* mesh = nullptr;
         explicit MeshComponent(Mesh* meshIn);
+    };
+
+    struct TextureComponent {
+        Texture* texture = nullptr;
+        explicit TextureComponent(Texture* textureIn);
     };
 }
 

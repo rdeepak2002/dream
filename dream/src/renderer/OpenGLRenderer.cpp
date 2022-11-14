@@ -58,11 +58,9 @@ namespace Dream {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // also clear the depth buffer now!
 
-        // bind textures on corresponding texture units
-        texture->bind(0);
-
         // activate shader
         shader->use();
+        shader->setInt("texture_diffuse1", 0);
 
         // create transformations
         glm::mat4 view          = glm::mat4(1.0f);
@@ -81,6 +79,18 @@ namespace Dream {
         auto meshEntities = Project::getInstance().getScene().getEntitiesWithComponents<Component::MeshComponent>();
         for(auto entityHandle : meshEntities) {
             Entity entity = {entityHandle, &Project::getInstance().getScene()};
+
+            // TODO: rename to material component
+            if (entity.hasComponent<Component::TextureComponent>()) {
+                auto* openGLTexture = dynamic_cast<OpenGLTexture*>(entity.getComponent<Component::TextureComponent>().texture);
+                if (openGLTexture) {
+                    openGLTexture->bind(0);
+                }
+            } else {
+                // TODO: this is unknown material - use purple
+                // bind textures on corresponding texture units
+                texture->bind(0);
+            }
 
             // get transform of entity
             glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);

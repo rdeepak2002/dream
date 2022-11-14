@@ -7,6 +7,7 @@
 #include <iostream>
 #include <filesystem>
 #include "dream/renderer/OpenGLMesh.h"
+#include "dream/renderer/OpenGLTexture.h"
 #include "dream/project/Project.h"
 #include "dream/scene/component/Component.h"
 
@@ -107,17 +108,22 @@ namespace Dream {
 
         // TODO: optimize texture loading since right now we are loading same textures multiple times
         auto textureType = aiTextureType_DIFFUSE;
+        std::string texturePath = "";
         for(unsigned int i = 0; i < material->GetTextureCount(textureType); i++) {
             aiString str;
             material->GetTexture(textureType, i, &str);
-            auto texturePath = std::filesystem::path(path).parent_path().append(str.C_Str());
+            texturePath = std::filesystem::path(path).parent_path().append(str.C_Str());
             std::cout << "texture file path: " << texturePath << std::endl;
-            // TODO: associate texture file path with material component
+            std::cout << "TODO: optimize texture loading" << std::endl;
         }
 
         auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
         Entity entity = Project::getInstance().getScene().createEntity(mesh->mName.C_Str());
         entity.addComponent<Component::MeshComponent>(dreamMesh);
+        if (!texturePath.empty()) {
+            auto* dreamTexture = new OpenGLTexture(texturePath, GL_RGB, GL_RGB);
+            entity.addComponent<Component::TextureComponent>(dreamTexture);
+        }
         return entity;
     }
 }

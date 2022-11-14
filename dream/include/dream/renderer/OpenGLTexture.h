@@ -7,9 +7,10 @@
 
 #include <glad/glad.h>
 #include <iostream>
+#include "dream/renderer/Texture.h"
 
 namespace Dream {
-    class OpenGLTexture {
+    class OpenGLTexture : public Texture {
         private:
 //            unsigned int ID;
 //            // directly change the texture state where relevant from within the setters.
