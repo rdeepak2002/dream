@@ -28,10 +28,11 @@ namespace Dream {
         cubeEntity.addComponent<Component::MeshComponent>(new OpenGLCubeMesh());
         cubeEntity.getComponent<Component::TransformComponent>().translation = {1, 0.7, 0};
         cubeEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
-        auto teapotEntity = Project::getInstance().getScene().createEntity("Teapot");
-        teapotEntity.getComponent<Component::TransformComponent>().translation = {0, 0, 0};
-        teapotEntity.getComponent<Component::TransformComponent>().scale = {0.05, 0.05, 0.05};
-        teapotEntity.addComponent<Component::MeshComponent>(new OpenGLMesh(Project::getPath().append("assets").append("models").append("teapot.stl")));
+        Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
+//        auto teapotEntity = Project::getInstance().getScene().createEntity("Teapot");
+//        teapotEntity.getComponent<Component::TransformComponent>().translation = {0, 0, 0};
+//        teapotEntity.getComponent<Component::TransformComponent>().scale = {0.05, 0.05, 0.05};
+//        teapotEntity.addComponent<Component::MeshComponent>(new OpenGLMesh(Project::getPath().append("assets").append("models").append("teapot.stl")));
     }
 
     Application::~Application() {

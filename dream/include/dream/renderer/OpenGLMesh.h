@@ -13,13 +13,13 @@
 namespace Dream {
     class OpenGLMesh : public Mesh {
     public:
-        OpenGLMesh();
-        OpenGLMesh(std::string path);
+        OpenGLMesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> uv, std::vector<glm::vec3> normals, std::vector<unsigned int> indices);
         unsigned int getVAO();
         unsigned int getVBO();
         unsigned int getEBO();
         void finalize(bool interleaved = true);
     protected:
+        OpenGLMesh();
         unsigned int m_VAO = 0;
         unsigned int m_VBO;
         unsigned int m_EBO;

@@ -4,116 +4,16 @@
 
 #include "dream/renderer/OpenGLMesh.h"
 
-#include <iostream>
 #include <glad/glad.h>
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-#include <iostream>
+#include <utility>
 
 namespace Dream {
-    OpenGLMesh::OpenGLMesh() {
-
-    }
-
-    OpenGLMesh::OpenGLMesh(std::string path) {
-        // read file via ASSIMP
-        Assimp::Importer importer;
-        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
-        // check for errors
-        if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
-        {
-            std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
-            return;
-        }
-
-        std::cout << "Root node name: " << scene->mRootNode->mName.C_Str() << std::endl;
-
-        auto node = scene->mRootNode;
-
-        // process each child at current node
-        for(unsigned int i = 0; i < node->mNumChildren; i++) {
-            std::cout << "Root node child name: " << node->mChildren[i]->mName.C_Str() << std::endl;
-
-            // TODO: this will be called in the second depth of recursive tree normally
-            auto childNode = node->mChildren[i];
-            std::cout << childNode->mNumMeshes << std::endl;
-
-            // TODO: bad assumption there is one mesh at child
-            auto mesh = scene->mMeshes[childNode->mMeshes[0]];
-
-            std::cout << "adding mesh: " << mesh->mName.C_Str() << std::endl;
-
-            // TODO: move to process mesh function
-            // data to fill
-//            vector<Vertex> vertices;
-//            std::vector<unsigned int> indices;
-
-            std::cout << "num vertices: " << mesh->mNumVertices << std::endl;
-
-            // walk through each of the mesh's vertices
-            for(unsigned int i = 0; i < mesh->mNumVertices; i++)
-            {
-                glm::vec3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
-                // positions
-                vector.x = mesh->mVertices[i].x;
-                vector.y = mesh->mVertices[i].y;
-                vector.z = mesh->mVertices[i].z;
-                this->positions.push_back(vector);
-                // normals
-                if (mesh->HasNormals())
-                {
-                    vector.x = mesh->mNormals[i].x;
-                    vector.y = mesh->mNormals[i].y;
-                    vector.z = mesh->mNormals[i].z;
-                    this->normals.push_back(vector);
-                }
-                // texture coordinates
-                if(mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
-                {
-                    glm::vec2 vec;
-                    // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't
-                    // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
-                    vec.x = mesh->mTextureCoords[0][i].x;
-                    vec.y = mesh->mTextureCoords[0][i].y;
-                    this->uv.push_back(vec);
-                    // tangent
-                    vector.x = mesh->mTangents[i].x;
-                    vector.y = mesh->mTangents[i].y;
-                    vector.z = mesh->mTangents[i].z;
-                    // TODO: add tangents
-//                    vertex.Tangent = vector;
-                    // bitangent
-                    vector.x = mesh->mBitangents[i].x;
-                    vector.y = mesh->mBitangents[i].y;
-                    vector.z = mesh->mBitangents[i].z;
-                    // TODO: add bitangents
-//                    vertex.Bitangent = vector;
-                } else {
-                    this->uv.emplace_back(0.0f, 0.0f);
-                }
-            }
-            // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
-            for(unsigned int i = 0; i < mesh->mNumFaces; i++)
-            {
-                aiFace face = mesh->mFaces[i];
-                // retrieve all indices of the face and store them in the indices vector
-                for(unsigned int j = 0; j < face.mNumIndices; j++)
-                    indices.push_back(face.mIndices[j]);
-            }
-            // TODO: process materials and textures
-        }
-
-        // process each mesh at the current node
-        for(unsigned int i = 0; i < node->mNumMeshes; i++)
-        {
-            // the node object only contains indices to index the actual objects in the scene.
-            // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
-            aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            std::cout << "Root node child mesh name: " << mesh->mName.C_Str() << std::endl;
-        }
-
-        this->finalize();
+    OpenGLMesh::OpenGLMesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> uv, std::vector<glm::vec3> normals, std::vector<unsigned int> indices) {
+        setPositions(std::move(positions));
+        setUVs(std::move(uv));
+        setNormals(std::move(normals));
+        setIndices(std::move(indices));
+        finalize();
     }
 
     void OpenGLMesh::finalize(bool interleaved) {
@@ -276,5 +176,9 @@ namespace Dream {
 
     unsigned int OpenGLMesh::getEBO() {
         return m_EBO;
+    }
+
+    OpenGLMesh::OpenGLMesh() {
+
     }
 }

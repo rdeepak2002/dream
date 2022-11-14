@@ -25,6 +25,10 @@ namespace Dream {
         this->bitangents = bitangents;
     }
 
+    void Mesh::setIndices(std::vector<unsigned int> indices) {
+        this->indices = indices;
+    }
+
     std::vector<glm::vec3> Mesh::getPositions() {
         return positions;
     }

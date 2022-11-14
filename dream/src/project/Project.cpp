@@ -5,9 +5,16 @@
 #include "dream/project/Project.h"
 
 #include <utility>
+#include "dream/project/OpenGLAssetImporter.h"
 
 namespace Dream {
-    Project::Project() = default;
+    Project::Project() {
+        assetImporter = new OpenGLAssetImporter();
+    }
+
+    Project::~Project() {
+        delete assetImporter;
+    }
 
     void Project::open(std::filesystem::path filepath) {
         Project::getInstance().openHelper(std::move(filepath));
@@ -32,5 +39,9 @@ namespace Dream {
 
     Scene& Project::getScene() {
         return scene;
+    }
+
+    AssetImporter *Project::getAssetImporter() {
+        return assetImporter;
     }
 }

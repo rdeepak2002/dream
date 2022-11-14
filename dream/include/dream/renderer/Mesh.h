@@ -17,6 +17,7 @@ namespace Dream {
         void setNormals(std::vector<glm::vec3> normals);
         void setTangents(std::vector<glm::vec3> tangents);
         void setBitangents(std::vector<glm::vec3> bitangents);
+        void setIndices(std::vector<unsigned int> indices);
         virtual std::vector<glm::vec3> getPositions();
         virtual std::vector<glm::vec2> getUVs();
         virtual std::vector<glm::vec3> getNormals();
