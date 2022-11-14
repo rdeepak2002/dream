@@ -133,6 +133,9 @@ Module['FS_createPath']("/examples", "hello_world", true, true);
 Module['FS_createPath']("/examples/hello_world", ".idea", true, true);
 Module['FS_createPath']("/examples/hello_world", "assets", true, true);
 Module['FS_createPath']("/examples/hello_world/assets", "models", true, true);
+Module['FS_createPath']("/examples/hello_world/assets/models", "low-poly-knight", true, true);
+Module['FS_createPath']("/examples/hello_world/assets/models/low-poly-knight", "source", true, true);
+Module['FS_createPath']("/examples/hello_world/assets/models/low-poly-knight", "textures", true, true);
 Module['FS_createPath']("/examples/hello_world/assets", "shaders", true, true);
 Module['FS_createPath']("/examples/hello_world/assets", "textures", true, true);
 Module['FS_createPath']("/examples/hello_world", "plugins", true, true);
@@ -234,7 +237,7 @@ Module['FS_createPath']("/examples/resources", "fonts", true, true);
     }
 
     }
-    loadPackage({"files": [{"filename": "/examples/.DS_Store", "start": 0, "end": 6148}, {"filename": "/examples/hello_world/.DS_Store", "start": 6148, "end": 12296}, {"filename": "/examples/hello_world/.gitignore", "start": 12296, "end": 13887}, {"filename": "/examples/hello_world/.idea/.gitignore", "start": 13887, "end": 14063}, {"filename": "/examples/hello_world/.idea/.name", "start": 14063, "end": 14069}, {"filename": "/examples/hello_world/.idea/hello_world.iml", "start": 14069, "end": 14166}, {"filename": "/examples/hello_world/.idea/misc.xml", "start": 14166, "end": 14616}, {"filename": "/examples/hello_world/.idea/modules.xml", "start": 14616, "end": 14890}, {"filename": "/examples/hello_world/.idea/vcs.xml", "start": 14890, "end": 15076}, {"filename": "/examples/hello_world/.idea/workspace.xml", "start": 15076, "end": 20500}, {"filename": "/examples/hello_world/README.md", "start": 20500, "end": 20656}, {"filename": "/examples/hello_world/assets/.DS_Store", "start": 20656, "end": 28852}, {"filename": "/examples/hello_world/assets/.gitkeep", "start": 28852, "end": 28852}, {"filename": "/examples/hello_world/assets/models/.DS_Store", "start": 28852, "end": 35000}, {"filename": "/examples/hello_world/assets/models/strong_knight.glb", "start": 35000, "end": 9418748}, {"filename": "/examples/hello_world/assets/models/teapot.stl", "start": 9418748, "end": 9890732}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.frag", "start": 9890732, "end": 9890931}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.vert", "start": 9890931, "end": 9891126}, {"filename": "/examples/hello_world/assets/shaders/shader.frag", "start": 9891126, "end": 9891381}, {"filename": "/examples/hello_world/assets/shaders/shader.vert", "start": 9891381, "end": 9891709}, {"filename": "/examples/hello_world/assets/textures/.DS_Store", "start": 9891709, "end": 9897857}, {"filename": "/examples/hello_world/assets/textures/awesomeface.png", "start": 9897857, "end": 9941861}, {"filename": "/examples/hello_world/assets/textures/container.jpg", "start": 9941861, "end": 10064155}, {"filename": "/examples/hello_world/plugins/native/.gitignore", "start": 10064155, "end": 10065746}, {"filename": "/examples/hello_world/plugins/native/CMakeLists.txt", "start": 10065746, "end": 10065988}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/cache-v2", "start": 10065988, "end": 10065988}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/cmakeFiles-v1", "start": 10065988, "end": 10065988}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/codemodel-v2", "start": 10065988, "end": 10065988}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/toolchains-v1", "start": 10065988, "end": 10065988}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/cache-v2-47c6a3908a6ab5e015a6.json", "start": 10065988, "end": 10087971}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-7aa65675a33703f28db8.json", "start": 10087971, "end": 10095250}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-26d9509e136dda7430aa.json", "start": 10095250, "end": 10096294}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json", "start": 10096294, "end": 10096448}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/index-2022-10-19T03-29-13-0345.json", "start": 10096448, "end": 10098648}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/target-native-Debug-4c9f81c7c85e26c6c757.json", "start": 10098648, "end": 10100348}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-b1d3af272c5a84901840.json", "start": 10100348, "end": 10102493}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.ninja_deps", "start": 10102493, "end": 10146153}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.ninja_log", "start": 10146153, "end": 10146546}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeCache.txt", "start": 10146546, "end": 10160945}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeCCompiler.cmake", "start": 10160945, "end": 10163677}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeCXXCompiler.cmake", "start": 10163677, "end": 10169390}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_C.bin", "start": 10169390, "end": 10186389}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_CXX.bin", "start": 10186389, "end": 10203372}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeSystem.cmake", "start": 10203372, "end": 10203732}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdC/CMakeCCompilerId.c", "start": 10203732, "end": 10229429}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdC/CMakeCCompilerId.o", "start": 10229429, "end": 10231141}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdCXX/CMakeCXXCompilerId.cpp", "start": 10231141, "end": 10256582}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdCXX/CMakeCXXCompilerId.o", "start": 10256582, "end": 10258246}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/CMakeError.log", "start": 10258246, "end": 10258852}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/CMakeOutput.log", "start": 10258852, "end": 10290390}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/TargetDirectories.txt", "start": 10290390, "end": 10290776}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/clion-environment.txt", "start": 10290776, "end": 10290972}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/clion-log.txt", "start": 10290972, "end": 10291682}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/cmake.check_cache", "start": 10291682, "end": 10291767}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/native.dir/library.cpp.o", "start": 10291767, "end": 10388223}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/native.dir/src/library.cpp.o", "start": 10388223, "end": 10484679}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/rules.ninja", "start": 10484679, "end": 10487289}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/Testing/Temporary/LastTest.log", "start": 10487289, "end": 10487410}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/build.ninja", "start": 10487410, "end": 10501026}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/cmake_install.cmake", "start": 10501026, "end": 10502683}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/out/Darwin/libnative.dylib", "start": 10502683, "end": 10549399}, {"filename": "/examples/hello_world/plugins/native/include/library.h", "start": 10549399, "end": 10549506}, {"filename": "/examples/hello_world/plugins/native/out/Darwin/libnative.dylib", "start": 10549506, "end": 10596222}, {"filename": "/examples/hello_world/plugins/native/src/library.cpp", "start": 10596222, "end": 10596492}, {"filename": "/examples/resources/fonts/font.ttf", "start": 10596492, "end": 10800444}], "remote_package_size": 10800444});
+    loadPackage({"files": [{"filename": "/examples/.DS_Store", "start": 0, "end": 6148}, {"filename": "/examples/hello_world/.DS_Store", "start": 6148, "end": 12296}, {"filename": "/examples/hello_world/.gitignore", "start": 12296, "end": 13887}, {"filename": "/examples/hello_world/.idea/.gitignore", "start": 13887, "end": 14063}, {"filename": "/examples/hello_world/.idea/.name", "start": 14063, "end": 14069}, {"filename": "/examples/hello_world/.idea/hello_world.iml", "start": 14069, "end": 14166}, {"filename": "/examples/hello_world/.idea/misc.xml", "start": 14166, "end": 14616}, {"filename": "/examples/hello_world/.idea/modules.xml", "start": 14616, "end": 14890}, {"filename": "/examples/hello_world/.idea/vcs.xml", "start": 14890, "end": 15076}, {"filename": "/examples/hello_world/.idea/workspace.xml", "start": 15076, "end": 20500}, {"filename": "/examples/hello_world/README.md", "start": 20500, "end": 20656}, {"filename": "/examples/hello_world/assets/.DS_Store", "start": 20656, "end": 28852}, {"filename": "/examples/hello_world/assets/.gitkeep", "start": 28852, "end": 28852}, {"filename": "/examples/hello_world/assets/models/.DS_Store", "start": 28852, "end": 35000}, {"filename": "/examples/hello_world/assets/models/low-poly-knight/.DS_Store", "start": 35000, "end": 41148}, {"filename": "/examples/hello_world/assets/models/low-poly-knight/source/Knight_Showcase.fbx", "start": 41148, "end": 262216}, {"filename": "/examples/hello_world/assets/models/low-poly-knight/textures/Environment_Showcase_Terrain_AlbedoTranspa.png", "start": 262216, "end": 3396243}, {"filename": "/examples/hello_world/assets/models/low-poly-knight/textures/Environment_Showcase_Terrain_Normal.png", "start": 3396243, "end": 3415303}, {"filename": "/examples/hello_world/assets/models/low-poly-knight/textures/Knight_Knight_AlbedoTransparency.png", "start": 3415303, "end": 3765501}, {"filename": "/examples/hello_world/assets/models/low-poly-knight/textures/Knight_Knight_Normal.png", "start": 3765501, "end": 3827985}, {"filename": "/examples/hello_world/assets/models/teapot.stl", "start": 3827985, "end": 4299969}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.frag", "start": 4299969, "end": 4300168}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.vert", "start": 4300168, "end": 4300363}, {"filename": "/examples/hello_world/assets/shaders/shader.frag", "start": 4300363, "end": 4300618}, {"filename": "/examples/hello_world/assets/shaders/shader.vert", "start": 4300618, "end": 4300946}, {"filename": "/examples/hello_world/assets/textures/.DS_Store", "start": 4300946, "end": 4307094}, {"filename": "/examples/hello_world/assets/textures/awesomeface.png", "start": 4307094, "end": 4351098}, {"filename": "/examples/hello_world/assets/textures/container.jpg", "start": 4351098, "end": 4473392}, {"filename": "/examples/hello_world/plugins/native/.gitignore", "start": 4473392, "end": 4474983}, {"filename": "/examples/hello_world/plugins/native/CMakeLists.txt", "start": 4474983, "end": 4475225}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/cache-v2", "start": 4475225, "end": 4475225}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/cmakeFiles-v1", "start": 4475225, "end": 4475225}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/codemodel-v2", "start": 4475225, "end": 4475225}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/toolchains-v1", "start": 4475225, "end": 4475225}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/cache-v2-47c6a3908a6ab5e015a6.json", "start": 4475225, "end": 4497208}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-7aa65675a33703f28db8.json", "start": 4497208, "end": 4504487}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-26d9509e136dda7430aa.json", "start": 4504487, "end": 4505531}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json", "start": 4505531, "end": 4505685}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/index-2022-10-19T03-29-13-0345.json", "start": 4505685, "end": 4507885}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/target-native-Debug-4c9f81c7c85e26c6c757.json", "start": 4507885, "end": 4509585}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-b1d3af272c5a84901840.json", "start": 4509585, "end": 4511730}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.ninja_deps", "start": 4511730, "end": 4555390}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.ninja_log", "start": 4555390, "end": 4555783}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeCache.txt", "start": 4555783, "end": 4570182}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeCCompiler.cmake", "start": 4570182, "end": 4572914}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeCXXCompiler.cmake", "start": 4572914, "end": 4578627}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_C.bin", "start": 4578627, "end": 4595626}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_CXX.bin", "start": 4595626, "end": 4612609}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeSystem.cmake", "start": 4612609, "end": 4612969}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdC/CMakeCCompilerId.c", "start": 4612969, "end": 4638666}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdC/CMakeCCompilerId.o", "start": 4638666, "end": 4640378}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdCXX/CMakeCXXCompilerId.cpp", "start": 4640378, "end": 4665819}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdCXX/CMakeCXXCompilerId.o", "start": 4665819, "end": 4667483}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/CMakeError.log", "start": 4667483, "end": 4668089}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/CMakeOutput.log", "start": 4668089, "end": 4699627}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/TargetDirectories.txt", "start": 4699627, "end": 4700013}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/clion-environment.txt", "start": 4700013, "end": 4700209}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/clion-log.txt", "start": 4700209, "end": 4700919}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/cmake.check_cache", "start": 4700919, "end": 4701004}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/native.dir/library.cpp.o", "start": 4701004, "end": 4797460}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/native.dir/src/library.cpp.o", "start": 4797460, "end": 4893916}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/rules.ninja", "start": 4893916, "end": 4896526}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/Testing/Temporary/LastTest.log", "start": 4896526, "end": 4896647}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/build.ninja", "start": 4896647, "end": 4910263}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/cmake_install.cmake", "start": 4910263, "end": 4911920}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/out/Darwin/libnative.dylib", "start": 4911920, "end": 4958636}, {"filename": "/examples/hello_world/plugins/native/include/library.h", "start": 4958636, "end": 4958743}, {"filename": "/examples/hello_world/plugins/native/out/Darwin/libnative.dylib", "start": 4958743, "end": 5005459}, {"filename": "/examples/hello_world/plugins/native/src/library.cpp", "start": 5005459, "end": 5005729}, {"filename": "/examples/resources/fonts/font.ttf", "start": 5005729, "end": 5209681}], "remote_package_size": 5209681});
 
   })();
 
@@ -1396,21 +1399,21 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  736796: () => { if (typeof(AudioContext) !== 'undefined') { return true; } else if (typeof(webkitAudioContext) !== 'undefined') { return true; } return false; },  
- 736943: () => { if ((typeof(navigator.mediaDevices) !== 'undefined') && (typeof(navigator.mediaDevices.getUserMedia) !== 'undefined')) { return true; } else if (typeof(navigator.webkitGetUserMedia) !== 'undefined') { return true; } return false; },  
- 737177: ($0) => { if(typeof(Module['SDL2']) === 'undefined') { Module['SDL2'] = {}; } var SDL2 = Module['SDL2']; if (!$0) { SDL2.audio = {}; } else { SDL2.capture = {}; } if (!SDL2.audioContext) { if (typeof(AudioContext) !== 'undefined') { SDL2.audioContext = new AudioContext(); } else if (typeof(webkitAudioContext) !== 'undefined') { SDL2.audioContext = new webkitAudioContext(); } if (SDL2.audioContext) { autoResumeAudioContext(SDL2.audioContext); } } return SDL2.audioContext === undefined ? -1 : 0; },  
- 737670: () => { var SDL2 = Module['SDL2']; return SDL2.audioContext.sampleRate; },  
- 737738: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; var have_microphone = function(stream) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); SDL2.capture.silenceTimer = undefined; } SDL2.capture.mediaStreamNode = SDL2.audioContext.createMediaStreamSource(stream); SDL2.capture.scriptProcessorNode = SDL2.audioContext.createScriptProcessor($1, $0, 1); SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) { if ((SDL2 === undefined) || (SDL2.capture === undefined)) { return; } audioProcessingEvent.outputBuffer.getChannelData(0).fill(0.0); SDL2.capture.currentCaptureBuffer = audioProcessingEvent.inputBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.mediaStreamNode.connect(SDL2.capture.scriptProcessorNode); SDL2.capture.scriptProcessorNode.connect(SDL2.audioContext.destination); SDL2.capture.stream = stream; }; var no_microphone = function(error) { }; SDL2.capture.silenceBuffer = SDL2.audioContext.createBuffer($0, $1, SDL2.audioContext.sampleRate); SDL2.capture.silenceBuffer.getChannelData(0).fill(0.0); var silence_callback = function() { SDL2.capture.currentCaptureBuffer = SDL2.capture.silenceBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.silenceTimer = setTimeout(silence_callback, ($1 / SDL2.audioContext.sampleRate) * 1000); if ((navigator.mediaDevices !== undefined) && (navigator.mediaDevices.getUserMedia !== undefined)) { navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(have_microphone).catch(no_microphone); } else if (navigator.webkitGetUserMedia !== undefined) { navigator.webkitGetUserMedia({ audio: true, video: false }, have_microphone, no_microphone); } },  
- 739390: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; SDL2.audio.scriptProcessorNode = SDL2.audioContext['createScriptProcessor']($1, 0, $0); SDL2.audio.scriptProcessorNode['onaudioprocess'] = function (e) { if ((SDL2 === undefined) || (SDL2.audio === undefined)) { return; } SDL2.audio.currentOutputBuffer = e['outputBuffer']; dynCall('vi', $2, [$3]); }; SDL2.audio.scriptProcessorNode['connect'](SDL2.audioContext['destination']); },  
- 739800: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.capture.currentCaptureBuffer.numberOfChannels; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.capture.currentCaptureBuffer.getChannelData(c); if (channelData.length != $1) { throw 'Web Audio capture buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } if (numChannels == 1) { for (var j = 0; j < $1; ++j) { setValue($0 + (j * 4), channelData[j], 'float'); } } else { for (var j = 0; j < $1; ++j) { setValue($0 + (((j * numChannels) + c) * 4), channelData[j], 'float'); } } } },  
- 740405: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.audio.currentOutputBuffer['numberOfChannels']; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.audio.currentOutputBuffer['getChannelData'](c); if (channelData.length != $1) { throw 'Web Audio output buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } for (var j = 0; j < $1; ++j) { channelData[j] = HEAPF32[$0 + ((j*numChannels + c) << 2) >> 2]; } } },  
- 740885: ($0) => { var SDL2 = Module['SDL2']; if ($0) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); } if (SDL2.capture.stream !== undefined) { var tracks = SDL2.capture.stream.getAudioTracks(); for (var i = 0; i < tracks.length; i++) { SDL2.capture.stream.removeTrack(tracks[i]); } SDL2.capture.stream = undefined; } if (SDL2.capture.scriptProcessorNode !== undefined) { SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) {}; SDL2.capture.scriptProcessorNode.disconnect(); SDL2.capture.scriptProcessorNode = undefined; } if (SDL2.capture.mediaStreamNode !== undefined) { SDL2.capture.mediaStreamNode.disconnect(); SDL2.capture.mediaStreamNode = undefined; } if (SDL2.capture.silenceBuffer !== undefined) { SDL2.capture.silenceBuffer = undefined } SDL2.capture = undefined; } else { if (SDL2.audio.scriptProcessorNode != undefined) { SDL2.audio.scriptProcessorNode.disconnect(); SDL2.audio.scriptProcessorNode = undefined; } SDL2.audio = undefined; } if ((SDL2.audioContext !== undefined) && (SDL2.audio === undefined) && (SDL2.capture === undefined)) { SDL2.audioContext.close(); SDL2.audioContext = undefined; } },  
- 742057: ($0, $1, $2) => { var w = $0; var h = $1; var pixels = $2; if (!Module['SDL2']) Module['SDL2'] = {}; var SDL2 = Module['SDL2']; if (SDL2.ctxCanvas !== Module['canvas']) { SDL2.ctx = Module['createContext'](Module['canvas'], false, true); SDL2.ctxCanvas = Module['canvas']; } if (SDL2.w !== w || SDL2.h !== h || SDL2.imageCtx !== SDL2.ctx) { SDL2.image = SDL2.ctx.createImageData(w, h); SDL2.w = w; SDL2.h = h; SDL2.imageCtx = SDL2.ctx; } var data = SDL2.image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = 0xff; src++; dst += 4; } } else { if (SDL2.data32Data !== data) { SDL2.data32 = new Int32Array(data.buffer); SDL2.data8 = new Uint8Array(data.buffer); SDL2.data32Data = data; } var data32 = SDL2.data32; num = data32.length; data32.set(HEAP32.subarray(src, src + num)); var data8 = SDL2.data8; var i = 3; var j = i + 4*num; if (num % 8 == 0) { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; } } else { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; } } } SDL2.ctx.putImageData(SDL2.image, 0, 0); },  
- 743526: ($0, $1, $2, $3, $4) => { var w = $0; var h = $1; var hot_x = $2; var hot_y = $3; var pixels = $4; var canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h; var ctx = canvas.getContext("2d"); var image = ctx.createImageData(w, h); var data = image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = (val >> 24) & 0xff; src++; dst += 4; } } else { var data32 = new Int32Array(data.buffer); num = data32.length; data32.set(HEAP32.subarray(src, src + num)); } ctx.putImageData(image, 0, 0); var url = hot_x === 0 && hot_y === 0 ? "url(" + canvas.toDataURL() + "), auto" : "url(" + canvas.toDataURL() + ") " + hot_x + " " + hot_y + ", auto"; var urlBuf = _malloc(url.length + 1); stringToUTF8(url, urlBuf, url.length + 1); return urlBuf; },  
- 744515: ($0) => { if (Module['canvas']) { Module['canvas'].style['cursor'] = UTF8ToString($0); } },  
- 744598: () => { if (Module['canvas']) { Module['canvas'].style['cursor'] = 'none'; } },  
- 744667: () => { return window.innerWidth; },  
- 744697: () => { return window.innerHeight; }
+  737636: () => { if (typeof(AudioContext) !== 'undefined') { return true; } else if (typeof(webkitAudioContext) !== 'undefined') { return true; } return false; },  
+ 737783: () => { if ((typeof(navigator.mediaDevices) !== 'undefined') && (typeof(navigator.mediaDevices.getUserMedia) !== 'undefined')) { return true; } else if (typeof(navigator.webkitGetUserMedia) !== 'undefined') { return true; } return false; },  
+ 738017: ($0) => { if(typeof(Module['SDL2']) === 'undefined') { Module['SDL2'] = {}; } var SDL2 = Module['SDL2']; if (!$0) { SDL2.audio = {}; } else { SDL2.capture = {}; } if (!SDL2.audioContext) { if (typeof(AudioContext) !== 'undefined') { SDL2.audioContext = new AudioContext(); } else if (typeof(webkitAudioContext) !== 'undefined') { SDL2.audioContext = new webkitAudioContext(); } if (SDL2.audioContext) { autoResumeAudioContext(SDL2.audioContext); } } return SDL2.audioContext === undefined ? -1 : 0; },  
+ 738510: () => { var SDL2 = Module['SDL2']; return SDL2.audioContext.sampleRate; },  
+ 738578: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; var have_microphone = function(stream) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); SDL2.capture.silenceTimer = undefined; } SDL2.capture.mediaStreamNode = SDL2.audioContext.createMediaStreamSource(stream); SDL2.capture.scriptProcessorNode = SDL2.audioContext.createScriptProcessor($1, $0, 1); SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) { if ((SDL2 === undefined) || (SDL2.capture === undefined)) { return; } audioProcessingEvent.outputBuffer.getChannelData(0).fill(0.0); SDL2.capture.currentCaptureBuffer = audioProcessingEvent.inputBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.mediaStreamNode.connect(SDL2.capture.scriptProcessorNode); SDL2.capture.scriptProcessorNode.connect(SDL2.audioContext.destination); SDL2.capture.stream = stream; }; var no_microphone = function(error) { }; SDL2.capture.silenceBuffer = SDL2.audioContext.createBuffer($0, $1, SDL2.audioContext.sampleRate); SDL2.capture.silenceBuffer.getChannelData(0).fill(0.0); var silence_callback = function() { SDL2.capture.currentCaptureBuffer = SDL2.capture.silenceBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.silenceTimer = setTimeout(silence_callback, ($1 / SDL2.audioContext.sampleRate) * 1000); if ((navigator.mediaDevices !== undefined) && (navigator.mediaDevices.getUserMedia !== undefined)) { navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(have_microphone).catch(no_microphone); } else if (navigator.webkitGetUserMedia !== undefined) { navigator.webkitGetUserMedia({ audio: true, video: false }, have_microphone, no_microphone); } },  
+ 740230: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; SDL2.audio.scriptProcessorNode = SDL2.audioContext['createScriptProcessor']($1, 0, $0); SDL2.audio.scriptProcessorNode['onaudioprocess'] = function (e) { if ((SDL2 === undefined) || (SDL2.audio === undefined)) { return; } SDL2.audio.currentOutputBuffer = e['outputBuffer']; dynCall('vi', $2, [$3]); }; SDL2.audio.scriptProcessorNode['connect'](SDL2.audioContext['destination']); },  
+ 740640: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.capture.currentCaptureBuffer.numberOfChannels; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.capture.currentCaptureBuffer.getChannelData(c); if (channelData.length != $1) { throw 'Web Audio capture buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } if (numChannels == 1) { for (var j = 0; j < $1; ++j) { setValue($0 + (j * 4), channelData[j], 'float'); } } else { for (var j = 0; j < $1; ++j) { setValue($0 + (((j * numChannels) + c) * 4), channelData[j], 'float'); } } } },  
+ 741245: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.audio.currentOutputBuffer['numberOfChannels']; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.audio.currentOutputBuffer['getChannelData'](c); if (channelData.length != $1) { throw 'Web Audio output buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } for (var j = 0; j < $1; ++j) { channelData[j] = HEAPF32[$0 + ((j*numChannels + c) << 2) >> 2]; } } },  
+ 741725: ($0) => { var SDL2 = Module['SDL2']; if ($0) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); } if (SDL2.capture.stream !== undefined) { var tracks = SDL2.capture.stream.getAudioTracks(); for (var i = 0; i < tracks.length; i++) { SDL2.capture.stream.removeTrack(tracks[i]); } SDL2.capture.stream = undefined; } if (SDL2.capture.scriptProcessorNode !== undefined) { SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) {}; SDL2.capture.scriptProcessorNode.disconnect(); SDL2.capture.scriptProcessorNode = undefined; } if (SDL2.capture.mediaStreamNode !== undefined) { SDL2.capture.mediaStreamNode.disconnect(); SDL2.capture.mediaStreamNode = undefined; } if (SDL2.capture.silenceBuffer !== undefined) { SDL2.capture.silenceBuffer = undefined } SDL2.capture = undefined; } else { if (SDL2.audio.scriptProcessorNode != undefined) { SDL2.audio.scriptProcessorNode.disconnect(); SDL2.audio.scriptProcessorNode = undefined; } SDL2.audio = undefined; } if ((SDL2.audioContext !== undefined) && (SDL2.audio === undefined) && (SDL2.capture === undefined)) { SDL2.audioContext.close(); SDL2.audioContext = undefined; } },  
+ 742897: ($0, $1, $2) => { var w = $0; var h = $1; var pixels = $2; if (!Module['SDL2']) Module['SDL2'] = {}; var SDL2 = Module['SDL2']; if (SDL2.ctxCanvas !== Module['canvas']) { SDL2.ctx = Module['createContext'](Module['canvas'], false, true); SDL2.ctxCanvas = Module['canvas']; } if (SDL2.w !== w || SDL2.h !== h || SDL2.imageCtx !== SDL2.ctx) { SDL2.image = SDL2.ctx.createImageData(w, h); SDL2.w = w; SDL2.h = h; SDL2.imageCtx = SDL2.ctx; } var data = SDL2.image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = 0xff; src++; dst += 4; } } else { if (SDL2.data32Data !== data) { SDL2.data32 = new Int32Array(data.buffer); SDL2.data8 = new Uint8Array(data.buffer); SDL2.data32Data = data; } var data32 = SDL2.data32; num = data32.length; data32.set(HEAP32.subarray(src, src + num)); var data8 = SDL2.data8; var i = 3; var j = i + 4*num; if (num % 8 == 0) { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; } } else { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; } } } SDL2.ctx.putImageData(SDL2.image, 0, 0); },  
+ 744366: ($0, $1, $2, $3, $4) => { var w = $0; var h = $1; var hot_x = $2; var hot_y = $3; var pixels = $4; var canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h; var ctx = canvas.getContext("2d"); var image = ctx.createImageData(w, h); var data = image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = (val >> 24) & 0xff; src++; dst += 4; } } else { var data32 = new Int32Array(data.buffer); num = data32.length; data32.set(HEAP32.subarray(src, src + num)); } ctx.putImageData(image, 0, 0); var url = hot_x === 0 && hot_y === 0 ? "url(" + canvas.toDataURL() + "), auto" : "url(" + canvas.toDataURL() + ") " + hot_x + " " + hot_y + ", auto"; var urlBuf = _malloc(url.length + 1); stringToUTF8(url, urlBuf, url.length + 1); return urlBuf; },  
+ 745355: ($0) => { if (Module['canvas']) { Module['canvas'].style['cursor'] = UTF8ToString($0); } },  
+ 745438: () => { if (Module['canvas']) { Module['canvas'].style['cursor'] = 'none'; } },  
+ 745507: () => { return window.innerWidth; },  
+ 745537: () => { return window.innerHeight; }
 };
 
 
@@ -4647,6 +4650,25 @@ var ASM_CONSTS = {
       return _malloc(size + 24) + 24;
     }
 
+  var exceptionCaught =  [];
+  
+  function exception_addRef(info) {
+      info.add_ref();
+    }
+  
+  var uncaughtExceptionCount = 0;
+  function ___cxa_begin_catch(ptr) {
+      var info = new ExceptionInfo(ptr);
+      if (!info.get_caught()) {
+        info.set_caught(true);
+        uncaughtExceptionCount--;
+      }
+      info.set_rethrown(false);
+      exceptionCaught.push(info);
+      exception_addRef(info);
+      return info.get_exception_ptr();
+    }
+
   /** @constructor */
   function ExceptionInfo(excPtr) {
       this.excPtr = excPtr;
@@ -4737,18 +4759,157 @@ var ASM_CONSTS = {
         return this.excPtr;
       };
     }
-  
+  function ___cxa_free_exception(ptr) {
+      try {
+        return _free(new ExceptionInfo(ptr).ptr);
+      } catch(e) {
+        err('exception during __cxa_free_exception: ' + e);
+      }
+    }
+  function exception_decRef(info) {
+      // A rethrown exception can reach refcount 0; it must not be discarded
+      // Its next handler will clear the rethrown flag and addRef it, prior to
+      // final decRef and destruction here
+      if (info.release_ref() && !info.get_rethrown()) {
+        var destructor = info.get_destructor();
+        if (destructor) {
+          // In Wasm, destructors return 'this' as in ARM
+          getWasmTableEntry(destructor)(info.excPtr);
+        }
+        ___cxa_free_exception(info.excPtr);
+      }
+    }
+  function ___cxa_decrement_exception_refcount(ptr) {
+      if (!ptr) return;
+      exception_decRef(new ExceptionInfo(ptr));
+    }
+
   var exceptionLast = 0;
+  function ___cxa_end_catch() {
+      // Clear state flag.
+      _setThrew(0);
+      assert(exceptionCaught.length > 0);
+      // Call destructor if one is registered then clear it.
+      var info = exceptionCaught.pop();
   
-  var uncaughtExceptionCount = 0;
+      exception_decRef(info);
+      exceptionLast = 0; // XXX in decRef?
+    }
+
+  function ___resumeException(ptr) {
+      if (!exceptionLast) { exceptionLast = ptr; }
+      throw ptr;
+    }
+  function ___cxa_find_matching_catch_2() {
+      var thrown = exceptionLast;
+      if (!thrown) {
+        // just pass through the null ptr
+        setTempRet0(0);
+        return 0;
+      }
+      var info = new ExceptionInfo(thrown);
+      info.set_adjusted_ptr(thrown);
+      var thrownType = info.get_type();
+      if (!thrownType) {
+        // just pass through the thrown ptr
+        setTempRet0(0);
+        return thrown;
+      }
+  
+      // can_catch receives a **, add indirection
+      // The different catch blocks are denoted by different types.
+      // Due to inheritance, those types may not precisely match the
+      // type of the thrown object. Find one which matches, and
+      // return the type of the catch block which should be called.
+      for (var i = 0; i < arguments.length; i++) {
+        var caughtType = arguments[i];
+        if (caughtType === 0 || caughtType === thrownType) {
+          // Catch all clause matched or exactly the same type is caught
+          break;
+        }
+        var adjusted_ptr_addr = info.ptr + 16;
+        if (___cxa_can_catch(caughtType, thrownType, adjusted_ptr_addr)) {
+          setTempRet0(caughtType);
+          return thrown;
+        }
+      }
+      setTempRet0(thrownType);
+      return thrown;
+    }
+
+  function ___cxa_find_matching_catch_3() {
+      var thrown = exceptionLast;
+      if (!thrown) {
+        // just pass through the null ptr
+        setTempRet0(0);
+        return 0;
+      }
+      var info = new ExceptionInfo(thrown);
+      info.set_adjusted_ptr(thrown);
+      var thrownType = info.get_type();
+      if (!thrownType) {
+        // just pass through the thrown ptr
+        setTempRet0(0);
+        return thrown;
+      }
+  
+      // can_catch receives a **, add indirection
+      // The different catch blocks are denoted by different types.
+      // Due to inheritance, those types may not precisely match the
+      // type of the thrown object. Find one which matches, and
+      // return the type of the catch block which should be called.
+      for (var i = 0; i < arguments.length; i++) {
+        var caughtType = arguments[i];
+        if (caughtType === 0 || caughtType === thrownType) {
+          // Catch all clause matched or exactly the same type is caught
+          break;
+        }
+        var adjusted_ptr_addr = info.ptr + 16;
+        if (___cxa_can_catch(caughtType, thrownType, adjusted_ptr_addr)) {
+          setTempRet0(caughtType);
+          return thrown;
+        }
+      }
+      setTempRet0(thrownType);
+      return thrown;
+    }
+
+
+  function ___cxa_increment_exception_refcount(ptr) {
+      if (!ptr) return;
+      exception_addRef(new ExceptionInfo(ptr));
+    }
+
+  function ___cxa_rethrow() {
+      var info = exceptionCaught.pop();
+      if (!info) {
+        abort('no exception to throw');
+      }
+      var ptr = info.excPtr;
+      if (!info.get_rethrown()) {
+        // Only pop if the corresponding push was through rethrow_primary_exception
+        exceptionCaught.push(info);
+        info.set_rethrown(true);
+        info.set_caught(false);
+        uncaughtExceptionCount++;
+      }
+      exceptionLast = ptr;
+      throw ptr;
+    }
+
   function ___cxa_throw(ptr, type, destructor) {
       var info = new ExceptionInfo(ptr);
       // Initialize ExceptionInfo content after it was allocated in __cxa_allocate_exception.
       info.init(type, destructor);
       exceptionLast = ptr;
       uncaughtExceptionCount++;
-      throw ptr + " - Exception catching is disabled, this exception cannot be caught. Compile with -sNO_DISABLE_EXCEPTION_CATCHING or -sEXCEPTION_CATCHING_ALLOWED=[..] to catch.";
+      throw ptr;
     }
+
+  function ___cxa_uncaught_exceptions() {
+      return uncaughtExceptionCount;
+    }
+
 
   function ___syscall_chdir(path) {
   try {
@@ -10213,6 +10374,7 @@ var ASM_CONSTS = {
     }
 
 
+
       // exports
       Module["requestFullscreen"] = function Module_requestFullscreen(lockPointer, resizeCanvas) { Browser.requestFullscreen(lockPointer, resizeCanvas) };
       Module["requestFullScreen"] = function Module_requestFullScreen() { Browser.requestFullScreen() };
@@ -10476,7 +10638,17 @@ function checkIncomingModuleAPI() {
 var asmLibraryArg = {
   "__assert_fail": ___assert_fail,
   "__cxa_allocate_exception": ___cxa_allocate_exception,
+  "__cxa_begin_catch": ___cxa_begin_catch,
+  "__cxa_decrement_exception_refcount": ___cxa_decrement_exception_refcount,
+  "__cxa_end_catch": ___cxa_end_catch,
+  "__cxa_find_matching_catch_2": ___cxa_find_matching_catch_2,
+  "__cxa_find_matching_catch_3": ___cxa_find_matching_catch_3,
+  "__cxa_free_exception": ___cxa_free_exception,
+  "__cxa_increment_exception_refcount": ___cxa_increment_exception_refcount,
+  "__cxa_rethrow": ___cxa_rethrow,
   "__cxa_throw": ___cxa_throw,
+  "__cxa_uncaught_exceptions": ___cxa_uncaught_exceptions,
+  "__resumeException": ___resumeException,
   "__syscall_chdir": ___syscall_chdir,
   "__syscall_fcntl64": ___syscall_fcntl64,
   "__syscall_fstat64": ___syscall_fstat64,
@@ -10878,6 +11050,33 @@ var asmLibraryArg = {
   "glUseProgram": _glUseProgram,
   "glVertexAttribPointer": _glVertexAttribPointer,
   "glViewport": _glViewport,
+  "invoke_diii": invoke_diii,
+  "invoke_fiii": invoke_fiii,
+  "invoke_i": invoke_i,
+  "invoke_ii": invoke_ii,
+  "invoke_iii": invoke_iii,
+  "invoke_iiii": invoke_iiii,
+  "invoke_iiiii": invoke_iiiii,
+  "invoke_iiiiid": invoke_iiiiid,
+  "invoke_iiiiii": invoke_iiiiii,
+  "invoke_iiiiiii": invoke_iiiiiii,
+  "invoke_iiiiiiii": invoke_iiiiiiii,
+  "invoke_iiiiiiiiiii": invoke_iiiiiiiiiii,
+  "invoke_iiiiiiiiiiii": invoke_iiiiiiiiiiii,
+  "invoke_iiiiiiiiiiiii": invoke_iiiiiiiiiiiii,
+  "invoke_iiiiij": invoke_iiiiij,
+  "invoke_j": invoke_j,
+  "invoke_jiiii": invoke_jiiii,
+  "invoke_v": invoke_v,
+  "invoke_vi": invoke_vi,
+  "invoke_vii": invoke_vii,
+  "invoke_viii": invoke_viii,
+  "invoke_viiii": invoke_viiii,
+  "invoke_viiiii": invoke_viiiii,
+  "invoke_viiiiiii": invoke_viiiiiii,
+  "invoke_viiiiiiiiii": invoke_viiiiiiiiii,
+  "invoke_viiiiiiiiiiiiiii": invoke_viiiiiiiiiiiiiii,
+  "invoke_viijii": invoke_viijii,
   "strftime_l": _strftime_l
 };
 var asm = createWasm();
@@ -10915,6 +11114,12 @@ var _setThrew = Module["_setThrew"] = createExportWrapper("setThrew");
 var _saveSetjmp = Module["_saveSetjmp"] = createExportWrapper("saveSetjmp");
 
 /** @type {function(...*):?} */
+var setTempRet0 = Module["setTempRet0"] = createExportWrapper("setTempRet0");
+
+/** @type {function(...*):?} */
+var getTempRet0 = Module["getTempRet0"] = createExportWrapper("getTempRet0");
+
+/** @type {function(...*):?} */
 var _emscripten_stack_init = Module["_emscripten_stack_init"] = function() {
   return (_emscripten_stack_init = Module["_emscripten_stack_init"] = Module["asm"]["emscripten_stack_init"]).apply(null, arguments);
 };
@@ -10944,6 +11149,9 @@ var stackRestore = Module["stackRestore"] = createExportWrapper("stackRestore");
 var stackAlloc = Module["stackAlloc"] = createExportWrapper("stackAlloc");
 
 /** @type {function(...*):?} */
+var ___cxa_can_catch = Module["___cxa_can_catch"] = createExportWrapper("__cxa_can_catch");
+
+/** @type {function(...*):?} */
 var ___cxa_is_pointer_type = Module["___cxa_is_pointer_type"] = createExportWrapper("__cxa_is_pointer_type");
 
 /** @type {function(...*):?} */
@@ -10968,10 +11176,16 @@ var dynCall_jiji = Module["dynCall_jiji"] = createExportWrapper("dynCall_jiji");
 var dynCall_ji = Module["dynCall_ji"] = createExportWrapper("dynCall_ji");
 
 /** @type {function(...*):?} */
+var dynCall_j = Module["dynCall_j"] = createExportWrapper("dynCall_j");
+
+/** @type {function(...*):?} */
 var dynCall_viijii = Module["dynCall_viijii"] = createExportWrapper("dynCall_viijii");
 
 /** @type {function(...*):?} */
 var dynCall_iiiiij = Module["dynCall_iiiiij"] = createExportWrapper("dynCall_iiiiij");
+
+/** @type {function(...*):?} */
+var dynCall_jiiii = Module["dynCall_jiiii"] = createExportWrapper("dynCall_jiiii");
 
 /** @type {function(...*):?} */
 var dynCall_iiiiijj = Module["dynCall_iiiiijj"] = createExportWrapper("dynCall_iiiiijj");
@@ -10979,6 +11193,303 @@ var dynCall_iiiiijj = Module["dynCall_iiiiijj"] = createExportWrapper("dynCall_i
 /** @type {function(...*):?} */
 var dynCall_iiiiiijj = Module["dynCall_iiiiiijj"] = createExportWrapper("dynCall_iiiiiijj");
 
+
+function invoke_iiii(index,a1,a2,a3) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2,a3);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_vi(index,a1) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iii(index,a1,a2) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_ii(index,a1) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_vii(index,a1,a2) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1,a2);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_v(index) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)();
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiiii(index,a1,a2,a3,a4,a5,a6) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiii(index,a1,a2,a3,a4) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1,a2,a3,a4);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiii(index,a1,a2,a3,a4,a5) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2,a3,a4,a5);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiid(index,a1,a2,a3,a4,a5) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2,a3,a4,a5);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viii(index,a1,a2,a3) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1,a2,a3);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiiiii(index,a1,a2,a3,a4,a5,a6,a7) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiii(index,a1,a2,a3,a4) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2,a3,a4);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_fiii(index,a1,a2,a3) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2,a3);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_diii(index,a1,a2,a3) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2,a3);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_i(index) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)();
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiiiiii(index,a1,a2,a3,a4,a5,a6,a7) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiiiiiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiiii(index,a1,a2,a3,a4,a5) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1,a2,a3,a4,a5);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_j(index) {
+  var sp = stackSave();
+  try {
+    return dynCall_j(index);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viijii(index,a1,a2,a3,a4,a5,a6) {
+  var sp = stackSave();
+  try {
+    dynCall_viijii(index,a1,a2,a3,a4,a5,a6);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiij(index,a1,a2,a3,a4,a5,a6) {
+  var sp = stackSave();
+  try {
+    return dynCall_iiiiij(index,a1,a2,a3,a4,a5,a6);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_jiiii(index,a1,a2,a3,a4) {
+  var sp = stackSave();
+  try {
+    return dynCall_jiiii(index,a1,a2,a3,a4);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
 
 
 
@@ -11189,6 +11700,10 @@ var unexportedRuntimeSymbols = [
   'ExceptionInfo',
   'exception_addRef',
   'exception_decRef',
+  'getExceptionMessageCommon',
+  'incrementExceptionRefcount',
+  'decrementExceptionRefcount',
+  'getExceptionMessage',
   'Browser',
   'setMainLoop',
   'wget',
@@ -11303,8 +11818,10 @@ var missingLibrarySymbols = [
   'setImmediateWrapped',
   'clearImmediateWrapped',
   'polyfillSetImmediate',
-  'exception_addRef',
-  'exception_decRef',
+  'getExceptionMessageCommon',
+  'incrementExceptionRefcount',
+  'decrementExceptionRefcount',
+  'getExceptionMessage',
   '_setNetworkCallback',
   'writeGLArray',
   'SDL_unicode',

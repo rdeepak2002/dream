@@ -6,18 +6,24 @@
 
 #include <iostream>
 #include <glad/glad.h>
+#include <filesystem>
 #include "dream/renderer/OpenGLMesh.h"
 #include "dream/project/Project.h"
 #include "dream/scene/component/Component.h"
 
 namespace Dream {
     Entity OpenGLAssetImporter::importMesh(std::string path) {
+        if (!std::filesystem::exists(path)) {
+            std::cout << "File does not exist" << std::endl;
+            exit(EXIT_FAILURE);
+        }
         // use assimp to get scene of model
         Assimp::Importer importer;
-        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
+//        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
         if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
             std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
-            exit(EXIT_FAILURE);
+            return Entity();
         }
         // process root node
         auto node = scene->mRootNode;
