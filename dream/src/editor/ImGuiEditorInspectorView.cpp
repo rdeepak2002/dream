@@ -19,6 +19,13 @@ void Dream::ImGuiEditorInspectorView::update() {
     ImGui::Begin("Inspector");
     if (selectedEntity) {
         ImGui::Text("%s", selectedEntity.getComponent<Component::TagComponent>().tag.c_str());
+        if (selectedEntity.hasComponent<Component::MaterialComponent>()) {
+            auto &component = selectedEntity.getComponent<Component::MaterialComponent>();
+            if (ImGui::TreeNodeEx("Material", ImGuiTreeNodeFlags_DefaultOpen, "Material")) {
+                ImGui::Text("%s", component.texture->path.c_str());
+                ImGui::TreePop();
+            }
+        }
     }
     ImGui::End();
 }

@@ -5,10 +5,14 @@
 #ifndef DREAM_TEXTURE_H
 #define DREAM_TEXTURE_H
 
+#include <iostream>
+
 namespace Dream {
     class Texture {
+    public:
+        std::string path;
         virtual void foo() {
-            // need a virtual method to indicate polymorphism
+
         }
     };
 }
