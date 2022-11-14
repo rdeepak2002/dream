@@ -4,15 +4,62 @@
 
 #include "dream/Application.h"
 
+#include "dream/renderer/OpenGLRenderer.h"
+#include "dream/editor/ImGuiSDL2OpenGLEditor.h"
+#include "dream/window/SDL2OpenGLWindow.h"
+#include "dream/scene/component/Component.h"
+#include "dream/renderer/OpenGLCubeMesh.h"
+#include "dream/renderer/OpenGLTexture.h"
 #include <iostream>
 #include <filesystem>
 
 namespace Dream {
     Application::Application() {
         Project::open(this->getResourcesRoot().append("examples").append("hello_world"));
-        this->window = new SDLWindow();
+        this->window = new SDL2OpenGLWindow();
         this->renderer = new OpenGLRenderer();
-        this->editor = new Editor(this->window);
+        this->editor = new ImGuiSDL2OpenGLEditor(this->window);
+
+        // TODO: load from project's scene file
+        auto sphereEntity = Project::getInstance().getScene().createEntity("Sphere");
+        sphereEntity.addComponent<Component::MeshComponent>(new OpenGLSphereMesh());
+        sphereEntity.getComponent<Component::TransformComponent>().translation = {-0.7, -0.7, 0};
+        sphereEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
+
+        auto cubeEntity = Project::getInstance().getScene().createEntity("Cube");
+        cubeEntity.addComponent<Component::MeshComponent>(new OpenGLCubeMesh());
+        cubeEntity.addComponent<Component::MaterialComponent>(new OpenGLTexture(Project::getPath().append("assets").append("textures").append("container.jpg")));
+        cubeEntity.getComponent<Component::TransformComponent>().translation = {1, 0.7, 0};
+        cubeEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
+
+//        Entity teapotEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
+//        teapotEntity.getComponent<Component::TransformComponent>().scale = {0.05, 0.05, 0.05};
+
+//        Entity cuteGhostEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("cute-ghost").append("source").append("Ghost.fbx"));
+//        if (cuteGhostEntity) {
+//            cuteGhostEntity.getComponent<Component::TransformComponent>().translation = {0, 0, 0};
+//            cuteGhostEntity.getComponent<Component::TransformComponent>().scale = {0.2, 0.2, 0.2};
+//            cuteGhostEntity.getComponent<Component::TransformComponent>().rotation = {0.707, -0.5, 0, 0.0};
+//        } else {
+//            std::cout << "Error importing ghost model" << std::endl;
+//        }
+
+        Entity knightEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("knight").append("scene.gltf"));
+        if (knightEntity) {
+            knightEntity.getComponent<Component::TransformComponent>().translation = {0, -0.3, 0};
+            knightEntity.getComponent<Component::TransformComponent>().scale = {0.007, 0.007, 0.007};
+        } else {
+            std::cout << "Error importing knight model" << std::endl;
+        }
+
+        Entity dragonEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("alduin").append("scene.gltf"));
+        if (dragonEntity) {
+            dragonEntity.getComponent<Component::TransformComponent>().translation = {0.5, 0, 0};
+            dragonEntity.getComponent<Component::TransformComponent>().scale = {0.0025, 0.0025, 0.0025};
+            dragonEntity.getComponent<Component::TransformComponent>().rotation = {0.707, 0.707, 0, 0};
+        } else {
+            std::cout << "Error importing dragon model" << std::endl;
+        }
     }
 
     Application::~Application() {
@@ -24,16 +71,15 @@ namespace Dream {
     void Application::update() {
         this->window->pollEvents();
         this->fixedUpdate();
-        bool fullscreen = false;
         std::pair<int, int> rendererViewportDimensions;
         if (fullscreen) {
             rendererViewportDimensions = this->window->getWindowDimensions();
         } else {
             rendererViewportDimensions = this->editor->getRendererViewportDimensions();
         }
-        unsigned int frameBufferTexture = this->renderer->render(rendererViewportDimensions.first, rendererViewportDimensions.second, fullscreen);
+        this->renderer->render(rendererViewportDimensions.first, rendererViewportDimensions.second, fullscreen);
         if (!fullscreen) {
-            this->editor->update(this->window, frameBufferTexture);
+            this->editor->update(this->window, this->renderer->getOutputRenderTexture());
         }
         this->window->swapBuffers();
     }

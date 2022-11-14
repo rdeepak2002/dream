@@ -5,10 +5,10 @@
 #ifndef DREAM_APPLICATION_H
 #define DREAM_APPLICATION_H
 
-#include "dream/SDLWindow.h"
-#include "dream/OpenGLRenderer.h"
-#include "dream/Editor.h"
-#include "dream/Project.h"
+#include "dream/renderer/Renderer.h"
+#include "dream/editor/Editor.h"
+#include "dream/window/Window.h"
+#include "dream/project/Project.h"
 
 namespace Dream {
     class Application {
@@ -18,8 +18,9 @@ namespace Dream {
         void update();
         bool shouldClose();
     private:
-        SDLWindow* window;
-        OpenGLRenderer* renderer;
+        bool fullscreen = false;
+        Window* window;
+        Renderer* renderer;
         Editor* editor;
         void fixedUpdate();
         std::filesystem::path getResourcesRoot();
