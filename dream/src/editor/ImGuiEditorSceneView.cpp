@@ -6,7 +6,7 @@
 
 #include <imgui.h>
 #include <imgui_internal.h>
-#include "dream/Project.h"
+#include "dream/project/Project.h"
 #include "dream/scene/component/Component.h"
 
 namespace Dream {

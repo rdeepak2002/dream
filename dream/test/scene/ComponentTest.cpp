@@ -6,7 +6,7 @@
 #include "dream/scene/Entity.h"
 #include "dream/scene/Scene.h"
 #include "dream/scene/component/Component.h"
-#include "dream/Project.h"
+#include "dream/project/Project.h"
 
 /**
  * Test HierarchyComponent addChild()

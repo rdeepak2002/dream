@@ -77,15 +77,17 @@ namespace Dream {
                     vec.x = mesh->mTextureCoords[0][i].x;
                     vec.y = mesh->mTextureCoords[0][i].y;
                     this->uv.push_back(vec);
-//                    // tangent
-//                    vector.x = mesh->mTangents[i].x;
-//                    vector.y = mesh->mTangents[i].y;
-//                    vector.z = mesh->mTangents[i].z;
+                    // tangent
+                    vector.x = mesh->mTangents[i].x;
+                    vector.y = mesh->mTangents[i].y;
+                    vector.z = mesh->mTangents[i].z;
+                    // TODO: add tangents
 //                    vertex.Tangent = vector;
-//                    // bitangent
-//                    vector.x = mesh->mBitangents[i].x;
-//                    vector.y = mesh->mBitangents[i].y;
-//                    vector.z = mesh->mBitangents[i].z;
+                    // bitangent
+                    vector.x = mesh->mBitangents[i].x;
+                    vector.y = mesh->mBitangents[i].y;
+                    vector.z = mesh->mBitangents[i].z;
+                    // TODO: add bitangents
 //                    vertex.Bitangent = vector;
                 } else {
                     this->uv.emplace_back(0.0f, 0.0f);

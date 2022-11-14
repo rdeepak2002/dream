@@ -8,7 +8,7 @@
 #include "dream/renderer/Renderer.h"
 #include "dream/editor/Editor.h"
 #include "dream/window/Window.h"
-#include "dream/Project.h"
+#include "dream/project/Project.h"
 
 namespace Dream {
     class Application {

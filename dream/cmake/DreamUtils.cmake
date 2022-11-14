@@ -52,6 +52,7 @@ macro(DREAM_GLOB_SOURCE_CODE)
             include/imgui/backends/imgui_impl_sdl.cpp
             include/imgui/backends/imgui_impl_opengl3.cpp
             src/*.cpp
+            src/project/*.cpp
             src/editor/*.cpp
             src/window/*.cpp
             src/renderer/*.cpp

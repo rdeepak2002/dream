@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include <glad/glad.h>
-#include "dream/Project.h"
+#include "dream/project/Project.h"
 
 Dream::OpenGLFrameBuffer::OpenGLFrameBuffer() {
     screenShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("screen_shader.vert").c_str(),

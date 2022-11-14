@@ -7,7 +7,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glad/glad.h>
-#include "dream/Project.h"
+#include "dream/project/Project.h"
 #include "dream/scene/Scene.h"
 #include "dream/scene/Entity.h"
 #include "dream/scene/component/Component.h"
