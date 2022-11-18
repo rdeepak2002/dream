@@ -56,6 +56,7 @@ macro(DREAM_GLOB_SOURCE_CODE)
             src/editor/*.cpp
             src/window/*.cpp
             src/renderer/*.cpp
+            src/util/*.cpp
             src/scene/*.cpp
             src/scene/component/*.cpp
             src/renderer/glad.c)

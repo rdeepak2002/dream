@@ -75,4 +75,9 @@ namespace Dream {
     return uuid::generate_uuid_v4();
 #endif
     }
+
+    std::string IDUtils::newFileID(std::string uniqueIdentifier) {
+        MD5 md5(uniqueIdentifier);
+        return md5.hexdigest();
+    }
 }

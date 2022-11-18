@@ -8,6 +8,7 @@
 #include <iostream>
 #include <random>
 #include <sstream>
+#include "dream/util/MD5.h"
 
 namespace uuid {
     static std::random_device              rd;
@@ -22,6 +23,7 @@ namespace Dream {
     class IDUtils {
     public:
         static std::string newGUID();
+        static std::string newFileID(std::string uniqueIdentifier);
     };
 }
 
