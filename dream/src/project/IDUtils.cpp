@@ -67,6 +67,11 @@ namespace Dream {
     uuid_unparse ( uuid, s );
     return s;
 #else
+    static bool printedGUIDWarning;
+    if (!printedGUIDWarning) {
+        std::cout << "WARNING: Hardware does not support GUID generation, defaulting to pseudorandom generation" << std::endl;
+        printedGUIDWarning = true;
+    }
     return uuid::generate_uuid_v4();
 #endif
     }

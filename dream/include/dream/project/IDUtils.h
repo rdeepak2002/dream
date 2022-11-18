@@ -22,7 +22,6 @@ namespace Dream {
     class IDUtils {
     public:
         static std::string newGUID();
-        static bool printedGUIDWarning;
     };
 }
 
