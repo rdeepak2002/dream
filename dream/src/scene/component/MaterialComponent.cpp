@@ -20,4 +20,15 @@ namespace Dream::Component {
         }
         return this->texture;
     }
+
+    void MaterialComponent::serialize(YAML::Emitter &out) {
+        out << YAML::Key << getComponentName();
+        out << YAML::BeginMap;
+        out << YAML::Key << "guid" << YAML::Value << this->guid;
+        out << YAML::EndMap;
+    }
+
+    std::string MaterialComponent::getComponentName() {
+        return "MaterialComponent";
+    }
 }

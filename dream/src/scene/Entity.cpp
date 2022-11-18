@@ -61,6 +61,9 @@ namespace Dream {
         if (hasComponent<Component::MeshComponent>()) {
             getComponent<Component::MeshComponent>().serialize(out);
         }
+        if (hasComponent<Component::MaterialComponent>()) {
+            getComponent<Component::MaterialComponent>().serialize(out);
+        }
         out << YAML::EndMap;
         // serialize children
         Entity child = getComponent<Component::HierarchyComponent>().first;
