@@ -13,5 +13,21 @@ void *Dream::ResourceManager::getData(const std::string& guid, const std::string
 }
 
 void Dream::ResourceManager::storeData(const std::string &guid, const std::string &fileID, void* data) {
+    if (guid.empty()) {
+        std::cout << "guid cannot be empty" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    if (fileID.empty()) {
+        std::cout << "fileID cannot be empty" << std::endl;
+        exit(EXIT_FAILURE);
+    }
     fileIDMap[std::make_pair(guid, fileID)] = data;
+}
+
+void Dream::ResourceManager::storeData(const std::string &guid, void *data) {
+    if (guid.empty()) {
+        std::cout << "guid cannot be empty" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    fileIDMap[std::make_pair(guid, "")] = data;
 }

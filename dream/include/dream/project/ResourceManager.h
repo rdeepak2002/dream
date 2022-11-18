@@ -37,15 +37,22 @@ namespace Dream {
          * @param fileID the ID of the sub part of the file that we want to get
          * @return data of the object
          */
-        void* getData(const std::string& guid, const std::string& fileID);
+        void* getData(const std::string& guid, const std::string& fileID="");
         /**
-         * Store data for a part of a file and associate it with a GUID
+         * Store data for a part of a file and associate it with a GUID and fileID
          * Example: Store data for a submesh of an entire mesh
          * @param guid the GUID of the file
          * @param fileID the ID of teh sub part of the file that we want to store
          * @param data data to be stored
          */
         void storeData(const std::string& guid, const std::string& fileID, void* data);
+        /**
+         * Store data for an entire file and associate it with a GUID
+         * Example: store data for an entire texture
+         * @param giud
+         * @param data
+         */
+        void storeData(const std::string& guid, void* data);
     };
 }
 

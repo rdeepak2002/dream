@@ -27,27 +27,27 @@ namespace Dream {
         }
         // process root node
         auto node = scene->mRootNode;
-        Entity dreamEntityRootNode = processNode(path, node, scene);
+        Entity dreamEntityRootNode = processNode(path, node, scene, 0);
         return dreamEntityRootNode;
     }
 
-    Entity OpenGLAssetLoader::processNode(std::string path, aiNode *node, const aiScene *scene) {
+    Entity OpenGLAssetLoader::processNode(std::string path, aiNode *node, const aiScene *scene, int nodeID) {
         Entity dreamNode = Project::getScene()->createEntity(node->mName.C_Str());
         // process meshes for this node
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            Entity child = processMesh(path, mesh, scene);
+            Entity child = processMesh(path, mesh, scene, nodeID + i);
             dreamNode.addChild(child);
         }
         // process child nodes
         for(unsigned int i = 0; i < node->mNumChildren; i++) {
-            Entity child = processNode(path, node->mChildren[i], scene);
+            Entity child = processNode(path, node->mChildren[i], scene, nodeID + i);
             dreamNode.addChild(child);
         }
         return dreamNode;
     }
 
-    Entity OpenGLAssetLoader::processMesh(std::string path, aiMesh *mesh, const aiScene *scene) {
+    Entity OpenGLAssetLoader::processMesh(std::string path, aiMesh *mesh, const aiScene *scene, int meshID) {
         std::vector<glm::vec3> positions;
         std::vector<glm::vec3> normals;
         std::vector<glm::vec2> uv;
@@ -111,20 +111,26 @@ namespace Dream {
         std::string texturePath = "";
         for(unsigned int i = 0; i < material->GetTextureCount(textureType); i++) {
             aiString str;
+            // TODO: check if texture has already been loaded, otherwise skip this call
+            std::cout << "Optimize texture loading here" << std::endl;
             material->GetTexture(textureType, i, &str);
             texturePath = std::filesystem::path(path).parent_path().append(str.C_Str());
-            std::cout << "TODO: optimize texture loading memory usage (same textures are repeatedly loaded)" << std::endl;
         }
 
         auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
-        std::string guid = path;
-        std::string fileID = mesh->mName.C_Str();
+        std::cout << "TODO: fix guid of mesh" << std::endl;
+        std::string guid = path;    // TODO: make guid valid
+        std::cout << "TODO: fix fileID of mesh" << std::endl;
+        std::string fileID = mesh->mName.C_Str();   // TODO: make fild id valid
         Project::getResourceManager()->storeData(guid, fileID, dreamMesh);
         Entity entity = Project::getScene()->createEntity(mesh->mName.C_Str());
         entity.addComponent<Component::MeshComponent>(guid, fileID);
         if (!texturePath.empty()) {
             auto* dreamTexture = new OpenGLTexture(texturePath);
-            entity.addComponent<Component::MaterialComponent>(dreamTexture);
+            guid = texturePath; // TODO: make guid valid
+            std::cout << "TODO: fix guid of texture" << std::endl;
+            Project::getResourceManager()->storeData(guid, dreamTexture);
+            entity.addComponent<Component::MaterialComponent>((OpenGLTexture*)Project::getResourceManager()->getData(guid)); // TODO: change constructor to take in file GUID and file ID
         }
         return entity;
     }

@@ -15,8 +15,8 @@ namespace Dream {
     public:
         Entity loadMesh(std::string path) override;
     private:
-        Entity processNode(std::string path, aiNode *node, const aiScene *scene);
-        Entity processMesh(std::string path, aiMesh *mesh, const aiScene *scene);
+        Entity processNode(std::string path, aiNode *node, const aiScene *scene, int nodeID);
+        Entity processMesh(std::string path, aiMesh *mesh, const aiScene *scene, int meshID);
     };
 }
 
