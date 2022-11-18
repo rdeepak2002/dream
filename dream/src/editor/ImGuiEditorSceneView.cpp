@@ -31,7 +31,7 @@ namespace Dream {
         if (entity.numChildren() == 0) {
             treeNodeFlags = treeNodeFlags | ImGuiTreeNodeFlags_Leaf;
         }
-        if (ImGui::TreeNodeEx(tagStr.c_str(), treeNodeFlags, "%s", tagStr.c_str())) {
+        if (ImGui::TreeNodeEx(entity.getComponent<Component::IdComponent>().getID().c_str(), treeNodeFlags, "%s", tagStr.c_str())) {
             if (ImGui::IsItemClicked()) {
                 if (inspectorView) {
                     inspectorView->selectEntity(entity);

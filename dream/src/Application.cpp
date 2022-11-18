@@ -63,6 +63,18 @@ namespace Dream {
         } else {
             std::cout << "Error importing dragon model" << std::endl;
         }
+
+//        Entity sponzaEntity = Project::getAssetLoader()->loadMesh(Project::getPath().append("assets").append("models").append("sponza").append("Sponza.gltf"));
+//        if (sponzaEntity) {
+//            sponzaEntity.getComponent<Component::TransformComponent>().translation = {0.0, 0, 0};
+//            sponzaEntity.getComponent<Component::TransformComponent>().scale = {1, 1, 1};
+//            sponzaEntity.getComponent<Component::TransformComponent>().rotation = {0.707, 0.707, 0, 0};
+////            sponzaEntity.getComponent<Component::TransformComponent>().translation = {0.0, -2, 2.0};
+////            sponzaEntity.getComponent<Component::TransformComponent>().scale = {0.0025, 0.0025, 0.0025};
+////            sponzaEntity.getComponent<Component::TransformComponent>().rotation = {0, 0, 0, 1.0};
+//        } else {
+//            std::cout << "Error importing sponza model" << std::endl;
+//        }
     }
 
     Application::~Application() {

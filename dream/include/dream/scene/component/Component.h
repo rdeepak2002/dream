@@ -18,6 +18,13 @@ namespace Dream::Component {
         std::string name = "root";
     };
 
+    struct IdComponent {
+        std::string id = "";
+        explicit IdComponent();
+        IdComponent(std::string id);
+        std::string getID();
+    };
+
     struct TagComponent {
         std::string tag = "";
         explicit TagComponent(std::string tag);
