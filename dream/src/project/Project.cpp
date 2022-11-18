@@ -27,6 +27,24 @@ namespace Dream {
         Project::getInstance().openHelper(std::move(filepath));
     }
 
+    void Project::recognizeResources() {
+        std::cout << "TODO: implement recognizeResources() in Project.cpp" << std::endl;
+        // TODO: traverse Project::getPath() recursively and identify all .meta files
+        // TODO: for each .meta file, deserialize the YAML to map a GUID to file path in project/ResourceManager
+//        exit(EXIT_FAILURE);
+
+        for (const auto& file : std::filesystem::recursive_directory_iterator(Project::getPath().append("assets"))) {
+            std::string metaExtension = ".meta";
+            if (!std::filesystem::is_directory(file) && file.path().extension() == metaExtension) {
+                std::string originalFilePath = file.path().string().substr(0, file.path().string().length() - metaExtension.length());
+                YAML::Node doc = YAML::LoadFile(file.path());
+                auto guid = doc["guid"].as<std::string>();
+                std::cout << guid << std::endl;
+                Project::getResourceManager()->setFilePathFromGUID(guid, originalFilePath);
+            }
+        }
+    }
+
     std::filesystem::path Project::getPath() {
         return Project::getInstance().getPathHelper();
     }
@@ -34,6 +52,7 @@ namespace Dream {
     void Project::openHelper(std::filesystem::path filepath) {
         if (std::filesystem::exists(filepath)) {
             this->path = std::move(filepath);
+            this->recognizeResources();
         } else {
             fprintf(stderr, "Error: project folder does not exist\n");
             exit(EXIT_FAILURE);

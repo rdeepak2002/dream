@@ -31,6 +31,12 @@ namespace Dream {
          */
         std::string getFilePathFromGUID(const std::string& guid);
         /**
+         * Make a GUID refer to a filepath
+         * @param guid the GUID of the file
+         * @param filepath path of the file that can be referenced from teh GUID
+         */
+        void setFilePathFromGUID(const std::string& guid, const std::string& filepath);
+        /**
          * Get data of an object from a part of a file
          * Example: Get data of submesh from an entire mesh file
          * @param guid the GUID of the file

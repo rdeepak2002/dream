@@ -33,12 +33,13 @@ namespace Dream {
         static void saveScene();
     private:
         Project();
-        std::filesystem::path path;
+        void recognizeResources();
         void openHelper(std::filesystem::path filepath);
         Dream::AssetLoader* getAssetLoaderHelper();
         Dream::ResourceManager* getResourceManagerHelper();
         Dream::AssetImporter* getAssetImporterHelper();
         std::filesystem::path getPathHelper();
+        std::filesystem::path path;
         Scene *getSceneHelper();
         Scene *scene;
         Dream::AssetLoader* assetLoader;

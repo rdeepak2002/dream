@@ -13,10 +13,10 @@
 namespace Dream {
     class OpenGLAssetLoader : public AssetLoader {
     public:
-        Entity loadMesh(std::string path) override;
+        Entity loadMesh(std::string guid) override;
     private:
-        Entity processNode(std::string path, aiNode *node, const aiScene *scene);
-        Entity processMesh(std::string path, aiMesh *mesh, const aiScene *scene, int meshID);
+        Entity processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene);
+        Entity processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, int meshID);
     };
 }
 

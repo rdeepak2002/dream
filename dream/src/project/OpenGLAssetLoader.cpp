@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <filesystem>
+#include <utility>
 #include "dream/renderer/OpenGLMesh.h"
 #include "dream/renderer/OpenGLTexture.h"
 #include "dream/project/Project.h"
@@ -13,7 +14,8 @@
 #include "dream/util/IDUtils.h"
 
 namespace Dream {
-    Entity OpenGLAssetLoader::loadMesh(std::string path) {
+    Entity OpenGLAssetLoader::loadMesh(std::string guid) {
+        std::string path = Project::getResourceManager()->getFilePathFromGUID(guid);
         if (!std::filesystem::exists(path)) {
             std::cout << "File does not exist" << std::endl;
             exit(EXIT_FAILURE);
@@ -28,27 +30,27 @@ namespace Dream {
         }
         // process root node
         auto node = scene->mRootNode;
-        Entity dreamEntityRootNode = processNode(path, node, scene);
+        Entity dreamEntityRootNode = processNode(path, guid, node, scene);
         return dreamEntityRootNode;
     }
 
-    Entity OpenGLAssetLoader::processNode(std::string path, aiNode *node, const aiScene *scene) {
+    Entity OpenGLAssetLoader::processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene) {
         Entity dreamNode = Project::getScene()->createEntity(node->mName.C_Str());
         // process meshes for this node
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            Entity child = processMesh(path, mesh, scene, i);
+            Entity child = processMesh(path, guid, mesh, scene, i);
             dreamNode.addChild(child);
         }
         // process child nodes
         for(unsigned int i = 0; i < node->mNumChildren; i++) {
-            Entity child = processNode(path, node->mChildren[i], scene);
+            Entity child = processNode(path, guid, node->mChildren[i], scene);
             dreamNode.addChild(child);
         }
         return dreamNode;
     }
 
-    Entity OpenGLAssetLoader::processMesh(std::string path, aiMesh *mesh, const aiScene *scene, int meshID) {
+    Entity OpenGLAssetLoader::processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, int meshID) {
         std::vector<glm::vec3> positions;
         std::vector<glm::vec3> normals;
         std::vector<glm::vec2> uv;
@@ -117,9 +119,8 @@ namespace Dream {
 
         Entity entity = Project::getScene()->createEntity(mesh->mName.C_Str());
         // add mesh component
-        std::string meshFileGUID = IDUtils::newGUID();  // TODO: this should come from .meta file
-        std::cout << "TODO: load mesh file GUID from .meta file" << std::endl;
-        std::string subMeshFileID = IDUtils::newFileID(std::to_string(meshID));
+        std::string meshFileGUID = std::move(guid);
+        std::string subMeshFileID = IDUtils::newFileID(std::to_string(meshID) + "0");
         if (!Project::getResourceManager()->hasData(meshFileGUID)) {
             auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
             Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
@@ -128,7 +129,7 @@ namespace Dream {
         // add material component
         if (!texturePath.empty()) {
             std::cout << "TODO: load texture file GUID from .meta file" << std::endl;
-            std::string textureFileGUID = IDUtils::newGUID();   // TODO: this should come from .meta file
+            std::string textureFileGUID = IDUtils::newGUID();   // TODO: this should come from .meta file for the texture
             if (!Project::getResourceManager()->hasData(textureFileGUID)) {
                 auto* dreamTexture = new OpenGLTexture(texturePath);
                 Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);

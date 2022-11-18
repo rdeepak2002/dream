@@ -53,14 +53,14 @@ namespace Dream {
 //            std::cout << "Error importing knight model" << std::endl;
 //        }
 
-//        Entity dragonEntity = Project::getAssetLoader()->loadMesh(Project::getPath().append("assets").append("models").append("alduin").append("scene.gltf"));
-//        if (dragonEntity) {
-//            dragonEntity.getComponent<Component::TransformComponent>().translation = {0.5, 0, 0};
-//            dragonEntity.getComponent<Component::TransformComponent>().scale = {0.0025, 0.0025, 0.0025};
-//            dragonEntity.getComponent<Component::TransformComponent>().rotation = {0.707, 0.707, 0, 0};
-//        } else {
-//            std::cout << "Error importing dragon model" << std::endl;
-//        }
+        Entity dragonEntity = Project::getAssetLoader()->loadMesh("7F555714-27E0-4AB5-B950-3BD20ED6E914"); // guid comes from alduin/scene.gltf.meta
+        if (dragonEntity) {
+            dragonEntity.getComponent<Component::TransformComponent>().translation = {0.5, 0, 0};
+            dragonEntity.getComponent<Component::TransformComponent>().scale = {0.0025, 0.0025, 0.0025};
+            dragonEntity.getComponent<Component::TransformComponent>().rotation = {0.707, 0.707, 0, 0};
+        } else {
+            std::cout << "Error importing dragon model" << std::endl;
+        }
 
 //        Entity sponzaEntity = Project::getAssetLoader()->loadMesh(Project::getPath().append("assets").append("models").append("sponza").append("Sponza.gltf"));
 //        if (sponzaEntity) {
@@ -74,7 +74,6 @@ namespace Dream {
 //            std::cout << "Error importing sponza model" << std::endl;
 //        }
 
-        // TODO: comment this
 //        Project::getAssetImporter()->importAsset("/Users/deepakramalingam/Desktop/sponza");
 
         Project::saveScene();

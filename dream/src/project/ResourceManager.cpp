@@ -8,6 +8,10 @@ std::string Dream::ResourceManager::getFilePathFromGUID(const std::string& guid)
     return guidMap[guid];
 }
 
+void Dream::ResourceManager::setFilePathFromGUID(const std::string &guid, const std::string &filepath) {
+    guidMap[guid] = filepath;
+}
+
 void *Dream::ResourceManager::getData(const std::string& guid, const std::string& fileID) {
     return fileIDMap[std::make_pair(guid, fileID)];
 }

@@ -6,7 +6,7 @@
 #include <iostream>
 
 namespace Dream {
-    Entity AssetLoader::loadMesh(std::string path) {
+    Entity AssetLoader::loadMesh(std::string guid) {
         return {};
     }
 }

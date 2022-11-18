@@ -11,7 +11,7 @@
 namespace Dream {
     class AssetLoader {
     public:
-        virtual Entity loadMesh(std::string path);
+        virtual Entity loadMesh(std::string guid);
     };
 }
 
