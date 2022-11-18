@@ -30,6 +30,7 @@ namespace Dream {
         }
         // process root node
         auto node = scene->mRootNode;
+        meshID = 0;
         Entity dreamEntityRootNode = processNode(path, guid, node, scene);
         return dreamEntityRootNode;
     }
@@ -39,7 +40,7 @@ namespace Dream {
         // process meshes for this node
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            Entity child = processMesh(path, guid, mesh, scene, i);
+            Entity child = processMesh(path, guid, mesh, scene);
             dreamNode.addChild(child);
         }
         // process child nodes
@@ -50,7 +51,8 @@ namespace Dream {
         return dreamNode;
     }
 
-    Entity OpenGLAssetLoader::processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, int meshID) {
+    Entity OpenGLAssetLoader::processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene) {
+        meshID++;
         std::vector<glm::vec3> positions;
         std::vector<glm::vec3> normals;
         std::vector<glm::vec2> uv;
@@ -120,7 +122,8 @@ namespace Dream {
         Entity entity = Project::getScene()->createEntity(mesh->mName.C_Str());
         // add mesh component
         std::string meshFileGUID = std::move(guid);
-        std::string subMeshFileID = IDUtils::newFileID(std::to_string(meshID) + "0");
+        std::cout << std::to_string(meshID) + "0" << std::endl;
+        std::string subMeshFileID = IDUtils::newFileID(std::string(std::to_string(meshID) + "0"));
         if (!Project::getResourceManager()->hasData(meshFileGUID)) {
             auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
             Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
@@ -130,6 +133,7 @@ namespace Dream {
         if (!texturePath.empty()) {
             std::cout << "TODO: load texture file GUID from .meta file" << std::endl;
             std::string textureFileGUID = IDUtils::newGUID();   // TODO: this should come from .meta file for the texture
+            // TODO: the texture file will have a .meta file, so use that to get the GUID for the texture file from resource manager
             if (!Project::getResourceManager()->hasData(textureFileGUID)) {
                 auto* dreamTexture = new OpenGLTexture(texturePath);
                 Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);

@@ -16,7 +16,11 @@ namespace Dream {
         Entity loadMesh(std::string guid) override;
     private:
         Entity processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene);
-        Entity processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, int meshID);
+        Entity processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene);
+        /**
+         * Assign a unique ID per submesh within a single Mesh (allows for unique FileID's)
+         */
+        int meshID = 0;
     };
 }
 
