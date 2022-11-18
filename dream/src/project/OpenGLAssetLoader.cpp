@@ -122,7 +122,6 @@ namespace Dream {
         Entity entity = Project::getScene()->createEntity(mesh->mName.C_Str());
         // add mesh component
         std::string meshFileGUID = std::move(guid);
-        std::cout << std::to_string(meshID) + "0" << std::endl;
         std::string subMeshFileID = IDUtils::newFileID(std::string(std::to_string(meshID) + "0"));
         if (!Project::getResourceManager()->hasData(meshFileGUID)) {
             auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
@@ -131,9 +130,13 @@ namespace Dream {
         entity.addComponent<Component::MeshComponent>(meshFileGUID, subMeshFileID);
         // add material component
         if (!texturePath.empty()) {
-            std::cout << "TODO: load texture file GUID from .meta file" << std::endl;
-            std::string textureFileGUID = IDUtils::newGUID();   // TODO: this should come from .meta file for the texture
-            // TODO: the texture file will have a .meta file, so use that to get the GUID for the texture file from resource manager
+            std::string textureMetaFilePath = texturePath + ".meta";
+            if (!std::filesystem::exists(textureMetaFilePath)) {
+                std::cout << "Cannot find meta file for texture " << textureMetaFilePath << std::endl;
+                exit(EXIT_FAILURE);
+            }
+            YAML::Node doc = YAML::LoadFile(textureMetaFilePath);
+            auto textureFileGUID = doc["guid"].as<std::string>();
             if (!Project::getResourceManager()->hasData(textureFileGUID)) {
                 auto* dreamTexture = new OpenGLTexture(texturePath);
                 Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
