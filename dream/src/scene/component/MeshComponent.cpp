@@ -37,4 +37,17 @@ namespace Dream::Component {
         }
         return this->mesh;
     }
+
+    void MeshComponent::serialize(YAML::Emitter &out) {
+        out << YAML::Key << getComponentName();
+        out << YAML::BeginMap;
+        out << YAML::Key << "meshType" << YAML::Value << this->meshType;
+        out << YAML::Key << "guid" << YAML::Value << this->guid;
+        out << YAML::Key << "fileId" << YAML::Value << this->fileId;
+        out << YAML::EndMap;
+    }
+
+    std::string MeshComponent::getComponentName() {
+        return "MeshComponent";
+    }
 }

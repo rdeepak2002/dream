@@ -197,6 +197,8 @@ namespace Dream::Component {
          */
         MeshComponent(MeshType meshType, std::map<std::string, float> primitiveMeshData);
         Mesh* getMesh();
+        void serialize(YAML::Emitter &out) override;
+        std::string getComponentName() override;
     };
 
     struct MaterialComponent : public Component{
