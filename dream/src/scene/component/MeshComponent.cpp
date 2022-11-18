@@ -13,9 +13,14 @@
 namespace Dream::Component {
     MeshComponent::MeshComponent(std::string guid, std::string fileID) {
         this->meshType = FROM_FILE;
-        this->guid = guid;
+        this->guid = std::move(guid);
         this->fileId = fileID;
-        this->mesh = (OpenGLMesh*) Project::getResourceManager()->getData(guid, fileID);
+//        if (!Project::getResourceManager()->hasData(this->guid)) {
+//            std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
+//            std::cout << "TODO: load mesh from " << path << std::endl;
+//            exit(EXIT_FAILURE);
+//        }
+        this->mesh = (OpenGLMesh*) Project::getResourceManager()->getData(this->guid, fileID);
     }
 
     MeshComponent::MeshComponent(Dream::Component::MeshComponent::MeshType meshType,

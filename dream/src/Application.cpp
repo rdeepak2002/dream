@@ -29,7 +29,7 @@ namespace Dream {
         auto cubeEntity = Project::getScene()->createEntity("Cube");
         std::map<std::string, float> cubeData;
         cubeEntity.addComponent<Component::MeshComponent>(Component::MeshComponent::MeshType::PRIMITIVE_CUBE, cubeData);
-//        cubeEntity.addComponent<Component::MaterialComponent>(new OpenGLTexture(Project::getPath().append("assets").append("textures").append("container.jpg")));
+        cubeEntity.addComponent<Component::MaterialComponent>("8C48D481-C949-4C24-87CF-05E446A3Y8A2");
         cubeEntity.getComponent<Component::TransformComponent>().translation = {1, 0.7, 0};
         cubeEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
 

@@ -35,6 +35,7 @@ namespace Dream {
                 YAML::Node doc = YAML::LoadFile(file.path());
                 auto guid = doc["guid"].as<std::string>();
                 Project::getResourceManager()->setFilePathFromGUID(guid, originalFilePath);
+                std::cout << guid << " : " << Project::getResourceManager()->getFilePathFromGUID(guid) << std::endl;
             }
         }
     }
