@@ -18,7 +18,7 @@ namespace Dream {
     Entity Dream::Scene::createEntity(const std::string &name, bool rootEntity) {
         Entity entity = { entityRegistry.create(), this };
         // add id component to entity
-        entity.addComponent<Component::IdComponent>();
+        entity.addComponent<Component::IDComponent>();
         // add transform component to entity
         entity.addComponent<Component::TransformComponent>();
         // add tag component to entity

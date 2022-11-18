@@ -8,15 +8,15 @@
 #include "dream/project/IDUtils.h"
 
 namespace Dream::Component {
-    IdComponent::IdComponent() {
+    IDComponent::IDComponent() {
         this->id = IDUtils::newGUID();
     }
 
-    IdComponent::IdComponent(std::string id) {
+    IDComponent::IDComponent(std::string id) {
         this->id = std::move(id);
     }
 
-    std::string IdComponent::getID() {
+    std::string IDComponent::getID() {
         return this->id;
     }
 }
