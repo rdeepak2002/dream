@@ -12,6 +12,7 @@
 #include "dream/renderer/OpenGLTexture.h"
 #include <iostream>
 #include <filesystem>
+#include <map>
 
 namespace Dream {
     Application::Application() {
@@ -22,12 +23,14 @@ namespace Dream {
 
         // TODO: load from project's scene file
         auto sphereEntity = Project::getScene()->createEntity("Sphere");
-        sphereEntity.addComponent<Component::MeshComponent>(new OpenGLSphereMesh());
+        std::map<std::string, float> sphereData;
+        sphereEntity.addComponent<Component::MeshComponent>(Component::MeshComponent::MeshType::PRIMITIVE_SPHERE, sphereData);
         sphereEntity.getComponent<Component::TransformComponent>().translation = {-0.7, -0.7, 0};
         sphereEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
 
         auto cubeEntity = Project::getScene()->createEntity("Cube");
-        cubeEntity.addComponent<Component::MeshComponent>(new OpenGLCubeMesh());
+        std::map<std::string, float> cubeData;
+        cubeEntity.addComponent<Component::MeshComponent>(Component::MeshComponent::MeshType::PRIMITIVE_CUBE, cubeData);
         cubeEntity.addComponent<Component::MaterialComponent>(new OpenGLTexture(Project::getPath().append("assets").append("textures").append("container.jpg")));
         cubeEntity.getComponent<Component::TransformComponent>().translation = {1, 0.7, 0};
         cubeEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};

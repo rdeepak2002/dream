@@ -93,7 +93,7 @@ namespace Dream {
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
             // draw mesh of entity
-            auto mesh = entity.getComponent<Component::MeshComponent>().mesh;
+            auto mesh = entity.getComponent<Component::MeshComponent>().getMesh();
             auto* openGLMesh = dynamic_cast<OpenGLMesh*>(mesh);
             if (openGLMesh) {
                 if (!openGLMesh->getIndices().empty()) {

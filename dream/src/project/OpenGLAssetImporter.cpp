@@ -117,8 +117,11 @@ namespace Dream {
         }
 
         auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
+        std::string guid = path;
+        std::string fileID = mesh->mName.C_Str();
+        Project::getResourceManager()->storeData(guid, fileID, dreamMesh);
         Entity entity = Project::getScene()->createEntity(mesh->mName.C_Str());
-        entity.addComponent<Component::MeshComponent>(dreamMesh);
+        entity.addComponent<Component::MeshComponent>(guid, fileID);
         if (!texturePath.empty()) {
             auto* dreamTexture = new OpenGLTexture(texturePath);
             entity.addComponent<Component::MaterialComponent>(dreamTexture);

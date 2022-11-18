@@ -41,8 +41,28 @@ namespace Dream::Component {
     };
 
     struct MeshComponent {
+        enum MeshType { PRIMITIVE_SPHERE, PRIMITIVE_CUBE, FROM_FILE };
+        MeshType meshType = PRIMITIVE_CUBE;
+        // data for meshes loaded from files
+        std::string guid;
+        std::string fileId;
+        // cache mesh in memory for quick usage during runtime
         Mesh* mesh = nullptr;
-        explicit MeshComponent(Mesh* meshIn);
+        /**
+         * Create MeshComponent from file
+         * Example: loading a dragon 3D model from a file
+         * @param guid
+         * @param fileID
+         */
+        explicit MeshComponent(std::string guid, std::string fileID);
+        /**
+         * Create MeshComponent using primitive data
+         * Example: cube, sphere, etc.
+         * @param meshType
+         * @param primitiveMeshData
+         */
+        MeshComponent(MeshType meshType, std::map<std::string, float> primitiveMeshData);
+        Mesh* getMesh();
     };
 
     struct MaterialComponent {
