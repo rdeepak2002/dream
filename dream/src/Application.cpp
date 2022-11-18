@@ -45,22 +45,22 @@ namespace Dream {
 //            std::cout << "Error importing ghost model" << std::endl;
 //        }
 
-        Entity knightEntity = Project::getAssetLoader()->loadMesh(Project::getPath().append("assets").append("models").append("knight").append("scene.gltf"));
-        if (knightEntity) {
-            knightEntity.getComponent<Component::TransformComponent>().translation = {0, -0.3, 0};
-            knightEntity.getComponent<Component::TransformComponent>().scale = {0.007, 0.007, 0.007};
-        } else {
-            std::cout << "Error importing knight model" << std::endl;
-        }
+//        Entity knightEntity = Project::getAssetLoader()->loadMesh(Project::getPath().append("assets").append("models").append("knight").append("scene.gltf"));
+//        if (knightEntity) {
+//            knightEntity.getComponent<Component::TransformComponent>().translation = {0, -0.3, 0};
+//            knightEntity.getComponent<Component::TransformComponent>().scale = {0.007, 0.007, 0.007};
+//        } else {
+//            std::cout << "Error importing knight model" << std::endl;
+//        }
 
-        Entity dragonEntity = Project::getAssetLoader()->loadMesh(Project::getPath().append("assets").append("models").append("alduin").append("scene.gltf"));
-        if (dragonEntity) {
-            dragonEntity.getComponent<Component::TransformComponent>().translation = {0.5, 0, 0};
-            dragonEntity.getComponent<Component::TransformComponent>().scale = {0.0025, 0.0025, 0.0025};
-            dragonEntity.getComponent<Component::TransformComponent>().rotation = {0.707, 0.707, 0, 0};
-        } else {
-            std::cout << "Error importing dragon model" << std::endl;
-        }
+//        Entity dragonEntity = Project::getAssetLoader()->loadMesh(Project::getPath().append("assets").append("models").append("alduin").append("scene.gltf"));
+//        if (dragonEntity) {
+//            dragonEntity.getComponent<Component::TransformComponent>().translation = {0.5, 0, 0};
+//            dragonEntity.getComponent<Component::TransformComponent>().scale = {0.0025, 0.0025, 0.0025};
+//            dragonEntity.getComponent<Component::TransformComponent>().rotation = {0.707, 0.707, 0, 0};
+//        } else {
+//            std::cout << "Error importing dragon model" << std::endl;
+//        }
 
 //        Entity sponzaEntity = Project::getAssetLoader()->loadMesh(Project::getPath().append("assets").append("models").append("sponza").append("Sponza.gltf"));
 //        if (sponzaEntity) {
@@ -73,6 +73,9 @@ namespace Dream {
 //        } else {
 //            std::cout << "Error importing sponza model" << std::endl;
 //        }
+
+        // TODO: comment this
+        Project::getAssetImporter()->importAsset("/Users/deepakramalingam/Desktop/alduin");
 
         Project::saveScene();
     }

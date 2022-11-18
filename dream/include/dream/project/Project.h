@@ -9,6 +9,7 @@
 #include <filesystem>
 #include "dream/scene/Scene.h"
 #include "dream/project/AssetLoader.h"
+#include "dream/project/AssetImporter.h"
 #include "dream/project/ResourceManager.h"
 
 namespace Dream {
@@ -27,6 +28,7 @@ namespace Dream {
         static std::filesystem::path getPath();
         static Dream::AssetLoader* getAssetLoader();
         static Dream::ResourceManager* getResourceManager();
+        static Dream::AssetImporter* getAssetImporter();
         static Dream::Scene* getScene();
         static void saveScene();
     private:
@@ -35,11 +37,13 @@ namespace Dream {
         void openHelper(std::filesystem::path filepath);
         Dream::AssetLoader* getAssetLoaderHelper();
         Dream::ResourceManager* getResourceManagerHelper();
+        Dream::AssetImporter* getAssetImporterHelper();
         std::filesystem::path getPathHelper();
         Scene *getSceneHelper();
         Scene *scene;
         Dream::AssetLoader* assetLoader;
         Dream::ResourceManager* resourceManager;
+        Dream::AssetImporter* assetImporter;
     };
 }
 

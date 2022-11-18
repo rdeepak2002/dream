@@ -40,8 +40,19 @@ namespace Dream {
         }
     }
 
+    void Project::saveScene() {
+        YAML::Emitter out;
+        out << YAML::BeginMap;
+        Project::getInstance().scene->serialize(out);
+        out << YAML::EndMap;
+        std::string savePath = std::filesystem::path(Project::getPath()).append("assets").append("main.scene");
+        std::ofstream fout(savePath);
+        fout << out.c_str();
+        std::cout << "Saved scene to " << savePath << std::endl;
+    }
+
     std::filesystem::path Project::getPathHelper() {
-        return this->path;
+        return { this->path };
     }
 
     Scene *Project::getScene() {
@@ -68,14 +79,11 @@ namespace Dream {
         return scene;
     }
 
-    void Project::saveScene() {
-        YAML::Emitter out;
-        out << YAML::BeginMap;
-        Project::getInstance().scene->serialize(out);
-        out << YAML::EndMap;
-        std::string savePath = std::filesystem::path(Project::getPath()).append("assets").append("main.scene");
-        std::ofstream fout(savePath);
-        fout << out.c_str();
-        std::cout << "Saved scene to " << savePath << std::endl;
+    Dream::AssetImporter *Project::getAssetImporterHelper() {
+        return this->assetImporter;
+    }
+
+    Dream::AssetImporter *Project::getAssetImporter() {
+        return getInstance().getAssetImporterHelper();
     }
 }
