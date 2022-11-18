@@ -55,6 +55,9 @@ namespace Dream {
         if (hasComponent<Component::HierarchyComponent>()) {
             getComponent<Component::HierarchyComponent>().serialize(out);
         }
+        if (hasComponent<Component::TransformComponent>()) {
+            getComponent<Component::TransformComponent>().serialize(out);
+        }
         out << YAML::EndMap;
         // serialize children
         Entity child = getComponent<Component::HierarchyComponent>().first;

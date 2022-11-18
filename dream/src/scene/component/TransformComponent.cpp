@@ -20,4 +20,17 @@ namespace Dream::Component {
         }
         return model * parentModel;
     }
+
+    void TransformComponent::serialize(YAML::Emitter &out) {
+        out << YAML::Key << getComponentName();
+        out << YAML::BeginMap;
+        out << YAML::Key << "translation" << YAML::Value << YAML::convert<glm::vec3>().encode(this->translation);
+        out << YAML::Key << "rotation" << YAML::Value << YAML::convert<glm::quat>().encode(this->rotation);
+        out << YAML::Key << "scale" << YAML::Value << YAML::convert<glm::vec3>().encode(this->scale);
+        out << YAML::EndMap;
+    }
+
+    std::string TransformComponent::getComponentName() {
+        return "TransformComponent";
+    }
 }
