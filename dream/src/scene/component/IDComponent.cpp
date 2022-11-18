@@ -19,4 +19,15 @@ namespace Dream::Component {
     std::string IDComponent::getID() {
         return this->id;
     }
+
+    void IDComponent::serialize(YAML::Emitter &out) {
+        out << YAML::Key << getComponentName();
+        out << YAML::BeginMap;
+        out << YAML::Key << "id" << YAML::Value << this->id;
+        out << YAML::EndMap;
+    }
+
+    std::string IDComponent::getComponentName() {
+        return "IDComponent";
+    }
 }

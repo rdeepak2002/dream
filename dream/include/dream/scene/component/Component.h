@@ -37,6 +37,8 @@ namespace Dream::Component {
         explicit IDComponent();
         IDComponent(std::string id);
         std::string getID();
+        void serialize(YAML::Emitter &out) override;
+        std::string getComponentName() override;
     };
 
     struct TagComponent : public Component{
@@ -54,6 +56,8 @@ namespace Dream::Component {
         void addChild(Entity &newChild, Entity &newParent);
         void removeChild(Entity &childToRemove);
         int numChildren();
+//        void serialize(YAML::Emitter &out) override;
+//        std::string getComponentName() override;
     };
 
     struct TransformComponent : public Component{

@@ -46,6 +46,9 @@ namespace Dream {
         if (hasComponent<Component::RootComponent>()) {
             getComponent<Component::RootComponent>().serialize(out);
         }
+        if (hasComponent<Component::IDComponent>()) {
+            getComponent<Component::IDComponent>().serialize(out);
+        }
         if (hasComponent<Component::TagComponent>()) {
             getComponent<Component::TagComponent>().serialize(out);
         }
