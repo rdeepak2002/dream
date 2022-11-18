@@ -65,4 +65,30 @@ namespace Dream::Component {
             exit(EXIT_FAILURE);
         }
     }
+
+    void HierarchyComponent::serialize(YAML::Emitter &out) {
+        out << YAML::Key << getComponentName();
+        out << YAML::BeginMap;
+        if (first) {
+            out << YAML::Key << "first" << YAML::Value << this->first.getComponent<IDComponent>().getID();
+        }
+        if (prev) {
+            out << YAML::Key << "prev" << YAML::Value << this->prev.getComponent<IDComponent>().getID();
+        }
+        if (next) {
+            out << YAML::Key << "next" << YAML::Value << this->next.getComponent<IDComponent>().getID();
+        }
+        if (parent) {
+            out << YAML::Key << "parent" << YAML::Value << this->parent.getComponent<IDComponent>().getID();
+        }
+        out << YAML::EndMap;
+    }
+
+    std::string HierarchyComponent::getComponentName() {
+        return "HierarchyComponent";
+    }
+
+    HierarchyComponent::HierarchyComponent() {
+
+    }
 }

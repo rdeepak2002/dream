@@ -53,11 +53,12 @@ namespace Dream::Component {
         Entity prev {entt::null, nullptr};
         Entity next {entt::null, nullptr};
         Entity parent {entt::null, nullptr};
+        explicit HierarchyComponent();
         void addChild(Entity &newChild, Entity &newParent);
         void removeChild(Entity &childToRemove);
         int numChildren();
-//        void serialize(YAML::Emitter &out) override;
-//        std::string getComponentName() override;
+        void serialize(YAML::Emitter &out) override;
+        std::string getComponentName() override;
     };
 
     struct TransformComponent : public Component{
@@ -65,6 +66,8 @@ namespace Dream::Component {
         glm::quat rotation = {0, 0, 0, 1};
         glm::vec3 scale = {1, 1, 1};
         glm::mat4 getTransform(Entity &curEntity);
+//        void serialize(YAML::Emitter &out) override;
+//        std::string getComponentName() override;
     };
 
     struct MeshComponent : public Component {
