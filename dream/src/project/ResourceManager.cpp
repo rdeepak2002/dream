@@ -31,3 +31,11 @@ void Dream::ResourceManager::storeData(const std::string &guid, void *data) {
     }
     fileIDMap[std::make_pair(guid, "")] = data;
 }
+
+bool Dream::ResourceManager::hasData(const std::string &guid, const std::string &fileID) {
+    return fileIDMap.count(std::make_pair(guid, fileID)) > 0;
+}
+
+bool Dream::ResourceManager::hasData(const std::string &guid) {
+    return fileIDMap.count(std::make_pair(guid, "")) > 0;
+}

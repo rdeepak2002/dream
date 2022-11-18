@@ -10,6 +10,7 @@
 #include "dream/renderer/OpenGLTexture.h"
 #include "dream/project/Project.h"
 #include "dream/scene/component/Component.h"
+#include "dream/util/IDUtils.h"
 
 namespace Dream {
     Entity OpenGLAssetLoader::loadMesh(std::string path) {
@@ -27,21 +28,21 @@ namespace Dream {
         }
         // process root node
         auto node = scene->mRootNode;
-        Entity dreamEntityRootNode = processNode(path, node, scene, 0);
+        Entity dreamEntityRootNode = processNode(path, node, scene);
         return dreamEntityRootNode;
     }
 
-    Entity OpenGLAssetLoader::processNode(std::string path, aiNode *node, const aiScene *scene, int nodeID) {
+    Entity OpenGLAssetLoader::processNode(std::string path, aiNode *node, const aiScene *scene) {
         Entity dreamNode = Project::getScene()->createEntity(node->mName.C_Str());
         // process meshes for this node
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            Entity child = processMesh(path, mesh, scene, nodeID + i);
+            Entity child = processMesh(path, mesh, scene, i);
             dreamNode.addChild(child);
         }
         // process child nodes
         for(unsigned int i = 0; i < node->mNumChildren; i++) {
-            Entity child = processNode(path, node->mChildren[i], scene, nodeID + i);
+            Entity child = processNode(path, node->mChildren[i], scene);
             dreamNode.addChild(child);
         }
         return dreamNode;
@@ -106,31 +107,33 @@ namespace Dream {
         // process materials
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
-        // TODO: optimize texture loading since right now we are loading same textures multiple times
         auto textureType = aiTextureType_DIFFUSE;
         std::string texturePath = "";
         for(unsigned int i = 0; i < material->GetTextureCount(textureType); i++) {
             aiString str;
-            // TODO: check if texture has already been loaded, otherwise skip this call
-            std::cout << "Optimize texture loading here" << std::endl;
             material->GetTexture(textureType, i, &str);
             texturePath = std::filesystem::path(path).parent_path().append(str.C_Str());
         }
 
-        auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
-        std::cout << "TODO: fix guid of mesh" << std::endl;
-        std::string guid = path;    // TODO: make guid valid
-        std::cout << "TODO: fix fileID of mesh" << std::endl;
-        std::string fileID = mesh->mName.C_Str();   // TODO: make fild id valid
-        Project::getResourceManager()->storeData(guid, fileID, dreamMesh);
         Entity entity = Project::getScene()->createEntity(mesh->mName.C_Str());
-        entity.addComponent<Component::MeshComponent>(guid, fileID);
+        // add mesh component
+        std::string meshFileGUID = IDUtils::newGUID();  // TODO: this should come from .meta file
+        std::cout << "TODO: load mesh file GUID from .meta file" << std::endl;
+        std::string subMeshFileID = IDUtils::newFileID(std::to_string(meshID));
+        if (!Project::getResourceManager()->hasData(meshFileGUID)) {
+            auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
+            Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
+        }
+        entity.addComponent<Component::MeshComponent>(meshFileGUID, subMeshFileID);
+        // add material component
         if (!texturePath.empty()) {
-            auto* dreamTexture = new OpenGLTexture(texturePath);
-            guid = texturePath; // TODO: make guid valid
-            std::cout << "TODO: fix guid of texture" << std::endl;
-            Project::getResourceManager()->storeData(guid, dreamTexture);
-            entity.addComponent<Component::MaterialComponent>((OpenGLTexture*)Project::getResourceManager()->getData(guid)); // TODO: change constructor to take in file GUID and file ID
+            std::cout << "TODO: load texture file GUID from .meta file" << std::endl;
+            std::string textureFileGUID = IDUtils::newGUID();   // TODO: this should come from .meta file
+            if (!Project::getResourceManager()->hasData(textureFileGUID)) {
+                auto* dreamTexture = new OpenGLTexture(texturePath);
+                Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
+            }
+            entity.addComponent<Component::MaterialComponent>(textureFileGUID);
         }
         return entity;
     }

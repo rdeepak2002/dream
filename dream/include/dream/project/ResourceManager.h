@@ -53,6 +53,8 @@ namespace Dream {
          * @param data
          */
         void storeData(const std::string& guid, void* data);
+        bool hasData(const std::string& guid);
+        bool hasData(const std::string& guid, const std::string& fileID);
     };
 }
 

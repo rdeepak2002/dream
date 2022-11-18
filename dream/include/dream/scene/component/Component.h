@@ -74,7 +74,9 @@ namespace Dream::Component {
 
     struct MaterialComponent {
         Texture* texture = nullptr;
-        explicit MaterialComponent(Texture* textureIn);
+        std::string guid;
+        explicit MaterialComponent(std::string guid);
+        Texture* getTexture();
     };
 }
 
