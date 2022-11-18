@@ -20,7 +20,7 @@ namespace Dream {
         ImGui::SetNextWindowClass(&scene_window_class);
         ImGui::Begin("Scene");
         // render scene hierarchy
-        Entity rootEntity = Project::getInstance().getScene().getRootEntity();
+        Entity rootEntity = Project::getScene().getRootEntity();
         renderSceneViewEntity(rootEntity);
         ImGui::End();
     }

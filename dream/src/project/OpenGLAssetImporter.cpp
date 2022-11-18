@@ -32,7 +32,7 @@ namespace Dream {
     }
 
     Entity OpenGLAssetImporter::processNode(std::string path, aiNode *node, const aiScene *scene) {
-        Entity dreamNode = Project::getInstance().getScene().createEntity(node->mName.C_Str());
+        Entity dreamNode = Project::getScene().createEntity(node->mName.C_Str());
         // process meshes for this node
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
@@ -117,7 +117,7 @@ namespace Dream {
         }
 
         auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
-        Entity entity = Project::getInstance().getScene().createEntity(mesh->mName.C_Str());
+        Entity entity = Project::getScene().createEntity(mesh->mName.C_Str());
         entity.addComponent<Component::MeshComponent>(dreamMesh);
         if (!texturePath.empty()) {
             auto* dreamTexture = new OpenGLTexture(texturePath);

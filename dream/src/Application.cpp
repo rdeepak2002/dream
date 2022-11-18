@@ -21,21 +21,21 @@ namespace Dream {
         this->editor = new ImGuiSDL2OpenGLEditor(this->window);
 
         // TODO: load from project's scene file
-        auto sphereEntity = Project::getInstance().getScene().createEntity("Sphere");
+        auto sphereEntity = Project::getScene().createEntity("Sphere");
         sphereEntity.addComponent<Component::MeshComponent>(new OpenGLSphereMesh());
         sphereEntity.getComponent<Component::TransformComponent>().translation = {-0.7, -0.7, 0};
         sphereEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
 
-        auto cubeEntity = Project::getInstance().getScene().createEntity("Cube");
+        auto cubeEntity = Project::getScene().createEntity("Cube");
         cubeEntity.addComponent<Component::MeshComponent>(new OpenGLCubeMesh());
         cubeEntity.addComponent<Component::MaterialComponent>(new OpenGLTexture(Project::getPath().append("assets").append("textures").append("container.jpg")));
         cubeEntity.getComponent<Component::TransformComponent>().translation = {1, 0.7, 0};
         cubeEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
 
-//        Entity teapotEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
+//        Entity teapotEntity = Project::getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
 //        teapotEntity.getComponent<Component::TransformComponent>().scale = {0.05, 0.05, 0.05};
 
-//        Entity cuteGhostEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("cute-ghost").append("source").append("Ghost.fbx"));
+//        Entity cuteGhostEntity = Project::getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("cute-ghost").append("source").append("Ghost.fbx"));
 //        if (cuteGhostEntity) {
 //            cuteGhostEntity.getComponent<Component::TransformComponent>().translation = {0, 0, 0};
 //            cuteGhostEntity.getComponent<Component::TransformComponent>().scale = {0.2, 0.2, 0.2};
@@ -44,7 +44,7 @@ namespace Dream {
 //            std::cout << "Error importing ghost model" << std::endl;
 //        }
 
-        Entity knightEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("knight").append("scene.gltf"));
+        Entity knightEntity = Project::getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("knight").append("scene.gltf"));
         if (knightEntity) {
             knightEntity.getComponent<Component::TransformComponent>().translation = {0, -0.3, 0};
             knightEntity.getComponent<Component::TransformComponent>().scale = {0.007, 0.007, 0.007};
@@ -52,7 +52,7 @@ namespace Dream {
             std::cout << "Error importing knight model" << std::endl;
         }
 
-        Entity dragonEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("alduin").append("scene.gltf"));
+        Entity dragonEntity = Project::getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("alduin").append("scene.gltf"));
         if (dragonEntity) {
             dragonEntity.getComponent<Component::TransformComponent>().translation = {0.5, 0, 0};
             dragonEntity.getComponent<Component::TransformComponent>().scale = {0.0025, 0.0025, 0.0025};

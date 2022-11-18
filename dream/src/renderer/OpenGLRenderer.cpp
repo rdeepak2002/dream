@@ -71,9 +71,9 @@ namespace Dream {
         shader->setMat4("projection", projection);
 
         // draw all entities with meshes
-        auto meshEntities = Project::getInstance().getScene().getEntitiesWithComponents<Component::MeshComponent>();
+        auto meshEntities = Project::getScene().getEntitiesWithComponents<Component::MeshComponent>();
         for(auto entityHandle : meshEntities) {
-            Entity entity = {entityHandle, &Project::getInstance().getScene()};
+            Entity entity = {entityHandle, &Project::getScene()};
             if (entity.hasComponent<Component::MaterialComponent>()) {
                 auto* openGLTexture = dynamic_cast<OpenGLTexture*>(entity.getComponent<Component::MaterialComponent>().texture);
                 if (openGLTexture) {
