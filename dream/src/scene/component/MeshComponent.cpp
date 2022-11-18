@@ -15,11 +15,12 @@ namespace Dream::Component {
         this->meshType = FROM_FILE;
         this->guid = std::move(guid);
         this->fileId = fileID;
-//        if (!Project::getResourceManager()->hasData(this->guid)) {
-//            std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
-//            std::cout << "TODO: load mesh from " << path << std::endl;
-//            exit(EXIT_FAILURE);
-//        }
+        if (!Project::getResourceManager()->hasData(this->guid, this->fileId)) {
+            std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
+            // TODO: this is fine, but remove this line later once we ensure this is being hit
+            std::cout << "LOADING MESH IN MESH COMPONENT (LOOK HERE AND REMOVE THIS LINE LATER) " << path << std::endl;
+            Project::getAssetLoader()->loadMesh(this->guid);
+        }
         this->mesh = (OpenGLMesh*) Project::getResourceManager()->getData(this->guid, fileID);
     }
 
