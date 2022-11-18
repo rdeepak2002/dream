@@ -75,7 +75,7 @@ namespace Dream {
 //        }
 
         // TODO: comment this
-        Project::getAssetImporter()->importAsset("/Users/deepakramalingam/Desktop/alduin");
+//        Project::getAssetImporter()->importAsset("/Users/deepakramalingam/Desktop/sponza");
 
         Project::saveScene();
     }
