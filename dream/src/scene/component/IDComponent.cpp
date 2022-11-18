@@ -5,7 +5,7 @@
 #include <utility>
 
 #include "dream/scene/component/Component.h"
-#include "dream/project/IDUtils.h"
+#include "dream/util/IDUtils.h"
 
 namespace Dream::Component {
     IDComponent::IDComponent() {
