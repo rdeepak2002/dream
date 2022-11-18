@@ -28,7 +28,7 @@ void Dream::ImGuiEditorInspectorView::update() {
             }
         }
         if (ImGui::Button("Remove")) {
-            Project::getScene().removeEntity(selectedEntity);
+            Project::getScene()->removeEntity(selectedEntity);
             selectedEntity = Entity();
             ImGui::End();
             return;

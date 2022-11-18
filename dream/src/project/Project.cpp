@@ -11,11 +11,13 @@ namespace Dream {
     Project::Project() {
         assetImporter = new OpenGLAssetImporter();
         resourceManager = new ResourceManager();
+        scene = new Scene();
     }
 
     Project::~Project() {
         delete assetImporter;
         delete resourceManager;
+        delete scene;
     }
 
     void Project::open(std::filesystem::path filepath) {
@@ -39,8 +41,8 @@ namespace Dream {
         return this->path;
     }
 
-    Scene& Project::getSceneHelper() {
-        return scene;
+    Scene *Project::getScene() {
+        return getInstance().scene;
     }
 
     AssetImporter *Project::getAssetImporterHelper() {
@@ -59,7 +61,7 @@ namespace Dream {
         return getInstance().getResourceManagerHelper();
     }
 
-    Scene &Project::getScene() {
-        return getInstance().getSceneHelper();
+    Scene *Project::getSceneHelper() {
+        return scene;
     }
 }

@@ -27,7 +27,7 @@ namespace Dream {
         static std::filesystem::path getPath();
         static Dream::AssetImporter* getAssetImporter();
         static Dream::ResourceManager* getResourceManager();
-        static Scene &getScene();
+        static Dream::Scene* getScene();
     private:
         Project();
         std::filesystem::path path;
@@ -35,8 +35,8 @@ namespace Dream {
         Dream::AssetImporter* getAssetImporterHelper();
         Dream::ResourceManager* getResourceManagerHelper();
         std::filesystem::path getPathHelper();
-        Scene &getSceneHelper();
-        Scene scene;
+        Scene *getSceneHelper();
+        Scene *scene;
         Dream::AssetImporter* assetImporter;
         Dream::ResourceManager* resourceManager;
     };
