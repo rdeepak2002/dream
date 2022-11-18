@@ -38,4 +38,18 @@ namespace Dream {
     int Entity::numChildren() {
         return getComponent<Component::HierarchyComponent>().numChildren();
     }
+
+    void Entity::serialize(YAML::Emitter& out) {
+        out << YAML::BeginMap;
+        out << YAML::Key << "Entity" << YAML::Value << getComponent<Dream::Component::IDComponent>().getID();
+        if (hasComponent<Component::TagComponent>()) {
+            getComponent<Component::TagComponent>().serialize(out);
+        }
+        out << YAML::EndMap;
+        Entity child = getComponent<Component::HierarchyComponent>().first;
+        while (child) {
+            child.serialize(out);
+            child = child.getComponent<Component::HierarchyComponent>().next;
+        }
+    }
 }

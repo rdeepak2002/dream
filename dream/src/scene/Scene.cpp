@@ -67,4 +67,13 @@ namespace Dream {
         entity.getComponent<Component::HierarchyComponent>().parent.getComponent<Component::HierarchyComponent>().removeChild(entity);
         entityRegistry.destroy(entity.entityHandle);
     }
+
+    void Scene::serialize(YAML::Emitter &out) {
+        out << YAML::Key << "Scene" << YAML::Value << "main-scene";
+        out << YAML::Key << "Entities" << YAML::Value;
+        out << YAML::BeginSeq;
+        Entity entity = getRootEntity();
+        entity.serialize(out);
+        out << YAML::EndSeq;
+    }
 }

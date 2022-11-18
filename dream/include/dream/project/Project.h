@@ -28,6 +28,7 @@ namespace Dream {
         static Dream::AssetLoader* getAssetLoader();
         static Dream::ResourceManager* getResourceManager();
         static Dream::Scene* getScene();
+        static void saveScene();
     private:
         Project();
         std::filesystem::path path;

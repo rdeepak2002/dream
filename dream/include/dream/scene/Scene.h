@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <entt/entt.hpp>
+#include <yaml-cpp/yaml.h>
 
 namespace Dream {
     class Entity;
@@ -24,6 +25,7 @@ namespace Dream {
         }
         Entity getRootEntity();
         void removeEntity(Entity &entity);
+        void serialize(YAML::Emitter &out);
     private:
         entt::registry entityRegistry;
         friend class Entity;

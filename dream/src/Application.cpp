@@ -8,8 +8,6 @@
 #include "dream/editor/ImGuiSDL2OpenGLEditor.h"
 #include "dream/window/SDL2OpenGLWindow.h"
 #include "dream/scene/component/Component.h"
-#include "dream/renderer/OpenGLCubeMesh.h"
-#include "dream/renderer/OpenGLTexture.h"
 #include <iostream>
 #include <filesystem>
 #include <map>
@@ -75,6 +73,8 @@ namespace Dream {
 //        } else {
 //            std::cout << "Error importing sponza model" << std::endl;
 //        }
+
+        Project::saveScene();
     }
 
     Application::~Application() {

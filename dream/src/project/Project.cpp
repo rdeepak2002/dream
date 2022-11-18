@@ -5,6 +5,9 @@
 #include "dream/project/Project.h"
 
 #include <utility>
+#include <iostream>
+#include <fstream>
+#include <yaml-cpp/yaml.h>
 #include "dream/project/OpenGLAssetLoader.h"
 
 namespace Dream {
@@ -63,5 +66,16 @@ namespace Dream {
 
     Scene *Project::getSceneHelper() {
         return scene;
+    }
+
+    void Project::saveScene() {
+        YAML::Emitter out;
+        out << YAML::BeginMap;
+        Project::getInstance().scene->serialize(out);
+        out << YAML::EndMap;
+        std::string savePath = std::filesystem::path(Project::getPath()).append("assets").append("main.scene");
+        std::ofstream fout(savePath);
+        fout << out.c_str();
+        std::cout << "Saved scene to " << savePath << std::endl;
     }
 }

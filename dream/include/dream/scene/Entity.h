@@ -6,6 +6,7 @@
 #define DREAM_ENTITY_H
 
 #include <entt/entt.hpp>
+#include <yaml-cpp/yaml.h>
 #include "dream/scene/Scene.h"
 
 namespace Dream {
@@ -46,6 +47,7 @@ namespace Dream {
         }
         void addChild(Entity entity);
         int numChildren();
+        void serialize(YAML::Emitter &out);
         explicit operator bool() const;
         explicit operator entt::entity() const;
         bool operator==(const Entity& other) const;

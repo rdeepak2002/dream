@@ -26,6 +26,7 @@ endif()
 add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES} ${TEST_FILES})
 
 if(NOT EMSCRIPTEN)
+    target_link_libraries(${PROJECT_NAME} yaml-cpp)
     target_link_libraries(${PROJECT_NAME} GTest::gtest_main)
 endif()
 

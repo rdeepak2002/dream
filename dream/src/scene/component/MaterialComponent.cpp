@@ -11,7 +11,7 @@
 namespace Dream::Component {
     MaterialComponent::MaterialComponent(std::string guid) {
         this->guid = std::move(guid);
-        this->texture = (OpenGLTexture*)Project::getResourceManager()->getData(this->guid);
+        this->texture = (OpenGLTexture*) Project::getResourceManager()->getData(this->guid);
     }
 
     Texture *MaterialComponent::getTexture() {
