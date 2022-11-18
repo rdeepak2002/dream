@@ -47,7 +47,7 @@ namespace Dream {
 //            std::cout << "Error importing ghost model" << std::endl;
 //        }
 
-        Entity knightEntity = Project::getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("knight").append("scene.gltf"));
+        Entity knightEntity = Project::getAssetLoader()->loadMesh(Project::getPath().append("assets").append("models").append("knight").append("scene.gltf"));
         if (knightEntity) {
             knightEntity.getComponent<Component::TransformComponent>().translation = {0, -0.3, 0};
             knightEntity.getComponent<Component::TransformComponent>().scale = {0.007, 0.007, 0.007};
@@ -55,7 +55,7 @@ namespace Dream {
             std::cout << "Error importing knight model" << std::endl;
         }
 
-        Entity dragonEntity = Project::getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("alduin").append("scene.gltf"));
+        Entity dragonEntity = Project::getAssetLoader()->loadMesh(Project::getPath().append("assets").append("models").append("alduin").append("scene.gltf"));
         if (dragonEntity) {
             dragonEntity.getComponent<Component::TransformComponent>().translation = {0.5, 0, 0};
             dragonEntity.getComponent<Component::TransformComponent>().scale = {0.0025, 0.0025, 0.0025};

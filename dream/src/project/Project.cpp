@@ -5,17 +5,17 @@
 #include "dream/project/Project.h"
 
 #include <utility>
-#include "dream/project/OpenGLAssetImporter.h"
+#include "dream/project/OpenGLAssetLoader.h"
 
 namespace Dream {
     Project::Project() {
-        assetImporter = new OpenGLAssetImporter();
+        assetLoader = new OpenGLAssetLoader();
         resourceManager = new ResourceManager();
         scene = new Scene();
     }
 
     Project::~Project() {
-        delete assetImporter;
+        delete assetLoader;
         delete resourceManager;
         delete scene;
     }
@@ -45,16 +45,16 @@ namespace Dream {
         return getInstance().scene;
     }
 
-    AssetImporter *Project::getAssetImporterHelper() {
-        return assetImporter;
+    AssetLoader *Project::getAssetLoaderHelper() {
+        return assetLoader;
     }
 
     ResourceManager *Project::getResourceManagerHelper() {
         return resourceManager;
     }
 
-    AssetImporter *Project::getAssetImporter() {
-        return getInstance().getAssetImporterHelper();
+    AssetLoader *Project::getAssetLoader() {
+        return getInstance().getAssetLoaderHelper();
     }
 
     ResourceManager *Project::getResourceManager() {
