@@ -1,0 +1,47 @@
+Scene: main-scene
+Entities:
+  - Entity: D48C656A-9DD0-413B-B8FE-CC77436163F5
+    RootComponent:
+      name: root
+    IDComponent:
+      id: D48C656A-9DD0-413B-B8FE-CC77436163F5
+    TagComponent:
+      tag: root
+    HierarchyComponent:
+      first: 944C831F-21C8-4048-9014-AF92B697685C
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+  - Entity: 944C831F-21C8-4048-9014-AF92B697685C
+    IDComponent:
+      id: 944C831F-21C8-4048-9014-AF92B697685C
+    TagComponent:
+      tag: Cube
+    HierarchyComponent:
+      next: 2F290FF1-5421-4417-A7A1-178874030AD5
+      parent: D48C656A-9DD0-413B-B8FE-CC77436163F5
+    TransformComponent:
+      translation: [1, 0.699999988, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [0.400000006, 0.400000006, 0.400000006]
+    MeshComponent:
+      meshType: 1
+      guid: ""
+      fileId: ""
+  - Entity: 2F290FF1-5421-4417-A7A1-178874030AD5
+    IDComponent:
+      id: 2F290FF1-5421-4417-A7A1-178874030AD5
+    TagComponent:
+      tag: Sphere
+    HierarchyComponent:
+      prev: 944C831F-21C8-4048-9014-AF92B697685C
+      parent: D48C656A-9DD0-413B-B8FE-CC77436163F5
+    TransformComponent:
+      translation: [-0.699999988, -0.699999988, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [0.400000006, 0.400000006, 0.400000006]
+    MeshComponent:
+      meshType: 0
+      guid: ""
+      fileId: ""
