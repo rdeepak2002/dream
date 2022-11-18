@@ -28,6 +28,8 @@ namespace Dream::Component {
 
     struct RootComponent : public Component {
         std::string name = "root";
+        void serialize(YAML::Emitter &out) override;
+        std::string getComponentName() override;
     };
 
     struct IDComponent : public Component {

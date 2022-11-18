@@ -40,12 +40,17 @@ namespace Dream {
     }
 
     void Entity::serialize(YAML::Emitter& out) {
+        // serialize this entity
         out << YAML::BeginMap;
         out << YAML::Key << "Entity" << YAML::Value << getComponent<Dream::Component::IDComponent>().getID();
+        if (hasComponent<Component::RootComponent>()) {
+            getComponent<Component::RootComponent>().serialize(out);
+        }
         if (hasComponent<Component::TagComponent>()) {
             getComponent<Component::TagComponent>().serialize(out);
         }
         out << YAML::EndMap;
+        // serialize children
         Entity child = getComponent<Component::HierarchyComponent>().first;
         while (child) {
             child.serialize(out);
