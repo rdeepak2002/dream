@@ -11,11 +11,17 @@
 namespace Dream::Component {
     MaterialComponent::MaterialComponent(std::string guid) {
         this->guid = std::move(guid);
+//        if (!Project::getResourceManager()->hasData(this->guid)) {
+//            std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
+//            std::cout << "loading texture " << path << std::endl;
+//            Project::getResourceManager()->storeData(this->guid, new OpenGLTexture(path));
+//        }
+//        this->texture = (OpenGLTexture*) Project::getResourceManager()->getData(this->guid);
+    }
+
+    void MaterialComponent::loadTexture() {
         if (!Project::getResourceManager()->hasData(this->guid)) {
             std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
-//            std::cout << "TODO: guid to load material from : " << this->guid << std::endl;
-//            std::cout << "TODO: load material from : " << path << std::endl;
-//            exit(EXIT_FAILURE);
             Project::getResourceManager()->storeData(this->guid, new OpenGLTexture(path));
         }
         this->texture = (OpenGLTexture*) Project::getResourceManager()->getData(this->guid);
@@ -28,14 +34,19 @@ namespace Dream::Component {
         return this->texture;
     }
 
-    void MaterialComponent::serialize(YAML::Emitter &out) {
-        out << YAML::Key << getComponentName();
-        out << YAML::BeginMap;
-        out << YAML::Key << "guid" << YAML::Value << this->guid;
-        out << YAML::EndMap;
+    void MaterialComponent::serialize(YAML::Emitter &out, Entity &entity) {
+        if (entity.hasComponent<MaterialComponent>()) {
+            out << YAML::Key << componentName;
+            out << YAML::BeginMap;
+            out << YAML::Key << k_guid << YAML::Value << entity.getComponent<MaterialComponent>().guid;
+            out << YAML::EndMap;
+        }
     }
 
-    std::string MaterialComponent::getComponentName() {
-        return "MaterialComponent";
+    void MaterialComponent::deserialize(YAML::Node node, Entity &entity) {
+        if (node[componentName]) {
+            auto guid = node[componentName][k_guid].as<std::string>();
+            entity.addComponent<MaterialComponent>(guid);
+        }
     }
 }

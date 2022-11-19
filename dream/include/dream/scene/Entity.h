@@ -48,6 +48,7 @@ namespace Dream {
         void addChild(Entity entity);
         int numChildren();
         void serialize(YAML::Emitter &out);
+        void deserialize(YAML::Node node);
         explicit operator bool() const;
         explicit operator entt::entity() const;
         bool operator==(const Entity& other) const;

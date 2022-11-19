@@ -13,10 +13,10 @@
 namespace Dream {
     class OpenGLAssetLoader : public AssetLoader {
     public:
-        Entity loadMesh(std::string guid) override;
+        Entity loadMesh(std::string guid, bool createEntities = false) override;
     private:
-        Entity processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene);
-        Entity processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene);
+        Entity processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene, bool createEntities);
+        Entity processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, bool createEntities);
         /**
          * Assign a unique ID per submesh within a single Mesh (allows for unique FileID's)
          */

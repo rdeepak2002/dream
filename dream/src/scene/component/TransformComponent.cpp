@@ -10,6 +10,19 @@
 #include <glm/gtx/quaternion.hpp>
 
 namespace Dream::Component {
+    TransformComponent::TransformComponent() {
+        translation = {0, 0, 0};
+        rotation = {0, 0, 0, 1.0};
+        scale = {1, 1, 1};
+    }
+
+
+    TransformComponent::TransformComponent(glm::vec3 translation, glm::quat rotation, glm::vec3 scale) {
+        this->translation = translation;
+        this->rotation = rotation;
+        this->scale = scale;
+    }
+
     glm::mat4 TransformComponent::getTransform(Entity &curEntity) {
         glm::mat4 rotMat4 = glm::toMat4(glm::quat(rotation));
         glm::mat4 model = glm::translate(glm::mat4(1.0f), translation) * rotMat4 * glm::scale(glm::mat4(1.0f), scale);
@@ -21,16 +34,27 @@ namespace Dream::Component {
         return model * parentModel;
     }
 
-    void TransformComponent::serialize(YAML::Emitter &out) {
-        out << YAML::Key << getComponentName();
-        out << YAML::BeginMap;
-        out << YAML::Key << "translation" << YAML::Value << YAML::convert<glm::vec3>().encode(this->translation);
-        out << YAML::Key << "rotation" << YAML::Value << YAML::convert<glm::quat>().encode(this->rotation);
-        out << YAML::Key << "scale" << YAML::Value << YAML::convert<glm::vec3>().encode(this->scale);
-        out << YAML::EndMap;
+    void TransformComponent::serialize(YAML::Emitter &out, Entity &entity) {
+        if (entity.hasComponent<TransformComponent>()) {
+            auto &transformComponent = entity.getComponent<TransformComponent>();
+            out << YAML::Key << componentName;
+            out << YAML::BeginMap;
+            out << YAML::Key << k_translation << YAML::Value << YAML::convert<glm::vec3>().encode(transformComponent.translation);
+            out << YAML::Key << k_rotation << YAML::Value << YAML::convert<glm::quat>().encode(transformComponent.rotation);
+            out << YAML::Key << k_scale << YAML::Value << YAML::convert<glm::vec3>().encode(transformComponent.scale);
+            out << YAML::EndMap;
+        }
     }
 
-    std::string TransformComponent::getComponentName() {
-        return "TransformComponent";
+    void TransformComponent::deserialize(YAML::Node node, Entity &entity) {
+        if (node[componentName]) {
+            glm::vec3 translation;
+            YAML::convert<glm::vec3>().decode(node[componentName][k_translation], translation);
+            glm::quat rotation;
+            YAML::convert<glm::quat>().decode(node[componentName][k_rotation], rotation);
+            glm::vec3 scale;
+            YAML::convert<glm::vec3>().decode(node[componentName][k_scale], scale);
+            entity.addComponent<TransformComponent>(translation, rotation, scale);
+        }
     }
 }

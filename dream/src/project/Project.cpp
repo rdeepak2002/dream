@@ -9,6 +9,7 @@
 #include <fstream>
 #include <yaml-cpp/yaml.h>
 #include "dream/project/OpenGLAssetLoader.h"
+#include "dream/scene/component/Component.h"
 
 namespace Dream {
     Project::Project() {
@@ -48,6 +49,7 @@ namespace Dream {
         if (std::filesystem::exists(filepath)) {
             this->path = std::move(filepath);
             this->recognizeResources();
+            this->loadScene();
         } else {
             fprintf(stderr, "Error: project folder does not exist\n");
             exit(EXIT_FAILURE);
@@ -63,6 +65,23 @@ namespace Dream {
         std::ofstream fout(savePath);
         fout << out.c_str();
         std::cout << "Saved scene to " << savePath << std::endl;
+    }
+
+    void Project::loadScene() {
+        std::string loadPath = std::filesystem::path(Project::getPath()).append("assets").append("main.scene");
+        YAML::Node doc = YAML::LoadFile(loadPath);
+        auto entitiesYaml = doc["Entities"].as<std::vector<YAML::Node>>();
+        for (const YAML::Node& entityYaml : entitiesYaml) {
+            if (entityYaml[Component::RootComponent::componentName]) {
+                // root entity
+                Entity entity = Project::getScene()->createEntity("root", true);
+                entity.deserialize(entityYaml);
+            } else {
+                // non-root entity
+                Entity entity = Project::getScene()->createEntity("Entity", false);
+                entity.deserialize(entityYaml);
+            }
+        }
     }
 
     std::filesystem::path Project::getPathHelper() {

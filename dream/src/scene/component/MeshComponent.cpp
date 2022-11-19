@@ -14,46 +14,62 @@ namespace Dream::Component {
     MeshComponent::MeshComponent(std::string guid, std::string fileID) {
         this->meshType = FROM_FILE;
         this->guid = std::move(guid);
-        this->fileId = fileID;
-        if (!Project::getResourceManager()->hasData(this->guid, this->fileId)) {
-            std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
-            // TODO: this is fine, but remove this line later once we ensure this is being hit
-            std::cout << "LOADING MESH IN MESH COMPONENT (LOOK HERE AND REMOVE THIS LINE LATER) " << path << std::endl;
-            Project::getAssetLoader()->loadMesh(this->guid);
-        }
-        this->mesh = (OpenGLMesh*) Project::getResourceManager()->getData(this->guid, fileID);
+        this->fileId = std::move(fileID);
     }
 
-    MeshComponent::MeshComponent(Dream::Component::MeshComponent::MeshType meshType,
-                                 std::map<std::string, float> primitiveMeshData) {
+    MeshComponent::MeshComponent(Dream::Component::MeshComponent::MeshType meshType, std::map<std::string, float> primitiveMeshData) {
         this->meshType = meshType;
-        if (meshType == PRIMITIVE_CUBE) {
-            this->mesh = new OpenGLCubeMesh();
-        } else if (meshType == PRIMITIVE_SPHERE) {
-            this->mesh = new OpenGLSphereMesh();
+    }
+
+    void MeshComponent::loadMesh() {
+        if (meshType == MeshType::FROM_FILE) {
+            if (!Project::getResourceManager()->hasData(this->guid, this->fileId)) {
+                std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
+                Project::getAssetLoader()->loadMesh(this->guid);
+            }
+            this->mesh = (OpenGLMesh*) Project::getResourceManager()->getData(this->guid, this->fileId);
         } else {
-            std::cout << "UNKNOWN PRIMITIVE MESH TYPE" << std::endl;
-            exit(EXIT_FAILURE);
+            if (meshType == PRIMITIVE_CUBE) {
+                this->mesh = new OpenGLCubeMesh();
+            } else if (meshType == PRIMITIVE_SPHERE) {
+                this->mesh = new OpenGLSphereMesh();
+            } else {
+                std::cout << "UNKNOWN PRIMITIVE MESH TYPE" << std::endl;
+                exit(EXIT_FAILURE);
+            }
         }
     }
 
-    Mesh *MeshComponent::getMesh() {
-        if (!this->mesh) {
-            std::cout << "Mesh is null" << std::endl;
+    void MeshComponent::serialize(YAML::Emitter &out, Entity &entity) {
+        if (entity.hasComponent<MeshComponent>()) {
+            auto &meshComponent = entity.getComponent<MeshComponent>();
+            out << YAML::Key << componentName;
+            out << YAML::BeginMap;
+            out << YAML::Key << k_meshType << YAML::Value << meshComponent.meshType;
+            out << YAML::Key << k_guid << YAML::Value << meshComponent.guid;
+            out << YAML::Key << k_fileId << YAML::Value << meshComponent.fileId;
+            out << YAML::EndMap;
         }
-        return this->mesh;
     }
 
-    void MeshComponent::serialize(YAML::Emitter &out) {
-        out << YAML::Key << getComponentName();
-        out << YAML::BeginMap;
-        out << YAML::Key << "meshType" << YAML::Value << this->meshType;
-        out << YAML::Key << "guid" << YAML::Value << this->guid;
-        out << YAML::Key << "fileId" << YAML::Value << this->fileId;
-        out << YAML::EndMap;
-    }
-
-    std::string MeshComponent::getComponentName() {
-        return "MeshComponent";
+    void MeshComponent::deserialize(YAML::Node node, Entity &entity) {
+        if (node[componentName]) {
+            auto meshType = static_cast<MeshType>(node[componentName][k_meshType].as<int>());
+            auto guid = node[componentName][k_guid].as<std::string>();
+            auto fileId = node[componentName][k_fileId].as<std::string>();
+            bool isPrimitiveMesh = guid.empty() && fileId.empty();
+            bool isMeshFromFile = !guid.empty() && !fileId.empty();
+            if (isPrimitiveMesh) {
+                // loading primitive mesh
+                std::map<std::string, float> primitiveMeshData;
+                entity.addComponent<MeshComponent>(meshType, primitiveMeshData);
+            } else if (isMeshFromFile) {
+                // loading mesh from file
+                entity.addComponent<MeshComponent>(guid, fileId);
+            } else {
+                std::cout << "Invalid mesh scene data" << std::endl;
+                exit(EXIT_FAILURE);
+            }
+        }
     }
 }

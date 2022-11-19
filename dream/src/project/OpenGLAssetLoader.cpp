@@ -14,7 +14,7 @@
 #include "dream/util/IDUtils.h"
 
 namespace Dream {
-    Entity OpenGLAssetLoader::loadMesh(std::string guid) {
+    Entity OpenGLAssetLoader::loadMesh(std::string guid, bool createEntities) {
         std::string path = Project::getResourceManager()->getFilePathFromGUID(guid);
         if (!std::filesystem::exists(path)) {
             std::cout << "File does not exist" << std::endl;
@@ -31,27 +31,34 @@ namespace Dream {
         // process root node
         auto node = scene->mRootNode;
         meshID = 0;
-        Entity dreamEntityRootNode = processNode(path, guid, node, scene);
+        Entity dreamEntityRootNode = processNode(path, guid, node, scene, createEntities);
         return dreamEntityRootNode;
     }
 
-    Entity OpenGLAssetLoader::processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene) {
-        Entity dreamNode = Project::getScene()->createEntity(node->mName.C_Str());
+    Entity OpenGLAssetLoader::processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene, bool createEntities) {
+        Entity dreamNode;
+        if (createEntities) {
+            dreamNode = Project::getScene()->createEntity(node->mName.C_Str());
+        }
         // process meshes for this node
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            Entity child = processMesh(path, guid, mesh, scene);
-            dreamNode.addChild(child);
+            Entity child = processMesh(path, guid, mesh, scene, createEntities);
+            if (createEntities) {
+                dreamNode.addChild(child);
+            }
         }
         // process child nodes
         for(unsigned int i = 0; i < node->mNumChildren; i++) {
-            Entity child = processNode(path, guid, node->mChildren[i], scene);
-            dreamNode.addChild(child);
+            Entity child = processNode(path, guid, node->mChildren[i], scene, createEntities);
+            if (createEntities) {
+                dreamNode.addChild(child);
+            }
         }
         return dreamNode;
     }
 
-    Entity OpenGLAssetLoader::processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene) {
+    Entity OpenGLAssetLoader::processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, bool createEntities) {
         meshID++;
         std::vector<glm::vec3> positions;
         std::vector<glm::vec3> normals;
@@ -119,7 +126,10 @@ namespace Dream {
             texturePath = std::filesystem::path(path).parent_path().append(str.C_Str());
         }
 
-        Entity entity = Project::getScene()->createEntity(mesh->mName.C_Str());
+        Entity entity;
+        if (createEntities) {
+            entity = Project::getScene()->createEntity(mesh->mName.C_Str());
+        }
         // add mesh component
         std::string meshFileGUID = std::move(guid);
         std::string subMeshFileID = IDUtils::newFileID(std::string(std::to_string(meshID) + "0"));
@@ -127,7 +137,9 @@ namespace Dream {
             auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
             Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
         }
-        entity.addComponent<Component::MeshComponent>(meshFileGUID, subMeshFileID);
+        if (createEntities) {
+            entity.addComponent<Component::MeshComponent>(meshFileGUID, subMeshFileID);
+        }
         // add material component
         if (!texturePath.empty()) {
             std::string textureMetaFilePath = texturePath + ".meta";
@@ -141,7 +153,9 @@ namespace Dream {
                 auto* dreamTexture = new OpenGLTexture(texturePath);
                 Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
             }
-            entity.addComponent<Component::MaterialComponent>(textureFileGUID);
+            if (createEntities) {
+                entity.addComponent<Component::MaterialComponent>(textureFileGUID);
+            }
         }
         return entity;
     }

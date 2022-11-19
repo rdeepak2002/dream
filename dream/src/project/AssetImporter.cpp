@@ -27,7 +27,6 @@ namespace Dream {
             auto new_directory_folder = Project::getPath().append("assets").append(relativePath.c_str());
             // create directory
             std::filesystem::create_directory(new_directory_folder);
-//            std::cout << "will create new directory: " << new_directory_folder << std::endl;
             for (const auto & entry : std::filesystem::directory_iterator(combinedPath)) {
                 std::filesystem::path newRelativePath = std::filesystem::path(relativePath);
                 newRelativePath += std::filesystem::path::preferred_separator;
@@ -54,9 +53,6 @@ namespace Dream {
             out << YAML::EndMap;
             std::ofstream fout(metaFilePath);
             fout << out.c_str();
-//            std::cout << "copy from: " << copyFrom << std::endl;
-//            std::cout << "copy to: " << copyTo << std::endl;
-//            std::cout << "meta file path: " << metaFilePath << std::endl;
         }
     }
 }

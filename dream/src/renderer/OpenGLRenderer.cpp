@@ -75,13 +75,21 @@ namespace Dream {
         for(auto entityHandle : meshEntities) {
             Entity entity = {entityHandle, Project::getScene()};
             if (entity.hasComponent<Component::MaterialComponent>()) {
-                auto* openGLTexture = dynamic_cast<OpenGLTexture*>(entity.getComponent<Component::MaterialComponent>().texture);
-                if (openGLTexture) {
-                    shader->use();
-                    shader->setInt("texture_diffuse1", 0);
-                    openGLTexture->bind(0);
-                    shader->use();
-                    shader->setInt("texture_diffuse1", 0);
+                if (!entity.getComponent<Component::MaterialComponent>().texture) {
+                    entity.getComponent<Component::MaterialComponent>().loadTexture();
+                }
+
+                if (entity.getComponent<Component::MaterialComponent>().texture) {
+                    auto* openGLTexture = dynamic_cast<OpenGLTexture*>(entity.getComponent<Component::MaterialComponent>().texture);
+                    if (openGLTexture) {
+                        shader->use();
+                        shader->setInt("texture_diffuse1", 0);
+                        openGLTexture->bind(0);
+                        shader->use();
+                        shader->setInt("texture_diffuse1", 0);
+                    }
+                } else {
+                    std::cout << "WARNING: no texture loaded" << std::endl;
                 }
             } else {
                 // TODO: this is unknown material - use purple
@@ -92,28 +100,37 @@ namespace Dream {
             glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-            // draw mesh of entity
-            auto mesh = entity.getComponent<Component::MeshComponent>().getMesh();
-            auto* openGLMesh = dynamic_cast<OpenGLMesh*>(mesh);
-            if (openGLMesh) {
-                if (!openGLMesh->getIndices().empty()) {
-                    // case where vertices are indexed
-                    auto numIndices = openGLMesh->getIndices().size();
-                    glBindVertexArray(openGLMesh->getVAO());
-                    glDrawElements(GL_TRIANGLES, (int) numIndices, GL_UNSIGNED_INT, nullptr);
-                    glBindVertexArray(0);
-                } else if (!openGLMesh->getPositions().empty()) {
-                    // case where vertices are not indexed
-                    glBindVertexArray(openGLMesh->getVAO());
-                    glDrawArrays(GL_TRIANGLES, 0, (int) openGLMesh->getPositions().size());
-                    glBindVertexArray(0);
-                } else {
-                    std::cout << "Unable to render mesh" << std::endl;
-                    exit(EXIT_FAILURE);
+            if (entity.hasComponent<Component::MeshComponent>()) {
+                // draw mesh of entity
+                if (!entity.getComponent<Component::MeshComponent>().mesh) {
+                    entity.getComponent<Component::MeshComponent>().loadMesh();
                 }
-            } else {
-                std::cout << "Mesh cannot be rendered in OpenGL" << std::endl;
-                exit(EXIT_FAILURE);
+
+                if (entity.getComponent<Component::MeshComponent>().mesh) {
+                    auto* openGLMesh = dynamic_cast<OpenGLMesh*>(entity.getComponent<Component::MeshComponent>().mesh);
+                    if (openGLMesh) {
+                        if (!openGLMesh->getIndices().empty()) {
+                            // case where vertices are indexed
+                            auto numIndices = openGLMesh->getIndices().size();
+                            glBindVertexArray(openGLMesh->getVAO());
+                            glDrawElements(GL_TRIANGLES, (int) numIndices, GL_UNSIGNED_INT, nullptr);
+                            glBindVertexArray(0);
+                        } else if (!openGLMesh->getPositions().empty()) {
+                            // case where vertices are not indexed
+                            glBindVertexArray(openGLMesh->getVAO());
+                            glDrawArrays(GL_TRIANGLES, 0, (int) openGLMesh->getPositions().size());
+                            glBindVertexArray(0);
+                        } else {
+                            std::cout << "Unable to render mesh" << std::endl;
+                            exit(EXIT_FAILURE);
+                        }
+                    } else {
+                        std::cout << "Mesh cannot be rendered in OpenGL" << std::endl;
+                        exit(EXIT_FAILURE);
+                    }
+                } else {
+                    std::cout << "WARNING: no mesh loaded" << std::endl;
+                }
             }
         }
 

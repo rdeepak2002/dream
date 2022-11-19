@@ -5,6 +5,10 @@
 #include "dream/scene/component/Component.h"
 
 namespace Dream::Component {
+    HierarchyComponent::HierarchyComponent() {
+
+    }
+
     int HierarchyComponent::numChildren() {
         int count = 0;
         Entity c = first;
@@ -66,29 +70,24 @@ namespace Dream::Component {
         }
     }
 
-    void HierarchyComponent::serialize(YAML::Emitter &out) {
-        out << YAML::Key << getComponentName();
-        out << YAML::BeginMap;
-        if (first) {
-            out << YAML::Key << "first" << YAML::Value << this->first.getComponent<IDComponent>().getID();
+    void HierarchyComponent::serialize(YAML::Emitter &out, Entity &entity) {
+        if (entity.hasComponent<HierarchyComponent>()) {
+            out << YAML::Key << componentName;
+            out << YAML::BeginMap;
+            auto& hierarchyComponent = entity.getComponent<HierarchyComponent>();
+            if (hierarchyComponent.first) {
+                out << YAML::Key << k_first << YAML::Value << hierarchyComponent.first.getComponent<IDComponent>().getID();
+            }
+            if (hierarchyComponent.prev) {
+                out << YAML::Key << k_prev << YAML::Value << hierarchyComponent.prev.getComponent<IDComponent>().getID();
+            }
+            if (hierarchyComponent.next) {
+                out << YAML::Key << k_next << YAML::Value << hierarchyComponent.next.getComponent<IDComponent>().getID();
+            }
+            if (hierarchyComponent.parent) {
+                out << YAML::Key << k_parent << YAML::Value << hierarchyComponent.parent.getComponent<IDComponent>().getID();
+            }
+            out << YAML::EndMap;
         }
-        if (prev) {
-            out << YAML::Key << "prev" << YAML::Value << this->prev.getComponent<IDComponent>().getID();
-        }
-        if (next) {
-            out << YAML::Key << "next" << YAML::Value << this->next.getComponent<IDComponent>().getID();
-        }
-        if (parent) {
-            out << YAML::Key << "parent" << YAML::Value << this->parent.getComponent<IDComponent>().getID();
-        }
-        out << YAML::EndMap;
-    }
-
-    std::string HierarchyComponent::getComponentName() {
-        return "HierarchyComponent";
-    }
-
-    HierarchyComponent::HierarchyComponent() {
-
     }
 }
