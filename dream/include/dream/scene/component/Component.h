@@ -58,10 +58,12 @@ namespace Dream::Component {
         Entity next {entt::null, nullptr};
         inline static std::string k_parent = "parent";
         Entity parent {entt::null, nullptr};
+        std::string parentID;
         explicit HierarchyComponent();
         void addChild(Entity &newChild, Entity &newParent);
         void removeChild(Entity &childToRemove);
         int numChildren();
+        static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
     };
 

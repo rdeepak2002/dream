@@ -24,6 +24,7 @@ namespace Dream {
             return entityRegistry.view<Components ...>();
         }
         Entity getRootEntity();
+        Entity getEntityByID(const std::string& id);
         void removeEntity(Entity &entity);
         void serialize(YAML::Emitter &out);
     private:

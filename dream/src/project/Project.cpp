@@ -36,7 +36,6 @@ namespace Dream {
                 YAML::Node doc = YAML::LoadFile(file.path());
                 auto guid = doc["guid"].as<std::string>();
                 Project::getResourceManager()->setFilePathFromGUID(guid, originalFilePath);
-//                std::cout << guid << " : " << Project::getResourceManager()->getFilePathFromGUID(guid) << std::endl;
             }
         }
     }
@@ -72,15 +71,9 @@ namespace Dream {
         YAML::Node doc = YAML::LoadFile(loadPath);
         auto entitiesYaml = doc["Entities"].as<std::vector<YAML::Node>>();
         for (const YAML::Node& entityYaml : entitiesYaml) {
-            if (entityYaml[Component::RootComponent::componentName]) {
-                // root entity
-                Entity entity = Project::getScene()->createEntity("root", true);
-                entity.deserialize(entityYaml);
-            } else {
-                // non-root entity
-                Entity entity = Project::getScene()->createEntity("Entity", false);
-                entity.deserialize(entityYaml);
-            }
+            bool isRootEntity = entityYaml[Component::RootComponent::componentName] ? true : false;
+            Entity entity = Project::getScene()->createEntity("Entity", isRootEntity);
+            entity.deserialize(entityYaml);
         }
     }
 

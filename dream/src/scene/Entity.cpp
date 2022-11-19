@@ -67,9 +67,13 @@ namespace Dream {
         Component::RootComponent::deserialize(node, *this);
         Component::IDComponent::deserialize(node, *this);
         Component::TagComponent::deserialize(node, *this);
-//        Component::HierarchyComponent::deserialize(node, *this);    // TODO: deserialization of hierarchy component
+        Component::HierarchyComponent::deserialize(node, *this);
         Component::TransformComponent::deserialize(node, *this);
         Component::MeshComponent::deserialize(node, *this);
         Component::MaterialComponent::deserialize(node, *this);
+    }
+
+    std::string Entity::getID() {
+        return getComponent<Component::IDComponent>().getID();
     }
 }

@@ -76,4 +76,15 @@ namespace Dream {
         entity.serialize(out);
         out << YAML::EndSeq;
     }
+
+    Entity Scene::getEntityByID(const std::string& id) {
+        auto entities = getEntitiesWithComponents<Component::IDComponent>();
+        for(auto entityHandle : entities) {
+            Entity entity = {entityHandle, this};
+            if (entity.getID() == id) {
+                return entity;
+            }
+        }
+        return {};
+    }
 }

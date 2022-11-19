@@ -2,7 +2,10 @@
 // Created by Deepak Ramalingam on 11/13/22.
 //
 
+#include <utility>
+
 #include "dream/scene/component/Component.h"
+#include "dream/project/Project.h"
 
 namespace Dream::Component {
     HierarchyComponent::HierarchyComponent() {
@@ -64,6 +67,7 @@ namespace Dream::Component {
             }
             // update parent of new child
             newChild.getComponent<HierarchyComponent>().parent = newParent;
+            newChild.getComponent<HierarchyComponent>().parentID = newParent.getID();
         } else {
             std::cout << "cannot add child to non-existing parent" << std::endl;
             exit(EXIT_FAILURE);
@@ -88,6 +92,17 @@ namespace Dream::Component {
                 out << YAML::Key << k_parent << YAML::Value << hierarchyComponent.parent.getComponent<IDComponent>().getID();
             }
             out << YAML::EndMap;
+        }
+    }
+
+    void HierarchyComponent::deserialize(YAML::Node node, Entity &entity) {
+        if (node[componentName]) {
+            // ignore root component
+            if (!entity.hasComponent<RootComponent>()) {
+                auto parentEntityID = node[componentName][k_parent].as<std::string>();
+                Entity parentEntity = Project::getScene()->getEntityByID(parentEntityID);
+                parentEntity.addChild(entity);  // TODO: call addChildEnd(entity) to add child to the end of the linked list
+            }
         }
     }
 }
