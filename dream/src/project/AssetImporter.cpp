@@ -26,7 +26,9 @@ namespace Dream {
         if (std::filesystem::is_directory(combinedPath)) {
             auto new_directory_folder = Project::getPath().append("assets").append(relativePath.c_str());
             // create directory
-            std::filesystem::create_directory(new_directory_folder);
+            if (!std::filesystem::exists(new_directory_folder)) {
+                std::filesystem::create_directory(new_directory_folder);
+            }
             for (const auto & entry : std::filesystem::directory_iterator(combinedPath)) {
                 std::filesystem::path newRelativePath = std::filesystem::path(relativePath);
                 newRelativePath += std::filesystem::path::preferred_separator;
@@ -39,20 +41,18 @@ namespace Dream {
             auto copyTo = Project::getPath().append("assets").append(relativePath.c_str());
             auto metaFilePath = std::filesystem::path(std::string(copyTo.c_str()) + ".meta");
             // copy file
-            if (std::filesystem::exists(copyTo)) {
-                if (!std::filesystem::remove(copyTo)) {
-                    std::cout << "Error removing file " << copyTo << std::endl;
-                    exit(EXIT_FAILURE);
-                }
+            if (copyTo != copyFrom) {
+                std::filesystem::copy_file(copyFrom, copyTo, std::filesystem::copy_options::update_existing);
+                // create meta file
+                YAML::Emitter out;
+                out << YAML::BeginMap;
+                out << YAML::Key << "guid" << YAML::Value << IDUtils::newGUID();
+                out << YAML::EndMap;
+                std::ofstream fout(metaFilePath);
+                fout << out.c_str();
+            } else {
+                std::cout << "WARNING: Ignoring importing of " << copyFrom << std::endl;
             }
-            std::filesystem::copy_file(copyFrom, copyTo);
-            // create meta file
-            YAML::Emitter out;
-            out << YAML::BeginMap;
-            out << YAML::Key << "guid" << YAML::Value << IDUtils::newGUID();
-            out << YAML::EndMap;
-            std::ofstream fout(metaFilePath);
-            fout << out.c_str();
         }
     }
 }
