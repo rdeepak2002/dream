@@ -5,7 +5,6 @@
 #include "dream/editor/ImGuiEditor.h"
 
 #include <filesystem>
-#include <imgui.h>
 #include <imgui_internal.h>
 #include <stack>
 #include "dream/project/Project.h"
@@ -17,6 +16,7 @@ namespace Dream {
         this->sceneView->setInspectorView(inspectorView);
         this->rendererViewportWidth = 520;
         this->rendererViewportHeight = 557;
+        this->fileImporterBrowser = nullptr;
 
         // setup Dear ImGui context
         IMGUI_CHECKVERSION();
@@ -33,6 +33,7 @@ namespace Dream {
     ImGuiEditor::~ImGuiEditor() {
         delete sceneView;
         delete inspectorView;
+        delete fileImporterBrowser;
     }
 
     void ImGuiEditor::newFrame(Dream::Window *window) {
@@ -105,7 +106,33 @@ namespace Dream {
                 }
                 ImGui::EndMenu();
             }
+            if (ImGui::BeginMenu("Assets")) {
+                if(ImGui::MenuItem("Import Folder")) {
+                    delete fileImporterBrowser;
+                    fileImporterBrowser = new ImGui::FileBrowser(ImGuiFileBrowserFlags_SelectDirectory);
+                    fileImporterBrowser->SetTitle("import folder");
+                    fileImporterBrowser->SetPwd(Project::getPath());
+                    fileImporterBrowser->Open();
+                }
+                if(ImGui::MenuItem("Import File")) {
+                    delete fileImporterBrowser;
+                    fileImporterBrowser = new ImGui::FileBrowser();
+                    fileImporterBrowser->SetTitle("import file");
+                    fileImporterBrowser->SetPwd(Project::getPath());
+                    fileImporterBrowser->Open();
+                }
+                ImGui::EndMenu();
+            }
             ImGui::EndMainMenuBar();
+        }
+
+        if (fileImporterBrowser) {
+            fileImporterBrowser->Display();
+            if (fileImporterBrowser->HasSelected()) {
+                std::filesystem::path selectedFilePath = fileImporterBrowser->GetSelected();
+                Project::getAssetImporter()->importAsset(selectedFilePath);
+                fileImporterBrowser->ClearSelected();
+            }
         }
 
         ImGuiWindowClass renderer_window_class;
