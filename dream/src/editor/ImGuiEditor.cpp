@@ -8,6 +8,7 @@
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <stack>
+#include "dream/project/Project.h"
 
 namespace Dream {
     ImGuiEditor::ImGuiEditor(Dream::Window *window) : Editor(window) {
@@ -45,7 +46,7 @@ namespace Dream {
         static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
         ImGuiViewport* viewport = ImGui::GetMainViewport();
-        float yViewportOffset = 20.0;
+        float yViewportOffset = 0.0;
         ImVec2 viewportPosition = ImVec2(viewport->Pos.x, viewport->Pos.y - yViewportOffset);
         ImVec2 viewportSize = ImVec2(viewport->Size.x, viewport->Size.y + yViewportOffset);
         ImGui::SetNextWindowPos(viewportPosition);
@@ -96,6 +97,16 @@ namespace Dream {
         ImGui::End();
 
         this->style();
+
+        if(ImGui::BeginMainMenuBar()) {
+            if (ImGui::BeginMenu("File")) {
+                if(ImGui::MenuItem("Save")) {
+                    Project::saveScene();
+                }
+                ImGui::EndMenu();
+            }
+            ImGui::EndMainMenuBar();
+        }
 
         ImGuiWindowClass renderer_window_class;
         renderer_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;

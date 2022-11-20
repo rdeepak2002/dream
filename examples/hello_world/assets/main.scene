@@ -20,7 +20,6 @@ Entities:
       tag: Sketchfab_model
     HierarchyComponent:
       first: 62DBE18D-33D1-40EF-84BD-5952B5C41B3A
-      prev: 62DBE18D-33D1-40EF-84BD-5952B5C41B3A
       next: E79B9FA6-F724-4F3F-A888-4AB724620D8B
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:

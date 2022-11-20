@@ -30,6 +30,11 @@ namespace Dream::Component {
 
         if (first == childToRemove) {
             // case where child to remove is head of list
+            if (childToRemove.getComponent<HierarchyComponent>().next) {
+                // update 'prev' pointer of sibling that will be the new first child
+                auto &nextEntity = childToRemove.getComponent<HierarchyComponent>().next;
+                nextEntity.getComponent<HierarchyComponent>().prev = Entity {entt::null, nullptr};
+            }
             first = childToRemove.getComponent<HierarchyComponent>().next;
         } else {
             auto &prevEntity = childToRemove.getComponent<HierarchyComponent>().prev;
@@ -56,9 +61,9 @@ namespace Dream::Component {
                 // insert at front or back of linked list
                 if (atStart) {
                     // insert child into front of list
-                    auto& formerFirstChild = parentHierarchyComp.first;
-                    formerFirstChild.getComponent<HierarchyComponent>().prev = newChild;
-                    newChild.getComponent<HierarchyComponent>().next = formerFirstChild;
+                    auto formerFirstChild = parentHierarchyComp.first;
+                    formerFirstChild.getComponent<HierarchyComponent>().prev = Entity {newChild.entityHandle, Project::getScene()};
+                    newChild.getComponent<HierarchyComponent>().next = Entity {formerFirstChild.entityHandle, Project::getScene()};
                     newChild.getComponent<HierarchyComponent>().prev = Entity {entt::null, nullptr};
                     parentHierarchyComp.first = newChild;
                 } else {

@@ -40,7 +40,7 @@ namespace Dream {
         template<typename T>
         void removeComponent() {
             if (!hasComponent<T>()) {
-                std::cout << "Entity does not have component" << std::endl;
+                std::cout << "Entity does not have component (for removal)" << std::endl;
                 exit(1);
             }
             scene->entityRegistry.remove<T>(entityHandle);
