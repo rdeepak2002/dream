@@ -39,6 +39,9 @@ namespace Dream {
         if (entity.numChildren() == 0) {
             treeNodeFlags = treeNodeFlags | ImGuiTreeNodeFlags_Leaf;
         }
+        if (entity.hasComponent<Component::RootComponent>()) {
+            treeNodeFlags = treeNodeFlags | ImGuiTreeNodeFlags_DefaultOpen;
+        }
         if (ImGui::TreeNodeEx(entity.getComponent<Component::IDComponent>().getID().c_str(), treeNodeFlags, "%s", tagStr.c_str())) {
             if (ImGui::IsItemClicked()) {
                 if (inspectorView) {
