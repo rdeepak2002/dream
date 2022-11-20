@@ -5,14 +5,9 @@
 #ifndef DREAM_YAMLUTILS_H
 #define DREAM_YAMLUTILS_H
 
-#include <iostream>
-#include <utility>
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <yaml-cpp/yaml.h>
-#include "dream/scene/Entity.h"
-#include "dream/renderer/Mesh.h"
-#include "dream/renderer/Texture.h"
 
 namespace YAML {
     template<>

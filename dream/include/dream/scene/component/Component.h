@@ -13,7 +13,6 @@
 #include "dream/scene/Entity.h"
 #include "dream/renderer/Mesh.h"
 #include "dream/renderer/Texture.h"
-#include "dream/util/YAMLUtils.h"
 
 namespace Dream::Component {
     struct Component {
