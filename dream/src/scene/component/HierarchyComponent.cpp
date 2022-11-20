@@ -118,7 +118,12 @@ namespace Dream::Component {
             if (!entity.hasComponent<RootComponent>()) {
                 auto parentEntityID = node[componentName][k_parent].as<std::string>();
                 Entity parentEntity = Project::getScene()->getEntityByID(parentEntityID);
-                parentEntity.addChild(entity, false);
+                if (parentEntity) {
+                    parentEntity.addChild(entity, false);
+                } else {
+                    std::cout << "ERROR: parent does not exist for id " << parentEntityID << std::endl;
+                    exit(EXIT_FAILURE);
+                }
             }
         }
     }
