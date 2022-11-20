@@ -24,6 +24,12 @@ namespace Dream {
         if (rootEntity) {
             renderSceneViewEntity(rootEntity);
         }
+        if (ImGui::BeginPopupContextWindow()) {
+            if (ImGui::MenuItem("New entity")) {
+                Project::getScene()->createEntity();
+            }
+            ImGui::EndPopup();
+        }
         ImGui::End();
     }
 
