@@ -60,7 +60,7 @@ namespace Dream::Component {
         Entity parent {entt::null, nullptr};
         std::string parentID;
         explicit HierarchyComponent();
-        void addChild(Entity &newChild, Entity &newParent);
+        void addChild(Entity &newChild, Entity &newParent, bool atStart = true);
         void removeChild(Entity &childToRemove);
         int numChildren();
         static void deserialize(YAML::Node node, Entity &entity);

@@ -45,7 +45,7 @@ namespace Dream {
             }
             scene->entityRegistry.remove<T>(entityHandle);
         }
-        void addChild(Entity entity);
+        void addChild(Entity entity, bool atStart = true);
         int numChildren();
         void serialize(YAML::Emitter &out);
         void deserialize(YAML::Node node);

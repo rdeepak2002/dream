@@ -43,7 +43,7 @@ namespace Dream::Component {
         }
     }
 
-    void HierarchyComponent::addChild(Entity &newChild, Entity &newParent) {
+    void HierarchyComponent::addChild(Entity &newChild, Entity &newParent, bool atStart) {
         if (newParent) {
             // remove child from old parent
             Entity oldParent = newChild.getComponent<HierarchyComponent>().parent;
@@ -53,12 +53,24 @@ namespace Dream::Component {
             // add new child as child of parent
             auto &parentHierarchyComp = newParent.getComponent<HierarchyComponent>();
             if (parentHierarchyComp.first) {
-                // insert child into front of list
-                auto& formerFirstChild = parentHierarchyComp.first;
-                formerFirstChild.getComponent<HierarchyComponent>().prev = newChild;
-                newChild.getComponent<HierarchyComponent>().next = formerFirstChild;
-                newChild.getComponent<HierarchyComponent>().prev = Entity {entt::null, nullptr};
-                parentHierarchyComp.first = newChild;
+                // insert at front or back of linked list
+                if (atStart) {
+                    // insert child into front of list
+                    auto& formerFirstChild = parentHierarchyComp.first;
+                    formerFirstChild.getComponent<HierarchyComponent>().prev = newChild;
+                    newChild.getComponent<HierarchyComponent>().next = formerFirstChild;
+                    newChild.getComponent<HierarchyComponent>().prev = Entity {entt::null, nullptr};
+                    parentHierarchyComp.first = newChild;
+                } else {
+                    // insert child into end of list
+                    auto endChild = parentHierarchyComp.first;
+                    while (endChild.getComponent<HierarchyComponent>().next) {
+                        endChild = endChild.getComponent<HierarchyComponent>().next;
+                    }
+                    endChild.getComponent<HierarchyComponent>().next = Entity { newChild.entityHandle, Project::getScene() };
+                    newChild.getComponent<HierarchyComponent>().next = Entity {entt::null, nullptr};
+                    newChild.getComponent<HierarchyComponent>().prev = Entity { endChild.entityHandle, Project::getScene() } ;
+                }
             } else {
                 // make child head of list
                 newChild.getComponent<HierarchyComponent>().prev = Entity {entt::null, nullptr};
@@ -101,7 +113,7 @@ namespace Dream::Component {
             if (!entity.hasComponent<RootComponent>()) {
                 auto parentEntityID = node[componentName][k_parent].as<std::string>();
                 Entity parentEntity = Project::getScene()->getEntityByID(parentEntityID);
-                parentEntity.addChild(entity);  // TODO: call addChildEnd(entity) to add child to the end of the linked list
+                parentEntity.addChild(entity, false);
             }
         }
     }

@@ -31,8 +31,8 @@ namespace Dream {
         return entityHandle;
     }
 
-    void Entity::addChild(Entity entity) {
-        getComponent<Component::HierarchyComponent>().addChild(entity, *this);
+    void Entity::addChild(Entity entity, bool atStart) {
+        getComponent<Component::HierarchyComponent>().addChild(entity, *this, atStart);
     }
 
     int Entity::numChildren() {

@@ -72,7 +72,7 @@ namespace Dream {
         auto entitiesYaml = doc["Entities"].as<std::vector<YAML::Node>>();
         for (const YAML::Node& entityYaml : entitiesYaml) {
             bool isRootEntity = entityYaml[Component::RootComponent::componentName] ? true : false;
-            Entity entity = Project::getScene()->createEntity("Entity", isRootEntity);
+            Entity entity = Project::getScene()->createEntity("Entity", isRootEntity, false);
             entity.deserialize(entityYaml);
         }
     }

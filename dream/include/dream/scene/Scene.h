@@ -16,7 +16,7 @@ namespace Dream {
     public:
         Scene();
         ~Scene();
-        Entity createEntity(const std::string& name = "Entity", bool rootEntity = false);
+        Entity createEntity(const std::string& name = "Entity", bool rootEntity = false, bool addChildStart = true);
         void update();
         void fixedUpdate();
         template<typename... Components>

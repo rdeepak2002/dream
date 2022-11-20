@@ -15,7 +15,7 @@ namespace Dream {
 
     }
 
-    Entity Dream::Scene::createEntity(const std::string &name, bool rootEntity) {
+    Entity Dream::Scene::createEntity(const std::string &name, bool rootEntity, bool addChildStart) {
         Entity entity = { entityRegistry.create(), this };
         // add id component to entity
         entity.addComponent<Component::IDComponent>();
@@ -30,7 +30,7 @@ namespace Dream {
         entity.addComponent<Component::HierarchyComponent>();
         // make new entity child of root
         if (!rootEntity) {
-            getRootEntity().addChild(entity);
+            getRootEntity().addChild(entity, addChildStart);
         }
         return entity;
     }
@@ -64,7 +64,9 @@ namespace Dream {
             removeEntity(child);
             child = nextChild;
         }
-        entity.getComponent<Component::HierarchyComponent>().parent.getComponent<Component::HierarchyComponent>().removeChild(entity);
+        if (!entity.hasComponent<Component::RootComponent>()) {
+            entity.getComponent<Component::HierarchyComponent>().parent.getComponent<Component::HierarchyComponent>().removeChild(entity);
+        }
         entityRegistry.destroy(entity.entityHandle);
     }
 

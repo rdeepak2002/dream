@@ -21,7 +21,9 @@ namespace Dream {
         ImGui::Begin("Scene");
         // render scene hierarchy
         Entity rootEntity = Project::getScene()->getRootEntity();
-        renderSceneViewEntity(rootEntity);
+        if (rootEntity) {
+            renderSceneViewEntity(rootEntity);
+        }
         ImGui::End();
     }
 
