@@ -40,18 +40,20 @@ namespace Dream {
             auto copyFrom = std::filesystem::path(combinedPath);
             auto copyTo = Project::getPath().append("assets").append(relativePath.c_str());
             auto metaFilePath = std::filesystem::path(std::string(copyTo.c_str()) + ".meta");
-            // copy file
-            if (copyTo != copyFrom) {
-                std::filesystem::copy_file(copyFrom, copyTo, std::filesystem::copy_options::update_existing);
+            if (combinedPath.extension() != ".meta") {
+                // copy file
+                if (copyTo != copyFrom) {
+                    std::filesystem::copy_file(copyFrom, copyTo, std::filesystem::copy_options::update_existing);
+                }
                 // create meta file
-                YAML::Emitter out;
-                out << YAML::BeginMap;
-                out << YAML::Key << "guid" << YAML::Value << IDUtils::newGUID();
-                out << YAML::EndMap;
-                std::ofstream fout(metaFilePath);
-                fout << out.c_str();
-            } else {
-                std::cout << "WARNING: Ignoring importing of " << copyFrom << std::endl;
+                if (!std::filesystem::exists(metaFilePath)) {
+                    YAML::Emitter out;
+                    out << YAML::BeginMap;
+                    out << YAML::Key << "guid" << YAML::Value << IDUtils::newGUID();
+                    out << YAML::EndMap;
+                    std::ofstream fout(metaFilePath);
+                    fout << out.c_str();
+                }
             }
         }
     }
