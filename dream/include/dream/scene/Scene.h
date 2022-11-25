@@ -8,6 +8,7 @@
 #include <iostream>
 #include <entt/entt.hpp>
 #include <yaml-cpp/yaml.h>
+#include <btBulletDynamicsCommon.h>
 
 namespace Dream {
     class Entity;
@@ -30,6 +31,11 @@ namespace Dream {
     private:
         entt::registry entityRegistry;
         friend class Entity;
+        btDefaultCollisionConfiguration* collisionConfiguration;
+        btCollisionDispatcher* dispatcher;
+        btBroadphaseInterface* overlappingPairCache;
+        btSequentialImpulseConstraintSolver* solver;
+        btDiscreteDynamicsWorld* dynamicsWorld;
     };
 }
 
