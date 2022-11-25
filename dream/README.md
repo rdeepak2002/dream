@@ -19,3 +19,14 @@ Build using CMake:
 ```shell
 ./build-web.sh
 ```
+
+Install dependencies via vcpkg:
+
+```shell
+./vcpkg/bootstrap-vcpkg.sh
+./vcpkg/vcpkg install assimp
+./vcpkg/vcpkg install yaml-cpp
+```
+
+Install dependencies for web via vcpkg:
+
