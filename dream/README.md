@@ -22,11 +22,8 @@ Build using CMake:
 
 Install dependencies via vcpkg:
 
+1. Install [vcpkg](https://vcpkg.io/en/getting-started.html)
+2. Install dependencies for this project
 ```shell
-./vcpkg/bootstrap-vcpkg.sh
-./vcpkg/vcpkg install assimp
-./vcpkg/vcpkg install yaml-cpp
+vcpkg install
 ```
-
-Install dependencies for web via vcpkg:
-

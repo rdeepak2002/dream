@@ -1,0 +1,20 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "dependencies": [
+    "assimp",
+    "yaml-cpp"
+  ],
+  "overrides": [
+    {
+      "name": "assimp",
+      "version": "5.2.5"
+    },
+    {
+      "name": "yaml-cpp",
+      "version": "0.7.0"
+    }
+  ],
+  "$x-default-baseline": "9fd3bd594f41afb8747e20f6ac9619f26f333cbe",
+  "builtin-baseline": "62d01b70df227850b728f5050418b917ad6d2b32"
+}
