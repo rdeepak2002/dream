@@ -4,7 +4,9 @@
   "dependencies": [
     "assimp",
     "yaml-cpp",
-    "sdl2"
+    "sdl2",
+    "bullet3",
+    "lua"
   ],
   "overrides": [
     {
@@ -18,6 +20,14 @@
     {
       "name": "sdl2",
       "version": "2.24.0"
+    },
+    {
+      "name": "bullet3",
+      "version": "3.22#1"
+    },
+    {
+      "name": "lua",
+      "version": "5.4.4"
     }
   ],
   "$x-default-baseline": "9fd3bd594f41afb8747e20f6ac9619f26f333cbe",

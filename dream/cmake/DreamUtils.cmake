@@ -6,6 +6,10 @@ macro(DREAM_FIND_AND_LINK_LIBRARIES)
 
         # Link yaml-cpp library
         link_libraries("${CMAKE_CURRENT_SOURCE_DIR}/build.web/yaml-cpp-yaml-cpp-0.7.0/src/libyaml-cpp.a")
+
+        # TODO: link lua
+
+        # TODO: link bullet
     else()
         # Link OpenGL library
         find_package(OpenGL REQUIRED)
@@ -36,6 +40,20 @@ macro(DREAM_FIND_AND_LINK_LIBRARIES)
 
         # Link yaml-cpp library
         find_package(yaml-cpp CONFIG REQUIRED)
+
+        # Link Lua library
+        find_package(Lua REQUIRED)
+        message(STATUS "LUA_INCLUDE_DIR ${LUA_INCLUDE_DIR}")
+        include_directories(${LUA_INCLUDE_DIR})
+        message(STATUS "LUA_LIBRARIES ${LUA_LIBRARIES}")
+        link_libraries(${LUA_LIBRARIES})
+
+        # Link bullet library
+        find_package(Bullet CONFIG REQUIRED)
+        message(STATUS BULLET_INCLUDE_DIRS=${BULLET_INCLUDE_DIRS})
+        include_directories(${BULLET_INCLUDE_DIRS})
+        message(STATUS BULLET_LIBRARIES=${BULLET_LIBRARIES})
+        link_libraries(${BULLET_LIBRARIES})
     endif()
 endmacro()
 
