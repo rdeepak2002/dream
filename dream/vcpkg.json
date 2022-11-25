@@ -6,7 +6,8 @@
     "yaml-cpp",
     "sdl2",
     "bullet3",
-    "lua"
+    "lua",
+    "gtest"
   ],
   "overrides": [
     {
@@ -28,6 +29,10 @@
     {
       "name": "lua",
       "version": "5.4.4"
+    },
+    {
+      "name": "gtest",
+      "version": "1.12.1"
     }
   ],
   "$x-default-baseline": "9fd3bd594f41afb8747e20f6ac9619f26f333cbe",
