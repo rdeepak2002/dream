@@ -33,7 +33,7 @@ set(EXAMPLES_PATH ../examples)
 
 if (EMSCRIPTEN)
     # web build Emscripten flags
-    set(WEB_INCLUDES "-I${CMAKE_CURRENT_SOURCE_DIR}/build.web/bullet-2.82-r2704/src -I${CMAKE_CURRENT_SOURCE_DIR}/build.web/lua-5.4.4/src")
+    set(WEB_INCLUDES "-I${CMAKE_CURRENT_SOURCE_DIR}/build.web/yaml-cpp-yaml-cpp-0.7.0/include -I${CMAKE_CURRENT_SOURCE_DIR}/build.web/bullet-2.82-r2704/src -I${CMAKE_CURRENT_SOURCE_DIR}/build.web/lua-5.4.4/src")
     set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--use-preload-plugins -std=c++1z --preload-file ../${EXAMPLES_PATH} -s ASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"png\"]' -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s USE_BULLET=1 -s FULL_ES3=1 -s FORCE_FILESYSTEM=1 -s NO_DISABLE_EXCEPTION_CATCHING ${WEB_INCLUDES}")
     set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-s USE_SDL=2 ${WEB_INCLUDES}")
 else()
