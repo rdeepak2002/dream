@@ -7,8 +7,6 @@ macro(DREAM_FIND_AND_LINK_LIBRARIES)
         # Link yaml-cpp library
         link_libraries("${CMAKE_CURRENT_SOURCE_DIR}/build.web/yaml-cpp-yaml-cpp-0.7.0/src/libyaml-cpp.a")
 
-        # TODO: link lua
-
         # TODO: link bullet
     else()
         # Link OpenGL library
@@ -54,6 +52,18 @@ macro(DREAM_FIND_AND_LINK_LIBRARIES)
         include_directories(${BULLET_INCLUDE_DIRS})
         message(STATUS BULLET_LIBRARIES=${BULLET_LIBRARIES})
         link_libraries(${BULLET_LIBRARIES})
+    endif()
+endmacro()
+
+macro(DREAM_FIND_AND_LINK_LIBRARIES_PART_2)
+    if (EMSCRIPTEN)
+        # Link lua library
+        set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "... -L${CMAKE_CURRENT_SOURCE_DIR}/build.web/lua-5.4.4/src -s ...")
+    else()
+        # Link yaml-cpp
+        target_link_libraries(${PROJECT_NAME} yaml-cpp)
+        # Link g-test
+        target_link_libraries(${PROJECT_NAME} GTest::gtest_main)
     endif()
 endmacro()
 

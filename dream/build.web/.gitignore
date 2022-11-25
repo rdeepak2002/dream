@@ -7,3 +7,5 @@ Makefile
 /yaml-cpp-yaml-cpp-0.7.0
 #dream.js
 #dream.wasm
+/lua-5.4.4/
+/bullet-2.82-r2704/
