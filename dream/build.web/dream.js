@@ -130,7 +130,6 @@ var REMOTE_PACKAGE_SIZE = metadata['remote_package_size'];
       }
 Module['FS_createPath']("/", "examples", true, true);
 Module['FS_createPath']("/examples", "hello_world", true, true);
-Module['FS_createPath']("/examples/hello_world", ".idea", true, true);
 Module['FS_createPath']("/examples/hello_world", "assets", true, true);
 Module['FS_createPath']("/examples/hello_world/assets", "alduin", true, true);
 Module['FS_createPath']("/examples/hello_world/assets/alduin", "textures", true, true);
@@ -139,25 +138,7 @@ Module['FS_createPath']("/examples/hello_world/assets", "sponza", true, true);
 Module['FS_createPath']("/examples/hello_world/assets", "textures", true, true);
 Module['FS_createPath']("/examples/hello_world", "plugins", true, true);
 Module['FS_createPath']("/examples/hello_world/plugins", "native", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native", "cmake-build-debug", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug", ".cmake", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug/.cmake", "api", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api", "v1", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1", "query", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1", "reply", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug", "CMakeFiles", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles", "3.23.2", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2", "CompilerIdC", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2", "CompilerIdCXX", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles", "native.dir", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/native.dir", "src", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug", "Testing", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug/Testing", "Temporary", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug", "out", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/cmake-build-debug/out", "Darwin", true, true);
 Module['FS_createPath']("/examples/hello_world/plugins/native", "include", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native", "out", true, true);
-Module['FS_createPath']("/examples/hello_world/plugins/native/out", "Darwin", true, true);
 Module['FS_createPath']("/examples/hello_world/plugins/native", "src", true, true);
 Module['FS_createPath']("/examples", "resources", true, true);
 Module['FS_createPath']("/examples/resources", "fonts", true, true);
@@ -236,7 +217,7 @@ Module['FS_createPath']("/examples/resources", "fonts", true, true);
     }
 
     }
-    loadPackage({"files": [{"filename": "/examples/.DS_Store", "start": 0, "end": 6148}, {"filename": "/examples/hello_world/.DS_Store", "start": 6148, "end": 14344}, {"filename": "/examples/hello_world/.gitignore", "start": 14344, "end": 15935}, {"filename": "/examples/hello_world/.idea/.gitignore", "start": 15935, "end": 16111}, {"filename": "/examples/hello_world/.idea/.name", "start": 16111, "end": 16117}, {"filename": "/examples/hello_world/.idea/hello_world.iml", "start": 16117, "end": 16214}, {"filename": "/examples/hello_world/.idea/misc.xml", "start": 16214, "end": 16664}, {"filename": "/examples/hello_world/.idea/modules.xml", "start": 16664, "end": 16938}, {"filename": "/examples/hello_world/.idea/vcs.xml", "start": 16938, "end": 17124}, {"filename": "/examples/hello_world/.idea/workspace.xml", "start": 17124, "end": 22548}, {"filename": "/examples/hello_world/README.md", "start": 22548, "end": 22704}, {"filename": "/examples/hello_world/assets/.DS_Store", "start": 22704, "end": 30900}, {"filename": "/examples/hello_world/assets/.gitkeep", "start": 30900, "end": 30900}, {"filename": "/examples/hello_world/assets/alduin/.DS_Store", "start": 30900, "end": 37048}, {"filename": "/examples/hello_world/assets/alduin/.DS_Store.meta", "start": 37048, "end": 37090}, {"filename": "/examples/hello_world/assets/alduin/license.txt", "start": 37090, "end": 37734}, {"filename": "/examples/hello_world/assets/alduin/license.txt.meta", "start": 37734, "end": 37776}, {"filename": "/examples/hello_world/assets/alduin/scene.bin", "start": 37776, "end": 735112}, {"filename": "/examples/hello_world/assets/alduin/scene.bin.meta", "start": 735112, "end": 735154}, {"filename": "/examples/hello_world/assets/alduin/scene.gltf", "start": 735154, "end": 740586}, {"filename": "/examples/hello_world/assets/alduin/scene.gltf.meta", "start": 740586, "end": 740628}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_baseColor.jpeg", "start": 740628, "end": 742258}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_baseColor.jpeg.meta", "start": 742258, "end": 742300}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_emissive.jpeg", "start": 742300, "end": 742997}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_emissive.jpeg.meta", "start": 742997, "end": 743039}, {"filename": "/examples/hello_world/assets/alduin/textures/Material_baseColor.jpeg", "start": 743039, "end": 2147193}, {"filename": "/examples/hello_world/assets/alduin/textures/Material_baseColor.jpeg.meta", "start": 2147193, "end": 2147235}, {"filename": "/examples/hello_world/assets/main.scene", "start": 2147235, "end": 2151567}, {"filename": "/examples/hello_world/assets/main.scene.meta", "start": 2151567, "end": 2151609}, {"filename": "/examples/hello_world/assets/shaders/.DS_Store", "start": 2151609, "end": 2157757}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.frag", "start": 2157757, "end": 2157956}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.frag.meta", "start": 2157956, "end": 2157998}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.vert", "start": 2157998, "end": 2158193}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.vert.meta", "start": 2158193, "end": 2158235}, {"filename": "/examples/hello_world/assets/shaders/shader.frag", "start": 2158235, "end": 2158506}, {"filename": "/examples/hello_world/assets/shaders/shader.frag.meta", "start": 2158506, "end": 2158548}, {"filename": "/examples/hello_world/assets/shaders/shader.vert", "start": 2158548, "end": 2158876}, {"filename": "/examples/hello_world/assets/shaders/shader.vert.meta", "start": 2158876, "end": 2158918}, {"filename": "/examples/hello_world/assets/sponza/10381718147657362067.jpg", "start": 2158918, "end": 3035145}, {"filename": "/examples/hello_world/assets/sponza/10381718147657362067.jpg.meta", "start": 3035145, "end": 3035187}, {"filename": "/examples/hello_world/assets/sponza/10388182081421875623.jpg", "start": 3035187, "end": 3954321}, {"filename": "/examples/hello_world/assets/sponza/10388182081421875623.jpg.meta", "start": 3954321, "end": 3954363}, {"filename": "/examples/hello_world/assets/sponza/11474523244911310074.jpg", "start": 3954363, "end": 5033515}, {"filename": "/examples/hello_world/assets/sponza/11474523244911310074.jpg.meta", "start": 5033515, "end": 5033557}, {"filename": "/examples/hello_world/assets/sponza/11490520546946913238.jpg", "start": 5033557, "end": 5354932}, {"filename": "/examples/hello_world/assets/sponza/11490520546946913238.jpg.meta", "start": 5354932, "end": 5354974}, {"filename": "/examples/hello_world/assets/sponza/11872827283454512094.jpg", "start": 5354974, "end": 6023936}, {"filename": "/examples/hello_world/assets/sponza/11872827283454512094.jpg.meta", "start": 6023936, "end": 6023978}, {"filename": "/examples/hello_world/assets/sponza/11968150294050148237.jpg", "start": 6023978, "end": 6554362}, {"filename": "/examples/hello_world/assets/sponza/11968150294050148237.jpg.meta", "start": 6554362, "end": 6554404}, {"filename": "/examples/hello_world/assets/sponza/1219024358953944284.jpg", "start": 6554404, "end": 6883528}, {"filename": "/examples/hello_world/assets/sponza/1219024358953944284.jpg.meta", "start": 6883528, "end": 6883570}, {"filename": "/examples/hello_world/assets/sponza/12501374198249454378.jpg", "start": 6883570, "end": 7305012}, {"filename": "/examples/hello_world/assets/sponza/12501374198249454378.jpg.meta", "start": 7305012, "end": 7305054}, {"filename": "/examples/hello_world/assets/sponza/13196865903111448057.jpg", "start": 7305054, "end": 7587034}, {"filename": "/examples/hello_world/assets/sponza/13196865903111448057.jpg.meta", "start": 7587034, "end": 7587076}, {"filename": "/examples/hello_world/assets/sponza/13824894030729245199.jpg", "start": 7587076, "end": 7900536}, {"filename": "/examples/hello_world/assets/sponza/13824894030729245199.jpg.meta", "start": 7900536, "end": 7900578}, {"filename": "/examples/hello_world/assets/sponza/13982482287905699490.jpg", "start": 7900578, "end": 8257690}, {"filename": "/examples/hello_world/assets/sponza/13982482287905699490.jpg.meta", "start": 8257690, "end": 8257732}, {"filename": "/examples/hello_world/assets/sponza/14118779221266351425.jpg", "start": 8257732, "end": 9864995}, {"filename": "/examples/hello_world/assets/sponza/14118779221266351425.jpg.meta", "start": 9864995, "end": 9865037}, {"filename": "/examples/hello_world/assets/sponza/14170708867020035030.jpg", "start": 9865037, "end": 10002421}, {"filename": "/examples/hello_world/assets/sponza/14170708867020035030.jpg.meta", "start": 10002421, "end": 10002463}, {"filename": "/examples/hello_world/assets/sponza/14267839433702832875.jpg", "start": 10002463, "end": 10721367}, {"filename": "/examples/hello_world/assets/sponza/14267839433702832875.jpg.meta", "start": 10721367, "end": 10721409}, {"filename": "/examples/hello_world/assets/sponza/14650633544276105767.jpg", "start": 10721409, "end": 11243356}, {"filename": "/examples/hello_world/assets/sponza/14650633544276105767.jpg.meta", "start": 11243356, "end": 11243398}, {"filename": "/examples/hello_world/assets/sponza/15295713303328085182.jpg", "start": 11243398, "end": 11763560}, {"filename": "/examples/hello_world/assets/sponza/15295713303328085182.jpg.meta", "start": 11763560, "end": 11763602}, {"filename": "/examples/hello_world/assets/sponza/15722799267630235092.jpg", "start": 11763602, "end": 12321467}, {"filename": "/examples/hello_world/assets/sponza/15722799267630235092.jpg.meta", "start": 12321467, "end": 12321509}, {"filename": "/examples/hello_world/assets/sponza/16275776544635328252.png", "start": 12321509, "end": 13398941}, {"filename": "/examples/hello_world/assets/sponza/16275776544635328252.png.meta", "start": 13398941, "end": 13398983}, {"filename": "/examples/hello_world/assets/sponza/16299174074766089871.jpg", "start": 13398983, "end": 13738469}, {"filename": "/examples/hello_world/assets/sponza/16299174074766089871.jpg.meta", "start": 13738469, "end": 13738511}, {"filename": "/examples/hello_world/assets/sponza/16885566240357350108.jpg", "start": 13738511, "end": 13751086}, {"filename": "/examples/hello_world/assets/sponza/16885566240357350108.jpg.meta", "start": 13751086, "end": 13751128}, {"filename": "/examples/hello_world/assets/sponza/17556969131407844942.jpg", "start": 13751128, "end": 14121189}, {"filename": "/examples/hello_world/assets/sponza/17556969131407844942.jpg.meta", "start": 14121189, "end": 14121231}, {"filename": "/examples/hello_world/assets/sponza/17876391417123941155.jpg", "start": 14121231, "end": 15272679}, {"filename": "/examples/hello_world/assets/sponza/17876391417123941155.jpg.meta", "start": 15272679, "end": 15272721}, {"filename": "/examples/hello_world/assets/sponza/2051777328469649772.jpg", "start": 15272721, "end": 15478965}, {"filename": "/examples/hello_world/assets/sponza/2051777328469649772.jpg.meta", "start": 15478965, "end": 15479007}, {"filename": "/examples/hello_world/assets/sponza/2185409758123873465.jpg", "start": 15479007, "end": 16259173}, {"filename": "/examples/hello_world/assets/sponza/2185409758123873465.jpg.meta", "start": 16259173, "end": 16259215}, {"filename": "/examples/hello_world/assets/sponza/2299742237651021498.jpg", "start": 16259215, "end": 17031416}, {"filename": "/examples/hello_world/assets/sponza/2299742237651021498.jpg.meta", "start": 17031416, "end": 17031458}, {"filename": "/examples/hello_world/assets/sponza/2374361008830720677.jpg", "start": 17031458, "end": 17876226}, {"filename": "/examples/hello_world/assets/sponza/2374361008830720677.jpg.meta", "start": 17876226, "end": 17876268}, {"filename": "/examples/hello_world/assets/sponza/2411100444841994089.jpg", "start": 17876268, "end": 18276231}, {"filename": "/examples/hello_world/assets/sponza/2411100444841994089.jpg.meta", "start": 18276231, "end": 18276273}, {"filename": "/examples/hello_world/assets/sponza/2775690330959970771.jpg", "start": 18276273, "end": 19061951}, {"filename": "/examples/hello_world/assets/sponza/2775690330959970771.jpg.meta", "start": 19061951, "end": 19061993}, {"filename": "/examples/hello_world/assets/sponza/2969916736137545357.jpg", "start": 19061993, "end": 19884366}, {"filename": "/examples/hello_world/assets/sponza/2969916736137545357.jpg.meta", "start": 19884366, "end": 19884408}, {"filename": "/examples/hello_world/assets/sponza/332936164838540657.jpg", "start": 19884408, "end": 20729176}, {"filename": "/examples/hello_world/assets/sponza/332936164838540657.jpg.meta", "start": 20729176, "end": 20729218}, {"filename": "/examples/hello_world/assets/sponza/3371964815757888145.jpg", "start": 20729218, "end": 21411961}, {"filename": "/examples/hello_world/assets/sponza/3371964815757888145.jpg.meta", "start": 21411961, "end": 21412003}, {"filename": "/examples/hello_world/assets/sponza/3455394979645218238.jpg", "start": 21412003, "end": 21963435}, {"filename": "/examples/hello_world/assets/sponza/3455394979645218238.jpg.meta", "start": 21963435, "end": 21963477}, {"filename": "/examples/hello_world/assets/sponza/3628158980083700836.jpg", "start": 21963477, "end": 22511030}, {"filename": "/examples/hello_world/assets/sponza/3628158980083700836.jpg.meta", "start": 22511030, "end": 22511072}, {"filename": "/examples/hello_world/assets/sponza/3827035219084910048.jpg", "start": 22511072, "end": 23129909}, {"filename": "/examples/hello_world/assets/sponza/3827035219084910048.jpg.meta", "start": 23129909, "end": 23129951}, {"filename": "/examples/hello_world/assets/sponza/4477655471536070370.jpg", "start": 23129951, "end": 23338303}, {"filename": "/examples/hello_world/assets/sponza/4477655471536070370.jpg.meta", "start": 23338303, "end": 23338345}, {"filename": "/examples/hello_world/assets/sponza/4601176305987539675.jpg", "start": 23338345, "end": 24372405}, {"filename": "/examples/hello_world/assets/sponza/4601176305987539675.jpg.meta", "start": 24372405, "end": 24372447}, {"filename": "/examples/hello_world/assets/sponza/466164707995436622.jpg", "start": 24372447, "end": 24859081}, {"filename": "/examples/hello_world/assets/sponza/466164707995436622.jpg.meta", "start": 24859081, "end": 24859123}, {"filename": "/examples/hello_world/assets/sponza/4675343432951571524.jpg", "start": 24859123, "end": 25623652}, {"filename": "/examples/hello_world/assets/sponza/4675343432951571524.jpg.meta", "start": 25623652, "end": 25623694}, {"filename": "/examples/hello_world/assets/sponza/4871783166746854860.jpg", "start": 25623694, "end": 26193775}, {"filename": "/examples/hello_world/assets/sponza/4871783166746854860.jpg.meta", "start": 26193775, "end": 26193817}, {"filename": "/examples/hello_world/assets/sponza/4910669866631290573.jpg", "start": 26193817, "end": 27227877}, {"filename": "/examples/hello_world/assets/sponza/4910669866631290573.jpg.meta", "start": 27227877, "end": 27227919}, {"filename": "/examples/hello_world/assets/sponza/4975155472559461469.jpg", "start": 27227919, "end": 27626946}, {"filename": "/examples/hello_world/assets/sponza/4975155472559461469.jpg.meta", "start": 27626946, "end": 27626988}, {"filename": "/examples/hello_world/assets/sponza/5061699253647017043.png", "start": 27626988, "end": 30054909}, {"filename": "/examples/hello_world/assets/sponza/5061699253647017043.png.meta", "start": 30054909, "end": 30054951}, {"filename": "/examples/hello_world/assets/sponza/5792855332885324923.jpg", "start": 30054951, "end": 30619752}, {"filename": "/examples/hello_world/assets/sponza/5792855332885324923.jpg.meta", "start": 30619752, "end": 30619794}, {"filename": "/examples/hello_world/assets/sponza/5823059166183034438.jpg", "start": 30619794, "end": 31192951}, {"filename": "/examples/hello_world/assets/sponza/5823059166183034438.jpg.meta", "start": 31192951, "end": 31192993}, {"filename": "/examples/hello_world/assets/sponza/6047387724914829168.jpg", "start": 31192993, "end": 31711303}, {"filename": "/examples/hello_world/assets/sponza/6047387724914829168.jpg.meta", "start": 31711303, "end": 31711345}, {"filename": "/examples/hello_world/assets/sponza/6151467286084645207.jpg", "start": 31711345, "end": 32354862}, {"filename": "/examples/hello_world/assets/sponza/6151467286084645207.jpg.meta", "start": 32354862, "end": 32354904}, {"filename": "/examples/hello_world/assets/sponza/6593109234861095314.jpg", "start": 32354904, "end": 33388964}, {"filename": "/examples/hello_world/assets/sponza/6593109234861095314.jpg.meta", "start": 33388964, "end": 33389006}, {"filename": "/examples/hello_world/assets/sponza/6667038893015345571.jpg", "start": 33389006, "end": 34087416}, {"filename": "/examples/hello_world/assets/sponza/6667038893015345571.jpg.meta", "start": 34087416, "end": 34087458}, {"filename": "/examples/hello_world/assets/sponza/6772804448157695701.jpg", "start": 34087458, "end": 34687417}, {"filename": "/examples/hello_world/assets/sponza/6772804448157695701.jpg.meta", "start": 34687417, "end": 34687459}, {"filename": "/examples/hello_world/assets/sponza/7056944414013900257.jpg", "start": 34687459, "end": 35532227}, {"filename": "/examples/hello_world/assets/sponza/7056944414013900257.jpg.meta", "start": 35532227, "end": 35532269}, {"filename": "/examples/hello_world/assets/sponza/715093869573992647.jpg", "start": 35532269, "end": 35813014}, {"filename": "/examples/hello_world/assets/sponza/715093869573992647.jpg.meta", "start": 35813014, "end": 35813056}, {"filename": "/examples/hello_world/assets/sponza/7268504077753552595.jpg", "start": 35813056, "end": 36385301}, {"filename": "/examples/hello_world/assets/sponza/7268504077753552595.jpg.meta", "start": 36385301, "end": 36385343}, {"filename": "/examples/hello_world/assets/sponza/7441062115984513793.jpg", "start": 36385343, "end": 37051139}, {"filename": "/examples/hello_world/assets/sponza/7441062115984513793.jpg.meta", "start": 37051139, "end": 37051181}, {"filename": "/examples/hello_world/assets/sponza/755318871556304029.jpg", "start": 37051181, "end": 37353544}, {"filename": "/examples/hello_world/assets/sponza/755318871556304029.jpg.meta", "start": 37353544, "end": 37353586}, {"filename": "/examples/hello_world/assets/sponza/759203620573749278.jpg", "start": 37353586, "end": 37865621}, {"filename": "/examples/hello_world/assets/sponza/759203620573749278.jpg.meta", "start": 37865621, "end": 37865663}, {"filename": "/examples/hello_world/assets/sponza/7645212358685992005.jpg", "start": 37865663, "end": 38518139}, {"filename": "/examples/hello_world/assets/sponza/7645212358685992005.jpg.meta", "start": 38518139, "end": 38518181}, {"filename": "/examples/hello_world/assets/sponza/7815564343179553343.jpg", "start": 38518181, "end": 39141325}, {"filename": "/examples/hello_world/assets/sponza/7815564343179553343.jpg.meta", "start": 39141325, "end": 39141367}, {"filename": "/examples/hello_world/assets/sponza/8006627369776289000.png", "start": 39141367, "end": 40366524}, {"filename": "/examples/hello_world/assets/sponza/8006627369776289000.png.meta", "start": 40366524, "end": 40366566}, {"filename": "/examples/hello_world/assets/sponza/8051790464816141987.jpg", "start": 40366566, "end": 40626685}, {"filename": "/examples/hello_world/assets/sponza/8051790464816141987.jpg.meta", "start": 40626685, "end": 40626727}, {"filename": "/examples/hello_world/assets/sponza/8114461559286000061.jpg", "start": 40626727, "end": 40819804}, {"filename": "/examples/hello_world/assets/sponza/8114461559286000061.jpg.meta", "start": 40819804, "end": 40819846}, {"filename": "/examples/hello_world/assets/sponza/8481240838833932244.jpg", "start": 40819846, "end": 41351002}, {"filename": "/examples/hello_world/assets/sponza/8481240838833932244.jpg.meta", "start": 41351002, "end": 41351044}, {"filename": "/examples/hello_world/assets/sponza/8503262930880235456.jpg", "start": 41351044, "end": 41455670}, {"filename": "/examples/hello_world/assets/sponza/8503262930880235456.jpg.meta", "start": 41455670, "end": 41455712}, {"filename": "/examples/hello_world/assets/sponza/8747919177698443163.jpg", "start": 41455712, "end": 42327967}, {"filename": "/examples/hello_world/assets/sponza/8747919177698443163.jpg.meta", "start": 42327967, "end": 42328009}, {"filename": "/examples/hello_world/assets/sponza/8750083169368950601.jpg", "start": 42328009, "end": 42690446}, {"filename": "/examples/hello_world/assets/sponza/8750083169368950601.jpg.meta", "start": 42690446, "end": 42690488}, {"filename": "/examples/hello_world/assets/sponza/8773302468495022225.jpg", "start": 42690488, "end": 43104325}, {"filename": "/examples/hello_world/assets/sponza/8773302468495022225.jpg.meta", "start": 43104325, "end": 43104367}, {"filename": "/examples/hello_world/assets/sponza/8783994986360286082.jpg", "start": 43104367, "end": 43492829}, {"filename": "/examples/hello_world/assets/sponza/8783994986360286082.jpg.meta", "start": 43492829, "end": 43492871}, {"filename": "/examples/hello_world/assets/sponza/9288698199695299068.jpg", "start": 43492871, "end": 44537201}, {"filename": "/examples/hello_world/assets/sponza/9288698199695299068.jpg.meta", "start": 44537201, "end": 44537243}, {"filename": "/examples/hello_world/assets/sponza/9916269861720640319.jpg", "start": 44537243, "end": 45145930}, {"filename": "/examples/hello_world/assets/sponza/9916269861720640319.jpg.meta", "start": 45145930, "end": 45145972}, {"filename": "/examples/hello_world/assets/sponza/Sponza.bin", "start": 45145972, "end": 54675412}, {"filename": "/examples/hello_world/assets/sponza/Sponza.bin.meta", "start": 54675412, "end": 54675454}, {"filename": "/examples/hello_world/assets/sponza/Sponza.gltf", "start": 54675454, "end": 54887958}, {"filename": "/examples/hello_world/assets/sponza/Sponza.gltf.meta", "start": 54887958, "end": 54888000}, {"filename": "/examples/hello_world/assets/sponza/white.png", "start": 54888000, "end": 54888951}, {"filename": "/examples/hello_world/assets/sponza/white.png.meta", "start": 54888951, "end": 54888993}, {"filename": "/examples/hello_world/assets/textures/.DS_Store", "start": 54888993, "end": 54895141}, {"filename": "/examples/hello_world/assets/textures/awesomeface.png", "start": 54895141, "end": 54939145}, {"filename": "/examples/hello_world/assets/textures/awesomeface.png.meta", "start": 54939145, "end": 54939187}, {"filename": "/examples/hello_world/assets/textures/container.jpg", "start": 54939187, "end": 55061481}, {"filename": "/examples/hello_world/assets/textures/container.jpg.meta", "start": 55061481, "end": 55061523}, {"filename": "/examples/hello_world/assets/textures/missing.png", "start": 55061523, "end": 55064467}, {"filename": "/examples/hello_world/assets/textures/missing.png.meta", "start": 55064467, "end": 55064509}, {"filename": "/examples/hello_world/plugins/.DS_Store", "start": 55064509, "end": 55070657}, {"filename": "/examples/hello_world/plugins/native/.DS_Store", "start": 55070657, "end": 55076805}, {"filename": "/examples/hello_world/plugins/native/.gitignore", "start": 55076805, "end": 55078396}, {"filename": "/examples/hello_world/plugins/native/CMakeLists.txt", "start": 55078396, "end": 55078638}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/cache-v2", "start": 55078638, "end": 55078638}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/cmakeFiles-v1", "start": 55078638, "end": 55078638}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/codemodel-v2", "start": 55078638, "end": 55078638}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/query/toolchains-v1", "start": 55078638, "end": 55078638}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/cache-v2-47c6a3908a6ab5e015a6.json", "start": 55078638, "end": 55100621}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-7aa65675a33703f28db8.json", "start": 55100621, "end": 55107900}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-26d9509e136dda7430aa.json", "start": 55107900, "end": 55108944}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json", "start": 55108944, "end": 55109098}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/index-2022-10-19T03-29-13-0345.json", "start": 55109098, "end": 55111298}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/target-native-Debug-4c9f81c7c85e26c6c757.json", "start": 55111298, "end": 55112998}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-b1d3af272c5a84901840.json", "start": 55112998, "end": 55115143}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.ninja_deps", "start": 55115143, "end": 55158803}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/.ninja_log", "start": 55158803, "end": 55159196}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeCache.txt", "start": 55159196, "end": 55173595}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeCCompiler.cmake", "start": 55173595, "end": 55176327}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeCXXCompiler.cmake", "start": 55176327, "end": 55182040}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_C.bin", "start": 55182040, "end": 55199039}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_CXX.bin", "start": 55199039, "end": 55216022}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CMakeSystem.cmake", "start": 55216022, "end": 55216382}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdC/CMakeCCompilerId.c", "start": 55216382, "end": 55242079}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdC/CMakeCCompilerId.o", "start": 55242079, "end": 55243791}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdCXX/CMakeCXXCompilerId.cpp", "start": 55243791, "end": 55269232}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdCXX/CMakeCXXCompilerId.o", "start": 55269232, "end": 55270896}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/CMakeError.log", "start": 55270896, "end": 55271502}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/CMakeOutput.log", "start": 55271502, "end": 55303040}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/TargetDirectories.txt", "start": 55303040, "end": 55303426}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/clion-environment.txt", "start": 55303426, "end": 55303622}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/clion-log.txt", "start": 55303622, "end": 55304332}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/cmake.check_cache", "start": 55304332, "end": 55304417}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/native.dir/library.cpp.o", "start": 55304417, "end": 55400873}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/native.dir/src/library.cpp.o", "start": 55400873, "end": 55497329}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/CMakeFiles/rules.ninja", "start": 55497329, "end": 55499939}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/Testing/Temporary/LastTest.log", "start": 55499939, "end": 55500060}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/build.ninja", "start": 55500060, "end": 55513676}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/cmake_install.cmake", "start": 55513676, "end": 55515333}, {"filename": "/examples/hello_world/plugins/native/cmake-build-debug/out/Darwin/libnative.dylib", "start": 55515333, "end": 55562049}, {"filename": "/examples/hello_world/plugins/native/include/library.h", "start": 55562049, "end": 55562156}, {"filename": "/examples/hello_world/plugins/native/out/Darwin/libnative.dylib", "start": 55562156, "end": 55608872}, {"filename": "/examples/hello_world/plugins/native/src/library.cpp", "start": 55608872, "end": 55609142}, {"filename": "/examples/resources/fonts/font.ttf", "start": 55609142, "end": 55813094}], "remote_package_size": 55813094});
+    loadPackage({"files": [{"filename": "/examples/hello_world/.gitignore", "start": 0, "end": 1591}, {"filename": "/examples/hello_world/README.md", "start": 1591, "end": 1747}, {"filename": "/examples/hello_world/assets/.gitkeep", "start": 1747, "end": 1747}, {"filename": "/examples/hello_world/assets/alduin/.DS_Store.meta", "start": 1747, "end": 1789}, {"filename": "/examples/hello_world/assets/alduin/license.txt", "start": 1789, "end": 2433}, {"filename": "/examples/hello_world/assets/alduin/license.txt.meta", "start": 2433, "end": 2475}, {"filename": "/examples/hello_world/assets/alduin/scene.bin", "start": 2475, "end": 699811}, {"filename": "/examples/hello_world/assets/alduin/scene.bin.meta", "start": 699811, "end": 699853}, {"filename": "/examples/hello_world/assets/alduin/scene.gltf", "start": 699853, "end": 705285}, {"filename": "/examples/hello_world/assets/alduin/scene.gltf.meta", "start": 705285, "end": 705327}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_baseColor.jpeg", "start": 705327, "end": 706957}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_baseColor.jpeg.meta", "start": 706957, "end": 706999}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_emissive.jpeg", "start": 706999, "end": 707696}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_emissive.jpeg.meta", "start": 707696, "end": 707738}, {"filename": "/examples/hello_world/assets/alduin/textures/Material_baseColor.jpeg", "start": 707738, "end": 2111892}, {"filename": "/examples/hello_world/assets/alduin/textures/Material_baseColor.jpeg.meta", "start": 2111892, "end": 2111934}, {"filename": "/examples/hello_world/assets/main.scene", "start": 2111934, "end": 2116266}, {"filename": "/examples/hello_world/assets/main.scene.meta", "start": 2116266, "end": 2116308}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.frag", "start": 2116308, "end": 2116507}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.frag.meta", "start": 2116507, "end": 2116549}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.vert", "start": 2116549, "end": 2116744}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.vert.meta", "start": 2116744, "end": 2116786}, {"filename": "/examples/hello_world/assets/shaders/shader.frag", "start": 2116786, "end": 2117057}, {"filename": "/examples/hello_world/assets/shaders/shader.frag.meta", "start": 2117057, "end": 2117099}, {"filename": "/examples/hello_world/assets/shaders/shader.vert", "start": 2117099, "end": 2117427}, {"filename": "/examples/hello_world/assets/shaders/shader.vert.meta", "start": 2117427, "end": 2117469}, {"filename": "/examples/hello_world/assets/sponza/10381718147657362067.jpg", "start": 2117469, "end": 2993696}, {"filename": "/examples/hello_world/assets/sponza/10381718147657362067.jpg.meta", "start": 2993696, "end": 2993738}, {"filename": "/examples/hello_world/assets/sponza/10388182081421875623.jpg", "start": 2993738, "end": 3912872}, {"filename": "/examples/hello_world/assets/sponza/10388182081421875623.jpg.meta", "start": 3912872, "end": 3912914}, {"filename": "/examples/hello_world/assets/sponza/11474523244911310074.jpg", "start": 3912914, "end": 4992066}, {"filename": "/examples/hello_world/assets/sponza/11474523244911310074.jpg.meta", "start": 4992066, "end": 4992108}, {"filename": "/examples/hello_world/assets/sponza/11490520546946913238.jpg", "start": 4992108, "end": 5313483}, {"filename": "/examples/hello_world/assets/sponza/11490520546946913238.jpg.meta", "start": 5313483, "end": 5313525}, {"filename": "/examples/hello_world/assets/sponza/11872827283454512094.jpg", "start": 5313525, "end": 5982487}, {"filename": "/examples/hello_world/assets/sponza/11872827283454512094.jpg.meta", "start": 5982487, "end": 5982529}, {"filename": "/examples/hello_world/assets/sponza/11968150294050148237.jpg", "start": 5982529, "end": 6512913}, {"filename": "/examples/hello_world/assets/sponza/11968150294050148237.jpg.meta", "start": 6512913, "end": 6512955}, {"filename": "/examples/hello_world/assets/sponza/1219024358953944284.jpg", "start": 6512955, "end": 6842079}, {"filename": "/examples/hello_world/assets/sponza/1219024358953944284.jpg.meta", "start": 6842079, "end": 6842121}, {"filename": "/examples/hello_world/assets/sponza/12501374198249454378.jpg", "start": 6842121, "end": 7263563}, {"filename": "/examples/hello_world/assets/sponza/12501374198249454378.jpg.meta", "start": 7263563, "end": 7263605}, {"filename": "/examples/hello_world/assets/sponza/13196865903111448057.jpg", "start": 7263605, "end": 7545585}, {"filename": "/examples/hello_world/assets/sponza/13196865903111448057.jpg.meta", "start": 7545585, "end": 7545627}, {"filename": "/examples/hello_world/assets/sponza/13824894030729245199.jpg", "start": 7545627, "end": 7859087}, {"filename": "/examples/hello_world/assets/sponza/13824894030729245199.jpg.meta", "start": 7859087, "end": 7859129}, {"filename": "/examples/hello_world/assets/sponza/13982482287905699490.jpg", "start": 7859129, "end": 8216241}, {"filename": "/examples/hello_world/assets/sponza/13982482287905699490.jpg.meta", "start": 8216241, "end": 8216283}, {"filename": "/examples/hello_world/assets/sponza/14118779221266351425.jpg", "start": 8216283, "end": 9823546}, {"filename": "/examples/hello_world/assets/sponza/14118779221266351425.jpg.meta", "start": 9823546, "end": 9823588}, {"filename": "/examples/hello_world/assets/sponza/14170708867020035030.jpg", "start": 9823588, "end": 9960972}, {"filename": "/examples/hello_world/assets/sponza/14170708867020035030.jpg.meta", "start": 9960972, "end": 9961014}, {"filename": "/examples/hello_world/assets/sponza/14267839433702832875.jpg", "start": 9961014, "end": 10679918}, {"filename": "/examples/hello_world/assets/sponza/14267839433702832875.jpg.meta", "start": 10679918, "end": 10679960}, {"filename": "/examples/hello_world/assets/sponza/14650633544276105767.jpg", "start": 10679960, "end": 11201907}, {"filename": "/examples/hello_world/assets/sponza/14650633544276105767.jpg.meta", "start": 11201907, "end": 11201949}, {"filename": "/examples/hello_world/assets/sponza/15295713303328085182.jpg", "start": 11201949, "end": 11722111}, {"filename": "/examples/hello_world/assets/sponza/15295713303328085182.jpg.meta", "start": 11722111, "end": 11722153}, {"filename": "/examples/hello_world/assets/sponza/15722799267630235092.jpg", "start": 11722153, "end": 12280018}, {"filename": "/examples/hello_world/assets/sponza/15722799267630235092.jpg.meta", "start": 12280018, "end": 12280060}, {"filename": "/examples/hello_world/assets/sponza/16275776544635328252.png", "start": 12280060, "end": 13357492}, {"filename": "/examples/hello_world/assets/sponza/16275776544635328252.png.meta", "start": 13357492, "end": 13357534}, {"filename": "/examples/hello_world/assets/sponza/16299174074766089871.jpg", "start": 13357534, "end": 13697020}, {"filename": "/examples/hello_world/assets/sponza/16299174074766089871.jpg.meta", "start": 13697020, "end": 13697062}, {"filename": "/examples/hello_world/assets/sponza/16885566240357350108.jpg", "start": 13697062, "end": 13709637}, {"filename": "/examples/hello_world/assets/sponza/16885566240357350108.jpg.meta", "start": 13709637, "end": 13709679}, {"filename": "/examples/hello_world/assets/sponza/17556969131407844942.jpg", "start": 13709679, "end": 14079740}, {"filename": "/examples/hello_world/assets/sponza/17556969131407844942.jpg.meta", "start": 14079740, "end": 14079782}, {"filename": "/examples/hello_world/assets/sponza/17876391417123941155.jpg", "start": 14079782, "end": 15231230}, {"filename": "/examples/hello_world/assets/sponza/17876391417123941155.jpg.meta", "start": 15231230, "end": 15231272}, {"filename": "/examples/hello_world/assets/sponza/2051777328469649772.jpg", "start": 15231272, "end": 15437516}, {"filename": "/examples/hello_world/assets/sponza/2051777328469649772.jpg.meta", "start": 15437516, "end": 15437558}, {"filename": "/examples/hello_world/assets/sponza/2185409758123873465.jpg", "start": 15437558, "end": 16217724}, {"filename": "/examples/hello_world/assets/sponza/2185409758123873465.jpg.meta", "start": 16217724, "end": 16217766}, {"filename": "/examples/hello_world/assets/sponza/2299742237651021498.jpg", "start": 16217766, "end": 16989967}, {"filename": "/examples/hello_world/assets/sponza/2299742237651021498.jpg.meta", "start": 16989967, "end": 16990009}, {"filename": "/examples/hello_world/assets/sponza/2374361008830720677.jpg", "start": 16990009, "end": 17834777}, {"filename": "/examples/hello_world/assets/sponza/2374361008830720677.jpg.meta", "start": 17834777, "end": 17834819}, {"filename": "/examples/hello_world/assets/sponza/2411100444841994089.jpg", "start": 17834819, "end": 18234782}, {"filename": "/examples/hello_world/assets/sponza/2411100444841994089.jpg.meta", "start": 18234782, "end": 18234824}, {"filename": "/examples/hello_world/assets/sponza/2775690330959970771.jpg", "start": 18234824, "end": 19020502}, {"filename": "/examples/hello_world/assets/sponza/2775690330959970771.jpg.meta", "start": 19020502, "end": 19020544}, {"filename": "/examples/hello_world/assets/sponza/2969916736137545357.jpg", "start": 19020544, "end": 19842917}, {"filename": "/examples/hello_world/assets/sponza/2969916736137545357.jpg.meta", "start": 19842917, "end": 19842959}, {"filename": "/examples/hello_world/assets/sponza/332936164838540657.jpg", "start": 19842959, "end": 20687727}, {"filename": "/examples/hello_world/assets/sponza/332936164838540657.jpg.meta", "start": 20687727, "end": 20687769}, {"filename": "/examples/hello_world/assets/sponza/3371964815757888145.jpg", "start": 20687769, "end": 21370512}, {"filename": "/examples/hello_world/assets/sponza/3371964815757888145.jpg.meta", "start": 21370512, "end": 21370554}, {"filename": "/examples/hello_world/assets/sponza/3455394979645218238.jpg", "start": 21370554, "end": 21921986}, {"filename": "/examples/hello_world/assets/sponza/3455394979645218238.jpg.meta", "start": 21921986, "end": 21922028}, {"filename": "/examples/hello_world/assets/sponza/3628158980083700836.jpg", "start": 21922028, "end": 22469581}, {"filename": "/examples/hello_world/assets/sponza/3628158980083700836.jpg.meta", "start": 22469581, "end": 22469623}, {"filename": "/examples/hello_world/assets/sponza/3827035219084910048.jpg", "start": 22469623, "end": 23088460}, {"filename": "/examples/hello_world/assets/sponza/3827035219084910048.jpg.meta", "start": 23088460, "end": 23088502}, {"filename": "/examples/hello_world/assets/sponza/4477655471536070370.jpg", "start": 23088502, "end": 23296854}, {"filename": "/examples/hello_world/assets/sponza/4477655471536070370.jpg.meta", "start": 23296854, "end": 23296896}, {"filename": "/examples/hello_world/assets/sponza/4601176305987539675.jpg", "start": 23296896, "end": 24330956}, {"filename": "/examples/hello_world/assets/sponza/4601176305987539675.jpg.meta", "start": 24330956, "end": 24330998}, {"filename": "/examples/hello_world/assets/sponza/466164707995436622.jpg", "start": 24330998, "end": 24817632}, {"filename": "/examples/hello_world/assets/sponza/466164707995436622.jpg.meta", "start": 24817632, "end": 24817674}, {"filename": "/examples/hello_world/assets/sponza/4675343432951571524.jpg", "start": 24817674, "end": 25582203}, {"filename": "/examples/hello_world/assets/sponza/4675343432951571524.jpg.meta", "start": 25582203, "end": 25582245}, {"filename": "/examples/hello_world/assets/sponza/4871783166746854860.jpg", "start": 25582245, "end": 26152326}, {"filename": "/examples/hello_world/assets/sponza/4871783166746854860.jpg.meta", "start": 26152326, "end": 26152368}, {"filename": "/examples/hello_world/assets/sponza/4910669866631290573.jpg", "start": 26152368, "end": 27186428}, {"filename": "/examples/hello_world/assets/sponza/4910669866631290573.jpg.meta", "start": 27186428, "end": 27186470}, {"filename": "/examples/hello_world/assets/sponza/4975155472559461469.jpg", "start": 27186470, "end": 27585497}, {"filename": "/examples/hello_world/assets/sponza/4975155472559461469.jpg.meta", "start": 27585497, "end": 27585539}, {"filename": "/examples/hello_world/assets/sponza/5061699253647017043.png", "start": 27585539, "end": 30013460}, {"filename": "/examples/hello_world/assets/sponza/5061699253647017043.png.meta", "start": 30013460, "end": 30013502}, {"filename": "/examples/hello_world/assets/sponza/5792855332885324923.jpg", "start": 30013502, "end": 30578303}, {"filename": "/examples/hello_world/assets/sponza/5792855332885324923.jpg.meta", "start": 30578303, "end": 30578345}, {"filename": "/examples/hello_world/assets/sponza/5823059166183034438.jpg", "start": 30578345, "end": 31151502}, {"filename": "/examples/hello_world/assets/sponza/5823059166183034438.jpg.meta", "start": 31151502, "end": 31151544}, {"filename": "/examples/hello_world/assets/sponza/6047387724914829168.jpg", "start": 31151544, "end": 31669854}, {"filename": "/examples/hello_world/assets/sponza/6047387724914829168.jpg.meta", "start": 31669854, "end": 31669896}, {"filename": "/examples/hello_world/assets/sponza/6151467286084645207.jpg", "start": 31669896, "end": 32313413}, {"filename": "/examples/hello_world/assets/sponza/6151467286084645207.jpg.meta", "start": 32313413, "end": 32313455}, {"filename": "/examples/hello_world/assets/sponza/6593109234861095314.jpg", "start": 32313455, "end": 33347515}, {"filename": "/examples/hello_world/assets/sponza/6593109234861095314.jpg.meta", "start": 33347515, "end": 33347557}, {"filename": "/examples/hello_world/assets/sponza/6667038893015345571.jpg", "start": 33347557, "end": 34045967}, {"filename": "/examples/hello_world/assets/sponza/6667038893015345571.jpg.meta", "start": 34045967, "end": 34046009}, {"filename": "/examples/hello_world/assets/sponza/6772804448157695701.jpg", "start": 34046009, "end": 34645968}, {"filename": "/examples/hello_world/assets/sponza/6772804448157695701.jpg.meta", "start": 34645968, "end": 34646010}, {"filename": "/examples/hello_world/assets/sponza/7056944414013900257.jpg", "start": 34646010, "end": 35490778}, {"filename": "/examples/hello_world/assets/sponza/7056944414013900257.jpg.meta", "start": 35490778, "end": 35490820}, {"filename": "/examples/hello_world/assets/sponza/715093869573992647.jpg", "start": 35490820, "end": 35771565}, {"filename": "/examples/hello_world/assets/sponza/715093869573992647.jpg.meta", "start": 35771565, "end": 35771607}, {"filename": "/examples/hello_world/assets/sponza/7268504077753552595.jpg", "start": 35771607, "end": 36343852}, {"filename": "/examples/hello_world/assets/sponza/7268504077753552595.jpg.meta", "start": 36343852, "end": 36343894}, {"filename": "/examples/hello_world/assets/sponza/7441062115984513793.jpg", "start": 36343894, "end": 37009690}, {"filename": "/examples/hello_world/assets/sponza/7441062115984513793.jpg.meta", "start": 37009690, "end": 37009732}, {"filename": "/examples/hello_world/assets/sponza/755318871556304029.jpg", "start": 37009732, "end": 37312095}, {"filename": "/examples/hello_world/assets/sponza/755318871556304029.jpg.meta", "start": 37312095, "end": 37312137}, {"filename": "/examples/hello_world/assets/sponza/759203620573749278.jpg", "start": 37312137, "end": 37824172}, {"filename": "/examples/hello_world/assets/sponza/759203620573749278.jpg.meta", "start": 37824172, "end": 37824214}, {"filename": "/examples/hello_world/assets/sponza/7645212358685992005.jpg", "start": 37824214, "end": 38476690}, {"filename": "/examples/hello_world/assets/sponza/7645212358685992005.jpg.meta", "start": 38476690, "end": 38476732}, {"filename": "/examples/hello_world/assets/sponza/7815564343179553343.jpg", "start": 38476732, "end": 39099876}, {"filename": "/examples/hello_world/assets/sponza/7815564343179553343.jpg.meta", "start": 39099876, "end": 39099918}, {"filename": "/examples/hello_world/assets/sponza/8006627369776289000.png", "start": 39099918, "end": 40325075}, {"filename": "/examples/hello_world/assets/sponza/8006627369776289000.png.meta", "start": 40325075, "end": 40325117}, {"filename": "/examples/hello_world/assets/sponza/8051790464816141987.jpg", "start": 40325117, "end": 40585236}, {"filename": "/examples/hello_world/assets/sponza/8051790464816141987.jpg.meta", "start": 40585236, "end": 40585278}, {"filename": "/examples/hello_world/assets/sponza/8114461559286000061.jpg", "start": 40585278, "end": 40778355}, {"filename": "/examples/hello_world/assets/sponza/8114461559286000061.jpg.meta", "start": 40778355, "end": 40778397}, {"filename": "/examples/hello_world/assets/sponza/8481240838833932244.jpg", "start": 40778397, "end": 41309553}, {"filename": "/examples/hello_world/assets/sponza/8481240838833932244.jpg.meta", "start": 41309553, "end": 41309595}, {"filename": "/examples/hello_world/assets/sponza/8503262930880235456.jpg", "start": 41309595, "end": 41414221}, {"filename": "/examples/hello_world/assets/sponza/8503262930880235456.jpg.meta", "start": 41414221, "end": 41414263}, {"filename": "/examples/hello_world/assets/sponza/8747919177698443163.jpg", "start": 41414263, "end": 42286518}, {"filename": "/examples/hello_world/assets/sponza/8747919177698443163.jpg.meta", "start": 42286518, "end": 42286560}, {"filename": "/examples/hello_world/assets/sponza/8750083169368950601.jpg", "start": 42286560, "end": 42648997}, {"filename": "/examples/hello_world/assets/sponza/8750083169368950601.jpg.meta", "start": 42648997, "end": 42649039}, {"filename": "/examples/hello_world/assets/sponza/8773302468495022225.jpg", "start": 42649039, "end": 43062876}, {"filename": "/examples/hello_world/assets/sponza/8773302468495022225.jpg.meta", "start": 43062876, "end": 43062918}, {"filename": "/examples/hello_world/assets/sponza/8783994986360286082.jpg", "start": 43062918, "end": 43451380}, {"filename": "/examples/hello_world/assets/sponza/8783994986360286082.jpg.meta", "start": 43451380, "end": 43451422}, {"filename": "/examples/hello_world/assets/sponza/9288698199695299068.jpg", "start": 43451422, "end": 44495752}, {"filename": "/examples/hello_world/assets/sponza/9288698199695299068.jpg.meta", "start": 44495752, "end": 44495794}, {"filename": "/examples/hello_world/assets/sponza/9916269861720640319.jpg", "start": 44495794, "end": 45104481}, {"filename": "/examples/hello_world/assets/sponza/9916269861720640319.jpg.meta", "start": 45104481, "end": 45104523}, {"filename": "/examples/hello_world/assets/sponza/Sponza.bin", "start": 45104523, "end": 54633963}, {"filename": "/examples/hello_world/assets/sponza/Sponza.bin.meta", "start": 54633963, "end": 54634005}, {"filename": "/examples/hello_world/assets/sponza/Sponza.gltf", "start": 54634005, "end": 54846509}, {"filename": "/examples/hello_world/assets/sponza/Sponza.gltf.meta", "start": 54846509, "end": 54846551}, {"filename": "/examples/hello_world/assets/sponza/white.png", "start": 54846551, "end": 54847502}, {"filename": "/examples/hello_world/assets/sponza/white.png.meta", "start": 54847502, "end": 54847544}, {"filename": "/examples/hello_world/assets/textures/awesomeface.png", "start": 54847544, "end": 54891548}, {"filename": "/examples/hello_world/assets/textures/awesomeface.png.meta", "start": 54891548, "end": 54891590}, {"filename": "/examples/hello_world/assets/textures/container.jpg", "start": 54891590, "end": 55013884}, {"filename": "/examples/hello_world/assets/textures/container.jpg.meta", "start": 55013884, "end": 55013926}, {"filename": "/examples/hello_world/assets/textures/missing.png", "start": 55013926, "end": 55016870}, {"filename": "/examples/hello_world/assets/textures/missing.png.meta", "start": 55016870, "end": 55016912}, {"filename": "/examples/hello_world/plugins/native/.gitignore", "start": 55016912, "end": 55018503}, {"filename": "/examples/hello_world/plugins/native/CMakeLists.txt", "start": 55018503, "end": 55018745}, {"filename": "/examples/hello_world/plugins/native/include/library.h", "start": 55018745, "end": 55018852}, {"filename": "/examples/hello_world/plugins/native/src/library.cpp", "start": 55018852, "end": 55019122}, {"filename": "/examples/resources/fonts/font.ttf", "start": 55019122, "end": 55223074}], "remote_package_size": 55223074});
 
   })();
 
@@ -708,13 +689,15 @@ function assert(condition, text) {
 // include: runtime_strings.js
 
 
-// runtime_strings.js: Strings related runtime functions that are part of both MINIMAL_RUNTIME and regular runtime.
+// runtime_strings.js: String related runtime functions that are part of both
+// MINIMAL_RUNTIME and regular runtime.
 
 var UTF8Decoder = typeof TextDecoder != 'undefined' ? new TextDecoder('utf8') : undefined;
 
-// Given a pointer 'ptr' to a null-terminated UTF8-encoded string in the given array that contains uint8 values, returns
-// a copy of that string as a Javascript String object.
 /**
+ * Given a pointer 'idx' to a null-terminated UTF8-encoded string in the given
+ * array that contains uint8 values, returns a copy of that string as a
+ * Javascript String object.
  * heapOrArray is either a regular array, or a JavaScript typed array view.
  * @param {number} idx
  * @param {number=} maxBytesToRead
@@ -723,16 +706,19 @@ var UTF8Decoder = typeof TextDecoder != 'undefined' ? new TextDecoder('utf8') : 
 function UTF8ArrayToString(heapOrArray, idx, maxBytesToRead) {
   var endIdx = idx + maxBytesToRead;
   var endPtr = idx;
-  // TextDecoder needs to know the byte length in advance, it doesn't stop on null terminator by itself.
-  // Also, use the length info to avoid running tiny strings through TextDecoder, since .subarray() allocates garbage.
-  // (As a tiny code save trick, compare endPtr against endIdx using a negation, so that undefined means Infinity)
+  // TextDecoder needs to know the byte length in advance, it doesn't stop on
+  // null terminator by itself.  Also, use the length info to avoid running tiny
+  // strings through TextDecoder, since .subarray() allocates garbage.
+  // (As a tiny code save trick, compare endPtr against endIdx using a negation,
+  // so that undefined means Infinity)
   while (heapOrArray[endPtr] && !(endPtr >= endIdx)) ++endPtr;
 
   if (endPtr - idx > 16 && heapOrArray.buffer && UTF8Decoder) {
     return UTF8Decoder.decode(heapOrArray.subarray(idx, endPtr));
   }
   var str = '';
-  // If building with TextDecoder, we have already computed the string length above, so test loop end condition against that
+  // If building with TextDecoder, we have already computed the string length
+  // above, so test loop end condition against that
   while (idx < endPtr) {
     // For UTF8 byte structure, see:
     // http://en.wikipedia.org/wiki/UTF-8#Description
@@ -746,7 +732,7 @@ function UTF8ArrayToString(heapOrArray, idx, maxBytesToRead) {
     if ((u0 & 0xF0) == 0xE0) {
       u0 = ((u0 & 15) << 12) | (u1 << 6) | u2;
     } else {
-      if ((u0 & 0xF8) != 0xF0) warnOnce('Invalid UTF-8 leading byte 0x' + u0.toString(16) + ' encountered when deserializing a UTF-8 string in wasm memory to a JS string!');
+      if ((u0 & 0xF8) != 0xF0) warnOnce('Invalid UTF-8 leading byte ' + ptrToString(u0) + ' encountered when deserializing a UTF-8 string in wasm memory to a JS string!');
       u0 = ((u0 & 7) << 18) | (u1 << 12) | (u2 << 6) | (heapOrArray[idx++] & 63);
     }
 
@@ -760,48 +746,63 @@ function UTF8ArrayToString(heapOrArray, idx, maxBytesToRead) {
   return str;
 }
 
-// Given a pointer 'ptr' to a null-terminated UTF8-encoded string in the emscripten HEAP, returns a
-// copy of that string as a Javascript String object.
-// maxBytesToRead: an optional length that specifies the maximum number of bytes to read. You can omit
-//                 this parameter to scan the string until the first \0 byte. If maxBytesToRead is
-//                 passed, and the string at [ptr, ptr+maxBytesToReadr[ contains a null byte in the
-//                 middle, then the string will cut short at that byte index (i.e. maxBytesToRead will
-//                 not produce a string of exact length [ptr, ptr+maxBytesToRead[)
-//                 N.B. mixing frequent uses of UTF8ToString() with and without maxBytesToRead may
-//                 throw JS JIT optimizations off, so it is worth to consider consistently using one
-//                 style or the other.
 /**
+ * Given a pointer 'ptr' to a null-terminated UTF8-encoded string in the
+ * emscripten HEAP, returns a copy of that string as a Javascript String object.
+ *
  * @param {number} ptr
- * @param {number=} maxBytesToRead
+ * @param {number=} maxBytesToRead - An optional length that specifies the
+ *   maximum number of bytes to read. You can omit this parameter to scan the
+ *   string until the first \0 byte. If maxBytesToRead is passed, and the string
+ *   at [ptr, ptr+maxBytesToReadr[ contains a null byte in the middle, then the
+ *   string will cut short at that byte index (i.e. maxBytesToRead will not
+ *   produce a string of exact length [ptr, ptr+maxBytesToRead[) N.B. mixing
+ *   frequent uses of UTF8ToString() with and without maxBytesToRead may throw
+ *   JS JIT optimizations off, so it is worth to consider consistently using one
  * @return {string}
  */
 function UTF8ToString(ptr, maxBytesToRead) {
   return ptr ? UTF8ArrayToString(HEAPU8, ptr, maxBytesToRead) : '';
 }
 
-// Copies the given Javascript String object 'str' to the given byte array at address 'outIdx',
-// encoded in UTF8 form and null-terminated. The copy will require at most str.length*4+1 bytes of space in the HEAP.
-// Use the function lengthBytesUTF8 to compute the exact number of bytes (excluding null terminator) that this function will write.
-// Parameters:
-//   str: the Javascript string to copy.
-//   heap: the array to copy to. Each index in this array is assumed to be one 8-byte element.
-//   outIdx: The starting offset in the array to begin the copying.
-//   maxBytesToWrite: The maximum number of bytes this function can write to the array.
-//                    This count should include the null terminator,
-//                    i.e. if maxBytesToWrite=1, only the null terminator will be written and nothing else.
-//                    maxBytesToWrite=0 does not write any bytes to the output, not even the null terminator.
-// Returns the number of bytes written, EXCLUDING the null terminator.
-
+/**
+ * Copies the given Javascript String object 'str' to the given byte array at
+ * address 'outIdx', encoded in UTF8 form and null-terminated. The copy will
+ * require at most str.length*4+1 bytes of space in the HEAP.  Use the function
+ * lengthBytesUTF8 to compute the exact number of bytes (excluding null
+ * terminator) that this function will write.
+ *
+ * @param {string} str - The Javascript string to copy.
+ * @param {ArrayBufferView|Array<number>} heap - The array to copy to. Each
+ *                                               index in this array is assumed
+ *                                               to be one 8-byte element.
+ * @param {number} outIdx - The starting offset in the array to begin the copying.
+ * @param {number} maxBytesToWrite - The maximum number of bytes this function
+ *                                   can write to the array.  This count should
+ *                                   include the null terminator, i.e. if
+ *                                   maxBytesToWrite=1, only the null terminator
+ *                                   will be written and nothing else.
+ *                                   maxBytesToWrite=0 does not write any bytes
+ *                                   to the output, not even the null
+ *                                   terminator.
+ * @return {number} The number of bytes written, EXCLUDING the null terminator.
+ */
 function stringToUTF8Array(str, heap, outIdx, maxBytesToWrite) {
-  if (!(maxBytesToWrite > 0)) // Parameter maxBytesToWrite is not optional. Negative values, 0, null, undefined and false each don't write out any bytes.
+  // Parameter maxBytesToWrite is not optional. Negative values, 0, null,
+  // undefined and false each don't write out any bytes.
+  if (!(maxBytesToWrite > 0))
     return 0;
 
   var startIdx = outIdx;
   var endIdx = outIdx + maxBytesToWrite - 1; // -1 for string null terminator.
   for (var i = 0; i < str.length; ++i) {
-    // Gotcha: charCodeAt returns a 16-bit word that is a UTF-16 encoded code unit, not a Unicode code point of the character! So decode UTF16->UTF32->UTF8.
+    // Gotcha: charCodeAt returns a 16-bit word that is a UTF-16 encoded code
+    // unit, not a Unicode code point of the character! So decode
+    // UTF16->UTF32->UTF8.
     // See http://unicode.org/faq/utf_bom.html#utf16-3
-    // For UTF8 byte structure, see http://en.wikipedia.org/wiki/UTF-8#Description and https://www.ietf.org/rfc/rfc2279.txt and https://tools.ietf.org/html/rfc3629
+    // For UTF8 byte structure, see http://en.wikipedia.org/wiki/UTF-8#Description
+    // and https://www.ietf.org/rfc/rfc2279.txt
+    // and https://tools.ietf.org/html/rfc3629
     var u = str.charCodeAt(i); // possibly a lead surrogate
     if (u >= 0xD800 && u <= 0xDFFF) {
       var u1 = str.charCodeAt(++i);
@@ -821,7 +822,7 @@ function stringToUTF8Array(str, heap, outIdx, maxBytesToWrite) {
       heap[outIdx++] = 0x80 | (u & 63);
     } else {
       if (outIdx + 3 >= endIdx) break;
-      if (u > 0x10FFFF) warnOnce('Invalid Unicode code point 0x' + u.toString(16) + ' encountered when serializing a JS string to a UTF-8 string in wasm memory! (Valid unicode code points should be in range 0-0x10FFFF).');
+      if (u > 0x10FFFF) warnOnce('Invalid Unicode code point ' + ptrToString(u) + ' encountered when serializing a JS string to a UTF-8 string in wasm memory! (Valid unicode code points should be in range 0-0x10FFFF).');
       heap[outIdx++] = 0xF0 | (u >> 18);
       heap[outIdx++] = 0x80 | ((u >> 12) & 63);
       heap[outIdx++] = 0x80 | ((u >> 6) & 63);
@@ -833,21 +834,33 @@ function stringToUTF8Array(str, heap, outIdx, maxBytesToWrite) {
   return outIdx - startIdx;
 }
 
-// Copies the given Javascript String object 'str' to the emscripten HEAP at address 'outPtr',
-// null-terminated and encoded in UTF8 form. The copy will require at most str.length*4+1 bytes of space in the HEAP.
-// Use the function lengthBytesUTF8 to compute the exact number of bytes (excluding null terminator) that this function will write.
-// Returns the number of bytes written, EXCLUDING the null terminator.
-
+/**
+ * Copies the given Javascript String object 'str' to the emscripten HEAP at
+ * address 'outPtr', null-terminated and encoded in UTF8 form. The copy will
+ * require at most str.length*4+1 bytes of space in the HEAP.
+ * Use the function lengthBytesUTF8 to compute the exact number of bytes
+ * (excluding null terminator) that this function will write.
+ *
+ * @return {number} The number of bytes written, EXCLUDING the null terminator.
+ */
 function stringToUTF8(str, outPtr, maxBytesToWrite) {
   assert(typeof maxBytesToWrite == 'number', 'stringToUTF8(str, outPtr, maxBytesToWrite) is missing the third parameter that specifies the length of the output buffer!');
   return stringToUTF8Array(str, HEAPU8,outPtr, maxBytesToWrite);
 }
 
-// Returns the number of bytes the given Javascript string takes if encoded as a UTF8 byte array, EXCLUDING the null terminator byte.
+/**
+ * Returns the number of bytes the given Javascript string takes if encoded as a
+ * UTF8 byte array, EXCLUDING the null terminator byte.
+ *
+ * @param {string} str - JavaScript string to operator on
+ * @return {number} Length, in bytes, of the UTF8 encoded string.
+ */
 function lengthBytesUTF8(str) {
   var len = 0;
   for (var i = 0; i < str.length; ++i) {
-    // Gotcha: charCodeAt returns a 16-bit word that is a UTF-16 encoded code unit, not a Unicode code point of the character! So decode UTF16->UTF32->UTF8.
+    // Gotcha: charCodeAt returns a 16-bit word that is a UTF-16 encoded code
+    // unit, not a Unicode code point of the character! So decode
+    // UTF16->UTF32->UTF8.
     // See http://unicode.org/faq/utf_bom.html#utf16-3
     var c = str.charCodeAt(i); // possibly a lead surrogate
     if (c <= 0x7F) {
@@ -898,12 +911,12 @@ function updateGlobalBufferAndViews(buf) {
   Module['HEAPF64'] = HEAPF64 = new Float64Array(buf);
 }
 
-var TOTAL_STACK = 5242880;
-if (Module['TOTAL_STACK']) assert(TOTAL_STACK === Module['TOTAL_STACK'], 'the stack size can no longer be determined at runtime')
+var STACK_SIZE = 5242880;
+if (Module['STACK_SIZE']) assert(STACK_SIZE === Module['STACK_SIZE'], 'the stack size can no longer be determined at runtime')
 
 var INITIAL_MEMORY = Module['INITIAL_MEMORY'] || 16777216;legacyModuleProp('INITIAL_MEMORY', 'INITIAL_MEMORY');
 
-assert(INITIAL_MEMORY >= TOTAL_STACK, 'INITIAL_MEMORY should be larger than TOTAL_STACK, was ' + INITIAL_MEMORY + '! (TOTAL_STACK=' + TOTAL_STACK + ')');
+assert(INITIAL_MEMORY >= STACK_SIZE, 'INITIAL_MEMORY should be larger than STACK_SIZE, was ' + INITIAL_MEMORY + '! (STACK_SIZE=' + STACK_SIZE + ')');
 
 // check for full engine support (use string 'subarray' to avoid closure compiler confusion)
 assert(typeof Int32Array != 'undefined' && typeof Float64Array !== 'undefined' && Int32Array.prototype.subarray != undefined && Int32Array.prototype.set != undefined,
@@ -927,6 +940,12 @@ var wasmTable;
 function writeStackCookie() {
   var max = _emscripten_stack_get_end();
   assert((max & 3) == 0);
+  // If the stack ends at address zero we write our cookies 4 bytes into the
+  // stack.  This prevents interference with the (separate) address-zero check
+  // below.
+  if (max == 0) {
+    max += 4;
+  }
   // The stack grow downwards towards _emscripten_stack_get_end.
   // We write cookies to the final two words in the stack and detect if they are
   // ever overwritten.
@@ -939,13 +958,19 @@ function writeStackCookie() {
 function checkStackCookie() {
   if (ABORT) return;
   var max = _emscripten_stack_get_end();
+  // See writeStackCookie().
+  if (max == 0) {
+    max += 4;
+  }
   var cookie1 = HEAPU32[((max)>>2)];
   var cookie2 = HEAPU32[(((max)+(4))>>2)];
   if (cookie1 != 0x2135467 || cookie2 != 0x89BACDFE) {
-    abort('Stack overflow! Stack cookie has been overwritten at 0x' + max.toString(16) + ', expected hex dwords 0x89BACDFE and 0x2135467, but received 0x' + cookie2.toString(16) + ' 0x' + cookie1.toString(16));
+    abort('Stack overflow! Stack cookie has been overwritten at ' + ptrToString(max) + ', expected hex dwords 0x89BACDFE and 0x2135467, but received ' + ptrToString(cookie2) + ' ' + ptrToString(cookie1));
   }
   // Also test the global address 0 for integrity.
-  if (HEAPU32[0] !== 0x63736d65 /* 'emsc' */) abort('Runtime error: The application has corrupted its heap memory area (address zero)!');
+  if (HEAPU32[0] !== 0x63736d65 /* 'emsc' */) {
+    abort('Runtime error: The application has corrupted its heap memory area (address zero)!');
+  }
 }
 
 // end include: runtime_stack_check.js
@@ -1139,10 +1164,8 @@ function removeRunDependency(id) {
 
 /** @param {string|number=} what */
 function abort(what) {
-  {
-    if (Module['onAbort']) {
-      Module['onAbort'](what);
-    }
+  if (Module['onAbort']) {
+    Module['onAbort'](what);
   }
 
   what = 'Aborted(' + what + ')';
@@ -1398,21 +1421,21 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  747796: () => { if (typeof(AudioContext) !== 'undefined') { return true; } else if (typeof(webkitAudioContext) !== 'undefined') { return true; } return false; },  
- 747943: () => { if ((typeof(navigator.mediaDevices) !== 'undefined') && (typeof(navigator.mediaDevices.getUserMedia) !== 'undefined')) { return true; } else if (typeof(navigator.webkitGetUserMedia) !== 'undefined') { return true; } return false; },  
- 748177: ($0) => { if(typeof(Module['SDL2']) === 'undefined') { Module['SDL2'] = {}; } var SDL2 = Module['SDL2']; if (!$0) { SDL2.audio = {}; } else { SDL2.capture = {}; } if (!SDL2.audioContext) { if (typeof(AudioContext) !== 'undefined') { SDL2.audioContext = new AudioContext(); } else if (typeof(webkitAudioContext) !== 'undefined') { SDL2.audioContext = new webkitAudioContext(); } if (SDL2.audioContext) { autoResumeAudioContext(SDL2.audioContext); } } return SDL2.audioContext === undefined ? -1 : 0; },  
- 748670: () => { var SDL2 = Module['SDL2']; return SDL2.audioContext.sampleRate; },  
- 748738: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; var have_microphone = function(stream) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); SDL2.capture.silenceTimer = undefined; } SDL2.capture.mediaStreamNode = SDL2.audioContext.createMediaStreamSource(stream); SDL2.capture.scriptProcessorNode = SDL2.audioContext.createScriptProcessor($1, $0, 1); SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) { if ((SDL2 === undefined) || (SDL2.capture === undefined)) { return; } audioProcessingEvent.outputBuffer.getChannelData(0).fill(0.0); SDL2.capture.currentCaptureBuffer = audioProcessingEvent.inputBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.mediaStreamNode.connect(SDL2.capture.scriptProcessorNode); SDL2.capture.scriptProcessorNode.connect(SDL2.audioContext.destination); SDL2.capture.stream = stream; }; var no_microphone = function(error) { }; SDL2.capture.silenceBuffer = SDL2.audioContext.createBuffer($0, $1, SDL2.audioContext.sampleRate); SDL2.capture.silenceBuffer.getChannelData(0).fill(0.0); var silence_callback = function() { SDL2.capture.currentCaptureBuffer = SDL2.capture.silenceBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.silenceTimer = setTimeout(silence_callback, ($1 / SDL2.audioContext.sampleRate) * 1000); if ((navigator.mediaDevices !== undefined) && (navigator.mediaDevices.getUserMedia !== undefined)) { navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(have_microphone).catch(no_microphone); } else if (navigator.webkitGetUserMedia !== undefined) { navigator.webkitGetUserMedia({ audio: true, video: false }, have_microphone, no_microphone); } },  
- 750390: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; SDL2.audio.scriptProcessorNode = SDL2.audioContext['createScriptProcessor']($1, 0, $0); SDL2.audio.scriptProcessorNode['onaudioprocess'] = function (e) { if ((SDL2 === undefined) || (SDL2.audio === undefined)) { return; } SDL2.audio.currentOutputBuffer = e['outputBuffer']; dynCall('vi', $2, [$3]); }; SDL2.audio.scriptProcessorNode['connect'](SDL2.audioContext['destination']); },  
- 750800: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.capture.currentCaptureBuffer.numberOfChannels; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.capture.currentCaptureBuffer.getChannelData(c); if (channelData.length != $1) { throw 'Web Audio capture buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } if (numChannels == 1) { for (var j = 0; j < $1; ++j) { setValue($0 + (j * 4), channelData[j], 'float'); } } else { for (var j = 0; j < $1; ++j) { setValue($0 + (((j * numChannels) + c) * 4), channelData[j], 'float'); } } } },  
- 751405: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.audio.currentOutputBuffer['numberOfChannels']; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.audio.currentOutputBuffer['getChannelData'](c); if (channelData.length != $1) { throw 'Web Audio output buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } for (var j = 0; j < $1; ++j) { channelData[j] = HEAPF32[$0 + ((j*numChannels + c) << 2) >> 2]; } } },  
- 751885: ($0) => { var SDL2 = Module['SDL2']; if ($0) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); } if (SDL2.capture.stream !== undefined) { var tracks = SDL2.capture.stream.getAudioTracks(); for (var i = 0; i < tracks.length; i++) { SDL2.capture.stream.removeTrack(tracks[i]); } SDL2.capture.stream = undefined; } if (SDL2.capture.scriptProcessorNode !== undefined) { SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) {}; SDL2.capture.scriptProcessorNode.disconnect(); SDL2.capture.scriptProcessorNode = undefined; } if (SDL2.capture.mediaStreamNode !== undefined) { SDL2.capture.mediaStreamNode.disconnect(); SDL2.capture.mediaStreamNode = undefined; } if (SDL2.capture.silenceBuffer !== undefined) { SDL2.capture.silenceBuffer = undefined } SDL2.capture = undefined; } else { if (SDL2.audio.scriptProcessorNode != undefined) { SDL2.audio.scriptProcessorNode.disconnect(); SDL2.audio.scriptProcessorNode = undefined; } SDL2.audio = undefined; } if ((SDL2.audioContext !== undefined) && (SDL2.audio === undefined) && (SDL2.capture === undefined)) { SDL2.audioContext.close(); SDL2.audioContext = undefined; } },  
- 753057: ($0, $1, $2) => { var w = $0; var h = $1; var pixels = $2; if (!Module['SDL2']) Module['SDL2'] = {}; var SDL2 = Module['SDL2']; if (SDL2.ctxCanvas !== Module['canvas']) { SDL2.ctx = Module['createContext'](Module['canvas'], false, true); SDL2.ctxCanvas = Module['canvas']; } if (SDL2.w !== w || SDL2.h !== h || SDL2.imageCtx !== SDL2.ctx) { SDL2.image = SDL2.ctx.createImageData(w, h); SDL2.w = w; SDL2.h = h; SDL2.imageCtx = SDL2.ctx; } var data = SDL2.image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = 0xff; src++; dst += 4; } } else { if (SDL2.data32Data !== data) { SDL2.data32 = new Int32Array(data.buffer); SDL2.data8 = new Uint8Array(data.buffer); SDL2.data32Data = data; } var data32 = SDL2.data32; num = data32.length; data32.set(HEAP32.subarray(src, src + num)); var data8 = SDL2.data8; var i = 3; var j = i + 4*num; if (num % 8 == 0) { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; } } else { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; } } } SDL2.ctx.putImageData(SDL2.image, 0, 0); },  
- 754526: ($0, $1, $2, $3, $4) => { var w = $0; var h = $1; var hot_x = $2; var hot_y = $3; var pixels = $4; var canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h; var ctx = canvas.getContext("2d"); var image = ctx.createImageData(w, h); var data = image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = (val >> 24) & 0xff; src++; dst += 4; } } else { var data32 = new Int32Array(data.buffer); num = data32.length; data32.set(HEAP32.subarray(src, src + num)); } ctx.putImageData(image, 0, 0); var url = hot_x === 0 && hot_y === 0 ? "url(" + canvas.toDataURL() + "), auto" : "url(" + canvas.toDataURL() + ") " + hot_x + " " + hot_y + ", auto"; var urlBuf = _malloc(url.length + 1); stringToUTF8(url, urlBuf, url.length + 1); return urlBuf; },  
- 755515: ($0) => { if (Module['canvas']) { Module['canvas'].style['cursor'] = UTF8ToString($0); } },  
- 755598: () => { if (Module['canvas']) { Module['canvas'].style['cursor'] = 'none'; } },  
- 755667: () => { return window.innerWidth; },  
- 755697: () => { return window.innerHeight; }
+  5989092: () => { if (typeof(AudioContext) !== 'undefined') { return true; } else if (typeof(webkitAudioContext) !== 'undefined') { return true; } return false; },  
+ 5989239: () => { if ((typeof(navigator.mediaDevices) !== 'undefined') && (typeof(navigator.mediaDevices.getUserMedia) !== 'undefined')) { return true; } else if (typeof(navigator.webkitGetUserMedia) !== 'undefined') { return true; } return false; },  
+ 5989473: ($0) => { if(typeof(Module['SDL2']) === 'undefined') { Module['SDL2'] = {}; } var SDL2 = Module['SDL2']; if (!$0) { SDL2.audio = {}; } else { SDL2.capture = {}; } if (!SDL2.audioContext) { if (typeof(AudioContext) !== 'undefined') { SDL2.audioContext = new AudioContext(); } else if (typeof(webkitAudioContext) !== 'undefined') { SDL2.audioContext = new webkitAudioContext(); } if (SDL2.audioContext) { autoResumeAudioContext(SDL2.audioContext); } } return SDL2.audioContext === undefined ? -1 : 0; },  
+ 5989966: () => { var SDL2 = Module['SDL2']; return SDL2.audioContext.sampleRate; },  
+ 5990034: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; var have_microphone = function(stream) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); SDL2.capture.silenceTimer = undefined; } SDL2.capture.mediaStreamNode = SDL2.audioContext.createMediaStreamSource(stream); SDL2.capture.scriptProcessorNode = SDL2.audioContext.createScriptProcessor($1, $0, 1); SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) { if ((SDL2 === undefined) || (SDL2.capture === undefined)) { return; } audioProcessingEvent.outputBuffer.getChannelData(0).fill(0.0); SDL2.capture.currentCaptureBuffer = audioProcessingEvent.inputBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.mediaStreamNode.connect(SDL2.capture.scriptProcessorNode); SDL2.capture.scriptProcessorNode.connect(SDL2.audioContext.destination); SDL2.capture.stream = stream; }; var no_microphone = function(error) { }; SDL2.capture.silenceBuffer = SDL2.audioContext.createBuffer($0, $1, SDL2.audioContext.sampleRate); SDL2.capture.silenceBuffer.getChannelData(0).fill(0.0); var silence_callback = function() { SDL2.capture.currentCaptureBuffer = SDL2.capture.silenceBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.silenceTimer = setTimeout(silence_callback, ($1 / SDL2.audioContext.sampleRate) * 1000); if ((navigator.mediaDevices !== undefined) && (navigator.mediaDevices.getUserMedia !== undefined)) { navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(have_microphone).catch(no_microphone); } else if (navigator.webkitGetUserMedia !== undefined) { navigator.webkitGetUserMedia({ audio: true, video: false }, have_microphone, no_microphone); } },  
+ 5991686: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; SDL2.audio.scriptProcessorNode = SDL2.audioContext['createScriptProcessor']($1, 0, $0); SDL2.audio.scriptProcessorNode['onaudioprocess'] = function (e) { if ((SDL2 === undefined) || (SDL2.audio === undefined)) { return; } SDL2.audio.currentOutputBuffer = e['outputBuffer']; dynCall('vi', $2, [$3]); }; SDL2.audio.scriptProcessorNode['connect'](SDL2.audioContext['destination']); },  
+ 5992096: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.capture.currentCaptureBuffer.numberOfChannels; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.capture.currentCaptureBuffer.getChannelData(c); if (channelData.length != $1) { throw 'Web Audio capture buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } if (numChannels == 1) { for (var j = 0; j < $1; ++j) { setValue($0 + (j * 4), channelData[j], 'float'); } } else { for (var j = 0; j < $1; ++j) { setValue($0 + (((j * numChannels) + c) * 4), channelData[j], 'float'); } } } },  
+ 5992701: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.audio.currentOutputBuffer['numberOfChannels']; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.audio.currentOutputBuffer['getChannelData'](c); if (channelData.length != $1) { throw 'Web Audio output buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } for (var j = 0; j < $1; ++j) { channelData[j] = HEAPF32[$0 + ((j*numChannels + c) << 2) >> 2]; } } },  
+ 5993181: ($0) => { var SDL2 = Module['SDL2']; if ($0) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); } if (SDL2.capture.stream !== undefined) { var tracks = SDL2.capture.stream.getAudioTracks(); for (var i = 0; i < tracks.length; i++) { SDL2.capture.stream.removeTrack(tracks[i]); } SDL2.capture.stream = undefined; } if (SDL2.capture.scriptProcessorNode !== undefined) { SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) {}; SDL2.capture.scriptProcessorNode.disconnect(); SDL2.capture.scriptProcessorNode = undefined; } if (SDL2.capture.mediaStreamNode !== undefined) { SDL2.capture.mediaStreamNode.disconnect(); SDL2.capture.mediaStreamNode = undefined; } if (SDL2.capture.silenceBuffer !== undefined) { SDL2.capture.silenceBuffer = undefined } SDL2.capture = undefined; } else { if (SDL2.audio.scriptProcessorNode != undefined) { SDL2.audio.scriptProcessorNode.disconnect(); SDL2.audio.scriptProcessorNode = undefined; } SDL2.audio = undefined; } if ((SDL2.audioContext !== undefined) && (SDL2.audio === undefined) && (SDL2.capture === undefined)) { SDL2.audioContext.close(); SDL2.audioContext = undefined; } },  
+ 5994353: ($0, $1, $2) => { var w = $0; var h = $1; var pixels = $2; if (!Module['SDL2']) Module['SDL2'] = {}; var SDL2 = Module['SDL2']; if (SDL2.ctxCanvas !== Module['canvas']) { SDL2.ctx = Module['createContext'](Module['canvas'], false, true); SDL2.ctxCanvas = Module['canvas']; } if (SDL2.w !== w || SDL2.h !== h || SDL2.imageCtx !== SDL2.ctx) { SDL2.image = SDL2.ctx.createImageData(w, h); SDL2.w = w; SDL2.h = h; SDL2.imageCtx = SDL2.ctx; } var data = SDL2.image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = 0xff; src++; dst += 4; } } else { if (SDL2.data32Data !== data) { SDL2.data32 = new Int32Array(data.buffer); SDL2.data8 = new Uint8Array(data.buffer); SDL2.data32Data = data; } var data32 = SDL2.data32; num = data32.length; data32.set(HEAP32.subarray(src, src + num)); var data8 = SDL2.data8; var i = 3; var j = i + 4*num; if (num % 8 == 0) { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; } } else { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; } } } SDL2.ctx.putImageData(SDL2.image, 0, 0); },  
+ 5995822: ($0, $1, $2, $3, $4) => { var w = $0; var h = $1; var hot_x = $2; var hot_y = $3; var pixels = $4; var canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h; var ctx = canvas.getContext("2d"); var image = ctx.createImageData(w, h); var data = image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = (val >> 24) & 0xff; src++; dst += 4; } } else { var data32 = new Int32Array(data.buffer); num = data32.length; data32.set(HEAP32.subarray(src, src + num)); } ctx.putImageData(image, 0, 0); var url = hot_x === 0 && hot_y === 0 ? "url(" + canvas.toDataURL() + "), auto" : "url(" + canvas.toDataURL() + ") " + hot_x + " " + hot_y + ", auto"; var urlBuf = _malloc(url.length + 1); stringToUTF8(url, urlBuf, url.length + 1); return urlBuf; },  
+ 5996811: ($0) => { if (Module['canvas']) { Module['canvas'].style['cursor'] = UTF8ToString($0); } },  
+ 5996894: () => { if (Module['canvas']) { Module['canvas'].style['cursor'] = 'none'; } },  
+ 5996963: () => { return window.innerWidth; },  
+ 5996993: () => { return window.innerHeight; }
 };
 
 
@@ -2138,7 +2161,7 @@ var ASM_CONSTS = {
         });
     }
   var FS = {root:null,mounts:[],devices:{},streams:[],nextInode:1,nameTable:null,currentPath:"/",initialized:false,ignorePermissions:true,ErrnoError:null,genericErrors:{},filesystems:null,syncFSRequests:0,lookupPath:(path, opts = {}) => {
-        path = PATH_FS.resolve(FS.cwd(), path);
+        path = PATH_FS.resolve(path);
   
         if (!path) return { path: '', node: null };
   
@@ -2152,8 +2175,8 @@ var ASM_CONSTS = {
           throw new FS.ErrnoError(32);
         }
   
-        // split the path
-        var parts = PATH.normalizeArray(path.split('/').filter((p) => !!p), false);
+        // split the absolute path
+        var parts = path.split('/').filter((p) => !!p);
   
         // start at the root
         var current = FS.root;
@@ -3805,6 +3828,12 @@ var ASM_CONSTS = {
       if (e instanceof ExitStatus || e == 'unwind') {
         return EXITSTATUS;
       }
+      checkStackCookie();
+      if (e instanceof WebAssembly.RuntimeError) {
+        if (_emscripten_stack_get_current() <= 0) {
+          err('Stack overflow detected.  You can try increasing -sSTACK_SIZE (currently set to ' + STACK_SIZE + ')');
+        }
+      }
       quit_(1, e);
     }
   function maybeExit() {
@@ -4616,6 +4645,10 @@ var ASM_CONSTS = {
         default: abort('invalid type for getValue: ' + type);
       }
       return null;
+    }
+
+  function ptrToString(ptr) {
+      return '0x' + ptr.toString(16).padStart(8, '0');
     }
 
   
@@ -6201,7 +6234,6 @@ var ASM_CONSTS = {
       function restoreOldStyle() {
         var fullscreenElement = document.fullscreenElement
           || document.webkitFullscreenElement
-          || document.msFullscreenElement
           ;
         if (!fullscreenElement) {
           document.removeEventListener('fullscreenchange', restoreOldStyle);
@@ -6353,13 +6385,10 @@ var ASM_CONSTS = {
   function requestPointerLock(target) {
       if (target.requestPointerLock) {
         target.requestPointerLock();
-      } else if (target.msRequestPointerLock) {
-        target.msRequestPointerLock();
       } else {
         // document.body is known to accept pointer lock, so use that to differentiate if the user passed a bad element,
         // or if the whole browser just doesn't support the feature.
         if (document.body.requestPointerLock
-          || document.body.msRequestPointerLock
           ) {
           return -3;
         }
@@ -6373,8 +6402,6 @@ var ASM_CONSTS = {
   
       if (document.exitPointerLock) {
         document.exitPointerLock();
-      } else if (document.msExitPointerLock) {
-        document.msExitPointerLock();
       } else {
         return -1;
       }
@@ -7296,7 +7323,7 @@ var ASM_CONSTS = {
       HEAPU32[ptr>>2] = num;
       HEAPU32[ptr+4>>2] = (num - HEAPU32[ptr>>2])/4294967296;
       var deserialized = (num >= 0) ? readI53FromU64(ptr) : readI53FromI64(ptr);
-      if (deserialized != num) warnOnce('writeI53ToI64() out of range: serialized JS Number ' + num + ' to Wasm heap as bytes lo=0x' + HEAPU32[ptr>>2].toString(16) + ', hi=0x' + HEAPU32[ptr+4>>2].toString(16) + ', which deserializes back to ' + deserialized + ' instead!');
+      if (deserialized != num) warnOnce('writeI53ToI64() out of range: serialized JS Number ' + num + ' to Wasm heap as bytes lo=' + ptrToString(HEAPU32[ptr>>2]) + ', hi=' + ptrToString(HEAPU32[ptr+4>>2]) + ', which deserializes back to ' + deserialized + ' instead!');
     }
   function emscriptenWebGLGet(name_, p, type) {
       // Guard against user passing a null pointer.
@@ -8323,8 +8350,18 @@ var ASM_CONSTS = {
     }
 
   function _emscripten_glMapBufferRange(target, offset, length, access) {
-      if (access != 0x1A && access != 0xA) {
-        err("glMapBufferRange is only supported when access is MAP_WRITE|INVALIDATE_BUFFER");
+      if ((access & (0x1/*GL_MAP_READ_BIT*/ | 0x20/*GL_MAP_UNSYNCHRONIZED_BIT*/)) != 0) {
+        err("glMapBufferRange access does not support MAP_READ or MAP_UNSYNCHRONIZED");
+        return 0;
+      }
+  
+      if ((access & 0x2/*GL_MAP_WRITE_BIT*/) == 0) {
+        err("glMapBufferRange access must include MAP_WRITE");
+        return 0;
+      }
+  
+      if ((access & (0x4/*GL_MAP_INVALIDATE_BUFFER_BIT*/ | 0x8/*GL_MAP_INVALIDATE_RANGE_BIT*/)) == 0) {
+        err("glMapBufferRange access must include INVALIDATE_BUFFER or INVALIDATE_RANGE");
         return 0;
       }
   
@@ -8936,7 +8973,6 @@ var ASM_CONSTS = {
       target = findEventTarget(target);
       if (!target) return -4;
       if (!target.requestPointerLock
-        && !target.msRequestPointerLock
         ) {
         return -1;
       }
@@ -11272,6 +11308,11 @@ var stackRestore = Module["stackRestore"] = createExportWrapper("stackRestore");
 var stackAlloc = Module["stackAlloc"] = createExportWrapper("stackAlloc");
 
 /** @type {function(...*):?} */
+var _emscripten_stack_get_current = Module["_emscripten_stack_get_current"] = function() {
+  return (_emscripten_stack_get_current = Module["_emscripten_stack_get_current"] = Module["asm"]["emscripten_stack_get_current"]).apply(null, arguments);
+};
+
+/** @type {function(...*):?} */
 var ___cxa_can_catch = Module["___cxa_can_catch"] = createExportWrapper("__cxa_can_catch");
 
 /** @type {function(...*):?} */
@@ -11647,8 +11688,8 @@ var unexportedRuntimeSymbols = [
   'registerFunctions',
   'prettyPrint',
   'getCompilerSetting',
-  'print',
-  'printErr',
+  'out',
+  'err',
   'callMain',
   'abort',
   'keepRuntimeAlive',
@@ -11872,7 +11913,6 @@ var unexportedRuntimeSymbols = [
 ];
 unexportedRuntimeSymbols.forEach(unexportedRuntimeSymbol);
 var missingLibrarySymbols = [
-  'ptrToString',
   'inetPton4',
   'inetNtop4',
   'inetPton6',

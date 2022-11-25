@@ -62,7 +62,7 @@ rm -rf cmake-build-debug-web
 mkdir cmake-build-debug-web
 
 cd cmake-build-debug-web
-cmake .. -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=/Users/deepakramalingam/Documents/Projects/dream/dream/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake -DCMAKE_TOOLCHAIN_FILE=/Users/deepakramalingam/Documents/Projects/dream/dream/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=wasm32-emscripten
+cmake .. -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
 make
 
 RESULT=$?
