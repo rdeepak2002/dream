@@ -23,11 +23,13 @@ namespace Dream::Component {
 
     void MeshComponent::loadMesh() {
         if (meshType == MeshType::FROM_FILE) {
-            if (!Project::getResourceManager()->hasData(this->guid, this->fileId)) {
-                std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
-                Project::getAssetLoader()->loadMesh(this->guid);
+            if (!this->fileId.empty()) {
+                if (!Project::getResourceManager()->hasData(this->guid, this->fileId)) {
+                    std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
+                    Project::getAssetLoader()->loadMesh(this->guid);
+                }
+                this->mesh = (OpenGLMesh*) Project::getResourceManager()->getData(this->guid, this->fileId);
             }
-            this->mesh = (OpenGLMesh*) Project::getResourceManager()->getData(this->guid, this->fileId);
         } else {
             if (meshType == PRIMITIVE_CUBE) {
                 this->mesh = new OpenGLCubeMesh();

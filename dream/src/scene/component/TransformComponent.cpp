@@ -30,8 +30,10 @@ namespace Dream::Component {
         Entity parent = curEntity.getComponent<HierarchyComponent>().parent;
         if (parent) {
             parentModel = parent.getComponent<TransformComponent>().getTransform(parent);
+        } else {
+            parentModel = glm::mat4(1.0);
         }
-        return model * parentModel;
+        return parentModel * model;
     }
 
     void TransformComponent::serialize(YAML::Emitter &out, Entity &entity) {

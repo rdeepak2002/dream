@@ -128,7 +128,7 @@ namespace Dream {
                         std::cout << "Mesh cannot be rendered in OpenGL" << std::endl;
                         exit(EXIT_FAILURE);
                     }
-                } else {
+                } else if (entity.getComponent<Component::MeshComponent>().mesh && !entity.getComponent<Component::MeshComponent>().fileId.empty()) {
                     std::cout << "WARNING: no mesh loaded" << std::endl;
                 }
             }
