@@ -9,6 +9,7 @@
 #include <entt/entt.hpp>
 #include <yaml-cpp/yaml.h>
 #include <btBulletDynamicsCommon.h>
+#include "dream/scene/system/LuaScriptComponentSystem.h"
 
 namespace Dream {
     class Entity;
@@ -18,8 +19,7 @@ namespace Dream {
         Scene();
         ~Scene();
         Entity createEntity(const std::string& name = "Entity", bool rootEntity = false, bool addChildStart = true);
-        void update();
-        void fixedUpdate();
+        void fixedUpdate(float dt);
         template<typename... Components>
         auto getEntitiesWithComponents() {
             return entityRegistry.view<Components ...>();
@@ -31,6 +31,7 @@ namespace Dream {
     private:
         entt::registry entityRegistry;
         friend class Entity;
+        LuaScriptComponentSystem* luaScriptComponentSystem;
         btDefaultCollisionConfiguration* collisionConfiguration;
         btCollisionDispatcher* dispatcher;
         btBroadphaseInterface* overlappingPairCache;

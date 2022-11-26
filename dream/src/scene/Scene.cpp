@@ -8,6 +8,7 @@
 
 namespace Dream {
     Scene::Scene() {
+        luaScriptComponentSystem = new LuaScriptComponentSystem();
         collisionConfiguration = new btDefaultCollisionConfiguration();
         dispatcher = new btCollisionDispatcher(collisionConfiguration);
         overlappingPairCache = new btDbvtBroadphase();
@@ -17,6 +18,7 @@ namespace Dream {
     }
 
     Scene::~Scene() {
+        delete luaScriptComponentSystem;
         delete dynamicsWorld;
         delete solver;
         delete overlappingPairCache;
@@ -44,12 +46,8 @@ namespace Dream {
         return entity;
     }
 
-    void Scene::update() {
-        // TODO: populate this
-    }
-
-    void Scene::fixedUpdate() {
-        // TODO: populate this
+    void Scene::fixedUpdate(float dt) {
+        luaScriptComponentSystem->update(dt);
     }
 
     Entity Scene::getRootEntity() {

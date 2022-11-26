@@ -45,7 +45,8 @@ namespace Dream {
     }
 
     void Application::fixedUpdate() {
-
+        // TODO: make this actually fixed update
+        Project::getScene()->fixedUpdate(1.0 / 60.0);
     }
 
     std::filesystem::path Application::getResourcesRoot() {

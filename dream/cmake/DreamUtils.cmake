@@ -85,6 +85,7 @@ macro(DREAM_GLOB_SOURCE_CODE)
             src/util/*.cpp
             src/scene/*.cpp
             src/scene/component/*.cpp
+            src/scene/system/*.cpp
             src/renderer/glad.c)
 endmacro()
 

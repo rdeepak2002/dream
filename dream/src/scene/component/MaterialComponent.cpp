@@ -11,12 +11,6 @@
 namespace Dream::Component {
     MaterialComponent::MaterialComponent(std::string guid) {
         this->guid = std::move(guid);
-//        if (!Project::getResourceManager()->hasData(this->guid)) {
-//            std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
-//            std::cout << "loading texture " << path << std::endl;
-//            Project::getResourceManager()->storeData(this->guid, new OpenGLTexture(path));
-//        }
-//        this->texture = (OpenGLTexture*) Project::getResourceManager()->getData(this->guid);
     }
 
     void MaterialComponent::loadTexture() {
