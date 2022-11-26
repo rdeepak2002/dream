@@ -15,6 +15,8 @@ namespace Dream {
         void selectEntity(Entity& entity);
     private:
         Entity selectedEntity;
+        void renderMaterialComponent();
+        std::string shorten(std::string str, int maxLength = 14);
     };
 }
 

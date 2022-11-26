@@ -75,12 +75,12 @@ namespace Dream {
         for(auto entityHandle : meshEntities) {
             Entity entity = {entityHandle, Project::getScene()};
             if (entity.hasComponent<Component::MaterialComponent>()) {
-                if (!entity.getComponent<Component::MaterialComponent>().texture) {
+                if (!entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
                     entity.getComponent<Component::MaterialComponent>().loadTexture();
                 }
 
-                if (entity.getComponent<Component::MaterialComponent>().texture) {
-                    auto* openGLTexture = dynamic_cast<OpenGLTexture*>(entity.getComponent<Component::MaterialComponent>().texture);
+                if (entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
+                    auto* openGLTexture = dynamic_cast<OpenGLTexture*>(entity.getComponent<Component::MaterialComponent>().diffuseTexture);
                     if (openGLTexture) {
                         shader->use();
                         shader->setInt("texture_diffuse1", 0);

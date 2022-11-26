@@ -115,7 +115,7 @@ namespace Dream::Component {
 
     struct MaterialComponent : public Component {
         inline static std::string componentName = "MaterialComponent";
-        Texture* texture = nullptr;
+        Texture* diffuseTexture = nullptr;
         inline static std::string k_guid = "guid";
         std::string guid;
         explicit MaterialComponent(std::string guid);

@@ -24,14 +24,14 @@ namespace Dream::Component {
             std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
             Project::getResourceManager()->storeData(this->guid, new OpenGLTexture(path));
         }
-        this->texture = (OpenGLTexture*) Project::getResourceManager()->getData(this->guid);
+        this->diffuseTexture = (OpenGLTexture*) Project::getResourceManager()->getData(this->guid);
     }
 
     Texture *MaterialComponent::getTexture() {
-        if (!this->texture) {
+        if (!this->diffuseTexture) {
             std::cout << "Texture is null" << std::endl;
         }
-        return this->texture;
+        return this->diffuseTexture;
     }
 
     void MaterialComponent::serialize(YAML::Emitter &out, Entity &entity) {
