@@ -34,6 +34,7 @@ namespace Dream {
             renderTransformComponent();
             renderMeshComponent();
             renderMaterialComponent();
+            renderLuaScriptComponent();
             if (ImGui::Button("Remove")) {
                 Project::getScene()->removeEntity(selectedEntity);
                 selectedEntity = Entity();
@@ -248,6 +249,20 @@ namespace Dream {
                 ImGui::Text("Diffuse Texture");
                 ImGui::SameLine();
                 ImGui::Text("%s", diffuseTexturePath.c_str());
+                ImGui::TreePop();
+            }
+        }
+    }
+
+    void ImGuiEditorInspectorView::renderLuaScriptComponent() {
+        if (selectedEntity.hasComponent<Component::LuaScriptComponent>()) {
+            auto &component = selectedEntity.getComponent<Component::LuaScriptComponent>();
+            auto componentName = Component::LuaScriptComponent::componentName.c_str();
+            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "LUA SCRIPT")) {
+                std::string scriptPath = shorten(Project::getResourceManager()->getFilePathFromGUID(component.guid));
+                ImGui::Text("Script Path");
+                ImGui::SameLine();
+                ImGui::Text("%s", scriptPath.c_str());
                 ImGui::TreePop();
             }
         }

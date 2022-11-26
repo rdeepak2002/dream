@@ -134,7 +134,13 @@ namespace Dream::Component {
         inline static std::string componentName = "LuaScriptComponent";
         inline static std::string k_guid = "guid";
         std::string guid;
+        // runtime script path
+        std::string scriptPath;
+        // runtime 'self' variables for script
+        sol::table table;
         explicit LuaScriptComponent(std::string guid);
+        void loadScriptPath();
+        void changeScript(std::string newScriptPath);
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
     };

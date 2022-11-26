@@ -121,6 +121,8 @@ Entities:
       fileId: ""
     MaterialComponent:
       guid: 8C48D481-C949-4C24-87CF-05E446A3Y8A2
+    LuaScriptComponent:
+      guid: 1A2ACF14-B491-4FD7-B7D0-BBECC4C7EED3
   - Entity: 2BD29A8C-E68E-41AA-94D5-541A903086DD
     IDComponent:
       id: 2BD29A8C-E68E-41AA-94D5-541A903086DD
