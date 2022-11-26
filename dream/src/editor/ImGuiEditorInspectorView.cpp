@@ -166,8 +166,9 @@ namespace Dream {
             auto componentName = Component::TransformComponent::componentName.c_str();
             if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "TRANSFORM")) {
                 renderVec3Control("Position", component.translation);
-                // TODO: render rotation (quaternion)
-//                renderVec3Control("Rotation", component.rotation);
+                glm::vec3 eulerRot = glm::eulerAngles(component.rotation);
+                renderVec3Control("Rotation", eulerRot);
+                component.rotation = glm::quat(eulerRot);
                 renderVec3Control("Scale", component.scale);
                 ImGui::TreePop();
             }

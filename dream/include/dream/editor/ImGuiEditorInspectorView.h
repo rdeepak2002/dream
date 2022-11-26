@@ -7,6 +7,7 @@
 
 #include "dream/scene/Entity.h"
 #include "glm/vec3.hpp"
+#include "glm/ext/quaternion_float.hpp"
 
 namespace Dream {
     class ImGuiEditorInspectorView {
