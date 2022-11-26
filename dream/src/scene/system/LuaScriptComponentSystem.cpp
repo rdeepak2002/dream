@@ -5,10 +5,18 @@
 #include "dream/scene/system/LuaScriptComponentSystem.h"
 #include "dream/project/Project.h"
 #include "dream/scene/component/Component.h"
+#include "dream/util/Logger.h"
 
 namespace Dream {
     LuaScriptComponentSystem::LuaScriptComponentSystem() {
-
+        // open libraries with lua
+        lua.open_libraries(sol::lib::base, sol::lib::math, sol::lib::string, sol::lib::io);
+        lua.new_usertype<Logger>("Logger",
+                                 "Debug", sol::as_function(&Logger::Debug),
+                                 "Warn", sol::as_function(&Logger::Warn),
+                                 "Error", sol::as_function(&Logger::Error)
+        );
+        lua.end();
     }
 
     LuaScriptComponentSystem::~LuaScriptComponentSystem() {

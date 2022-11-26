@@ -1,3 +1,3 @@
 function update(entity, dt)
-    print("Hello World")
+    Logger.Debug("Hello World")
 end

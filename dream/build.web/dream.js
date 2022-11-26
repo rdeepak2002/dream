@@ -133,6 +133,7 @@ Module['FS_createPath']("/examples", "hello_world", true, true);
 Module['FS_createPath']("/examples/hello_world", "assets", true, true);
 Module['FS_createPath']("/examples/hello_world/assets", "alduin", true, true);
 Module['FS_createPath']("/examples/hello_world/assets/alduin", "textures", true, true);
+Module['FS_createPath']("/examples/hello_world/assets", "scripts", true, true);
 Module['FS_createPath']("/examples/hello_world/assets", "shaders", true, true);
 Module['FS_createPath']("/examples/hello_world/assets", "sponza", true, true);
 Module['FS_createPath']("/examples/hello_world/assets", "textures", true, true);
@@ -218,7 +219,7 @@ Module['FS_createPath']("/examples/resources", "icons", true, true);
     }
 
     }
-    loadPackage({"files": [{"filename": "/examples/.DS_Store", "start": 0, "end": 6148}, {"filename": "/examples/hello_world/.DS_Store", "start": 6148, "end": 12296}, {"filename": "/examples/hello_world/.gitignore", "start": 12296, "end": 13887}, {"filename": "/examples/hello_world/README.md", "start": 13887, "end": 14043}, {"filename": "/examples/hello_world/assets/.gitkeep", "start": 14043, "end": 14043}, {"filename": "/examples/hello_world/assets/alduin/.DS_Store.meta", "start": 14043, "end": 14085}, {"filename": "/examples/hello_world/assets/alduin/license.txt", "start": 14085, "end": 14729}, {"filename": "/examples/hello_world/assets/alduin/license.txt.meta", "start": 14729, "end": 14771}, {"filename": "/examples/hello_world/assets/alduin/scene.bin", "start": 14771, "end": 712107}, {"filename": "/examples/hello_world/assets/alduin/scene.bin.meta", "start": 712107, "end": 712149}, {"filename": "/examples/hello_world/assets/alduin/scene.gltf", "start": 712149, "end": 717581}, {"filename": "/examples/hello_world/assets/alduin/scene.gltf.meta", "start": 717581, "end": 717623}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_baseColor.jpeg", "start": 717623, "end": 719253}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_baseColor.jpeg.meta", "start": 719253, "end": 719295}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_emissive.jpeg", "start": 719295, "end": 719992}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_emissive.jpeg.meta", "start": 719992, "end": 720034}, {"filename": "/examples/hello_world/assets/alduin/textures/Material_baseColor.jpeg", "start": 720034, "end": 2124188}, {"filename": "/examples/hello_world/assets/alduin/textures/Material_baseColor.jpeg.meta", "start": 2124188, "end": 2124230}, {"filename": "/examples/hello_world/assets/main.scene", "start": 2124230, "end": 2128818}, {"filename": "/examples/hello_world/assets/main.scene.meta", "start": 2128818, "end": 2128860}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.frag", "start": 2128860, "end": 2129059}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.frag.meta", "start": 2129059, "end": 2129101}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.vert", "start": 2129101, "end": 2129296}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.vert.meta", "start": 2129296, "end": 2129338}, {"filename": "/examples/hello_world/assets/shaders/shader.frag", "start": 2129338, "end": 2129609}, {"filename": "/examples/hello_world/assets/shaders/shader.frag.meta", "start": 2129609, "end": 2129651}, {"filename": "/examples/hello_world/assets/shaders/shader.vert", "start": 2129651, "end": 2129979}, {"filename": "/examples/hello_world/assets/shaders/shader.vert.meta", "start": 2129979, "end": 2130021}, {"filename": "/examples/hello_world/assets/sponza/10381718147657362067.jpg", "start": 2130021, "end": 3006248}, {"filename": "/examples/hello_world/assets/sponza/10381718147657362067.jpg.meta", "start": 3006248, "end": 3006290}, {"filename": "/examples/hello_world/assets/sponza/10388182081421875623.jpg", "start": 3006290, "end": 3925424}, {"filename": "/examples/hello_world/assets/sponza/10388182081421875623.jpg.meta", "start": 3925424, "end": 3925466}, {"filename": "/examples/hello_world/assets/sponza/11474523244911310074.jpg", "start": 3925466, "end": 5004618}, {"filename": "/examples/hello_world/assets/sponza/11474523244911310074.jpg.meta", "start": 5004618, "end": 5004660}, {"filename": "/examples/hello_world/assets/sponza/11490520546946913238.jpg", "start": 5004660, "end": 5326035}, {"filename": "/examples/hello_world/assets/sponza/11490520546946913238.jpg.meta", "start": 5326035, "end": 5326077}, {"filename": "/examples/hello_world/assets/sponza/11872827283454512094.jpg", "start": 5326077, "end": 5995039}, {"filename": "/examples/hello_world/assets/sponza/11872827283454512094.jpg.meta", "start": 5995039, "end": 5995081}, {"filename": "/examples/hello_world/assets/sponza/11968150294050148237.jpg", "start": 5995081, "end": 6525465}, {"filename": "/examples/hello_world/assets/sponza/11968150294050148237.jpg.meta", "start": 6525465, "end": 6525507}, {"filename": "/examples/hello_world/assets/sponza/1219024358953944284.jpg", "start": 6525507, "end": 6854631}, {"filename": "/examples/hello_world/assets/sponza/1219024358953944284.jpg.meta", "start": 6854631, "end": 6854673}, {"filename": "/examples/hello_world/assets/sponza/12501374198249454378.jpg", "start": 6854673, "end": 7276115}, {"filename": "/examples/hello_world/assets/sponza/12501374198249454378.jpg.meta", "start": 7276115, "end": 7276157}, {"filename": "/examples/hello_world/assets/sponza/13196865903111448057.jpg", "start": 7276157, "end": 7558137}, {"filename": "/examples/hello_world/assets/sponza/13196865903111448057.jpg.meta", "start": 7558137, "end": 7558179}, {"filename": "/examples/hello_world/assets/sponza/13824894030729245199.jpg", "start": 7558179, "end": 7871639}, {"filename": "/examples/hello_world/assets/sponza/13824894030729245199.jpg.meta", "start": 7871639, "end": 7871681}, {"filename": "/examples/hello_world/assets/sponza/13982482287905699490.jpg", "start": 7871681, "end": 8228793}, {"filename": "/examples/hello_world/assets/sponza/13982482287905699490.jpg.meta", "start": 8228793, "end": 8228835}, {"filename": "/examples/hello_world/assets/sponza/14118779221266351425.jpg", "start": 8228835, "end": 9836098}, {"filename": "/examples/hello_world/assets/sponza/14118779221266351425.jpg.meta", "start": 9836098, "end": 9836140}, {"filename": "/examples/hello_world/assets/sponza/14170708867020035030.jpg", "start": 9836140, "end": 9973524}, {"filename": "/examples/hello_world/assets/sponza/14170708867020035030.jpg.meta", "start": 9973524, "end": 9973566}, {"filename": "/examples/hello_world/assets/sponza/14267839433702832875.jpg", "start": 9973566, "end": 10692470}, {"filename": "/examples/hello_world/assets/sponza/14267839433702832875.jpg.meta", "start": 10692470, "end": 10692512}, {"filename": "/examples/hello_world/assets/sponza/14650633544276105767.jpg", "start": 10692512, "end": 11214459}, {"filename": "/examples/hello_world/assets/sponza/14650633544276105767.jpg.meta", "start": 11214459, "end": 11214501}, {"filename": "/examples/hello_world/assets/sponza/15295713303328085182.jpg", "start": 11214501, "end": 11734663}, {"filename": "/examples/hello_world/assets/sponza/15295713303328085182.jpg.meta", "start": 11734663, "end": 11734705}, {"filename": "/examples/hello_world/assets/sponza/15722799267630235092.jpg", "start": 11734705, "end": 12292570}, {"filename": "/examples/hello_world/assets/sponza/15722799267630235092.jpg.meta", "start": 12292570, "end": 12292612}, {"filename": "/examples/hello_world/assets/sponza/16275776544635328252.png", "start": 12292612, "end": 13370044}, {"filename": "/examples/hello_world/assets/sponza/16275776544635328252.png.meta", "start": 13370044, "end": 13370086}, {"filename": "/examples/hello_world/assets/sponza/16299174074766089871.jpg", "start": 13370086, "end": 13709572}, {"filename": "/examples/hello_world/assets/sponza/16299174074766089871.jpg.meta", "start": 13709572, "end": 13709614}, {"filename": "/examples/hello_world/assets/sponza/16885566240357350108.jpg", "start": 13709614, "end": 13722189}, {"filename": "/examples/hello_world/assets/sponza/16885566240357350108.jpg.meta", "start": 13722189, "end": 13722231}, {"filename": "/examples/hello_world/assets/sponza/17556969131407844942.jpg", "start": 13722231, "end": 14092292}, {"filename": "/examples/hello_world/assets/sponza/17556969131407844942.jpg.meta", "start": 14092292, "end": 14092334}, {"filename": "/examples/hello_world/assets/sponza/17876391417123941155.jpg", "start": 14092334, "end": 15243782}, {"filename": "/examples/hello_world/assets/sponza/17876391417123941155.jpg.meta", "start": 15243782, "end": 15243824}, {"filename": "/examples/hello_world/assets/sponza/2051777328469649772.jpg", "start": 15243824, "end": 15450068}, {"filename": "/examples/hello_world/assets/sponza/2051777328469649772.jpg.meta", "start": 15450068, "end": 15450110}, {"filename": "/examples/hello_world/assets/sponza/2185409758123873465.jpg", "start": 15450110, "end": 16230276}, {"filename": "/examples/hello_world/assets/sponza/2185409758123873465.jpg.meta", "start": 16230276, "end": 16230318}, {"filename": "/examples/hello_world/assets/sponza/2299742237651021498.jpg", "start": 16230318, "end": 17002519}, {"filename": "/examples/hello_world/assets/sponza/2299742237651021498.jpg.meta", "start": 17002519, "end": 17002561}, {"filename": "/examples/hello_world/assets/sponza/2374361008830720677.jpg", "start": 17002561, "end": 17847329}, {"filename": "/examples/hello_world/assets/sponza/2374361008830720677.jpg.meta", "start": 17847329, "end": 17847371}, {"filename": "/examples/hello_world/assets/sponza/2411100444841994089.jpg", "start": 17847371, "end": 18247334}, {"filename": "/examples/hello_world/assets/sponza/2411100444841994089.jpg.meta", "start": 18247334, "end": 18247376}, {"filename": "/examples/hello_world/assets/sponza/2775690330959970771.jpg", "start": 18247376, "end": 19033054}, {"filename": "/examples/hello_world/assets/sponza/2775690330959970771.jpg.meta", "start": 19033054, "end": 19033096}, {"filename": "/examples/hello_world/assets/sponza/2969916736137545357.jpg", "start": 19033096, "end": 19855469}, {"filename": "/examples/hello_world/assets/sponza/2969916736137545357.jpg.meta", "start": 19855469, "end": 19855511}, {"filename": "/examples/hello_world/assets/sponza/332936164838540657.jpg", "start": 19855511, "end": 20700279}, {"filename": "/examples/hello_world/assets/sponza/332936164838540657.jpg.meta", "start": 20700279, "end": 20700321}, {"filename": "/examples/hello_world/assets/sponza/3371964815757888145.jpg", "start": 20700321, "end": 21383064}, {"filename": "/examples/hello_world/assets/sponza/3371964815757888145.jpg.meta", "start": 21383064, "end": 21383106}, {"filename": "/examples/hello_world/assets/sponza/3455394979645218238.jpg", "start": 21383106, "end": 21934538}, {"filename": "/examples/hello_world/assets/sponza/3455394979645218238.jpg.meta", "start": 21934538, "end": 21934580}, {"filename": "/examples/hello_world/assets/sponza/3628158980083700836.jpg", "start": 21934580, "end": 22482133}, {"filename": "/examples/hello_world/assets/sponza/3628158980083700836.jpg.meta", "start": 22482133, "end": 22482175}, {"filename": "/examples/hello_world/assets/sponza/3827035219084910048.jpg", "start": 22482175, "end": 23101012}, {"filename": "/examples/hello_world/assets/sponza/3827035219084910048.jpg.meta", "start": 23101012, "end": 23101054}, {"filename": "/examples/hello_world/assets/sponza/4477655471536070370.jpg", "start": 23101054, "end": 23309406}, {"filename": "/examples/hello_world/assets/sponza/4477655471536070370.jpg.meta", "start": 23309406, "end": 23309448}, {"filename": "/examples/hello_world/assets/sponza/4601176305987539675.jpg", "start": 23309448, "end": 24343508}, {"filename": "/examples/hello_world/assets/sponza/4601176305987539675.jpg.meta", "start": 24343508, "end": 24343550}, {"filename": "/examples/hello_world/assets/sponza/466164707995436622.jpg", "start": 24343550, "end": 24830184}, {"filename": "/examples/hello_world/assets/sponza/466164707995436622.jpg.meta", "start": 24830184, "end": 24830226}, {"filename": "/examples/hello_world/assets/sponza/4675343432951571524.jpg", "start": 24830226, "end": 25594755}, {"filename": "/examples/hello_world/assets/sponza/4675343432951571524.jpg.meta", "start": 25594755, "end": 25594797}, {"filename": "/examples/hello_world/assets/sponza/4871783166746854860.jpg", "start": 25594797, "end": 26164878}, {"filename": "/examples/hello_world/assets/sponza/4871783166746854860.jpg.meta", "start": 26164878, "end": 26164920}, {"filename": "/examples/hello_world/assets/sponza/4910669866631290573.jpg", "start": 26164920, "end": 27198980}, {"filename": "/examples/hello_world/assets/sponza/4910669866631290573.jpg.meta", "start": 27198980, "end": 27199022}, {"filename": "/examples/hello_world/assets/sponza/4975155472559461469.jpg", "start": 27199022, "end": 27598049}, {"filename": "/examples/hello_world/assets/sponza/4975155472559461469.jpg.meta", "start": 27598049, "end": 27598091}, {"filename": "/examples/hello_world/assets/sponza/5061699253647017043.png", "start": 27598091, "end": 30026012}, {"filename": "/examples/hello_world/assets/sponza/5061699253647017043.png.meta", "start": 30026012, "end": 30026054}, {"filename": "/examples/hello_world/assets/sponza/5792855332885324923.jpg", "start": 30026054, "end": 30590855}, {"filename": "/examples/hello_world/assets/sponza/5792855332885324923.jpg.meta", "start": 30590855, "end": 30590897}, {"filename": "/examples/hello_world/assets/sponza/5823059166183034438.jpg", "start": 30590897, "end": 31164054}, {"filename": "/examples/hello_world/assets/sponza/5823059166183034438.jpg.meta", "start": 31164054, "end": 31164096}, {"filename": "/examples/hello_world/assets/sponza/6047387724914829168.jpg", "start": 31164096, "end": 31682406}, {"filename": "/examples/hello_world/assets/sponza/6047387724914829168.jpg.meta", "start": 31682406, "end": 31682448}, {"filename": "/examples/hello_world/assets/sponza/6151467286084645207.jpg", "start": 31682448, "end": 32325965}, {"filename": "/examples/hello_world/assets/sponza/6151467286084645207.jpg.meta", "start": 32325965, "end": 32326007}, {"filename": "/examples/hello_world/assets/sponza/6593109234861095314.jpg", "start": 32326007, "end": 33360067}, {"filename": "/examples/hello_world/assets/sponza/6593109234861095314.jpg.meta", "start": 33360067, "end": 33360109}, {"filename": "/examples/hello_world/assets/sponza/6667038893015345571.jpg", "start": 33360109, "end": 34058519}, {"filename": "/examples/hello_world/assets/sponza/6667038893015345571.jpg.meta", "start": 34058519, "end": 34058561}, {"filename": "/examples/hello_world/assets/sponza/6772804448157695701.jpg", "start": 34058561, "end": 34658520}, {"filename": "/examples/hello_world/assets/sponza/6772804448157695701.jpg.meta", "start": 34658520, "end": 34658562}, {"filename": "/examples/hello_world/assets/sponza/7056944414013900257.jpg", "start": 34658562, "end": 35503330}, {"filename": "/examples/hello_world/assets/sponza/7056944414013900257.jpg.meta", "start": 35503330, "end": 35503372}, {"filename": "/examples/hello_world/assets/sponza/715093869573992647.jpg", "start": 35503372, "end": 35784117}, {"filename": "/examples/hello_world/assets/sponza/715093869573992647.jpg.meta", "start": 35784117, "end": 35784159}, {"filename": "/examples/hello_world/assets/sponza/7268504077753552595.jpg", "start": 35784159, "end": 36356404}, {"filename": "/examples/hello_world/assets/sponza/7268504077753552595.jpg.meta", "start": 36356404, "end": 36356446}, {"filename": "/examples/hello_world/assets/sponza/7441062115984513793.jpg", "start": 36356446, "end": 37022242}, {"filename": "/examples/hello_world/assets/sponza/7441062115984513793.jpg.meta", "start": 37022242, "end": 37022284}, {"filename": "/examples/hello_world/assets/sponza/755318871556304029.jpg", "start": 37022284, "end": 37324647}, {"filename": "/examples/hello_world/assets/sponza/755318871556304029.jpg.meta", "start": 37324647, "end": 37324689}, {"filename": "/examples/hello_world/assets/sponza/759203620573749278.jpg", "start": 37324689, "end": 37836724}, {"filename": "/examples/hello_world/assets/sponza/759203620573749278.jpg.meta", "start": 37836724, "end": 37836766}, {"filename": "/examples/hello_world/assets/sponza/7645212358685992005.jpg", "start": 37836766, "end": 38489242}, {"filename": "/examples/hello_world/assets/sponza/7645212358685992005.jpg.meta", "start": 38489242, "end": 38489284}, {"filename": "/examples/hello_world/assets/sponza/7815564343179553343.jpg", "start": 38489284, "end": 39112428}, {"filename": "/examples/hello_world/assets/sponza/7815564343179553343.jpg.meta", "start": 39112428, "end": 39112470}, {"filename": "/examples/hello_world/assets/sponza/8006627369776289000.png", "start": 39112470, "end": 40337627}, {"filename": "/examples/hello_world/assets/sponza/8006627369776289000.png.meta", "start": 40337627, "end": 40337669}, {"filename": "/examples/hello_world/assets/sponza/8051790464816141987.jpg", "start": 40337669, "end": 40597788}, {"filename": "/examples/hello_world/assets/sponza/8051790464816141987.jpg.meta", "start": 40597788, "end": 40597830}, {"filename": "/examples/hello_world/assets/sponza/8114461559286000061.jpg", "start": 40597830, "end": 40790907}, {"filename": "/examples/hello_world/assets/sponza/8114461559286000061.jpg.meta", "start": 40790907, "end": 40790949}, {"filename": "/examples/hello_world/assets/sponza/8481240838833932244.jpg", "start": 40790949, "end": 41322105}, {"filename": "/examples/hello_world/assets/sponza/8481240838833932244.jpg.meta", "start": 41322105, "end": 41322147}, {"filename": "/examples/hello_world/assets/sponza/8503262930880235456.jpg", "start": 41322147, "end": 41426773}, {"filename": "/examples/hello_world/assets/sponza/8503262930880235456.jpg.meta", "start": 41426773, "end": 41426815}, {"filename": "/examples/hello_world/assets/sponza/8747919177698443163.jpg", "start": 41426815, "end": 42299070}, {"filename": "/examples/hello_world/assets/sponza/8747919177698443163.jpg.meta", "start": 42299070, "end": 42299112}, {"filename": "/examples/hello_world/assets/sponza/8750083169368950601.jpg", "start": 42299112, "end": 42661549}, {"filename": "/examples/hello_world/assets/sponza/8750083169368950601.jpg.meta", "start": 42661549, "end": 42661591}, {"filename": "/examples/hello_world/assets/sponza/8773302468495022225.jpg", "start": 42661591, "end": 43075428}, {"filename": "/examples/hello_world/assets/sponza/8773302468495022225.jpg.meta", "start": 43075428, "end": 43075470}, {"filename": "/examples/hello_world/assets/sponza/8783994986360286082.jpg", "start": 43075470, "end": 43463932}, {"filename": "/examples/hello_world/assets/sponza/8783994986360286082.jpg.meta", "start": 43463932, "end": 43463974}, {"filename": "/examples/hello_world/assets/sponza/9288698199695299068.jpg", "start": 43463974, "end": 44508304}, {"filename": "/examples/hello_world/assets/sponza/9288698199695299068.jpg.meta", "start": 44508304, "end": 44508346}, {"filename": "/examples/hello_world/assets/sponza/9916269861720640319.jpg", "start": 44508346, "end": 45117033}, {"filename": "/examples/hello_world/assets/sponza/9916269861720640319.jpg.meta", "start": 45117033, "end": 45117075}, {"filename": "/examples/hello_world/assets/sponza/Sponza.bin", "start": 45117075, "end": 54646515}, {"filename": "/examples/hello_world/assets/sponza/Sponza.bin.meta", "start": 54646515, "end": 54646557}, {"filename": "/examples/hello_world/assets/sponza/Sponza.gltf", "start": 54646557, "end": 54859061}, {"filename": "/examples/hello_world/assets/sponza/Sponza.gltf.meta", "start": 54859061, "end": 54859103}, {"filename": "/examples/hello_world/assets/sponza/white.png", "start": 54859103, "end": 54860054}, {"filename": "/examples/hello_world/assets/sponza/white.png.meta", "start": 54860054, "end": 54860096}, {"filename": "/examples/hello_world/assets/textures/awesomeface.png", "start": 54860096, "end": 54904100}, {"filename": "/examples/hello_world/assets/textures/awesomeface.png.meta", "start": 54904100, "end": 54904142}, {"filename": "/examples/hello_world/assets/textures/container.jpg", "start": 54904142, "end": 55026436}, {"filename": "/examples/hello_world/assets/textures/container.jpg.meta", "start": 55026436, "end": 55026478}, {"filename": "/examples/hello_world/assets/textures/missing.png", "start": 55026478, "end": 55029422}, {"filename": "/examples/hello_world/assets/textures/missing.png.meta", "start": 55029422, "end": 55029464}, {"filename": "/examples/hello_world/plugins/native/.gitignore", "start": 55029464, "end": 55031055}, {"filename": "/examples/hello_world/plugins/native/CMakeLists.txt", "start": 55031055, "end": 55031297}, {"filename": "/examples/hello_world/plugins/native/include/library.h", "start": 55031297, "end": 55031404}, {"filename": "/examples/hello_world/plugins/native/src/library.cpp", "start": 55031404, "end": 55031674}, {"filename": "/examples/resources/.DS_Store", "start": 55031674, "end": 55037822}, {"filename": "/examples/resources/fonts/font.ttf", "start": 55037822, "end": 55241774}, {"filename": "/examples/resources/icons/.DS_Store", "start": 55241774, "end": 55247922}, {"filename": "/examples/resources/icons/DirectoryIcon.png", "start": 55247922, "end": 55253098}, {"filename": "/examples/resources/icons/FileIcon.png", "start": 55253098, "end": 55267564}], "remote_package_size": 55267564});
+    loadPackage({"files": [{"filename": "/examples/.DS_Store", "start": 0, "end": 6148}, {"filename": "/examples/hello_world/.DS_Store", "start": 6148, "end": 12296}, {"filename": "/examples/hello_world/.gitignore", "start": 12296, "end": 13887}, {"filename": "/examples/hello_world/README.md", "start": 13887, "end": 14043}, {"filename": "/examples/hello_world/assets/.DS_Store", "start": 14043, "end": 20191}, {"filename": "/examples/hello_world/assets/.gitkeep", "start": 20191, "end": 20191}, {"filename": "/examples/hello_world/assets/alduin/.DS_Store.meta", "start": 20191, "end": 20233}, {"filename": "/examples/hello_world/assets/alduin/license.txt", "start": 20233, "end": 20877}, {"filename": "/examples/hello_world/assets/alduin/license.txt.meta", "start": 20877, "end": 20919}, {"filename": "/examples/hello_world/assets/alduin/scene.bin", "start": 20919, "end": 718255}, {"filename": "/examples/hello_world/assets/alduin/scene.bin.meta", "start": 718255, "end": 718297}, {"filename": "/examples/hello_world/assets/alduin/scene.gltf", "start": 718297, "end": 723729}, {"filename": "/examples/hello_world/assets/alduin/scene.gltf.meta", "start": 723729, "end": 723771}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_baseColor.jpeg", "start": 723771, "end": 725401}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_baseColor.jpeg.meta", "start": 725401, "end": 725443}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_emissive.jpeg", "start": 725443, "end": 726140}, {"filename": "/examples/hello_world/assets/alduin/textures/Material.1_emissive.jpeg.meta", "start": 726140, "end": 726182}, {"filename": "/examples/hello_world/assets/alduin/textures/Material_baseColor.jpeg", "start": 726182, "end": 2130336}, {"filename": "/examples/hello_world/assets/alduin/textures/Material_baseColor.jpeg.meta", "start": 2130336, "end": 2130378}, {"filename": "/examples/hello_world/assets/main.scene", "start": 2130378, "end": 2135039}, {"filename": "/examples/hello_world/assets/main.scene.meta", "start": 2135039, "end": 2135081}, {"filename": "/examples/hello_world/assets/scripts/.DS_Store", "start": 2135081, "end": 2141229}, {"filename": "/examples/hello_world/assets/scripts/cube.lua", "start": 2141229, "end": 2141292}, {"filename": "/examples/hello_world/assets/scripts/cube.lua.meta", "start": 2141292, "end": 2141334}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.frag", "start": 2141334, "end": 2141533}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.frag.meta", "start": 2141533, "end": 2141575}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.vert", "start": 2141575, "end": 2141770}, {"filename": "/examples/hello_world/assets/shaders/screen_shader.vert.meta", "start": 2141770, "end": 2141812}, {"filename": "/examples/hello_world/assets/shaders/shader.frag", "start": 2141812, "end": 2142083}, {"filename": "/examples/hello_world/assets/shaders/shader.frag.meta", "start": 2142083, "end": 2142125}, {"filename": "/examples/hello_world/assets/shaders/shader.vert", "start": 2142125, "end": 2142453}, {"filename": "/examples/hello_world/assets/shaders/shader.vert.meta", "start": 2142453, "end": 2142495}, {"filename": "/examples/hello_world/assets/sponza/10381718147657362067.jpg", "start": 2142495, "end": 3018722}, {"filename": "/examples/hello_world/assets/sponza/10381718147657362067.jpg.meta", "start": 3018722, "end": 3018764}, {"filename": "/examples/hello_world/assets/sponza/10388182081421875623.jpg", "start": 3018764, "end": 3937898}, {"filename": "/examples/hello_world/assets/sponza/10388182081421875623.jpg.meta", "start": 3937898, "end": 3937940}, {"filename": "/examples/hello_world/assets/sponza/11474523244911310074.jpg", "start": 3937940, "end": 5017092}, {"filename": "/examples/hello_world/assets/sponza/11474523244911310074.jpg.meta", "start": 5017092, "end": 5017134}, {"filename": "/examples/hello_world/assets/sponza/11490520546946913238.jpg", "start": 5017134, "end": 5338509}, {"filename": "/examples/hello_world/assets/sponza/11490520546946913238.jpg.meta", "start": 5338509, "end": 5338551}, {"filename": "/examples/hello_world/assets/sponza/11872827283454512094.jpg", "start": 5338551, "end": 6007513}, {"filename": "/examples/hello_world/assets/sponza/11872827283454512094.jpg.meta", "start": 6007513, "end": 6007555}, {"filename": "/examples/hello_world/assets/sponza/11968150294050148237.jpg", "start": 6007555, "end": 6537939}, {"filename": "/examples/hello_world/assets/sponza/11968150294050148237.jpg.meta", "start": 6537939, "end": 6537981}, {"filename": "/examples/hello_world/assets/sponza/1219024358953944284.jpg", "start": 6537981, "end": 6867105}, {"filename": "/examples/hello_world/assets/sponza/1219024358953944284.jpg.meta", "start": 6867105, "end": 6867147}, {"filename": "/examples/hello_world/assets/sponza/12501374198249454378.jpg", "start": 6867147, "end": 7288589}, {"filename": "/examples/hello_world/assets/sponza/12501374198249454378.jpg.meta", "start": 7288589, "end": 7288631}, {"filename": "/examples/hello_world/assets/sponza/13196865903111448057.jpg", "start": 7288631, "end": 7570611}, {"filename": "/examples/hello_world/assets/sponza/13196865903111448057.jpg.meta", "start": 7570611, "end": 7570653}, {"filename": "/examples/hello_world/assets/sponza/13824894030729245199.jpg", "start": 7570653, "end": 7884113}, {"filename": "/examples/hello_world/assets/sponza/13824894030729245199.jpg.meta", "start": 7884113, "end": 7884155}, {"filename": "/examples/hello_world/assets/sponza/13982482287905699490.jpg", "start": 7884155, "end": 8241267}, {"filename": "/examples/hello_world/assets/sponza/13982482287905699490.jpg.meta", "start": 8241267, "end": 8241309}, {"filename": "/examples/hello_world/assets/sponza/14118779221266351425.jpg", "start": 8241309, "end": 9848572}, {"filename": "/examples/hello_world/assets/sponza/14118779221266351425.jpg.meta", "start": 9848572, "end": 9848614}, {"filename": "/examples/hello_world/assets/sponza/14170708867020035030.jpg", "start": 9848614, "end": 9985998}, {"filename": "/examples/hello_world/assets/sponza/14170708867020035030.jpg.meta", "start": 9985998, "end": 9986040}, {"filename": "/examples/hello_world/assets/sponza/14267839433702832875.jpg", "start": 9986040, "end": 10704944}, {"filename": "/examples/hello_world/assets/sponza/14267839433702832875.jpg.meta", "start": 10704944, "end": 10704986}, {"filename": "/examples/hello_world/assets/sponza/14650633544276105767.jpg", "start": 10704986, "end": 11226933}, {"filename": "/examples/hello_world/assets/sponza/14650633544276105767.jpg.meta", "start": 11226933, "end": 11226975}, {"filename": "/examples/hello_world/assets/sponza/15295713303328085182.jpg", "start": 11226975, "end": 11747137}, {"filename": "/examples/hello_world/assets/sponza/15295713303328085182.jpg.meta", "start": 11747137, "end": 11747179}, {"filename": "/examples/hello_world/assets/sponza/15722799267630235092.jpg", "start": 11747179, "end": 12305044}, {"filename": "/examples/hello_world/assets/sponza/15722799267630235092.jpg.meta", "start": 12305044, "end": 12305086}, {"filename": "/examples/hello_world/assets/sponza/16275776544635328252.png", "start": 12305086, "end": 13382518}, {"filename": "/examples/hello_world/assets/sponza/16275776544635328252.png.meta", "start": 13382518, "end": 13382560}, {"filename": "/examples/hello_world/assets/sponza/16299174074766089871.jpg", "start": 13382560, "end": 13722046}, {"filename": "/examples/hello_world/assets/sponza/16299174074766089871.jpg.meta", "start": 13722046, "end": 13722088}, {"filename": "/examples/hello_world/assets/sponza/16885566240357350108.jpg", "start": 13722088, "end": 13734663}, {"filename": "/examples/hello_world/assets/sponza/16885566240357350108.jpg.meta", "start": 13734663, "end": 13734705}, {"filename": "/examples/hello_world/assets/sponza/17556969131407844942.jpg", "start": 13734705, "end": 14104766}, {"filename": "/examples/hello_world/assets/sponza/17556969131407844942.jpg.meta", "start": 14104766, "end": 14104808}, {"filename": "/examples/hello_world/assets/sponza/17876391417123941155.jpg", "start": 14104808, "end": 15256256}, {"filename": "/examples/hello_world/assets/sponza/17876391417123941155.jpg.meta", "start": 15256256, "end": 15256298}, {"filename": "/examples/hello_world/assets/sponza/2051777328469649772.jpg", "start": 15256298, "end": 15462542}, {"filename": "/examples/hello_world/assets/sponza/2051777328469649772.jpg.meta", "start": 15462542, "end": 15462584}, {"filename": "/examples/hello_world/assets/sponza/2185409758123873465.jpg", "start": 15462584, "end": 16242750}, {"filename": "/examples/hello_world/assets/sponza/2185409758123873465.jpg.meta", "start": 16242750, "end": 16242792}, {"filename": "/examples/hello_world/assets/sponza/2299742237651021498.jpg", "start": 16242792, "end": 17014993}, {"filename": "/examples/hello_world/assets/sponza/2299742237651021498.jpg.meta", "start": 17014993, "end": 17015035}, {"filename": "/examples/hello_world/assets/sponza/2374361008830720677.jpg", "start": 17015035, "end": 17859803}, {"filename": "/examples/hello_world/assets/sponza/2374361008830720677.jpg.meta", "start": 17859803, "end": 17859845}, {"filename": "/examples/hello_world/assets/sponza/2411100444841994089.jpg", "start": 17859845, "end": 18259808}, {"filename": "/examples/hello_world/assets/sponza/2411100444841994089.jpg.meta", "start": 18259808, "end": 18259850}, {"filename": "/examples/hello_world/assets/sponza/2775690330959970771.jpg", "start": 18259850, "end": 19045528}, {"filename": "/examples/hello_world/assets/sponza/2775690330959970771.jpg.meta", "start": 19045528, "end": 19045570}, {"filename": "/examples/hello_world/assets/sponza/2969916736137545357.jpg", "start": 19045570, "end": 19867943}, {"filename": "/examples/hello_world/assets/sponza/2969916736137545357.jpg.meta", "start": 19867943, "end": 19867985}, {"filename": "/examples/hello_world/assets/sponza/332936164838540657.jpg", "start": 19867985, "end": 20712753}, {"filename": "/examples/hello_world/assets/sponza/332936164838540657.jpg.meta", "start": 20712753, "end": 20712795}, {"filename": "/examples/hello_world/assets/sponza/3371964815757888145.jpg", "start": 20712795, "end": 21395538}, {"filename": "/examples/hello_world/assets/sponza/3371964815757888145.jpg.meta", "start": 21395538, "end": 21395580}, {"filename": "/examples/hello_world/assets/sponza/3455394979645218238.jpg", "start": 21395580, "end": 21947012}, {"filename": "/examples/hello_world/assets/sponza/3455394979645218238.jpg.meta", "start": 21947012, "end": 21947054}, {"filename": "/examples/hello_world/assets/sponza/3628158980083700836.jpg", "start": 21947054, "end": 22494607}, {"filename": "/examples/hello_world/assets/sponza/3628158980083700836.jpg.meta", "start": 22494607, "end": 22494649}, {"filename": "/examples/hello_world/assets/sponza/3827035219084910048.jpg", "start": 22494649, "end": 23113486}, {"filename": "/examples/hello_world/assets/sponza/3827035219084910048.jpg.meta", "start": 23113486, "end": 23113528}, {"filename": "/examples/hello_world/assets/sponza/4477655471536070370.jpg", "start": 23113528, "end": 23321880}, {"filename": "/examples/hello_world/assets/sponza/4477655471536070370.jpg.meta", "start": 23321880, "end": 23321922}, {"filename": "/examples/hello_world/assets/sponza/4601176305987539675.jpg", "start": 23321922, "end": 24355982}, {"filename": "/examples/hello_world/assets/sponza/4601176305987539675.jpg.meta", "start": 24355982, "end": 24356024}, {"filename": "/examples/hello_world/assets/sponza/466164707995436622.jpg", "start": 24356024, "end": 24842658}, {"filename": "/examples/hello_world/assets/sponza/466164707995436622.jpg.meta", "start": 24842658, "end": 24842700}, {"filename": "/examples/hello_world/assets/sponza/4675343432951571524.jpg", "start": 24842700, "end": 25607229}, {"filename": "/examples/hello_world/assets/sponza/4675343432951571524.jpg.meta", "start": 25607229, "end": 25607271}, {"filename": "/examples/hello_world/assets/sponza/4871783166746854860.jpg", "start": 25607271, "end": 26177352}, {"filename": "/examples/hello_world/assets/sponza/4871783166746854860.jpg.meta", "start": 26177352, "end": 26177394}, {"filename": "/examples/hello_world/assets/sponza/4910669866631290573.jpg", "start": 26177394, "end": 27211454}, {"filename": "/examples/hello_world/assets/sponza/4910669866631290573.jpg.meta", "start": 27211454, "end": 27211496}, {"filename": "/examples/hello_world/assets/sponza/4975155472559461469.jpg", "start": 27211496, "end": 27610523}, {"filename": "/examples/hello_world/assets/sponza/4975155472559461469.jpg.meta", "start": 27610523, "end": 27610565}, {"filename": "/examples/hello_world/assets/sponza/5061699253647017043.png", "start": 27610565, "end": 30038486}, {"filename": "/examples/hello_world/assets/sponza/5061699253647017043.png.meta", "start": 30038486, "end": 30038528}, {"filename": "/examples/hello_world/assets/sponza/5792855332885324923.jpg", "start": 30038528, "end": 30603329}, {"filename": "/examples/hello_world/assets/sponza/5792855332885324923.jpg.meta", "start": 30603329, "end": 30603371}, {"filename": "/examples/hello_world/assets/sponza/5823059166183034438.jpg", "start": 30603371, "end": 31176528}, {"filename": "/examples/hello_world/assets/sponza/5823059166183034438.jpg.meta", "start": 31176528, "end": 31176570}, {"filename": "/examples/hello_world/assets/sponza/6047387724914829168.jpg", "start": 31176570, "end": 31694880}, {"filename": "/examples/hello_world/assets/sponza/6047387724914829168.jpg.meta", "start": 31694880, "end": 31694922}, {"filename": "/examples/hello_world/assets/sponza/6151467286084645207.jpg", "start": 31694922, "end": 32338439}, {"filename": "/examples/hello_world/assets/sponza/6151467286084645207.jpg.meta", "start": 32338439, "end": 32338481}, {"filename": "/examples/hello_world/assets/sponza/6593109234861095314.jpg", "start": 32338481, "end": 33372541}, {"filename": "/examples/hello_world/assets/sponza/6593109234861095314.jpg.meta", "start": 33372541, "end": 33372583}, {"filename": "/examples/hello_world/assets/sponza/6667038893015345571.jpg", "start": 33372583, "end": 34070993}, {"filename": "/examples/hello_world/assets/sponza/6667038893015345571.jpg.meta", "start": 34070993, "end": 34071035}, {"filename": "/examples/hello_world/assets/sponza/6772804448157695701.jpg", "start": 34071035, "end": 34670994}, {"filename": "/examples/hello_world/assets/sponza/6772804448157695701.jpg.meta", "start": 34670994, "end": 34671036}, {"filename": "/examples/hello_world/assets/sponza/7056944414013900257.jpg", "start": 34671036, "end": 35515804}, {"filename": "/examples/hello_world/assets/sponza/7056944414013900257.jpg.meta", "start": 35515804, "end": 35515846}, {"filename": "/examples/hello_world/assets/sponza/715093869573992647.jpg", "start": 35515846, "end": 35796591}, {"filename": "/examples/hello_world/assets/sponza/715093869573992647.jpg.meta", "start": 35796591, "end": 35796633}, {"filename": "/examples/hello_world/assets/sponza/7268504077753552595.jpg", "start": 35796633, "end": 36368878}, {"filename": "/examples/hello_world/assets/sponza/7268504077753552595.jpg.meta", "start": 36368878, "end": 36368920}, {"filename": "/examples/hello_world/assets/sponza/7441062115984513793.jpg", "start": 36368920, "end": 37034716}, {"filename": "/examples/hello_world/assets/sponza/7441062115984513793.jpg.meta", "start": 37034716, "end": 37034758}, {"filename": "/examples/hello_world/assets/sponza/755318871556304029.jpg", "start": 37034758, "end": 37337121}, {"filename": "/examples/hello_world/assets/sponza/755318871556304029.jpg.meta", "start": 37337121, "end": 37337163}, {"filename": "/examples/hello_world/assets/sponza/759203620573749278.jpg", "start": 37337163, "end": 37849198}, {"filename": "/examples/hello_world/assets/sponza/759203620573749278.jpg.meta", "start": 37849198, "end": 37849240}, {"filename": "/examples/hello_world/assets/sponza/7645212358685992005.jpg", "start": 37849240, "end": 38501716}, {"filename": "/examples/hello_world/assets/sponza/7645212358685992005.jpg.meta", "start": 38501716, "end": 38501758}, {"filename": "/examples/hello_world/assets/sponza/7815564343179553343.jpg", "start": 38501758, "end": 39124902}, {"filename": "/examples/hello_world/assets/sponza/7815564343179553343.jpg.meta", "start": 39124902, "end": 39124944}, {"filename": "/examples/hello_world/assets/sponza/8006627369776289000.png", "start": 39124944, "end": 40350101}, {"filename": "/examples/hello_world/assets/sponza/8006627369776289000.png.meta", "start": 40350101, "end": 40350143}, {"filename": "/examples/hello_world/assets/sponza/8051790464816141987.jpg", "start": 40350143, "end": 40610262}, {"filename": "/examples/hello_world/assets/sponza/8051790464816141987.jpg.meta", "start": 40610262, "end": 40610304}, {"filename": "/examples/hello_world/assets/sponza/8114461559286000061.jpg", "start": 40610304, "end": 40803381}, {"filename": "/examples/hello_world/assets/sponza/8114461559286000061.jpg.meta", "start": 40803381, "end": 40803423}, {"filename": "/examples/hello_world/assets/sponza/8481240838833932244.jpg", "start": 40803423, "end": 41334579}, {"filename": "/examples/hello_world/assets/sponza/8481240838833932244.jpg.meta", "start": 41334579, "end": 41334621}, {"filename": "/examples/hello_world/assets/sponza/8503262930880235456.jpg", "start": 41334621, "end": 41439247}, {"filename": "/examples/hello_world/assets/sponza/8503262930880235456.jpg.meta", "start": 41439247, "end": 41439289}, {"filename": "/examples/hello_world/assets/sponza/8747919177698443163.jpg", "start": 41439289, "end": 42311544}, {"filename": "/examples/hello_world/assets/sponza/8747919177698443163.jpg.meta", "start": 42311544, "end": 42311586}, {"filename": "/examples/hello_world/assets/sponza/8750083169368950601.jpg", "start": 42311586, "end": 42674023}, {"filename": "/examples/hello_world/assets/sponza/8750083169368950601.jpg.meta", "start": 42674023, "end": 42674065}, {"filename": "/examples/hello_world/assets/sponza/8773302468495022225.jpg", "start": 42674065, "end": 43087902}, {"filename": "/examples/hello_world/assets/sponza/8773302468495022225.jpg.meta", "start": 43087902, "end": 43087944}, {"filename": "/examples/hello_world/assets/sponza/8783994986360286082.jpg", "start": 43087944, "end": 43476406}, {"filename": "/examples/hello_world/assets/sponza/8783994986360286082.jpg.meta", "start": 43476406, "end": 43476448}, {"filename": "/examples/hello_world/assets/sponza/9288698199695299068.jpg", "start": 43476448, "end": 44520778}, {"filename": "/examples/hello_world/assets/sponza/9288698199695299068.jpg.meta", "start": 44520778, "end": 44520820}, {"filename": "/examples/hello_world/assets/sponza/9916269861720640319.jpg", "start": 44520820, "end": 45129507}, {"filename": "/examples/hello_world/assets/sponza/9916269861720640319.jpg.meta", "start": 45129507, "end": 45129549}, {"filename": "/examples/hello_world/assets/sponza/Sponza.bin", "start": 45129549, "end": 54658989}, {"filename": "/examples/hello_world/assets/sponza/Sponza.bin.meta", "start": 54658989, "end": 54659031}, {"filename": "/examples/hello_world/assets/sponza/Sponza.gltf", "start": 54659031, "end": 54871535}, {"filename": "/examples/hello_world/assets/sponza/Sponza.gltf.meta", "start": 54871535, "end": 54871577}, {"filename": "/examples/hello_world/assets/sponza/white.png", "start": 54871577, "end": 54872528}, {"filename": "/examples/hello_world/assets/sponza/white.png.meta", "start": 54872528, "end": 54872570}, {"filename": "/examples/hello_world/assets/textures/awesomeface.png", "start": 54872570, "end": 54916574}, {"filename": "/examples/hello_world/assets/textures/awesomeface.png.meta", "start": 54916574, "end": 54916616}, {"filename": "/examples/hello_world/assets/textures/container.jpg", "start": 54916616, "end": 55038910}, {"filename": "/examples/hello_world/assets/textures/container.jpg.meta", "start": 55038910, "end": 55038952}, {"filename": "/examples/hello_world/assets/textures/missing.png", "start": 55038952, "end": 55041896}, {"filename": "/examples/hello_world/assets/textures/missing.png.meta", "start": 55041896, "end": 55041938}, {"filename": "/examples/hello_world/plugins/native/.gitignore", "start": 55041938, "end": 55043529}, {"filename": "/examples/hello_world/plugins/native/CMakeLists.txt", "start": 55043529, "end": 55043771}, {"filename": "/examples/hello_world/plugins/native/include/library.h", "start": 55043771, "end": 55043878}, {"filename": "/examples/hello_world/plugins/native/src/library.cpp", "start": 55043878, "end": 55044148}, {"filename": "/examples/resources/.DS_Store", "start": 55044148, "end": 55050296}, {"filename": "/examples/resources/fonts/font.ttf", "start": 55050296, "end": 55254248}, {"filename": "/examples/resources/icons/.DS_Store", "start": 55254248, "end": 55260396}, {"filename": "/examples/resources/icons/DirectoryIcon.png", "start": 55260396, "end": 55265572}, {"filename": "/examples/resources/icons/FileIcon.png", "start": 55265572, "end": 55280038}], "remote_package_size": 55280038});
 
   })();
 
@@ -1422,21 +1423,21 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  6004484: () => { if (typeof(AudioContext) !== 'undefined') { return true; } else if (typeof(webkitAudioContext) !== 'undefined') { return true; } return false; },  
- 6004631: () => { if ((typeof(navigator.mediaDevices) !== 'undefined') && (typeof(navigator.mediaDevices.getUserMedia) !== 'undefined')) { return true; } else if (typeof(navigator.webkitGetUserMedia) !== 'undefined') { return true; } return false; },  
- 6004865: ($0) => { if(typeof(Module['SDL2']) === 'undefined') { Module['SDL2'] = {}; } var SDL2 = Module['SDL2']; if (!$0) { SDL2.audio = {}; } else { SDL2.capture = {}; } if (!SDL2.audioContext) { if (typeof(AudioContext) !== 'undefined') { SDL2.audioContext = new AudioContext(); } else if (typeof(webkitAudioContext) !== 'undefined') { SDL2.audioContext = new webkitAudioContext(); } if (SDL2.audioContext) { autoResumeAudioContext(SDL2.audioContext); } } return SDL2.audioContext === undefined ? -1 : 0; },  
- 6005358: () => { var SDL2 = Module['SDL2']; return SDL2.audioContext.sampleRate; },  
- 6005426: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; var have_microphone = function(stream) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); SDL2.capture.silenceTimer = undefined; } SDL2.capture.mediaStreamNode = SDL2.audioContext.createMediaStreamSource(stream); SDL2.capture.scriptProcessorNode = SDL2.audioContext.createScriptProcessor($1, $0, 1); SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) { if ((SDL2 === undefined) || (SDL2.capture === undefined)) { return; } audioProcessingEvent.outputBuffer.getChannelData(0).fill(0.0); SDL2.capture.currentCaptureBuffer = audioProcessingEvent.inputBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.mediaStreamNode.connect(SDL2.capture.scriptProcessorNode); SDL2.capture.scriptProcessorNode.connect(SDL2.audioContext.destination); SDL2.capture.stream = stream; }; var no_microphone = function(error) { }; SDL2.capture.silenceBuffer = SDL2.audioContext.createBuffer($0, $1, SDL2.audioContext.sampleRate); SDL2.capture.silenceBuffer.getChannelData(0).fill(0.0); var silence_callback = function() { SDL2.capture.currentCaptureBuffer = SDL2.capture.silenceBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.silenceTimer = setTimeout(silence_callback, ($1 / SDL2.audioContext.sampleRate) * 1000); if ((navigator.mediaDevices !== undefined) && (navigator.mediaDevices.getUserMedia !== undefined)) { navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(have_microphone).catch(no_microphone); } else if (navigator.webkitGetUserMedia !== undefined) { navigator.webkitGetUserMedia({ audio: true, video: false }, have_microphone, no_microphone); } },  
- 6007078: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; SDL2.audio.scriptProcessorNode = SDL2.audioContext['createScriptProcessor']($1, 0, $0); SDL2.audio.scriptProcessorNode['onaudioprocess'] = function (e) { if ((SDL2 === undefined) || (SDL2.audio === undefined)) { return; } SDL2.audio.currentOutputBuffer = e['outputBuffer']; dynCall('vi', $2, [$3]); }; SDL2.audio.scriptProcessorNode['connect'](SDL2.audioContext['destination']); },  
- 6007488: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.capture.currentCaptureBuffer.numberOfChannels; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.capture.currentCaptureBuffer.getChannelData(c); if (channelData.length != $1) { throw 'Web Audio capture buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } if (numChannels == 1) { for (var j = 0; j < $1; ++j) { setValue($0 + (j * 4), channelData[j], 'float'); } } else { for (var j = 0; j < $1; ++j) { setValue($0 + (((j * numChannels) + c) * 4), channelData[j], 'float'); } } } },  
- 6008093: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.audio.currentOutputBuffer['numberOfChannels']; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.audio.currentOutputBuffer['getChannelData'](c); if (channelData.length != $1) { throw 'Web Audio output buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } for (var j = 0; j < $1; ++j) { channelData[j] = HEAPF32[$0 + ((j*numChannels + c) << 2) >> 2]; } } },  
- 6008573: ($0) => { var SDL2 = Module['SDL2']; if ($0) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); } if (SDL2.capture.stream !== undefined) { var tracks = SDL2.capture.stream.getAudioTracks(); for (var i = 0; i < tracks.length; i++) { SDL2.capture.stream.removeTrack(tracks[i]); } SDL2.capture.stream = undefined; } if (SDL2.capture.scriptProcessorNode !== undefined) { SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) {}; SDL2.capture.scriptProcessorNode.disconnect(); SDL2.capture.scriptProcessorNode = undefined; } if (SDL2.capture.mediaStreamNode !== undefined) { SDL2.capture.mediaStreamNode.disconnect(); SDL2.capture.mediaStreamNode = undefined; } if (SDL2.capture.silenceBuffer !== undefined) { SDL2.capture.silenceBuffer = undefined } SDL2.capture = undefined; } else { if (SDL2.audio.scriptProcessorNode != undefined) { SDL2.audio.scriptProcessorNode.disconnect(); SDL2.audio.scriptProcessorNode = undefined; } SDL2.audio = undefined; } if ((SDL2.audioContext !== undefined) && (SDL2.audio === undefined) && (SDL2.capture === undefined)) { SDL2.audioContext.close(); SDL2.audioContext = undefined; } },  
- 6009745: ($0, $1, $2) => { var w = $0; var h = $1; var pixels = $2; if (!Module['SDL2']) Module['SDL2'] = {}; var SDL2 = Module['SDL2']; if (SDL2.ctxCanvas !== Module['canvas']) { SDL2.ctx = Module['createContext'](Module['canvas'], false, true); SDL2.ctxCanvas = Module['canvas']; } if (SDL2.w !== w || SDL2.h !== h || SDL2.imageCtx !== SDL2.ctx) { SDL2.image = SDL2.ctx.createImageData(w, h); SDL2.w = w; SDL2.h = h; SDL2.imageCtx = SDL2.ctx; } var data = SDL2.image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = 0xff; src++; dst += 4; } } else { if (SDL2.data32Data !== data) { SDL2.data32 = new Int32Array(data.buffer); SDL2.data8 = new Uint8Array(data.buffer); SDL2.data32Data = data; } var data32 = SDL2.data32; num = data32.length; data32.set(HEAP32.subarray(src, src + num)); var data8 = SDL2.data8; var i = 3; var j = i + 4*num; if (num % 8 == 0) { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; } } else { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; } } } SDL2.ctx.putImageData(SDL2.image, 0, 0); },  
- 6011214: ($0, $1, $2, $3, $4) => { var w = $0; var h = $1; var hot_x = $2; var hot_y = $3; var pixels = $4; var canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h; var ctx = canvas.getContext("2d"); var image = ctx.createImageData(w, h); var data = image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = (val >> 24) & 0xff; src++; dst += 4; } } else { var data32 = new Int32Array(data.buffer); num = data32.length; data32.set(HEAP32.subarray(src, src + num)); } ctx.putImageData(image, 0, 0); var url = hot_x === 0 && hot_y === 0 ? "url(" + canvas.toDataURL() + "), auto" : "url(" + canvas.toDataURL() + ") " + hot_x + " " + hot_y + ", auto"; var urlBuf = _malloc(url.length + 1); stringToUTF8(url, urlBuf, url.length + 1); return urlBuf; },  
- 6012203: ($0) => { if (Module['canvas']) { Module['canvas'].style['cursor'] = UTF8ToString($0); } },  
- 6012286: () => { if (Module['canvas']) { Module['canvas'].style['cursor'] = 'none'; } },  
- 6012355: () => { return window.innerWidth; },  
- 6012385: () => { return window.innerHeight; }
+  6022736: () => { if (typeof(AudioContext) !== 'undefined') { return true; } else if (typeof(webkitAudioContext) !== 'undefined') { return true; } return false; },  
+ 6022883: () => { if ((typeof(navigator.mediaDevices) !== 'undefined') && (typeof(navigator.mediaDevices.getUserMedia) !== 'undefined')) { return true; } else if (typeof(navigator.webkitGetUserMedia) !== 'undefined') { return true; } return false; },  
+ 6023117: ($0) => { if(typeof(Module['SDL2']) === 'undefined') { Module['SDL2'] = {}; } var SDL2 = Module['SDL2']; if (!$0) { SDL2.audio = {}; } else { SDL2.capture = {}; } if (!SDL2.audioContext) { if (typeof(AudioContext) !== 'undefined') { SDL2.audioContext = new AudioContext(); } else if (typeof(webkitAudioContext) !== 'undefined') { SDL2.audioContext = new webkitAudioContext(); } if (SDL2.audioContext) { autoResumeAudioContext(SDL2.audioContext); } } return SDL2.audioContext === undefined ? -1 : 0; },  
+ 6023610: () => { var SDL2 = Module['SDL2']; return SDL2.audioContext.sampleRate; },  
+ 6023678: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; var have_microphone = function(stream) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); SDL2.capture.silenceTimer = undefined; } SDL2.capture.mediaStreamNode = SDL2.audioContext.createMediaStreamSource(stream); SDL2.capture.scriptProcessorNode = SDL2.audioContext.createScriptProcessor($1, $0, 1); SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) { if ((SDL2 === undefined) || (SDL2.capture === undefined)) { return; } audioProcessingEvent.outputBuffer.getChannelData(0).fill(0.0); SDL2.capture.currentCaptureBuffer = audioProcessingEvent.inputBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.mediaStreamNode.connect(SDL2.capture.scriptProcessorNode); SDL2.capture.scriptProcessorNode.connect(SDL2.audioContext.destination); SDL2.capture.stream = stream; }; var no_microphone = function(error) { }; SDL2.capture.silenceBuffer = SDL2.audioContext.createBuffer($0, $1, SDL2.audioContext.sampleRate); SDL2.capture.silenceBuffer.getChannelData(0).fill(0.0); var silence_callback = function() { SDL2.capture.currentCaptureBuffer = SDL2.capture.silenceBuffer; dynCall('vi', $2, [$3]); }; SDL2.capture.silenceTimer = setTimeout(silence_callback, ($1 / SDL2.audioContext.sampleRate) * 1000); if ((navigator.mediaDevices !== undefined) && (navigator.mediaDevices.getUserMedia !== undefined)) { navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(have_microphone).catch(no_microphone); } else if (navigator.webkitGetUserMedia !== undefined) { navigator.webkitGetUserMedia({ audio: true, video: false }, have_microphone, no_microphone); } },  
+ 6025330: ($0, $1, $2, $3) => { var SDL2 = Module['SDL2']; SDL2.audio.scriptProcessorNode = SDL2.audioContext['createScriptProcessor']($1, 0, $0); SDL2.audio.scriptProcessorNode['onaudioprocess'] = function (e) { if ((SDL2 === undefined) || (SDL2.audio === undefined)) { return; } SDL2.audio.currentOutputBuffer = e['outputBuffer']; dynCall('vi', $2, [$3]); }; SDL2.audio.scriptProcessorNode['connect'](SDL2.audioContext['destination']); },  
+ 6025740: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.capture.currentCaptureBuffer.numberOfChannels; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.capture.currentCaptureBuffer.getChannelData(c); if (channelData.length != $1) { throw 'Web Audio capture buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } if (numChannels == 1) { for (var j = 0; j < $1; ++j) { setValue($0 + (j * 4), channelData[j], 'float'); } } else { for (var j = 0; j < $1; ++j) { setValue($0 + (((j * numChannels) + c) * 4), channelData[j], 'float'); } } } },  
+ 6026345: ($0, $1) => { var SDL2 = Module['SDL2']; var numChannels = SDL2.audio.currentOutputBuffer['numberOfChannels']; for (var c = 0; c < numChannels; ++c) { var channelData = SDL2.audio.currentOutputBuffer['getChannelData'](c); if (channelData.length != $1) { throw 'Web Audio output buffer length mismatch! Destination size: ' + channelData.length + ' samples vs expected ' + $1 + ' samples!'; } for (var j = 0; j < $1; ++j) { channelData[j] = HEAPF32[$0 + ((j*numChannels + c) << 2) >> 2]; } } },  
+ 6026825: ($0) => { var SDL2 = Module['SDL2']; if ($0) { if (SDL2.capture.silenceTimer !== undefined) { clearTimeout(SDL2.capture.silenceTimer); } if (SDL2.capture.stream !== undefined) { var tracks = SDL2.capture.stream.getAudioTracks(); for (var i = 0; i < tracks.length; i++) { SDL2.capture.stream.removeTrack(tracks[i]); } SDL2.capture.stream = undefined; } if (SDL2.capture.scriptProcessorNode !== undefined) { SDL2.capture.scriptProcessorNode.onaudioprocess = function(audioProcessingEvent) {}; SDL2.capture.scriptProcessorNode.disconnect(); SDL2.capture.scriptProcessorNode = undefined; } if (SDL2.capture.mediaStreamNode !== undefined) { SDL2.capture.mediaStreamNode.disconnect(); SDL2.capture.mediaStreamNode = undefined; } if (SDL2.capture.silenceBuffer !== undefined) { SDL2.capture.silenceBuffer = undefined } SDL2.capture = undefined; } else { if (SDL2.audio.scriptProcessorNode != undefined) { SDL2.audio.scriptProcessorNode.disconnect(); SDL2.audio.scriptProcessorNode = undefined; } SDL2.audio = undefined; } if ((SDL2.audioContext !== undefined) && (SDL2.audio === undefined) && (SDL2.capture === undefined)) { SDL2.audioContext.close(); SDL2.audioContext = undefined; } },  
+ 6027997: ($0, $1, $2) => { var w = $0; var h = $1; var pixels = $2; if (!Module['SDL2']) Module['SDL2'] = {}; var SDL2 = Module['SDL2']; if (SDL2.ctxCanvas !== Module['canvas']) { SDL2.ctx = Module['createContext'](Module['canvas'], false, true); SDL2.ctxCanvas = Module['canvas']; } if (SDL2.w !== w || SDL2.h !== h || SDL2.imageCtx !== SDL2.ctx) { SDL2.image = SDL2.ctx.createImageData(w, h); SDL2.w = w; SDL2.h = h; SDL2.imageCtx = SDL2.ctx; } var data = SDL2.image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = 0xff; src++; dst += 4; } } else { if (SDL2.data32Data !== data) { SDL2.data32 = new Int32Array(data.buffer); SDL2.data8 = new Uint8Array(data.buffer); SDL2.data32Data = data; } var data32 = SDL2.data32; num = data32.length; data32.set(HEAP32.subarray(src, src + num)); var data8 = SDL2.data8; var i = 3; var j = i + 4*num; if (num % 8 == 0) { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; data8[i] = 0xff; i = i + 4 | 0; } } else { while (i < j) { data8[i] = 0xff; i = i + 4 | 0; } } } SDL2.ctx.putImageData(SDL2.image, 0, 0); },  
+ 6029466: ($0, $1, $2, $3, $4) => { var w = $0; var h = $1; var hot_x = $2; var hot_y = $3; var pixels = $4; var canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h; var ctx = canvas.getContext("2d"); var image = ctx.createImageData(w, h); var data = image.data; var src = pixels >> 2; var dst = 0; var num; if (typeof CanvasPixelArray !== 'undefined' && data instanceof CanvasPixelArray) { num = data.length; while (dst < num) { var val = HEAP32[src]; data[dst ] = val & 0xff; data[dst+1] = (val >> 8) & 0xff; data[dst+2] = (val >> 16) & 0xff; data[dst+3] = (val >> 24) & 0xff; src++; dst += 4; } } else { var data32 = new Int32Array(data.buffer); num = data32.length; data32.set(HEAP32.subarray(src, src + num)); } ctx.putImageData(image, 0, 0); var url = hot_x === 0 && hot_y === 0 ? "url(" + canvas.toDataURL() + "), auto" : "url(" + canvas.toDataURL() + ") " + hot_x + " " + hot_y + ", auto"; var urlBuf = _malloc(url.length + 1); stringToUTF8(url, urlBuf, url.length + 1); return urlBuf; },  
+ 6030455: ($0) => { if (Module['canvas']) { Module['canvas'].style['cursor'] = UTF8ToString($0); } },  
+ 6030538: () => { if (Module['canvas']) { Module['canvas'].style['cursor'] = 'none'; } },  
+ 6030607: () => { return window.innerWidth; },  
+ 6030637: () => { return window.innerHeight; }
 };
 
 
@@ -4702,6 +4703,15 @@ var ASM_CONSTS = {
       return info.get_exception_ptr();
     }
 
+  function ___cxa_current_primary_exception() {
+      if (!exceptionCaught.length) {
+        return 0;
+      }
+      var info = exceptionCaught[exceptionCaught.length - 1];
+      exception_addRef(info);
+      return info.excPtr;
+    }
+
   /** @constructor */
   function ExceptionInfo(excPtr) {
       this.excPtr = excPtr;
@@ -4930,6 +4940,14 @@ var ASM_CONSTS = {
       throw ptr;
     }
 
+  function ___cxa_rethrow_primary_exception(ptr) {
+      if (!ptr) return;
+      var info = new ExceptionInfo(ptr);
+      exceptionCaught.push(info);
+      info.set_rethrown(true);
+      ___cxa_rethrow();
+    }
+
   function ___cxa_throw(ptr, type, destructor) {
       var info = new ExceptionInfo(ptr);
       // Initialize ExceptionInfo content after it was allocated in __cxa_allocate_exception.
@@ -4962,6 +4980,21 @@ var ASM_CONSTS = {
       path = SYSCALLS.getStr(path);
       FS.chmod(path, mode);
       return 0;
+    } catch (e) {
+    if (typeof FS == 'undefined' || !(e instanceof FS.ErrnoError)) throw e;
+    return -e.errno;
+  }
+  }
+
+  function ___syscall_dup3(fd, suggestFD, flags) {
+  try {
+  
+      var old = SYSCALLS.getStreamFromFD(fd);
+      assert(!flags);
+      if (old.fd === suggestFD) return -28;
+      var suggest = FS.getStream(suggestFD);
+      if (suggest) FS.close(suggest);
+      return FS.createStream(old, suggestFD, suggestFD + 1).fd;
     } catch (e) {
     if (typeof FS == 'undefined' || !(e instanceof FS.ErrnoError)) throw e;
     return -e.errno;
@@ -5270,6 +5303,21 @@ var ASM_CONSTS = {
   }
   }
 
+  function ___syscall_renameat(olddirfd, oldpath, newdirfd, newpath) {
+  try {
+  
+      oldpath = SYSCALLS.getStr(oldpath);
+      newpath = SYSCALLS.getStr(newpath);
+      oldpath = SYSCALLS.calculateAt(olddirfd, oldpath);
+      newpath = SYSCALLS.calculateAt(newdirfd, newpath);
+      FS.rename(oldpath, newpath);
+      return 0;
+    } catch (e) {
+    if (typeof FS == 'undefined' || !(e instanceof FS.ErrnoError)) throw e;
+    return -e.errno;
+  }
+  }
+
   function ___syscall_rmdir(path) {
   try {
   
@@ -5315,6 +5363,149 @@ var ASM_CONSTS = {
   var nowIsMonotonic = true;;
   function __emscripten_get_now_is_monotonic() {
       return nowIsMonotonic;
+    }
+
+  function __emscripten_throw_longjmp() { throw Infinity; }
+
+  function readI53FromI64(ptr) {
+      return HEAPU32[ptr>>2] + HEAP32[ptr+4>>2] * 4294967296;
+    }
+  function __gmtime_js(time, tmPtr) {
+      var date = new Date(readI53FromI64(time)*1000);
+      HEAP32[((tmPtr)>>2)] = date.getUTCSeconds();
+      HEAP32[(((tmPtr)+(4))>>2)] = date.getUTCMinutes();
+      HEAP32[(((tmPtr)+(8))>>2)] = date.getUTCHours();
+      HEAP32[(((tmPtr)+(12))>>2)] = date.getUTCDate();
+      HEAP32[(((tmPtr)+(16))>>2)] = date.getUTCMonth();
+      HEAP32[(((tmPtr)+(20))>>2)] = date.getUTCFullYear()-1900;
+      HEAP32[(((tmPtr)+(24))>>2)] = date.getUTCDay();
+      var start = Date.UTC(date.getUTCFullYear(), 0, 1, 0, 0, 0, 0);
+      var yday = ((date.getTime() - start) / (1000 * 60 * 60 * 24))|0;
+      HEAP32[(((tmPtr)+(28))>>2)] = yday;
+    }
+
+  function __isLeapYear(year) {
+        return year%4 === 0 && (year%100 !== 0 || year%400 === 0);
+    }
+  
+  var __MONTH_DAYS_LEAP_CUMULATIVE = [0,31,60,91,121,152,182,213,244,274,305,335];
+  
+  var __MONTH_DAYS_REGULAR_CUMULATIVE = [0,31,59,90,120,151,181,212,243,273,304,334];
+  function __yday_from_date(date) {
+      var isLeapYear = __isLeapYear(date.getFullYear());
+      var monthDaysCumulative = (isLeapYear ? __MONTH_DAYS_LEAP_CUMULATIVE : __MONTH_DAYS_REGULAR_CUMULATIVE);
+      var yday = monthDaysCumulative[date.getMonth()] + date.getDate() - 1; // -1 since it's days since Jan 1
+  
+      return yday;
+    }
+  function __localtime_js(time, tmPtr) {
+      var date = new Date(readI53FromI64(time)*1000);
+      HEAP32[((tmPtr)>>2)] = date.getSeconds();
+      HEAP32[(((tmPtr)+(4))>>2)] = date.getMinutes();
+      HEAP32[(((tmPtr)+(8))>>2)] = date.getHours();
+      HEAP32[(((tmPtr)+(12))>>2)] = date.getDate();
+      HEAP32[(((tmPtr)+(16))>>2)] = date.getMonth();
+      HEAP32[(((tmPtr)+(20))>>2)] = date.getFullYear()-1900;
+      HEAP32[(((tmPtr)+(24))>>2)] = date.getDay();
+  
+      var yday = __yday_from_date(date)|0;
+      HEAP32[(((tmPtr)+(28))>>2)] = yday;
+      HEAP32[(((tmPtr)+(36))>>2)] = -(date.getTimezoneOffset() * 60);
+  
+      // Attention: DST is in December in South, and some regions don't have DST at all.
+      var start = new Date(date.getFullYear(), 0, 1);
+      var summerOffset = new Date(date.getFullYear(), 6, 1).getTimezoneOffset();
+      var winterOffset = start.getTimezoneOffset();
+      var dst = (summerOffset != winterOffset && date.getTimezoneOffset() == Math.min(winterOffset, summerOffset))|0;
+      HEAP32[(((tmPtr)+(32))>>2)] = dst;
+    }
+
+  function __mktime_js(tmPtr) {
+      var date = new Date(HEAP32[(((tmPtr)+(20))>>2)] + 1900,
+                          HEAP32[(((tmPtr)+(16))>>2)],
+                          HEAP32[(((tmPtr)+(12))>>2)],
+                          HEAP32[(((tmPtr)+(8))>>2)],
+                          HEAP32[(((tmPtr)+(4))>>2)],
+                          HEAP32[((tmPtr)>>2)],
+                          0);
+  
+      // There's an ambiguous hour when the time goes back; the tm_isdst field is
+      // used to disambiguate it.  Date() basically guesses, so we fix it up if it
+      // guessed wrong, or fill in tm_isdst with the guess if it's -1.
+      var dst = HEAP32[(((tmPtr)+(32))>>2)];
+      var guessedOffset = date.getTimezoneOffset();
+      var start = new Date(date.getFullYear(), 0, 1);
+      var summerOffset = new Date(date.getFullYear(), 6, 1).getTimezoneOffset();
+      var winterOffset = start.getTimezoneOffset();
+      var dstOffset = Math.min(winterOffset, summerOffset); // DST is in December in South
+      if (dst < 0) {
+        // Attention: some regions don't have DST at all.
+        HEAP32[(((tmPtr)+(32))>>2)] = Number(summerOffset != winterOffset && dstOffset == guessedOffset);
+      } else if ((dst > 0) != (dstOffset == guessedOffset)) {
+        var nonDstOffset = Math.max(winterOffset, summerOffset);
+        var trueOffset = dst > 0 ? dstOffset : nonDstOffset;
+        // Don't try setMinutes(date.getMinutes() + ...) -- it's messed up.
+        date.setTime(date.getTime() + (trueOffset - guessedOffset)*60000);
+      }
+  
+      HEAP32[(((tmPtr)+(24))>>2)] = date.getDay();
+      var yday = __yday_from_date(date)|0;
+      HEAP32[(((tmPtr)+(28))>>2)] = yday;
+      // To match expected behavior, update fields from date
+      HEAP32[((tmPtr)>>2)] = date.getSeconds();
+      HEAP32[(((tmPtr)+(4))>>2)] = date.getMinutes();
+      HEAP32[(((tmPtr)+(8))>>2)] = date.getHours();
+      HEAP32[(((tmPtr)+(12))>>2)] = date.getDate();
+      HEAP32[(((tmPtr)+(16))>>2)] = date.getMonth();
+      HEAP32[(((tmPtr)+(20))>>2)] = date.getYear();
+  
+      return (date.getTime() / 1000)|0;
+    }
+
+  function allocateUTF8(str) {
+      var size = lengthBytesUTF8(str) + 1;
+      var ret = _malloc(size);
+      if (ret) stringToUTF8Array(str, HEAP8, ret, size);
+      return ret;
+    }
+  function __tzset_js(timezone, daylight, tzname) {
+      // TODO: Use (malleable) environment variables instead of system settings.
+      var currentYear = new Date().getFullYear();
+      var winter = new Date(currentYear, 0, 1);
+      var summer = new Date(currentYear, 6, 1);
+      var winterOffset = winter.getTimezoneOffset();
+      var summerOffset = summer.getTimezoneOffset();
+  
+      // Local standard timezone offset. Local standard time is not adjusted for daylight savings.
+      // This code uses the fact that getTimezoneOffset returns a greater value during Standard Time versus Daylight Saving Time (DST).
+      // Thus it determines the expected output during Standard Time, and it compares whether the output of the given date the same (Standard) or less (DST).
+      var stdTimezoneOffset = Math.max(winterOffset, summerOffset);
+  
+      // timezone is specified as seconds west of UTC ("The external variable
+      // `timezone` shall be set to the difference, in seconds, between
+      // Coordinated Universal Time (UTC) and local standard time."), the same
+      // as returned by stdTimezoneOffset.
+      // See http://pubs.opengroup.org/onlinepubs/009695399/functions/tzset.html
+      HEAPU32[((timezone)>>2)] = stdTimezoneOffset * 60;
+  
+      HEAP32[((daylight)>>2)] = Number(winterOffset != summerOffset);
+  
+      function extractZone(date) {
+        var match = date.toTimeString().match(/\(([A-Za-z ]+)\)$/);
+        return match ? match[1] : "GMT";
+      };
+      var winterName = extractZone(winter);
+      var summerName = extractZone(summer);
+      var winterNamePtr = allocateUTF8(winterName);
+      var summerNamePtr = allocateUTF8(summerName);
+      if (summerOffset < winterOffset) {
+        // Northern hemisphere
+        HEAPU32[((tzname)>>2)] = winterNamePtr;
+        HEAPU32[(((tzname)+(4))>>2)] = summerNamePtr;
+      } else {
+        HEAPU32[((tzname)>>2)] = summerNamePtr;
+        HEAPU32[(((tzname)+(4))>>2)] = winterNamePtr;
+      }
     }
 
   function _abort() {
@@ -5920,12 +6111,6 @@ var ASM_CONSTS = {
       return 1 /* EGL_TRUE */;
     }
 
-  function allocateUTF8(str) {
-      var size = lengthBytesUTF8(str) + 1;
-      var ret = _malloc(size);
-      if (ret) stringToUTF8Array(str, HEAP8, ret, size);
-      return ret;
-    }
   function _eglQueryString(display, name) {
       if (display != 62000 /* Magic ID for Emscripten 'default display' */) {
         EGL.setErrorCode(0x3008 /* EGL_BAD_DISPLAY */);
@@ -7313,10 +7498,6 @@ var ASM_CONSTS = {
       return GLctx.getAttribLocation(GL.programs[program], UTF8ToString(name));
     }
 
-  function readI53FromI64(ptr) {
-      return HEAPU32[ptr>>2] + HEAP32[ptr+4>>2] * 4294967296;
-    }
-  
   function readI53FromU64(ptr) {
       return HEAPU32[ptr>>2] + HEAPU32[ptr+4>>2] * 4294967296;
     }
@@ -10183,10 +10364,6 @@ var ASM_CONSTS = {
 
   function _glViewport(x0, x1, x2, x3) { GLctx['viewport'](x0, x1, x2, x3) }
 
-  function __isLeapYear(year) {
-        return year%4 === 0 && (year%100 !== 0 || year%400 === 0);
-    }
-  
   function __arraySum(array, index) {
       var sum = 0;
       for (var i = 0; i <= index; sum += array[i++]) {
@@ -10514,8 +10691,50 @@ var ASM_CONSTS = {
       writeArrayToMemory(bytes, s);
       return bytes.length-1;
     }
+
   function _strftime_l(s, maxsize, format, tm, loc) {
       return _strftime(s, maxsize, format, tm); // no locale support yet
+    }
+
+  function _system(command) {
+      if (ENVIRONMENT_IS_NODE) {
+        if (!command) return 1; // shell is available
+  
+        var cmdstr = UTF8ToString(command);
+        if (!cmdstr.length) return 0; // this is what glibc seems to do (shell works test?)
+  
+        var cp = require('child_process');
+        var ret = cp.spawnSync(cmdstr, [], {shell:true, stdio:'inherit'});
+  
+        var _W_EXITCODE = (ret, sig) => ((ret) << 8 | (sig));
+  
+        // this really only can happen if process is killed by signal
+        if (ret.status === null) {
+          // sadly node doesn't expose such function
+          var signalToNumber = (sig) => {
+            // implement only the most common ones, and fallback to SIGINT
+            switch (sig) {
+              case 'SIGHUP': return 1;
+              case 'SIGINT': return 2;
+              case 'SIGQUIT': return 3;
+              case 'SIGFPE': return 8;
+              case 'SIGKILL': return 9;
+              case 'SIGALRM': return 14;
+              case 'SIGTERM': return 15;
+            }
+            return 2; // SIGINT
+          }
+          return _W_EXITCODE(0, signalToNumber(ret.signal));
+        }
+  
+        return _W_EXITCODE(ret.status, 0);
+      }
+      // int system(const char *command);
+      // http://pubs.opengroup.org/onlinepubs/000095399/functions/system.html
+      // Can't call external programs.
+      if (!command) return 0; // no shell available
+      setErrNo(52);
+      return -1;
     }
 
 
@@ -10793,6 +11012,7 @@ var asmLibraryArg = {
   "__assert_fail": ___assert_fail,
   "__cxa_allocate_exception": ___cxa_allocate_exception,
   "__cxa_begin_catch": ___cxa_begin_catch,
+  "__cxa_current_primary_exception": ___cxa_current_primary_exception,
   "__cxa_decrement_exception_refcount": ___cxa_decrement_exception_refcount,
   "__cxa_end_catch": ___cxa_end_catch,
   "__cxa_find_matching_catch_2": ___cxa_find_matching_catch_2,
@@ -10800,11 +11020,13 @@ var asmLibraryArg = {
   "__cxa_free_exception": ___cxa_free_exception,
   "__cxa_increment_exception_refcount": ___cxa_increment_exception_refcount,
   "__cxa_rethrow": ___cxa_rethrow,
+  "__cxa_rethrow_primary_exception": ___cxa_rethrow_primary_exception,
   "__cxa_throw": ___cxa_throw,
   "__cxa_uncaught_exceptions": ___cxa_uncaught_exceptions,
   "__resumeException": ___resumeException,
   "__syscall_chdir": ___syscall_chdir,
   "__syscall_chmod": ___syscall_chmod,
+  "__syscall_dup3": ___syscall_dup3,
   "__syscall_fchmod": ___syscall_fchmod,
   "__syscall_fcntl64": ___syscall_fcntl64,
   "__syscall_fstat64": ___syscall_fstat64,
@@ -10817,10 +11039,16 @@ var asmLibraryArg = {
   "__syscall_newfstatat": ___syscall_newfstatat,
   "__syscall_openat": ___syscall_openat,
   "__syscall_readlinkat": ___syscall_readlinkat,
+  "__syscall_renameat": ___syscall_renameat,
   "__syscall_rmdir": ___syscall_rmdir,
   "__syscall_stat64": ___syscall_stat64,
   "__syscall_unlinkat": ___syscall_unlinkat,
   "_emscripten_get_now_is_monotonic": __emscripten_get_now_is_monotonic,
+  "_emscripten_throw_longjmp": __emscripten_throw_longjmp,
+  "_gmtime_js": __gmtime_js,
+  "_localtime_js": __localtime_js,
+  "_mktime_js": __mktime_js,
+  "_tzset_js": __tzset_js,
   "abort": _abort,
   "eglBindAPI": _eglBindAPI,
   "eglChooseConfig": _eglChooseConfig,
@@ -11237,7 +11465,9 @@ var asmLibraryArg = {
   "invoke_viiiiiiiiii": invoke_viiiiiiiiii,
   "invoke_viiiiiiiiiiiiiii": invoke_viiiiiiiiiiiiiii,
   "invoke_viijii": invoke_viijii,
-  "strftime_l": _strftime_l
+  "strftime": _strftime,
+  "strftime_l": _strftime_l,
+  "system": _system
 };
 var asm = createWasm();
 /** @type {function(...*):?} */
@@ -11259,6 +11489,15 @@ var _free = Module["_free"] = createExportWrapper("free");
 var _main = Module["_main"] = createExportWrapper("__main_argc_argv");
 
 /** @type {function(...*):?} */
+var _saveSetjmp = Module["_saveSetjmp"] = createExportWrapper("saveSetjmp");
+
+/** @type {function(...*):?} */
+var getTempRet0 = Module["getTempRet0"] = createExportWrapper("getTempRet0");
+
+/** @type {function(...*):?} */
+var setTempRet0 = Module["setTempRet0"] = createExportWrapper("setTempRet0");
+
+/** @type {function(...*):?} */
 var ___errno_location = Module["___errno_location"] = createExportWrapper("__errno_location");
 
 /** @type {function(...*):?} */
@@ -11269,15 +11508,6 @@ var _fileno = Module["_fileno"] = createExportWrapper("fileno");
 
 /** @type {function(...*):?} */
 var _setThrew = Module["_setThrew"] = createExportWrapper("setThrew");
-
-/** @type {function(...*):?} */
-var _saveSetjmp = Module["_saveSetjmp"] = createExportWrapper("saveSetjmp");
-
-/** @type {function(...*):?} */
-var setTempRet0 = Module["setTempRet0"] = createExportWrapper("setTempRet0");
-
-/** @type {function(...*):?} */
-var getTempRet0 = Module["getTempRet0"] = createExportWrapper("getTempRet0");
 
 /** @type {function(...*):?} */
 var _emscripten_stack_init = Module["_emscripten_stack_init"] = function() {
@@ -11359,6 +11589,17 @@ var dynCall_iiiiijj = Module["dynCall_iiiiijj"] = createExportWrapper("dynCall_i
 var dynCall_iiiiiijj = Module["dynCall_iiiiiijj"] = createExportWrapper("dynCall_iiiiiijj");
 
 
+function invoke_vii(index,a1,a2) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1,a2);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
 function invoke_iiii(index,a1,a2,a3) {
   var sp = stackSave();
   try {
@@ -11374,17 +11615,6 @@ function invoke_viiii(index,a1,a2,a3,a4) {
   var sp = stackSave();
   try {
     getWasmTableEntry(index)(a1,a2,a3,a4);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_vii(index,a1,a2) {
-  var sp = stackSave();
-  try {
-    getWasmTableEntry(index)(a1,a2);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;

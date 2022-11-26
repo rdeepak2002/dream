@@ -6,6 +6,9 @@ macro(DREAM_FIND_AND_LINK_LIBRARIES)
 
         # Link yaml-cpp library
         link_libraries("${CMAKE_CURRENT_SOURCE_DIR}/build.web/yaml-cpp-yaml-cpp-0.7.0/src/libyaml-cpp.a")
+
+        # Lin lua library
+        link_libraries("${CMAKE_CURRENT_SOURCE_DIR}/build.web/lua-5.4.4/src/liblua.a")
     else()
         # Link OpenGL library
         find_package(OpenGL REQUIRED)
