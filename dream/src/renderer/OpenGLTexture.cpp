@@ -12,7 +12,7 @@ namespace Dream
 {
     OpenGLTexture::OpenGLTexture(std::string texturePath)
     {
-        path = texturePath;
+//        path = texturePath;
         glGenTextures(1, &id);
         this->bind();
         stbi_set_flip_vertically_on_load(true);

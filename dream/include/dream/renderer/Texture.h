@@ -10,7 +10,7 @@
 namespace Dream {
     class Texture {
     public:
-        std::string path;
+//        std::string path;
         virtual void foo() {
 
         }
