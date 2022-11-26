@@ -6,7 +6,7 @@
 #include <iostream>
 
 namespace Dream {
-    Entity AssetLoader::loadMesh(std::string guid, bool createEntities) {
+    Entity AssetLoader::loadMesh(std::string guid, bool createEntities, Entity rootEntity) {
         return {};
     }
 }

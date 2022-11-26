@@ -14,7 +14,7 @@
 #include "dream/util/IDUtils.h"
 
 namespace Dream {
-    Entity OpenGLAssetLoader::loadMesh(std::string guid, bool createEntities) {
+    Entity OpenGLAssetLoader::loadMesh(std::string guid, bool createEntities, Entity rootEntity) {
         std::string path = Project::getResourceManager()->getFilePathFromGUID(guid);
         if (!std::filesystem::exists(path)) {
             std::cout << "File does not exist" << std::endl;
@@ -30,17 +30,21 @@ namespace Dream {
         // process root node
         auto node = scene->mRootNode;
         meshID = 0;
-        Entity dreamEntityRootNode = processNode(path, guid, node, scene, createEntities);
+        Entity dreamEntityRootNode = processNode(path, guid, node, scene, createEntities, rootEntity);
         if (dreamEntityRootNode) {
             dreamEntityRootNode.addComponent<Component::MeshComponent>(guid);
         }
         return dreamEntityRootNode;
     }
 
-    Entity OpenGLAssetLoader::processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene, bool createEntities) {
+    Entity OpenGLAssetLoader::processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene, bool createEntities, Entity rootEntity) {
         Entity dreamNode;
         if (createEntities) {
-            dreamNode = Project::getScene()->createEntity(node->mName.C_Str());
+            if (rootEntity) {
+                dreamNode = rootEntity;
+            } else {
+                dreamNode = Project::getScene()->createEntity(node->mName.C_Str());
+            }
         }
         // process meshes for this node
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
@@ -52,7 +56,7 @@ namespace Dream {
         }
         // process child nodes
         for(unsigned int i = 0; i < node->mNumChildren; i++) {
-            Entity child = processNode(path, guid, node->mChildren[i], scene, createEntities);
+            Entity child = processNode(path, guid, node->mChildren[i], scene, createEntities, {});
             if (createEntities) {
                 dreamNode.addChild(child);
             }
