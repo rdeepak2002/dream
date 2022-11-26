@@ -1,3 +1,4 @@
 function update(entity, dt)
-    Logger.Debug("Hello World")
+    local transformComponent = entity:getTransform()
+    transformComponent.translation.x = transformComponent.translation.x + -0.1 * dt
 end

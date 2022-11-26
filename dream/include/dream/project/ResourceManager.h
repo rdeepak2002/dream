@@ -6,6 +6,7 @@
 #define DREAM_RESOURCEMANAGER_H
 
 #include <iostream>
+#include <unordered_map>
 #include <map>
 
 namespace Dream {
