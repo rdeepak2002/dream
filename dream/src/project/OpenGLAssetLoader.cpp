@@ -148,13 +148,7 @@ namespace Dream {
         }
         // add material component
         if (!texturePath.empty()) {
-            std::string textureMetaFilePath = texturePath + ".meta";
-            if (!std::filesystem::exists(textureMetaFilePath)) {
-                std::cout << "Cannot find meta file for texture " << textureMetaFilePath << std::endl;
-                exit(EXIT_FAILURE);
-            }
-            YAML::Node doc = YAML::LoadFile(textureMetaFilePath);
-            auto textureFileGUID = doc["guid"].as<std::string>();
+            auto textureFileGUID = IDUtils::getGUIDForFile(texturePath);
             if (!Project::getResourceManager()->hasData(textureFileGUID)) {
                 auto* dreamTexture = new OpenGLTexture(texturePath);
                 Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
