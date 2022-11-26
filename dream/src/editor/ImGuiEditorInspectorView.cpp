@@ -9,10 +9,16 @@
 #include "dream/scene/component/Component.h"
 #include "dream/project/Project.h"
 #include "dream/util/SceneUtils.h"
+#include "dream/util/IDUtils.h"
 
 namespace Dream {
     ImGuiEditorInspectorView::ImGuiEditorInspectorView() {
         selectedEntity = Entity();
+        meshSelectorBrowser = nullptr;
+    }
+
+    ImGuiEditorInspectorView::~ImGuiEditorInspectorView() {
+        delete meshSelectorBrowser;
     }
 
     void ImGuiEditorInspectorView::update() {
@@ -178,6 +184,20 @@ namespace Dream {
 
     void ImGuiEditorInspectorView::renderMeshComponent() {
         if (selectedEntity.hasComponent<Component::MeshComponent>()) {
+            if (meshSelectorBrowser) {
+                meshSelectorBrowser->Display();
+                if (meshSelectorBrowser->HasSelected()) {
+                    std::filesystem::path selectedFilePath = meshSelectorBrowser->GetSelected();
+                    // get GUID of new mesh asset
+                    std::string newMeshGUID = IDUtils::getGUIDForFile(selectedFilePath);
+                    // load new mesh and add sub-meshes as children
+                    Project::getAssetLoader()->loadMesh(newMeshGUID, true, selectedEntity);
+                    // remove reference to old meshes for all children
+                    SceneUtils::removeMeshReference(selectedEntity, oldMeshGUID, true);
+                    meshSelectorBrowser->ClearSelected();
+                }
+            }
+
             auto &component = selectedEntity.getComponent<Component::MeshComponent>();
             auto componentName = Component::MeshComponent::componentName.c_str();
             if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "MESH")) {
@@ -201,17 +221,16 @@ namespace Dream {
                     ImGui::Text("Path");
                     ImGui::SameLine();
                     ImGui::Text("%s", meshPath.c_str());
-                    ImGui::SameLine();
-                    if (canChangeMesh && ImGui::Button("Select")) {
-                        std::string oldMeshGUID = component.guid;
-                        // get GUID of new mesh asset
-                        // TODO: file opener to select new mesh and get its GUID
-                        std::cout << "TODO: open file selector to choose new mesh" << std::endl;
-                        std::string newMeshGUID = "EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D";
-                        // load new mesh and add sub-meshes as children
-                        Project::getAssetLoader()->loadMesh(newMeshGUID, true, selectedEntity);
-                        // remove reference to old meshes for all children
-                        SceneUtils::removeMeshReference(selectedEntity, oldMeshGUID, true);
+                    if (canChangeMesh) {
+                        ImGui::SameLine();
+                        if (ImGui::Button("Select")) {
+                            delete meshSelectorBrowser;
+                            meshSelectorBrowser = new ImGui::FileBrowser();
+                            meshSelectorBrowser->SetTitle("import mesh");
+                            meshSelectorBrowser->SetPwd(Project::getPath());
+                            meshSelectorBrowser->Open();
+                            oldMeshGUID = component.guid;
+                        }
                     }
                 }
 

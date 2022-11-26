@@ -11,6 +11,8 @@
 #elif __APPLE__
 #include <uuid/uuid.h>
 #endif
+#include <filesystem>
+#include <yaml-cpp/yaml.h>
 
 namespace uuid {
     std::string generate_uuid_v4() {
@@ -79,5 +81,15 @@ namespace Dream {
     std::string IDUtils::newFileID(std::string uniqueIdentifier) {
         MD5 md5(uniqueIdentifier);
         return md5.hexdigest();
+    }
+
+    std::string IDUtils::getGUIDForFile(std::string filepath) {
+        std::string metaFilePath = filepath + ".meta";
+        if (!std::filesystem::exists(metaFilePath)) {
+            std::cout << "Cannot find meta file for " << metaFilePath << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        YAML::Node doc = YAML::LoadFile(metaFilePath);
+        return doc["guid"].as<std::string>();
     }
 }

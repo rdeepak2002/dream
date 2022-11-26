@@ -24,6 +24,7 @@ namespace Dream {
     public:
         static std::string newGUID();
         static std::string newFileID(std::string uniqueIdentifier);
+        static std::string getGUIDForFile(std::string filepath);
     };
 }
 
