@@ -17,6 +17,12 @@ namespace Dream::Component {
         this->fileId = std::move(fileID);
     }
 
+
+    MeshComponent::MeshComponent(std::string guid) {
+        this->meshType = FROM_FILE;
+        this->guid = std::move(guid);
+    }
+
     MeshComponent::MeshComponent(Dream::Component::MeshComponent::MeshType meshType, std::map<std::string, float> primitiveMeshData) {
         this->meshType = meshType;
     }
@@ -60,14 +66,18 @@ namespace Dream::Component {
             auto guid = node[componentName][k_guid].as<std::string>();
             auto fileId = node[componentName][k_fileId].as<std::string>();
             bool isPrimitiveMesh = guid.empty() && fileId.empty();
-            bool isMeshFromFile = !guid.empty() && !fileId.empty();
+            bool isSubMeshFromFile = !guid.empty() && !fileId.empty();
+            bool isMeshParentFromFile = !guid.empty() && fileId.empty();
             if (isPrimitiveMesh) {
                 // loading primitive mesh
                 std::map<std::string, float> primitiveMeshData;
                 entity.addComponent<MeshComponent>(meshType, primitiveMeshData);
-            } else if (isMeshFromFile) {
+            } else if (isSubMeshFromFile) {
                 // loading mesh from file
                 entity.addComponent<MeshComponent>(guid, fileId);
+            } else if (isMeshParentFromFile) {
+                // reference that this entity is the parent of a mesh
+                entity.addComponent<MeshComponent>(guid);
             } else {
                 std::cout << "Invalid mesh scene data" << std::endl;
                 exit(EXIT_FAILURE);

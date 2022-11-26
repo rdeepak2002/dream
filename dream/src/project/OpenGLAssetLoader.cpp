@@ -23,15 +23,17 @@ namespace Dream {
         // use assimp to get scene of model
         Assimp::Importer importer;
         const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
-//        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
         if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
             std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
-            return Entity();
+            return {};
         }
         // process root node
         auto node = scene->mRootNode;
         meshID = 0;
         Entity dreamEntityRootNode = processNode(path, guid, node, scene, createEntities);
+        if (dreamEntityRootNode) {
+            dreamEntityRootNode.addComponent<Component::MeshComponent>(guid);
+        }
         return dreamEntityRootNode;
     }
 

@@ -8,59 +8,63 @@ Entities:
     TagComponent:
       tag: root
     HierarchyComponent:
-      first: 175FF0D6-BDA9-490E-88EC-3A5748756F5C
+      first: B8AB4704-3DCD-4A02-B024-C14A65BFD0AB
     TransformComponent:
       translation: [0, 0, 0]
-      rotation: [0, 0, 0, 1]
+      rotation: [7.54979013e-08, 0, 0, 1]
       scale: [1, 1, 1]
-  - Entity: 175FF0D6-BDA9-490E-88EC-3A5748756F5C
+  - Entity: B8AB4704-3DCD-4A02-B024-C14A65BFD0AB
     IDComponent:
-      id: 175FF0D6-BDA9-490E-88EC-3A5748756F5C
+      id: B8AB4704-3DCD-4A02-B024-C14A65BFD0AB
     TagComponent:
       tag: Sketchfab_model
     HierarchyComponent:
-      first: 62DBE18D-33D1-40EF-84BD-5952B5C41B3A
+      first: 41D79406-B76B-46CC-8F6E-1264828E7872
       next: E79B9FA6-F724-4F3F-A888-4AB724620D8B
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [0.5, 0, 0]
-      rotation: [0.707000017, 0.707000017, 0, 0]
-      scale: [0.00249999994, 0.00249999994, 0.00249999994]
-  - Entity: 62DBE18D-33D1-40EF-84BD-5952B5C41B3A
+      translation: [0.300000012, 0.300000012, 1]
+      rotation: [0.721906602, 0.587279618, 0.183038324, -0.316939354]
+      scale: [0.00200000009, 0.00200000009, 0.00200000009]
+    MeshComponent:
+      meshType: 2
+      guid: 7F555714-27E0-4AB5-B950-3BD20ED6E914
+      fileId: ""
+  - Entity: 41D79406-B76B-46CC-8F6E-1264828E7872
     IDComponent:
-      id: 62DBE18D-33D1-40EF-84BD-5952B5C41B3A
+      id: 41D79406-B76B-46CC-8F6E-1264828E7872
     TagComponent:
       tag: alduin.obj.cleaner.materialmerger.gles
     HierarchyComponent:
-      first: ED1B049B-A3C4-48D0-B5E5-3A3339328C5D
-      parent: 175FF0D6-BDA9-490E-88EC-3A5748756F5C
+      first: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
+      parent: B8AB4704-3DCD-4A02-B024-C14A65BFD0AB
     TransformComponent:
       translation: [0, 0, 0]
-      rotation: [0, 0, 0, 1]
+      rotation: [7.54979013e-08, 0, 0, 1]
       scale: [1, 1, 1]
-  - Entity: ED1B049B-A3C4-48D0-B5E5-3A3339328C5D
+  - Entity: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
     IDComponent:
-      id: ED1B049B-A3C4-48D0-B5E5-3A3339328C5D
+      id: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
     TagComponent:
       tag: Object_3
     HierarchyComponent:
-      first: 9AB99150-F0FA-4500-881E-28F1FB72694A
-      next: 466BA1F6-720B-4D76-8CC7-AAA2A37C6A04
-      parent: 62DBE18D-33D1-40EF-84BD-5952B5C41B3A
+      first: 073E62E5-0FF8-4FBD-BEC0-91BFB616FEF0
+      next: 3EC28924-A130-42D6-ADCE-45DCB08EB34E
+      parent: 41D79406-B76B-46CC-8F6E-1264828E7872
     TransformComponent:
       translation: [0, 0, 0]
-      rotation: [0, 0, 0, 1]
+      rotation: [7.54979013e-08, 0, 0, 1]
       scale: [1, 1, 1]
-  - Entity: 9AB99150-F0FA-4500-881E-28F1FB72694A
+  - Entity: 073E62E5-0FF8-4FBD-BEC0-91BFB616FEF0
     IDComponent:
-      id: 9AB99150-F0FA-4500-881E-28F1FB72694A
+      id: 073E62E5-0FF8-4FBD-BEC0-91BFB616FEF0
     TagComponent:
       tag: Object_1
     HierarchyComponent:
-      parent: ED1B049B-A3C4-48D0-B5E5-3A3339328C5D
+      parent: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
     TransformComponent:
       translation: [0, 0, 0]
-      rotation: [0, 0, 0, 1]
+      rotation: [7.54979013e-08, 0, 0, 1]
       scale: [1, 1, 1]
     MeshComponent:
       meshType: 2
@@ -68,29 +72,29 @@ Entities:
       fileId: 98f13708210194c475687be6106a3b84
     MaterialComponent:
       guid: 569E1F56-C003-48F0-88F1-81298B4B2A9C
-  - Entity: 466BA1F6-720B-4D76-8CC7-AAA2A37C6A04
+  - Entity: 3EC28924-A130-42D6-ADCE-45DCB08EB34E
     IDComponent:
-      id: 466BA1F6-720B-4D76-8CC7-AAA2A37C6A04
+      id: 3EC28924-A130-42D6-ADCE-45DCB08EB34E
     TagComponent:
       tag: Object_2
     HierarchyComponent:
-      first: 0E5AEFE8-917F-4F72-8FAC-DF6BFF5FF4C8
-      prev: ED1B049B-A3C4-48D0-B5E5-3A3339328C5D
-      parent: 62DBE18D-33D1-40EF-84BD-5952B5C41B3A
+      first: BE53064B-AEFF-441A-8F71-D75D53D24EE5
+      prev: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
+      parent: 41D79406-B76B-46CC-8F6E-1264828E7872
     TransformComponent:
       translation: [0, 0, 0]
-      rotation: [0, 0, 0, 1]
+      rotation: [7.54979013e-08, 0, 0, 1]
       scale: [1, 1, 1]
-  - Entity: 0E5AEFE8-917F-4F72-8FAC-DF6BFF5FF4C8
+  - Entity: BE53064B-AEFF-441A-8F71-D75D53D24EE5
     IDComponent:
-      id: 0E5AEFE8-917F-4F72-8FAC-DF6BFF5FF4C8
+      id: BE53064B-AEFF-441A-8F71-D75D53D24EE5
     TagComponent:
       tag: Object_0
     HierarchyComponent:
-      parent: 466BA1F6-720B-4D76-8CC7-AAA2A37C6A04
+      parent: 3EC28924-A130-42D6-ADCE-45DCB08EB34E
     TransformComponent:
       translation: [0, 0, 0]
-      rotation: [0, 0, 0, 1]
+      rotation: [7.54979013e-08, 0, 0, 1]
       scale: [1, 1, 1]
     MeshComponent:
       meshType: 2
@@ -104,7 +108,7 @@ Entities:
     TagComponent:
       tag: Cube
     HierarchyComponent:
-      prev: 175FF0D6-BDA9-490E-88EC-3A5748756F5C
+      prev: B8AB4704-3DCD-4A02-B024-C14A65BFD0AB
       next: 2BD29A8C-E68E-41AA-94D5-541A903086DD
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:

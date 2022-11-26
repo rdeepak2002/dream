@@ -102,6 +102,11 @@ namespace Dream::Component {
          */
         explicit MeshComponent(std::string guid, std::string fileID);
         /**
+         * References the mesh file as a parent
+         * @param guid
+         */
+        MeshComponent(std::string guid);
+        /**
          * Create MeshComponent using primitive data
          * Example: cube, sphere, etc.
          * @param meshType
