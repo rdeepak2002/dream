@@ -74,6 +74,31 @@ namespace Dream {
                 )
         );
 
+        lua.new_usertype<glm::quat>("quat",
+                                    sol::constructors<glm::quat(), glm::quat(float, float, float, float)>(),
+                                    "w", &glm::quat::w,
+                                    "x", &glm::quat::x,
+                                    "y", &glm::quat::y,
+                                    "z", &glm::quat::z,
+                                    sol::meta_function::multiplication, sol::overload(
+                        [](const glm::quat& v1, const glm::quat& v2) -> glm::quat { return v1*v2; },
+                        [](const glm::quat& v1, float f) -> glm::quat { return v1*f; },
+                        [](float f, const glm::quat& v1) -> glm::quat { return f*v1; }
+                ),
+                                    sol::meta_function::addition, sol::overload(
+                        [](const glm::quat& v1, const glm::quat& v2) -> glm::quat { return v1+v2; }
+                ),
+                                    sol::meta_function::subtraction, sol::overload(
+                        [](const glm::quat& v1, const glm::quat& v2) -> glm::quat { return v1-v2; }
+                ),
+                                    sol::meta_function::equal_to, sol::overload(
+                        [](const glm::quat& v1, const glm::quat& v2) -> bool { return v1 == v2; }
+                ),
+                                    sol::meta_function::to_string, sol::overload(
+                        [](const glm::quat& v1) -> std::string { return "(" + std::to_string(v1.w) + ", " + std::to_string(v1.x) + ", "+ std::to_string(v1.y) + ", " + std::to_string(v1.z) + ")"; }
+                )
+        );
+
         lua.new_usertype<Logger>("Logger",
                                  "Debug", sol::as_function(&Logger::Debug),
                                  "Warn", sol::as_function(&Logger::Warn),
