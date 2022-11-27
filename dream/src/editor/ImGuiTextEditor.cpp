@@ -54,7 +54,6 @@ namespace Dream {
     void ImGuiTextEditor::render() {
         if (textEditor->IsTextChanged() && !justLoaded) {
             unsavedChanges = true;
-            std::cout << "text chagned" << std::endl;
         }
 
         if (visible) {
