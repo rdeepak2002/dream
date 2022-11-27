@@ -80,6 +80,7 @@ macro(DREAM_GLOB_SOURCE_CODE)
             include/imgui/*.cpp
             include/imgui/backends/imgui_impl_sdl.cpp
             include/imgui/backends/imgui_impl_opengl3.cpp
+            include/imgui-texteditor/*.cpp
             src/*.cpp
             src/project/*.cpp
             src/editor/*.cpp

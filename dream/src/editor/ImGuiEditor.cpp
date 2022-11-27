@@ -17,6 +17,7 @@ namespace Dream {
         this->rendererViewportWidth = 520;
         this->rendererViewportHeight = 557;
         this->fileImporterBrowser = nullptr;
+        this->textEditor = new TextEditor();
 
         // setup Dear ImGui context
         IMGUI_CHECKVERSION();
@@ -34,6 +35,7 @@ namespace Dream {
         delete sceneView;
         delete inspectorView;
         delete fileImporterBrowser;
+        delete textEditor;
     }
 
     void ImGuiEditor::newFrame(Dream::Window *window) {
@@ -134,6 +136,20 @@ namespace Dream {
                 fileImporterBrowser->ClearSelected();
             }
         }
+
+//        if (textEditor) {
+//            ImGui::SetNextWindowPos(viewportPosition);
+//            ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(500, 500));
+//            ImGui::Begin("filename", nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar);
+//            ImGui::Text("%s", textEditor->GetLanguageDefinition().mName.c_str());
+//
+//            textEditor->SetPalette(TextEditor::GetDarkPalette());
+//            textEditor->Render("TextEditor");
+//            textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
+//
+//            ImGui::End();
+//            ImGui::PopStyleVar(1);
+//        }
 
         ImGuiWindowClass renderer_window_class;
         renderer_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
