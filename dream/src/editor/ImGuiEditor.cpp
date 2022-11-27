@@ -17,7 +17,7 @@ namespace Dream {
         this->rendererViewportWidth = 520;
         this->rendererViewportHeight = 557;
         this->fileImporterBrowser = nullptr;
-        this->textEditor = new TextEditor();
+        this->imGuiTextEditor = new ImGuiTextEditor();
 
         // setup Dear ImGui context
         IMGUI_CHECKVERSION();
@@ -35,7 +35,7 @@ namespace Dream {
         delete sceneView;
         delete inspectorView;
         delete fileImporterBrowser;
-        delete textEditor;
+        delete imGuiTextEditor;
     }
 
     void ImGuiEditor::newFrame(Dream::Window *window) {
@@ -49,9 +49,8 @@ namespace Dream {
         static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
         ImGuiViewport* viewport = ImGui::GetMainViewport();
-        float yViewportOffset = 0.0;
-        ImVec2 viewportPosition = ImVec2(viewport->Pos.x, viewport->Pos.y - yViewportOffset);
-        ImVec2 viewportSize = ImVec2(viewport->Size.x, viewport->Size.y + yViewportOffset);
+        ImVec2 viewportPosition = ImVec2(viewport->Pos.x, viewport->Pos.y);
+        ImVec2 viewportSize = ImVec2(viewport->Size.x, viewport->Size.y);
         ImGui::SetNextWindowPos(viewportPosition);
         ImGui::SetNextWindowSize(viewportSize);
         ImGui::SetNextWindowViewport(viewport->ID);
@@ -137,27 +136,8 @@ namespace Dream {
             }
         }
 
-        if (textEditor) {
-            ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(500, 500));
-            ImGui::Begin("filename", nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
-
-            if (ImGui::BeginMenuBar()) {
-                if (ImGui::BeginMenu("File")) {
-                    if (ImGui::MenuItem("Save")) {
-                        /// save text....
-                    }
-                    ImGui::EndMenu();
-                }
-                ImGui::EndMenuBar();
-            }
-
-            textEditor->SetPalette(TextEditor::GetDarkPalette());
-            textEditor->Render("TextEditor");
-            textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
-
-            ImGui::End();
-            ImGui::PopStyleVar(1);
-        }
+        // render text editor
+        imGuiTextEditor->render();
 
         ImGuiWindowClass renderer_window_class;
         renderer_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;

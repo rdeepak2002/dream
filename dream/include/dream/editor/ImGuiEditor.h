@@ -10,9 +10,9 @@
 #include "dream/editor/Editor.h"
 #include "dream/editor/ImGuiEditorSceneView.h"
 #include "dream/editor/ImGuiEditorInspectorView.h"
+#include "dream/editor/ImGuiTextEditor.h"
 #include <imgui.h>
 #include <imgui-filebrowser/imfilebrowser.h>
-#include <imgui-texteditor/TextEditor.h>
 
 namespace Dream {
     class ImGuiEditor : public Editor {
@@ -27,10 +27,10 @@ namespace Dream {
         void renderDrawData() override;
         int rendererViewportWidth, rendererViewportHeight;
     private:
-        TextEditor* textEditor;
         ImGui::FileBrowser* fileImporterBrowser;
         ImGuiEditorSceneView* sceneView;
         ImGuiEditorInspectorView* inspectorView;
+        ImGuiTextEditor* imGuiTextEditor;
     };
 }
 
