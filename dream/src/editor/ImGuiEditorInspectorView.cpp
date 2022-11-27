@@ -21,6 +21,10 @@ namespace Dream {
         delete meshSelectorBrowser;
     }
 
+    void ImGuiEditorInspectorView::setTextEditor(ImGuiTextEditor *imGuiTextEditor) {
+        this->imGuiTextEditor = imGuiTextEditor;
+    }
+
     void ImGuiEditorInspectorView::update() {
         ImGuiWindowClass inspector_window_class;
         inspector_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
@@ -259,10 +263,14 @@ namespace Dream {
             auto &component = selectedEntity.getComponent<Component::LuaScriptComponent>();
             auto componentName = Component::LuaScriptComponent::componentName.c_str();
             if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "LUA SCRIPT")) {
-                std::string scriptPath = shorten(Project::getResourceManager()->getFilePathFromGUID(component.guid));
+                std::string scriptPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
+                std::string shortScriptPath = shorten(scriptPath);
                 ImGui::Text("Script Path");
                 ImGui::SameLine();
-                ImGui::Text("%s", scriptPath.c_str());
+                ImGui::Text("%s", shortScriptPath.c_str());
+                if (ImGui::Button("Edit Script")) {
+                    this->imGuiTextEditor->open(scriptPath);
+                }
                 ImGui::TreePop();
             }
         }

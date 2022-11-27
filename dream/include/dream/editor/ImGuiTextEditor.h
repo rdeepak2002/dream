@@ -15,15 +15,18 @@ namespace Dream {
     public:
         ImGuiTextEditor();
         ~ImGuiTextEditor();
-        void open(std::string filepath);
+        void open(const std::string& filepath);
         void save();
         void loadEmptyFile();
         void render();
         void setVisibility(bool isVisible);
     private:
         bool visible;
+        bool unsavedChanges;
+        bool justLoaded;
         TextEditor* textEditor;
         ImGui::FileBrowser* fileBrowser;
+        std::string filename;
     };
 }
 

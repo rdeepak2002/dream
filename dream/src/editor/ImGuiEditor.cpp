@@ -11,13 +11,14 @@
 
 namespace Dream {
     ImGuiEditor::ImGuiEditor(Dream::Window *window) : Editor(window) {
-        this->sceneView = new ImGuiEditorSceneView();
-        this->inspectorView = new ImGuiEditorInspectorView();
-        this->sceneView->setInspectorView(inspectorView);
         this->rendererViewportWidth = 520;
         this->rendererViewportHeight = 557;
         this->fileImporterBrowser = nullptr;
         this->imGuiTextEditor = new ImGuiTextEditor();
+        this->inspectorView = new ImGuiEditorInspectorView();
+        this->inspectorView->setTextEditor(imGuiTextEditor);
+        this->sceneView = new ImGuiEditorSceneView();
+        this->sceneView->setInspectorView(inspectorView);
 
         // setup Dear ImGui context
         IMGUI_CHECKVERSION();
