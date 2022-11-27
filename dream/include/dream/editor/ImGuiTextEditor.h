@@ -27,6 +27,7 @@ namespace Dream {
         TextEditor* textEditor;
         ImGui::FileBrowser* fileBrowser;
         std::string filename;
+        std::filesystem::path path;
     };
 }
 

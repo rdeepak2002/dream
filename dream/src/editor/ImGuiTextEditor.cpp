@@ -18,7 +18,7 @@ namespace Dream {
     }
 
     void ImGuiTextEditor::open(const std::string& filepath) {
-        std::filesystem::path path = std::filesystem::path(filepath);
+        path = std::filesystem::path(filepath);
         filename = path.filename();
         std::string fileContent;
         this->setVisibility(true);
