@@ -58,12 +58,14 @@ namespace Dream {
 
         if (visible) {
             ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(500, 500));
-            ImGui::Begin((filename + (unsavedChanges ? " (*)" : "")).c_str(), nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+            ImGui::Begin(filename.c_str(), nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
             if (ImGui::BeginMenuBar()) {
                 if (ImGui::BeginMenu("File")) {
                     if (ImGui::MenuItem("Save")) {
-                        // TODO: save file
+                        std::ofstream fout(path);
+                        fout << textEditor->GetText().c_str();
+                        unsavedChanges = false;
                     }
                     if (ImGui::MenuItem("Close")) {
                         this->setVisibility(false);
