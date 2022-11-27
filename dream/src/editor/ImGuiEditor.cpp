@@ -137,19 +137,27 @@ namespace Dream {
             }
         }
 
-//        if (textEditor) {
-//            ImGui::SetNextWindowPos(viewportPosition);
-//            ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(500, 500));
-//            ImGui::Begin("filename", nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar);
-//            ImGui::Text("%s", textEditor->GetLanguageDefinition().mName.c_str());
-//
-//            textEditor->SetPalette(TextEditor::GetDarkPalette());
-//            textEditor->Render("TextEditor");
-//            textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
-//
-//            ImGui::End();
-//            ImGui::PopStyleVar(1);
-//        }
+        if (textEditor) {
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(500, 500));
+            ImGui::Begin("filename", nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+
+            if (ImGui::BeginMenuBar()) {
+                if (ImGui::BeginMenu("File")) {
+                    if (ImGui::MenuItem("Save")) {
+                        /// save text....
+                    }
+                    ImGui::EndMenu();
+                }
+                ImGui::EndMenuBar();
+            }
+
+            textEditor->SetPalette(TextEditor::GetDarkPalette());
+            textEditor->Render("TextEditor");
+            textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
+
+            ImGui::End();
+            ImGui::PopStyleVar(1);
+        }
 
         ImGuiWindowClass renderer_window_class;
         renderer_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
