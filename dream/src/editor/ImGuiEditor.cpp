@@ -29,7 +29,7 @@ namespace Dream {
         ImGuiIO& io = ImGui::GetIO(); (void)io;
         io.IniFilename = NULL;
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-        io.Fonts->AddFontFromFileTTF(std::filesystem::current_path().append("resources").append("editor-resources").append("fonts").append("font.ttf").c_str(), 16);
+        io.Fonts->AddFontFromFileTTF(std::filesystem::current_path().append("resources").append("editor-resources").append("fonts").append("font.otf").c_str(), 15);
 
         // setup Dear ImGui style
         ImGui::StyleColorsDark();
