@@ -12,7 +12,7 @@
 
 namespace Dream {
     Application::Application() {
-        Project::open(this->getResourcesRoot().append("examples").append("hello_world"));
+        Project::open(this->getResourcesRoot().append("resources").append("hello_world"));
         this->window = new SDL2OpenGLWindow();
         this->renderer = new OpenGLRenderer();
         this->editor = new ImGuiSDL2OpenGLEditor(this->window);
@@ -50,7 +50,7 @@ namespace Dream {
     }
 
     std::filesystem::path Application::getResourcesRoot() {
-        if (std::filesystem::exists(std::filesystem::current_path().append("examples"))) {
+        if (std::filesystem::exists(std::filesystem::current_path().append("resources"))) {
             return std::filesystem::current_path();
         }
         // try to find location of examples folder for desktop debug build
@@ -58,7 +58,7 @@ namespace Dream {
                 .append("..")
                 .append("..")
                 .append("..")
-                .append("examples");
+                .append("resources");
         if (std::filesystem::exists(examplesFolder)) {
             return examplesFolder.append("..");
         }

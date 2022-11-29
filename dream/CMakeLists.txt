@@ -29,7 +29,7 @@ add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES} ${TEST_FILES})
 DREAM_FIND_AND_LINK_LIBRARIES_PART_2()
 
 # resources folder to copy to binary directory
-set(EXAMPLES_PATH ../examples)
+set(EXAMPLES_PATH ../resources)
 
 if (EMSCRIPTEN)
     # web build Emscripten flags
