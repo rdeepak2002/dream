@@ -3137,6 +3137,54 @@ const TextEditor::LanguageDefinition& TextEditor::LanguageDefinition::Lua()
 			langDef.mIdentifiers.insert(std::make_pair(std::string(k), id));
 		}
 
+        {
+            Identifier id;
+            id.mDeclaration = "Variables to be persisted during runtime for the script";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("self"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "Entity with this script";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("entity"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "Time elapsed since last update (seconds)";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("dt"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "Get transform component of entity";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("getTransform"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "Position vector of entity";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("translation"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "Rotation vector of entity";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("rotation"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "Scale vector of entity";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("scale"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "x component of vector";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("x"), id));
+        }
+
 		langDef.mTokenRegexStrings.push_back(std::make_pair<std::string, PaletteIndex>("L?\\\"(\\\\.|[^\\\"])*\\\"", PaletteIndex::String));
 		langDef.mTokenRegexStrings.push_back(std::make_pair<std::string, PaletteIndex>("\\\'[^\\\']*\\\'", PaletteIndex::String));
 		langDef.mTokenRegexStrings.push_back(std::make_pair<std::string, PaletteIndex>("0[xX][0-9a-fA-F]+[uU]?[lL]?[lL]?", PaletteIndex::Number));
