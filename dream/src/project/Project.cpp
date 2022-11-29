@@ -28,7 +28,7 @@ namespace Dream {
         Project::getInstance().openHelper(std::move(filepath));
     }
 
-    void Project::recognizeResources() {
+    void Project::recognizeResourcesHelper() {
         for (const auto& file : std::filesystem::recursive_directory_iterator(Project::getPath().append("assets"))) {
             std::string metaExtension = ".meta";
             if (!std::filesystem::is_directory(file) && file.path().extension() == metaExtension) {
@@ -47,7 +47,7 @@ namespace Dream {
     void Project::openHelper(std::filesystem::path filepath) {
         if (std::filesystem::exists(filepath)) {
             this->path = std::move(filepath);
-            this->recognizeResources();
+            this->recognizeResourcesHelper();
             this->loadScene();
         } else {
             fprintf(stderr, "Error: project folder does not exist\n");
@@ -111,5 +111,9 @@ namespace Dream {
 
     Dream::AssetImporter *Project::getAssetImporter() {
         return getInstance().getAssetImporterHelper();
+    }
+
+    void Project::recognizeResources() {
+        getInstance().recognizeResourcesHelper();
     }
 }

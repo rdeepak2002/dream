@@ -30,10 +30,11 @@ namespace Dream {
         static Dream::ResourceManager* getResourceManager();
         static Dream::AssetImporter* getAssetImporter();
         static Dream::Scene* getScene();
+        static void recognizeResources();
         static void saveScene();
     private:
         Project();
-        void recognizeResources();
+        void recognizeResourcesHelper();
         void openHelper(std::filesystem::path filepath);
         void loadScene();
         Dream::AssetLoader* getAssetLoaderHelper();

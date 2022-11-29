@@ -56,5 +56,7 @@ namespace Dream {
                 }
             }
         }
+
+        Project::recognizeResources();
     }
 }
