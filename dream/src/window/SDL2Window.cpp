@@ -25,8 +25,8 @@ static SDL_HitTestResult SDLCALL hitTest(SDL_Window *window, const SDL_Point *pt
 
 namespace Dream {
     SDL2Window::SDL2Window(Uint32 flags) : Window() {
-        this->windowWidth = 1024;
-        this->windowHeight = 768;
+        this->windowWidth = 1600;
+        this->windowHeight = 900;
         Uint32 WindowFlags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | flags;
         #ifdef BORDERLESS
         WindowFlags |= SDL_WINDOW_BORDERLESS;

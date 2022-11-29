@@ -18,6 +18,7 @@ namespace Dream {
         unsigned int fileIcon, folderIcon;
         std::set<std::string> ignoredExtensions;
         std::set<std::string> ignoredFileNames;
+        std::vector<std::string> split(const std::string& str, const char& ch);
     };
 }
 

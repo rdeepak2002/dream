@@ -34,16 +34,37 @@ namespace Dream {
         project_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
         ImGui::SetNextWindowClass(&project_window_class);
         ImGui::Begin("Project");
-        ImGui::Text(" ");
-        ImGui::Columns(6, nullptr);
+        std::vector<std::string> pathSplit = split(currentPath.c_str(), std::filesystem::path::preferred_separator);
+        for (int i = 0; i < pathSplit.size(); ++i) {
+            if (ImGui::Button(pathSplit[i].c_str())) {
+                std::cout << "TODO: allow user to go back to this folder" << std::endl;
+            }
+            if (i != pathSplit.size() - 1) {
+                ImGui::SameLine();
+                std::string sep(1, std::filesystem::path::preferred_separator);
+                ImGui::Text("%s", sep.c_str());
+                ImGui::SameLine();
+            }
+        }
+
+        ImGui::Columns(8, "grid");
+
+        if (currentPath != Project::getPath()) {
+            if (ImGui::ImageButton("..", (void*)(intptr_t)folderIcon, ImVec2(40,40))) {
+                currentPath = currentPath.parent_path();
+            }
+            ImGui::Text("%s", "..");
+            ImGui::NextColumn();
+        }
+
         for (const auto & entry : std::filesystem::directory_iterator(currentPath)) {
             if (ignoredExtensions.count(entry.path().extension()) == 0 && ignoredFileNames.count(entry.path().filename()) == 0) {
                 if (entry.is_directory()) {
-                    if (ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)folderIcon, ImVec2(30,30))) {
+                    if (ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)folderIcon, ImVec2(40,40))) {
                         currentPath = currentPath.append(entry.path().filename().c_str());
                     }
                 } else {
-                    if (ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)fileIcon, ImVec2(30,30))) {
+                    if (ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)fileIcon, ImVec2(40,40))) {
                         std::cout << "TODO: open text editor for file" << std::endl;
                     }
                 }
@@ -52,5 +73,25 @@ namespace Dream {
             }
         }
         ImGui::End();
+    }
+
+    std::vector<std::string> ImGuiEditorProjectView::split(const std::string &str, const char &ch) {
+        std::string next;
+        std::vector<std::string> result;
+
+        for (char it : str) {
+            if (it == ch) {
+                if (!next.empty()) {
+                    result.push_back(next);
+                    next.clear();
+                }
+            } else {
+                next += it;
+            }
+        }
+
+        if (!next.empty())
+            result.push_back(next);
+        return result;
     }
 }
