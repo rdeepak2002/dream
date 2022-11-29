@@ -35,9 +35,12 @@ namespace Dream {
         ImGui::SetNextWindowClass(&project_window_class);
         ImGui::Begin("Project");
         std::vector<std::string> pathSplit = split(currentPath.c_str(), std::filesystem::path::preferred_separator);
-        for (int i = 0; i < pathSplit.size(); ++i) {
+        int start_i = split(Project::getPath().c_str(), std::filesystem::path::preferred_separator).size() - 1;
+        std::filesystem::path p = std::filesystem::path(Project::getPath()).parent_path();
+        for (int i = start_i; i < pathSplit.size(); ++i) {
+            p = p.append(pathSplit[i]);
             if (ImGui::Button(pathSplit[i].c_str())) {
-                std::cout << "TODO: allow user to go back to this folder" << std::endl;
+                currentPath = p;
             }
             if (i != pathSplit.size() - 1) {
                 ImGui::SameLine();
