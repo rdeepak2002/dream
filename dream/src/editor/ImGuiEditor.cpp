@@ -51,63 +51,12 @@ namespace Dream {
     }
 
     void ImGuiEditor::update(Dream::Window *window, unsigned int frameBufferTexture) {
-        this->newFrame(window);
-        ImGui::NewFrame();
-
-        static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
-        ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
-        ImGuiViewport* viewport = ImGui::GetMainViewport();
-        ImVec2 viewportPosition = ImVec2(viewport->Pos.x, viewport->Pos.y);
-        ImVec2 viewportSize = ImVec2(viewport->Size.x, viewport->Size.y);
-        ImGui::SetNextWindowPos(viewportPosition);
-        ImGui::SetNextWindowSize(viewportSize);
-        ImGui::SetNextWindowViewport(viewport->ID);
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-        window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
-        window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
-
-        if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
-            window_flags |= ImGuiWindowFlags_NoBackground;
-
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-        ImGui::Begin("DockSpace", nullptr, window_flags);
-        ImGui::PopStyleVar();
-        ImGui::PopStyleVar(2);
-
-        // dockspace
-        ImGuiIO& io = ImGui::GetIO();
-        if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
-            ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
-
-            static auto first_time = true;
-            if (first_time) {
-                first_time = false;
-
-                ImGui::DockBuilderRemoveNode(dockspace_id); // clear any previous layout
-                ImGui::DockBuilderAddNode(dockspace_id, dockspace_flags | ImGuiDockNodeFlags_DockSpace);
-                ImGui::DockBuilderSetNodeSize(dockspace_id, viewportSize);
-
-                auto dock_id_right = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.35f, nullptr, &dockspace_id);
-                auto dock_id_down = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Down, 0.25f, nullptr, &dockspace_id);
-                auto dock_id_left = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Left, 0.25f, nullptr, &dockspace_id);
-
-                ImGui::DockBuilderDockWindow("Renderer", dockspace_id);
-                ImGui::DockBuilderDockWindow("Inspector", dock_id_right);
-                ImGui::DockBuilderDockWindow("Project", dock_id_down);
-                ImGui::DockBuilderDockWindow("Console", dock_id_down);
-                ImGui::DockBuilderDockWindow("Scene", dock_id_left);
-                ImGui::DockBuilderFinish(dockspace_id);
-            }
-        }
-
-        ImGui::End();
-
         this->style();
+        this->newFrame(window);
+        this->setupDockSpace();
 
         // update utility panels
-        textEditor->render();
+        textEditor->update();
         fileBrowser->update();
 
         // render panels
@@ -160,5 +109,58 @@ namespace Dream {
 
     std::pair<int, int> ImGuiEditor::getRendererViewportDimensions() {
         return std::make_pair(this->rendererViewportWidth, this->rendererViewportHeight);
+    }
+
+    void ImGuiEditor::setupDockSpace() {
+        ImGui::NewFrame();
+
+        ImGuiViewport* viewport = ImGui::GetMainViewport();
+        ImVec2 viewportPosition = ImVec2(viewport->Pos.x, viewport->Pos.y);
+        ImVec2 viewportSize = ImVec2(viewport->Size.x, viewport->Size.y);
+        ImGui::SetNextWindowPos(viewportPosition);
+        ImGui::SetNextWindowSize(viewportSize);
+        ImGui::SetNextWindowViewport(viewport->ID);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+        window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+        window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+
+        static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
+        if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
+            window_flags |= ImGuiWindowFlags_NoBackground;
+
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+        ImGui::Begin("DockSpace", nullptr, window_flags);
+        ImGui::PopStyleVar();
+        ImGui::PopStyleVar(2);
+        ImGuiIO& io = ImGui::GetIO();
+        if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
+            ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+
+            static auto first_time = true;
+            if (first_time) {
+                first_time = false;
+
+                ImGui::DockBuilderRemoveNode(dockspace_id); // clear any previous layout
+                ImGui::DockBuilderAddNode(dockspace_id, dockspace_flags | ImGuiDockNodeFlags_DockSpace);
+                ImGui::DockBuilderSetNodeSize(dockspace_id, viewportSize);
+
+                auto dock_id_right = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.35f, nullptr, &dockspace_id);
+                auto dock_id_down = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Down, 0.25f, nullptr, &dockspace_id);
+                auto dock_id_left = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Left, 0.25f, nullptr, &dockspace_id);
+
+                ImGui::DockBuilderDockWindow("Renderer", dockspace_id);
+                ImGui::DockBuilderDockWindow("Inspector", dock_id_right);
+                ImGui::DockBuilderDockWindow("Project", dock_id_down);
+                ImGui::DockBuilderDockWindow("Console", dock_id_down);
+                ImGui::DockBuilderDockWindow("Scene", dock_id_left);
+                ImGui::DockBuilderFinish(dockspace_id);
+            }
+        }
+
+        ImGui::End();
     }
 }

@@ -30,6 +30,7 @@ namespace Dream {
         void renderDrawData() override;
         int rendererViewportWidth, rendererViewportHeight;
     private:
+        void setupDockSpace();
         ImGuiEditorSceneView* sceneView;
         ImGuiEditorInspectorView* inspectorView;
         ImGuiEditorProjectView* projectView;

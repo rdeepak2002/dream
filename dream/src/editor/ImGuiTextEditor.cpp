@@ -51,7 +51,7 @@ namespace Dream {
         this->justLoaded = true;
     }
 
-    void ImGuiTextEditor::render() {
+    void ImGuiTextEditor::update() {
         if (textEditor->IsTextChanged() && !justLoaded) {
             unsavedChanges = true;
         }

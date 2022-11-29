@@ -18,7 +18,7 @@ namespace Dream {
         void open(const std::string& filepath);
         void save();
         void loadEmptyFile();
-        void render();
+        void update();
         void setVisibility(bool isVisible);
     private:
         bool visible;
