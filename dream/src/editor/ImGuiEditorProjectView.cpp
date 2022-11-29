@@ -9,7 +9,8 @@
 #include "dream/renderer/OpenGLTexture.h"
 
 namespace Dream {
-    ImGuiEditorProjectView::ImGuiEditorProjectView() {
+    ImGuiEditorProjectView::ImGuiEditorProjectView(ImGuiTextEditor* textEditor) {
+        this->textEditor = textEditor;
         auto assetsFolderPath = std::filesystem::path(Project::getPath()).append("assets");
         if (std::filesystem::exists(assetsFolderPath)) {
             currentPath = assetsFolderPath;
@@ -68,7 +69,7 @@ namespace Dream {
                     }
                 } else {
                     if (ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)fileIcon, ImVec2(40,40))) {
-                        std::cout << "TODO: open text editor for file" << std::endl;
+                        textEditor->open(entry.path());
                     }
                 }
                 ImGui::Text("%s", entry.path().filename().c_str());

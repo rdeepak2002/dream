@@ -19,6 +19,16 @@ namespace Dream {
 
     void ImGuiTextEditor::open(const std::string& filepath) {
         path = std::filesystem::path(filepath);
+        if (path.extension() == ".lua") {
+            std::cout << "detected lua" << std::endl;
+            textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
+        } else if (path.extension() == ".vert") {
+            textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::GLSL());
+        } else if (path.extension() == ".frag") {
+            textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::GLSL());
+        } else {
+            textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::CPlusPlus());
+        }
         filename = path.filename();
         std::string fileContent;
         this->setVisibility(true);
@@ -77,7 +87,6 @@ namespace Dream {
 
             textEditor->SetPalette(TextEditor::GetDarkPalette());
             textEditor->Render("TextEditor");
-            textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
 
             ImGui::End();
             ImGui::PopStyleVar(1);

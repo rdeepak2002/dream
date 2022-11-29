@@ -7,13 +7,15 @@
 
 #include <filesystem>
 #include <set>
+#include "dream/editor/ImGuiTextEditor.h"
 
 namespace Dream {
     class ImGuiEditorProjectView {
     public:
-        ImGuiEditorProjectView();
+        ImGuiEditorProjectView(ImGuiTextEditor* fileBrowser);
         void update();
     private:
+        ImGuiTextEditor* textEditor;
         std::filesystem::path currentPath;
         unsigned int fileIcon, folderIcon;
         std::set<std::string> ignoredExtensions;

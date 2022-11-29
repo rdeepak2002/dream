@@ -18,7 +18,7 @@ namespace Dream {
         this->inspectorView->setTextEditor(textEditor);
         this->sceneView = new ImGuiEditorSceneView();
         this->sceneView->setInspectorView(inspectorView);
-        this->projectView = new ImGuiEditorProjectView();
+        this->projectView = new ImGuiEditorProjectView(textEditor);
         this->consoleView = new ImGuiEditorConsoleView();
         this->rendererView = new ImGuiEditorRendererView();
         this->menu = new ImGuiEditorMenu(this->fileBrowser);
