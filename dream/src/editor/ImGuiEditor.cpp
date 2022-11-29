@@ -14,11 +14,15 @@ namespace Dream {
         this->rendererViewportWidth = 520;
         this->rendererViewportHeight = 557;
         this->fileImporterBrowser = nullptr;
-        this->imGuiTextEditor = new ImGuiTextEditor();
+        this->textEditor = new ImGuiTextEditor();
         this->inspectorView = new ImGuiEditorInspectorView();
-        this->inspectorView->setTextEditor(imGuiTextEditor);
+        this->inspectorView->setTextEditor(textEditor);
         this->sceneView = new ImGuiEditorSceneView();
         this->sceneView->setInspectorView(inspectorView);
+        this->projectView = new ImGuiEditorProjectView();
+        this->consoleView = new ImGuiEditorConsoleView();
+        this->rendererView = new ImGuiEditorRendererView();
+        this->menu = new ImGuiEditorMenu();
 
         // setup Dear ImGui context
         IMGUI_CHECKVERSION();
@@ -35,8 +39,12 @@ namespace Dream {
     ImGuiEditor::~ImGuiEditor() {
         delete sceneView;
         delete inspectorView;
+        delete projectView;
+        delete consoleView;
+        delete rendererView;
         delete fileImporterBrowser;
-        delete imGuiTextEditor;
+        delete textEditor;
+        delete menu;
     }
 
     void ImGuiEditor::newFrame(Dream::Window *window) {
@@ -70,14 +78,12 @@ namespace Dream {
 
         // dockspace
         ImGuiIO& io = ImGui::GetIO();
-        if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
-        {
+        if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
             ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
             ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 
             static auto first_time = true;
-            if (first_time)
-            {
+            if (first_time) {
                 first_time = false;
 
                 ImGui::DockBuilderRemoveNode(dockspace_id); // clear any previous layout
@@ -100,6 +106,8 @@ namespace Dream {
         ImGui::End();
 
         this->style();
+
+        menu->update(fileImporterBrowser);
 
         if(ImGui::BeginMainMenuBar()) {
             if (ImGui::BeginMenu("File")) {
@@ -137,44 +145,12 @@ namespace Dream {
             }
         }
 
-        // render text editor
-        imGuiTextEditor->render();
-
-        ImGuiWindowClass renderer_window_class;
-        renderer_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
-        ImGui::SetNextWindowClass(&renderer_window_class);
-        ImGuiWindowFlags renderer_window_flags = 0;
-        renderer_window_flags |= ImGuiWindowFlags_NoScrollbar;
-        ImGui::Begin("Renderer", nullptr, renderer_window_flags);
-        ImVec2 vMin = ImGui::GetWindowContentRegionMin();
-        ImVec2 vMax = ImGui::GetWindowContentRegionMax();
-        vMin.x += ImGui::GetWindowPos().x;
-        vMin.y += ImGui::GetWindowPos().y;
-        vMax.x += ImGui::GetWindowPos().x;
-        vMax.y += ImGui::GetWindowPos().y;
-        float width = vMax.x - vMin.x;
-        float height = vMax.y - vMin.y;
-        this->rendererViewportWidth = int(width);
-        this->rendererViewportHeight = int(height);
-        ImGui::Image(reinterpret_cast<ImTextureID>(frameBufferTexture), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
-        ImGui::End();
-
+        // render panels
+        textEditor->render();
+        rendererView->update(this->rendererViewportWidth, this->rendererViewportHeight, frameBufferTexture);
         inspectorView->update();
-
-        ImGuiWindowClass project_window_class;
-        project_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
-        ImGui::SetNextWindowClass(&project_window_class);
-        ImGui::Begin("Project");
-        ImGui::Text(" ");
-        ImGui::End();
-
-        ImGuiWindowClass console_window_class;
-        console_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
-        ImGui::SetNextWindowClass(&console_window_class);
-        ImGui::Begin("Console");
-        ImGui::Text(" ");
-        ImGui::End();
-
+        projectView->update();
+        consoleView->update();
         sceneView->update();
 
         ImGui::Render();

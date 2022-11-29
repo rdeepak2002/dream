@@ -10,6 +10,10 @@
 #include "dream/editor/Editor.h"
 #include "dream/editor/ImGuiEditorSceneView.h"
 #include "dream/editor/ImGuiEditorInspectorView.h"
+#include "dream/editor/ImGuiEditorProjectView.h"
+#include "dream/editor/ImGuiEditorConsoleView.h"
+#include "dream/editor/ImGuiEditorRendererView.h"
+#include "dream/editor/ImGuiEditorMenu.h"
 #include "dream/editor/ImGuiTextEditor.h"
 #include <imgui.h>
 #include <imgui-filebrowser/imfilebrowser.h>
@@ -30,7 +34,11 @@ namespace Dream {
         ImGui::FileBrowser* fileImporterBrowser;
         ImGuiEditorSceneView* sceneView;
         ImGuiEditorInspectorView* inspectorView;
-        ImGuiTextEditor* imGuiTextEditor;
+        ImGuiEditorProjectView* projectView;
+        ImGuiEditorConsoleView* consoleView;
+        ImGuiEditorRendererView* rendererView;
+        ImGuiEditorMenu* menu;
+        ImGuiTextEditor* textEditor;
     };
 }
 
