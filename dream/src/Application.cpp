@@ -50,17 +50,18 @@ namespace Dream {
     }
 
     std::filesystem::path Application::getResourcesRoot() {
+        // check if current path already has resources folder
         if (std::filesystem::exists(std::filesystem::current_path().append("resources"))) {
             return std::filesystem::current_path();
         }
-        // try to find location of examples folder for desktop debug build
-        auto examplesFolder = std::filesystem::current_path()
+        // try to find location of resources folder for desktop debug build
+        auto resourcesFolder = std::filesystem::current_path()
                 .append("..")
                 .append("..")
                 .append("..")
                 .append("resources");
-        if (std::filesystem::exists(examplesFolder)) {
-            return examplesFolder.append("..");
+        if (std::filesystem::exists(resourcesFolder)) {
+            return resourcesFolder.append("..");
         }
         fprintf(stderr, "Error: unable to find examples folder\n");
         exit(EXIT_FAILURE);
