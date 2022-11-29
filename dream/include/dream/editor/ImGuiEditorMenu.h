@@ -6,12 +6,15 @@
 #define DREAM_IMGUIEDITORMENU_H
 
 #include <imgui/imgui.h>
-#include <imgui-filebrowser/imfilebrowser.h>
+#include "dream/editor/ImGuiFileBrowser.h"
 
 namespace Dream {
     class ImGuiEditorMenu {
     public:
-        void update(ImGui::FileBrowser *fileImporterBrowser);
+        ImGuiEditorMenu(ImGuiFileBrowser* fileBrowser);
+        void update();
+    private:
+        ImGuiFileBrowser* fileBrowser;
     };
 }
 

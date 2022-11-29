@@ -5,16 +5,15 @@
 #include "dream/editor/ImGuiEditor.h"
 
 #include <filesystem>
-#include <imgui_internal.h>
 #include <stack>
-#include "dream/project/Project.h"
+#include <imgui/imgui_internal.h>
 
 namespace Dream {
     ImGuiEditor::ImGuiEditor(Dream::Window *window) : Editor(window) {
         this->rendererViewportWidth = 520;
         this->rendererViewportHeight = 557;
-        this->fileImporterBrowser = nullptr;
         this->textEditor = new ImGuiTextEditor();
+        this->fileBrowser = new ImGuiFileBrowser();
         this->inspectorView = new ImGuiEditorInspectorView();
         this->inspectorView->setTextEditor(textEditor);
         this->sceneView = new ImGuiEditorSceneView();
@@ -22,7 +21,7 @@ namespace Dream {
         this->projectView = new ImGuiEditorProjectView();
         this->consoleView = new ImGuiEditorConsoleView();
         this->rendererView = new ImGuiEditorRendererView();
-        this->menu = new ImGuiEditorMenu();
+        this->menu = new ImGuiEditorMenu(this->fileBrowser);
 
         // setup Dear ImGui context
         IMGUI_CHECKVERSION();
@@ -42,9 +41,9 @@ namespace Dream {
         delete projectView;
         delete consoleView;
         delete rendererView;
-        delete fileImporterBrowser;
-        delete textEditor;
         delete menu;
+        delete fileBrowser;
+        delete textEditor;
     }
 
     void ImGuiEditor::newFrame(Dream::Window *window) {
@@ -107,46 +106,12 @@ namespace Dream {
 
         this->style();
 
-        menu->update(fileImporterBrowser);
-
-        if(ImGui::BeginMainMenuBar()) {
-            if (ImGui::BeginMenu("File")) {
-                if(ImGui::MenuItem("Save")) {
-                    Project::saveScene();
-                }
-                ImGui::EndMenu();
-            }
-            if (ImGui::BeginMenu("Assets")) {
-                if(ImGui::MenuItem("Import Folder")) {
-                    delete fileImporterBrowser;
-                    fileImporterBrowser = new ImGui::FileBrowser(ImGuiFileBrowserFlags_SelectDirectory);
-                    fileImporterBrowser->SetTitle("import folder");
-                    fileImporterBrowser->SetPwd(Project::getPath());
-                    fileImporterBrowser->Open();
-                }
-                if(ImGui::MenuItem("Import File")) {
-                    delete fileImporterBrowser;
-                    fileImporterBrowser = new ImGui::FileBrowser();
-                    fileImporterBrowser->SetTitle("import file");
-                    fileImporterBrowser->SetPwd(Project::getPath());
-                    fileImporterBrowser->Open();
-                }
-                ImGui::EndMenu();
-            }
-            ImGui::EndMainMenuBar();
-        }
-
-        if (fileImporterBrowser) {
-            fileImporterBrowser->Display();
-            if (fileImporterBrowser->HasSelected()) {
-                std::filesystem::path selectedFilePath = fileImporterBrowser->GetSelected();
-                Project::getAssetImporter()->importAsset(selectedFilePath);
-                fileImporterBrowser->ClearSelected();
-            }
-        }
+        // update utility panels
+        textEditor->render();
+        fileBrowser->update();
 
         // render panels
-        textEditor->render();
+        menu->update();
         rendererView->update(this->rendererViewportWidth, this->rendererViewportHeight, frameBufferTexture);
         inspectorView->update();
         projectView->update();

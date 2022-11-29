@@ -15,8 +15,7 @@
 #include "dream/editor/ImGuiEditorRendererView.h"
 #include "dream/editor/ImGuiEditorMenu.h"
 #include "dream/editor/ImGuiTextEditor.h"
-#include <imgui.h>
-#include <imgui-filebrowser/imfilebrowser.h>
+#include "dream/editor/ImGuiFileBrowser.h"
 
 namespace Dream {
     class ImGuiEditor : public Editor {
@@ -31,7 +30,6 @@ namespace Dream {
         void renderDrawData() override;
         int rendererViewportWidth, rendererViewportHeight;
     private:
-        ImGui::FileBrowser* fileImporterBrowser;
         ImGuiEditorSceneView* sceneView;
         ImGuiEditorInspectorView* inspectorView;
         ImGuiEditorProjectView* projectView;
@@ -39,6 +37,7 @@ namespace Dream {
         ImGuiEditorRendererView* rendererView;
         ImGuiEditorMenu* menu;
         ImGuiTextEditor* textEditor;
+        ImGuiFileBrowser* fileBrowser;
     };
 }
 
