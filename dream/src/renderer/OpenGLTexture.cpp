@@ -10,12 +10,12 @@
 
 namespace Dream
 {
-    OpenGLTexture::OpenGLTexture(std::string texturePath)
+    OpenGLTexture::OpenGLTexture(std::string texturePath, bool flipTexture)
     {
 //        path = texturePath;
         glGenTextures(1, &id);
         this->bind();
-        stbi_set_flip_vertically_on_load(true);
+        stbi_set_flip_vertically_on_load(flipTexture);
         unsigned char *data = stbi_load(texturePath.c_str(), &width, &height, &nrChannels, 0);
         if (data)
         {
@@ -63,5 +63,9 @@ namespace Dream
 
     void OpenGLTexture::unbind() {
         glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    unsigned int OpenGLTexture::ID() {
+        return id;
     }
 }

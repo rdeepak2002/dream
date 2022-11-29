@@ -32,10 +32,11 @@ namespace Dream {
 //            unsigned int Depth  = 0;
         private:
         public:
-            OpenGLTexture(std::string texturePath);
+            OpenGLTexture(std::string texturePath, bool flipTexture=true);
             ~OpenGLTexture();
             void bind(int unit = -1);
             void unbind();
+            unsigned int ID() override;
     };
 }
 

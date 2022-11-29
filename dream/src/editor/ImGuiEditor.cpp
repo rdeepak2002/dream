@@ -63,8 +63,8 @@ namespace Dream {
         menu->update();
         rendererView->update(this->rendererViewportWidth, this->rendererViewportHeight, frameBufferTexture);
         inspectorView->update();
-        projectView->update();
         consoleView->update();
+        projectView->update();
         sceneView->update();
 
         ImGui::Render();
@@ -154,8 +154,8 @@ namespace Dream {
 
                 ImGui::DockBuilderDockWindow("Renderer", dockspace_id);
                 ImGui::DockBuilderDockWindow("Inspector", dock_id_right);
-                ImGui::DockBuilderDockWindow("Project", dock_id_down);
                 ImGui::DockBuilderDockWindow("Console", dock_id_down);
+                ImGui::DockBuilderDockWindow("Project", dock_id_down);
                 ImGui::DockBuilderDockWindow("Scene", dock_id_left);
                 ImGui::DockBuilderFinish(dockspace_id);
             }
