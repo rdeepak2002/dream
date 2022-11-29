@@ -22,12 +22,16 @@ namespace Dream {
         if (path.extension() == ".lua") {
             std::cout << "detected lua" << std::endl;
             textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
-        } else if (path.extension() == ".vert") {
-            textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::GLSL());
-        } else if (path.extension() == ".frag") {
+        } else if (path.extension() == ".vert" || path.extension() == ".frag") {
             textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::GLSL());
         } else {
             textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::CPlusPlus());
+        }
+
+        if (path.extension() == ".py" || path.extension() == ".scene" || path.extension() == ".yml") {
+            this->textEditor->SetShowWhitespaces(true);
+        } else {
+            this->textEditor->SetShowWhitespaces(false);
         }
         filename = path.filename();
         std::string fileContent;
