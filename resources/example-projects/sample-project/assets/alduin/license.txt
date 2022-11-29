@@ -1,0 +1,11 @@
+Model Information:
+* title:	ALDUIN
+* source:	https://sketchfab.com/3d-models/alduin-c1d54a5145004198ac9c45da418239c8
+* author:	Dilirios (https://sketchfab.com/Dilirios)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "ALDUIN" (https://sketchfab.com/3d-models/alduin-c1d54a5145004198ac9c45da418239c8) by Dilirios (https://sketchfab.com/Dilirios) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
