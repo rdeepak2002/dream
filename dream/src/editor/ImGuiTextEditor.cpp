@@ -85,7 +85,8 @@ namespace Dream {
                 ImGui::EndMenuBar();
             }
 
-            textEditor->SetPalette(TextEditor::GetDarkPalette());
+            textEditor->SetPalette(TextEditor::GetLightPalette());
+            ImGui::SetWindowFontScale(1.1);
             textEditor->Render("TextEditor");
 
             ImGui::End();
