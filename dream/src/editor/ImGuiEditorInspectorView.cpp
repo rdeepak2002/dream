@@ -129,7 +129,7 @@ namespace Dream {
         if (selectedEntity.hasComponent<Component::RootComponent>()) {
             auto &component = selectedEntity.getComponent<Component::RootComponent>();
             auto componentName = Component::RootComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "ROOT")) {
+            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "Root")) {
                 std::string name = component.name;
                 ImGui::Text("Name");
                 ImGui::SameLine();
@@ -157,7 +157,7 @@ namespace Dream {
         if (selectedEntity.hasComponent<Component::TagComponent>()) {
             auto &component = selectedEntity.getComponent<Component::TagComponent>();
             auto componentName = Component::TagComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "TAG")) {
+            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "Tag")) {
                 std::string tag = component.tag;
                 ImGui::Text("Tag");
                 ImGui::SameLine();
@@ -176,7 +176,7 @@ namespace Dream {
         if (selectedEntity.hasComponent<Component::TransformComponent>()) {
             auto &component = selectedEntity.getComponent<Component::TransformComponent>();
             auto componentName = Component::TransformComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "TRANSFORM")) {
+            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "Transform")) {
                 renderVec3Control("Position", component.translation);
                 glm::vec3 eulerRot = glm::eulerAngles(component.rotation);
                 renderVec3Control("Rotation", eulerRot);
@@ -205,7 +205,7 @@ namespace Dream {
 
             auto &component = selectedEntity.getComponent<Component::MeshComponent>();
             auto componentName = Component::MeshComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "MESH")) {
+            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "Mesh")) {
                 bool canChangeMesh = component.fileId.empty();
                 if (component.meshType == Component::MeshComponent::MeshType::FROM_FILE) {
                     ImGui::Text("Type");
@@ -248,7 +248,7 @@ namespace Dream {
         if (selectedEntity.hasComponent<Component::MaterialComponent>()) {
             auto &component = selectedEntity.getComponent<Component::MaterialComponent>();
             auto componentName = Component::MaterialComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "MATERIAL")) {
+            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "Material")) {
                 std::string diffuseTexturePath = shorten(Project::getResourceManager()->getFilePathFromGUID(component.guid));
                 ImGui::Text("Diffuse Texture");
                 ImGui::SameLine();
@@ -262,7 +262,7 @@ namespace Dream {
         if (selectedEntity.hasComponent<Component::LuaScriptComponent>()) {
             auto &component = selectedEntity.getComponent<Component::LuaScriptComponent>();
             auto componentName = Component::LuaScriptComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "LUA SCRIPT")) {
+            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "Lua Script")) {
                 std::string scriptPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
                 std::string shortScriptPath = shorten(scriptPath);
                 ImGui::Text("Script Path");
