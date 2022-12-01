@@ -11,6 +11,9 @@ namespace Dream {
     ImGuiTextEditor::ImGuiTextEditor() {
         this->textEditor = new TextEditor();
         this->visible = false;
+        this->shouldSetupPositionAndSize = true;
+        this->isFullscreen = false;
+        this->isDarkMode = true;
     }
 
     ImGuiTextEditor::~ImGuiTextEditor() {
@@ -18,6 +21,7 @@ namespace Dream {
     }
 
     void ImGuiTextEditor::open(const std::string& filepath) {
+        shouldSetupPositionAndSize = true;
         path = std::filesystem::path(filepath);
         if (path.extension() == ".lua") {
             std::cout << "detected lua" << std::endl;
@@ -72,6 +76,18 @@ namespace Dream {
 
         if (visible) {
             ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(500, 500));
+            auto viewport = ImGui::GetMainViewport();
+            if (isFullscreen) {
+                ImGui::SetNextWindowPos(ImVec2(0, 0));
+                ImGui::SetNextWindowSize(ImVec2(viewport->Size.x, viewport->Size.y));
+            } else if (shouldSetupPositionAndSize) {
+                auto w = viewport->Size.x * 0.8f;
+                auto h = viewport->Size.y * 0.8f;
+                ImGui::SetNextWindowPos(ImVec2(viewport->Size.x / 2 - w / 2, viewport->Size.y / 2 - h / 2));
+                ImGui::SetNextWindowSize(ImVec2(w, h));
+                shouldSetupPositionAndSize = false;
+            }
+
             ImGui::Begin(filename.c_str(), nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
             if (ImGui::BeginMenuBar()) {
@@ -86,10 +102,27 @@ namespace Dream {
                     }
                     ImGui::EndMenu();
                 }
+                if (ImGui::BeginMenu("View")) {
+                    if (!isFullscreen && ImGui::MenuItem("Fullscreen")) {
+                        isFullscreen = true;
+                        shouldSetupPositionAndSize = true;
+                    }
+                    if (isFullscreen && ImGui::MenuItem("Windowed")) {
+                        isFullscreen = false;
+                        shouldSetupPositionAndSize = true;
+                    }
+                    if (isDarkMode && ImGui::MenuItem("Light Mode")) {
+                        isDarkMode = false;
+                    }
+                    if (!isDarkMode && ImGui::MenuItem("Dark Mode")) {
+                        isDarkMode = true;
+                    }
+                    ImGui::EndMenu();
+                }
                 ImGui::EndMenuBar();
             }
 
-            textEditor->SetPalette(TextEditor::GetLightPalette());
+            textEditor->SetPalette(isDarkMode ? TextEditor::GetDarkPalette() : TextEditor::GetLightPalette());
             ImGui::SetWindowFontScale(1.1);
             textEditor->Render("TextEditor");
 

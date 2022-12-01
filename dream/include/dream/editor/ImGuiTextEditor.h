@@ -21,6 +21,9 @@ namespace Dream {
         void update();
         void setVisibility(bool isVisible);
     private:
+        bool isDarkMode;
+        bool isFullscreen;
+        bool shouldSetupPositionAndSize;
         bool visible;
         bool unsavedChanges;
         bool justLoaded;
