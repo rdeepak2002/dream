@@ -6,6 +6,7 @@
 
 #include <imgui.h>
 #include <imgui_internal.h>
+#include <misc/cpp/imgui_stdlib.h>
 #include "dream/scene/component/Component.h"
 #include "dream/project/Project.h"
 #include "dream/util/SceneUtils.h"
@@ -158,10 +159,7 @@ namespace Dream {
             auto &component = selectedEntity.getComponent<Component::TagComponent>();
             auto componentName = Component::TagComponent::componentName.c_str();
             if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen, "%s", "Tag")) {
-                std::string tag = component.tag;
-                ImGui::Text("Tag");
-                ImGui::SameLine();
-                ImGui::Text("%s", tag.c_str());
+                ImGui::InputTextWithHint(" ", "Tag", &component.tag);
                 ImGui::TreePop();
             }
         }

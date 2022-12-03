@@ -17,7 +17,7 @@ Entities:
     IDComponent:
       id: B8AB4704-3DCD-4A02-B024-C14A65BFD0AB
     TagComponent:
-      tag: Sketchfab_model
+      tag: Dragon
     HierarchyComponent:
       first: 41D79406-B76B-46CC-8F6E-1264828E7872
       next: E79B9FA6-F724-4F3F-A888-4AB724620D8B
@@ -34,7 +34,7 @@ Entities:
     IDComponent:
       id: 41D79406-B76B-46CC-8F6E-1264828E7872
     TagComponent:
-      tag: alduin.obj.cleaner.materialmerger.gles
+      tag: Dragon Node
     HierarchyComponent:
       first: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
       parent: B8AB4704-3DCD-4A02-B024-C14A65BFD0AB
@@ -46,7 +46,7 @@ Entities:
     IDComponent:
       id: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
     TagComponent:
-      tag: Object_3
+      tag: Eye Node
     HierarchyComponent:
       first: 073E62E5-0FF8-4FBD-BEC0-91BFB616FEF0
       next: 3EC28924-A130-42D6-ADCE-45DCB08EB34E
@@ -59,7 +59,7 @@ Entities:
     IDComponent:
       id: 073E62E5-0FF8-4FBD-BEC0-91BFB616FEF0
     TagComponent:
-      tag: Object_1
+      tag: Eye Mesh
     HierarchyComponent:
       parent: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
     TransformComponent:
@@ -76,7 +76,7 @@ Entities:
     IDComponent:
       id: 3EC28924-A130-42D6-ADCE-45DCB08EB34E
     TagComponent:
-      tag: Object_2
+      tag: Body Node
     HierarchyComponent:
       first: BE53064B-AEFF-441A-8F71-D75D53D24EE5
       prev: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
@@ -89,7 +89,7 @@ Entities:
     IDComponent:
       id: BE53064B-AEFF-441A-8F71-D75D53D24EE5
     TagComponent:
-      tag: Object_0
+      tag: Body Mesh
     HierarchyComponent:
       parent: 3EC28924-A130-42D6-ADCE-45DCB08EB34E
     TransformComponent:
@@ -112,7 +112,7 @@ Entities:
       next: 2BD29A8C-E68E-41AA-94D5-541A903086DD
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [0.400000006, 0.699999988, 0]
+      translation: [1.00333333, 0.699999988, 0]
       rotation: [7.54979013e-08, 0, 0, 1]
       scale: [0.600000024, 0.600000024, 0.600000024]
     MeshComponent:

@@ -78,6 +78,7 @@ macro(DREAM_GLOB_SOURCE_CODE)
     # find source files for engine code
     FILE(GLOB ENGINE_SOURCE_FILES
             include/imgui/*.cpp
+            include/imgui/misc/cpp/*.cpp
             include/imgui/backends/imgui_impl_sdl.cpp
             include/imgui/backends/imgui_impl_opengl3.cpp
             include/imgui-texteditor/*.cpp
