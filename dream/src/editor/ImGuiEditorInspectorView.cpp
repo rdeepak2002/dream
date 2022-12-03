@@ -40,6 +40,7 @@ namespace Dream {
             renderMeshComponent();
             renderMaterialComponent();
             renderLuaScriptComponent();
+            renderAnimatorComponent();
             if (ImGui::Button("Remove")) {
                 Project::getScene()->removeEntity(selectedEntity);
                 selectedEntity = Entity();
@@ -268,6 +269,19 @@ namespace Dream {
                 ImGui::Text("%s", shortScriptPath.c_str());
                 if (ImGui::Button("Edit Script")) {
                     this->imGuiTextEditor->open(scriptPath);
+                }
+                ImGui::TreePop();
+            }
+        }
+    }
+
+    void ImGuiEditorInspectorView::renderAnimatorComponent() {
+        if (selectedEntity.hasComponent<Component::AnimatorComponent>()) {
+            auto &component = selectedEntity.getComponent<Component::AnimatorComponent>();
+            auto componentName = Component::AnimatorComponent::componentName.c_str();
+            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Animator")) {
+                if (ImGui::Button("Edit")) {
+                    // TODO: open animator node editor for this
                 }
                 ImGui::TreePop();
             }

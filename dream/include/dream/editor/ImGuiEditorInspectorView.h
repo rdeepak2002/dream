@@ -32,6 +32,7 @@ namespace Dream {
         void renderMeshComponent();
         void renderMaterialComponent();
         void renderLuaScriptComponent();
+        void renderAnimatorComponent();
         // TODO: move mesh component render method to new class
         // mesh component renderer variables
         ImGui::FileBrowser* meshSelectorBrowser;
