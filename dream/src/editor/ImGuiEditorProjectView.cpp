@@ -31,6 +31,10 @@ namespace Dream {
     }
 
     void ImGuiEditorProjectView::update() {
+//        ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0, 0, 0, 0));
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0, 0, 0, 0));
+
         ImGuiWindowClass project_window_class;
         project_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
         ImGui::SetNextWindowClass(&project_window_class);
@@ -51,7 +55,13 @@ namespace Dream {
             }
         }
 
-        ImGui::Columns(8, "grid");
+        auto windowSize = ImGui::GetWindowSize();
+
+        int numColumns = (int)(windowSize.x / 100.0f);
+        if (numColumns == 0) {
+            numColumns = 1;
+        }
+        ImGui::Columns(numColumns, "grid");
 
         if (currentPath != Project::getPath()) {
             if (ImGui::ImageButton("..", (void*)(intptr_t)folderIcon, ImVec2(40,40))) {
@@ -76,6 +86,9 @@ namespace Dream {
                 ImGui::NextColumn();
             }
         }
+
+        ImGui::PopStyleColor(2);
+
         ImGui::End();
     }
 
