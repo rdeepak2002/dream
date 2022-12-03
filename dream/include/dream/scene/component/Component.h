@@ -144,6 +144,14 @@ namespace Dream::Component {
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
     };
+
+    struct AnimatorComponent : public Component {
+        inline static std::string componentName = "AnimatorComponent";
+        std::string foo = "Animator";
+        explicit AnimatorComponent();
+        static void deserialize(YAML::Node node, Entity &entity);
+        static void serialize(YAML::Emitter &out, Entity &entity);
+    };
 }
 
 #endif //DREAM_COMPONENT_H

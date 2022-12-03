@@ -51,6 +51,7 @@ namespace Dream {
         Component::MeshComponent::serialize(out, *this);
         Component::MaterialComponent::serialize(out, *this);
         Component::LuaScriptComponent::serialize(out, *this);
+        Component::AnimatorComponent::serialize(out, *this);
         out << YAML::EndMap;
         // serialize children
         Entity child = getComponent<Component::HierarchyComponent>().first;
@@ -73,6 +74,7 @@ namespace Dream {
         Component::MeshComponent::deserialize(node, *this);
         Component::MaterialComponent::deserialize(node, *this);
         Component::LuaScriptComponent::deserialize(node, *this);
+        Component::AnimatorComponent::deserialize(node, *this);
     }
 
     std::string Entity::getID() {
