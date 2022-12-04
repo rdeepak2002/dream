@@ -230,7 +230,7 @@ namespace Dream {
                         if (ImGui::Button("Select")) {
                             delete meshSelectorBrowser;
                             meshSelectorBrowser = new ImGui::FileBrowser();
-                            meshSelectorBrowser->SetTitle("import mesh");
+                            meshSelectorBrowser->SetTitle("select mesh");
                             meshSelectorBrowser->SetPwd(Project::getPath());
                             meshSelectorBrowser->Open();
                             oldMeshGUID = component.guid;
