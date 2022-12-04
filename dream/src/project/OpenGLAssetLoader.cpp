@@ -124,12 +124,27 @@ namespace Dream {
         // process materials
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
+        bool textureEmbeddedInModel = false;
+        const aiTexture* assimpTexture = nullptr;
         auto textureType = aiTextureType_DIFFUSE;
         std::string texturePath = "";
+        std::string textureFileGUID;
         for(unsigned int i = 0; i < material->GetTextureCount(textureType); i++) {
             aiString str;
             material->GetTexture(textureType, i, &str);
-            texturePath = std::filesystem::path(path).parent_path().append(str.C_Str());
+            if(auto texture = scene->GetEmbeddedTexture(str.C_Str())) {
+                // texture embedded in model
+                textureEmbeddedInModel = true;
+                assimpTexture = texture;
+                texturePath = str.C_Str();
+                // TODO: use md5 hash
+                textureFileGUID = std::filesystem::path(path).parent_path().append(str.C_Str());
+            } else {
+                // regular texture file
+                textureEmbeddedInModel = false;
+                texturePath = std::filesystem::path(path).parent_path().append(str.C_Str());
+                textureFileGUID = IDUtils::getGUIDForFile(texturePath);
+            }
         }
 
         Entity entity;
@@ -148,13 +163,27 @@ namespace Dream {
         }
         // add material component
         if (!texturePath.empty()) {
-            auto textureFileGUID = IDUtils::getGUIDForFile(texturePath);
-            if (!Project::getResourceManager()->hasData(textureFileGUID)) {
-                auto* dreamTexture = new OpenGLTexture(texturePath);
+            if (textureEmbeddedInModel && assimpTexture) {
+                // add texture embedded into model file
+                auto buffer = reinterpret_cast<unsigned char*>(assimpTexture->pcData);
+                int len = assimpTexture->mHeight == 0 ? static_cast<int>(assimpTexture->mWidth) : static_cast<int>(assimpTexture->mWidth * assimpTexture->mHeight);
+                auto* dreamTexture = new OpenGLTexture(buffer, len);
                 Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
-            }
-            if (createEntities) {
-                entity.addComponent<Component::MaterialComponent>(textureFileGUID);
+                if (createEntities) {
+                    entity.addComponent<Component::MaterialComponent>(textureFileGUID);
+                }
+            } else if (!textureEmbeddedInModel) {
+                // add texture stored in an external image file
+                if (!Project::getResourceManager()->hasData(textureFileGUID)) {
+                    auto* dreamTexture = new OpenGLTexture(texturePath);
+                    Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
+                }
+                if (createEntities) {
+                    entity.addComponent<Component::MaterialComponent>(textureFileGUID);
+                }
+            } else {
+                std::cout << "Error: Invalid state" << std::endl;
+                exit(EXIT_FAILURE);
             }
         }
         return entity;

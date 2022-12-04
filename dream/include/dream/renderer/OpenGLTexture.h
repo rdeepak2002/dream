@@ -7,6 +7,7 @@
 
 #include <glad/glad.h>
 #include <iostream>
+#include <stb/stb_image.h>
 #include "dream/renderer/Texture.h"
 
 namespace Dream {
@@ -33,6 +34,7 @@ namespace Dream {
         private:
         public:
             OpenGLTexture(std::string texturePath, bool flipTexture=true);
+            OpenGLTexture(stbi_uc const *buffer, int len, bool flipTexture=true);
             ~OpenGLTexture();
             void bind(int unit = -1);
             void unbind();

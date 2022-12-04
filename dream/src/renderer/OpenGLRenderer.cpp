@@ -74,11 +74,22 @@ namespace Dream {
         auto meshEntities = Project::getScene()->getEntitiesWithComponents<Component::MeshComponent>();
         for(auto entityHandle : meshEntities) {
             Entity entity = {entityHandle, Project::getScene()};
+
+            // load mesh of entity
+            if (entity.hasComponent<Component::MeshComponent>()) {
+                if (!entity.getComponent<Component::MeshComponent>().mesh) {
+                    entity.getComponent<Component::MeshComponent>().loadMesh();
+                }
+            }
+
+            // load material of entity
             if (entity.hasComponent<Component::MaterialComponent>()) {
                 if (!entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
                     entity.getComponent<Component::MaterialComponent>().loadTexture();
                 }
+            }
 
+            if (entity.hasComponent<Component::MaterialComponent>()) {
                 if (entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
                     auto* openGLTexture = dynamic_cast<OpenGLTexture*>(entity.getComponent<Component::MaterialComponent>().diffuseTexture);
                     if (openGLTexture) {
@@ -102,10 +113,6 @@ namespace Dream {
 
             if (entity.hasComponent<Component::MeshComponent>()) {
                 // draw mesh of entity
-                if (!entity.getComponent<Component::MeshComponent>().mesh) {
-                    entity.getComponent<Component::MeshComponent>().loadMesh();
-                }
-
                 if (entity.getComponent<Component::MeshComponent>().mesh) {
                     auto* openGLMesh = dynamic_cast<OpenGLMesh*>(entity.getComponent<Component::MeshComponent>().mesh);
                     if (openGLMesh) {
