@@ -72,6 +72,7 @@ Entities:
       fileId: 98f13708210194c475687be6106a3b84
     MaterialComponent:
       guid: 569E1F56-C003-48F0-88F1-81298B4B2A9C
+      isEmbedded: false
   - Entity: 3EC28924-A130-42D6-ADCE-45DCB08EB34E
     IDComponent:
       id: 3EC28924-A130-42D6-ADCE-45DCB08EB34E
@@ -102,6 +103,7 @@ Entities:
       fileId: d3d9446802a44259755d38e6d163e820
     MaterialComponent:
       guid: 91C139D4-E01C-4A48-8A30-043D54BCD716
+      isEmbedded: false
   - Entity: E79B9FA6-F724-4F3F-A888-4AB724620D8B
     IDComponent:
       id: E79B9FA6-F724-4F3F-A888-4AB724620D8B
@@ -121,6 +123,7 @@ Entities:
       fileId: ""
     MaterialComponent:
       guid: 8C48D481-C949-4C24-87CF-05E446A3Y8A2
+      isEmbedded: false
     LuaScriptComponent:
       guid: 1A2ACF14-B491-4FD7-B7D0-BBECC4C7EED3
   - Entity: 2BD29A8C-E68E-41AA-94D5-541A903086DD

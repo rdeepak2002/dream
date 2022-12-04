@@ -9,8 +9,9 @@
 #include "dream/project/Project.h"
 
 namespace Dream::Component {
-    MaterialComponent::MaterialComponent(std::string guid) {
+    MaterialComponent::MaterialComponent(std::string guid, bool isEmbedded) {
         this->guid = std::move(guid);
+        this->isEmbedded = isEmbedded;
     }
 
     void MaterialComponent::loadTexture() {
@@ -33,6 +34,7 @@ namespace Dream::Component {
             out << YAML::Key << componentName;
             out << YAML::BeginMap;
             out << YAML::Key << k_guid << YAML::Value << entity.getComponent<MaterialComponent>().guid;
+            out << YAML::Key << k_isEmbedded << YAML::Value << entity.getComponent<MaterialComponent>().isEmbedded;
             out << YAML::EndMap;
         }
     }
@@ -40,7 +42,11 @@ namespace Dream::Component {
     void MaterialComponent::deserialize(YAML::Node node, Entity &entity) {
         if (node[componentName]) {
             auto guid = node[componentName][k_guid].as<std::string>();
-            entity.addComponent<MaterialComponent>(guid);
+            auto isEmbedded = false;
+            if (node[componentName][k_isEmbedded]) {
+                isEmbedded = node[componentName][k_isEmbedded].as<bool>();
+            }
+            entity.addComponent<MaterialComponent>(guid, isEmbedded);
         }
     }
 }

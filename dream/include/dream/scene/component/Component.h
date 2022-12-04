@@ -123,7 +123,9 @@ namespace Dream::Component {
         Texture* diffuseTexture = nullptr;
         inline static std::string k_guid = "guid";
         std::string guid;
-        explicit MaterialComponent(std::string guid);
+        inline static std::string k_isEmbedded = "isEmbedded";
+        bool isEmbedded;
+        explicit MaterialComponent(std::string guid, bool isEmbedded);
         Texture* getTexture();
         void loadTexture();
         static void deserialize(YAML::Node node, Entity &entity);

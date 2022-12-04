@@ -137,8 +137,8 @@ namespace Dream {
                 textureEmbeddedInModel = true;
                 assimpTexture = texture;
                 texturePath = str.C_Str();
-                // TODO: use md5 hash
-                textureFileGUID = std::filesystem::path(path).parent_path().append(str.C_Str());
+                textureFileGUID = IDUtils::newFileID(std::filesystem::path(path).parent_path().append(str.C_Str()));
+                Project::getResourceManager()->setFilePathFromGUID(textureFileGUID, texturePath);
             } else {
                 // regular texture file
                 textureEmbeddedInModel = false;
@@ -170,7 +170,7 @@ namespace Dream {
                 auto* dreamTexture = new OpenGLTexture(buffer, len);
                 Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
                 if (createEntities) {
-                    entity.addComponent<Component::MaterialComponent>(textureFileGUID);
+                    entity.addComponent<Component::MaterialComponent>(textureFileGUID, true);
                 }
             } else if (!textureEmbeddedInModel) {
                 // add texture stored in an external image file
@@ -179,7 +179,7 @@ namespace Dream {
                     Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
                 }
                 if (createEntities) {
-                    entity.addComponent<Component::MaterialComponent>(textureFileGUID);
+                    entity.addComponent<Component::MaterialComponent>(textureFileGUID, false);
                 }
             } else {
                 std::cout << "Error: Invalid state" << std::endl;
