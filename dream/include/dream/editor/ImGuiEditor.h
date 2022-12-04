@@ -16,6 +16,7 @@
 #include "dream/editor/ImGuiEditorMenu.h"
 #include "dream/editor/ImGuiTextEditor.h"
 #include "dream/editor/ImGuiFileBrowser.h"
+#include "dream/editor/ImGuiEditorAnimatorGraph.h"
 
 namespace Dream {
     class ImGuiEditor : public Editor {
@@ -39,6 +40,7 @@ namespace Dream {
         ImGuiEditorMenu* menu;
         ImGuiTextEditor* textEditor;
         ImGuiFileBrowser* fileBrowser;
+        ImGuiEditorAnimatorGraph* animatorGraphEditor;
     };
 }
 

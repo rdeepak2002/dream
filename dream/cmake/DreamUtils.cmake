@@ -72,6 +72,7 @@ macro(DREAM_INCLUDE_HEADERS)
     # header files
     include_directories(include)
     include_directories(include/imgui)
+    include_directories(include/imgui-node-editor)
 endmacro()
 
 macro(DREAM_GLOB_SOURCE_CODE)
@@ -82,6 +83,7 @@ macro(DREAM_GLOB_SOURCE_CODE)
             include/imgui/backends/imgui_impl_sdl.cpp
             include/imgui/backends/imgui_impl_opengl3.cpp
             include/imgui-texteditor/*.cpp
+            include/imgui-node-editor/*.cpp
             src/*.cpp
             src/project/*.cpp
             src/editor/*.cpp

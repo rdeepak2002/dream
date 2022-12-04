@@ -14,6 +14,7 @@ namespace Dream {
         this->rendererViewportHeight = 557;
         this->textEditor = new ImGuiTextEditor();
         this->fileBrowser = new ImGuiFileBrowser();
+        this->animatorGraphEditor = new ImGuiEditorAnimatorGraph();
         this->inspectorView = new ImGuiEditorInspectorView();
         this->inspectorView->setTextEditor(textEditor);
         this->sceneView = new ImGuiEditorSceneView();
@@ -44,6 +45,7 @@ namespace Dream {
         delete menu;
         delete fileBrowser;
         delete textEditor;
+        delete animatorGraphEditor;
     }
 
     void ImGuiEditor::newFrame(Dream::Window *window) {
@@ -58,6 +60,7 @@ namespace Dream {
         // update utility panels
         textEditor->update();
         fileBrowser->update();
+        animatorGraphEditor->update();
 
         // render panels
         menu->update();
