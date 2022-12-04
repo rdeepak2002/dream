@@ -194,11 +194,13 @@ namespace Dream {
                     std::filesystem::path selectedFilePath = meshSelectorBrowser->GetSelected();
                     // get GUID of new mesh asset
                     std::string newMeshGUID = IDUtils::getGUIDForFile(selectedFilePath);
-                    // load new mesh and add sub-meshes as children
-                    Project::getAssetLoader()->loadMesh(newMeshGUID, true, selectedEntity);
-                    // remove reference to old meshes for all children
-                    SceneUtils::removeMeshReference(selectedEntity, oldMeshGUID, true);
-                    meshSelectorBrowser->ClearSelected();
+                    if (newMeshGUID != oldMeshGUID) {
+                        // load new mesh and add sub-meshes as children
+                        Project::getAssetLoader()->loadMesh(newMeshGUID, true, selectedEntity);
+                        // remove reference to old meshes for all children
+                        SceneUtils::removeMeshReference(selectedEntity, oldMeshGUID, true);
+                        meshSelectorBrowser->ClearSelected();
+                    }
                 }
             }
 
