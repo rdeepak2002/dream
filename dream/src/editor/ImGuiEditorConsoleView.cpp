@@ -12,7 +12,7 @@ namespace Dream {
         console_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
         ImGui::SetNextWindowClass(&console_window_class);
         ImGui::Begin("Console");
-        ImGui::Text(" ");
+        ImGui::Text("TODO");
         ImGui::End();
     }
 }

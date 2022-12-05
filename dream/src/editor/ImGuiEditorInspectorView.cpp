@@ -37,23 +37,13 @@ namespace Dream {
         ImGui::Begin("Inspector");
         if (selectedEntity) {
             renderTagComponent();
-//            renderRootComponent();
-//            renderIDComponent();
-//            renderHierarchyComponent();
             renderTransformComponent();
             renderMeshComponent();
             renderMaterialComponent();
             renderLuaScriptComponent();
             renderAnimatorComponent();
-
             renderAddComponent();
-
-            if (ImGui::Button("Remove Entity", ImVec2(ImGui::GetWindowContentRegionWidth(), 0.0f))) {
-                Project::getScene()->removeEntity(selectedEntity);
-                selectedEntity = Entity();
-                ImGui::End();
-                return;
-            }
+            renderRemoveComponent();
         }
         ImGui::End();
     }
@@ -70,6 +60,13 @@ namespace Dream {
             } else if (componentID == Component::AnimatorComponent::componentName) {
                 selectedEntity.addComponent<Component::AnimatorComponent>();
             }
+        }
+    }
+
+    void ImGuiEditorInspectorView::renderRemoveComponent() {
+        if (ImGui::Button("Remove Entity", ImVec2(ImGui::GetWindowContentRegionWidth(), 0.0f))) {
+            Project::getScene()->removeEntity(selectedEntity);
+            selectedEntity = Entity();
         }
     }
 
@@ -92,8 +89,8 @@ namespace Dream {
             components.insert(std::make_pair("Animator", Component::AnimatorComponent::componentName));
         }
 
-        if (!selectedEntity.hasComponent<Component::RootComponent>()) {
-            if (ImGui::BeginCombo(" ", "Add Component")) {
+        if (!selectedEntity.hasComponent<Component::RootComponent>() && !components.empty()) {
+            if (ImGui::BeginCombo("##Add Component", "Add Component")) {
                 for (auto it = components.begin(); it != components.end(); it++) {
                     if (ImGui::Selectable(it->first.c_str())) {
                         addComponent(it->second);
@@ -180,55 +177,24 @@ namespace Dream {
         ImGui::PopID();
     }
 
-    void ImGuiEditorInspectorView::renderRootComponent() {
-        if (selectedEntity.hasComponent<Component::RootComponent>()) {
-            auto &component = selectedEntity.getComponent<Component::RootComponent>();
-            auto componentName = Component::RootComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Root")) {
-                std::string name = component.name;
-                ImGui::Text("Name");
-                ImGui::SameLine();
-                ImGui::Text("%s", name.c_str());
-                ImGui::TreePop();
-            }
-        }
-    }
-
-    void ImGuiEditorInspectorView::renderIDComponent() {
-        if (selectedEntity.hasComponent<Component::IDComponent>()) {
-            auto &component = selectedEntity.getComponent<Component::IDComponent>();
-            auto componentName = Component::IDComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "ID")) {
-                std::string id = component.getID();
-                ImGui::Text("ID");
-                ImGui::SameLine();
-                ImGui::Text("%s", id.c_str());
-                ImGui::TreePop();
-            }
-        }
-    }
-
     void ImGuiEditorInspectorView::renderTagComponent() {
         if (selectedEntity.hasComponent<Component::TagComponent>()) {
             auto &component = selectedEntity.getComponent<Component::TagComponent>();
             auto componentName = Component::TagComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Tag")) {
-                ImGui::InputTextWithHint(" ", "Tag", &component.tag);
+            bool treeNodeOpen = ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Tag");
+            if (treeNodeOpen) {
+                ImGui::InputTextWithHint("##Tag", "Tag", &component.tag);
                 ImGui::TreePop();
             }
         }
     }
-
-    void ImGuiEditorInspectorView::renderHierarchyComponent() {
-
-    }
-
 
     void ImGuiEditorInspectorView::renderTransformComponent() {
         if (selectedEntity.hasComponent<Component::TransformComponent>()) {
             auto &component = selectedEntity.getComponent<Component::TransformComponent>();
             auto componentName = Component::TransformComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Transform")) {
+            bool treeNodeOpen = ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Transform");
+            if (treeNodeOpen) {
                 renderVec3Control("Position", component.translation);
                 glm::vec3 eulerRot = glm::eulerAngles(component.rotation);
                 renderVec3Control("Rotation", eulerRot);
@@ -258,8 +224,20 @@ namespace Dream {
             }
 
             auto &component = selectedEntity.getComponent<Component::MeshComponent>();
-            auto componentName = Component::MeshComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Mesh")) {
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Mesh", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+            ImGui::SameLine();
+            ImGui::Text("Mesh");
+            ImGui::SameLine();
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+            if (ImGui::Button("-", ImVec2(0.f, 0.f))) {
+                SceneUtils::removeMeshReference(selectedEntity, selectedEntity.getComponent<Component::MeshComponent>().guid, true);
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+
+            if (treeNodeOpen) {
                 bool canChangeMesh = component.fileId.empty();
                 if (component.meshType == Component::MeshComponent::MeshType::FROM_FILE) {
                     ImGui::Text("Type");
@@ -302,7 +280,8 @@ namespace Dream {
         if (selectedEntity.hasComponent<Component::MaterialComponent>()) {
             auto &component = selectedEntity.getComponent<Component::MaterialComponent>();
             auto componentName = Component::MaterialComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Material")) {
+            bool treeNodeOpen = ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Material");
+            if (treeNodeOpen) {
                 std::string diffuseTexturePath = shorten(Project::getResourceManager()->getFilePathFromGUID(component.guid));
                 ImGui::Text("Diffuse Texture");
                 ImGui::SameLine();
@@ -322,7 +301,8 @@ namespace Dream {
         if (selectedEntity.hasComponent<Component::LuaScriptComponent>()) {
             auto &component = selectedEntity.getComponent<Component::LuaScriptComponent>();
             auto componentName = Component::LuaScriptComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Lua Script")) {
+            bool treeNodeOpen = ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Lua Script");
+            if (treeNodeOpen) {
                 std::string scriptPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
                 std::string shortScriptPath = shorten(scriptPath);
                 ImGui::Text("Script Path");
@@ -340,7 +320,8 @@ namespace Dream {
         if (selectedEntity.hasComponent<Component::AnimatorComponent>()) {
             auto &component = selectedEntity.getComponent<Component::AnimatorComponent>();
             auto componentName = Component::AnimatorComponent::componentName.c_str();
-            if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Animator")) {
+            bool treeNodeOpen = ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Animator");
+            if (treeNodeOpen) {
                 if (ImGui::Button("Edit")) {
                     this->animatorGraphEditor->open("dummy_guid");
                 }
