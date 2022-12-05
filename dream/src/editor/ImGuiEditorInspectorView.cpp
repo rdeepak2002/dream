@@ -180,8 +180,11 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderTagComponent() {
         if (selectedEntity.hasComponent<Component::TagComponent>()) {
             auto &component = selectedEntity.getComponent<Component::TagComponent>();
-            auto componentName = Component::TagComponent::componentName.c_str();
-            bool treeNodeOpen = ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Tag");
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Tag", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::SameLine();
+            ImGui::Text("Tag");
+
             if (treeNodeOpen) {
                 ImGui::InputTextWithHint("##Tag", "Tag", &component.tag);
                 ImGui::TreePop();
@@ -192,8 +195,11 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderTransformComponent() {
         if (selectedEntity.hasComponent<Component::TransformComponent>()) {
             auto &component = selectedEntity.getComponent<Component::TransformComponent>();
-            auto componentName = Component::TransformComponent::componentName.c_str();
-            bool treeNodeOpen = ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Transform");
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Transform", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::SameLine();
+            ImGui::Text("Transform");
+
             if (treeNodeOpen) {
                 renderVec3Control("Position", component.translation);
                 glm::vec3 eulerRot = glm::eulerAngles(component.rotation);
@@ -279,8 +285,19 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderMaterialComponent() {
         if (selectedEntity.hasComponent<Component::MaterialComponent>()) {
             auto &component = selectedEntity.getComponent<Component::MaterialComponent>();
-            auto componentName = Component::MaterialComponent::componentName.c_str();
-            bool treeNodeOpen = ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Material");
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Material", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+            ImGui::SameLine();
+            ImGui::Text("Material");
+            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                selectedEntity.removeComponent<Component::MaterialComponent>();
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+
             if (treeNodeOpen) {
                 std::string diffuseTexturePath = shorten(Project::getResourceManager()->getFilePathFromGUID(component.guid));
                 ImGui::Text("Diffuse Texture");
@@ -300,8 +317,19 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderLuaScriptComponent() {
         if (selectedEntity.hasComponent<Component::LuaScriptComponent>()) {
             auto &component = selectedEntity.getComponent<Component::LuaScriptComponent>();
-            auto componentName = Component::LuaScriptComponent::componentName.c_str();
-            bool treeNodeOpen = ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Lua Script");
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Lua Script", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+            ImGui::SameLine();
+            ImGui::Text("Lua Script");
+            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                selectedEntity.removeComponent<Component::LuaScriptComponent>();
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+
             if (treeNodeOpen) {
                 std::string scriptPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
                 std::string shortScriptPath = shorten(scriptPath);
@@ -319,8 +347,19 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderAnimatorComponent() {
         if (selectedEntity.hasComponent<Component::AnimatorComponent>()) {
             auto &component = selectedEntity.getComponent<Component::AnimatorComponent>();
-            auto componentName = Component::AnimatorComponent::componentName.c_str();
-            bool treeNodeOpen = ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Animator");
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Animator", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+            ImGui::SameLine();
+            ImGui::Text("Animator");
+            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                selectedEntity.removeComponent<Component::AnimatorComponent>();
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+
             if (treeNodeOpen) {
                 if (ImGui::Button("Edit")) {
                     this->animatorGraphEditor->open("dummy_guid");
