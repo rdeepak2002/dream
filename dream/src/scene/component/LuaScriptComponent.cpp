@@ -14,7 +14,9 @@ namespace Dream::Component {
     }
 
     void LuaScriptComponent::loadScriptPath() {
-        this->scriptPath = Project::getResourceManager()->getFilePathFromGUID(this->guid);
+        if (!this->guid.empty()) {
+            this->scriptPath = Project::getResourceManager()->getFilePathFromGUID(this->guid);
+        }
     }
 
     void LuaScriptComponent::serialize(YAML::Emitter &out, Entity &entity) {

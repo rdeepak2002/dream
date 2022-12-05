@@ -15,11 +15,13 @@ namespace Dream::Component {
     }
 
     void MaterialComponent::loadTexture() {
-        if (!Project::getResourceManager()->hasData(this->guid)) {
-            std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
-            Project::getResourceManager()->storeData(this->guid, new OpenGLTexture(path));
+        if (!this->guid.empty()) {
+            if (!Project::getResourceManager()->hasData(this->guid)) {
+                std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
+                Project::getResourceManager()->storeData(this->guid, new OpenGLTexture(path));
+            }
+            this->diffuseTexture = (OpenGLTexture*) Project::getResourceManager()->getData(this->guid);
         }
-        this->diffuseTexture = (OpenGLTexture*) Project::getResourceManager()->getData(this->guid);
     }
 
     Texture *MaterialComponent::getTexture() {

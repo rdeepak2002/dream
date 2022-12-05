@@ -89,7 +89,7 @@ namespace Dream {
                 }
             }
 
-            if (entity.hasComponent<Component::MaterialComponent>()) {
+            if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().guid.empty()) {
                 if (entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
                     auto* openGLTexture = dynamic_cast<OpenGLTexture*>(entity.getComponent<Component::MaterialComponent>().diffuseTexture);
                     if (openGLTexture) {
@@ -103,7 +103,6 @@ namespace Dream {
                     std::cout << "WARNING: no texture loaded" << std::endl;
                 }
             } else {
-                // TODO: this is unknown material - use purple
                 texture->bind(0);
             }
 

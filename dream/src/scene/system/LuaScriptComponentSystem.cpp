@@ -138,22 +138,23 @@ namespace Dream {
             auto& component = entity.getComponent<Component::LuaScriptComponent>();
             if (component.scriptPath.empty()) {
                 component.loadScriptPath();
-                assert(!component.scriptPath.empty());
             }
-            sol::protected_function_result scriptCompileResult = lua.safe_script_file(component.scriptPath, &sol::script_pass_on_error);
-            if (scriptCompileResult.valid()) {
-                lua["self"] = component.table;
-                sol::protected_function scriptUpdateFunction = lua["update"];
-                sol::protected_function_result functionResult = scriptUpdateFunction(entity, dt);
-                if (!functionResult.valid()) {
-                    sol::error err = functionResult;
+            if (!component.scriptPath.empty()) {
+                sol::protected_function_result scriptCompileResult = lua.safe_script_file(component.scriptPath, &sol::script_pass_on_error);
+                if (scriptCompileResult.valid()) {
+                    lua["self"] = component.table;
+                    sol::protected_function scriptUpdateFunction = lua["update"];
+                    sol::protected_function_result functionResult = scriptUpdateFunction(entity, dt);
+                    if (!functionResult.valid()) {
+                        sol::error err = functionResult;
+                        std::string what = err.what();
+                        std::cout << "Error: lua function call failed, sol::error::what() is " << what << std::endl;
+                    }
+                } else {
+                    sol::error err = scriptCompileResult;
                     std::string what = err.what();
-                    std::cout << "Error: lua function call failed, sol::error::what() is " << what << std::endl;
+                    std::cout << "Error: lua script parsing failed, sol::error::what() is " << what << std::endl;
                 }
-            } else {
-                sol::error err = scriptCompileResult;
-                std::string what = err.what();
-                std::cout << "Error: lua script parsing failed, sol::error::what() is " << what << std::endl;
             }
         }
     }

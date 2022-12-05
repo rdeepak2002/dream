@@ -61,11 +61,12 @@ namespace Dream {
     void ImGuiEditorInspectorView::addComponent(std::string componentID) {
         if (selectedEntity) {
             if (componentID == Component::MeshComponent::componentName) {
-                selectedEntity.addComponent<Component::MeshComponent>("");
+                std::string guid;
+                selectedEntity.addComponent<Component::MeshComponent>(guid);
             } else if (componentID == Component::MaterialComponent::componentName) {
-//                selectedEntity.addComponent<Component::MaterialComponent>();
+                selectedEntity.addComponent<Component::MaterialComponent>("", false);
             } else if (componentID == Component::LuaScriptComponent::componentName) {
-//                selectedEntity.addComponent<Component::LuaScriptComponent>();
+                selectedEntity.addComponent<Component::LuaScriptComponent>("");
             } else if (componentID == Component::AnimatorComponent::componentName) {
                 selectedEntity.addComponent<Component::AnimatorComponent>();
             }
@@ -305,7 +306,13 @@ namespace Dream {
                 std::string diffuseTexturePath = shorten(Project::getResourceManager()->getFilePathFromGUID(component.guid));
                 ImGui::Text("Diffuse Texture");
                 ImGui::SameLine();
-                ImGui::Text("%s", diffuseTexturePath.c_str());
+                if (component.guid.empty()) {
+                    if (ImGui::Button("Select")) {
+                        std::cout << "TODO: allow selection of diffuse texture" << std::endl;
+                    }
+                } else {
+                    ImGui::Text("%s", diffuseTexturePath.c_str());
+                }
                 ImGui::TreePop();
             }
         }
