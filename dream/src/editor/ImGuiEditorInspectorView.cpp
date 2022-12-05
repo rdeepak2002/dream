@@ -229,9 +229,9 @@ namespace Dream {
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();
             ImGui::Text("Mesh");
-            ImGui::SameLine();
+            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
             ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-            if (ImGui::Button("-", ImVec2(0.f, 0.f))) {
+            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
                 SceneUtils::removeMeshReference(selectedEntity, selectedEntity.getComponent<Component::MeshComponent>().guid, true);
             }
             ImGui::PopStyleVar();
