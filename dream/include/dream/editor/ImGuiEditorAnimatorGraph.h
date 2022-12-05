@@ -15,6 +15,7 @@ namespace Dream {
         ImGuiEditorAnimatorGraph();
         ~ImGuiEditorAnimatorGraph();
         void update();
+        void open(std::string guid);
     private:
         bool visible;
         bool isFullscreen;

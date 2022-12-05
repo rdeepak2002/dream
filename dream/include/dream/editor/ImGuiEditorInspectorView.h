@@ -9,6 +9,7 @@
 #include "glm/vec3.hpp"
 #include "glm/ext/quaternion_float.hpp"
 #include "dream/editor/ImGuiTextEditor.h"
+#include "ImGuiEditorAnimatorGraph.h"
 #include <imgui.h>
 #include <imgui-filebrowser/imfilebrowser.h>
 
@@ -20,9 +21,12 @@ namespace Dream {
         void update();
         void selectEntity(Entity& entity);
         void setTextEditor(ImGuiTextEditor* imGuiTextEditor);
+        void setAnimatorGraphEditor(ImGuiEditorAnimatorGraph* animatorGraphEditor);
     private:
         Entity selectedEntity;
         std::string shorten(std::string str, int maxLength = 14);
+        void addComponent(std::string componentID);
+        void renderAddComponent();
         void renderVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f);
         void renderRootComponent();
         void renderIDComponent();
@@ -38,6 +42,7 @@ namespace Dream {
         ImGui::FileBrowser* meshSelectorBrowser;
         std::string oldMeshGUID;
         ImGuiTextEditor* imGuiTextEditor;
+        ImGuiEditorAnimatorGraph* animatorGraphEditor;
     };
 }
 

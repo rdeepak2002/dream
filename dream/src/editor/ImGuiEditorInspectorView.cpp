@@ -26,6 +26,10 @@ namespace Dream {
         this->imGuiTextEditor = imGuiTextEditor;
     }
 
+    void ImGuiEditorInspectorView::setAnimatorGraphEditor(ImGuiEditorAnimatorGraph* animatorGraphEditor) {
+        this->animatorGraphEditor = animatorGraphEditor;
+    }
+
     void ImGuiEditorInspectorView::update() {
         ImGuiWindowClass inspector_window_class;
         inspector_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
@@ -41,7 +45,10 @@ namespace Dream {
             renderMaterialComponent();
             renderLuaScriptComponent();
             renderAnimatorComponent();
-            if (ImGui::Button("Remove")) {
+
+            renderAddComponent();
+
+            if (ImGui::Button("Remove Entity", ImVec2(ImGui::GetWindowContentRegionWidth(), 0.0f))) {
                 Project::getScene()->removeEntity(selectedEntity);
                 selectedEntity = Entity();
                 ImGui::End();
@@ -49,6 +56,51 @@ namespace Dream {
             }
         }
         ImGui::End();
+    }
+
+    void ImGuiEditorInspectorView::addComponent(std::string componentID) {
+        if (selectedEntity) {
+            if (componentID == Component::MeshComponent::componentName) {
+                selectedEntity.addComponent<Component::MeshComponent>("");
+            } else if (componentID == Component::MaterialComponent::componentName) {
+//                selectedEntity.addComponent<Component::MaterialComponent>();
+            } else if (componentID == Component::LuaScriptComponent::componentName) {
+//                selectedEntity.addComponent<Component::LuaScriptComponent>();
+            } else if (componentID == Component::AnimatorComponent::componentName) {
+                selectedEntity.addComponent<Component::AnimatorComponent>();
+            }
+        }
+    }
+
+    void ImGuiEditorInspectorView::renderAddComponent() {
+        std::map<std::string, std::string> components;
+
+        if (!selectedEntity.hasComponent<Component::MeshComponent>()) {
+            components.insert(std::make_pair("Mesh", Component::MeshComponent::componentName));
+        }
+
+        if (!selectedEntity.hasComponent<Component::MaterialComponent>()) {
+            components.insert(std::make_pair("Material", Component::MaterialComponent::componentName));
+        }
+
+        if (!selectedEntity.hasComponent<Component::LuaScriptComponent>()) {
+            components.insert(std::make_pair("Lua Script", Component::LuaScriptComponent::componentName));
+        }
+
+        if (!selectedEntity.hasComponent<Component::AnimatorComponent>()) {
+            components.insert(std::make_pair("Animator", Component::AnimatorComponent::componentName));
+        }
+
+        if (!selectedEntity.hasComponent<Component::RootComponent>()) {
+            if (ImGui::BeginCombo(" ", "Add Component")) {
+                for (auto it = components.begin(); it != components.end(); it++) {
+                    if (ImGui::Selectable(it->first.c_str())) {
+                        addComponent(it->second);
+                    }
+                }
+                ImGui::EndCombo();
+            }
+        }
     }
 
     void ImGuiEditorInspectorView::selectEntity(Entity &entity) {
@@ -283,7 +335,7 @@ namespace Dream {
             auto componentName = Component::AnimatorComponent::componentName.c_str();
             if (ImGui::TreeNodeEx(componentName, ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth, "%s", "Animator")) {
                 if (ImGui::Button("Edit")) {
-                    // TODO: open animator node editor for this
+                    this->animatorGraphEditor->open("dummy_guid");
                 }
                 ImGui::TreePop();
             }

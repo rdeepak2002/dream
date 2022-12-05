@@ -81,4 +81,9 @@ namespace Dream {
             ImGui::PopStyleVar();
         }
     }
+
+    void ImGuiEditorAnimatorGraph::open(std::string guid) {
+        this->visible = true;
+        std::cout << "TODO: load in animator graph for " << guid << std::endl;
+    }
 }
