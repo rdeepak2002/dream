@@ -410,13 +410,19 @@ namespace Dream {
                 ImGui::SameLine();
                 ImGui::Text("%d", component.boneID);
 
-                ImGui::Text("Number of influenced vertices");
-                ImGui::SameLine();
-                ImGui::Text("%d", (int) component.vertices.size());
+                if (!component.vertices.empty()) {
+                    if (ImGui::TreeNodeEx("Vertices", ImGuiTreeNodeFlags_SpanFullWidth)) {
+                        for (int i = 0; i < component.vertices.size(); ++i) {
+                            ImGui::Text("ID: %d", component.vertices[i]);
+                            ImGui::SameLine();
+                            ImGui::Text("Weight: %f", component.weights[i]);
+                        }
+                        ImGui::TreePop();
+                    }
+                } else {
+                    ImGui::Text("No influence on vertices");
+                }
 
-                ImGui::Text("Number of weights");
-                ImGui::SameLine();
-                ImGui::Text("%d", (int) component.weights.size());
 
                 ImGui::TreePop();
             }
