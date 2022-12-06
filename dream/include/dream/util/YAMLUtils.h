@@ -33,6 +33,12 @@ namespace YAML {
         static Node encode(const glm::quat& rhs);
         static bool decode(const Node& node, glm::quat& rhs);
     };
+
+    template<>
+    struct convert<glm::mat4> {
+        static Node encode(const glm::mat4& rhs);
+        static bool decode(const Node& node, glm::mat4& rhs);
+    };
 }
 
 #endif //DREAM_YAMLUTILS_H

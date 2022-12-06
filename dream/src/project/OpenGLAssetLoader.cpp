@@ -30,6 +30,7 @@ namespace Dream {
         // process root node
         auto node = scene->mRootNode;
         meshID = 0;
+        boneCount = 0;
         Entity dreamEntityRootNode = processNode(path, guid, node, scene, createEntities, rootEntity);
         if (dreamEntityRootNode) {
             dreamEntityRootNode.addComponent<Component::MeshComponent>(guid);
@@ -121,9 +122,9 @@ namespace Dream {
             for(unsigned int j = 0; j < face.mNumIndices; j++)
                 indices.push_back(face.mIndices[j]);
         }
+
         // process materials
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-
         bool textureEmbeddedInModel = false;
         const aiTexture* assimpTexture = nullptr;
         auto textureType = aiTextureType_DIFFUSE;
@@ -147,10 +148,61 @@ namespace Dream {
             }
         }
 
+        // create entity for this mesh
         Entity entity;
         if (createEntities) {
             entity = Project::getScene()->createEntity(mesh->mName.C_Str());
         }
+
+        // process bones
+        if (createEntities) {
+            // create map of bones for this mesh (look at child entities and see which ones have bones)
+            std::map<std::string, Entity> boneEntitiesForMesh;     // bone name : entity that represents the bone
+            Entity currentEntity = entity.getComponent<Component::HierarchyComponent>().first;
+            while (currentEntity) {
+                if (currentEntity.hasComponent<Component::BoneComponent>()) {
+                    auto boneComponent = currentEntity.getComponent<Component::BoneComponent>();
+                    boneEntitiesForMesh.insert(std::make_pair(boneComponent.boneName, currentEntity));
+                }
+                currentEntity = currentEntity.getComponent<Component::HierarchyComponent>().next;
+            }
+
+            // traverse bones for this mesh found by assimp
+            for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex) {
+                std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
+                int boneID = boneCount;
+                glm::mat4 offset = convertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);;
+                Entity boneEntity;
+
+                // check if bone entity is already a child
+                if (boneEntitiesForMesh.count(boneName) > 0) {
+                    // found existing
+                    boneEntity = boneEntitiesForMesh[boneName];
+                } else {
+                    // not found, so create new one
+                    boneEntity = Project::getScene()->createEntity(boneName);
+                    boneEntity.addComponent<Component::BoneComponent>(boneName, boneID, offset);
+                    entity.addChild(boneEntity);
+                    boneCount++;
+                }
+
+                // get the vertices associated with this bone and the weight this bone has on them
+                std::vector<int> vertices;
+                std::vector<float> weights;
+                auto assimpWeights = mesh->mBones[boneIndex]->mWeights;
+                for (int weightIndex = 0; weightIndex < mesh->mBones[boneIndex]->mNumWeights; ++weightIndex) {
+                    int vertexId = (int) (assimpWeights[weightIndex].mVertexId);
+                    float weight = assimpWeights[weightIndex].mWeight;
+                    int numVertices = (int) (positions.size());
+                    assert(vertexId <= numVertices);
+                    vertices.push_back(vertexId);
+                    weights.push_back(weight);
+                }
+                boneEntity.getComponent<Component::BoneComponent>().vertices = vertices;
+                boneEntity.getComponent<Component::BoneComponent>().weights = weights;
+            }
+        }
+
         // add mesh component
         std::string meshFileGUID = std::move(guid);
         std::string subMeshFileID = IDUtils::newFileID(std::string(std::to_string(meshID) + "0"));
@@ -187,5 +239,15 @@ namespace Dream {
             }
         }
         return entity;
+    }
+
+    glm::mat4 OpenGLAssetLoader::convertMatrixToGLMFormat(const aiMatrix4x4 &from) {
+        glm::mat4 to;
+        //the a,b,c,d in assimp is the row ; the 1,2,3,4 is the column
+        to[0][0] = from.a1; to[1][0] = from.a2; to[2][0] = from.a3; to[3][0] = from.a4;
+        to[0][1] = from.b1; to[1][1] = from.b2; to[2][1] = from.b3; to[3][1] = from.b4;
+        to[0][2] = from.c1; to[1][2] = from.c2; to[2][2] = from.c3; to[3][2] = from.c4;
+        to[0][3] = from.d1; to[1][3] = from.d2; to[2][3] = from.d3; to[3][3] = from.d4;
+        return to;
     }
 }

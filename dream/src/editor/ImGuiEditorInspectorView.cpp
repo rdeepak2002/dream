@@ -42,6 +42,7 @@ namespace Dream {
             renderMaterialComponent();
             renderLuaScriptComponent();
             renderAnimatorComponent();
+            renderBoneComponent();
             renderAddComponent();
             renderRemoveComponent();
         }
@@ -379,6 +380,44 @@ namespace Dream {
                 if (ImGui::Button("Edit")) {
                     this->animatorGraphEditor->open("dummy_guid");
                 }
+                ImGui::TreePop();
+            }
+        }
+    }
+
+    void ImGuiEditorInspectorView::renderBoneComponent() {
+        if (selectedEntity.hasComponent<Component::BoneComponent>()) {
+            auto &component = selectedEntity.getComponent<Component::BoneComponent>();
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Bone", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+            ImGui::SameLine();
+            ImGui::Text("Bone");
+            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                selectedEntity.removeComponent<Component::BoneComponent>();
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+
+            if (treeNodeOpen) {
+                ImGui::Text("Name");
+                ImGui::SameLine();
+                ImGui::Text("%s", component.boneName.c_str());
+
+                ImGui::Text("ID");
+                ImGui::SameLine();
+                ImGui::Text("%d", component.boneID);
+
+                ImGui::Text("Number of influenced vertices");
+                ImGui::SameLine();
+                ImGui::Text("%d", (int) component.vertices.size());
+
+                ImGui::Text("Number of weights");
+                ImGui::SameLine();
+                ImGui::Text("%d", (int) component.weights.size());
+
                 ImGui::TreePop();
             }
         }

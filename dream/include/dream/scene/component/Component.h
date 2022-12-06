@@ -154,6 +154,24 @@ namespace Dream::Component {
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
     };
+
+    struct BoneComponent : public Component {
+        inline static std::string componentName = "BoneComponent";
+        inline static std::string k_boneName = "boneName";
+        std::string boneName;
+        inline static std::string k_boneID = "boneID";
+        int boneID;
+        inline static std::string k_offset = "offset";
+        glm::mat4 offset;
+        inline static std::string k_vertices = "vertices";
+        std::vector<int> vertices;
+        inline static std::string k_weights = "weights";
+        std::vector<float> weights;
+        explicit BoneComponent(std::string boneName, int boneID, glm::mat4 offset);
+        BoneComponent();
+        static void deserialize(YAML::Node node, Entity &entity);
+        static void serialize(YAML::Emitter &out, Entity &entity);
+    };
 }
 
 #endif //DREAM_COMPONENT_H

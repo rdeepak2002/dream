@@ -85,4 +85,33 @@ namespace YAML {
         rhs.z = node[3].as<float>();
         return true;
     }
+
+    Node convert<glm::mat4>::encode(const glm::mat4 &rhs) {
+        Node node;
+
+        for (int i = 0; i < 4; ++i) {
+            node.push_back(rhs[i].w);
+            node.push_back(rhs[i].x);
+            node.push_back(rhs[i].y);
+            node.push_back(rhs[i].z);
+        }
+
+        node.SetStyle(EmitterStyle::Flow);
+        return node;
+    }
+
+    bool convert<glm::mat4>::decode(const Node &node, glm::mat4 &rhs) {
+        if (!node.IsSequence() || node.size() != 16)
+            return false;
+
+        int count = 0;
+        for (int r = 0; r < 4; ++r) {
+            for (int c = 0; c < 4; ++c) {
+                rhs[r][c] = node[count].as<float>();
+                count++;
+            }
+        }
+
+        return true;
+    }
 }

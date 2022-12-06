@@ -17,10 +17,12 @@ namespace Dream {
     private:
         Entity processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene, bool createEntities, Entity rootEntity);
         Entity processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, bool createEntities);
+        static glm::mat4 convertMatrixToGLMFormat(const aiMatrix4x4& from);
         /**
          * Assign a unique ID per submesh within a single Mesh (allows for unique FileID's)
          */
         int meshID = 0;
+        int boneCount = 0;
     };
 }
 
