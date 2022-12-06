@@ -8,11 +8,13 @@
 #include <utility>
 
 namespace Dream {
-    OpenGLMesh::OpenGLMesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> uv, std::vector<glm::vec3> normals, std::vector<unsigned int> indices) {
+    OpenGLMesh::OpenGLMesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> uv, std::vector<glm::vec3> normals, std::vector<unsigned int> indices, std::vector<glm::vec3> tangents, std::vector<glm::vec3> bitangents) {
         setPositions(std::move(positions));
         setUVs(std::move(uv));
         setNormals(std::move(normals));
         setIndices(std::move(indices));
+        setTangents(std::move(tangents));
+        setBitangents(std::move(bitangents));
         finalize();
     }
 

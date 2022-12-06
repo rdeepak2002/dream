@@ -68,6 +68,8 @@ namespace Dream {
         meshID++;
         std::vector<glm::vec3> positions;
         std::vector<glm::vec3> normals;
+        std::vector<glm::vec3> tangents;
+        std::vector<glm::vec3> bitangents;
         std::vector<glm::vec2> uv;
         std::vector<unsigned int> indices;
 
@@ -101,14 +103,12 @@ namespace Dream {
                 vector.x = mesh->mTangents[i].x;
                 vector.y = mesh->mTangents[i].y;
                 vector.z = mesh->mTangents[i].z;
-                // TODO: add tangents
-//                    vertex.Tangent = vector;
+                tangents.push_back(vector);
                 // bitangent
                 vector.x = mesh->mBitangents[i].x;
                 vector.y = mesh->mBitangents[i].y;
                 vector.z = mesh->mBitangents[i].z;
-                // TODO: add bitangents
-//                    vertex.Bitangent = vector;
+                bitangents.push_back(vector);
             } else {
                 uv.emplace_back(0.0f, 0.0f);
             }
@@ -155,7 +155,7 @@ namespace Dream {
         std::string meshFileGUID = std::move(guid);
         std::string subMeshFileID = IDUtils::newFileID(std::string(std::to_string(meshID) + "0"));
         if (!Project::getResourceManager()->hasData(meshFileGUID)) {
-            auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices);
+            auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices, tangents, bitangents);
             Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
         }
         if (createEntities) {
