@@ -90,6 +90,7 @@ namespace Dream {
         }
 
         if (!selectedEntity.hasComponent<Component::RootComponent>() && !components.empty()) {
+            ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth());
             if (ImGui::BeginCombo("##Add Component", "Add Component")) {
                 for (auto it = components.begin(); it != components.end(); it++) {
                     if (ImGui::Selectable(it->first.c_str())) {
@@ -180,12 +181,15 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderTagComponent() {
         if (selectedEntity.hasComponent<Component::TagComponent>()) {
             auto &component = selectedEntity.getComponent<Component::TagComponent>();
+            auto cursorPosX1 = ImGui::GetCursorPosX();
             bool treeNodeOpen = ImGui::TreeNodeEx("##Tag", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::SameLine();
             ImGui::Text("Tag");
 
             if (treeNodeOpen) {
+                auto cursorPosX2 = ImGui::GetCursorPosX();
+                ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1));
                 ImGui::InputTextWithHint("##Tag", "Tag", &component.tag);
                 ImGui::TreePop();
             }
@@ -331,13 +335,24 @@ namespace Dream {
             ImGui::PopStyleColor();
 
             if (treeNodeOpen) {
-                std::string scriptPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
-                std::string shortScriptPath = shorten(scriptPath);
-                ImGui::Text("Script Path");
-                ImGui::SameLine();
-                ImGui::Text("%s", shortScriptPath.c_str());
-                if (ImGui::Button("Edit Script")) {
-                    this->imGuiTextEditor->open(scriptPath);
+                if (component.guid.empty()) {
+                    ImGui::Text("TODO: allow user to select script");
+                } else {
+                    std::string scriptPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
+                    std::string shortScriptPath = shorten(scriptPath);
+                    ImGui::Text("Script Path");
+                    ImGui::SameLine();
+                    ImGui::Text("%s", shortScriptPath.c_str());
+                    ImGui::SameLine();
+                    float btnWidth = ImGui::CalcTextSize("Edit").x;
+                    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetWindowContentRegionWidth() - ImGui::GetCursorPosX()) - btnWidth);
+                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                    if (ImGui::Button("Edit", ImVec2(btnWidth, 0.f))) {
+                        this->imGuiTextEditor->open(scriptPath);
+                    }
+                    ImGui::PopStyleColor();
+                    ImGui::PopStyleVar();
                 }
                 ImGui::TreePop();
             }
