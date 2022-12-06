@@ -31,7 +31,8 @@ namespace Dream {
         ImGuiIO& io = ImGui::GetIO(); (void)io;
         io.IniFilename = NULL;
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-        io.Fonts->AddFontFromFileTTF(std::filesystem::current_path().append("resources").append("editor-resources").append("fonts").append("font.otf").c_str(), 15);
+        float fontSize = 16.f;
+        io.Fonts->AddFontFromFileTTF(std::filesystem::current_path().append("resources").append("editor-resources").append("fonts").append("font.otf").c_str(), fontSize);
 
         // setup Dear ImGui style
         ImGui::StyleColorsDark();
@@ -81,39 +82,55 @@ namespace Dream {
 
     void ImGuiEditor::style() {
         auto& colors = ImGui::GetStyle().Colors;
-        colors[ImGuiCol_WindowBg] = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };
+        auto primary0 = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };        // example: background for windows
+        auto primary1 = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };     // example: colors for separators
+        auto primary2 = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };        // example: color of buttons
+        auto primary3 = ImVec4{ 0.3f, 0.305f, 0.31f, 1.0f };        // example: color of headers and hovered buttons
+        auto dockingPreview = ImVec4{0.6, 0.6, 0.6, 0.6};
+
+        // Docking
+        colors[ImGuiCol_DockingPreview] = dockingPreview;
+
+        // Window
+        colors[ImGuiCol_WindowBg] = primary0;
+
+        // Menu
+        colors[ImGuiCol_MenuBarBg] = primary1;
+
+        // Borders
+        colors[ImGuiCol_Border] = primary1;
 
         // Separators
-        colors[ImGuiCol_Separator] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+        colors[ImGuiCol_Separator] = primary1;
         colors[ImGuiCol_SeparatorHovered] = colors[ImGuiCol_Separator];
         colors[ImGuiCol_SeparatorActive] = colors[ImGuiCol_Separator];
 
         // Headers
-        colors[ImGuiCol_Header] = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
-        colors[ImGuiCol_HeaderHovered] = ImVec4{ 0.3f, 0.305f, 0.31f, 1.0f };
-        colors[ImGuiCol_HeaderActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+        colors[ImGuiCol_Header] = primary2;
+        colors[ImGuiCol_HeaderHovered] = primary3;
+        colors[ImGuiCol_HeaderActive] = primary1;
 
         // Buttons
-        colors[ImGuiCol_Button] = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
-        colors[ImGuiCol_ButtonHovered] = ImVec4{ 0.3f, 0.305f, 0.31f, 1.0f };
-        colors[ImGuiCol_ButtonActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+        colors[ImGuiCol_Button] = primary2;
+        colors[ImGuiCol_ButtonHovered] = primary3;
+        colors[ImGuiCol_ButtonActive] = primary1;
 
         // Frame BG
-        colors[ImGuiCol_FrameBg] = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
-        colors[ImGuiCol_FrameBgHovered] = ImVec4{ 0.3f, 0.305f, 0.31f, 1.0f };
-        colors[ImGuiCol_FrameBgActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+        colors[ImGuiCol_FrameBg] = primary2;
+        colors[ImGuiCol_FrameBgHovered] = primary3;
+        colors[ImGuiCol_FrameBgActive] = primary1;
 
         // Tabs
-        colors[ImGuiCol_Tab] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
-        colors[ImGuiCol_TabHovered] = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };
-        colors[ImGuiCol_TabActive] = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };
-        colors[ImGuiCol_TabUnfocused] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
-        colors[ImGuiCol_TabUnfocusedActive] = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };
+        colors[ImGuiCol_Tab] = primary1;
+        colors[ImGuiCol_TabUnfocused] = primary1;
+        colors[ImGuiCol_TabHovered] = primary0;
+        colors[ImGuiCol_TabActive] = colors[ImGuiCol_TabHovered];
+        colors[ImGuiCol_TabUnfocusedActive] = colors[ImGuiCol_TabHovered];
 
         // Title
-        colors[ImGuiCol_TitleBg] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
-        colors[ImGuiCol_TitleBgActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
-        colors[ImGuiCol_TitleBgCollapsed] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+        colors[ImGuiCol_TitleBg] = primary1;
+        colors[ImGuiCol_TitleBgActive] = colors[ImGuiCol_TitleBg];
+        colors[ImGuiCol_TitleBgCollapsed] = colors[ImGuiCol_TitleBgCollapsed];
     }
 
     std::pair<int, int> ImGuiEditor::getRendererViewportDimensions() {
