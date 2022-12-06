@@ -84,9 +84,10 @@ namespace Dream {
         auto& colors = ImGui::GetStyle().Colors;
         auto primary0 = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };        // example: background for windows
         auto primary1 = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };     // example: colors for separators
-        auto primary2 = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };        // example: color of buttons
+        auto primary2 = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };        // example: bg color of drop down
         auto primary3 = ImVec4{ 0.3f, 0.305f, 0.31f, 1.0f };        // example: color of headers and hovered buttons
         auto dockingPreview = ImVec4{0.6, 0.6, 0.6, 0.6};
+        auto btn = ImVec4{80.f/255.0f,76.f/255.f,76.f/255.f, 1.0f};
 
         // Docking
         colors[ImGuiCol_DockingPreview] = dockingPreview;
@@ -111,13 +112,13 @@ namespace Dream {
         colors[ImGuiCol_HeaderActive] = primary1;
 
         // Buttons
-        colors[ImGuiCol_Button] = primary2;
+        colors[ImGuiCol_Button] = btn;
         colors[ImGuiCol_ButtonHovered] = primary3;
         colors[ImGuiCol_ButtonActive] = primary1;
 
         // Frame BG
         colors[ImGuiCol_FrameBg] = primary2;
-        colors[ImGuiCol_FrameBgHovered] = primary3;
+        colors[ImGuiCol_FrameBgHovered] = primary2;
         colors[ImGuiCol_FrameBgActive] = primary1;
 
         // Tabs
