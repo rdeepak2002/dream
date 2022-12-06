@@ -32,6 +32,7 @@ namespace Dream {
         WindowFlags |= SDL_WINDOW_BORDERLESS;
         #endif
         this->Window = SDL_CreateWindow("Dream", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
+        SDL_SetWindowPosition(this->Window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         #ifdef BORDERLESS
         SDL_SetWindowHitTest(this->Window, hitTest, nullptr);
         #endif

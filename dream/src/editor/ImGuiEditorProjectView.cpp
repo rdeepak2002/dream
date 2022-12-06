@@ -31,6 +31,9 @@ namespace Dream {
     }
 
     void ImGuiEditorProjectView::update() {
+        ImGui::PushStyleColor(ImGuiCol_Separator, ImVec4(0, 0, 0, 0));
+        ImGui::PushStyleColor(ImGuiCol_SeparatorHovered, ImVec4(0, 0, 0, 0));
+        ImGui::PushStyleColor(ImGuiCol_SeparatorActive, ImVec4(0, 0, 0, 0));
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0, 0, 0, 0));
 
@@ -86,9 +89,9 @@ namespace Dream {
             }
         }
 
-        ImGui::PopStyleColor(2);
-
         ImGui::End();
+
+        ImGui::PopStyleColor(5);
     }
 
     std::vector<std::string> ImGuiEditorProjectView::split(const std::string &str, const char &ch) {
