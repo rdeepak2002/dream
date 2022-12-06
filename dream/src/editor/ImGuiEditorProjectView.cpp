@@ -31,11 +31,7 @@ namespace Dream {
     }
 
     void ImGuiEditorProjectView::update() {
-        ImGui::PushStyleColor(ImGuiCol_Separator, ImVec4(0, 0, 0, 0));
-        ImGui::PushStyleColor(ImGuiCol_SeparatorHovered, ImVec4(0, 0, 0, 0));
-        ImGui::PushStyleColor(ImGuiCol_SeparatorActive, ImVec4(0, 0, 0, 0));
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0, 0, 0, 0));
 
         ImGuiWindowClass project_window_class;
         project_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
@@ -63,7 +59,8 @@ namespace Dream {
         if (numColumns == 0) {
             numColumns = 1;
         }
-        ImGui::Columns(numColumns, "grid");
+
+        ImGui::BeginColumns("projectGrid", numColumns, ImGuiColumnsFlags_NoResize | ImGuiColumnsFlags_NoBorder);
 
         if (currentPath != Project::getPath()) {
             if (ImGui::ImageButton("..", (void*)(intptr_t)folderIcon, ImVec2(40,40))) {
@@ -91,7 +88,7 @@ namespace Dream {
 
         ImGui::End();
 
-        ImGui::PopStyleColor(5);
+        ImGui::PopStyleColor();
     }
 
     std::vector<std::string> ImGuiEditorProjectView::split(const std::string &str, const char &ch) {

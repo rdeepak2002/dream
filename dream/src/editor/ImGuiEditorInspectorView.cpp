@@ -118,7 +118,7 @@ namespace Dream {
 
         ImGui::PushID(label.c_str());
 
-        ImGui::Columns(2);
+        ImGui::BeginColumns("transformGrid", 2, ImGuiColumnsFlags_NoResize | ImGuiColumnsFlags_NoBorder);
         ImGui::SetColumnWidth(0, columnWidth);
         ImGui::Text("%s", label.c_str());
         ImGui::NextColumn();
