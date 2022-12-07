@@ -6,8 +6,26 @@
 
 #include <glad/glad.h>
 #include <utility>
+#include <iostream>
 
 namespace Dream {
+    struct Vertex {
+        // position
+        glm::vec3 Position;
+        // texCoords
+        glm::vec2 TexCoords;
+        // normal
+        glm::vec3 Normal;
+        // tangent
+        glm::vec3 Tangent;
+        // bitangent
+        glm::vec3 Bitangent;
+        //bone indexes which will influence this vertex
+        int m_BoneIDs[MAX_BONE_INFLUENCE];
+        //weights from each bone
+        float m_Weights[MAX_BONE_INFLUENCE];
+    };
+
     OpenGLMesh::OpenGLMesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> uv, std::vector<glm::vec3> normals, std::vector<unsigned int> indices, std::vector<glm::vec3> tangents, std::vector<glm::vec3> bitangents) {
         setPositions(std::move(positions));
         setUVs(std::move(uv));
@@ -15,7 +33,18 @@ namespace Dream {
         setIndices(std::move(indices));
         setTangents(std::move(tangents));
         setBitangents(std::move(bitangents));
+        for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
+            boneIds[i] = -1;
+            weights[i] = 0;
+        }
         finalize();
+    }
+
+    OpenGLMesh::OpenGLMesh() {
+        for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
+            boneIds[i] = -1;
+            weights[i] = 0;
+        }
     }
 
     void OpenGLMesh::finalize(bool interleaved) {
@@ -24,71 +53,57 @@ namespace Dream {
         glGenBuffers(1, &m_VBO);
         glGenBuffers(1, &m_EBO);
 
-        // preprocess buffer data as interleaved or seperate when specified
-        std::vector<float> data;
+        // preprocess buffer data as interleaved or separate when specified
+        std::vector<Vertex> data;
         if (interleaved)
         {
             for (int i = 0; i < positions.size(); ++i)
             {
-                data.push_back(positions[i].x);
-                data.push_back(positions[i].y);
-                data.push_back(positions[i].z);
+                Vertex vertex = {};
+                if (!positions.empty()) {
+                    vertex.Position =  positions[i];
+                } else {
+                    std::cout << "No positions provided for mesh" << std::endl;
+                    exit(EXIT_FAILURE);
+                }
                 if (!uv.empty()) {
-                    data.push_back(uv[i].x);
-                    data.push_back(uv[i].y);
+                    vertex.TexCoords = uv[i];
+                } else {
+                    std::cout << "No uv provided for mesh" << std::endl;
+                    exit(EXIT_FAILURE);
                 }
                 if (!normals.empty()) {
-                    data.push_back(normals[i].x);
-                    data.push_back(normals[i].y);
-                    data.push_back(normals[i].z);
+                    vertex.Normal = normals[i];
+                } else {
+                    std::cout << "No normal provided for mesh" << std::endl;
+                    exit(EXIT_FAILURE);
                 }
                 if (!tangents.empty()) {
-                    data.push_back(tangents[i].x);
-                    data.push_back(tangents[i].y);
-                    data.push_back(tangents[i].z);
+                    vertex.Tangent = tangents[i];
+                } else {
+                    vertex.Tangent = {0, 0, 0};
                 }
                 if (!bitangents.empty()) {
-                    data.push_back(bitangents[i].x);
-                    data.push_back(bitangents[i].y);
-                    data.push_back(bitangents[i].z);
+                    vertex.Bitangent = bitangents[i];
+                } else {
+                    vertex.Bitangent = {0, 0, 0};
                 }
+                for (int j = 0; j < MAX_BONE_INFLUENCE; ++j) {
+                    vertex.m_BoneIDs[j] = boneIds[j];
+                    vertex.m_Weights[j] = weights[j];
+                }
+                data.push_back(vertex);
             }
         }
         else {
-            for (auto & position : positions) {
-                data.push_back(position.x);
-                data.push_back(position.y);
-                data.push_back(position.z);
-            }
-
-            for (auto & i : uv) {
-                data.push_back(i.x);
-                data.push_back(i.y);
-            }
-
-            for (auto & normal : normals) {
-                data.push_back(normal.x);
-                data.push_back(normal.y);
-                data.push_back(normal.z);
-            }
-
-            for (auto & tangent : tangents) {
-                data.push_back(tangent.x);
-                data.push_back(tangent.y);
-                data.push_back(tangent.z);
-            }
-
-            for (auto & bitangent : bitangents) {
-                data.push_back(bitangent.x);
-                data.push_back(bitangent.y);
-                data.push_back(bitangent.z);
-            }
+            std::cout << "Not interleaved not supported" << std::endl;
+            exit(EXIT_FAILURE);
         }
 
         // configure vertex attributes (only on vertex data size() > 0)
         glBindVertexArray(m_VAO);
         glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-        glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), &data[0], GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(Vertex), &data[0], GL_STATIC_DRAW);
         // only fill the index buffer if the index array is non-empty.
         if (indices.size() > 0) {
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
@@ -96,74 +111,53 @@ namespace Dream {
         }
         if (interleaved) {
             // calculate stride from number of non-empty vertex attribute arrays
-            size_t stride = 3 * sizeof(float);
+            size_t stride = 3 * sizeof(float);  // positions
+            stride += 2 * sizeof(float);        // uvs
+            stride += 3 * sizeof(float);        // normals
+            stride += 3 * sizeof(float);        // tangents
+            stride += 3 * sizeof(float);        // bitangents
+            stride += 4 * sizeof(int);          // for bone ids
+            stride += 4 * sizeof(float);        // for weights
 
-            if (!uv.empty()) {
-                stride += 2 * sizeof(float);
-            }
-
-            if (!normals.empty()) {
-                stride += 3 * sizeof(float);
-            }
-
-            if (!tangents.empty()) {
-                stride += 3 * sizeof(float);
-            }
-
-            if (!bitangents.empty()) {
-                stride += 3 * sizeof(float);
-            }
-
+            // positions
             size_t offset = 0;
             glEnableVertexAttribArray(0);
             glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
             offset += 3 * sizeof(float);
-            if (!uv.empty()) {
-                glEnableVertexAttribArray(1);
-                glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
-                offset += 2 * sizeof(float);
-            }
-            if (!normals.empty()) {
-                glEnableVertexAttribArray(2);
-                glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
-                offset += 3 * sizeof(float);
-            }
-            if (!tangents.empty()) {
-                glEnableVertexAttribArray(3);
-                glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
-                offset += 3 * sizeof(float);
-            }
-            if (!bitangents.empty()) {
-                glEnableVertexAttribArray(4);
-                glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
-                offset += 3 * sizeof(float);
-            }
+
+            // uvs
+            glEnableVertexAttribArray(1);
+            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            offset += 2 * sizeof(float);
+
+            // normals
+            glEnableVertexAttribArray(2);
+            glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            offset += 3 * sizeof(float);
+
+            // tangents
+            glEnableVertexAttribArray(3);
+            glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            offset += 3 * sizeof(float);
+
+            // bitangents
+            glEnableVertexAttribArray(4);
+            glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            offset += 3 * sizeof(float);
+
+            // bone ids
+            glEnableVertexAttribArray(5);
+            glVertexAttribIPointer(5, 4, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, m_BoneIDs));
+            offset += offsetof(Vertex, m_BoneIDs);
+
+            // weights
+            glEnableVertexAttribArray(6);
+            glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, m_Weights));
+            offset += offsetof(Vertex, m_Weights);
         }
         else {
-            size_t offset = 0;
-            glEnableVertexAttribArray(0);
-            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)offset);
-            offset += positions.size() * sizeof(float);
-            if (!uv.empty()) {
-                glEnableVertexAttribArray(1);
-                glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)offset);
-                offset += uv.size() * sizeof(float);
-            }
-            if (!normals.empty()) {
-                glEnableVertexAttribArray(2);
-                glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)offset);
-                offset += normals.size() * sizeof(float);
-            }
-            if (!tangents.empty()) {
-                glEnableVertexAttribArray(3);
-                glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)offset);
-                offset += tangents.size() * sizeof(float);
-            }
-            if (!bitangents.empty()) {
-                glEnableVertexAttribArray(4);
-                glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)offset);
-                offset += bitangents.size() * sizeof(float);
-            }
+            std::cout << "Not interleaved not supported" << std::endl;
+            exit(EXIT_FAILURE);
         }
         glBindVertexArray(0);
     }
@@ -178,9 +172,5 @@ namespace Dream {
 
     unsigned int OpenGLMesh::getEBO() {
         return m_EBO;
-    }
-
-    OpenGLMesh::OpenGLMesh() {
-
     }
 }

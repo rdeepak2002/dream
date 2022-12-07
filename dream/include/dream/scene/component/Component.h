@@ -116,6 +116,8 @@ namespace Dream::Component {
         void loadMesh();
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
+        void readBones(Entity entity);
+        static bool meshHasBones(Entity entity);
     };
 
     struct MaterialComponent : public Component {
