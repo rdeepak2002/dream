@@ -76,6 +76,7 @@ namespace Dream {
     }
 
     Entity OpenGLAssetLoader::processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, bool createEntities) {
+        boneCount = 0;
         meshID++;
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
