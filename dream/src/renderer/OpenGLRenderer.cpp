@@ -72,8 +72,8 @@ namespace Dream {
         for (int i = 0; i < 200; ++i) {
             // auto transforms = animator.GetFinalBoneMatrices();
 //            shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
-            auto transform = glm::mat4(2.0);
-//            transform = glm::translate(transform, glm::vec3(i, i, i));
+            auto transform = glm::mat4(1.0);
+            transform = glm::translate(transform, glm::vec3(i, i, i));
             shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transform);
         }
 
