@@ -75,6 +75,9 @@ namespace Dream {
         boneEntities.clear();
         nodeEntities.clear();
         removeNonArmatureEntity(rootArmatureEntity);
+        if (rootArmatureEntity) {
+            dreamEntityRootNode.addComponent<Component::AnimatorComponent>();
+        }
         return dreamEntityRootNode;
     }
 

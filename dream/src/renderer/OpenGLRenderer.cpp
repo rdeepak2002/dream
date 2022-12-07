@@ -115,6 +115,22 @@ namespace Dream {
                 if (Component::MeshComponent::meshHasBones(entity)) {
                     std::vector<glm::mat4> m_FinalBoneMatrices;
                     m_FinalBoneMatrices.reserve(MAX_BONES);
+
+                    // get animator
+                    if (entity.getComponent<Component::HierarchyComponent>().parent) {
+                        Entity animatorEntity = entity.getComponent<Component::HierarchyComponent>().parent;
+                        while (!animatorEntity.hasComponent<Component::AnimatorComponent>()) {
+                            if (!animatorEntity.getComponent<Component::HierarchyComponent>().parent) {
+                                std::cout << "Error: could not find animator" << std::endl;
+                                exit(EXIT_FAILURE);
+                            }
+                            animatorEntity = animatorEntity.getComponent<Component::HierarchyComponent>().parent;
+                        }
+                    } else {
+                        std::cout << "Error: unable to search upwards to find animator" << std::endl;
+                        exit(EXIT_FAILURE);
+                    }
+
                     for (int i = 0; i < MAX_BONES; ++i) {
                         // auto transforms = animator.GetFinalBoneMatrices();
                         auto transform = m_FinalBoneMatrices[i];

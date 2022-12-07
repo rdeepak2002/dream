@@ -18,7 +18,6 @@ namespace Dream::Component {
             if (node[componentName][AnimatorComponent::k_animations]) {
                 auto animations = node[componentName][AnimatorComponent::k_animations].as<std::vector<std::string>>();
                 entity.addComponent<AnimatorComponent>(animations);
-                std::cout << animations[0] << std::endl;
             } else {
                 entity.addComponent<AnimatorComponent>();
             }
