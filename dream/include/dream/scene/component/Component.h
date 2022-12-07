@@ -173,6 +173,17 @@ namespace Dream::Component {
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
     };
+
+    struct ArmatureComponent : public Component {
+        inline static std::string componentName = "ArmatureComponent";
+        inline static std::string k_boneName = "boneName";
+        std::string boneName;
+        inline static std::string k_boneID = "boneID";
+        int boneID;
+        explicit ArmatureComponent(std::string boneName, int boneID);
+        static void deserialize(YAML::Node node, Entity &entity);
+        static void serialize(YAML::Emitter &out, Entity &entity);
+    };
 }
 
 #endif //DREAM_COMPONENT_H

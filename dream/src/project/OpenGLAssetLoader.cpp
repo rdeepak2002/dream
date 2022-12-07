@@ -31,10 +31,23 @@ namespace Dream {
         auto node = scene->mRootNode;
         meshID = 0;
         boneCount = 0;
+        boneEntities.clear();
+        nodeEntities.clear();
         Entity dreamEntityRootNode = processNode(path, guid, node, scene, createEntities, rootEntity);
         if (dreamEntityRootNode) {
             dreamEntityRootNode.addComponent<Component::MeshComponent>(guid);
         }
+        for (auto boneEntity : boneEntities) {
+            auto boneID = boneEntity.getComponent<Component::BoneComponent>().boneID;
+            auto boneName = boneEntity.getComponent<Component::BoneComponent>().boneName;
+            if (nodeEntities.count(boneName) <= 0) {
+                std::cout << "Error: cannot find node for bone " << boneName << std::endl;
+                exit(EXIT_FAILURE);
+            }
+            nodeEntities[boneName].addComponent<Component::ArmatureComponent>(boneName, boneID);
+        }
+        boneEntities.clear();
+        nodeEntities.clear();
         return dreamEntityRootNode;
     }
 
@@ -46,6 +59,7 @@ namespace Dream {
             } else {
                 dreamNode = Project::getScene()->createEntity(node->mName.C_Str());
             }
+            nodeEntities[node->mName.C_Str()] = dreamNode;
         }
         // process meshes for this node
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
@@ -198,6 +212,7 @@ namespace Dream {
                     boneEntity = Project::getScene()->createEntity(boneName);
                     boneEntity.addComponent<Component::BoneComponent>(boneName, boneID, offset);
                     entity.addChild(boneEntity);
+                    boneEntities.push_back(boneEntity);
                     boneCount++;
                 }
 

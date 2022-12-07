@@ -24,6 +24,8 @@ namespace Dream {
          */
         int meshID = 0;
         int boneCount = 0;
+        std::vector<Entity> boneEntities;
+        std::map<std::string, Entity> nodeEntities;
     };
 }
 

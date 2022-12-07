@@ -44,6 +44,7 @@ namespace Dream {
             renderLuaScriptComponent();
             renderAnimatorComponent();
             renderBoneComponent();
+            renderArmatureComponent();
             renderAddComponent();
             renderRemoveComponent();
         }
@@ -416,6 +417,36 @@ namespace Dream {
                 ImGui::Text("%s", glm::to_string(component.offset[1]).c_str());
                 ImGui::Text("%s", glm::to_string(component.offset[2]).c_str());
                 ImGui::Text("%s", glm::to_string(component.offset[3]).c_str());
+
+                ImGui::TreePop();
+            }
+        }
+    }
+
+    void ImGuiEditorInspectorView::renderArmatureComponent() {
+        if (selectedEntity.hasComponent<Component::ArmatureComponent>()) {
+            auto &component = selectedEntity.getComponent<Component::ArmatureComponent>();
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Armature", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+            ImGui::SameLine();
+            ImGui::Text("Armature");
+            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                selectedEntity.removeComponent<Component::ArmatureComponent>();
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+
+            if (treeNodeOpen) {
+                ImGui::Text("Bone Name");
+                ImGui::SameLine();
+                ImGui::Text("%s", component.boneName.c_str());
+
+                ImGui::Text("Bone ID");
+                ImGui::SameLine();
+                ImGui::Text("%d", component.boneID);
 
                 ImGui::TreePop();
             }
