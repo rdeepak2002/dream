@@ -202,37 +202,27 @@ namespace Dream {
                 }
 
                 // get the vertices associated with this bone and the weight this bone has on them
-                std::vector<int> boneVertices;
-                std::vector<float> boneWeightsForVertices;
                 auto assimpWeights = mesh->mBones[boneIndex]->mWeights;
                 for (int weightIndex = 0; weightIndex < mesh->mBones[boneIndex]->mNumWeights; ++weightIndex) {
                     int vertexId = (int) (assimpWeights[weightIndex].mVertexId);
                     float weight = assimpWeights[weightIndex].mWeight;
                     int numVertices = (int) (vertices.size());
-                    boneVertices.push_back(vertexId);
-                    boneWeightsForVertices.push_back(weight);
                     assert(vertexId <= numVertices);
                     // specify which bones modify which vertex and the weight of effect
                     setVertexBoneData(vertices[vertexId], boneID, weight);
                 }
-                boneEntity.getComponent<Component::BoneComponent>().vertices = boneVertices;
-                boneEntity.getComponent<Component::BoneComponent>().weights = boneWeightsForVertices;
             }
         } else {
             for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex) {
                 int boneID = boneCount;
                 boneCount++;
                 // get the vertices associated with this bone and the weight this bone has on them
-                std::vector<int> boneVertices;
-                std::vector<float> boneWeightsForVertices;
                 auto assimpWeights = mesh->mBones[boneIndex]->mWeights;
 
                 for (int weightIndex = 0; weightIndex < mesh->mBones[boneIndex]->mNumWeights; ++weightIndex) {
                     int vertexId = (int) (assimpWeights[weightIndex].mVertexId);
                     float weight = assimpWeights[weightIndex].mWeight;
                     int numVertices = (int) (vertices.size());
-                    boneVertices.push_back(vertexId);
-                    boneWeightsForVertices.push_back(weight);
                     assert(vertexId <= numVertices);
                     // specify which bones modify which vertex and the weight of effect
                     setVertexBoneData(vertices[vertexId], boneID, weight);

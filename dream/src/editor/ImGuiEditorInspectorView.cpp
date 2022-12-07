@@ -7,6 +7,7 @@
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <misc/cpp/imgui_stdlib.h>
+#include <glm/gtx/string_cast.hpp>
 #include "dream/scene/component/Component.h"
 #include "dream/project/Project.h"
 #include "dream/util/SceneUtils.h"
@@ -410,19 +411,11 @@ namespace Dream {
                 ImGui::SameLine();
                 ImGui::Text("%d", component.boneID);
 
-                if (!component.vertices.empty()) {
-                    if (ImGui::TreeNodeEx(std::string("Influenced vertices (" + std::to_string(component.vertices.size()) + ")").c_str(), ImGuiTreeNodeFlags_SpanFullWidth)) {
-                        for (int i = 0; i < component.vertices.size(); ++i) {
-                            ImGui::Text("ID: %d", component.vertices[i]);
-                            ImGui::SameLine();
-                            ImGui::Text("Weight: %f", component.weights[i]);
-                        }
-                        ImGui::TreePop();
-                    }
-                } else {
-                    ImGui::Text("No influence on vertices");
-                }
-
+                ImGui::Text("Offset");
+                ImGui::Text("%s", glm::to_string(component.offset[0]).c_str());
+                ImGui::Text("%s", glm::to_string(component.offset[1]).c_str());
+                ImGui::Text("%s", glm::to_string(component.offset[2]).c_str());
+                ImGui::Text("%s", glm::to_string(component.offset[3]).c_str());
 
                 ImGui::TreePop();
             }

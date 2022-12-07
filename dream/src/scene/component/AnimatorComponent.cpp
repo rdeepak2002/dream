@@ -9,10 +9,19 @@ namespace Dream::Component {
 
     }
 
+    AnimatorComponent::AnimatorComponent(std::vector<std::string> animations) {
+        this->animations = animations;
+    }
+
     void AnimatorComponent::deserialize(YAML::Node node, Entity &entity) {
         if (node[componentName]) {
-//            auto id = node[componentName][k_id].as<std::string>();
-            entity.addComponent<AnimatorComponent>();
+            if (node[componentName][AnimatorComponent::k_animations]) {
+                auto animations = node[componentName][AnimatorComponent::k_animations].as<std::vector<std::string>>();
+                entity.addComponent<AnimatorComponent>(animations);
+                std::cout << animations[0] << std::endl;
+            } else {
+                entity.addComponent<AnimatorComponent>();
+            }
         }
     }
 
@@ -20,7 +29,7 @@ namespace Dream::Component {
         if (entity.hasComponent<AnimatorComponent>()) {
             out << YAML::Key << AnimatorComponent::componentName;
             out << YAML::BeginMap;
-//            out << YAML::Key << IDComponent::k_id << YAML::Value << entity.getComponent<IDComponent>().id;
+            out << YAML::Key << AnimatorComponent::k_animations << YAML::Value << entity.getComponent<AnimatorComponent>().animations;
             out << YAML::EndMap;
         }
     }

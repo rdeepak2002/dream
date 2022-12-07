@@ -152,7 +152,10 @@ namespace Dream::Component {
     struct AnimatorComponent : public Component {
         inline static std::string componentName = "AnimatorComponent";
         std::string foo = "Animator";
+        inline static std::string k_animations = "animations";
+        std::vector<std::string> animations;
         explicit AnimatorComponent();
+        AnimatorComponent(std::vector<std::string> animations);
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
     };
@@ -165,10 +168,6 @@ namespace Dream::Component {
         int boneID;
         inline static std::string k_offset = "offset";
         glm::mat4 offset;
-        inline static std::string k_vertices = "vertices";
-        std::vector<int> vertices;
-        inline static std::string k_weights = "weights";
-        std::vector<float> weights;
         explicit BoneComponent(std::string boneName, int boneID, glm::mat4 offset);
         BoneComponent();
         static void deserialize(YAML::Node node, Entity &entity);
