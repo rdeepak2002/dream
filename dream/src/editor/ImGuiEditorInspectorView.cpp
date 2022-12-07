@@ -411,7 +411,7 @@ namespace Dream {
                 ImGui::Text("%d", component.boneID);
 
                 if (!component.vertices.empty()) {
-                    if (ImGui::TreeNodeEx("Vertices", ImGuiTreeNodeFlags_SpanFullWidth)) {
+                    if (ImGui::TreeNodeEx(std::string("Influenced vertices (" + std::to_string(component.vertices.size()) + ")").c_str(), ImGuiTreeNodeFlags_SpanFullWidth)) {
                         for (int i = 0; i < component.vertices.size(); ++i) {
                             ImGui::Text("ID: %d", component.vertices[i]);
                             ImGui::SameLine();

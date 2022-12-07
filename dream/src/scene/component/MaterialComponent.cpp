@@ -18,7 +18,6 @@ namespace Dream::Component {
         if (!this->guid.empty()) {
             if (!Project::getResourceManager()->hasData(this->guid)) {
                 std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
-                std::cout << "Loading texture from file guid: " << this->guid << " at path " << path << std::endl;
                 Project::getResourceManager()->storeData(this->guid, new OpenGLTexture(path));
             }
             this->diffuseTexture = (OpenGLTexture*) Project::getResourceManager()->getData(this->guid);
