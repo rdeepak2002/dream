@@ -37,6 +37,8 @@ namespace Dream {
         if (dreamEntityRootNode) {
             dreamEntityRootNode.addComponent<Component::MeshComponent>(guid);
         }
+        // create armature components for nodes related to bones
+        std::vector<Entity> armatureNodeEntities;
         for (auto boneEntity : boneEntities) {
             auto boneID = boneEntity.getComponent<Component::BoneComponent>().boneID;
             auto boneName = boneEntity.getComponent<Component::BoneComponent>().boneName;
@@ -45,10 +47,55 @@ namespace Dream {
                 exit(EXIT_FAILURE);
             }
             nodeEntities[boneName].addComponent<Component::ArmatureComponent>(boneName, boneID);
+            armatureNodeEntities.push_back(nodeEntities[boneName]);
+        }
+        // fix parenting of armature bones in armature hierarchy by ensuring armature entities are children of other armatures (except root armature)
+        Entity rootArmatureEntity;
+        bool needToFixArmatureHierarchy = true;
+        while (needToFixArmatureHierarchy) {
+            needToFixArmatureHierarchy = false;
+            for (auto armatureEntity : armatureNodeEntities) {
+                if (armatureEntity.getComponent<Component::ArmatureComponent>().boneID != 0) {
+                    if (armatureEntity.hasComponent<Component::HierarchyComponent>() && armatureEntity.getComponent<Component::HierarchyComponent>().parent) {
+                        auto parent = armatureEntity.getComponent<Component::HierarchyComponent>().parent;
+                        if (!parent.hasComponent<Component::ArmatureComponent>()) {
+                            needToFixArmatureHierarchy = true;
+                            if (parent.hasComponent<Component::HierarchyComponent>() && parent.getComponent<Component::HierarchyComponent>().parent) {
+                                auto grandparent = parent.getComponent<Component::HierarchyComponent>().parent;
+                                parent.getComponent<Component::HierarchyComponent>().removeChild(armatureEntity);
+                                grandparent.getComponent<Component::HierarchyComponent>().addChild(armatureEntity, grandparent);
+                            }
+                        }
+                    }
+                } else {
+                    rootArmatureEntity = armatureEntity;
+                }
+            }
         }
         boneEntities.clear();
         nodeEntities.clear();
+        removeNonArmatureEntity(rootArmatureEntity);
         return dreamEntityRootNode;
+    }
+
+    bool OpenGLAssetLoader::removeNonArmatureEntity(Entity entity) {
+        if (entity) {
+            if (!entity.hasComponent<Component::ArmatureComponent>())
+            {
+                Project::getScene()->removeEntity(entity);
+                return true;
+            }
+            else
+            {
+                Entity child = entity.getComponent<Component::HierarchyComponent>().first;
+                while (child) {
+                    Entity nextChild = child.getComponent<Component::HierarchyComponent>().next;;
+                    removeNonArmatureEntity(child);
+                    child = nextChild;
+                }
+            }
+        }
+        return false;
     }
 
     Entity OpenGLAssetLoader::processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene, bool createEntities, Entity rootEntity) {
