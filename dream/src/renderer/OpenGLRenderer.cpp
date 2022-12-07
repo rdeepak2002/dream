@@ -121,10 +121,10 @@ namespace Dream {
                             glBindVertexArray(openGLMesh->getVAO());
                             glDrawElements(GL_TRIANGLES, (int) numIndices, GL_UNSIGNED_INT, nullptr);
                             glBindVertexArray(0);
-                        } else if (!openGLMesh->getPositions().empty()) {
+                        } else if (!openGLMesh->getVertices().empty()) {
                             // case where vertices are not indexed
                             glBindVertexArray(openGLMesh->getVAO());
-                            glDrawArrays(GL_TRIANGLES, 0, (int) openGLMesh->getPositions().size());
+                            glDrawArrays(GL_TRIANGLES, 0, (int) openGLMesh->getVertices().size());
                             glBindVertexArray(0);
                         } else {
                             std::cout << "Unable to render mesh" << std::endl;

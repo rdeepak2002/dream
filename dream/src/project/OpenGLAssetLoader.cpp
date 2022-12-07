@@ -138,7 +138,7 @@ namespace Dream {
                 textureEmbeddedInModel = true;
                 assimpTexture = texture;
                 texturePath = str.C_Str();
-                textureFileGUID = IDUtils::newFileID(std::filesystem::path(path).parent_path().append(str.C_Str()));
+                textureFileGUID = IDUtils::newFileID(str.C_Str());
                 Project::getResourceManager()->setFilePathFromGUID(textureFileGUID, texturePath);
             } else {
                 // regular texture file
@@ -153,6 +153,9 @@ namespace Dream {
         if (createEntities) {
             entity = Project::getScene()->createEntity(mesh->mName.C_Str());
         }
+
+        // keep track of whether the mesh has bones we need to keep track of
+        bool hasSkeleton = false;
 
         // process bones
         if (createEntities) {
@@ -169,6 +172,7 @@ namespace Dream {
 
             // traverse bones for this mesh found by assimp
             for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex) {
+                hasSkeleton = true;
                 std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
                 int boneID = boneCount;
                 glm::mat4 offset = convertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);;
@@ -207,7 +211,22 @@ namespace Dream {
         std::string meshFileGUID = std::move(guid);
         std::string subMeshFileID = IDUtils::newFileID(std::string(std::to_string(meshID) + "0"));
         if (!Project::getResourceManager()->hasData(meshFileGUID)) {
-            auto* dreamMesh = new OpenGLMesh(positions, uv, normals, indices, tangents, bitangents);
+            std::vector<Vertex> vertices;
+            for (int i = 0; i < positions.size(); ++i) {
+                Vertex vertex = {
+                        .Position = positions[i],
+                        .TexCoords = uv[i],
+                        .Normal = normals[i],
+                        .Tangent = tangents[i],
+                        .Bitangent = bitangents[i]
+                };
+                for (int j = 0; j < 4; ++j) {
+                    vertex.m_BoneIDs[j] = -1;
+                    vertex.m_Weights[j] = 0;
+                }
+                vertices.push_back(vertex);
+            }
+            auto* dreamMesh = new OpenGLMesh(vertices, indices, hasSkeleton);
             Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
         }
         if (createEntities) {

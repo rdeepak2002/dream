@@ -41,7 +41,7 @@ namespace Dream
         }
         else
         {
-            std::cout << "Failed to load texture" << std::endl;
+            std::cout << "(1) Failed to load texture from data" << std::endl;
             exit(EXIT_FAILURE);
         }
         stbi_image_free(data);
@@ -53,6 +53,10 @@ namespace Dream
         this->bind();
         stbi_set_flip_vertically_on_load(flipTexture);
         unsigned char *data = stbi_load(texturePath.c_str(), &width, &height, &nrChannels, 0);
+        if (texturePath.empty()) {
+            std::cout << "Empty texture path provided" << std::endl;
+            exit(EXIT_FAILURE);
+        }
         if (data)
         {
             int format;
@@ -79,7 +83,7 @@ namespace Dream
         }
         else
         {
-            std::cout << "Failed to load texture" << std::endl;
+            std::cout << "(2) Failed to load texture" << texturePath << std::endl;
             exit(EXIT_FAILURE);
         }
         stbi_image_free(data);

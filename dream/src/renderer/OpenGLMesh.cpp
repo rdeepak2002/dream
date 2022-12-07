@@ -9,34 +9,20 @@
 #include <iostream>
 
 namespace Dream {
-    struct Vertex {
-        // position
-        glm::vec3 Position;
-        // texCoords
-        glm::vec2 TexCoords;
-        // normal
-        glm::vec3 Normal;
-        // tangent
-        glm::vec3 Tangent;
-        // bitangent
-        glm::vec3 Bitangent;
-        //bone indexes which will influence this vertex
-        int m_BoneIDs[MAX_BONE_INFLUENCE];
-        //weights from each bone
-        float m_Weights[MAX_BONE_INFLUENCE];
-    };
+    OpenGLMesh::OpenGLMesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, bool hasSkeleton) {
+//        setPositions(std::move(positions));
+//        setUVs(std::move(uv));
+//        setNormals(std::move(normals));
 
-    OpenGLMesh::OpenGLMesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> uv, std::vector<glm::vec3> normals, std::vector<unsigned int> indices, std::vector<glm::vec3> tangents, std::vector<glm::vec3> bitangents) {
-        setPositions(std::move(positions));
-        setUVs(std::move(uv));
-        setNormals(std::move(normals));
+        setVertices(std::move(vertices));
         setIndices(std::move(indices));
-        setTangents(std::move(tangents));
-        setBitangents(std::move(bitangents));
+//        setTangents(std::move(tangents));
+//        setBitangents(std::move(bitangents));
         for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
             boneIds[i] = -1;
             weights[i] = 0;
         }
+        this->hasSkeleton = hasSkeleton;
         finalize();
     }
 
@@ -45,6 +31,7 @@ namespace Dream {
             boneIds[i] = -1;
             weights[i] = 0;
         }
+        this->hasSkeleton = false;
     }
 
     void OpenGLMesh::finalize(bool interleaved) {
@@ -57,43 +44,44 @@ namespace Dream {
         std::vector<Vertex> data;
         if (interleaved)
         {
-            for (int i = 0; i < positions.size(); ++i)
-            {
-                Vertex vertex = {};
-                if (!positions.empty()) {
-                    vertex.Position =  positions[i];
-                } else {
-                    std::cout << "No positions provided for mesh" << std::endl;
-                    exit(EXIT_FAILURE);
-                }
-                if (!uv.empty()) {
-                    vertex.TexCoords = uv[i];
-                } else {
-                    std::cout << "No uv provided for mesh" << std::endl;
-                    exit(EXIT_FAILURE);
-                }
-                if (!normals.empty()) {
-                    vertex.Normal = normals[i];
-                } else {
-                    std::cout << "No normal provided for mesh" << std::endl;
-                    exit(EXIT_FAILURE);
-                }
-                if (!tangents.empty()) {
-                    vertex.Tangent = tangents[i];
-                } else {
-                    vertex.Tangent = {0, 0, 0};
-                }
-                if (!bitangents.empty()) {
-                    vertex.Bitangent = bitangents[i];
-                } else {
-                    vertex.Bitangent = {0, 0, 0};
-                }
-                for (int j = 0; j < MAX_BONE_INFLUENCE; ++j) {
-                    vertex.m_BoneIDs[j] = boneIds[j];
-                    vertex.m_Weights[j] = weights[j];
-                }
-                data.push_back(vertex);
-            }
+            data = vertices;
+//            for (int i = 0; i < positions.size(); ++i)
+//            {
+//                Vertex vertex = {};
+//                if (!positions.empty()) {
+//                    vertex.Position =  positions[i];
+//                } else {
+//                    std::cout << "No positions provided for mesh" << std::endl;
+//                    exit(EXIT_FAILURE);
+//                }
+//                if (!uv.empty()) {
+//                    vertex.TexCoords = uv[i];
+//                } else {
+//                    std::cout << "No uv provided for mesh" << std::endl;
+//                    exit(EXIT_FAILURE);
+//                }
+//                if (!normals.empty()) {
+//                    vertex.Normal = normals[i];
+//                } else {
+//                    std::cout << "No normal provided for mesh" << std::endl;
+//                    exit(EXIT_FAILURE);
+//                }
+//                if (!tangents.empty()) {
+//                    vertex.Tangent = tangents[i];
+//                } else {
+//                    vertex.Tangent = {0, 0, 0};
+//                }
+//                if (!bitangents.empty()) {
+//                    vertex.Bitangent = bitangents[i];
+//                } else {
+//                    vertex.Bitangent = {0, 0, 0};
+//                }
+//                for (int j = 0; j < MAX_BONE_INFLUENCE; ++j) {
+//                    vertex.m_BoneIDs[j] = boneIds[j];
+//                    vertex.m_Weights[j] = weights[j];
+//                }
+//                data.push_back(vertex);
+//            }
         }
         else {
             std::cout << "Not interleaved not supported" << std::endl;
