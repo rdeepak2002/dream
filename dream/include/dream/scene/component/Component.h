@@ -156,6 +156,7 @@ namespace Dream::Component {
         std::vector<std::string> animations;
         explicit AnimatorComponent();
         AnimatorComponent(std::vector<std::string> animations);
+        std::vector<glm::mat4> computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones);
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
     };
