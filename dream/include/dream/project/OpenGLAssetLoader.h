@@ -17,6 +17,7 @@ namespace Dream {
     private:
         Entity processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene, bool createEntities, Entity rootEntity);
         Entity processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, bool createEntities);
+        void setVertexBoneData(Vertex& vertex, int boneID, float weight);
         static glm::mat4 convertMatrixToGLMFormat(const aiMatrix4x4& from);
         /**
          * Assign a unique ID per submesh within a single Mesh (allows for unique FileID's)

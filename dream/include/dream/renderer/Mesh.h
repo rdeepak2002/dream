@@ -37,8 +37,6 @@ namespace Dream {
     protected:
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
-        int boneIds[MAX_BONE_INFLUENCE];
-        float weights[MAX_BONE_INFLUENCE];
         bool hasSkeleton;
     };
 }

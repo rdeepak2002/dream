@@ -12,19 +12,11 @@ namespace Dream {
     OpenGLMesh::OpenGLMesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, bool hasSkeleton) {
         setVertices(std::move(vertices));
         setIndices(std::move(indices));
-        for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
-            boneIds[i] = -1;
-            weights[i] = 0;
-        }
         this->hasSkeleton = hasSkeleton;
         finalize();
     }
 
     OpenGLMesh::OpenGLMesh() {
-        for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
-            boneIds[i] = -1;
-            weights[i] = 0;
-        }
         this->hasSkeleton = false;
     }
 
@@ -35,20 +27,20 @@ namespace Dream {
         glGenBuffers(1, &m_EBO);
 
         // preprocess buffer data as interleaved or separate when specified
-        std::vector<Vertex> data;
-        if (interleaved)
-        {
-            data = vertices;
-        }
-        else {
-            std::cout << "Not interleaved not supported" << std::endl;
-            exit(EXIT_FAILURE);
-        }
+//        std::vector<Vertex> data;
+//        if (interleaved)
+//        {
+//            data = vertices;
+//        }
+//        else {
+//            std::cout << "Not interleaved not supported" << std::endl;
+//            exit(EXIT_FAILURE);
+//        }
 
         // configure vertex attributes (only on vertex data size() > 0)
         glBindVertexArray(m_VAO);
         glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-        glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(Vertex), &data[0], GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
         // only fill the index buffer if the index array is non-empty.
         if (indices.size() > 0) {
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);

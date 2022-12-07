@@ -65,20 +65,27 @@ namespace Dream {
         return dreamNode;
     }
 
+
+    void OpenGLAssetLoader::setVertexBoneData(Vertex& vertex, int boneID, float weight) {
+        for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
+            if (vertex.m_BoneIDs[i] < 0) {
+                vertex.m_Weights[i] = weight;
+                vertex.m_BoneIDs[i] = boneID;
+                break;
+            }
+        }
+    }
+
     Entity OpenGLAssetLoader::processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, bool createEntities) {
         meshID++;
         std::vector<Vertex> vertices;
-//        std::vector<glm::vec3> positions;
-//        std::vector<glm::vec3> normals;
-//        std::vector<glm::vec3> tangents;
-//        std::vector<glm::vec3> bitangents;
-//        std::vector<glm::vec2> uv;
         std::vector<unsigned int> indices;
 
         // walk through each of the mesh's vertices
         for(unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
             Vertex vertex = {};
+
             // positions
             glm::vec3 position = {mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z};
             // normals
@@ -111,9 +118,9 @@ namespace Dream {
                     .Bitangent = bitangent
             };
 
-            for (int j = 0; j < MAX_BONE_INFLUENCE; ++j) {
-                vertex.m_Weights[j] = 0;
+            for (int j = 0; j < MAX_BONE_INFLUENCE; j++) {
                 vertex.m_BoneIDs[j] = -1;
+                vertex.m_Weights[j] = 0.0f;
             }
 
             vertices.push_back(vertex);
@@ -202,12 +209,34 @@ namespace Dream {
                     int vertexId = (int) (assimpWeights[weightIndex].mVertexId);
                     float weight = assimpWeights[weightIndex].mWeight;
                     int numVertices = (int) (vertices.size());
-                    assert(vertexId <= numVertices);
                     boneVertices.push_back(vertexId);
                     boneWeightsForVertices.push_back(weight);
+                    assert(vertexId <= numVertices);
+                    // specify which bones modify which vertex and the weight of effect
+                    setVertexBoneData(vertices[vertexId], boneID, weight);
                 }
                 boneEntity.getComponent<Component::BoneComponent>().vertices = boneVertices;
                 boneEntity.getComponent<Component::BoneComponent>().weights = boneWeightsForVertices;
+            }
+        } else {
+            for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex) {
+                int boneID = boneCount;
+                boneCount++;
+                // get the vertices associated with this bone and the weight this bone has on them
+                std::vector<int> boneVertices;
+                std::vector<float> boneWeightsForVertices;
+                auto assimpWeights = mesh->mBones[boneIndex]->mWeights;
+
+                for (int weightIndex = 0; weightIndex < mesh->mBones[boneIndex]->mNumWeights; ++weightIndex) {
+                    int vertexId = (int) (assimpWeights[weightIndex].mVertexId);
+                    float weight = assimpWeights[weightIndex].mWeight;
+                    int numVertices = (int) (vertices.size());
+                    boneVertices.push_back(vertexId);
+                    boneWeightsForVertices.push_back(weight);
+                    assert(vertexId <= numVertices);
+                    // specify which bones modify which vertex and the weight of effect
+                    setVertexBoneData(vertices[vertexId], boneID, weight);
+                }
             }
         }
 

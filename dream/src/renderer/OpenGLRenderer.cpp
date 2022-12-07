@@ -69,6 +69,13 @@ namespace Dream {
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
         // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
         shader->setMat4("projection", projection);
+        for (int i = 0; i < 200; ++i) {
+            // auto transforms = animator.GetFinalBoneMatrices();
+//            shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+            auto transform = glm::mat4(2.0);
+//            transform = glm::translate(transform, glm::vec3(i, i, i));
+            shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transform);
+        }
 
         // draw all entities with meshes
         auto meshEntities = Project::getScene()->getEntitiesWithComponents<Component::MeshComponent>();
