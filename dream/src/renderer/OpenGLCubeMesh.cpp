@@ -146,7 +146,7 @@ namespace Dream {
                     .Tangent = {0, 0, 0},
                     .Bitangent = {0, 0, 0}
             };
-            for (int j = 0; j < 4; ++j) {
+            for (int j = 0; j < MAX_BONE_INFLUENCE; ++j) {
                 vertex.m_Weights[j] = 0;
                 vertex.m_BoneIDs[j] = -1;
             }

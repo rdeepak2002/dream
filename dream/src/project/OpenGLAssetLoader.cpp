@@ -67,52 +67,56 @@ namespace Dream {
 
     Entity OpenGLAssetLoader::processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, bool createEntities) {
         meshID++;
-        std::vector<glm::vec3> positions;
-        std::vector<glm::vec3> normals;
-        std::vector<glm::vec3> tangents;
-        std::vector<glm::vec3> bitangents;
-        std::vector<glm::vec2> uv;
+        std::vector<Vertex> vertices;
+//        std::vector<glm::vec3> positions;
+//        std::vector<glm::vec3> normals;
+//        std::vector<glm::vec3> tangents;
+//        std::vector<glm::vec3> bitangents;
+//        std::vector<glm::vec2> uv;
         std::vector<unsigned int> indices;
 
         // walk through each of the mesh's vertices
         for(unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
-            glm::vec3 vector;
+            Vertex vertex = {};
             // positions
-            vector.x = mesh->mVertices[i].x;
-            vector.y = mesh->mVertices[i].y;
-            vector.z = mesh->mVertices[i].z;
-            positions.push_back(vector);
+            glm::vec3 position = {mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z};
             // normals
-            if (mesh->HasNormals())
-            {
-                vector.x = mesh->mNormals[i].x;
-                vector.y = mesh->mNormals[i].y;
-                vector.z = mesh->mNormals[i].z;
-                normals.push_back(vector);
+            glm::vec3 normal = {0, 0, 0};
+            if (mesh->HasNormals()) {
+                normal = {mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z};
             }
             // texture coordinates
+            glm::vec2 uv = {0, 0};
             if(mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
             {
-                glm::vec2 vec;
                 // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't
                 // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
-                vec.x = mesh->mTextureCoords[0][i].x;
-                vec.y = mesh->mTextureCoords[0][i].y;
-                uv.push_back(vec);
-                // tangent
-                vector.x = mesh->mTangents[i].x;
-                vector.y = mesh->mTangents[i].y;
-                vector.z = mesh->mTangents[i].z;
-                tangents.push_back(vector);
-                // bitangent
-                vector.x = mesh->mBitangents[i].x;
-                vector.y = mesh->mBitangents[i].y;
-                vector.z = mesh->mBitangents[i].z;
-                bitangents.push_back(vector);
-            } else {
-                uv.emplace_back(0.0f, 0.0f);
+                uv = {mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y};
             }
+
+            // tangent and bitangent
+            glm::vec3 tangent = {0, 0, 0};
+            glm::vec3 bitangent = {0, 0, 0};
+            if (mesh->HasTangentsAndBitangents()) {
+                tangent = {mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z};
+                bitangent = {mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z};
+            }
+
+            vertex = {
+                    .Position = position,
+                    .TexCoords = uv,
+                    .Normal = normal,
+                    .Tangent = tangent,
+                    .Bitangent = bitangent
+            };
+
+            for (int j = 0; j < MAX_BONE_INFLUENCE; ++j) {
+                vertex.m_Weights[j] = 0;
+                vertex.m_BoneIDs[j] = -1;
+            }
+
+            vertices.push_back(vertex);
         }
         // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
         for(unsigned int i = 0; i < mesh->mNumFaces; i++)
@@ -191,19 +195,19 @@ namespace Dream {
                 }
 
                 // get the vertices associated with this bone and the weight this bone has on them
-                std::vector<int> vertices;
-                std::vector<float> weights;
+                std::vector<int> boneVertices;
+                std::vector<float> boneWeightsForVertices;
                 auto assimpWeights = mesh->mBones[boneIndex]->mWeights;
                 for (int weightIndex = 0; weightIndex < mesh->mBones[boneIndex]->mNumWeights; ++weightIndex) {
                     int vertexId = (int) (assimpWeights[weightIndex].mVertexId);
                     float weight = assimpWeights[weightIndex].mWeight;
-                    int numVertices = (int) (positions.size());
+                    int numVertices = (int) (vertices.size());
                     assert(vertexId <= numVertices);
-                    vertices.push_back(vertexId);
-                    weights.push_back(weight);
+                    boneVertices.push_back(vertexId);
+                    boneWeightsForVertices.push_back(weight);
                 }
-                boneEntity.getComponent<Component::BoneComponent>().vertices = vertices;
-                boneEntity.getComponent<Component::BoneComponent>().weights = weights;
+                boneEntity.getComponent<Component::BoneComponent>().vertices = boneVertices;
+                boneEntity.getComponent<Component::BoneComponent>().weights = boneWeightsForVertices;
             }
         }
 
@@ -211,21 +215,6 @@ namespace Dream {
         std::string meshFileGUID = std::move(guid);
         std::string subMeshFileID = IDUtils::newFileID(std::string(std::to_string(meshID) + "0"));
         if (!Project::getResourceManager()->hasData(meshFileGUID)) {
-            std::vector<Vertex> vertices;
-            for (int i = 0; i < positions.size(); ++i) {
-                Vertex vertex = {
-                        .Position = positions[i],
-                        .TexCoords = uv[i],
-                        .Normal = normals[i],
-                        .Tangent = tangents[i],
-                        .Bitangent = bitangents[i]
-                };
-                for (int j = 0; j < 4; ++j) {
-                    vertex.m_BoneIDs[j] = -1;
-                    vertex.m_Weights[j] = 0;
-                }
-                vertices.push_back(vertex);
-            }
             auto* dreamMesh = new OpenGLMesh(vertices, indices, hasSkeleton);
             Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
         }
