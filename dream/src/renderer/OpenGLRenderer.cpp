@@ -69,13 +69,6 @@ namespace Dream {
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
         // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
         shader->setMat4("projection", projection);
-        for (int i = 0; i < 200; ++i) {
-            // auto transforms = animator.GetFinalBoneMatrices();
-//            shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
-            auto transform = glm::mat4(1.0);
-            transform = glm::translate(transform, glm::vec3(i, i, i));
-            shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transform);
-        }
 
         // draw all entities with meshes
         auto meshEntities = Project::getScene()->getEntitiesWithComponents<Component::MeshComponent>();
@@ -118,6 +111,18 @@ namespace Dream {
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
             if (entity.hasComponent<Component::MeshComponent>()) {
+                // check if mesh has bones and should be animated
+                if (Component::MeshComponent::meshHasBones(entity)) {
+                    std::vector<glm::mat4> m_FinalBoneMatrices;
+                    m_FinalBoneMatrices.reserve(MAX_BONES);
+                    for (int i = 0; i < MAX_BONES; ++i) {
+                        // auto transforms = animator.GetFinalBoneMatrices();
+                        auto transform = m_FinalBoneMatrices[i];
+                        transform = glm::mat4(1.0);
+                        shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transform);
+                    }
+                }
+
                 // draw mesh of entity
                 if (entity.getComponent<Component::MeshComponent>().mesh) {
                     auto* openGLMesh = dynamic_cast<OpenGLMesh*>(entity.getComponent<Component::MeshComponent>().mesh);

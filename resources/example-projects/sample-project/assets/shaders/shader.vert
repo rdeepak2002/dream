@@ -20,17 +20,19 @@ void main()
 {
     vec4 totalPosition = vec4(0.0f);
 
+    // TODO: generalize by checking all id's are -1 using MAX_BONE_INFLUENCE and for loop
     if (boneIds[0] == -1 && boneIds[1] == -1 && boneIds[2] == -1 && boneIds[3] == -1) {
-        totalPosition = vec4(aPos,1.0f);
+        totalPosition = vec4(aPos, 1.0f);
     } else {
         for(int i = 0 ; i < MAX_BONE_INFLUENCE ; i++) {
             if(boneIds[i] == -1) {
                 continue;
             }
-//            if(boneIds[i] >= MAX_BONES) {
-//                totalPosition = vec4(aPos,1.0f);
-//                break;
-//            }
+
+            if(boneIds[i] >= MAX_BONES) {
+                totalPosition = vec4(aPos, 1.0f);
+                break;
+            }
 
             vec4 localPosition = finalBonesMatrices[boneIds[i]] * vec4(aPos, 1.0f);
             totalPosition += localPosition * weights[i];

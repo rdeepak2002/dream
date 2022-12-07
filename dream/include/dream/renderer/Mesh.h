@@ -9,6 +9,7 @@
 #include <functional>
 #include <glm/glm.hpp>
 
+#define MAX_BONES 200
 #define MAX_BONE_INFLUENCE 4
 
 namespace Dream {
