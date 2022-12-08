@@ -16,14 +16,12 @@
 namespace Dream {
     class OpenGLAssetLoader : public AssetLoader {
     public:
-        Entity loadMesh(std::string guid, bool createEntities = false, Entity rootEntity= {}) override;
+        std::map<std::string, BoneInfo> loadMesh(std::string guid, bool createEntities = false, Entity rootEntity= {}) override;
     private:
         Entity processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene, bool createEntities, Entity rootEntity);
         Entity processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, bool createEntities);
         void setVertexBoneData(Vertex& vertex, int boneID, float weight);
-        bool removeNonArmatureEntity(Entity entity);
         void extractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh);
-        static glm::mat4 convertMatrixToGLMFormat(const aiMatrix4x4& from);
         /**
          * Assign a unique ID per submesh within a single Mesh (allows for unique FileID's)
          */

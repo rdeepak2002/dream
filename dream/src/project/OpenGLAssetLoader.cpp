@@ -15,7 +15,7 @@
 #include "dream/util/AssimpGLMHelpers.h"
 
 namespace Dream {
-    Entity OpenGLAssetLoader::loadMesh(std::string guid, bool createEntities, Entity rootEntity) {
+    std::map<std::string, BoneInfo> OpenGLAssetLoader::loadMesh(std::string guid, bool createEntities, Entity rootEntity) {
         std::string path = Project::getResourceManager()->getFilePathFromGUID(guid);
         if (!std::filesystem::exists(path)) {
             std::cout << "Mesh file does not exist" << std::endl;
@@ -29,42 +29,26 @@ namespace Dream {
             std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
             return {};
         }
-        // process root node
         auto node = scene->mRootNode;
         meshID = 0;
         boneCount = 0;
         m_BoneInfoMap.clear();
+        // process root node
         Entity dreamEntityRootNode = processNode(path, guid, node, scene, createEntities, rootEntity);
+        std::map<std::string, BoneInfo> boneInfoMapCpy(m_BoneInfoMap);
+        m_BoneInfoMap.clear();
         if (dreamEntityRootNode) {
-            dreamEntityRootNode.addComponent<Component::MeshComponent>(guid);
-            std::map<std::string, BoneInfo> boneInfoMapCpy(m_BoneInfoMap);
-            dreamEntityRootNode.getComponent<Component::MeshComponent>().m_BoneInfoMap = std::move(boneInfoMapCpy);
-            dreamEntityRootNode.getComponent<Component::MeshComponent>().m_BoneCount = boneCount;
-            std::vector<std::string> animations;
-            animations.push_back(guid);
-            dreamEntityRootNode.addComponent<Component::AnimatorComponent>(dreamEntityRootNode, animations);
-        }
-        return dreamEntityRootNode;
-    }
-
-    bool OpenGLAssetLoader::removeNonArmatureEntity(Entity entity) {
-        if (entity) {
-            if (!entity.hasComponent<Component::ArmatureComponent>())
-            {
-                Project::getScene()->removeEntity(entity);
-                return true;
-            }
-            else
-            {
-                Entity child = entity.getComponent<Component::HierarchyComponent>().first;
-                while (child) {
-                    Entity nextChild = child.getComponent<Component::HierarchyComponent>().next;;
-                    removeNonArmatureEntity(child);
-                    child = nextChild;
-                }
+            if (boneInfoMapCpy.empty()) {
+                // static model
+                dreamEntityRootNode.addComponent<Component::MeshComponent>(guid);
+            } else {
+                // rigged model
+                dreamEntityRootNode.addComponent<Component::MeshComponent>(guid, boneInfoMapCpy);
+                std::vector<std::string> animations {guid};
+                dreamEntityRootNode.addComponent<Component::AnimatorComponent>(dreamEntityRootNode, animations);
             }
         }
-        return false;
+        return boneInfoMapCpy;
     }
 
     Entity OpenGLAssetLoader::processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene, bool createEntities, Entity rootEntity) {

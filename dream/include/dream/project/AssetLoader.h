@@ -7,11 +7,12 @@
 
 #include "dream/renderer/Mesh.h"
 #include "dream/scene/Entity.h"
+#include "dream/renderer/AnimationData.h"
 
 namespace Dream {
     class AssetLoader {
     public:
-        virtual Entity loadMesh(std::string guid, bool createEntities=false, Entity rootEntity= {});
+        virtual std::map<std::string, BoneInfo> loadMesh(std::string guid, bool createEntities=false, Entity rootEntity= {});
     };
 }
 
