@@ -30,6 +30,7 @@ namespace Dream {
         Animation(const std::string& animationPath, Entity modelEntity)
         {
             Assimp::Importer importer;
+            importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);  // fixes mixamo animations
             const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
             assert(scene && scene->mRootNode);
             auto animation = scene->mAnimations[0];
