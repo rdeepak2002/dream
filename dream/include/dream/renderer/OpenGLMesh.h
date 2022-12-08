@@ -13,7 +13,7 @@
 namespace Dream {
     class OpenGLMesh : public Mesh {
     public:
-        OpenGLMesh(std::vector<Vertex> vertices, std::vector<unsigned int> indicesIn, bool hasSkeleton);
+        OpenGLMesh(std::vector<Vertex> vertices, std::vector<unsigned int> indicesIn);
         unsigned int getVAO();
         unsigned int getVBO();
         unsigned int getEBO();

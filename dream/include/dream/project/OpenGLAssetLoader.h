@@ -22,15 +22,13 @@ namespace Dream {
         Entity processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, bool createEntities);
         void setVertexBoneData(Vertex& vertex, int boneID, float weight);
         bool removeNonArmatureEntity(Entity entity);
-        void extractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh, const aiScene* scene);
+        void extractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh);
         static glm::mat4 convertMatrixToGLMFormat(const aiMatrix4x4& from);
         /**
          * Assign a unique ID per submesh within a single Mesh (allows for unique FileID's)
          */
         int meshID = 0;
         int boneCount = 0;
-        std::vector<Entity> boneEntities;
-        std::map<std::string, Entity> nodeEntities;
         std::map<std::string, BoneInfo> m_BoneInfoMap;
     };
 }

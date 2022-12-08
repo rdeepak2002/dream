@@ -9,15 +9,13 @@
 #include <iostream>
 
 namespace Dream {
-    OpenGLMesh::OpenGLMesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, bool hasSkeleton) {
+    OpenGLMesh::OpenGLMesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices) {
         setVertices(std::move(vertices));
         setIndices(std::move(indices));
-        this->hasSkeleton = hasSkeleton;
         finalize();
     }
 
     OpenGLMesh::OpenGLMesh() {
-        this->hasSkeleton = false;
     }
 
     void OpenGLMesh::finalize(bool interleaved) {

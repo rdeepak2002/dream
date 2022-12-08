@@ -12,6 +12,7 @@
 #include "dream/project/Project.h"
 #include "dream/scene/component/Component.h"
 #include "dream/util/IDUtils.h"
+#include "dream/util/AssimpGLMHelpers.h"
 
 namespace Dream {
     Entity OpenGLAssetLoader::loadMesh(std::string guid, bool createEntities, Entity rootEntity) {
@@ -33,8 +34,6 @@ namespace Dream {
         meshID = 0;
         boneCount = 0;
         m_BoneInfoMap.clear();
-        boneEntities.clear();
-        nodeEntities.clear();
         Entity dreamEntityRootNode = processNode(path, guid, node, scene, createEntities, rootEntity);
         if (dreamEntityRootNode) {
             dreamEntityRootNode.addComponent<Component::MeshComponent>(guid);
@@ -45,47 +44,6 @@ namespace Dream {
             animations.push_back(guid);
             dreamEntityRootNode.addComponent<Component::AnimatorComponent>(dreamEntityRootNode, animations);
         }
-        // create armature components for nodes related to bones
-//        std::vector<Entity> armatureNodeEntities;
-//        for (auto boneEntity : boneEntities) {
-//            auto boneID = boneEntity.getComponent<Component::BoneComponent>().boneID;
-//            auto boneName = boneEntity.getComponent<Component::BoneComponent>().boneName;
-//            if (nodeEntities.count(boneName) <= 0) {
-//                std::cout << "Error: cannot find node for bone " << boneName << std::endl;
-//                exit(EXIT_FAILURE);
-//            }
-//            nodeEntities[boneName].addComponent<Component::ArmatureComponent>(boneName, boneID);
-//            armatureNodeEntities.push_back(nodeEntities[boneName]);
-//        }
-//        // fix parenting of armature bones in armature hierarchy by ensuring armature entities are children of other armatures (except root armature)
-//        Entity rootArmatureEntity;
-//        bool needToFixArmatureHierarchy = true;
-//        while (needToFixArmatureHierarchy) {
-//            needToFixArmatureHierarchy = false;
-//            for (auto armatureEntity : armatureNodeEntities) {
-//                if (armatureEntity.getComponent<Component::ArmatureComponent>().boneID != 0) {
-//                    if (armatureEntity.hasComponent<Component::HierarchyComponent>() && armatureEntity.getComponent<Component::HierarchyComponent>().parent) {
-//                        auto parent = armatureEntity.getComponent<Component::HierarchyComponent>().parent;
-//                        if (!parent.hasComponent<Component::ArmatureComponent>()) {
-//                            needToFixArmatureHierarchy = true;
-//                            if (parent.hasComponent<Component::HierarchyComponent>() && parent.getComponent<Component::HierarchyComponent>().parent) {
-//                                auto grandparent = parent.getComponent<Component::HierarchyComponent>().parent;
-//                                parent.getComponent<Component::HierarchyComponent>().removeChild(armatureEntity);
-//                                grandparent.getComponent<Component::HierarchyComponent>().addChild(armatureEntity, grandparent);
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    rootArmatureEntity = armatureEntity;
-//                }
-//            }
-//        }
-        boneEntities.clear();
-        nodeEntities.clear();
-//        removeNonArmatureEntity(rootArmatureEntity);
-//        if (rootArmatureEntity) {
-//            dreamEntityRootNode.addComponent<Component::AnimatorComponent>();
-//        }
         return dreamEntityRootNode;
     }
 
@@ -117,7 +75,6 @@ namespace Dream {
             } else {
                 dreamNode = Project::getScene()->createEntity(node->mName.C_Str());
             }
-            nodeEntities[node->mName.C_Str()] = dreamNode;
         }
         // process meshes for this node
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
@@ -236,79 +193,14 @@ namespace Dream {
             entity = Project::getScene()->createEntity(mesh->mName.C_Str());
         }
 
-        // keep track of whether the mesh has bones we need to keep track of
-        bool hasSkeleton = false;
-
-        extractBoneWeightForVertices(vertices, mesh, scene);
-
-//        // process bones
-//        if (createEntities) {
-//            // create map of bones for this mesh (look at child entities and see which ones have bones)
-//            std::map<std::string, Entity> boneEntitiesForMesh;     // bone name : entity that represents the bone
-//            Entity currentEntity = entity.getComponent<Component::HierarchyComponent>().first;
-//            while (currentEntity) {
-//                if (currentEntity.hasComponent<Component::BoneComponent>()) {
-//                    auto boneComponent = currentEntity.getComponent<Component::BoneComponent>();
-//                    boneEntitiesForMesh.insert(std::make_pair(boneComponent.boneName, currentEntity));
-//                }
-//                currentEntity = currentEntity.getComponent<Component::HierarchyComponent>().next;
-//            }
-//
-//            // traverse bones for this mesh found by assimp
-//            for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex) {
-//                hasSkeleton = true;
-//                std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
-//                int boneID = boneCount;
-//                glm::mat4 offset = convertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);;
-//                Entity boneEntity;
-//
-//                // check if bone entity is already a child
-//                if (boneEntitiesForMesh.count(boneName) > 0) {
-//                    // found existing
-//                    boneEntity = boneEntitiesForMesh[boneName];
-//                } else {
-//                    // not found, so create new one
-//                    boneEntity = Project::getScene()->createEntity(boneName);
-//                    boneEntity.addComponent<Component::BoneComponent>(boneName, boneID, offset);
-//                    entity.addChild(boneEntity);
-//                    boneEntities.push_back(boneEntity);
-//                    boneCount++;
-//                }
-//
-//                // get the vertices associated with this bone and the weight this bone has on them
-//                auto assimpWeights = mesh->mBones[boneIndex]->mWeights;
-//                for (int weightIndex = 0; weightIndex < mesh->mBones[boneIndex]->mNumWeights; ++weightIndex) {
-//                    int vertexId = (int) (assimpWeights[weightIndex].mVertexId);
-//                    float weight = assimpWeights[weightIndex].mWeight;
-//                    int numVertices = (int) (vertices.size());
-//                    assert(vertexId <= numVertices);
-//                    // specify which bones modify which vertex and the weight of effect
-//                    setVertexBoneData(vertices[vertexId], boneID, weight);
-//                }
-//            }
-//        } else {
-//            for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex) {
-//                int boneID = boneCount;
-//                boneCount++;
-//                // get the vertices associated with this bone and the weight this bone has on them
-//                auto assimpWeights = mesh->mBones[boneIndex]->mWeights;
-//
-//                for (int weightIndex = 0; weightIndex < mesh->mBones[boneIndex]->mNumWeights; ++weightIndex) {
-//                    int vertexId = (int) (assimpWeights[weightIndex].mVertexId);
-//                    float weight = assimpWeights[weightIndex].mWeight;
-//                    int numVertices = (int) (vertices.size());
-//                    assert(vertexId <= numVertices);
-//                    // specify which bones modify which vertex and the weight of effect
-//                    setVertexBoneData(vertices[vertexId], boneID, weight);
-//                }
-//            }
-//        }
+        // extract bone weights for vertices
+        extractBoneWeightForVertices(vertices, mesh);
 
         // add mesh component
         std::string meshFileGUID = std::move(guid);
         std::string subMeshFileID = IDUtils::newFileID(std::string(std::to_string(meshID) + "0"));
         if (!Project::getResourceManager()->hasData(meshFileGUID)) {
-            auto* dreamMesh = new OpenGLMesh(vertices, indices, hasSkeleton);
+            auto* dreamMesh = new OpenGLMesh(vertices, indices);
             Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
         }
         if (createEntities) {
@@ -342,49 +234,34 @@ namespace Dream {
         return entity;
     }
 
-    void OpenGLAssetLoader::extractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh, const aiScene* scene)
-    {
+    void OpenGLAssetLoader::extractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh) {
         auto& boneInfoMap = m_BoneInfoMap;
         int& boneCount1 = this->boneCount;
 
-        for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
-        {
+        for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex) {
             int boneID = -1;
             std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
-            if (boneInfoMap.find(boneName) == boneInfoMap.end())
-            {
+            if (boneInfoMap.find(boneName) == boneInfoMap.end()) {
                 BoneInfo newBoneInfo;
                 newBoneInfo.id = boneCount1;
-                newBoneInfo.offset = convertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
+                newBoneInfo.offset = AssimpGLMHelpers::convertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
                 boneInfoMap[boneName] = newBoneInfo;
                 boneID = boneCount1;
                 boneCount1++;
             }
-            else
-            {
+            else {
                 boneID = boneInfoMap[boneName].id;
             }
             assert(boneID != -1);
             auto weights = mesh->mBones[boneIndex]->mWeights;
             int numWeights = mesh->mBones[boneIndex]->mNumWeights;
 
-            for (int weightIndex = 0; weightIndex < numWeights; ++weightIndex)
-            {
+            for (int weightIndex = 0; weightIndex < numWeights; ++weightIndex) {
                 int vertexId = weights[weightIndex].mVertexId;
                 float weight = weights[weightIndex].mWeight;
                 assert(vertexId <= vertices.size());
                 setVertexBoneData(vertices[vertexId], boneID, weight);
             }
         }
-    }
-
-    glm::mat4 OpenGLAssetLoader::convertMatrixToGLMFormat(const aiMatrix4x4 &from) {
-        glm::mat4 to;
-        //the a,b,c,d in assimp is the row ; the 1,2,3,4 is the column
-        to[0][0] = from.a1; to[1][0] = from.a2; to[2][0] = from.a3; to[3][0] = from.a4;
-        to[0][1] = from.b1; to[1][1] = from.b2; to[2][1] = from.b3; to[3][1] = from.b4;
-        to[0][2] = from.c1; to[1][2] = from.c2; to[2][2] = from.c3; to[3][2] = from.c4;
-        to[0][3] = from.d1; to[1][3] = from.d2; to[2][3] = from.d3; to[3][3] = from.d4;
-        return to;
     }
 }

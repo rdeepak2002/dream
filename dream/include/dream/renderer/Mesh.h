@@ -38,7 +38,6 @@ namespace Dream {
     protected:
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
-        bool hasSkeleton;
     };
 }
 

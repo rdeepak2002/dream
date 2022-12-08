@@ -99,7 +99,7 @@ namespace Dream {
             assert(src);
 
             dest.name = src->mName.data;
-            dest.transformation = AssimpGLMHelpers::ConvertMatrixToGLMFormat(src->mTransformation);
+            dest.transformation = AssimpGLMHelpers::convertMatrixToGLMFormat(src->mTransformation);
             dest.childrenCount = src->mNumChildren;
 
             for (int i = 0; i < src->mNumChildren; i++)

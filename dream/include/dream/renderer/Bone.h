@@ -15,7 +15,7 @@
 #include <glm/glm.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
-#include "dream/util/assimp_glm_helpers.h"
+#include "dream/util/AssimpGLMHelpers.h"
 
 namespace Dream {
     struct KeyPosition
@@ -51,7 +51,7 @@ namespace Dream {
                 aiVector3D aiPosition = channel->mPositionKeys[positionIndex].mValue;
                 float timeStamp = channel->mPositionKeys[positionIndex].mTime;
                 KeyPosition data;
-                data.position = AssimpGLMHelpers::GetGLMVec(aiPosition);
+                data.position = AssimpGLMHelpers::getGLMVec(aiPosition);
                 data.timeStamp = timeStamp;
                 m_Positions.push_back(data);
             }
@@ -62,7 +62,7 @@ namespace Dream {
                 aiQuaternion aiOrientation = channel->mRotationKeys[rotationIndex].mValue;
                 float timeStamp = channel->mRotationKeys[rotationIndex].mTime;
                 KeyRotation data;
-                data.orientation = AssimpGLMHelpers::GetGLMQuat(aiOrientation);
+                data.orientation = AssimpGLMHelpers::getGLMQuat(aiOrientation);
                 data.timeStamp = timeStamp;
                 m_Rotations.push_back(data);
             }
@@ -73,7 +73,7 @@ namespace Dream {
                 aiVector3D scale = channel->mScalingKeys[keyIndex].mValue;
                 float timeStamp = channel->mScalingKeys[keyIndex].mTime;
                 KeyScale data;
-                data.scale = AssimpGLMHelpers::GetGLMVec(scale);
+                data.scale = AssimpGLMHelpers::getGLMVec(scale);
                 data.timeStamp = timeStamp;
                 m_Scales.push_back(data);
             }
