@@ -70,6 +70,16 @@ namespace Dream {
         // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
         shader->setMat4("projection", projection);
 
+        // update all animator entities
+        std::vector<glm::mat4> finalBoneMatrices;
+        auto animatorEntities = Project::getScene()->getEntitiesWithComponents<Component::AnimatorComponent>();
+        for(auto entityHandle : animatorEntities) {
+            Entity entity = {entityHandle, Project::getScene()};
+            // TODO: should this be 1000 / 60?
+            entity.getComponent<Component::AnimatorComponent>().UpdateAnimation(1.f / 60.f);
+            finalBoneMatrices = entity.getComponent<Component::AnimatorComponent>().m_FinalBoneMatrices;
+        }
+
         // draw all entities with meshes
         auto meshEntities = Project::getScene()->getEntitiesWithComponents<Component::MeshComponent>();
         for(auto entityHandle : meshEntities) {
@@ -112,55 +122,68 @@ namespace Dream {
 
             if (entity.hasComponent<Component::MeshComponent>()) {
                 // check if mesh has bones and should be animated
-                if (Component::MeshComponent::meshHasBones(entity)) {
-                    // get bones
-                    std::vector<Entity> bones;
-                    Entity c = entity.getComponent<Component::HierarchyComponent>().first;
-                    while (c) {
-                        if (c.hasComponent<Component::BoneComponent>()) {
-                            bones.push_back(c);
-                        }
-                        c = c.getComponent<Component::HierarchyComponent>().next;
-                    }
-
-                    // get animator
-                    Entity animatorEntity = {};
-                    if (entity.getComponent<Component::HierarchyComponent>().parent) {
-                        animatorEntity = entity.getComponent<Component::HierarchyComponent>().parent;
-                        while (!animatorEntity.hasComponent<Component::AnimatorComponent>()) {
-                            if (!animatorEntity.getComponent<Component::HierarchyComponent>().parent) {
-                                std::cout << "Error: could not find animator" << std::endl;
-                                exit(EXIT_FAILURE);
-                            }
-                            animatorEntity = animatorEntity.getComponent<Component::HierarchyComponent>().parent;
-                        }
-                    } else {
-                        std::cout << "Error: unable to search upwards to find animator" << std::endl;
-                        exit(EXIT_FAILURE);
-                    }
-
-                    // get armature
-                    Entity armatureEntity = {};
-                    Entity child = animatorEntity.getComponent<Component::HierarchyComponent>().first;
-                    while (child) {
-                        if (child.hasComponent<Component::ArmatureComponent>()) {
-                            armatureEntity = child;
-                            break;
-                        }
-                        child = child.getComponent<Component::HierarchyComponent>().next;
-                    }
-                    if (!armatureEntity) {
-                        std::cout << "Error: unable to find armature" << std::endl;
-                        exit(EXIT_FAILURE);
-                    }
-
+//                if (Component::MeshComponent::meshHasBones(entity)) {
+//                    // get bones
+//                    std::vector<Entity> bones;
+//                    Entity c = entity.getComponent<Component::HierarchyComponent>().first;
+//                    while (c) {
+//                        if (c.hasComponent<Component::BoneComponent>()) {
+//                            bones.push_back(c);
+//                        }
+//                        c = c.getComponent<Component::HierarchyComponent>().next;
+//                    }
+//
+//                    // get animator
+//                    Entity animatorEntity = {};
+//                    if (entity.getComponent<Component::HierarchyComponent>().parent) {
+//                        animatorEntity = entity.getComponent<Component::HierarchyComponent>().parent;
+//                        while (!animatorEntity.hasComponent<Component::AnimatorComponent>()) {
+//                            if (!animatorEntity.getComponent<Component::HierarchyComponent>().parent) {
+//                                std::cout << "Error: could not find animator" << std::endl;
+//                                exit(EXIT_FAILURE);
+//                            }
+//                            animatorEntity = animatorEntity.getComponent<Component::HierarchyComponent>().parent;
+//                        }
+//                    } else {
+//                        std::cout << "Error: unable to search upwards to find animator" << std::endl;
+//                        exit(EXIT_FAILURE);
+//                    }
+//
+//                    // get armature
+//                    Entity armatureEntity = {};
+//                    Entity child = animatorEntity.getComponent<Component::HierarchyComponent>().first;
+//                    while (child) {
+//                        if (child.hasComponent<Component::ArmatureComponent>()) {
+//                            armatureEntity = child;
+//                            break;
+//                        }
+//                        child = child.getComponent<Component::HierarchyComponent>().next;
+//                    }
+//                    if (!armatureEntity) {
+//                        std::cout << "Error: unable to find armature" << std::endl;
+//                        exit(EXIT_FAILURE);
+//                    }
+//
+//                    // compute final bone matrices
+//                    auto finalBoneMatrices = animatorEntity.getComponent<Component::AnimatorComponent>().computeFinalBoneMatrices(armatureEntity, bones);
+//                    for (int i = 0; i < finalBoneMatrices.size(); ++i) {
+//                        auto transform = finalBoneMatrices[i];
+//                        shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transform);
+//                    }
                     // compute final bone matrices
-                    auto finalBoneMatrices = animatorEntity.getComponent<Component::AnimatorComponent>().computeFinalBoneMatrices(armatureEntity, bones);
-                    for (int i = 0; i < finalBoneMatrices.size(); ++i) {
-                        auto transform = finalBoneMatrices[i];
-                        shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transform);
-                    }
+//                }
+
+//                if (entity.getComponent<Component::MeshComponent>().m_BoneCount > 0) {
+//                    for (int i = 0; i < MAX_BONES; ++i) {
+//                        auto transform = glm::mat4(1.0);
+//                        shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transform);
+//                    }
+//                }
+
+                for (int i = 0; i < finalBoneMatrices.size(); i++) {
+                    shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", finalBoneMatrices[i]);
                 }
+
 
                 // draw mesh of entity
                 if (entity.getComponent<Component::MeshComponent>().mesh) {

@@ -238,10 +238,11 @@ namespace Dream {
 
             auto &component = selectedEntity.getComponent<Component::MeshComponent>();
             bool treeNodeOpen = ImGui::TreeNodeEx("##Mesh", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool canChangeMesh = component.fileId.empty();
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();
-            ImGui::Text("Mesh");
+            ImGui::Text(canChangeMesh ? "Model" : "Mesh");
             ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
             ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
             if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
@@ -251,7 +252,6 @@ namespace Dream {
             ImGui::PopStyleColor();
 
             if (treeNodeOpen) {
-                bool canChangeMesh = component.fileId.empty();
                 if (component.meshType == Component::MeshComponent::MeshType::FROM_FILE) {
                     ImGui::Text("Type");
                     ImGui::SameLine();
@@ -268,7 +268,7 @@ namespace Dream {
 
                 if (component.meshType == Component::MeshComponent::MeshType::FROM_FILE) {
                     std::string meshPath = shorten(Project::getResourceManager()->getFilePathFromGUID(component.guid));
-                    ImGui::Text("Path");
+                    ImGui::Text(canChangeMesh ? "Path" : "Model path");
                     ImGui::SameLine();
                     ImGui::Text("%s", meshPath.c_str());
                     if (canChangeMesh) {

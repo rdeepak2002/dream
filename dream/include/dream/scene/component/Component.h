@@ -13,6 +13,8 @@
 #include "dream/scene/Entity.h"
 #include "dream/renderer/Mesh.h"
 #include "dream/renderer/Texture.h"
+#include "dream/renderer/AnimationData.h"
+#include "dream/renderer/AssimpNodeData.h"
 
 namespace Dream::Component {
     struct Component {
@@ -92,6 +94,9 @@ namespace Dream::Component {
         std::string guid;
         inline static std::string k_fileId = "fileId";
         std::string fileId;
+        // runtime for bone info map
+        std::map<std::string, BoneInfo> m_BoneInfoMap;
+        int m_BoneCount = 0;
         // cache mesh in memory for quick usage during runtime
         Mesh* mesh = nullptr;
         /**
@@ -154,8 +159,14 @@ namespace Dream::Component {
         std::string foo = "Animator";
         inline static std::string k_animations = "animations";
         std::vector<std::string> animations;
+        std::vector<glm::mat4> m_FinalBoneMatrices;
+        void* m_CurrentAnimation = nullptr;
+        float m_CurrentTime = 0;
+        float m_DeltaTime = 0;
         explicit AnimatorComponent();
-        AnimatorComponent(std::vector<std::string> animations);
+        AnimatorComponent(Entity modelEntity, std::vector<std::string> animations);
+        void CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform);
+        void UpdateAnimation(float dt);
         std::vector<glm::mat4> computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones);
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);

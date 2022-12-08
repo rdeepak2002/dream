@@ -3,14 +3,74 @@
 //
 
 #include "dream/scene/component/Component.h"
+#include "dream/renderer/Animation.h"
+#include "dream/project/Project.h"
 
 namespace Dream::Component {
     AnimatorComponent::AnimatorComponent() {
-
+        m_CurrentTime = 0.0;
+        m_CurrentAnimation = nullptr;
+        m_FinalBoneMatrices.reserve(MAX_BONES);
+        for (int i = 0; i < MAX_BONES; i++) {
+            m_FinalBoneMatrices.push_back(glm::mat4(1.0f));
+        }
     }
 
-    AnimatorComponent::AnimatorComponent(std::vector<std::string> animations) {
-        this->animations = animations;
+    AnimatorComponent::AnimatorComponent(Entity modelEntity, std::vector<std::string> animations) {
+        this->animations = std::move(animations);
+
+        if (this->animations.size() > 0) {
+            auto guid = this->animations.at(0);
+            auto animationFilePath = Project::getResourceManager()->getFilePathFromGUID(guid);
+            m_CurrentAnimation = new Animation(animationFilePath, modelEntity);
+            std::cout << "Loaded animation" << std::endl;
+        } else {
+            std::cout << "Error: No animation found" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        m_CurrentTime = 0.0;
+        m_FinalBoneMatrices.reserve(MAX_BONES);
+        for (int i = 0; i < MAX_BONES; i++) {
+            m_FinalBoneMatrices.push_back(glm::mat4(1.0f));
+        }
+    }
+
+    void AnimatorComponent::UpdateAnimation(float dt)
+    {
+        m_DeltaTime = dt;
+        if (m_CurrentAnimation)
+        {
+            m_CurrentTime += ((Animation*)m_CurrentAnimation)->GetTicksPerSecond() * dt;
+            m_CurrentTime = fmod(m_CurrentTime, ((Animation*)m_CurrentAnimation)->GetDuration());
+            CalculateBoneTransform(&((Animation*)m_CurrentAnimation)->GetRootNode(), glm::mat4(1.0f));
+        }
+    }
+
+    void AnimatorComponent::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform)
+    {
+        std::string nodeName = node->name;
+        glm::mat4 nodeTransform = node->transformation;
+
+        Bone* Bone = ((Animation*)m_CurrentAnimation)->FindBone(nodeName);
+
+        if (Bone)
+        {
+            Bone->Update(m_CurrentTime);
+            nodeTransform = Bone->GetLocalTransform();
+        }
+
+        glm::mat4 globalTransformation = parentTransform * nodeTransform;
+
+        auto boneInfoMap = ((Animation*)m_CurrentAnimation)->GetBoneIDMap();
+        if (boneInfoMap.find(nodeName) != boneInfoMap.end())
+        {
+            int index = boneInfoMap[nodeName].id;
+            glm::mat4 offset = boneInfoMap[nodeName].offset;
+            m_FinalBoneMatrices[index] = globalTransformation * offset;
+        }
+
+        for (int i = 0; i < node->childrenCount; i++)
+            CalculateBoneTransform(&node->children[i], globalTransformation);
     }
 
     std::vector<glm::mat4> AnimatorComponent::computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones) {
@@ -35,7 +95,7 @@ namespace Dream::Component {
         if (node[componentName]) {
             if (node[componentName][AnimatorComponent::k_animations]) {
                 auto animations = node[componentName][AnimatorComponent::k_animations].as<std::vector<std::string>>();
-                entity.addComponent<AnimatorComponent>(animations);
+                entity.addComponent<AnimatorComponent>(entity, animations);
             } else {
                 entity.addComponent<AnimatorComponent>();
             }

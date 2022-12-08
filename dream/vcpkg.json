@@ -2,7 +2,6 @@
   "name": "project",
   "version": "1.0.0",
   "dependencies": [
-    "assimp",
     "yaml-cpp",
     "sdl2",
     "bullet3",
@@ -10,10 +9,6 @@
     "gtest"
   ],
   "overrides": [
-    {
-      "name": "assimp",
-      "version": "5.2.5"
-    },
     {
       "name": "yaml-cpp",
       "version": "0.7.0"
