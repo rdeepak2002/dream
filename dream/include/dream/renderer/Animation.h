@@ -27,13 +27,16 @@ namespace Dream {
     public:
         Animation() = default;
 
-        Animation(const std::string& animationPath, Entity modelEntity)
+        Animation(const std::string& animationPath, Entity modelEntity, int index)
         {
             Assimp::Importer importer;
             importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);  // fixes mixamo animations
             const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
             assert(scene && scene->mRootNode);
-            auto animation = scene->mAnimations[0];
+            if (scene->mNumAnimations <= index) {
+                std::cout << "Error: animation " << index << " does not exist for " << animationPath << std::endl;
+            }
+            auto animation = scene->mAnimations[index];
             m_Duration = animation->mDuration;
             m_TicksPerSecond = animation->mTicksPerSecond;
             aiMatrix4x4 globalTransformation = scene->mRootNode->mTransformation;

@@ -33,10 +33,23 @@ namespace Dream {
         meshID = 0;
         boneCount = 0;
         m_BoneInfoMap.clear();
+        nodeEntities.clear();
         // process root node
         Entity dreamEntityRootNode = processNode(path, guid, node, scene, createEntities, rootEntity, true);
         std::map<std::string, BoneInfo> boneInfoMapCpy(m_BoneInfoMap);
+        // go through bone info map and see if an entity exists for a bone, then create a bone component for that entity
+        if (createEntities) {
+            // add bone component to nodes that are associated to bones
+            for (auto nodeEntity : nodeEntities) {
+                auto entityTag = nodeEntity.getComponent<Component::TagComponent>().tag;
+                if (m_BoneInfoMap.count(entityTag) > 0) {
+                    BoneInfo boneInfo = m_BoneInfoMap[entityTag];
+                    nodeEntity.addComponent<Component::BoneComponent>(boneInfo.id);
+                }
+            }
+        }
         m_BoneInfoMap.clear();
+        nodeEntities.clear();
         if (dreamEntityRootNode) {
             if (boneInfoMapCpy.empty()) {
                 // static model
@@ -59,6 +72,7 @@ namespace Dream {
             } else {
                 dreamNode = Project::getScene()->createEntity(node->mName.C_Str());
             }
+            nodeEntities.push_back(dreamNode);
         }
         // process meshes for this node
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
@@ -273,6 +287,7 @@ namespace Dream {
         meshID = 0;
         boneCount = 0;
         m_BoneInfoMap.clear();
+        nodeEntities.clear();
         // process root node
         processNode(path, guid, node, scene, false, Entity(), false);
         std::map<std::string, BoneInfo> boneInfoMapCpy(m_BoneInfoMap);

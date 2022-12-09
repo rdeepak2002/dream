@@ -403,19 +403,9 @@ namespace Dream {
             ImGui::PopStyleColor();
 
             if (treeNodeOpen) {
-                ImGui::Text("Name");
-                ImGui::SameLine();
-                ImGui::Text("%s", component.boneName.c_str());
-
                 ImGui::Text("ID");
                 ImGui::SameLine();
                 ImGui::Text("%d", component.boneID);
-
-                ImGui::Text("Offset");
-                ImGui::Text("%s", glm::to_string(component.offset[0]).c_str());
-                ImGui::Text("%s", glm::to_string(component.offset[1]).c_str());
-                ImGui::Text("%s", glm::to_string(component.offset[2]).c_str());
-                ImGui::Text("%s", glm::to_string(component.offset[3]).c_str());
 
                 ImGui::TreePop();
             }

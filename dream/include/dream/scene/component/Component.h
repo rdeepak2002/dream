@@ -123,8 +123,6 @@ namespace Dream::Component {
         void loadMesh();
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
-        void readBones(Entity entity);
-        static bool meshHasBones(Entity entity);
     };
 
     struct MaterialComponent : public Component {
@@ -178,14 +176,9 @@ namespace Dream::Component {
 
     struct BoneComponent : public Component {
         inline static std::string componentName = "BoneComponent";
-        inline static std::string k_boneName = "boneName";
-        std::string boneName;
         inline static std::string k_boneID = "boneID";
         int boneID;
-        inline static std::string k_offset = "offset";
-        glm::mat4 offset;
-        explicit BoneComponent(std::string boneName, int boneID, glm::mat4 offset);
-        BoneComponent();
+        explicit BoneComponent(int boneID);
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
     };

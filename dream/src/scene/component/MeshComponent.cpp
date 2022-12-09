@@ -101,23 +101,4 @@ namespace Dream::Component {
             }
         }
     }
-
-    void MeshComponent::readBones(Entity entity) {
-        Entity ent = entity.getComponent<HierarchyComponent>().first;
-        while (ent) {
-            ent.getComponent<BoneComponent>().boneName;   // TODO: read bones
-            ent = ent.getComponent<HierarchyComponent>().next;
-        }
-    }
-
-    bool MeshComponent::meshHasBones(Entity entity) {
-        Entity ent = entity.getComponent<HierarchyComponent>().first;
-        while (ent) {
-            if (ent.hasComponent<BoneComponent>()) {
-                return true;
-            }
-            ent = ent.getComponent<HierarchyComponent>().next;
-        }
-        return false;
-    }
 }

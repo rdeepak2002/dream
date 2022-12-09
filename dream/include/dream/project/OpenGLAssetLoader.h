@@ -27,8 +27,10 @@ namespace Dream {
          * Assign a unique ID per submesh within a single Mesh (allows for unique FileID's)
          */
         int meshID = 0;
+        // bone variables
         int boneCount = 0;
         std::map<std::string, BoneInfo> m_BoneInfoMap;
+        std::vector<Entity> nodeEntities;
     };
 }
 

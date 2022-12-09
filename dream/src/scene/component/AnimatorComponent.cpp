@@ -105,13 +105,11 @@ namespace Dream::Component {
     void AnimatorComponent::loadAnimations(Entity modelEntity) {
         if (!this->animations.empty()) {
             for (const auto& guid : this->animations) {
-                // TODO: store animations in a list
                 auto animationFilePath = Project::getResourceManager()->getFilePathFromGUID(guid);
-                m_CurrentAnimation = new Animation(animationFilePath, modelEntity);
+                m_CurrentAnimation = new Animation(animationFilePath, modelEntity, 0);
             }
         } else {
             m_CurrentAnimation = nullptr;
-            // TODO: we don't need this else technically, just set everything to glm::mat4(1.0) [t-pose]
             std::cout << "Error: No animation found" << std::endl;
             exit(EXIT_FAILURE);
         }
