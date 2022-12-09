@@ -18,17 +18,8 @@ namespace Dream::Component {
 
     AnimatorComponent::AnimatorComponent(Entity modelEntity, std::vector<std::string> animations) {
         this->animations = std::move(animations);
-
-        if (this->animations.size() > 0) {
-            auto guid = this->animations.at(0);
-            auto animationFilePath = Project::getResourceManager()->getFilePathFromGUID(guid);
-            m_CurrentAnimation = new Animation(animationFilePath, modelEntity);
-            std::cout << "Loaded animation" << std::endl;
-        } else {
-            std::cout << "Error: No animation found" << std::endl;
-            exit(EXIT_FAILURE);
-        }
         m_CurrentTime = 0.0;
+        m_CurrentAnimation = nullptr;
         m_FinalBoneMatrices.reserve(MAX_BONES);
         for (int i = 0; i < MAX_BONES; i++) {
             m_FinalBoneMatrices.push_back(glm::mat4(1.0f));
@@ -109,5 +100,19 @@ namespace Dream::Component {
             out << YAML::Key << AnimatorComponent::k_animations << YAML::Value << entity.getComponent<AnimatorComponent>().animations;
             out << YAML::EndMap;
         }
+    }
+
+    void AnimatorComponent::loadAnimations(Entity modelEntity) {
+        if (this->animations.size() > 0) {
+            auto guid = this->animations.at(0);
+            auto animationFilePath = Project::getResourceManager()->getFilePathFromGUID(guid);
+            m_CurrentAnimation = new Animation(animationFilePath, modelEntity);
+            std::cout << "Loaded animation" << std::endl;
+        } else {
+            // TODO: we don't need this else technically, just set everything to glm::mat4(1.0) [t-pose]
+            std::cout << "Error: No animation found" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        this->needsToLoadAnimations = false;
     }
 }

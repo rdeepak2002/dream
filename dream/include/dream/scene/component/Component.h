@@ -99,6 +99,7 @@ namespace Dream::Component {
         int m_BoneCount = 0;
         // cache mesh in memory for quick usage during runtime
         Mesh* mesh = nullptr;
+        bool needsToLoadBones = true;
         /**
          * Create MeshComponent from file
          * Example: loading a dragon 3D model from a file
@@ -164,10 +165,12 @@ namespace Dream::Component {
         void* m_CurrentAnimation = nullptr;
         float m_CurrentTime = 0;
         float m_DeltaTime = 0;
+        bool needsToLoadAnimations = true;
         explicit AnimatorComponent();
         AnimatorComponent(Entity modelEntity, std::vector<std::string> animations);
         void CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform);
         void UpdateAnimation(float dt);
+        void loadAnimations(Entity modelEntity);
         std::vector<glm::mat4> computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones);
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);

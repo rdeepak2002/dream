@@ -39,11 +39,19 @@ namespace Dream::Component {
             if (!this->fileId.empty()) {
                 if (!Project::getResourceManager()->hasData(this->guid, this->fileId)) {
                     std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
-                    auto boneMap = Project::getAssetLoader()->loadMesh(this->guid);
-                    this->m_BoneCount = (int) boneMap.size();
-                    this->m_BoneInfoMap = std::move(boneMap);
+                    Project::getAssetLoader()->loadMesh(this->guid);
                 }
                 this->mesh = (OpenGLMesh*) Project::getResourceManager()->getData(this->guid, this->fileId);
+            } else {
+                if (!this->guid.empty()) {
+                    if (needsToLoadBones) {
+                        // TODO: THIS CREATES NEW POINTERS THAT ARE UNUSED, PASS OPTION TO LOAD MESH TO NOT CREATE NEW OBJECTS
+                        auto boneMap = Project::getAssetLoader()->loadMesh(this->guid);
+                        this->m_BoneCount = (int) boneMap.size();
+                        this->m_BoneInfoMap = std::move(boneMap);
+                        needsToLoadBones = false;
+                    }
+                }
             }
         } else {
             if (meshType == PRIMITIVE_CUBE) {
