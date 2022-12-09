@@ -9,4 +9,8 @@ namespace Dream {
     std::map<std::string, BoneInfo> AssetLoader::loadMesh(std::string guid, bool createEntities, Entity rootEntity) {
         return {};
     }
+
+    std::map<std::string, BoneInfo> AssetLoader::loadBones(std::string guid) {
+        return std::map<std::string, BoneInfo>();
+    }
 }

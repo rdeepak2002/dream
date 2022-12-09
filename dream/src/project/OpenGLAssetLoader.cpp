@@ -34,7 +34,7 @@ namespace Dream {
         boneCount = 0;
         m_BoneInfoMap.clear();
         // process root node
-        Entity dreamEntityRootNode = processNode(path, guid, node, scene, createEntities, rootEntity);
+        Entity dreamEntityRootNode = processNode(path, guid, node, scene, createEntities, rootEntity, true);
         std::map<std::string, BoneInfo> boneInfoMapCpy(m_BoneInfoMap);
         m_BoneInfoMap.clear();
         if (dreamEntityRootNode) {
@@ -51,7 +51,7 @@ namespace Dream {
         return boneInfoMapCpy;
     }
 
-    Entity OpenGLAssetLoader::processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene, bool createEntities, Entity rootEntity) {
+    Entity OpenGLAssetLoader::processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene, bool createEntities, Entity rootEntity, bool createMeshObjects) {
         Entity dreamNode;
         if (createEntities) {
             if (rootEntity) {
@@ -63,14 +63,14 @@ namespace Dream {
         // process meshes for this node
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            Entity child = processMesh(path, guid, mesh, scene, createEntities);
+            Entity child = processMesh(path, guid, mesh, scene, createEntities, createMeshObjects);
             if (createEntities) {
                 dreamNode.addChild(child);
             }
         }
         // process child nodes
         for(unsigned int i = 0; i < node->mNumChildren; i++) {
-            Entity child = processNode(path, guid, node->mChildren[i], scene, createEntities, {});
+            Entity child = processNode(path, guid, node->mChildren[i], scene, createEntities, {}, createMeshObjects);
             if (createEntities) {
                 dreamNode.addChild(child);
             }
@@ -88,7 +88,7 @@ namespace Dream {
         }
     }
 
-    Entity OpenGLAssetLoader::processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, bool createEntities) {
+    Entity OpenGLAssetLoader::processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, bool createEntities, bool createMeshObjects) {
         meshID++;
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
@@ -184,8 +184,10 @@ namespace Dream {
         std::string meshFileGUID = std::move(guid);
         std::string subMeshFileID = IDUtils::newFileID(std::string(std::to_string(meshID) + "0"));
         if (!Project::getResourceManager()->hasData(meshFileGUID)) {
-            auto* dreamMesh = new OpenGLMesh(vertices, indices);
-            Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
+            if (createMeshObjects) {
+                auto* dreamMesh = new OpenGLMesh(vertices, indices);
+                Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
+            }
         }
         if (createEntities) {
             entity.addComponent<Component::MeshComponent>(meshFileGUID, subMeshFileID);
@@ -196,16 +198,20 @@ namespace Dream {
                 // add texture embedded into model file
                 auto buffer = reinterpret_cast<unsigned char*>(assimpTexture->pcData);
                 int len = assimpTexture->mHeight == 0 ? static_cast<int>(assimpTexture->mWidth) : static_cast<int>(assimpTexture->mWidth * assimpTexture->mHeight);
-                auto* dreamTexture = new OpenGLTexture(buffer, len);
-                Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
-                if (createEntities) {
-                    entity.addComponent<Component::MaterialComponent>(textureFileGUID, true);
+                if (createMeshObjects) {
+                    auto* dreamTexture = new OpenGLTexture(buffer, len);
+                    Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
+                    if (createEntities) {
+                        entity.addComponent<Component::MaterialComponent>(textureFileGUID, true);
+                    }
                 }
             } else if (!textureEmbeddedInModel) {
                 // add texture stored in an external image file
                 if (!Project::getResourceManager()->hasData(textureFileGUID)) {
-                    auto* dreamTexture = new OpenGLTexture(texturePath);
-                    Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
+                    if (createMeshObjects) {
+                        auto* dreamTexture = new OpenGLTexture(texturePath);
+                        Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
+                    }
                 }
                 if (createEntities) {
                     entity.addComponent<Component::MaterialComponent>(textureFileGUID, false);
@@ -247,5 +253,30 @@ namespace Dream {
                 setVertexBoneData(vertices[vertexId], boneID, weight);
             }
         }
+    }
+
+    std::map<std::string, BoneInfo> OpenGLAssetLoader::loadBones(std::string guid) {
+        std::string path = Project::getResourceManager()->getFilePathFromGUID(guid);
+        if (!std::filesystem::exists(path)) {
+            std::cout << "Mesh file does not exist" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        // use assimp to get scene of model
+        Assimp::Importer importer;
+        importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);  // fixes mixamo animations
+        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
+        if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+            std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
+            return {};
+        }
+        auto node = scene->mRootNode;
+        meshID = 0;
+        boneCount = 0;
+        m_BoneInfoMap.clear();
+        // process root node
+        processNode(path, guid, node, scene, false, Entity(), false);
+        std::map<std::string, BoneInfo> boneInfoMapCpy(m_BoneInfoMap);
+        m_BoneInfoMap.clear();
+        return boneInfoMapCpy;
     }
 }
