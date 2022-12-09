@@ -10,6 +10,7 @@
 #include <yaml-cpp/yaml.h>
 #include <btBulletDynamicsCommon.h>
 #include "dream/scene/system/LuaScriptComponentSystem.h"
+#include "dream/scene/system/AnimatorComponentSystem.h"
 
 namespace Dream {
     class Entity;
@@ -31,6 +32,7 @@ namespace Dream {
     private:
         entt::registry entityRegistry;
         friend class Entity;
+        AnimatorComponentSystem* animatorComponentSystem;
         LuaScriptComponentSystem* luaScriptComponentSystem;
         btDefaultCollisionConfiguration* collisionConfiguration;
         btCollisionDispatcher* dispatcher;

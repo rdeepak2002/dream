@@ -8,6 +8,7 @@
 
 namespace Dream {
     Scene::Scene() {
+        animatorComponentSystem = new AnimatorComponentSystem();
         luaScriptComponentSystem = new LuaScriptComponentSystem();
         collisionConfiguration = new btDefaultCollisionConfiguration();
         dispatcher = new btCollisionDispatcher(collisionConfiguration);
@@ -18,6 +19,7 @@ namespace Dream {
     }
 
     Scene::~Scene() {
+        delete animatorComponentSystem;
         delete luaScriptComponentSystem;
         delete dynamicsWorld;
         delete solver;
@@ -47,6 +49,7 @@ namespace Dream {
     }
 
     void Scene::fixedUpdate(float dt) {
+        animatorComponentSystem->update(dt);
         luaScriptComponentSystem->update(dt);
     }
 
