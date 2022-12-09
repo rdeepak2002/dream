@@ -87,7 +87,7 @@ namespace Dream {
             if (entity.getComponent<Component::AnimatorComponent>().needsToLoadAnimations) {
                 entity.getComponent<Component::AnimatorComponent>().loadAnimations(entity);
             }
-            // TODO: call updateAnimation() from a component system [ensure render is called before this] (all the other lines should remain here though)
+            // TODO: call updateAnimation() from a component system [might not need to ensure render is called before this] (all the other lines should remain here though)
             entity.getComponent<Component::AnimatorComponent>().updateAnimation(1.f / 60.f);
             finalBoneMatrices = entity.getComponent<Component::AnimatorComponent>().m_FinalBoneMatrices;
         }
