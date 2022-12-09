@@ -162,12 +162,11 @@ namespace Dream::Component {
         std::vector<glm::mat4> m_FinalBoneMatrices;
         void* m_CurrentAnimation = nullptr;
         float m_CurrentTime = 0;
-        float m_DeltaTime = 0;
         bool needsToLoadAnimations = true;
         explicit AnimatorComponent();
         AnimatorComponent(Entity modelEntity, std::vector<std::string> animations);
-        void CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform);
-        void UpdateAnimation(float dt);
+        void calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform);
+        void updateAnimation(float dt);
         void loadAnimations(Entity modelEntity);
         std::vector<glm::mat4> computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones);
         static void deserialize(YAML::Node node, Entity &entity);

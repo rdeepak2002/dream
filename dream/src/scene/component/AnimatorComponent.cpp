@@ -26,18 +26,17 @@ namespace Dream::Component {
         }
     }
 
-    void AnimatorComponent::UpdateAnimation(float dt)
+    void AnimatorComponent::updateAnimation(float dt)
     {
-        m_DeltaTime = dt;
         if (m_CurrentAnimation)
         {
             m_CurrentTime += ((Animation*)m_CurrentAnimation)->GetTicksPerSecond() * dt;
             m_CurrentTime = fmod(m_CurrentTime, ((Animation*)m_CurrentAnimation)->GetDuration());
-            CalculateBoneTransform(&((Animation*)m_CurrentAnimation)->GetRootNode(), glm::mat4(1.0f));
+            calculateBoneTransform(&((Animation*)m_CurrentAnimation)->GetRootNode(), glm::mat4(1.0f));
         }
     }
 
-    void AnimatorComponent::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform)
+    void AnimatorComponent::calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform)
     {
         std::string nodeName = node->name;
         glm::mat4 nodeTransform = node->transformation;
@@ -60,8 +59,9 @@ namespace Dream::Component {
             m_FinalBoneMatrices[index] = globalTransformation * offset;
         }
 
-        for (int i = 0; i < node->childrenCount; i++)
-            CalculateBoneTransform(&node->children[i], globalTransformation);
+        for (int i = 0; i < node->childrenCount; i++) {
+            calculateBoneTransform(&node->children[i], globalTransformation);
+        }
     }
 
     std::vector<glm::mat4> AnimatorComponent::computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones) {
