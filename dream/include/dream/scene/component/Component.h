@@ -185,6 +185,8 @@ namespace Dream::Component {
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
     };
+
+    // TODO: camera component
 }
 
 #endif //DREAM_COMPONENT_H
