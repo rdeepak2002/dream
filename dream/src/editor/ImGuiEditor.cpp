@@ -68,7 +68,7 @@ namespace Dream {
         menu->update();
         rendererView->update(this->rendererViewportWidth, this->rendererViewportHeight, frameBufferTexture);
         inspectorView->update();
-        consoleView->update();
+        consoleView->update(logCollector);
         projectView->update();
         sceneView->update();
 

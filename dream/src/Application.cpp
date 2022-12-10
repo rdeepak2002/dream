@@ -12,13 +12,16 @@
 
 namespace Dream {
     Application::Application() {
+        this->logCollector = new LogCollector();
         Project::open(this->getResourcesRoot().append("resources").append("example-projects").append("sample-project"));
         this->window = new SDL2OpenGLWindow();
         this->renderer = new OpenGLRenderer();
         this->editor = new ImGuiSDL2OpenGLEditor(this->window);
+        this->editor->setLogCollector(logCollector);
     }
 
     Application::~Application() {
+        delete this->logCollector;
         delete this->window;
         delete this->renderer;
         delete this->editor;

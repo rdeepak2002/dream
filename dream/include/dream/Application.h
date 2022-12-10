@@ -9,6 +9,7 @@
 #include "dream/editor/Editor.h"
 #include "dream/window/Window.h"
 #include "dream/project/Project.h"
+#include "dream/editor/LogCollector.h"
 
 namespace Dream {
     class Application {
@@ -19,6 +20,7 @@ namespace Dream {
         bool shouldClose();
     private:
         bool fullscreen = false;
+        LogCollector* logCollector;
         Window* window;
         Renderer* renderer;
         Editor* editor;

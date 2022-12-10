@@ -15,6 +15,7 @@
 #define KWHT  "\x1B[37m"
 
 #include <iostream>
+#include "dream/util/LoggerListener.h"
 
 namespace Dream {
     class Logger {
@@ -26,8 +27,10 @@ namespace Dream {
         static void debug(const std::string& text);
         static void error(const std::string& text);
         static void warn(const std::string& text);
+        static void registerLoggerListener(LoggerListener* loggerListener);
     private:
         Logger() = default;
+        LoggerListener* loggerListener;
     public:
         Logger(Logger const&) = delete;
         void operator=(Logger const&) = delete;

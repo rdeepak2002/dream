@@ -24,4 +24,8 @@ namespace Dream {
     void Editor::renderDrawData() {
 
     }
+
+    void Editor::setLogCollector(LogCollector* logCollector) {
+        this->logCollector = logCollector;
+    }
 }

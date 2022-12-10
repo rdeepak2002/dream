@@ -5,10 +5,12 @@
 #ifndef DREAM_IMGUIEDITORCONSOLEVIEW_H
 #define DREAM_IMGUIEDITORCONSOLEVIEW_H
 
+#include "dream/editor/LogCollector.h"
+
 namespace Dream {
     class ImGuiEditorConsoleView {
     public:
-        void update();
+        void update(LogCollector* logCollector);
     };
 }
 

@@ -185,9 +185,9 @@ namespace Dream {
     }
 
     void OpenGLRenderer::printGLVersion() {
-        Logger::debug("GL Vendor:\t\t" + std::string((const char*) glGetString(GL_VENDOR)));
-        Logger::debug("GL Renderer:\t" + std::string((const char*) glGetString(GL_RENDERER)));
-        Logger::debug("GL Version:\t\t" + std::string((const char*) glGetString(GL_VERSION)));
+        Logger::debug("GL Vendor: " + std::string((const char*) glGetString(GL_VENDOR)));
+        Logger::debug("GL Renderer: " + std::string((const char*) glGetString(GL_RENDERER)));
+        Logger::debug("GL Version: " + std::string((const char*) glGetString(GL_VERSION)));
     }
 
     std::pair<int, int> OpenGLRenderer::getViewportDimensions() {

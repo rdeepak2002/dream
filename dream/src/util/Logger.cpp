@@ -11,6 +11,9 @@ namespace Dream {
 #else
         printf("%s%s%s\n", KBLU, text.c_str(), KNRM);
 #endif
+        if (getInstance().loggerListener) {
+            getInstance().loggerListener->debugLogPublished(text);
+        }
     }
 
     void Logger::error(const std::string& text) {
@@ -19,6 +22,9 @@ namespace Dream {
 #else
         printf("%s%s%s\n", KRED, text.c_str(), KNRM);
 #endif
+        if (getInstance().loggerListener) {
+            getInstance().loggerListener->warnLogPublished(text);
+        }
     }
 
     void Logger::warn(const std::string& text) {
@@ -27,5 +33,12 @@ namespace Dream {
 #else
         printf("%s%s%s\n", KYEL, text.c_str(), KNRM);
 #endif
+        if (getInstance().loggerListener) {
+            getInstance().loggerListener->errorLogPublished(text);
+        }
+    }
+
+    void Logger::registerLoggerListener(LoggerListener *loggerListener) {
+        getInstance().loggerListener = loggerListener;
     }
 }
