@@ -99,4 +99,15 @@ namespace Dream {
         }
         return {};
     }
+
+    Entity Scene::getEntityByInternalID(int internalID) {
+        auto entities = getEntitiesWithComponents<Component::IDComponent>();
+        for(auto entityHandle : entities) {
+            Entity entity = {entityHandle, this};
+            if ((int) entityHandle == internalID) {
+                return entity;
+            }
+        }
+        return {};
+    }
 }

@@ -70,12 +70,6 @@ namespace Dream {
             Project::getScene()->removeEntity(selectedEntity);
             selectedEntity = Entity();
         }
-//        if (ImGui::Button("Add Child", ImVec2(ImGui::GetWindowContentRegionWidth(), 0.0f))) {
-//            Entity newChild = Project::getScene()->createEntity();
-//            std::map<std::string, float> primitiveMeshData;
-//            newChild.addComponent<Component::MeshComponent>(Component::MeshComponent::MeshType::PRIMITIVE_CUBE, primitiveMeshData);
-//            selectedEntity.addChild(newChild);
-//        }
     }
 
     void ImGuiEditorInspectorView::renderAddComponent() {
