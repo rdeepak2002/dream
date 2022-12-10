@@ -417,4 +417,8 @@ namespace Dream {
             }
         }
     }
+
+    Entity ImGuiEditorInspectorView::getSelectedEntity() {
+        return selectedEntity;
+    }
 }

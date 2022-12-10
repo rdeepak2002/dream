@@ -42,12 +42,16 @@ namespace Dream {
         if (entity.hasComponent<Component::RootComponent>()) {
             treeNodeFlags = treeNodeFlags | ImGuiTreeNodeFlags_DefaultOpen;
         }
-        if (ImGui::TreeNodeEx(entity.getComponent<Component::IDComponent>().getID().c_str(), treeNodeFlags, "%s", tagStr.c_str())) {
-            if (ImGui::IsItemClicked()) {
-                if (inspectorView) {
-                    inspectorView->selectEntity(entity);
-                }
+        if (inspectorView && entity == inspectorView->getSelectedEntity()) {
+            treeNodeFlags = treeNodeFlags | ImGuiTreeNodeFlags_Selected;
+        }
+        bool treeNodeOpen = ImGui::TreeNodeEx(entity.getComponent<Component::IDComponent>().getID().c_str(), treeNodeFlags, "%s", tagStr.c_str());
+        if (ImGui::IsItemClicked()) {
+            if (inspectorView) {
+                inspectorView->selectEntity(entity);
             }
+        }
+        if (treeNodeOpen) {
             Entity child = entity.getComponent<Component::HierarchyComponent>().first;
             while (child) {
                 this->renderSceneViewEntity(child);

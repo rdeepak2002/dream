@@ -22,6 +22,7 @@ namespace Dream {
         void selectEntity(Entity& entity);
         void setTextEditor(ImGuiTextEditor* imGuiTextEditor);
         void setAnimatorGraphEditor(ImGuiEditorAnimatorGraph* animatorGraphEditor);
+        Entity getSelectedEntity();
     private:
         Entity selectedEntity;
         std::string shorten(std::string str, int maxLength = 14);
