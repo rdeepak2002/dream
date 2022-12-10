@@ -7,14 +7,11 @@
 
 #include <cstdint>
 
-namespace Dream
-{
+namespace Dream {
     using KeyCode = uint16_t;
 
-    namespace Key
-    {
-        enum : KeyCode
-        {
+    namespace Key {
+        enum : KeyCode {
             MouseLeft          = 0,
             MouseRight         = 1,
 

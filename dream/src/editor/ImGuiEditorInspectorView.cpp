@@ -7,7 +7,6 @@
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <misc/cpp/imgui_stdlib.h>
-#include <glm/gtx/string_cast.hpp>
 #include "dream/scene/component/Component.h"
 #include "dream/project/Project.h"
 #include "dream/util/SceneUtils.h"

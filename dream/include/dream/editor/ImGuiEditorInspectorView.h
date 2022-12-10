@@ -6,11 +6,11 @@
 #define DREAM_IMGUIEDITORINSPECTORVIEW_H
 
 #include "dream/scene/Entity.h"
-#include "glm/vec3.hpp"
-#include "glm/ext/quaternion_float.hpp"
 #include "dream/editor/ImGuiTextEditor.h"
-#include "ImGuiEditorAnimatorGraph.h"
+#include "dream/editor/ImGuiEditorAnimatorGraph.h"
 #include <imgui.h>
+#include <glm/vec3.hpp>
+#include <glm/ext/quaternion_float.hpp>
 #include <imgui-filebrowser/imfilebrowser.h>
 
 namespace Dream {

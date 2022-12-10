@@ -10,7 +10,7 @@
 #include "dream/renderer/AnimationData.h"
 #include "dream/scene/Entity.h"
 #include "dream/scene/component/Component.h"
-#include "AssimpNodeData.h"
+#include "dream/renderer/AssimpNodeData.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>

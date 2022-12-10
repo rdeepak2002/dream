@@ -100,14 +100,14 @@ namespace Dream {
         );
 
         lua.new_usertype<Logger>("Logger",
-                                 "Debug", sol::as_function(&Logger::Debug),
-                                 "Warn", sol::as_function(&Logger::Warn),
-                                 "Error", sol::as_function(&Logger::Error)
+                                 "Debug", sol::as_function(&Logger::debug),
+                                 "Warn", sol::as_function(&Logger::warn),
+                                 "Error", sol::as_function(&Logger::error)
         );
 
         lua.new_usertype<Input>("Input",
-                                "GetButtonDown", &Input::GetButtonDown,
-                                "SetButtonDown", &Input::SetButtonDown
+                                "getButtonDown", &Input::getButtonDown,
+                                "setButtonDown", &Input::setButtonDown
         );
 
         lua.new_usertype<Entity>("Entity",

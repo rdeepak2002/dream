@@ -6,10 +6,10 @@
 #define DREAM_OPENGLMESHIMPORTER_H
 
 #include "dream/project/AssetLoader.h"
+#include "dream/renderer/AnimationData.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include "dream/renderer/AnimationData.h"
 #include <vector>
 #include <iostream>
 

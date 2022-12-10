@@ -5,7 +5,7 @@
 #include "dream/window/Input.h"
 
 namespace Dream {
-    bool Input::GetButtonDown(int keyCode) {
+    bool Input::getButtonDown(int keyCode) {
         if (Input::getInstance().keyDownMap.find(keyCode) == Input::getInstance().keyDownMap.end()) {
             return false;
         }
@@ -13,23 +13,23 @@ namespace Dream {
         return Input::getInstance().keyDownMap[keyCode];
     }
 
-    void Input::SetButtonDown(int keyCode, bool state) {
+    void Input::setButtonDown(int keyCode, bool state) {
         Input::getInstance().keyDownMap[keyCode] = state;
     }
 
-    glm::vec2 Input::GetMousePosition() {
+    glm::vec2 Input::getMousePosition() {
         return Input::getInstance().mousePosition;
     }
 
-    void Input::SetMousePosition(double x, double y) {
+    void Input::setMousePosition(double x, double y) {
         Input::getInstance().mousePosition = {x, y};
     }
 
-    glm::vec2 Input::GetMouseMovement() {
+    glm::vec2 Input::getMouseMovement() {
         return Input::getInstance().mouseMovement;
     }
 
-    void Input::SetMouseMovement(double x, double y) {
+    void Input::setMouseMovement(double x, double y) {
         Input::getInstance().mouseMovement = {x, y};
     }
 }

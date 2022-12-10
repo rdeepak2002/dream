@@ -23,9 +23,9 @@ namespace Dream {
             static Logger instance;
             return instance;
         }
-        static void Debug(const std::string& text);
-        static void Error(const std::string& text);
-        static void Warn(const std::string& text);
+        static void debug(const std::string& text);
+        static void error(const std::string& text);
+        static void warn(const std::string& text);
     private:
         Logger() = default;
     public:

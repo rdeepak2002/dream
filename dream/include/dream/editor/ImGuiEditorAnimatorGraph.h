@@ -5,9 +5,8 @@
 #ifndef DREAM_IMGUIEDITORANIMATORGRAPH_H
 #define DREAM_IMGUIEDITORANIMATORGRAPH_H
 
-# include <imgui_node_editor.h>
-# define IMGUI_DEFINE_MATH_OPERATORS
-# include <imgui_internal.h>
+#include <imgui_node_editor.h>
+#include <imgui_internal.h>
 
 namespace Dream {
     class ImGuiEditorAnimatorGraph {

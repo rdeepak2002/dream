@@ -14,19 +14,14 @@
 
 namespace Dream {
     struct Vertex {
-        // position
         glm::vec3 Position;
-        // texCoords
         glm::vec2 TexCoords;
-        // normal
         glm::vec3 Normal;
-        // tangent
         glm::vec3 Tangent;
-        // bitangent
         glm::vec3 Bitangent;
-        //bone indexes which will influence this vertex
+        // bones that influence this vertex
         int m_BoneIDs[MAX_BONE_INFLUENCE];
-        //weights from each bone
+        // effect of each bone on this vertex
         float m_Weights[MAX_BONE_INFLUENCE];
     };
     class Mesh {

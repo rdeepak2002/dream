@@ -13,7 +13,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include "dream/util/AssimpGLMHelpers.h"
-#include "AnimationData.h"
+#include "dream/renderer/AnimationData.h"
 
 namespace Dream {
     class AnimationBone {

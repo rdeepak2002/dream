@@ -18,14 +18,14 @@ namespace Dream {
             static Input instance;
             return instance;
         }
-        static bool GetButtonDown(int keyCode);
-        static void SetButtonDown(int keyCode, bool state);
+        static bool getButtonDown(int keyCode);
+        static void setButtonDown(int keyCode, bool state);
 
-        static glm::vec2 GetMousePosition();
-        static void SetMousePosition(double x, double y);
+        static glm::vec2 getMousePosition();
+        static void setMousePosition(double x, double y);
 
-        static glm::vec2 GetMouseMovement();
-        static void SetMouseMovement(double x, double y);
+        static glm::vec2 getMouseMovement();
+        static void setMouseMovement(double x, double y);
     private:
         Input() {}
         std::unordered_map<int, bool> keyDownMap;

@@ -25,7 +25,7 @@ namespace Dream {
 //            GLenum WrapT          = GL_REPEAT;               // wrapping method of the T coordinate
 //            GLenum WrapR          = GL_REPEAT;               // wrapping method of the R coordinate
 //            bool Mipmapping       = true;
-//
+
             unsigned int id = 0;
             int width  = 0;
             int height = 0;

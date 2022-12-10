@@ -5,7 +5,7 @@
 #include "dream/util/Logger.h"
 
 namespace Dream {
-    void Logger::Debug(const std::string& text) {
+    void Logger::debug(const std::string& text) {
         std::string formattedText = "DEBUG: " + text;
 #if defined(EMSCRIPTEN)
         printf("%s\n", formattedText.c_str());
@@ -14,7 +14,7 @@ namespace Dream {
 #endif
     }
 
-    void Logger::Error(const std::string& text) {
+    void Logger::error(const std::string& text) {
         std::string formattedText = "ERROR: " + text;
 #if defined(EMSCRIPTEN)
         printf("%s\n", formattedText.c_str());
@@ -23,7 +23,7 @@ namespace Dream {
 #endif
     }
 
-    void Logger::Warn(const std::string& text) {
+    void Logger::warn(const std::string& text) {
         std::string formattedText = "WARNING: " + text;
 #if defined(EMSCRIPTEN)
         printf("%s\n", formattedText.c_str());

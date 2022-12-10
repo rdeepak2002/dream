@@ -10,8 +10,7 @@
 #include <iostream>
 
 namespace Dream {
-    struct AssimpNodeData
-    {
+    struct AssimpNodeData {
         glm::mat4 transformation;
         std::string name;
         int childrenCount;

@@ -10,7 +10,6 @@
 namespace Dream {
     class Texture {
     public:
-//        std::string path;
         virtual unsigned int ID() {
             return 0;
         }
