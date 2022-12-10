@@ -23,7 +23,7 @@ namespace Dream {
         printf("%s%s%s\n", KRED, text.c_str(), KNRM);
 #endif
         if (getInstance().loggerListener) {
-            getInstance().loggerListener->warnLogPublished(text);
+            getInstance().loggerListener->errorLogPublished(text);
         }
     }
 
@@ -34,7 +34,7 @@ namespace Dream {
         printf("%s%s%s\n", KYEL, text.c_str(), KNRM);
 #endif
         if (getInstance().loggerListener) {
-            getInstance().loggerListener->errorLogPublished(text);
+            getInstance().loggerListener->warnLogPublished(text);
         }
     }
 

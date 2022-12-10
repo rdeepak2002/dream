@@ -16,7 +16,7 @@ namespace Dream {
             .text=text
         });
 
-        if (logs.size() > MAX_LOGS) {
+        while (logs.size() > MAX_LOGS) {
             logs.erase(logs.begin());
         }
     }
@@ -38,7 +38,7 @@ namespace Dream {
             .text=text
         });
 
-        if (logs.size() > MAX_LOGS) {
+        while (logs.size() > MAX_LOGS) {
             logs.erase(logs.begin());
         }
     }
