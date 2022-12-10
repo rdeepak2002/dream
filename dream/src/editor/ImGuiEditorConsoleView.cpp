@@ -25,6 +25,12 @@ namespace Dream {
             } else if (log.type == error) {
                 ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0, 0.0, 0.0, 1.0));
                 typeStr = "E";
+            } else if (log.type == info) {
+                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.0, 1.0, 0.0, 1.0));
+                typeStr = "I";
+            } else if (log.type == fatal) {
+                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0, 0.0, 1.0, 1.0));
+                typeStr = "F";
             } else {
                 std::cout << "Error: unknown log type" << std::endl;
                 exit(EXIT_FAILURE);

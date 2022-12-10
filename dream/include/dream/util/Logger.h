@@ -27,6 +27,8 @@ namespace Dream {
         static void debug(const std::string& text);
         static void error(const std::string& text);
         static void warn(const std::string& text);
+        static void info(const std::string& text);
+        static void fatal(const std::string& text, bool endProgram = true);
         static void registerLoggerListener(LoggerListener* loggerListener);
     private:
         Logger() = default;

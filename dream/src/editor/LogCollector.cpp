@@ -43,6 +43,28 @@ namespace Dream {
         }
     }
 
+    void LogCollector::infoLogPublished(std::string text) {
+        logs.push_back({
+            .type=LogType::info,
+            .text=text
+        });
+
+        while (logs.size() > MAX_LOGS) {
+            logs.erase(logs.begin());
+        }
+    }
+
+    void LogCollector::fatalLogPublished(std::string text) {
+        logs.push_back({
+            .type=LogType::fatal,
+            .text=text
+        });
+
+        while (logs.size() > MAX_LOGS) {
+            logs.erase(logs.begin());
+        }
+    }
+
     std::vector<Log> LogCollector::getLogs() {
         return logs;
     }
