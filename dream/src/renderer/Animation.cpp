@@ -26,7 +26,7 @@ namespace Dream {
     AnimationBone *Animation::findBone(const std::string &name) {
         auto iter = std::find_if(bones.begin(), bones.end(),
                                  [&](const AnimationBone& Bone) {
-                                     return Bone.GetBoneName() == name;
+                                     return Bone.getBoneName() == name;
                                  }
         );
         if (iter == bones.end()) return nullptr;

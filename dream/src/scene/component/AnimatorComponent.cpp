@@ -44,8 +44,8 @@ namespace Dream::Component {
         AnimationBone* Bone = ((Animation *) m_CurrentAnimation)->findBone(nodeName);
 
         if (Bone) {
-            Bone->Update(m_CurrentTime);
-            nodeTransform = Bone->GetLocalTransform();
+            Bone->update(m_CurrentTime);
+            nodeTransform = Bone->getLocalTransform();
         }
 
         glm::mat4 globalTransformation = parentTransform * nodeTransform;
@@ -57,7 +57,7 @@ namespace Dream::Component {
             m_FinalBoneMatrices[index] = globalTransformation * offset;
 
             if (Bone) {
-                if (boneEntities.count(Bone->GetBoneID()) > 0) {
+                if (boneEntities.count(Bone->getBoneID()) > 0) {
                     glm::vec3 scale;
                     glm::quat rotation;
                     glm::vec3 translation;
@@ -69,11 +69,11 @@ namespace Dream::Component {
                         // all bones after the first layer (usually everything after hip bone for skeletons)
                         decomposeMatrix(nodeTransform, translation, rotation, scale);
                     }
-                    boneEntities[Bone->GetBoneID()].getComponent<TransformComponent>().translation = translation;
-                    boneEntities[Bone->GetBoneID()].getComponent<TransformComponent>().rotation = rotation;
-                    boneEntities[Bone->GetBoneID()].getComponent<TransformComponent>().scale = scale;
+                    boneEntities[Bone->getBoneID()].getComponent<TransformComponent>().translation = translation;
+                    boneEntities[Bone->getBoneID()].getComponent<TransformComponent>().rotation = rotation;
+                    boneEntities[Bone->getBoneID()].getComponent<TransformComponent>().scale = scale;
                 } else {
-                    std::cout << "Warning: Cannot find entity for bone " << Bone->GetBoneName() << std::endl;
+                    std::cout << "Warning: Cannot find entity for bone " << Bone->getBoneName() << std::endl;
                 }
             }
         }
