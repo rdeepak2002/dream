@@ -2,52 +2,26 @@
 // Created by Deepak Ramalingam on 12/8/22.
 //
 
-#ifndef DREAM_BONE_H
-#define DREAM_BONE_H
+#ifndef DREAM_ANIMATIONBONE_H
+#define DREAM_ANIMATIONBONE_H
 
 #pragma once
-
-/* Container for bone data */
 
 #include <vector>
 #include <assimp/scene.h>
 #include <list>
 #include <glm/glm.hpp>
-#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 #include "dream/util/AssimpGLMHelpers.h"
+#include "AnimationData.h"
 
 namespace Dream {
-    struct KeyPosition
-    {
-        glm::vec3 position;
-        float timeStamp;
-    };
-
-    struct KeyRotation
-    {
-        glm::quat orientation;
-        float timeStamp;
-    };
-
-    struct KeyScale
-    {
-        glm::vec3 scale;
-        float timeStamp;
-    };
-    class Bone
-    {
+    class AnimationBone {
     public:
-        Bone(const std::string& name, int ID, const aiNodeAnim* channel)
-                :
-                m_Name(name),
-                m_ID(ID),
-                m_LocalTransform(1.0f)
-        {
+        AnimationBone(const std::string& name, int ID, const aiNodeAnim* channel) : m_Name(name), m_ID(ID), m_LocalTransform(1.0f) {
             m_NumPositions = channel->mNumPositionKeys;
 
-            for (int positionIndex = 0; positionIndex < m_NumPositions; ++positionIndex)
-            {
+            for (int positionIndex = 0; positionIndex < m_NumPositions; ++positionIndex) {
                 aiVector3D aiPosition = channel->mPositionKeys[positionIndex].mValue;
                 float timeStamp = channel->mPositionKeys[positionIndex].mTime;
                 KeyPosition data;
@@ -57,8 +31,7 @@ namespace Dream {
             }
 
             m_NumRotations = channel->mNumRotationKeys;
-            for (int rotationIndex = 0; rotationIndex < m_NumRotations; ++rotationIndex)
-            {
+            for (int rotationIndex = 0; rotationIndex < m_NumRotations; ++rotationIndex) {
                 aiQuaternion aiOrientation = channel->mRotationKeys[rotationIndex].mValue;
                 float timeStamp = channel->mRotationKeys[rotationIndex].mTime;
                 KeyRotation data;
@@ -68,8 +41,7 @@ namespace Dream {
             }
 
             m_NumScalings = channel->mNumScalingKeys;
-            for (int keyIndex = 0; keyIndex < m_NumScalings; ++keyIndex)
-            {
+            for (int keyIndex = 0; keyIndex < m_NumScalings; ++keyIndex) {
                 aiVector3D scale = channel->mScalingKeys[keyIndex].mValue;
                 float timeStamp = channel->mScalingKeys[keyIndex].mTime;
                 KeyScale data;
@@ -79,8 +51,7 @@ namespace Dream {
             }
         }
 
-        void Update(float animationTime)
-        {
+        void Update(float animationTime) {
             glm::mat4 translation = InterpolatePosition(animationTime);
             glm::mat4 rotation = InterpolateRotation(animationTime);
             glm::mat4 scale = InterpolateScaling(animationTime);
@@ -89,11 +60,7 @@ namespace Dream {
         glm::mat4 GetLocalTransform() { return m_LocalTransform; }
         std::string GetBoneName() const { return m_Name; }
         int GetBoneID() { return m_ID; }
-
-
-
-        int GetPositionIndex(float animationTime)
-        {
+        int GetPositionIndex(float animationTime) {
             for (int index = 0; index < m_NumPositions - 1; ++index)
             {
                 if (animationTime < m_Positions[index + 1].timeStamp)
@@ -102,22 +69,20 @@ namespace Dream {
             assert(0);
         }
 
-        int GetRotationIndex(float animationTime)
-        {
-            for (int index = 0; index < m_NumRotations - 1; ++index)
-            {
-                if (animationTime < m_Rotations[index + 1].timeStamp)
+        int GetRotationIndex(float animationTime) {
+            for (int index = 0; index < m_NumRotations - 1; ++index) {
+                if (animationTime < m_Rotations[index + 1].timeStamp) {
                     return index;
+                }
             }
             assert(0);
         }
 
-        int GetScaleIndex(float animationTime)
-        {
-            for (int index = 0; index < m_NumScalings - 1; ++index)
-            {
-                if (animationTime < m_Scales[index + 1].timeStamp)
+        int GetScaleIndex(float animationTime) {
+            for (int index = 0; index < m_NumScalings - 1; ++index) {
+                if (animationTime < m_Scales[index + 1].timeStamp) {
                     return index;
+                }
             }
             assert(0);
         }
@@ -125,8 +90,7 @@ namespace Dream {
 
     private:
 
-        float GetScaleFactor(float lastTimeStamp, float nextTimeStamp, float animationTime)
-        {
+        float GetScaleFactor(float lastTimeStamp, float nextTimeStamp, float animationTime) {
             float scaleFactor = 0.0f;
             float midWayLength = animationTime - lastTimeStamp;
             float framesDiff = nextTimeStamp - lastTimeStamp;
@@ -134,8 +98,7 @@ namespace Dream {
             return scaleFactor;
         }
 
-        glm::mat4 InterpolatePosition(float animationTime)
-        {
+        glm::mat4 InterpolatePosition(float animationTime) {
             if (1 == m_NumPositions)
                 return glm::translate(glm::mat4(1.0f), m_Positions[0].position);
 
@@ -148,10 +111,8 @@ namespace Dream {
             return glm::translate(glm::mat4(1.0f), finalPosition);
         }
 
-        glm::mat4 InterpolateRotation(float animationTime)
-        {
-            if (1 == m_NumRotations)
-            {
+        glm::mat4 InterpolateRotation(float animationTime) {
+            if (1 == m_NumRotations) {
                 auto rotation = glm::normalize(m_Rotations[0].orientation);
                 return glm::toMat4(rotation);
             }
@@ -160,24 +121,20 @@ namespace Dream {
             int p1Index = p0Index + 1;
             float scaleFactor = GetScaleFactor(m_Rotations[p0Index].timeStamp,
                                                m_Rotations[p1Index].timeStamp, animationTime);
-            glm::quat finalRotation = glm::slerp(m_Rotations[p0Index].orientation, m_Rotations[p1Index].orientation
-                    , scaleFactor);
+            glm::quat finalRotation = glm::slerp(m_Rotations[p0Index].orientation, m_Rotations[p1Index].orientation, scaleFactor);
             finalRotation = glm::normalize(finalRotation);
             return glm::toMat4(finalRotation);
-
         }
 
-        glm::mat4 InterpolateScaling(float animationTime)
-        {
-            if (1 == m_NumScalings)
+        glm::mat4 InterpolateScaling(float animationTime) {
+            if (1 == m_NumScalings) {
                 return glm::scale(glm::mat4(1.0f), m_Scales[0].scale);
+            }
 
             int p0Index = GetScaleIndex(animationTime);
             int p1Index = p0Index + 1;
-            float scaleFactor = GetScaleFactor(m_Scales[p0Index].timeStamp,
-                                               m_Scales[p1Index].timeStamp, animationTime);
-            glm::vec3 finalScale = glm::mix(m_Scales[p0Index].scale, m_Scales[p1Index].scale
-                    , scaleFactor);
+            float scaleFactor = GetScaleFactor(m_Scales[p0Index].timeStamp, m_Scales[p1Index].timeStamp, animationTime);
+            glm::vec3 finalScale = glm::mix(m_Scales[p0Index].scale, m_Scales[p1Index].scale, scaleFactor);
             return glm::scale(glm::mat4(1.0f), finalScale);
         }
 
@@ -187,11 +144,10 @@ namespace Dream {
         int m_NumPositions;
         int m_NumRotations;
         int m_NumScalings;
-
         glm::mat4 m_LocalTransform;
         std::string m_Name;
         int m_ID;
     };
 }
 
-#endif //DREAM_BONE_H
+#endif //DREAM_ANIMATIONBONE_H

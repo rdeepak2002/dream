@@ -6,7 +6,7 @@
 #define DREAM_ANIMATION_H
 
 #pragma once
-#include "dream/renderer/Bone.h"
+#include "dream/renderer/AnimationBone.h"
 #include "dream/renderer/AnimationData.h"
 #include "dream/scene/Entity.h"
 #include "dream/scene/component/Component.h"
@@ -23,7 +23,7 @@ namespace Dream {
     class Animation {
     public:
         explicit Animation(const std::string& animationPath, Entity modelEntity, int index);
-        Bone* findBone(const std::string& name);
+        AnimationBone* findBone(const std::string& name);
         float getTicksPerSecond();
         float getDuration();
         const AssimpNodeData& getRootNode();
@@ -35,7 +35,7 @@ namespace Dream {
         float duration;
         int ticksPerSecond;
         std::string animationName;
-        std::vector<Bone> bones;
+        std::vector<AnimationBone> bones;
         AssimpNodeData rootNode;
         std::map<std::string, BoneInfo> animationBoneInfoMap;
     };

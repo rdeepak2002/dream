@@ -5,19 +5,28 @@
 #ifndef DREAM_ANIMATIONDATA_H
 #define DREAM_ANIMATIONDATA_H
 
-#pragma once
-
 #include <glm/glm.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 namespace Dream {
-    struct BoneInfo
-    {
-        /*id is index in finalBoneMatrices*/
+    struct BoneInfo {
         int id;
-
-        /*offset matrix transforms vertex from model space to bone space*/
         glm::mat4 offset;
+    };
 
+    struct KeyPosition {
+        glm::vec3 position;
+        float timeStamp;
+    };
+
+    struct KeyRotation {
+        glm::quat orientation;
+        float timeStamp;
+    };
+
+    struct KeyScale {
+        glm::vec3 scale;
+        float timeStamp;
     };
 }
 

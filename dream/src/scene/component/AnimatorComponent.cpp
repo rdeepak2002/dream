@@ -5,7 +5,6 @@
 #include "dream/scene/component/Component.h"
 #include "dream/renderer/Animation.h"
 #include "dream/project/Project.h"
-#include <glm/gtx/matrix_decompose.hpp>
 
 namespace Dream::Component {
     AnimatorComponent::AnimatorComponent() {
@@ -42,7 +41,7 @@ namespace Dream::Component {
         std::string nodeName = node->name;
         glm::mat4 nodeTransform = node->transformation;
 
-        Bone* Bone = ((Animation *) m_CurrentAnimation)->findBone(nodeName);
+        AnimationBone* Bone = ((Animation *) m_CurrentAnimation)->findBone(nodeName);
 
         if (Bone) {
             Bone->Update(m_CurrentTime);

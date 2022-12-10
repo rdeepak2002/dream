@@ -23,9 +23,9 @@ namespace Dream {
         readMissingBones(animation, modelEntity);
     }
 
-    Bone *Animation::findBone(const std::string &name) {
+    AnimationBone *Animation::findBone(const std::string &name) {
         auto iter = std::find_if(bones.begin(), bones.end(),
-                                 [&](const Bone& Bone) {
+                                 [&](const AnimationBone& Bone) {
                                      return Bone.GetBoneName() == name;
                                  }
         );
