@@ -34,7 +34,7 @@ namespace Dream {
     }
 
     void Logger::fatal(const std::string& text, bool endProgram) {
-        printf("%s%s%s%s\n", KMAG, "[F] ", KNRM, text.c_str());
+        printf("%s%s%s%s\n", KRED, "[F] ", KNRM, text.c_str());
         if (getInstance().loggerListener) {
             getInstance().loggerListener->fatalLogPublished(text);
         }

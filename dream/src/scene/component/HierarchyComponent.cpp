@@ -6,6 +6,7 @@
 
 #include "dream/scene/component/Component.h"
 #include "dream/project/Project.h"
+#include "dream/util/Logger.h"
 
 namespace Dream::Component {
     HierarchyComponent::HierarchyComponent() {
@@ -24,8 +25,7 @@ namespace Dream::Component {
 
     void HierarchyComponent::removeChild(Entity &childToRemove) {
         if (!childToRemove) {
-            std::cout << "cannot remove null child" << std::endl;
-            exit(EXIT_FAILURE);
+            Logger::fatal("Cannot remove null child");
         }
 
         if (first == childToRemove) {
@@ -86,8 +86,7 @@ namespace Dream::Component {
             newChild.getComponent<HierarchyComponent>().parent = newParent;
             newChild.getComponent<HierarchyComponent>().parentID = newParent.getID();
         } else {
-            std::cout << "cannot add child to non-existing parent" << std::endl;
-            exit(EXIT_FAILURE);
+            Logger::fatal("Cannot add child to non-existing parent");
         }
     }
 
@@ -121,8 +120,7 @@ namespace Dream::Component {
                 if (parentEntity) {
                     parentEntity.addChild(entity, false);
                 } else {
-                    std::cout << "ERROR: parent does not exist for id " << parentEntityID << std::endl;
-                    exit(EXIT_FAILURE);
+                    Logger::fatal("Parent does not exist for id: " + parentEntityID);
                 }
             }
         }

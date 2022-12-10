@@ -7,6 +7,7 @@
 #include <imgui/imgui_internal.h>
 #include <imgui/imgui.h>
 #include "dream/renderer/OpenGLTexture.h"
+#include "dream/util/Logger.h"
 
 namespace Dream {
     ImGuiEditorProjectView::ImGuiEditorProjectView(ImGuiTextEditor* textEditor) {
@@ -15,8 +16,7 @@ namespace Dream {
         if (std::filesystem::exists(assetsFolderPath)) {
             currentPath = assetsFolderPath;
         } else {
-            std::cout << "Assets folder does not exist in project" << std::endl;
-            exit(EXIT_FAILURE);
+            Logger::fatal("Assets folder does not exist in project");
         }
         ignoredExtensions.insert(".meta");
         ignoredFileNames.insert(".DS_Store");

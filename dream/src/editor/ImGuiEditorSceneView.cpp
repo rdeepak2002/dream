@@ -8,6 +8,7 @@
 #include <imgui_internal.h>
 #include "dream/project/Project.h"
 #include "dream/scene/component/Component.h"
+#include "dream/util/Logger.h"
 
 namespace Dream {
     ImGuiEditorSceneView::ImGuiEditorSceneView() {
@@ -59,8 +60,7 @@ namespace Dream {
                 if (draggedEntity) {
                     entity.addChild(draggedEntity);
                 } else {
-                    std::cout << "No dragged entity found"<< std::endl;
-                    exit(EXIT_FAILURE);
+                    Logger::fatal("No dragged entity found");
                 }
             }
             ImGui::EndDragDropTarget();

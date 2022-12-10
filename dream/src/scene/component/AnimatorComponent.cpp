@@ -5,6 +5,7 @@
 #include "dream/scene/component/Component.h"
 #include "dream/renderer/Animation.h"
 #include "dream/project/Project.h"
+#include "dream/util/Logger.h"
 
 namespace Dream::Component {
     AnimatorComponent::AnimatorComponent() {
@@ -129,8 +130,7 @@ namespace Dream::Component {
             }
         } else {
             m_CurrentAnimation = nullptr;
-            std::cout << "Error: No animation found" << std::endl;
-            exit(EXIT_FAILURE);
+            Logger::fatal("No animation found");
         }
         if (m_CurrentAnimation && needsToFindBoneEntities) {
             boneEntities.clear();

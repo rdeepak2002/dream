@@ -3,6 +3,7 @@
 //
 
 #include "dream/editor/ImGuiEditorConsoleView.h"
+#include "dream/util/Logger.h"
 #include <imgui/imgui_internal.h>
 #include <imgui/imgui.h>
 
@@ -29,11 +30,10 @@ namespace Dream {
                 ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.0, 1.0, 0.0, 1.0));
                 typeStr = "I";
             } else if (log.type == fatal) {
-                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0, 0.0, 1.0, 1.0));
+                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0, 0.0, 0.0, 1.0));
                 typeStr = "F";
             } else {
-                std::cout << "Error: unknown log type" << std::endl;
-                exit(EXIT_FAILURE);
+                Logger::fatal("Unknown log type " + std::to_string(log.type));
             }
             ImGui::Text("[%s]", typeStr.c_str());
             ImGui::PopStyleColor();

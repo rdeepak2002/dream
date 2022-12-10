@@ -13,13 +13,13 @@
 #include "dream/scene/component/Component.h"
 #include "dream/util/IDUtils.h"
 #include "dream/util/AssimpGLMHelpers.h"
+#include "dream/util/Logger.h"
 
 namespace Dream {
     std::map<std::string, BoneInfo> OpenGLAssetLoader::loadMesh(std::string guid, bool createEntities, Entity rootEntity) {
         std::string path = Project::getResourceManager()->getFilePathFromGUID(guid);
         if (!std::filesystem::exists(path)) {
-            std::cout << "Mesh file does not exist" << std::endl;
-            exit(EXIT_FAILURE);
+            Logger::fatal("Mesh file at " + path + " does not exist");
         }
         // use assimp to get scene of model
         Assimp::Importer importer;
@@ -231,8 +231,7 @@ namespace Dream {
                     entity.addComponent<Component::MaterialComponent>(textureFileGUID, false);
                 }
             } else {
-                std::cout << "Error: Invalid state" << std::endl;
-                exit(EXIT_FAILURE);
+                Logger::fatal("Invalid state while processing mesh");
             }
         }
         return entity;
@@ -272,8 +271,7 @@ namespace Dream {
     std::map<std::string, BoneInfo> OpenGLAssetLoader::loadBones(std::string guid) {
         std::string path = Project::getResourceManager()->getFilePathFromGUID(guid);
         if (!std::filesystem::exists(path)) {
-            std::cout << "Mesh file does not exist" << std::endl;
-            exit(EXIT_FAILURE);
+            Logger::fatal("Mesh file does not exist");
         }
         // use assimp to get scene of model
         Assimp::Importer importer;

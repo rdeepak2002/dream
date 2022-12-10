@@ -3,6 +3,7 @@
 //
 
 #include "dream/renderer/OpenGLShader.h"
+#include "dream/util/Logger.h"
 
 #include <string>
 #include <fstream>
@@ -13,18 +14,15 @@
 namespace Dream {
     OpenGLShader::OpenGLShader(const char *vertexPath, const char *fragmentPath, const char *geometryPath) {
         if (!std::filesystem::exists(vertexPath)) {
-            fprintf(stderr, "Error: vertex shader file does not exist %s\n", vertexPath);
-            exit(EXIT_FAILURE);
+            Logger::fatal("Vertex shader file does not exist " + std::string(vertexPath));
         }
 
         if (!std::filesystem::exists(fragmentPath)) {
-            fprintf(stderr, "Error: fragment shader file does not exist %s\n", fragmentPath);
-            exit(EXIT_FAILURE);
+            Logger::fatal("Fragment shader file does not exist " + std::string(fragmentPath));
         }
 
         if (geometryPath != nullptr && !std::filesystem::exists(geometryPath)) {
-            fprintf(stderr, "Error: geometry shader file does not exist %s\n", geometryPath);
-            exit(EXIT_FAILURE);
+            Logger::fatal("Geometry shader file does not exist " + std::string(geometryPath));
         }
 
         // 1. retrieve the vertex/fragment source code from filePath

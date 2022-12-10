@@ -7,6 +7,7 @@
 #include "dream/renderer/OpenGLRenderer.h"
 #include "dream/editor/ImGuiSDL2OpenGLEditor.h"
 #include "dream/window/SDL2OpenGLWindow.h"
+#include "dream/util/Logger.h"
 #include <filesystem>
 #include <map>
 
@@ -66,7 +67,7 @@ namespace Dream {
         if (std::filesystem::exists(resourcesFolder)) {
             return resourcesFolder.append("..");
         }
-        fprintf(stderr, "Error: unable to find examples folder\n");
-        exit(EXIT_FAILURE);
+        Logger::fatal("Unable to find examples folder");
+        return {};
     }
 }

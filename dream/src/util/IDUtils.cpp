@@ -87,8 +87,7 @@ namespace Dream {
     std::string IDUtils::getGUIDForFile(std::string filepath) {
         std::string metaFilePath = filepath + ".meta";
         if (!std::filesystem::exists(metaFilePath)) {
-            std::cout << "Cannot find meta file for " << metaFilePath << std::endl;
-            exit(EXIT_FAILURE);
+            Logger::fatal("Cannot find meta file for " + metaFilePath);
         }
         YAML::Node doc = YAML::LoadFile(metaFilePath);
         return doc["guid"].as<std::string>();

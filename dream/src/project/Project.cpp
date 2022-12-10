@@ -10,6 +10,7 @@
 #include <yaml-cpp/yaml.h>
 #include "dream/project/OpenGLAssetLoader.h"
 #include "dream/scene/component/Component.h"
+#include "dream/util/Logger.h"
 
 namespace Dream {
     Project::Project() {
@@ -50,8 +51,7 @@ namespace Dream {
             this->recognizeResourcesHelper();
             this->loadScene();
         } else {
-            fprintf(stderr, "Error: project folder does not exist\n");
-            exit(EXIT_FAILURE);
+            Logger::fatal("Project folder does not exist");
         }
     }
 
@@ -63,7 +63,7 @@ namespace Dream {
         std::string savePath = std::filesystem::path(Project::getPath()).append("assets").append("main.scene");
         std::ofstream fout(savePath);
         fout << out.c_str();
-//        std::cout << "Saved scene to " << savePath << std::endl;
+        Logger::info("Saved scene to " + savePath);
     }
 
     void Project::loadScene() {

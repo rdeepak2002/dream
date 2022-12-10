@@ -76,8 +76,7 @@ namespace Dream {
             if (entity.hasComponent<Component::MeshComponent>()) {
                 entity.getComponent<Component::MeshComponent>().loadMesh();
             } else {
-                std::cout << "Error: no mesh component for entity with animator so bones cannot be loaded" << std::endl;
-                exit(EXIT_FAILURE);
+                Logger::fatal("No mesh component for entity with animator so bones cannot be loaded");
             }
             if (entity.getComponent<Component::AnimatorComponent>().needsToLoadAnimations) {
                 entity.getComponent<Component::AnimatorComponent>().loadAnimations(entity);
@@ -147,12 +146,10 @@ namespace Dream {
                             glDrawArrays(GL_TRIANGLES, 0, (int) openGLMesh->getVertices().size());
                             glBindVertexArray(0);
                         } else {
-                            std::cout << "Unable to render mesh" << std::endl;
-                            exit(EXIT_FAILURE);
+                            Logger::fatal("Unable to render mesh");
                         }
                     } else {
-                        std::cout << "Mesh cannot be rendered in OpenGL" << std::endl;
-                        exit(EXIT_FAILURE);
+                        Logger::fatal("Mesh cannot be rendered in OpenGL");
                     }
                 } else if (entity.getComponent<Component::MeshComponent>().mesh && !entity.getComponent<Component::MeshComponent>().fileId.empty()) {
                     std::cout << "WARNING: no mesh loaded" << std::endl;

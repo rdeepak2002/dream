@@ -7,6 +7,7 @@
 #include "dream/project/AssetImporter.h"
 #include "dream/project/Project.h"
 #include "dream/util/IDUtils.h"
+#include "dream/util/Logger.h"
 
 namespace Dream {
     void AssetImporter::importAsset(std::filesystem::path path) {
@@ -19,8 +20,7 @@ namespace Dream {
         combinedPath += relativePath;
 
         if (!std::filesystem::exists(combinedPath)) {
-            std::cout << "Directory or file does not exist: " << combinedPath << std::endl;
-            exit(EXIT_FAILURE);
+            Logger::fatal("Directory or file does not exist: " + combinedPath.string());
         }
 
         if (std::filesystem::is_directory(combinedPath)) {

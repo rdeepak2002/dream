@@ -3,6 +3,7 @@
 //
 
 #include "dream/renderer/OpenGLTexture.h"
+#include "dream/util/Logger.h"
 
 #include <cassert>
 #define STB_IMAGE_IMPLEMENTATION
@@ -15,8 +16,7 @@ namespace Dream
         this->bind();
         stbi_set_flip_vertically_on_load(flipTexture);
         unsigned char *data = stbi_load_from_memory(buffer, len, &width, &height, &nrChannels, 0);
-        if (data)
-        {
+        if (data) {
             int format;
             if (nrChannels == 1) {
                 format = GL_RED;
@@ -27,8 +27,7 @@ namespace Dream
             else if (nrChannels == 4) {
                 format = GL_RGBA;
             } else {
-                std::cout << "Unable to parse texture with " << nrChannels << " channels" << std::endl;
-                exit(EXIT_FAILURE);
+                Logger::fatal("Unable to parse texture with " + std::to_string(nrChannels) + " channels");
             }
             glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
             // set the texture wrapping parameters
@@ -39,26 +38,21 @@ namespace Dream
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             glGenerateMipmap(GL_TEXTURE_2D);
         }
-        else
-        {
-            std::cout << "(1) Failed to load texture from data" << std::endl;
-            exit(EXIT_FAILURE);
+        else {
+            Logger::fatal("(1) Failed to load texture from data");
         }
         stbi_image_free(data);
     }
 
     OpenGLTexture::OpenGLTexture(std::string texturePath, bool flipTexture) {
-//        path = texturePath;
         glGenTextures(1, &id);
         this->bind();
         stbi_set_flip_vertically_on_load(flipTexture);
         unsigned char *data = stbi_load(texturePath.c_str(), &width, &height, &nrChannels, 0);
         if (texturePath.empty()) {
-            std::cout << "Empty texture path provided" << std::endl;
-            exit(EXIT_FAILURE);
+            Logger::fatal("Empty texture path provided");
         }
-        if (data)
-        {
+        if (data) {
             int format;
             if (nrChannels == 1) {
                 format = GL_RED;
@@ -69,8 +63,7 @@ namespace Dream
             else if (nrChannels == 4) {
                 format = GL_RGBA;
             } else {
-                std::cout << "Unable to parse texture with " << nrChannels << " channels" << std::endl;
-                exit(EXIT_FAILURE);
+                Logger::fatal("Unable to parse texture with " + std::to_string(nrChannels) + " channels" );
             }
             glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
             // set the texture wrapping parameters
@@ -81,10 +74,8 @@ namespace Dream
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             glGenerateMipmap(GL_TEXTURE_2D);
         }
-        else
-        {
-            std::cout << "(2) Failed to load texture" << texturePath << std::endl;
-            exit(EXIT_FAILURE);
+        else {
+            Logger::fatal("(2) Failed to load texture " + texturePath);
         }
         stbi_image_free(data);
     }

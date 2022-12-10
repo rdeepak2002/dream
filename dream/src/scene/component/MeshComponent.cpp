@@ -9,6 +9,7 @@
 #include "dream/renderer/OpenGLCubeMesh.h"
 #include "dream/renderer/OpenGLSphereMesh.h"
 #include "dream/project/Project.h"
+#include "dream/util/Logger.h"
 
 namespace Dream::Component {
     MeshComponent::MeshComponent(std::string guid, std::string fileID) {
@@ -59,8 +60,7 @@ namespace Dream::Component {
             } else if (meshType == PRIMITIVE_SPHERE) {
                 this->mesh = new OpenGLSphereMesh();
             } else {
-                std::cout << "UNKNOWN PRIMITIVE MESH TYPE" << std::endl;
-                exit(EXIT_FAILURE);
+                Logger::fatal("Unknown primitive mesh type");
             }
         }
     }
@@ -96,8 +96,7 @@ namespace Dream::Component {
                 // reference that this entity is the parent of a mesh
                 entity.addComponent<MeshComponent>(guid);
             } else {
-                std::cout << "Invalid mesh scene data" << std::endl;
-                exit(EXIT_FAILURE);
+                Logger::fatal("Invalid mesh scene data");
             }
         }
     }

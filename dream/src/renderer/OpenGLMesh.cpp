@@ -3,6 +3,7 @@
 //
 
 #include "dream/renderer/OpenGLMesh.h"
+#include "dream/util/Logger.h"
 
 #include <glad/glad.h>
 #include <utility>
@@ -31,8 +32,7 @@ namespace Dream {
 //            data = vertices;
 //        }
 //        else {
-//            std::cout << "Not interleaved not supported" << std::endl;
-//            exit(EXIT_FAILURE);
+//            Logger::fatal("Not interleaved not supported")
 //        }
 
         // configure vertex attributes (only on vertex data size() > 0)
@@ -91,8 +91,7 @@ namespace Dream {
             offset += offsetof(Vertex, boneWeights);
         }
         else {
-            std::cout << "Not interleaved not supported" << std::endl;
-            exit(EXIT_FAILURE);
+            Logger::fatal("Not interleaved not supported");
         }
         glBindVertexArray(0);
     }
