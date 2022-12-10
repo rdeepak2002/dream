@@ -19,7 +19,7 @@ namespace Dream {
     protected:
         SDL2Window(Uint32 flags);
         virtual void pollEditorEvents(SDL_Event &Event);
-        SDL_Window *Window;
+        SDL_Window *sdlWindow;
         int windowWidth, windowHeight;
     };
 }

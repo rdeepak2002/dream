@@ -20,9 +20,9 @@ namespace Dream {
 
     void OpenGLMesh::finalize(bool interleaved) {
         // initialize object IDs if not configured before
-        glGenVertexArrays(1, &m_VAO);
-        glGenBuffers(1, &m_VBO);
-        glGenBuffers(1, &m_EBO);
+        glGenVertexArrays(1, &vao);
+        glGenBuffers(1, &vbo);
+        glGenBuffers(1, &ebo);
 
         // preprocess buffer data as interleaved or separate when specified
 //        std::vector<Vertex> data;
@@ -36,12 +36,12 @@ namespace Dream {
 //        }
 
         // configure vertex attributes (only on vertex data size() > 0)
-        glBindVertexArray(m_VAO);
-        glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+        glBindVertexArray(vao);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
         // only fill the index buffer if the index array is non-empty.
         if (indices.size() > 0) {
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
         }
         if (interleaved) {
@@ -82,13 +82,13 @@ namespace Dream {
 
             // bone ids
             glEnableVertexAttribArray(5);
-            glVertexAttribIPointer(5, MAX_BONE_INFLUENCE, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, m_BoneIDs));
-            offset += offsetof(Vertex, m_BoneIDs);
+            glVertexAttribIPointer(5, MAX_BONE_INFLUENCE, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, boneIDs));
+            offset += offsetof(Vertex, boneIDs);
 
             // weights
             glEnableVertexAttribArray(6);
-            glVertexAttribPointer(6, MAX_BONE_INFLUENCE, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, m_Weights));
-            offset += offsetof(Vertex, m_Weights);
+            glVertexAttribPointer(6, MAX_BONE_INFLUENCE, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, boneWeights));
+            offset += offsetof(Vertex, boneWeights);
         }
         else {
             std::cout << "Not interleaved not supported" << std::endl;
@@ -98,14 +98,14 @@ namespace Dream {
     }
 
     unsigned int OpenGLMesh::getVAO() {
-        return m_VAO;
+        return vao;
     }
 
     unsigned int OpenGLMesh::getVBO() {
-        return m_VBO;
+        return vbo;
     }
 
     unsigned int OpenGLMesh::getEBO() {
-        return m_EBO;
+        return ebo;
     }
 }

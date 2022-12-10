@@ -140,15 +140,15 @@ namespace Dream {
 
         for (int i = 0; i < positions.size(); ++i) {
             Vertex vertex = {
-                    .Position = positions[i],
-                    .TexCoords = uv[i],
-                    .Normal = normals[i],
-                    .Tangent = {0, 0, 0},
-                    .Bitangent = {0, 0, 0}
+                    .position = positions[i],
+                    .uv = uv[i],
+                    .normal = normals[i],
+                    .tangent = {0, 0, 0},
+                    .bitangent = {0, 0, 0}
             };
             for (int j = 0; j < MAX_BONE_INFLUENCE; ++j) {
-                vertex.m_Weights[j] = 0;
-                vertex.m_BoneIDs[j] = -1;
+                vertex.boneWeights[j] = 0;
+                vertex.boneIDs[j] = -1;
             }
             vertices.push_back(vertex);
         }

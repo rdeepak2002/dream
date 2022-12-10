@@ -11,20 +11,17 @@
 #include "dream/scene/Entity.h"
 #include "dream/scene/component/Component.h"
 #include "dream/renderer/OpenGLMesh.h"
+#include "dream/util/Logger.h"
 
 namespace Dream {
     OpenGLRenderer::OpenGLRenderer() : Renderer() {
         this->printGLVersion();
 
         // build and compile our shader program
-        shader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shader.vert").c_str(),
-                                  Project::getPath().append("assets").append("shaders").append("shader.frag").c_str(),
-                                  nullptr);
-
+        shader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shader.vert").c_str(), Project::getPath().append("assets").append("shaders").append("shader.frag").c_str(), nullptr);
         texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("missing.png"));
 
         // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
-        // -------------------------------------------------------------------------------------------
         shader->use();
         shader->setInt("texture_diffuse1", 0);
 
@@ -38,10 +35,8 @@ namespace Dream {
     }
 
     void OpenGLRenderer::preRender(int viewportWidth, int viewportHeight, bool fullscreen) {
-        // bind framebuffer to draw screen contents to a texture
         this->frameBuffer->bindFrameBuffer();
         this->resizeFrameBuffer();
-        // update gl viewport size
         this->updateViewportSize(viewportWidth, viewportHeight, fullscreen);
     }
 
@@ -190,9 +185,9 @@ namespace Dream {
     }
 
     void OpenGLRenderer::printGLVersion() {
-        printf("GL Vendor:   %s\n", glGetString(GL_VENDOR));
-        printf("GL Renderer: %s\n", glGetString(GL_RENDERER));
-        printf("GL Version:  %s\n", glGetString(GL_VERSION));
+        Logger::debug("GL Vendor:\t\t" + std::string((const char*) glGetString(GL_VENDOR)));
+        Logger::debug("GL Renderer:\t" + std::string((const char*) glGetString(GL_RENDERER)));
+        Logger::debug("GL Version:\t\t" + std::string((const char*) glGetString(GL_VERSION)));
     }
 
     std::pair<int, int> OpenGLRenderer::getViewportDimensions() {

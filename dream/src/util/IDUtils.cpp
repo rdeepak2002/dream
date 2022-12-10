@@ -3,6 +3,7 @@
 //
 
 #include "dream/util/IDUtils.h"
+#include "dream/util/Logger.h"
 
 #ifdef WIN32
 #include <Rpc.h>
@@ -71,7 +72,7 @@ namespace Dream {
 #else
     static bool printedGUIDWarning;
     if (!printedGUIDWarning) {
-        std::cout << "WARNING: Hardware does not support GUID generation, defaulting to pseudorandom generation" << std::endl;
+        Logger::warn("Hardware does not support GUID generation, defaulting to pseudorandom generation");
         printedGUIDWarning = true;
     }
     return uuid::generate_uuid_v4();

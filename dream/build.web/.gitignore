@@ -5,7 +5,8 @@ Makefile
 /CMakeCache.txt
 /assimp-5.2.5
 /yaml-cpp-yaml-cpp-0.7.0
-#dream.js
-#dream.wasm
+dream.js
+dream.wasm
+dream.data
 /lua-5.4.4/
 /bullet-2.82-r2704/

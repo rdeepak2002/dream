@@ -94,9 +94,9 @@ namespace Dream {
 
     void OpenGLAssetLoader::setVertexBoneData(Vertex& vertex, int boneID, float weight) {
         for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
-            if (vertex.m_BoneIDs[i] < 0) {
-                vertex.m_Weights[i] = weight;
-                vertex.m_BoneIDs[i] = boneID;
+            if (vertex.boneIDs[i] < 0) {
+                vertex.boneWeights[i] = weight;
+                vertex.boneIDs[i] = boneID;
                 break;
             }
         }
@@ -137,16 +137,16 @@ namespace Dream {
             }
 
             vertex = {
-                    .Position = position,
-                    .TexCoords = uv,
-                    .Normal = normal,
-                    .Tangent = tangent,
-                    .Bitangent = bitangent
+                    .position = position,
+                    .uv = uv,
+                    .normal = normal,
+                    .tangent = tangent,
+                    .bitangent = bitangent
             };
 
             for (int j = 0; j < MAX_BONE_INFLUENCE; j++) {
-                vertex.m_BoneIDs[j] = -1;
-                vertex.m_Weights[j] = 0.0f;
+                vertex.boneIDs[j] = -1;
+                vertex.boneWeights[j] = 0.0f;
             }
 
             vertices.push_back(vertex);

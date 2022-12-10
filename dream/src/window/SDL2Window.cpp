@@ -24,22 +24,22 @@ static SDL_HitTestResult SDLCALL hitTest(SDL_Window *window, const SDL_Point *pt
 #endif
 
 namespace Dream {
-    SDL2Window::SDL2Window(Uint32 flags) : Window() {
+    SDL2Window::SDL2Window(Uint32 flags) : sdlWindow() {
         this->windowWidth = 1600;
         this->windowHeight = 900;
         Uint32 WindowFlags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | flags;
         #ifdef BORDERLESS
         WindowFlags |= SDL_WINDOW_BORDERLESS;
         #endif
-        this->Window = SDL_CreateWindow("Dream", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
-        SDL_SetWindowPosition(this->Window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+        this->sdlWindow = SDL_CreateWindow("Dream", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
+        SDL_SetWindowPosition(this->sdlWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         #ifdef BORDERLESS
         SDL_SetWindowHitTest(this->Window, hitTest, nullptr);
         #endif
     }
 
     SDL2Window::~SDL2Window() {
-        SDL_DestroyWindow(Window);
+        SDL_DestroyWindow(sdlWindow);
     }
 
     void SDL2Window::pollEvents() {
@@ -82,7 +82,7 @@ namespace Dream {
     }
 
     SDL_Window *SDL2Window::getSDL2Window() {
-        return this->Window;
+        return this->sdlWindow;
     }
 
     void SDL2Window::pollEditorEvents(SDL_Event &Event) {

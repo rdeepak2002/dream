@@ -14,15 +14,15 @@
 
 namespace Dream {
     struct Vertex {
-        glm::vec3 Position;
-        glm::vec2 TexCoords;
-        glm::vec3 Normal;
-        glm::vec3 Tangent;
-        glm::vec3 Bitangent;
+        glm::vec3 position;
+        glm::vec2 uv;
+        glm::vec3 normal;
+        glm::vec3 tangent;
+        glm::vec3 bitangent;
         // bones that influence this vertex
-        int m_BoneIDs[MAX_BONE_INFLUENCE];
+        int boneIDs[MAX_BONE_INFLUENCE];
         // effect of each bone on this vertex
-        float m_Weights[MAX_BONE_INFLUENCE];
+        float boneWeights[MAX_BONE_INFLUENCE];
     };
     class Mesh {
     public:

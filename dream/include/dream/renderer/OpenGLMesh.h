@@ -20,9 +20,9 @@ namespace Dream {
         void finalize(bool interleaved = true);
     protected:
         OpenGLMesh();
-        unsigned int m_VAO = 0;
-        unsigned int m_VBO;
-        unsigned int m_EBO;
+        unsigned int vao = 0;
+        unsigned int vbo = 0;
+        unsigned int ebo = 0;
     };
 }
 
