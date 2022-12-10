@@ -16,19 +16,16 @@
 #include "dream/scene/Entity.h"
 #include "dream/scene/component/Component.h"
 #include "AssimpNodeData.h"
-//#include "dream/scene/component/Component.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
 namespace Dream {
-    class Animation
-    {
+    class Animation {
     public:
         Animation() = default;
 
-        Animation(const std::string& animationPath, Entity modelEntity, int index)
-        {
+        Animation(const std::string& animationPath, Entity modelEntity, int index) {
             Assimp::Importer importer;
             importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);  // fixes mixamo animations
             const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
@@ -37,86 +34,81 @@ namespace Dream {
                 std::cout << "Error: animation " << index << " does not exist for " << animationPath << std::endl;
             }
             auto animation = scene->mAnimations[index];
-            m_Duration = animation->mDuration;
-            m_TicksPerSecond = animation->mTicksPerSecond;
+            duration = animation->mDuration;
+            ticksPerSecond = animation->mTicksPerSecond;
+            animationName = animation->mName.C_Str();
             aiMatrix4x4 globalTransformation = scene->mRootNode->mTransformation;
             globalTransformation = globalTransformation.Inverse();
-            ReadHeirarchyData(m_RootNode, scene->mRootNode);
+            ReadHeirarchyData(rootNode, scene->mRootNode);
             ReadMissingBones(animation, modelEntity);
         }
 
-        ~Animation()
-        {
+        ~Animation() {
         }
 
-        Bone* FindBone(const std::string& name)
-        {
-            auto iter = std::find_if(m_Bones.begin(), m_Bones.end(),
+        Bone* findBone(const std::string& name) {
+            auto iter = std::find_if(bones.begin(), bones.end(),
                                      [&](const Bone& Bone)
                                      {
                                          return Bone.GetBoneName() == name;
                                      }
             );
-            if (iter == m_Bones.end()) return nullptr;
+            if (iter == bones.end()) return nullptr;
             else return &(*iter);
         }
 
-
-        inline float GetTicksPerSecond() { return m_TicksPerSecond; }
-        inline float GetDuration() { return m_Duration;}
-        inline const AssimpNodeData& GetRootNode() { return m_RootNode; }
-        inline const std::map<std::string,BoneInfo>& GetBoneIDMap()
-        {
-            return m_BoneInfoMap;
+        inline float getTicksPerSecond() { return ticksPerSecond; }
+        inline float getDuration() { return duration;}
+        inline const AssimpNodeData& getRootNode() { return rootNode; }
+        inline const std::map<std::string,BoneInfo>& getBoneIdMap() {
+            return animationBoneInfoMap;
+        }
+        inline std::string getName() {
+            return animationName;
         }
 
     private:
-        void ReadMissingBones(const aiAnimation* animation, Entity& modelEntity)
-        {
+        void ReadMissingBones(const aiAnimation* animation, Entity& modelEntity) {
             int size = animation->mNumChannels;
 
             auto& boneInfoMap = modelEntity.getComponent<Component::MeshComponent>().m_BoneInfoMap;//getting m_BoneInfoMap from Model class
             int& boneCount = modelEntity.getComponent<Component::MeshComponent>().m_BoneCount; //getting the m_BoneCounter from Model class
 
             //reading channels(bones engaged in an animation and their keyframes)
-            for (int i = 0; i < size; i++)
-            {
+            for (int i = 0; i < size; i++) {
                 auto channel = animation->mChannels[i];
                 std::string boneName = channel->mNodeName.data;
 
-                if (boneInfoMap.find(boneName) == boneInfoMap.end())
-                {
+                if (boneInfoMap.find(boneName) == boneInfoMap.end()) {
                     std::cout << "Missing bone: " << boneName << std::endl;
                     boneInfoMap[boneName].id = boneCount;
                     boneCount++;
                 }
-                m_Bones.push_back(Bone(channel->mNodeName.data,
-                                       boneInfoMap[channel->mNodeName.data].id, channel));
+                bones.emplace_back(channel->mNodeName.data, boneInfoMap[channel->mNodeName.data].id, channel);
             }
 
-            m_BoneInfoMap = boneInfoMap;
+            animationBoneInfoMap = boneInfoMap;
         }
 
-        void ReadHeirarchyData(AssimpNodeData& dest, const aiNode* src)
-        {
+        void ReadHeirarchyData(AssimpNodeData& dest, const aiNode* src) {
             assert(src);
 
             dest.name = src->mName.data;
             dest.transformation = AssimpGLMHelpers::convertMatrixToGLMFormat(src->mTransformation);
             dest.childrenCount = src->mNumChildren;
 
-            for (int i = 0; i < src->mNumChildren; i++)
-            {
+            for (int i = 0; i < src->mNumChildren; i++) {
                 AssimpNodeData newData;
                 ReadHeirarchyData(newData, src->mChildren[i]);
                 dest.children.push_back(newData);
             }
         }
-        float m_Duration;
-        int m_TicksPerSecond;
-        std::vector<Bone> m_Bones;
-        AssimpNodeData m_RootNode;
-        std::map<std::string, BoneInfo> m_BoneInfoMap;
+        float duration;
+        int ticksPerSecond;
+        std::string animationName;
+        std::vector<Bone> bones;
+        AssimpNodeData rootNode;
+        std::map<std::string, BoneInfo> animationBoneInfoMap;
     };
 }
 

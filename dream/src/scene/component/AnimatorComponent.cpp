@@ -31,9 +31,9 @@ namespace Dream::Component {
     {
         if (m_CurrentAnimation)
         {
-            m_CurrentTime += ((Animation*)m_CurrentAnimation)->GetTicksPerSecond() * dt;
-            m_CurrentTime = fmod(m_CurrentTime, ((Animation*)m_CurrentAnimation)->GetDuration());
-            calculateBoneTransform(&((Animation*)m_CurrentAnimation)->GetRootNode(), glm::mat4(1.0f));
+            m_CurrentTime += ((Animation *) m_CurrentAnimation)->getTicksPerSecond() * dt;
+            m_CurrentTime = fmod(m_CurrentTime, ((Animation *) m_CurrentAnimation)->getDuration());
+            calculateBoneTransform(&((Animation *) m_CurrentAnimation)->getRootNode(), glm::mat4(1.0f));
         }
     }
 
@@ -42,7 +42,7 @@ namespace Dream::Component {
         std::string nodeName = node->name;
         glm::mat4 nodeTransform = node->transformation;
 
-        Bone* Bone = ((Animation*)m_CurrentAnimation)->FindBone(nodeName);
+        Bone* Bone = ((Animation *) m_CurrentAnimation)->findBone(nodeName);
 
         if (Bone) {
             Bone->Update(m_CurrentTime);
@@ -51,7 +51,7 @@ namespace Dream::Component {
 
         glm::mat4 globalTransformation = parentTransform * nodeTransform;
 
-        auto boneInfoMap = ((Animation*)m_CurrentAnimation)->GetBoneIDMap();
+        auto boneInfoMap = ((Animation *) m_CurrentAnimation)->getBoneIdMap();
         if (boneInfoMap.find(nodeName) != boneInfoMap.end()) {
             int index = boneInfoMap[nodeName].id;
             glm::mat4 offset = boneInfoMap[nodeName].offset;
