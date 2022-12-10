@@ -6,33 +6,21 @@
 
 namespace Dream {
     void Logger::debug(const std::string& text) {
-#if defined(EMSCRIPTEN)
-        printf("%s%s%s\n", KBLU, text.c_str(), KNRM);
-#else
-        printf("%s%s%s\n", KBLU, text.c_str(), KNRM);
-#endif
+        printf("%s%s%s%s\n", KBLU, "[D] ", KNRM, text.c_str());
         if (getInstance().loggerListener) {
             getInstance().loggerListener->debugLogPublished(text);
         }
     }
 
     void Logger::error(const std::string& text) {
-#if defined(EMSCRIPTEN)
-        printf("%s%s%s\n", KRED, text.c_str(), KNRM);
-#else
-        printf("%s%s%s\n", KRED, text.c_str(), KNRM);
-#endif
+        printf("%s%s%s%s\n", KRED, "[E] ", KNRM, text.c_str());
         if (getInstance().loggerListener) {
             getInstance().loggerListener->errorLogPublished(text);
         }
     }
 
     void Logger::warn(const std::string& text) {
-#if defined(EMSCRIPTEN)
-        printf("%s%s%s\n", KYEL, text.c_str(), KNRM);
-#else
-        printf("%s%s%s\n", KYEL, text.c_str(), KNRM);
-#endif
+        printf("%s%s%s%s\n", KYEL, "[W] ", KNRM, text.c_str());
         if (getInstance().loggerListener) {
             getInstance().loggerListener->warnLogPublished(text);
         }
