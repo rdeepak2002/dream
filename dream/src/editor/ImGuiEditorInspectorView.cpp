@@ -70,6 +70,12 @@ namespace Dream {
             Project::getScene()->removeEntity(selectedEntity);
             selectedEntity = Entity();
         }
+//        if (ImGui::Button("Add Child", ImVec2(ImGui::GetWindowContentRegionWidth(), 0.0f))) {
+//            Entity newChild = Project::getScene()->createEntity();
+//            std::map<std::string, float> primitiveMeshData;
+//            newChild.addComponent<Component::MeshComponent>(Component::MeshComponent::MeshType::PRIMITIVE_CUBE, primitiveMeshData);
+//            selectedEntity.addChild(newChild);
+//        }
     }
 
     void ImGuiEditorInspectorView::renderAddComponent() {
@@ -142,7 +148,7 @@ namespace Dream {
         ImGui::PopStyleColor(3);
 
         ImGui::SameLine();
-        ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.2f");
+        ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.3f");
         ImGui::PopItemWidth();
         ImGui::SameLine();
 
@@ -156,7 +162,7 @@ namespace Dream {
         ImGui::PopStyleColor(3);
 
         ImGui::SameLine();
-        ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.2f");
+        ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.3f");
         ImGui::PopItemWidth();
         ImGui::SameLine();
 
@@ -170,7 +176,7 @@ namespace Dream {
         ImGui::PopStyleColor(3);
 
         ImGui::SameLine();
-        ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.2f");
+        ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.3f");
         ImGui::PopItemWidth();
 
         ImGui::PopStyleVar();

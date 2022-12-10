@@ -5,6 +5,7 @@
 #include "dream/scene/component/Component.h"
 #include "dream/renderer/Animation.h"
 #include "dream/project/Project.h"
+#include <glm/gtx/matrix_decompose.hpp>
 
 namespace Dream::Component {
     AnimatorComponent::AnimatorComponent() {
@@ -36,15 +37,14 @@ namespace Dream::Component {
         }
     }
 
-    void AnimatorComponent::calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform)
+    void AnimatorComponent::calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform, int depth)
     {
         std::string nodeName = node->name;
         glm::mat4 nodeTransform = node->transformation;
 
         Bone* Bone = ((Animation*)m_CurrentAnimation)->FindBone(nodeName);
 
-        if (Bone)
-        {
+        if (Bone) {
             Bone->Update(m_CurrentTime);
             nodeTransform = Bone->GetLocalTransform();
         }
@@ -52,15 +52,35 @@ namespace Dream::Component {
         glm::mat4 globalTransformation = parentTransform * nodeTransform;
 
         auto boneInfoMap = ((Animation*)m_CurrentAnimation)->GetBoneIDMap();
-        if (boneInfoMap.find(nodeName) != boneInfoMap.end())
-        {
+        if (boneInfoMap.find(nodeName) != boneInfoMap.end()) {
             int index = boneInfoMap[nodeName].id;
             glm::mat4 offset = boneInfoMap[nodeName].offset;
             m_FinalBoneMatrices[index] = globalTransformation * offset;
+
+            if (Bone) {
+                if (boneEntities.count(Bone->GetBoneID()) > 0) {
+                    glm::vec3 scale;
+                    glm::quat rotation;
+                    glm::vec3 translation;
+                    if (depth == 1) {
+                        // we don't count 'RootNode' as a bone, so we have to do this to include its transformation
+                        // for the first layer of bones
+                        decomposeMatrix(parentTransform * nodeTransform, translation, rotation, scale);
+                    } else {
+                        // all bones after the first layer (usually everything after hip bone for skeletons)
+                        decomposeMatrix(nodeTransform, translation, rotation, scale);
+                    }
+                    boneEntities[Bone->GetBoneID()].getComponent<TransformComponent>().translation = translation;
+                    boneEntities[Bone->GetBoneID()].getComponent<TransformComponent>().rotation = rotation;
+                    boneEntities[Bone->GetBoneID()].getComponent<TransformComponent>().scale = scale;
+                } else {
+                    std::cout << "Warning: Cannot find entity for bone " << Bone->GetBoneName() << std::endl;
+                }
+            }
         }
 
         for (int i = 0; i < node->childrenCount; i++) {
-            calculateBoneTransform(&node->children[i], globalTransformation);
+            calculateBoneTransform(&node->children[i], globalTransformation, depth + 1);
         }
     }
 
@@ -113,6 +133,31 @@ namespace Dream::Component {
             std::cout << "Error: No animation found" << std::endl;
             exit(EXIT_FAILURE);
         }
+        if (m_CurrentAnimation && needsToFindBoneEntities) {
+            boneEntities.clear();
+            loadBoneEntities(modelEntity);
+            needsToFindBoneEntities = false;
+        }
         this->needsToLoadAnimations = false;
+    }
+
+    void AnimatorComponent::loadBoneEntities(Entity entity) {
+        if (entity.hasComponent<BoneComponent>()) {
+            boneEntities[entity.getComponent<BoneComponent>().boneID] = entity;
+        }
+        Entity child = entity.getComponent<HierarchyComponent>().first;
+        while (child) {
+            loadBoneEntities(child);
+            child = child.getComponent<HierarchyComponent>().next;
+        }
+    }
+
+    void AnimatorComponent::decomposeMatrix(const glm::mat4& m, glm::vec3& pos, glm::quat& rot, glm::vec3& scale) {
+        pos = m[3];
+        for(int i = 0; i < 3; i++) {
+            scale[i] = glm::length(glm::vec3(m[i]));
+        }
+        const glm::mat3 rotMtx(glm::vec3(m[0]) / scale[0], glm::vec3(m[1]) / scale[1], glm::vec3(m[2]) / scale[2]);
+        rot = glm::quat_cast(rotMtx);
     }
 }

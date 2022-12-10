@@ -63,7 +63,7 @@ namespace Dream {
         std::string savePath = std::filesystem::path(Project::getPath()).append("assets").append("main.scene");
         std::ofstream fout(savePath);
         fout << out.c_str();
-        std::cout << "Saved scene to " << savePath << std::endl;
+//        std::cout << "Saved scene to " << savePath << std::endl;
     }
 
     void Project::loadScene() {

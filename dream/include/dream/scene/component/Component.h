@@ -163,14 +163,18 @@ namespace Dream::Component {
         void* m_CurrentAnimation = nullptr;
         float m_CurrentTime = 0;
         bool needsToLoadAnimations = true;
+        bool needsToFindBoneEntities = true;
+        std::map<int, Entity> boneEntities;
         explicit AnimatorComponent();
         AnimatorComponent(Entity modelEntity, std::vector<std::string> animations);
-        void calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform);
+        void calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform, int depth=0);
         void updateAnimation(float dt);
         void loadAnimations(Entity modelEntity);
+        void loadBoneEntities(Entity entity);
         std::vector<glm::mat4> computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones);
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
+        void decomposeMatrix(const glm::mat4& m, glm::vec3& pos, glm::quat& rot, glm::vec3& scale);
     };
 
     struct BoneComponent : public Component {
