@@ -16,7 +16,6 @@ namespace Dream {
 
         // define lua bindings
         lua.new_enum("Key",
-                     "Space", Key::Space,
                      "A", Key::A,
                      "B", Key::B,
                      "C", Key::C,
@@ -69,6 +68,8 @@ namespace Dream {
                      "x", Key::x,
                      "y", Key::y,
                      "z", Key::z,
+                     "Space", Key::Space,
+                     "Escape", Key::Escape,
                      "Right", Key::Right,
                      "Left", Key::Left,
                      "Down", Key::Down,

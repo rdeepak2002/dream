@@ -67,6 +67,9 @@ namespace Dream {
                     case SDLK_SPACE:
                         Input::setButtonDown(Key::Space, state);
                         break;
+                    case SDLK_ESCAPE:
+                        Input::setButtonDown(Key::Escape, state);
+                        break;
                     default:
                         int keyCode = (int) Event.key.keysym.sym;
                         Input::setButtonDown(keyCode, state);
@@ -90,6 +93,9 @@ namespace Dream {
                         break;
                     case SDLK_SPACE:
                         Input::setButtonDown(Key::Space, state);
+                        break;
+                    case SDLK_ESCAPE:
+                        Input::setButtonDown(Key::Escape, state);
                         break;
                     default:
                         int keyCode = (int) Event.key.keysym.sym;
