@@ -252,6 +252,7 @@ namespace Dream {
             }
 
             auto &component = selectedEntity.getComponent<Component::MeshComponent>();
+            auto cursorPosX1 = ImGui::GetCursorPosX();
             bool treeNodeOpen = ImGui::TreeNodeEx("##Mesh", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
             bool canChangeMesh = component.fileId.empty();
 
@@ -267,6 +268,7 @@ namespace Dream {
             ImGui::PopStyleColor();
 
             if (treeNodeOpen) {
+                auto cursorPosX2 = ImGui::GetCursorPosX();
                 // dropdown to allow user to change mesh type
                 std::string dropdownPreview;
 
@@ -278,23 +280,24 @@ namespace Dream {
                     dropdownPreview = "Cube";
                 }
 
-                ImGui::Text("Type");
-                ImGui::SameLine();
-                if (ImGui::BeginCombo("##Change Mesh Type", dropdownPreview.c_str())) {
-                    bool changedSomething = false;
-                    if (!changedSomething && dropdownPreview != "File" && ImGui::Selectable("File")) {
-                        selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::FROM_FILE, selectedEntity);
-                        changedSomething = true;
+                if (!(component.meshType == Component::MeshComponent::FROM_FILE && !component.fileId.empty())) {
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1));
+                    if (ImGui::BeginCombo("##Change Mesh Type", dropdownPreview.c_str())) {
+                        bool changedSomething = false;
+                        if (!changedSomething && dropdownPreview != "File" && ImGui::Selectable("File")) {
+                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::FROM_FILE, selectedEntity);
+                            changedSomething = true;
+                        }
+                        if (!changedSomething && dropdownPreview != "Sphere" && ImGui::Selectable("Sphere")) {
+                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::PRIMITIVE_SPHERE, selectedEntity);
+                            changedSomething = true;
+                        }
+                        if (!changedSomething && dropdownPreview != "Cube" && ImGui::Selectable("Cube")) {
+                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::PRIMITIVE_CUBE, selectedEntity);
+                            changedSomething = true;
+                        }
+                        ImGui::EndCombo();
                     }
-                    if (!changedSomething && dropdownPreview != "Sphere" && ImGui::Selectable("Sphere")) {
-                        selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::PRIMITIVE_SPHERE, selectedEntity);
-                        changedSomething = true;
-                    }
-                    if (!changedSomething && dropdownPreview != "Cube" && ImGui::Selectable("Cube")) {
-                        selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::PRIMITIVE_CUBE, selectedEntity);
-                        changedSomething = true;
-                    }
-                    ImGui::EndCombo();
                 }
 
                 // allow user to select mesh file
