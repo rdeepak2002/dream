@@ -104,12 +104,8 @@ namespace Dream::Component {
 
     void MeshComponent::changeMeshType(MeshComponent::MeshType newMeshType, Entity entity) {
         // remove child meshes
-        if (!guid.empty() && meshType == FROM_FILE) {
-            // TODO: remove mesh references (call below modifies other entities for some reason)
-//            SceneUtils::removeMeshReference(entity, guid, true);
-            std::map<std::string, float> primitiveMeshData;
-            entity.addComponent<MeshComponent>(PRIMITIVE_CUBE, primitiveMeshData);
-        }
+        auto oldMeshType = meshType;
+        auto oldGUID = guid;
 
         // reset skeleton
         this->m_BoneInfoMap.clear();
@@ -134,5 +130,9 @@ namespace Dream::Component {
         }
 
         this->meshType = newMeshType;
+
+        if (oldMeshType == FROM_FILE) {
+            SceneUtils::removeMeshReference(entity, oldGUID, true);
+        }
     }
 }
