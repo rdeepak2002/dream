@@ -77,6 +77,9 @@ namespace Dream::Component {
         glm::quat rotation = {0, 0, 0, 1};
         inline static std::string k_scale = "scale";
         glm::vec3 scale = {1, 1, 1};
+        // runtime defined variables for camera
+        glm::vec3 up = {0.0f, 1.0f, 0.0f};
+        glm::vec3 front = glm::vec3(0.0f, 0.0f, -1.0f);
         glm::mat4 getTransform(Entity &curEntity);
         explicit TransformComponent();
         TransformComponent(glm::vec3 translation, glm::quat rotation, glm::vec3 scale);
@@ -175,7 +178,6 @@ namespace Dream::Component {
         std::vector<glm::mat4> computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones);
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
-        void decomposeMatrix(const glm::mat4& m, glm::vec3& pos, glm::quat& rot, glm::vec3& scale);
     };
 
     struct BoneComponent : public Component {
@@ -187,7 +189,23 @@ namespace Dream::Component {
         static void serialize(YAML::Emitter &out, Entity &entity);
     };
 
-    // TODO: camera component
+    struct CameraComponent : public Component {
+        inline static std::string componentName = "CameraComponent";
+        inline static std::string k_fov = "fov";
+        float fov = 45.0f;
+        explicit CameraComponent(float fov);
+        static void deserialize(YAML::Node node, Entity &entity);
+        static void serialize(YAML::Emitter &out, Entity &entity);
+    };
+
+    struct SceneCameraComponent : public Component {
+        inline static std::string componentName = "SceneCameraComponent";
+        inline static std::string k_fov = "fov";
+        float fov = 45.0f;
+        explicit SceneCameraComponent(float fov);
+        static void deserialize(YAML::Node node, Entity &entity);
+        static void serialize(YAML::Emitter &out, Entity &entity);
+    };
 }
 
 #endif //DREAM_COMPONENT_H

@@ -6,6 +6,7 @@
 #include "dream/renderer/Animation.h"
 #include "dream/project/Project.h"
 #include "dream/util/Logger.h"
+#include "dream/util/MathUtils.h"
 
 namespace Dream::Component {
     AnimatorComponent::AnimatorComponent() {
@@ -65,10 +66,10 @@ namespace Dream::Component {
                     if (depth == 1) {
                         // we don't count 'RootNode' as a bone, so we have to do this to include its transformation
                         // for the first layer of bones
-                        decomposeMatrix(parentTransform * nodeTransform, translation, rotation, scale);
+                        MathUtils::decomposeMatrix(parentTransform * nodeTransform, translation, rotation, scale);
                     } else {
                         // all bones after the first layer (usually everything after hip bone for skeletons)
-                        decomposeMatrix(nodeTransform, translation, rotation, scale);
+                        MathUtils::decomposeMatrix(nodeTransform, translation, rotation, scale);
                     }
                     boneEntities[Bone->getBoneID()].getComponent<TransformComponent>().translation = translation;
                     boneEntities[Bone->getBoneID()].getComponent<TransformComponent>().rotation = rotation;
@@ -149,14 +150,5 @@ namespace Dream::Component {
             loadBoneEntities(child);
             child = child.getComponent<HierarchyComponent>().next;
         }
-    }
-
-    void AnimatorComponent::decomposeMatrix(const glm::mat4& m, glm::vec3& pos, glm::quat& rot, glm::vec3& scale) {
-        pos = m[3];
-        for(int i = 0; i < 3; i++) {
-            scale[i] = glm::length(glm::vec3(m[i]));
-        }
-        const glm::mat3 rotMtx(glm::vec3(m[0]) / scale[0], glm::vec3(m[1]) / scale[1], glm::vec3(m[2]) / scale[2]);
-        rot = glm::quat_cast(rotMtx);
     }
 }

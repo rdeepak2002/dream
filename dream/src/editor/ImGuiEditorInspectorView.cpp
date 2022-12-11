@@ -11,6 +11,7 @@
 #include "dream/project/Project.h"
 #include "dream/util/SceneUtils.h"
 #include "dream/util/IDUtils.h"
+#include "dream/util/Logger.h"
 
 namespace Dream {
     ImGuiEditorInspectorView::ImGuiEditorInspectorView() {
@@ -43,6 +44,8 @@ namespace Dream {
             renderLuaScriptComponent();
             renderAnimatorComponent();
             renderBoneComponent();
+            renderSceneCameraComponent();
+            renderCameraComponent();
             renderAddComponent();
             renderRemoveComponent();
         }
@@ -60,6 +63,12 @@ namespace Dream {
                 selectedEntity.addComponent<Component::LuaScriptComponent>("");
             } else if (componentID == Component::AnimatorComponent::componentName) {
                 selectedEntity.addComponent<Component::AnimatorComponent>();
+            } else if (componentID == Component::SceneCameraComponent::componentName) {
+                selectedEntity.addComponent<Component::SceneCameraComponent>(45.0f);
+            } else if (componentID == Component::CameraComponent::componentName) {
+                selectedEntity.addComponent<Component::CameraComponent>(45.0f);
+            } else {
+                Logger::fatal("Unknown component to add " + componentID);
             }
         }
     }
@@ -88,6 +97,14 @@ namespace Dream {
 
         if (!selectedEntity.hasComponent<Component::AnimatorComponent>()) {
             components.insert(std::make_pair("Animator", Component::AnimatorComponent::componentName));
+        }
+
+        if (!selectedEntity.hasComponent<Component::SceneCameraComponent>()) {
+            components.insert(std::make_pair("Scene Camera", Component::SceneCameraComponent::componentName));
+        }
+
+        if (!selectedEntity.hasComponent<Component::CameraComponent>()) {
+            components.insert(std::make_pair("Camera", Component::CameraComponent::componentName));
         }
 
         if (!selectedEntity.hasComponent<Component::RootComponent>() && !components.empty()) {
@@ -423,6 +440,56 @@ namespace Dream {
                 ImGui::SameLine();
                 ImGui::Text("%d", component.boneID);
 
+                ImGui::TreePop();
+            }
+        }
+    }
+
+    void ImGuiEditorInspectorView::renderSceneCameraComponent() {
+        if (selectedEntity.hasComponent<Component::SceneCameraComponent>()) {
+            auto &component = selectedEntity.getComponent<Component::SceneCameraComponent>();
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Scene Camera", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+            ImGui::SameLine();
+            ImGui::Text("Scene Camera");
+            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                selectedEntity.removeComponent<Component::SceneCameraComponent>();
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+
+            if (treeNodeOpen) {
+                ImGui::Text("Fov");
+                ImGui::SameLine();
+                ImGui::Text("%s", std::to_string(component.fov).c_str());
+                ImGui::TreePop();
+            }
+        }
+    }
+
+    void ImGuiEditorInspectorView::renderCameraComponent() {
+        if (selectedEntity.hasComponent<Component::CameraComponent>()) {
+            auto &component = selectedEntity.getComponent<Component::CameraComponent>();
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Camera", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+            ImGui::SameLine();
+            ImGui::Text("Camera");
+            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                selectedEntity.removeComponent<Component::CameraComponent>();
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+
+            if (treeNodeOpen) {
+                ImGui::Text("Fov");
+                ImGui::SameLine();
+                ImGui::Text("%s", std::to_string(component.fov).c_str());
                 ImGui::TreePop();
             }
         }
