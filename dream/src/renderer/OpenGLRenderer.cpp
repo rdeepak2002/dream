@@ -85,6 +85,8 @@ namespace Dream {
             direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
             cameraFront = glm::normalize(direction);
 
+            std::cout << "Camera front: " << cameraFront.x << ", " << cameraFront.y << ", " << cameraFront.z << std::endl;
+
             // update camera front (based off yaw and pitch)
             sceneCamera.getComponent<Component::TransformComponent>().front = cameraFront;
 
@@ -93,10 +95,11 @@ namespace Dream {
 
             projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
             // retrieve the matrix uniform locations
-            int modelLoc = glGetUniformLocation(shader->ID, "model");
-            int viewLoc  = glGetUniformLocation(shader->ID, "view");
+//            int modelLoc = glGetUniformLocation(shader->ID, "model");
+//            int viewLoc  = glGetUniformLocation(shader->ID, "view");
             // pass them to the shaders (3 different ways)
-            glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
+//            glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
+            shader->setMat4("view", view);
             // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
             shader->setMat4("projection", projection);
 
@@ -157,7 +160,8 @@ namespace Dream {
 
                 // get transform of entity
                 glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
-                glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//                glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+                shader->setMat4("model", model);
 
                 if (entity.hasComponent<Component::MeshComponent>()) {
                     // set bones for animation
