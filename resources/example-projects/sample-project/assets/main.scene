@@ -8,21 +8,2097 @@ Entities:
     TagComponent:
       tag: root
     HierarchyComponent:
-      first: 79EAEF8C-93C0-40F5-BCE7-6CFF909B408F
+      first: 9DCA0702-3A93-4790-AA05-498006893CB5
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [7.54979013e-08, 0, 0, 1]
       scale: [1, 1, 1]
+  - Entity: 9DCA0702-3A93-4790-AA05-498006893CB5
+    IDComponent:
+      id: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TagComponent:
+      tag: sponza
+    HierarchyComponent:
+      first: 228C1036-2860-4F09-A1C4-F559770A0450
+      next: 79EAEF8C-93C0-40F5-BCE7-6CFF909B408F
+      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
+    TransformComponent:
+      translation: [0, 1, 0]
+      rotation: [1.53736173e-11, -7.54979013e-08, -1, 0.000203684962]
+      scale: [0.0120000001, 0.0120000001, 0.0120000001]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: ""
+  - Entity: 228C1036-2860-4F09-A1C4-F559770A0450
+    IDComponent:
+      id: 228C1036-2860-4F09-A1C4-F559770A0450
+    TagComponent:
+      tag: meshes[0]-102
+    HierarchyComponent:
+      next: D0A417C4-1E3A-4F4D-AAE5-8B7676CCC3E3
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: e515df0d202ae52fcebb14295743063b
+    MaterialComponent:
+      guid: F066EA23-7829-4280-B884-A56891B9446C
+      isEmbedded: false
+  - Entity: D0A417C4-1E3A-4F4D-AAE5-8B7676CCC3E3
+    IDComponent:
+      id: D0A417C4-1E3A-4F4D-AAE5-8B7676CCC3E3
+    TagComponent:
+      tag: meshes[0]-101
+    HierarchyComponent:
+      prev: 228C1036-2860-4F09-A1C4-F559770A0450
+      next: 710B71FC-66C7-4CC4-BCF6-1B36AF8F6BFA
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [7.54979013e-08, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 65cc2c8205a05d7379fa3a6386f710e1
+    MaterialComponent:
+      guid: CCAA6962-9D94-4D05-8B24-C0B30EACBC34
+      isEmbedded: false
+  - Entity: 710B71FC-66C7-4CC4-BCF6-1B36AF8F6BFA
+    IDComponent:
+      id: 710B71FC-66C7-4CC4-BCF6-1B36AF8F6BFA
+    TagComponent:
+      tag: meshes[0]-100
+    HierarchyComponent:
+      prev: D0A417C4-1E3A-4F4D-AAE5-8B7676CCC3E3
+      next: 1951A0D8-A181-47A4-BFF5-8B151DDCD977
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 1e48c4420b7073bc11916c6c1de226bb
+    MaterialComponent:
+      guid: F066EA23-7829-4280-B884-A56891B9446C
+      isEmbedded: false
+  - Entity: 1951A0D8-A181-47A4-BFF5-8B151DDCD977
+    IDComponent:
+      id: 1951A0D8-A181-47A4-BFF5-8B151DDCD977
+    TagComponent:
+      tag: meshes[0]-99
+    HierarchyComponent:
+      prev: 710B71FC-66C7-4CC4-BCF6-1B36AF8F6BFA
+      next: 5338E667-5681-423D-9DFF-D5D75EA6269D
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: a9b7ba70783b617e9998dc4dd82eb3c5
+    MaterialComponent:
+      guid: C47B2298-3FAF-4AE0-96A0-37F26AFCF2AD
+      isEmbedded: false
+  - Entity: 5338E667-5681-423D-9DFF-D5D75EA6269D
+    IDComponent:
+      id: 5338E667-5681-423D-9DFF-D5D75EA6269D
+    TagComponent:
+      tag: meshes[0]-98
+    HierarchyComponent:
+      prev: 1951A0D8-A181-47A4-BFF5-8B151DDCD977
+      next: 2DFC8DE1-5EBD-4D5F-8167-3A6AF9BDA189
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 4fac9ba115140ac4f1c22da82aa0bc7f
+    MaterialComponent:
+      guid: FEFAC260-817B-49CC-9010-25EABE6A7F26
+      isEmbedded: false
+  - Entity: 2DFC8DE1-5EBD-4D5F-8167-3A6AF9BDA189
+    IDComponent:
+      id: 2DFC8DE1-5EBD-4D5F-8167-3A6AF9BDA189
+    TagComponent:
+      tag: meshes[0]-97
+    HierarchyComponent:
+      prev: 5338E667-5681-423D-9DFF-D5D75EA6269D
+      next: 21C82F53-46C2-4397-9A1A-1D8B0E599D14
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: d79aac075930c83c2f1e369a511148fe
+    MaterialComponent:
+      guid: C47B2298-3FAF-4AE0-96A0-37F26AFCF2AD
+      isEmbedded: false
+  - Entity: 21C82F53-46C2-4397-9A1A-1D8B0E599D14
+    IDComponent:
+      id: 21C82F53-46C2-4397-9A1A-1D8B0E599D14
+    TagComponent:
+      tag: meshes[0]-96
+    HierarchyComponent:
+      prev: 2DFC8DE1-5EBD-4D5F-8167-3A6AF9BDA189
+      next: 598075ED-FD41-4C60-A484-42855D5EF964
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 89fcd07f20b6785b92134bd6c1d0fa42
+    MaterialComponent:
+      guid: FEFAC260-817B-49CC-9010-25EABE6A7F26
+      isEmbedded: false
+  - Entity: 598075ED-FD41-4C60-A484-42855D5EF964
+    IDComponent:
+      id: 598075ED-FD41-4C60-A484-42855D5EF964
+    TagComponent:
+      tag: meshes[0]-95
+    HierarchyComponent:
+      prev: 21C82F53-46C2-4397-9A1A-1D8B0E599D14
+      next: 016BA75E-DB07-4A36-A539-7D229461F346
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 437d7d1d97917cd627a34a6a0fb41136
+    MaterialComponent:
+      guid: 3CA93CB5-F87A-4633-A6FE-3BEBFBD86D06
+      isEmbedded: false
+  - Entity: 016BA75E-DB07-4A36-A539-7D229461F346
+    IDComponent:
+      id: 016BA75E-DB07-4A36-A539-7D229461F346
+    TagComponent:
+      tag: meshes[0]-94
+    HierarchyComponent:
+      prev: 598075ED-FD41-4C60-A484-42855D5EF964
+      next: ACCF6A8E-490D-4428-A33E-165A5302E6B8
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: a3d68b461bd9d3533ee1dd3ce4628ed4
+    MaterialComponent:
+      guid: EC518F2A-87E4-4E14-AF31-1BB72A38A173
+      isEmbedded: false
+  - Entity: ACCF6A8E-490D-4428-A33E-165A5302E6B8
+    IDComponent:
+      id: ACCF6A8E-490D-4428-A33E-165A5302E6B8
+    TagComponent:
+      tag: meshes[0]-93
+    HierarchyComponent:
+      prev: 016BA75E-DB07-4A36-A539-7D229461F346
+      next: FF88755F-CAD5-4B15-9AAB-556364089CB3
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 8d6dc35e506fc23349dd10ee68dabb64
+    MaterialComponent:
+      guid: EFCA6C1A-899E-4F90-9112-30B74BF3DE4B
+      isEmbedded: false
+  - Entity: FF88755F-CAD5-4B15-9AAB-556364089CB3
+    IDComponent:
+      id: FF88755F-CAD5-4B15-9AAB-556364089CB3
+    TagComponent:
+      tag: meshes[0]-92
+    HierarchyComponent:
+      prev: ACCF6A8E-490D-4428-A33E-165A5302E6B8
+      next: 6D82E6D5-9307-42EB-8032-2FFAFD8E52E9
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 1cc3633c579a90cfdd895e64021e2163
+    MaterialComponent:
+      guid: EC518F2A-87E4-4E14-AF31-1BB72A38A173
+      isEmbedded: false
+  - Entity: 6D82E6D5-9307-42EB-8032-2FFAFD8E52E9
+    IDComponent:
+      id: 6D82E6D5-9307-42EB-8032-2FFAFD8E52E9
+    TagComponent:
+      tag: meshes[0]-91
+    HierarchyComponent:
+      prev: FF88755F-CAD5-4B15-9AAB-556364089CB3
+      next: B28433E4-C0D3-42E3-8404-B90492E1EE66
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 6d0f846348a856321729a2f36734d1a7
+    MaterialComponent:
+      guid: EFCA6C1A-899E-4F90-9112-30B74BF3DE4B
+      isEmbedded: false
+  - Entity: B28433E4-C0D3-42E3-8404-B90492E1EE66
+    IDComponent:
+      id: B28433E4-C0D3-42E3-8404-B90492E1EE66
+    TagComponent:
+      tag: meshes[0]-90
+    HierarchyComponent:
+      prev: 6D82E6D5-9307-42EB-8032-2FFAFD8E52E9
+      next: 3B440A2F-652C-4EA3-AED3-6F15B7A3A566
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: e205ee2a5de471a70c1fd1b46033a75f
+    MaterialComponent:
+      guid: EC518F2A-87E4-4E14-AF31-1BB72A38A173
+      isEmbedded: false
+  - Entity: 3B440A2F-652C-4EA3-AED3-6F15B7A3A566
+    IDComponent:
+      id: 3B440A2F-652C-4EA3-AED3-6F15B7A3A566
+    TagComponent:
+      tag: meshes[0]-89
+    HierarchyComponent:
+      prev: B28433E4-C0D3-42E3-8404-B90492E1EE66
+      next: 08F8F617-F10D-491C-A9E7-6C4B448B37FC
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: acf4b89d3d503d8252c9c4ba75ddbf6d
+    MaterialComponent:
+      guid: EFCA6C1A-899E-4F90-9112-30B74BF3DE4B
+      isEmbedded: false
+  - Entity: 08F8F617-F10D-491C-A9E7-6C4B448B37FC
+    IDComponent:
+      id: 08F8F617-F10D-491C-A9E7-6C4B448B37FC
+    TagComponent:
+      tag: meshes[0]-88
+    HierarchyComponent:
+      prev: 3B440A2F-652C-4EA3-AED3-6F15B7A3A566
+      next: BDEED29C-534F-4D9B-8885-DE0AC213748A
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 024d7f84fff11dd7e8d9c510137a2381
+    MaterialComponent:
+      guid: EC518F2A-87E4-4E14-AF31-1BB72A38A173
+      isEmbedded: false
+  - Entity: BDEED29C-534F-4D9B-8885-DE0AC213748A
+    IDComponent:
+      id: BDEED29C-534F-4D9B-8885-DE0AC213748A
+    TagComponent:
+      tag: meshes[0]-87
+    HierarchyComponent:
+      prev: 08F8F617-F10D-491C-A9E7-6C4B448B37FC
+      next: EF0F963A-F3BB-40C9-8368-6D6EEC383C99
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 1f50893f80d6830d62765ffad7721742
+    MaterialComponent:
+      guid: EFCA6C1A-899E-4F90-9112-30B74BF3DE4B
+      isEmbedded: false
+  - Entity: EF0F963A-F3BB-40C9-8368-6D6EEC383C99
+    IDComponent:
+      id: EF0F963A-F3BB-40C9-8368-6D6EEC383C99
+    TagComponent:
+      tag: meshes[0]-86
+    HierarchyComponent:
+      prev: BDEED29C-534F-4D9B-8885-DE0AC213748A
+      next: E784E126-C978-4569-B7C3-CFCBD3285428
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 22fb0cee7e1f3bde58293de743871417
+    MaterialComponent:
+      guid: EC518F2A-87E4-4E14-AF31-1BB72A38A173
+      isEmbedded: false
+  - Entity: E784E126-C978-4569-B7C3-CFCBD3285428
+    IDComponent:
+      id: E784E126-C978-4569-B7C3-CFCBD3285428
+    TagComponent:
+      tag: meshes[0]-85
+    HierarchyComponent:
+      prev: EF0F963A-F3BB-40C9-8368-6D6EEC383C99
+      next: 0871F9FB-EB03-4D1E-A08A-03C8D0120BC0
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: fc49306d97602c8ed1be1dfbf0835ead
+    MaterialComponent:
+      guid: EFCA6C1A-899E-4F90-9112-30B74BF3DE4B
+      isEmbedded: false
+  - Entity: 0871F9FB-EB03-4D1E-A08A-03C8D0120BC0
+    IDComponent:
+      id: 0871F9FB-EB03-4D1E-A08A-03C8D0120BC0
+    TagComponent:
+      tag: meshes[0]-84
+    HierarchyComponent:
+      prev: E784E126-C978-4569-B7C3-CFCBD3285428
+      next: 65D1E62A-3931-4497-9E50-7A36149BBB5F
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 1efa39bcaec6f3900149160693694536
+    MaterialComponent:
+      guid: EC518F2A-87E4-4E14-AF31-1BB72A38A173
+      isEmbedded: false
+  - Entity: 65D1E62A-3931-4497-9E50-7A36149BBB5F
+    IDComponent:
+      id: 65D1E62A-3931-4497-9E50-7A36149BBB5F
+    TagComponent:
+      tag: meshes[0]-83
+    HierarchyComponent:
+      prev: 0871F9FB-EB03-4D1E-A08A-03C8D0120BC0
+      next: D869FB07-4A5C-4516-A78F-5AFDC5290662
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: fa83a11a198d5a7f0bf77a1987bcd006
+    MaterialComponent:
+      guid: EFCA6C1A-899E-4F90-9112-30B74BF3DE4B
+      isEmbedded: false
+  - Entity: D869FB07-4A5C-4516-A78F-5AFDC5290662
+    IDComponent:
+      id: D869FB07-4A5C-4516-A78F-5AFDC5290662
+    TagComponent:
+      tag: meshes[0]-82
+    HierarchyComponent:
+      prev: 65D1E62A-3931-4497-9E50-7A36149BBB5F
+      next: 188C46BB-672C-48B3-B4A7-8755A813ECF8
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 8e82ab7243b7c66d768f1b8ce1c967eb
+    MaterialComponent:
+      guid: EC518F2A-87E4-4E14-AF31-1BB72A38A173
+      isEmbedded: false
+  - Entity: 188C46BB-672C-48B3-B4A7-8755A813ECF8
+    IDComponent:
+      id: 188C46BB-672C-48B3-B4A7-8755A813ECF8
+    TagComponent:
+      tag: meshes[0]-81
+    HierarchyComponent:
+      prev: D869FB07-4A5C-4516-A78F-5AFDC5290662
+      next: 2550C292-F19C-46C8-9EF6-9415ED9DA28C
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: e2a2dcc36a08a345332c751b2f2e476c
+    MaterialComponent:
+      guid: EFCA6C1A-899E-4F90-9112-30B74BF3DE4B
+      isEmbedded: false
+  - Entity: 2550C292-F19C-46C8-9EF6-9415ED9DA28C
+    IDComponent:
+      id: 2550C292-F19C-46C8-9EF6-9415ED9DA28C
+    TagComponent:
+      tag: meshes[0]-80
+    HierarchyComponent:
+      prev: 188C46BB-672C-48B3-B4A7-8755A813ECF8
+      next: 3CA41220-B2A4-46E2-9413-31540A06F9B0
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: b6edc1cd1f36e45daf6d7824d7bb2283
+    MaterialComponent:
+      guid: 6F9E47AF-3A00-4EAC-934E-2BC453A6E8C7
+      isEmbedded: false
+  - Entity: 3CA41220-B2A4-46E2-9413-31540A06F9B0
+    IDComponent:
+      id: 3CA41220-B2A4-46E2-9413-31540A06F9B0
+    TagComponent:
+      tag: meshes[0]-79
+    HierarchyComponent:
+      prev: 2550C292-F19C-46C8-9EF6-9415ED9DA28C
+      next: 1A1763AC-09E3-4333-873A-4F28FBDF7F7B
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 7a53928fa4dd31e82c6ef826f341daec
+    MaterialComponent:
+      guid: EB95D863-D9C0-415A-BAE3-80C75B1252AB
+      isEmbedded: false
+  - Entity: 1A1763AC-09E3-4333-873A-4F28FBDF7F7B
+    IDComponent:
+      id: 1A1763AC-09E3-4333-873A-4F28FBDF7F7B
+    TagComponent:
+      tag: meshes[0]-78
+    HierarchyComponent:
+      prev: 3CA41220-B2A4-46E2-9413-31540A06F9B0
+      next: E4B3B113-F00B-45C4-B2A0-E9732BCAB3EA
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 2dace78f80bc92e6d7493423d729448e
+    MaterialComponent:
+      guid: 6F9E47AF-3A00-4EAC-934E-2BC453A6E8C7
+      isEmbedded: false
+  - Entity: E4B3B113-F00B-45C4-B2A0-E9732BCAB3EA
+    IDComponent:
+      id: E4B3B113-F00B-45C4-B2A0-E9732BCAB3EA
+    TagComponent:
+      tag: meshes[0]-77
+    HierarchyComponent:
+      prev: 1A1763AC-09E3-4333-873A-4F28FBDF7F7B
+      next: 9AFFC0D1-6C6E-49B3-A6AA-8769F472994B
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: a8e864d04c95572d1aece099af852d0a
+    MaterialComponent:
+      guid: EB95D863-D9C0-415A-BAE3-80C75B1252AB
+      isEmbedded: false
+  - Entity: 9AFFC0D1-6C6E-49B3-A6AA-8769F472994B
+    IDComponent:
+      id: 9AFFC0D1-6C6E-49B3-A6AA-8769F472994B
+    TagComponent:
+      tag: meshes[0]-76
+    HierarchyComponent:
+      prev: E4B3B113-F00B-45C4-B2A0-E9732BCAB3EA
+      next: 11E03812-CE30-4A1C-85F7-D22DF2A07922
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 4ea06fbc83cdd0a06020c35d50e1e89a
+    MaterialComponent:
+      guid: 6F9E47AF-3A00-4EAC-934E-2BC453A6E8C7
+      isEmbedded: false
+  - Entity: 11E03812-CE30-4A1C-85F7-D22DF2A07922
+    IDComponent:
+      id: 11E03812-CE30-4A1C-85F7-D22DF2A07922
+    TagComponent:
+      tag: meshes[0]-75
+    HierarchyComponent:
+      prev: 9AFFC0D1-6C6E-49B3-A6AA-8769F472994B
+      next: 5758EAB9-3531-4A37-B3C8-4CCF8B30E23E
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 2ca65f58e35d9ad45bf7f3ae5cfd08f1
+    MaterialComponent:
+      guid: EB95D863-D9C0-415A-BAE3-80C75B1252AB
+      isEmbedded: false
+  - Entity: 5758EAB9-3531-4A37-B3C8-4CCF8B30E23E
+    IDComponent:
+      id: 5758EAB9-3531-4A37-B3C8-4CCF8B30E23E
+    TagComponent:
+      tag: meshes[0]-74
+    HierarchyComponent:
+      prev: 11E03812-CE30-4A1C-85F7-D22DF2A07922
+      next: A54168EE-0CC5-4182-8FA3-9717B755C377
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: b137fdd1f79d56c7edf3365fea7520f2
+    MaterialComponent:
+      guid: 6F9E47AF-3A00-4EAC-934E-2BC453A6E8C7
+      isEmbedded: false
+  - Entity: A54168EE-0CC5-4182-8FA3-9717B755C377
+    IDComponent:
+      id: A54168EE-0CC5-4182-8FA3-9717B755C377
+    TagComponent:
+      tag: meshes[0]-73
+    HierarchyComponent:
+      prev: 5758EAB9-3531-4A37-B3C8-4CCF8B30E23E
+      next: 5BB5083D-4B60-47B3-8435-F8517C1A502A
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: edfbe1afcf9246bb0d40eb4d8027d90f
+    MaterialComponent:
+      guid: EB95D863-D9C0-415A-BAE3-80C75B1252AB
+      isEmbedded: false
+  - Entity: 5BB5083D-4B60-47B3-8435-F8517C1A502A
+    IDComponent:
+      id: 5BB5083D-4B60-47B3-8435-F8517C1A502A
+    TagComponent:
+      tag: meshes[0]-72
+    HierarchyComponent:
+      prev: A54168EE-0CC5-4182-8FA3-9717B755C377
+      next: 8E0B5BA1-593B-485C-8AD6-B4C95900061F
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: d5cfead94f5350c12c322b5b664544c1
+    MaterialComponent:
+      guid: 2424DB76-6201-4378-906C-1DA8ADDEAE6F
+      isEmbedded: false
+  - Entity: 8E0B5BA1-593B-485C-8AD6-B4C95900061F
+    IDComponent:
+      id: 8E0B5BA1-593B-485C-8AD6-B4C95900061F
+    TagComponent:
+      tag: meshes[0]-71
+    HierarchyComponent:
+      prev: 5BB5083D-4B60-47B3-8435-F8517C1A502A
+      next: 91896F03-2B56-4EF3-8470-AE7437DC43E2
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 5f2c22cb4a5380af7ca75622a6426917
+    MaterialComponent:
+      guid: B38B8851-374F-4C5D-877E-AEBC8B803A0C
+      isEmbedded: false
+  - Entity: 91896F03-2B56-4EF3-8470-AE7437DC43E2
+    IDComponent:
+      id: 91896F03-2B56-4EF3-8470-AE7437DC43E2
+    TagComponent:
+      tag: meshes[0]-70
+    HierarchyComponent:
+      prev: 8E0B5BA1-593B-485C-8AD6-B4C95900061F
+      next: EA928962-4E3E-4CCE-8CEC-C819367DB119
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: e70611883d2760c8bbafb4acb29e3446
+    MaterialComponent:
+      guid: 1E44237B-4A71-4556-BF03-7A891D424E48
+      isEmbedded: false
+  - Entity: EA928962-4E3E-4CCE-8CEC-C819367DB119
+    IDComponent:
+      id: EA928962-4E3E-4CCE-8CEC-C819367DB119
+    TagComponent:
+      tag: meshes[0]-69
+    HierarchyComponent:
+      prev: 91896F03-2B56-4EF3-8470-AE7437DC43E2
+      next: 035927E8-422B-4589-AB8F-EEBB132740A7
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: e5841df2166dd424a57127423d276bbe
+    MaterialComponent:
+      guid: 2424DB76-6201-4378-906C-1DA8ADDEAE6F
+      isEmbedded: false
+  - Entity: 035927E8-422B-4589-AB8F-EEBB132740A7
+    IDComponent:
+      id: 035927E8-422B-4589-AB8F-EEBB132740A7
+    TagComponent:
+      tag: meshes[0]-68
+    HierarchyComponent:
+      prev: EA928962-4E3E-4CCE-8CEC-C819367DB119
+      next: 35C39C5A-4938-4FE1-9209-4E352F42BFF1
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: c06d06da9666a219db15cf575aff2824
+    MaterialComponent:
+      guid: B38B8851-374F-4C5D-877E-AEBC8B803A0C
+      isEmbedded: false
+  - Entity: 35C39C5A-4938-4FE1-9209-4E352F42BFF1
+    IDComponent:
+      id: 35C39C5A-4938-4FE1-9209-4E352F42BFF1
+    TagComponent:
+      tag: meshes[0]-67
+    HierarchyComponent:
+      prev: 035927E8-422B-4589-AB8F-EEBB132740A7
+      next: F1A4D9A1-C98B-4DF6-84E8-7D7C846DEDC9
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: fccb3cdc9acc14a6e70a12f74560c026
+    MaterialComponent:
+      guid: 1E44237B-4A71-4556-BF03-7A891D424E48
+      isEmbedded: false
+  - Entity: F1A4D9A1-C98B-4DF6-84E8-7D7C846DEDC9
+    IDComponent:
+      id: F1A4D9A1-C98B-4DF6-84E8-7D7C846DEDC9
+    TagComponent:
+      tag: meshes[0]-66
+    HierarchyComponent:
+      prev: 35C39C5A-4938-4FE1-9209-4E352F42BFF1
+      next: 9256CA3D-84B9-480A-813E-F9E4E4BD8F4C
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 17c276c8e723eb46aef576537e9d56d0
+    MaterialComponent:
+      guid: B38B8851-374F-4C5D-877E-AEBC8B803A0C
+      isEmbedded: false
+  - Entity: 9256CA3D-84B9-480A-813E-F9E4E4BD8F4C
+    IDComponent:
+      id: 9256CA3D-84B9-480A-813E-F9E4E4BD8F4C
+    TagComponent:
+      tag: meshes[0]-65
+    HierarchyComponent:
+      prev: F1A4D9A1-C98B-4DF6-84E8-7D7C846DEDC9
+      next: 7F478A81-519E-452E-A21A-602418F8FE28
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 68264bdb65b97eeae6788aa3348e553c
+    MaterialComponent:
+      guid: 1E44237B-4A71-4556-BF03-7A891D424E48
+      isEmbedded: false
+  - Entity: 7F478A81-519E-452E-A21A-602418F8FE28
+    IDComponent:
+      id: 7F478A81-519E-452E-A21A-602418F8FE28
+    TagComponent:
+      tag: meshes[0]-64
+    HierarchyComponent:
+      prev: 9256CA3D-84B9-480A-813E-F9E4E4BD8F4C
+      next: 49AC2351-FAA6-49FF-AF33-95EB52CB5B04
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 884d247c6f65a96a7da4d1105d584ddd
+    MaterialComponent:
+      guid: B38B8851-374F-4C5D-877E-AEBC8B803A0C
+      isEmbedded: false
+  - Entity: 49AC2351-FAA6-49FF-AF33-95EB52CB5B04
+    IDComponent:
+      id: 49AC2351-FAA6-49FF-AF33-95EB52CB5B04
+    TagComponent:
+      tag: meshes[0]-63
+    HierarchyComponent:
+      prev: 7F478A81-519E-452E-A21A-602418F8FE28
+      next: 50F21593-DBAF-4925-888D-AED2B9C35A36
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 4ffce04d92a4d6cb21c1494cdfcd6dc1
+    MaterialComponent:
+      guid: 2424DB76-6201-4378-906C-1DA8ADDEAE6F
+      isEmbedded: false
+  - Entity: 50F21593-DBAF-4925-888D-AED2B9C35A36
+    IDComponent:
+      id: 50F21593-DBAF-4925-888D-AED2B9C35A36
+    TagComponent:
+      tag: meshes[0]-62
+    HierarchyComponent:
+      prev: 49AC2351-FAA6-49FF-AF33-95EB52CB5B04
+      next: 039EA5E1-D574-4C32-9894-AEBD40852351
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 9cc138f8dc04cbf16240daa92d8d50e2
+    MaterialComponent:
+      guid: A7E971B8-8234-45AA-9CFA-6D278223A351
+      isEmbedded: false
+  - Entity: 039EA5E1-D574-4C32-9894-AEBD40852351
+    IDComponent:
+      id: 039EA5E1-D574-4C32-9894-AEBD40852351
+    TagComponent:
+      tag: meshes[0]-61
+    HierarchyComponent:
+      prev: 50F21593-DBAF-4925-888D-AED2B9C35A36
+      next: 58AD5AB6-131D-4A63-8A0E-6773DEE0A579
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: b73dfe25b4b8714c029b37a6ad3006fa
+    MaterialComponent:
+      guid: 0BC1C42A-CF83-4750-9E9B-EA7B475E58F5
+      isEmbedded: false
+  - Entity: 58AD5AB6-131D-4A63-8A0E-6773DEE0A579
+    IDComponent:
+      id: 58AD5AB6-131D-4A63-8A0E-6773DEE0A579
+    TagComponent:
+      tag: meshes[0]-60
+    HierarchyComponent:
+      prev: 039EA5E1-D574-4C32-9894-AEBD40852351
+      next: 4127DD56-976B-450A-B351-E11659B9BBAE
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 00ac8ed3b4327bdd4ebbebcb2ba10a00
+    MaterialComponent:
+      guid: FD17398F-9A33-4A22-9432-FF38E3A4E34D
+      isEmbedded: false
+  - Entity: 4127DD56-976B-450A-B351-E11659B9BBAE
+    IDComponent:
+      id: 4127DD56-976B-450A-B351-E11659B9BBAE
+    TagComponent:
+      tag: meshes[0]-59
+    HierarchyComponent:
+      prev: 58AD5AB6-131D-4A63-8A0E-6773DEE0A579
+      next: 0DC7AC95-0681-47BC-9D4A-9C1C81D128EC
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: d490d7b4576290fa60eb31b5fc917ad1
+    MaterialComponent:
+      guid: B4D263B3-37E1-402E-88B3-D16BD99A0A4E
+      isEmbedded: false
+  - Entity: 0DC7AC95-0681-47BC-9D4A-9C1C81D128EC
+    IDComponent:
+      id: 0DC7AC95-0681-47BC-9D4A-9C1C81D128EC
+    TagComponent:
+      tag: meshes[0]-58
+    HierarchyComponent:
+      prev: 4127DD56-976B-450A-B351-E11659B9BBAE
+      next: 0609A164-9153-454C-8FCA-0E4DD0383EF1
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 08b255a5d42b89b0585260b6f2360bdd
+    MaterialComponent:
+      guid: 0BC1C42A-CF83-4750-9E9B-EA7B475E58F5
+      isEmbedded: false
+  - Entity: 0609A164-9153-454C-8FCA-0E4DD0383EF1
+    IDComponent:
+      id: 0609A164-9153-454C-8FCA-0E4DD0383EF1
+    TagComponent:
+      tag: meshes[0]-57
+    HierarchyComponent:
+      prev: 0DC7AC95-0681-47BC-9D4A-9C1C81D128EC
+      next: 6549A1EA-338F-4A34-A03E-109FF56ED64E
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 069d3bb002acd8d7dd095917f9efe4cb
+    MaterialComponent:
+      guid: B4D263B3-37E1-402E-88B3-D16BD99A0A4E
+      isEmbedded: false
+  - Entity: 6549A1EA-338F-4A34-A03E-109FF56ED64E
+    IDComponent:
+      id: 6549A1EA-338F-4A34-A03E-109FF56ED64E
+    TagComponent:
+      tag: meshes[0]-56
+    HierarchyComponent:
+      prev: 0609A164-9153-454C-8FCA-0E4DD0383EF1
+      next: 9F52633B-BE4D-4573-AFB3-8754FEF83A0D
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: a86c450b76fb8c371afead6410d55534
+    MaterialComponent:
+      guid: FD17398F-9A33-4A22-9432-FF38E3A4E34D
+      isEmbedded: false
+  - Entity: 9F52633B-BE4D-4573-AFB3-8754FEF83A0D
+    IDComponent:
+      id: 9F52633B-BE4D-4573-AFB3-8754FEF83A0D
+    TagComponent:
+      tag: meshes[0]-55
+    HierarchyComponent:
+      prev: 6549A1EA-338F-4A34-A03E-109FF56ED64E
+      next: 197345A5-4F13-4278-BED9-119ED20B8929
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: a9a6653e48976138166de32772b1bf40
+    MaterialComponent:
+      guid: 0BC1C42A-CF83-4750-9E9B-EA7B475E58F5
+      isEmbedded: false
+  - Entity: 197345A5-4F13-4278-BED9-119ED20B8929
+    IDComponent:
+      id: 197345A5-4F13-4278-BED9-119ED20B8929
+    TagComponent:
+      tag: meshes[0]-54
+    HierarchyComponent:
+      prev: 9F52633B-BE4D-4573-AFB3-8754FEF83A0D
+      next: E99D03F9-E835-4D8B-998B-8500B0180ED8
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 01f78be6f7cad02658508fe4616098a9
+    MaterialComponent:
+      guid: B4D263B3-37E1-402E-88B3-D16BD99A0A4E
+      isEmbedded: false
+  - Entity: E99D03F9-E835-4D8B-998B-8500B0180ED8
+    IDComponent:
+      id: E99D03F9-E835-4D8B-998B-8500B0180ED8
+    TagComponent:
+      tag: meshes[0]-53
+    HierarchyComponent:
+      prev: 197345A5-4F13-4278-BED9-119ED20B8929
+      next: 3743F103-8066-44C5-A397-EA488645BC72
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 9b72e31dac81715466cd580a448cf823
+    MaterialComponent:
+      guid: 11FB5E75-8F81-4B41-8711-CCC4DBF3E42B
+      isEmbedded: false
+  - Entity: 3743F103-8066-44C5-A397-EA488645BC72
+    IDComponent:
+      id: 3743F103-8066-44C5-A397-EA488645BC72
+    TagComponent:
+      tag: meshes[0]-52
+    HierarchyComponent:
+      prev: E99D03F9-E835-4D8B-998B-8500B0180ED8
+      next: A5468B88-4C72-4DEB-86A9-9F5F5BD369F5
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: d64a340bcb633f536d56e51874281454
+    MaterialComponent:
+      guid: A7E971B8-8234-45AA-9CFA-6D278223A351
+      isEmbedded: false
+  - Entity: A5468B88-4C72-4DEB-86A9-9F5F5BD369F5
+    IDComponent:
+      id: A5468B88-4C72-4DEB-86A9-9F5F5BD369F5
+    TagComponent:
+      tag: meshes[0]-51
+    HierarchyComponent:
+      prev: 3743F103-8066-44C5-A397-EA488645BC72
+      next: 1E48B48F-FF0C-4B41-B10F-C17DCD32D230
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: cf67355a3333e6e143439161adc2d82e
+    MaterialComponent:
+      guid: F066EA23-7829-4280-B884-A56891B9446C
+      isEmbedded: false
+  - Entity: 1E48B48F-FF0C-4B41-B10F-C17DCD32D230
+    IDComponent:
+      id: 1E48B48F-FF0C-4B41-B10F-C17DCD32D230
+    TagComponent:
+      tag: meshes[0]-50
+    HierarchyComponent:
+      prev: A5468B88-4C72-4DEB-86A9-9F5F5BD369F5
+      next: FBC7BE75-81FD-4082-B62E-DE1466950447
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 087408522c31eeb1f982bc0eaf81d35f
+    MaterialComponent:
+      guid: F20FD5D7-011D-4573-8095-BE7CA49C657E
+      isEmbedded: false
+  - Entity: FBC7BE75-81FD-4082-B62E-DE1466950447
+    IDComponent:
+      id: FBC7BE75-81FD-4082-B62E-DE1466950447
+    TagComponent:
+      tag: meshes[0]-49
+    HierarchyComponent:
+      prev: 1E48B48F-FF0C-4B41-B10F-C17DCD32D230
+      next: AD9B376A-ACF2-408F-AFC5-CF690B95A4B6
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: cee631121c2ec9232f3a2f028ad5c89b
+    MaterialComponent:
+      guid: AA60D25E-7573-4E44-8A48-E37E38B7054F
+      isEmbedded: false
+  - Entity: AD9B376A-ACF2-408F-AFC5-CF690B95A4B6
+    IDComponent:
+      id: AD9B376A-ACF2-408F-AFC5-CF690B95A4B6
+    TagComponent:
+      tag: meshes[0]-48
+    HierarchyComponent:
+      prev: FBC7BE75-81FD-4082-B62E-DE1466950447
+      next: F5326E46-8A35-4649-9775-D6F51B5CA18A
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: c410003ef13d451727aeff9082c29a5c
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: F5326E46-8A35-4649-9775-D6F51B5CA18A
+    IDComponent:
+      id: F5326E46-8A35-4649-9775-D6F51B5CA18A
+    TagComponent:
+      tag: meshes[0]-47
+    HierarchyComponent:
+      prev: AD9B376A-ACF2-408F-AFC5-CF690B95A4B6
+      next: 545E7141-12D5-4601-9ADB-9BE7EBEA6ECD
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 6ea2ef7311b482724a9b7b0bc0dd85c6
+    MaterialComponent:
+      guid: AC06E5A1-1349-4E41-9BED-67127D391250
+      isEmbedded: false
+  - Entity: 545E7141-12D5-4601-9ADB-9BE7EBEA6ECD
+    IDComponent:
+      id: 545E7141-12D5-4601-9ADB-9BE7EBEA6ECD
+    TagComponent:
+      tag: meshes[0]-46
+    HierarchyComponent:
+      prev: F5326E46-8A35-4649-9775-D6F51B5CA18A
+      next: 294FD607-CEB9-4921-A7A1-A37B91CEEEE0
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 26337353b7962f533d78c762373b3318
+    MaterialComponent:
+      guid: F6FB47BC-F02B-49F4-BE96-E76347EC5409
+      isEmbedded: false
+  - Entity: 294FD607-CEB9-4921-A7A1-A37B91CEEEE0
+    IDComponent:
+      id: 294FD607-CEB9-4921-A7A1-A37B91CEEEE0
+    TagComponent:
+      tag: meshes[0]-45
+    HierarchyComponent:
+      prev: 545E7141-12D5-4601-9ADB-9BE7EBEA6ECD
+      next: A3DAA907-262F-49A2-8851-EFFABDDB4D55
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 98b297950041a42470269d56260243a1
+    MaterialComponent:
+      guid: F066EA23-7829-4280-B884-A56891B9446C
+      isEmbedded: false
+  - Entity: A3DAA907-262F-49A2-8851-EFFABDDB4D55
+    IDComponent:
+      id: A3DAA907-262F-49A2-8851-EFFABDDB4D55
+    TagComponent:
+      tag: meshes[0]-44
+    HierarchyComponent:
+      prev: 294FD607-CEB9-4921-A7A1-A37B91CEEEE0
+      next: 2DD9A9F1-F5B6-48B6-A638-791DE9411BE8
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: f5f8590cd58a54e94377e6ae2eded4d9
+    MaterialComponent:
+      guid: DE729110-B4E5-4E32-B696-4D172184D4AE
+      isEmbedded: false
+  - Entity: 2DD9A9F1-F5B6-48B6-A638-791DE9411BE8
+    IDComponent:
+      id: 2DD9A9F1-F5B6-48B6-A638-791DE9411BE8
+    TagComponent:
+      tag: meshes[0]-43
+    HierarchyComponent:
+      prev: A3DAA907-262F-49A2-8851-EFFABDDB4D55
+      next: 6D266E1C-5652-438B-A5DF-61B1E5DF5A8F
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: a8abb4bb284b5b27aa7cb790dc20f80b
+    MaterialComponent:
+      guid: F066EA23-7829-4280-B884-A56891B9446C
+      isEmbedded: false
+  - Entity: 6D266E1C-5652-438B-A5DF-61B1E5DF5A8F
+    IDComponent:
+      id: 6D266E1C-5652-438B-A5DF-61B1E5DF5A8F
+    TagComponent:
+      tag: meshes[0]-42
+    HierarchyComponent:
+      prev: 2DD9A9F1-F5B6-48B6-A638-791DE9411BE8
+      next: 13CC33ED-7B35-4B69-9CD6-762EB7305743
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: f74909ace68e51891440e4da0b65a70c
+    MaterialComponent:
+      guid: 7B0CC741-D59B-4FCC-9761-4D2CC13712C6
+      isEmbedded: false
+  - Entity: 13CC33ED-7B35-4B69-9CD6-762EB7305743
+    IDComponent:
+      id: 13CC33ED-7B35-4B69-9CD6-762EB7305743
+    TagComponent:
+      tag: meshes[0]-41
+    HierarchyComponent:
+      prev: 6D266E1C-5652-438B-A5DF-61B1E5DF5A8F
+      next: 239D70D7-985F-4956-9145-9DB5098407C1
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: b6f0479ae87d244975439c6124592772
+    MaterialComponent:
+      guid: F066EA23-7829-4280-B884-A56891B9446C
+      isEmbedded: false
+  - Entity: 239D70D7-985F-4956-9145-9DB5098407C1
+    IDComponent:
+      id: 239D70D7-985F-4956-9145-9DB5098407C1
+    TagComponent:
+      tag: meshes[0]-40
+    HierarchyComponent:
+      prev: 13CC33ED-7B35-4B69-9CD6-762EB7305743
+      next: 57F7B4E8-DCE4-4AC8-AC32-6E67FC36A08E
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 1068c6e4c8051cfd4e9ea8072e3189e2
+    MaterialComponent:
+      guid: 7B0CC741-D59B-4FCC-9761-4D2CC13712C6
+      isEmbedded: false
+  - Entity: 57F7B4E8-DCE4-4AC8-AC32-6E67FC36A08E
+    IDComponent:
+      id: 57F7B4E8-DCE4-4AC8-AC32-6E67FC36A08E
+    TagComponent:
+      tag: meshes[0]-39
+    HierarchyComponent:
+      prev: 239D70D7-985F-4956-9145-9DB5098407C1
+      next: D5648CED-866C-4140-BA33-6CECFDD155C3
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 18d8042386b79e2c279fd162df0205c8
+    MaterialComponent:
+      guid: F066EA23-7829-4280-B884-A56891B9446C
+      isEmbedded: false
+  - Entity: D5648CED-866C-4140-BA33-6CECFDD155C3
+    IDComponent:
+      id: D5648CED-866C-4140-BA33-6CECFDD155C3
+    TagComponent:
+      tag: meshes[0]-38
+    HierarchyComponent:
+      prev: 57F7B4E8-DCE4-4AC8-AC32-6E67FC36A08E
+      next: 6711DD98-83FF-44FC-9A5A-D3A56D92E05D
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: a01a0380ca3c61428c26a231f0e49a09
+    MaterialComponent:
+      guid: 7B0CC741-D59B-4FCC-9761-4D2CC13712C6
+      isEmbedded: false
+  - Entity: 6711DD98-83FF-44FC-9A5A-D3A56D92E05D
+    IDComponent:
+      id: 6711DD98-83FF-44FC-9A5A-D3A56D92E05D
+    TagComponent:
+      tag: meshes[0]-37
+    HierarchyComponent:
+      prev: D5648CED-866C-4140-BA33-6CECFDD155C3
+      next: 2018CAA7-D61D-42EF-8B10-5FF191B0D71F
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: bca82e41ee7b0833588399b1fcd177c7
+    MaterialComponent:
+      guid: F066EA23-7829-4280-B884-A56891B9446C
+      isEmbedded: false
+  - Entity: 2018CAA7-D61D-42EF-8B10-5FF191B0D71F
+    IDComponent:
+      id: 2018CAA7-D61D-42EF-8B10-5FF191B0D71F
+    TagComponent:
+      tag: meshes[0]-36
+    HierarchyComponent:
+      prev: 6711DD98-83FF-44FC-9A5A-D3A56D92E05D
+      next: AB5E8594-3454-468C-A13C-7A3C7136D4D7
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: d709f38ef758b5066ef31b18039b8ce5
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: AB5E8594-3454-468C-A13C-7A3C7136D4D7
+    IDComponent:
+      id: AB5E8594-3454-468C-A13C-7A3C7136D4D7
+    TagComponent:
+      tag: meshes[0]-35
+    HierarchyComponent:
+      prev: 2018CAA7-D61D-42EF-8B10-5FF191B0D71F
+      next: 6A449E1B-69FA-4351-8EE4-7A44B593265E
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: e7b24b112a44fdd9ee93bdf998c6ca0e
+    MaterialComponent:
+      guid: F066EA23-7829-4280-B884-A56891B9446C
+      isEmbedded: false
+  - Entity: 6A449E1B-69FA-4351-8EE4-7A44B593265E
+    IDComponent:
+      id: 6A449E1B-69FA-4351-8EE4-7A44B593265E
+    TagComponent:
+      tag: meshes[0]-34
+    HierarchyComponent:
+      prev: AB5E8594-3454-468C-A13C-7A3C7136D4D7
+      next: DD48BD38-6C69-4269-9917-2E21D758F529
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 9de6d14fff9806d4bcd1ef555be766cd
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: DD48BD38-6C69-4269-9917-2E21D758F529
+    IDComponent:
+      id: DD48BD38-6C69-4269-9917-2E21D758F529
+    TagComponent:
+      tag: meshes[0]-33
+    HierarchyComponent:
+      prev: 6A449E1B-69FA-4351-8EE4-7A44B593265E
+      next: 37980A7F-B5CA-413F-8DB8-FC263E81B25D
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 40008b9a5380fcacce3976bf7c08af5b
+    MaterialComponent:
+      guid: DBD8BDD5-2D0F-49D2-810E-E80F07D94EA1
+      isEmbedded: false
+  - Entity: 37980A7F-B5CA-413F-8DB8-FC263E81B25D
+    IDComponent:
+      id: 37980A7F-B5CA-413F-8DB8-FC263E81B25D
+    TagComponent:
+      tag: meshes[0]-32
+    HierarchyComponent:
+      prev: DD48BD38-6C69-4269-9917-2E21D758F529
+      next: 0E6781E7-2BB2-4D18-8D88-6797C894556B
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: fe73f687e5bc5280214e0486b273a5f9
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: 0E6781E7-2BB2-4D18-8D88-6797C894556B
+    IDComponent:
+      id: 0E6781E7-2BB2-4D18-8D88-6797C894556B
+    TagComponent:
+      tag: meshes[0]-31
+    HierarchyComponent:
+      prev: 37980A7F-B5CA-413F-8DB8-FC263E81B25D
+      next: 0BBE397A-0B7D-4EEA-9F94-9224D05976A5
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 320722549d1751cf3f247855f937b982
+    MaterialComponent:
+      guid: DBD8BDD5-2D0F-49D2-810E-E80F07D94EA1
+      isEmbedded: false
+  - Entity: 0BBE397A-0B7D-4EEA-9F94-9224D05976A5
+    IDComponent:
+      id: 0BBE397A-0B7D-4EEA-9F94-9224D05976A5
+    TagComponent:
+      tag: meshes[0]-30
+    HierarchyComponent:
+      prev: 0E6781E7-2BB2-4D18-8D88-6797C894556B
+      next: 916D91D7-BBBE-4282-AE87-C5815EFCB675
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 06eb61b839a0cefee4967c67ccb099dc
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: 916D91D7-BBBE-4282-AE87-C5815EFCB675
+    IDComponent:
+      id: 916D91D7-BBBE-4282-AE87-C5815EFCB675
+    TagComponent:
+      tag: meshes[0]-29
+    HierarchyComponent:
+      prev: 0BBE397A-0B7D-4EEA-9F94-9224D05976A5
+      next: 94B64FA4-44A1-4561-BB50-F8568F21DED0
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 94f6d7e04a4d452035300f18b984988c
+    MaterialComponent:
+      guid: DBD8BDD5-2D0F-49D2-810E-E80F07D94EA1
+      isEmbedded: false
+  - Entity: 94B64FA4-44A1-4561-BB50-F8568F21DED0
+    IDComponent:
+      id: 94B64FA4-44A1-4561-BB50-F8568F21DED0
+    TagComponent:
+      tag: meshes[0]-28
+    HierarchyComponent:
+      prev: 916D91D7-BBBE-4282-AE87-C5815EFCB675
+      next: FDEAAF2A-F6FB-435F-B659-E3D80065FFC6
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: f90f2aca5c640289d0a29417bcb63a37
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: FDEAAF2A-F6FB-435F-B659-E3D80065FFC6
+    IDComponent:
+      id: FDEAAF2A-F6FB-435F-B659-E3D80065FFC6
+    TagComponent:
+      tag: meshes[0]-27
+    HierarchyComponent:
+      prev: 94B64FA4-44A1-4561-BB50-F8568F21DED0
+      next: 8DBADA04-96CD-480C-A3F6-546FD40065EE
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 92c8c96e4c37100777c7190b76d28233
+    MaterialComponent:
+      guid: DBD8BDD5-2D0F-49D2-810E-E80F07D94EA1
+      isEmbedded: false
+  - Entity: 8DBADA04-96CD-480C-A3F6-546FD40065EE
+    IDComponent:
+      id: 8DBADA04-96CD-480C-A3F6-546FD40065EE
+    TagComponent:
+      tag: meshes[0]-26
+    HierarchyComponent:
+      prev: FDEAAF2A-F6FB-435F-B659-E3D80065FFC6
+      next: A218A508-E9A4-4802-94BE-1556E267F4D4
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 39059724f73a9969845dfe4146c5660e
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: A218A508-E9A4-4802-94BE-1556E267F4D4
+    IDComponent:
+      id: A218A508-E9A4-4802-94BE-1556E267F4D4
+    TagComponent:
+      tag: meshes[0]-25
+    HierarchyComponent:
+      prev: 8DBADA04-96CD-480C-A3F6-546FD40065EE
+      next: B7453411-0503-4E62-B1D3-8A53FEA18048
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: a4f23670e1833f3fdb077ca70bbd5d66
+    MaterialComponent:
+      guid: DBD8BDD5-2D0F-49D2-810E-E80F07D94EA1
+      isEmbedded: false
+  - Entity: B7453411-0503-4E62-B1D3-8A53FEA18048
+    IDComponent:
+      id: B7453411-0503-4E62-B1D3-8A53FEA18048
+    TagComponent:
+      tag: meshes[0]-24
+    HierarchyComponent:
+      prev: A218A508-E9A4-4802-94BE-1556E267F4D4
+      next: 4C6A423E-3F39-4429-8510-D617159BC03A
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 6c9882bbac1c7093bd25041881277658
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: 4C6A423E-3F39-4429-8510-D617159BC03A
+    IDComponent:
+      id: 4C6A423E-3F39-4429-8510-D617159BC03A
+    TagComponent:
+      tag: meshes[0]-23
+    HierarchyComponent:
+      prev: B7453411-0503-4E62-B1D3-8A53FEA18048
+      next: 053B2DC2-83DB-4F9A-9292-B130F67BB935
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 335f5352088d7d9bf74191e006d8e24c
+    MaterialComponent:
+      guid: DBD8BDD5-2D0F-49D2-810E-E80F07D94EA1
+      isEmbedded: false
+  - Entity: 053B2DC2-83DB-4F9A-9292-B130F67BB935
+    IDComponent:
+      id: 053B2DC2-83DB-4F9A-9292-B130F67BB935
+    TagComponent:
+      tag: meshes[0]-22
+    HierarchyComponent:
+      prev: 4C6A423E-3F39-4429-8510-D617159BC03A
+      next: 2BD589A7-26F0-47E2-96B1-E380270A70ED
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 6da9003b743b65f4c0ccd295cc484e57
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: 2BD589A7-26F0-47E2-96B1-E380270A70ED
+    IDComponent:
+      id: 2BD589A7-26F0-47E2-96B1-E380270A70ED
+    TagComponent:
+      tag: meshes[0]-21
+    HierarchyComponent:
+      prev: 053B2DC2-83DB-4F9A-9292-B130F67BB935
+      next: 55D04118-0873-4304-9D6D-3C3BBEA2A3FA
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: ec8ce6abb3e952a85b8551ba726a1227
+    MaterialComponent:
+      guid: DBD8BDD5-2D0F-49D2-810E-E80F07D94EA1
+      isEmbedded: false
+  - Entity: 55D04118-0873-4304-9D6D-3C3BBEA2A3FA
+    IDComponent:
+      id: 55D04118-0873-4304-9D6D-3C3BBEA2A3FA
+    TagComponent:
+      tag: meshes[0]-20
+    HierarchyComponent:
+      prev: 2BD589A7-26F0-47E2-96B1-E380270A70ED
+      next: 229D2706-ADD9-415A-9EC8-F14A89E8487D
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 6f3ef77ac0e3619e98159e9b6febf557
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: 229D2706-ADD9-415A-9EC8-F14A89E8487D
+    IDComponent:
+      id: 229D2706-ADD9-415A-9EC8-F14A89E8487D
+    TagComponent:
+      tag: meshes[0]-19
+    HierarchyComponent:
+      prev: 55D04118-0873-4304-9D6D-3C3BBEA2A3FA
+      next: 0CD04645-61FC-466B-8C39-D5A04AB7E4DE
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 3644a684f98ea8fe223c713b77189a77
+    MaterialComponent:
+      guid: DBD8BDD5-2D0F-49D2-810E-E80F07D94EA1
+      isEmbedded: false
+  - Entity: 0CD04645-61FC-466B-8C39-D5A04AB7E4DE
+    IDComponent:
+      id: 0CD04645-61FC-466B-8C39-D5A04AB7E4DE
+    TagComponent:
+      tag: meshes[0]-18
+    HierarchyComponent:
+      prev: 229D2706-ADD9-415A-9EC8-F14A89E8487D
+      next: B42A6FC3-B55C-4F23-9D39-7C332BD6F79A
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: cfecdb276f634854f3ef915e2e980c31
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: B42A6FC3-B55C-4F23-9D39-7C332BD6F79A
+    IDComponent:
+      id: B42A6FC3-B55C-4F23-9D39-7C332BD6F79A
+    TagComponent:
+      tag: meshes[0]-17
+    HierarchyComponent:
+      prev: 0CD04645-61FC-466B-8C39-D5A04AB7E4DE
+      next: B36F5BDD-81B8-40F8-B22F-38935702AC8A
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 045117b0e0a11a242b9765e79cbf113f
+    MaterialComponent:
+      guid: DBD8BDD5-2D0F-49D2-810E-E80F07D94EA1
+      isEmbedded: false
+  - Entity: B36F5BDD-81B8-40F8-B22F-38935702AC8A
+    IDComponent:
+      id: B36F5BDD-81B8-40F8-B22F-38935702AC8A
+    TagComponent:
+      tag: meshes[0]-16
+    HierarchyComponent:
+      prev: B42A6FC3-B55C-4F23-9D39-7C332BD6F79A
+      next: BD09817F-6D5F-47DE-9DA9-FC1692172BBE
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 149e9677a5989fd342ae44213df68868
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: BD09817F-6D5F-47DE-9DA9-FC1692172BBE
+    IDComponent:
+      id: BD09817F-6D5F-47DE-9DA9-FC1692172BBE
+    TagComponent:
+      tag: meshes[0]-15
+    HierarchyComponent:
+      prev: B36F5BDD-81B8-40F8-B22F-38935702AC8A
+      next: B0CEEEDD-683C-4DBE-9E03-E52585A21F61
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: b73ce398c39f506af761d2277d853a92
+    MaterialComponent:
+      guid: F066EA23-7829-4280-B884-A56891B9446C
+      isEmbedded: false
+  - Entity: B0CEEEDD-683C-4DBE-9E03-E52585A21F61
+    IDComponent:
+      id: B0CEEEDD-683C-4DBE-9E03-E52585A21F61
+    TagComponent:
+      tag: meshes[0]-14
+    HierarchyComponent:
+      prev: BD09817F-6D5F-47DE-9DA9-FC1692172BBE
+      next: 75145ABD-3BF8-4D37-AA1E-7CF98D8DDFE7
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 7ef605fc8dba5425d6965fbd4c8fbe1f
+    MaterialComponent:
+      guid: DBD8BDD5-2D0F-49D2-810E-E80F07D94EA1
+      isEmbedded: false
+  - Entity: 75145ABD-3BF8-4D37-AA1E-7CF98D8DDFE7
+    IDComponent:
+      id: 75145ABD-3BF8-4D37-AA1E-7CF98D8DDFE7
+    TagComponent:
+      tag: meshes[0]-13
+    HierarchyComponent:
+      prev: B0CEEEDD-683C-4DBE-9E03-E52585A21F61
+      next: 222AFDE1-170F-40E7-83FE-6C0B3B8F3773
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 1385974ed5904a438616ff7bdb3f7439
+    MaterialComponent:
+      guid: F066EA23-7829-4280-B884-A56891B9446C
+      isEmbedded: false
+  - Entity: 222AFDE1-170F-40E7-83FE-6C0B3B8F3773
+    IDComponent:
+      id: 222AFDE1-170F-40E7-83FE-6C0B3B8F3773
+    TagComponent:
+      tag: meshes[0]-12
+    HierarchyComponent:
+      prev: 75145ABD-3BF8-4D37-AA1E-7CF98D8DDFE7
+      next: BEF60470-AA0B-4C18-B055-7BCCF98C40E8
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 9b8619251a19057cff70779273e95aa6
+    MaterialComponent:
+      guid: DE729110-B4E5-4E32-B696-4D172184D4AE
+      isEmbedded: false
+  - Entity: BEF60470-AA0B-4C18-B055-7BCCF98C40E8
+    IDComponent:
+      id: BEF60470-AA0B-4C18-B055-7BCCF98C40E8
+    TagComponent:
+      tag: meshes[0]-11
+    HierarchyComponent:
+      prev: 222AFDE1-170F-40E7-83FE-6C0B3B8F3773
+      next: 869E34B4-C85D-49DB-AC5B-C658BFD6DE80
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: da4fb5c6e93e74d3df8527599fa62642
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: 869E34B4-C85D-49DB-AC5B-C658BFD6DE80
+    IDComponent:
+      id: 869E34B4-C85D-49DB-AC5B-C658BFD6DE80
+    TagComponent:
+      tag: meshes[0]-10
+    HierarchyComponent:
+      prev: BEF60470-AA0B-4C18-B055-7BCCF98C40E8
+      next: 0EB609AC-B75D-41BA-8F31-73BA591CB42F
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 5f93f983524def3dca464469d2cf9f3e
+    MaterialComponent:
+      guid: DBD8BDD5-2D0F-49D2-810E-E80F07D94EA1
+      isEmbedded: false
+  - Entity: 0EB609AC-B75D-41BA-8F31-73BA591CB42F
+    IDComponent:
+      id: 0EB609AC-B75D-41BA-8F31-73BA591CB42F
+    TagComponent:
+      tag: meshes[0]-9
+    HierarchyComponent:
+      prev: 869E34B4-C85D-49DB-AC5B-C658BFD6DE80
+      next: 18A806B4-69DA-4949-A0D3-FB113AE14B25
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: f899139df5e1059396431415e770c6dd
+    MaterialComponent:
+      guid: F6FB47BC-F02B-49F4-BE96-E76347EC5409
+      isEmbedded: false
+  - Entity: 18A806B4-69DA-4949-A0D3-FB113AE14B25
+    IDComponent:
+      id: 18A806B4-69DA-4949-A0D3-FB113AE14B25
+    TagComponent:
+      tag: meshes[0]-8
+    HierarchyComponent:
+      prev: 0EB609AC-B75D-41BA-8F31-73BA591CB42F
+      next: 3A949944-EAA4-4E4C-8A5E-54398591C887
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 8613985ec49eb8f757ae6439e879bb2a
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: 3A949944-EAA4-4E4C-8A5E-54398591C887
+    IDComponent:
+      id: 3A949944-EAA4-4E4C-8A5E-54398591C887
+    TagComponent:
+      tag: meshes[0]-7
+    HierarchyComponent:
+      prev: 18A806B4-69DA-4949-A0D3-FB113AE14B25
+      next: A27C4A83-A4C3-4DED-9308-E35805644F6C
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: f033ab37c30201f73f142449d037028d
+    MaterialComponent:
+      guid: AC06E5A1-1349-4E41-9BED-67127D391250
+      isEmbedded: false
+  - Entity: A27C4A83-A4C3-4DED-9308-E35805644F6C
+    IDComponent:
+      id: A27C4A83-A4C3-4DED-9308-E35805644F6C
+    TagComponent:
+      tag: meshes[0]-6
+    HierarchyComponent:
+      prev: 3A949944-EAA4-4E4C-8A5E-54398591C887
+      next: 7320562C-D6DF-4E55-8995-5F88DFAFEC07
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 7cbbc409ec990f19c78c75bd1e06f215
+    MaterialComponent:
+      guid: DBD8BDD5-2D0F-49D2-810E-E80F07D94EA1
+      isEmbedded: false
+  - Entity: 7320562C-D6DF-4E55-8995-5F88DFAFEC07
+    IDComponent:
+      id: 7320562C-D6DF-4E55-8995-5F88DFAFEC07
+    TagComponent:
+      tag: meshes[0]-5
+    HierarchyComponent:
+      prev: A27C4A83-A4C3-4DED-9308-E35805644F6C
+      next: 3A63F310-892E-4FF9-908D-6F4904F954A7
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 072b030ba126b2f4b2374f342be9ed44
+    MaterialComponent:
+      guid: 1C3B276D-059F-4946-A070-412B70CAF08D
+      isEmbedded: false
+  - Entity: 3A63F310-892E-4FF9-908D-6F4904F954A7
+    IDComponent:
+      id: 3A63F310-892E-4FF9-908D-6F4904F954A7
+    TagComponent:
+      tag: meshes[0]-4
+    HierarchyComponent:
+      prev: 7320562C-D6DF-4E55-8995-5F88DFAFEC07
+      next: 613BCB0D-0744-456A-BA39-0AA1586D3B3F
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: c0c7c76d30bd3dcaefc96f40275bdc0a
+    MaterialComponent:
+      guid: F066EA23-7829-4280-B884-A56891B9446C
+      isEmbedded: false
+  - Entity: 613BCB0D-0744-456A-BA39-0AA1586D3B3F
+    IDComponent:
+      id: 613BCB0D-0744-456A-BA39-0AA1586D3B3F
+    TagComponent:
+      tag: meshes[0]-3
+    HierarchyComponent:
+      prev: 3A63F310-892E-4FF9-908D-6F4904F954A7
+      next: 02D400CD-C80C-40EC-9219-C3479E8AD845
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: d645920e395fedad7bbbed0eca3fe2e0
+    MaterialComponent:
+      guid: C47B2298-3FAF-4AE0-96A0-37F26AFCF2AD
+      isEmbedded: false
+  - Entity: 02D400CD-C80C-40EC-9219-C3479E8AD845
+    IDComponent:
+      id: 02D400CD-C80C-40EC-9219-C3479E8AD845
+    TagComponent:
+      tag: meshes[0]-2
+    HierarchyComponent:
+      prev: 613BCB0D-0744-456A-BA39-0AA1586D3B3F
+      next: 5C692567-1A53-4597-8BE0-57FB7541C8F0
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 34173cb38f07f89ddbebc2ac9128303f
+    MaterialComponent:
+      guid: EC518F2A-87E4-4E14-AF31-1BB72A38A173
+      isEmbedded: false
+  - Entity: 5C692567-1A53-4597-8BE0-57FB7541C8F0
+    IDComponent:
+      id: 5C692567-1A53-4597-8BE0-57FB7541C8F0
+    TagComponent:
+      tag: meshes[0]-1
+    HierarchyComponent:
+      prev: 02D400CD-C80C-40EC-9219-C3479E8AD845
+      next: 666718F0-60CF-499F-9C99-53A22801CCF2
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: 98f13708210194c475687be6106a3b84
+    MaterialComponent:
+      guid: EFCA6C1A-899E-4F90-9112-30B74BF3DE4B
+      isEmbedded: false
+  - Entity: 666718F0-60CF-499F-9C99-53A22801CCF2
+    IDComponent:
+      id: 666718F0-60CF-499F-9C99-53A22801CCF2
+    TagComponent:
+      tag: meshes[0]-0
+    HierarchyComponent:
+      prev: 5C692567-1A53-4597-8BE0-57FB7541C8F0
+      parent: 9DCA0702-3A93-4790-AA05-498006893CB5
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: EC05BB83-F2E3-4A2C-8B5E-2C513D14B93D
+      fileId: d3d9446802a44259755d38e6d163e820
+    MaterialComponent:
+      guid: 11FB5E75-8F81-4B41-8711-CCC4DBF3E42B
+      isEmbedded: false
   - Entity: 79EAEF8C-93C0-40F5-BCE7-6CFF909B408F
     IDComponent:
       id: 79EAEF8C-93C0-40F5-BCE7-6CFF909B408F
     TagComponent:
       tag: scene camera
     HierarchyComponent:
+      prev: 9DCA0702-3A93-4790-AA05-498006893CB5
       next: 97FBCDB1-76E0-478D-849F-F5E3DADEB457
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [0, 0, 3]
+      translation: [0.0999994725, -0.0600021444, 2.5]
       rotation: [5.33850724e-08, -5.33850866e-08, -0.707106829, 0.707106769]
       scale: [1, 1, 1]
     LuaScriptComponent:
@@ -37,7 +2113,7 @@ Entities:
     HierarchyComponent:
       first: 0EAF27B9-22E4-4F1A-A66D-49D52C25D053
       prev: 79EAEF8C-93C0-40F5-BCE7-6CFF909B408F
-      next: B8AB4704-3DCD-4A02-B024-C14A65BFD0AB
+      next: E79B9FA6-F724-4F3F-A888-4AB724620D8B
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
       translation: [0, 1, 0]
@@ -123,7 +2199,7 @@ Entities:
       prev: DE80A383-6A53-48CB-9E3E-4087337EC4BB
       parent: 97FBCDB1-76E0-478D-849F-F5E3DADEB457
     TransformComponent:
-      translation: [0.000342909974, 0.955787957, 0.00500365021]
+      translation: [0.000342909974, 0.955787838, 0.00500365021]
       rotation: [1, 0, 0, 4.99999999e-07]
       scale: [0.00999999978, 0.00999999978, 0.00999999978]
     BoneComponent:
@@ -138,9 +2214,9 @@ Entities:
       next: A1D44713-721A-49FD-80A7-DD4E76B28DAC
       parent: 3AC8972A-9D4D-4C9E-930F-0DCAC57D88CE
     TransformComponent:
-      translation: [-9.8576889, -5.87585211, -0.58367908]
-      rotation: [5.00013755e-07, 5.55126759e-16, 0.00740270689, 0.999972582]
-      scale: [1.00000024, 0.999999702, 0.999999523]
+      translation: [-9.8576889, -5.87585211, -0.58367902]
+      rotation: [5.00013755e-07, 9.99228145e-16, 0.00740270689, 0.999972582]
+      scale: [1.00000048, 1, 0.999999583]
     BoneComponent:
       boneID: 50
   - Entity: 3E0372C0-BD2D-4001-A545-A5768D1F0D64
@@ -153,7 +2229,7 @@ Entities:
       parent: 7F56BEEB-0490-4C3B-9047-F4AB2CF9E546
     TransformComponent:
       translation: [0, 41.7019997, 0]
-      rotation: [0.998785794, -0.0492638201, 0, 0]
+      rotation: [0.998785794, -0.0492638275, 0, 0]
       scale: [1, 0.999999821, 0.999999821]
     BoneComponent:
       boneID: 51
@@ -166,8 +2242,8 @@ Entities:
       first: 25F4018B-69AC-4279-9264-5C5B79C666BD
       parent: 3E0372C0-BD2D-4001-A545-A5768D1F0D64
     TransformComponent:
-      translation: [0, 36.9809723, 0]
-      rotation: [0.894851565, 0.444958806, -0.0219617523, 0.0277493056]
+      translation: [0, 36.9809685, 0]
+      rotation: [0.894851565, 0.444958806, -0.0219617505, 0.0277493075]
       scale: [0.999999642, 0.999999583, 1.00000012]
     BoneComponent:
       boneID: 52
@@ -181,8 +2257,8 @@ Entities:
       parent: 77E45C9D-3D86-479E-A3F3-3FC38A45DE54
     TransformComponent:
       translation: [0, 16.7000008, 0]
-      rotation: [0.934300661, 0.356045663, -0.0168709103, -0.00540056732]
-      scale: [0.999999583, 1.00000048, 1]
+      rotation: [0.934300661, 0.356045604, -0.0168709103, -0.00540056778]
+      scale: [0.999999642, 1.00000048, 1.00000012]
     BoneComponent:
       boneID: 53
   - Entity: B6CA19F6-577E-4579-98A3-076F5B2A83E5
@@ -207,9 +2283,9 @@ Entities:
       next: 3F86C8BC-520E-4558-ACDD-68BFE400ED1B
       parent: 3AC8972A-9D4D-4C9E-930F-0DCAC57D88CE
     TransformComponent:
-      translation: [9.78910828, -5.87587833, -0.58368206]
-      rotation: [5.00013869e-07, 1.11025346e-16, 0.00740070688, 0.999972641]
-      scale: [1, 0.999999583, 0.999999464]
+      translation: [9.78910732, -5.87587786, -0.583682001]
+      rotation: [5.00013812e-07, 5.55126759e-16, 0.00740070734, 0.999972641]
+      scale: [1.00000024, 0.999999821, 0.999999464]
     BoneComponent:
       boneID: 46
   - Entity: 7B4A7BB5-A058-4A0E-92CE-A28FA6DF080F
@@ -222,7 +2298,7 @@ Entities:
       parent: A1D44713-721A-49FD-80A7-DD4E76B28DAC
     TransformComponent:
       translation: [0, 41.7019997, 0]
-      rotation: [0.998786092, -0.0492583103, 0, 0]
+      rotation: [0.998786092, -0.0492583066, 0, 0]
       scale: [1, 0.999999762, 0.999999762]
     BoneComponent:
       boneID: 47
@@ -237,7 +2313,7 @@ Entities:
     TransformComponent:
       translation: [0, 36.980999, 0]
       rotation: [0.894852519, 0.444956869, 0.0219628438, -0.0277487021]
-      scale: [0.999999702, 1.00000036, 0.999999583]
+      scale: [0.999999702, 1.00000036, 0.999999642]
     BoneComponent:
       boneID: 48
   - Entity: 201ED9E7-1D9D-48C4-AB2F-DF2AD5F06A6E
@@ -250,8 +2326,8 @@ Entities:
       parent: 68B2AB9E-9D42-42EC-9F44-19CFAB67B2F0
     TransformComponent:
       translation: [0, 16.7000008, 0]
-      rotation: [0.934300125, 0.356047034, 0.0168709215, 0.00540083693]
-      scale: [0.999999583, 1.00000024, 0.99999994]
+      rotation: [0.934300184, 0.356046915, 0.0168709196, 0.00540083647]
+      scale: [0.999999642, 1.00000036, 0.99999994]
     BoneComponent:
       boneID: 49
   - Entity: 31BC3899-61DC-46B3-ABF2-91F22FA95967
@@ -275,8 +2351,8 @@ Entities:
       prev: A1D44713-721A-49FD-80A7-DD4E76B28DAC
       parent: 3AC8972A-9D4D-4C9E-930F-0DCAC57D88CE
     TransformComponent:
-      translation: [0.0173310004, 10.574832, -1.11723113]
-      rotation: [0.998615146, -0.0526048802, -5.78300969e-05, -0.000764809374]
+      translation: [0.0173310004, 10.574832, -1.11723101]
+      rotation: [0.998615146, -0.0526048727, -5.78300896e-05, -0.000764809316]
       scale: [1, 0.999999583, 0.999999523]
     BoneComponent:
       boneID: 1
@@ -303,7 +2379,7 @@ Entities:
       first: EE9E9ACE-72A7-474A-B32E-F44D983F99C7
       parent: FEB83F3D-F48E-4723-B029-B404F4D28E4C
     TransformComponent:
-      translation: [0, 14.1782732, 0]
+      translation: [0, 14.1782722, 0]
       rotation: [0.998615086, 0.0526053794, 5.78301187e-05, 0.000764058321]
       scale: [1.00000012, 0.999999702, 0.999999642]
     BoneComponent:
@@ -318,9 +2394,9 @@ Entities:
       next: 369C933E-0F46-4ACF-A5DC-EA0332A206E3
       parent: F07FD031-5443-4CD3-973F-868D8CA3D60D
     TransformComponent:
-      translation: [-5.93497896, 13.6706133, -1.66260898]
-      rotation: [0.466644078, 0.532261848, -0.46565637, 0.531135321]
-      scale: [1.00000036, 1.00000036, 1.00000036]
+      translation: [-5.93497896, 13.6706123, -1.66260898]
+      rotation: [0.466644138, 0.532261848, -0.46565634, 0.53113538]
+      scale: [1.00000024, 1.00000036, 1.00000024]
     BoneComponent:
       boneID: 27
   - Entity: F93D7E75-69F0-46BD-BE57-C4C4AF5A2E78
@@ -333,7 +2409,7 @@ Entities:
       parent: EE9E9ACE-72A7-474A-B32E-F44D983F99C7
     TransformComponent:
       translation: [0, 12.6079121, 0]
-      rotation: [0.997846723, -0.0655809864, 6.93994298e-05, 0.00105752714]
+      rotation: [0.997846723, -0.0655809715, 6.93994225e-05, 0.00105752714]
       scale: [1.00000024, 0.999999821, 0.999999762]
     BoneComponent:
       boneID: 28
@@ -360,7 +2436,7 @@ Entities:
       first: 54B160BC-AFF0-4B9C-BEF2-6615B0566823
       parent: A8E318AB-CB4F-4E3D-BDCE-7A9FB3BA9D54
     TransformComponent:
-      translation: [0, 21.6034012, 0]
+      translation: [0, 21.6033993, 0]
       rotation: [1, 0, -0.000163499994, 0]
       scale: [1, 1, 1]
     BoneComponent:
@@ -471,7 +2547,7 @@ Entities:
       next: B4CA2402-0FF7-4BC6-8594-73E30D563130
       parent: 8A5C97D1-9E9E-41BB-BFB2-B6DCE2CE0859
     TransformComponent:
-      translation: [-4.71272993, 8.98550034, -0.221000001]
+      translation: [-4.71272993, 8.98550034, -0.221000016]
       rotation: [1, 0, 0, 4.99999999e-07]
       scale: [1, 1, 1]
     BoneComponent:
@@ -540,7 +2616,7 @@ Entities:
       first: 91BE1382-9557-4965-A8C0-B7BB2C752C1B
       parent: B4CA2402-0FF7-4BC6-8594-73E30D563130
     TransformComponent:
-      translation: [0, 4.0194006, 0]
+      translation: [0, 4.01940012, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
     BoneComponent:
@@ -636,7 +2712,7 @@ Entities:
       next: 6F1A5EA4-3357-4D85-B3A2-9DC9CC6FD9B3
       parent: 8A5C97D1-9E9E-41BB-BFB2-B6DCE2CE0859
     TransformComponent:
-      translation: [2.34190011, 9.90970039, -0.291000009]
+      translation: [2.34189987, 9.90970039, -0.291000009]
       rotation: [1, 0, 0, 4.99999999e-07]
       scale: [1, 1, 1]
     BoneComponent:
@@ -650,7 +2726,7 @@ Entities:
       first: 7FE0E105-53AD-4DCC-BFF0-F00C589B381E
       parent: D14C84A5-05A5-4367-A6EC-698AE4411061
     TransformComponent:
-      translation: [0, 3.77680016, 0]
+      translation: [0, 3.77679992, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
     BoneComponent:
@@ -664,7 +2740,7 @@ Entities:
       first: 723F0BFA-B63B-46EE-983A-7B06CE2BF611
       parent: D4892D0B-D6D9-4BE5-BA61-CD7C06D4DC03
     TransformComponent:
-      translation: [0, 2.54300022, 0]
+      translation: [0, 2.54299998, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
     BoneComponent:
@@ -690,7 +2766,7 @@ Entities:
       prev: D14C84A5-05A5-4367-A6EC-698AE4411061
       parent: 8A5C97D1-9E9E-41BB-BFB2-B6DCE2CE0859
     TransformComponent:
-      translation: [2.37037992, 3.54560018, 1.90899992]
+      translation: [2.37037992, 3.54559994, 1.90899992]
       rotation: [0.939447701, 0.219322741, -0.0688212961, -0.254163682]
       scale: [1, 1.00000012, 0.999999821]
     BoneComponent:
@@ -746,8 +2822,8 @@ Entities:
       parent: F07FD031-5443-4CD3-973F-868D8CA3D60D
     TransformComponent:
       translation: [5.93497705, 13.6702223, -1.66261005]
-      rotation: [0.466632992, 0.532271862, 0.465645194, -0.531144798]
-      scale: [1.00000036, 0.999999881, 0.999999642]
+      rotation: [0.466632962, 0.532271862, 0.465645134, -0.531144798]
+      scale: [1.00000048, 1, 0.999999821]
     BoneComponent:
       boneID: 8
   - Entity: E685DBC8-F288-4C14-9628-ABF0174D08A5
@@ -760,8 +2836,8 @@ Entities:
       parent: 369C933E-0F46-4ACF-A5DC-EA0332A206E3
     TransformComponent:
       translation: [0, 12.6078806, 0]
-      rotation: [0.997847736, -0.0655656159, -6.93993425e-05, -0.00105677417]
-      scale: [1.00000024, 0.99999994, 0.999999583]
+      rotation: [0.997847736, -0.0655656308, -6.93993497e-05, -0.0010567744]
+      scale: [1.00000024, 0.999999881, 0.999999583]
     BoneComponent:
       boneID: 9
   - Entity: 721E7861-1D92-47A0-8616-21869F57699B
@@ -787,7 +2863,7 @@ Entities:
       first: 56027104-16B8-42DD-9EB9-32E50EF20137
       parent: 721E7861-1D92-47A0-8616-21869F57699B
     TransformComponent:
-      translation: [0, 21.6033688, 0]
+      translation: [0, 21.6033669, 0]
       rotation: [1, 0, 0.000137500014, 0]
       scale: [0.99999994, 1, 0.99999994]
     BoneComponent:
@@ -871,7 +2947,7 @@ Entities:
       first: 93C57FAC-2561-48CF-8D76-EEDB8E2D1D19
       parent: 6142E87B-1F20-4562-9780-BA637DB59219
     TransformComponent:
-      translation: [0, 4.01939869, 0]
+      translation: [0, 4.01939821, 0]
       rotation: [1, -4.99999999e-07, 0, 0]
       scale: [1, 1, 1]
     BoneComponent:
@@ -967,7 +3043,7 @@ Entities:
       next: 22F10809-0D57-4740-8F5D-D96913FA1244
       parent: FB1D951C-2585-4938-9570-7F986DB2AC3F
     TransformComponent:
-      translation: [-2.34189725, 9.90974331, -0.291364998]
+      translation: [-2.34189701, 9.90974331, -0.291364998]
       rotation: [1, 4.99999999e-07, 0, -4.99999999e-07]
       scale: [1, 1, 1]
     BoneComponent:
@@ -1021,8 +3097,8 @@ Entities:
       prev: 5E78C1A8-8518-44F5-8674-83E5C85A468B
       parent: FB1D951C-2585-4938-9570-7F986DB2AC3F
     TransformComponent:
-      translation: [-2.37037611, 3.54561424, 1.90823293]
-      rotation: [0.939235032, 0.218565896, 0.0716630816, 0.2548154]
+      translation: [-2.37037611, 3.545614, 1.90823293]
+      rotation: [0.939235032, 0.218565881, 0.0716630816, 0.2548154]
       scale: [0.999999762, 0.999999821, 1.00000036]
     BoneComponent:
       boneID: 12
@@ -1075,7 +3151,7 @@ Entities:
       prev: 369C933E-0F46-4ACF-A5DC-EA0332A206E3
       parent: F07FD031-5443-4CD3-973F-868D8CA3D60D
     TransformComponent:
-      translation: [0.0244410019, 15.8622551, -1.67582107]
+      translation: [0.0244410001, 15.8622551, -1.67582107]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
     BoneComponent:
@@ -1089,7 +3165,7 @@ Entities:
       first: B256EF3A-101C-4F43-8284-2FE8D6FA2C49
       parent: F5648F2A-69F6-49CA-AC32-5E88A2A75FEF
     TransformComponent:
-      translation: [0, 5.56403589, 0.988086045]
+      translation: [0, 5.56403589, 0.988085985]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
     BoneComponent:
@@ -1135,109 +3211,17 @@ Entities:
       translation: [0, 0, 0]
       rotation: [7.54979013e-08, 0, 0, 1]
       scale: [1, 1, 1]
-  - Entity: B8AB4704-3DCD-4A02-B024-C14A65BFD0AB
-    IDComponent:
-      id: B8AB4704-3DCD-4A02-B024-C14A65BFD0AB
-    TagComponent:
-      tag: dragon
-    HierarchyComponent:
-      first: 41D79406-B76B-46CC-8F6E-1264828E7872
-      prev: 97FBCDB1-76E0-478D-849F-F5E3DADEB457
-      next: E79B9FA6-F724-4F3F-A888-4AB724620D8B
-      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
-    TransformComponent:
-      translation: [4.30000019, -1.20000005, -12]
-      rotation: [0.651431739, 0.219477311, 0.525147915, -0.501683235]
-      scale: [0.00999999978, 0.00999999978, 0.00999999978]
-    MeshComponent:
-      meshType: 2
-      guid: 7F555714-27E0-4AB5-B950-3BD20ED6E914
-      fileId: ""
-  - Entity: 41D79406-B76B-46CC-8F6E-1264828E7872
-    IDComponent:
-      id: 41D79406-B76B-46CC-8F6E-1264828E7872
-    TagComponent:
-      tag: dragon meshes
-    HierarchyComponent:
-      first: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
-      parent: B8AB4704-3DCD-4A02-B024-C14A65BFD0AB
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [7.54979013e-08, 0, 0, 1]
-      scale: [1, 1, 1]
-  - Entity: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
-    IDComponent:
-      id: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
-    TagComponent:
-      tag: eye
-    HierarchyComponent:
-      first: 073E62E5-0FF8-4FBD-BEC0-91BFB616FEF0
-      next: 3EC28924-A130-42D6-ADCE-45DCB08EB34E
-      parent: 41D79406-B76B-46CC-8F6E-1264828E7872
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [7.54979013e-08, 0, 0, 1]
-      scale: [1, 1, 1]
-  - Entity: 073E62E5-0FF8-4FBD-BEC0-91BFB616FEF0
-    IDComponent:
-      id: 073E62E5-0FF8-4FBD-BEC0-91BFB616FEF0
-    TagComponent:
-      tag: eye mesh
-    HierarchyComponent:
-      parent: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [7.54979013e-08, 0, 0, 1]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 7F555714-27E0-4AB5-B950-3BD20ED6E914
-      fileId: 98f13708210194c475687be6106a3b84
-    MaterialComponent:
-      guid: 569E1F56-C003-48F0-88F1-81298B4B2A9C
-      isEmbedded: false
-  - Entity: 3EC28924-A130-42D6-ADCE-45DCB08EB34E
-    IDComponent:
-      id: 3EC28924-A130-42D6-ADCE-45DCB08EB34E
-    TagComponent:
-      tag: body
-    HierarchyComponent:
-      first: BE53064B-AEFF-441A-8F71-D75D53D24EE5
-      prev: F86F63FB-ACF2-4257-A351-7FD4E8C6AFD1
-      parent: 41D79406-B76B-46CC-8F6E-1264828E7872
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [7.54979013e-08, 0, 0, 1]
-      scale: [1, 1, 1]
-  - Entity: BE53064B-AEFF-441A-8F71-D75D53D24EE5
-    IDComponent:
-      id: BE53064B-AEFF-441A-8F71-D75D53D24EE5
-    TagComponent:
-      tag: body mesh
-    HierarchyComponent:
-      parent: 3EC28924-A130-42D6-ADCE-45DCB08EB34E
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [7.54979013e-08, 0, 0, 1]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 7F555714-27E0-4AB5-B950-3BD20ED6E914
-      fileId: d3d9446802a44259755d38e6d163e820
-    MaterialComponent:
-      guid: 91C139D4-E01C-4A48-8A30-043D54BCD716
-      isEmbedded: false
   - Entity: E79B9FA6-F724-4F3F-A888-4AB724620D8B
     IDComponent:
       id: E79B9FA6-F724-4F3F-A888-4AB724620D8B
     TagComponent:
       tag: cube
     HierarchyComponent:
-      prev: B8AB4704-3DCD-4A02-B024-C14A65BFD0AB
+      prev: 97FBCDB1-76E0-478D-849F-F5E3DADEB457
       next: 2BD29A8C-E68E-41AA-94D5-541A903086DD
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [1.31666636, 0.643333375, 0]
+      translation: [1.39999962, 0.656666696, 0]
       rotation: [7.54979013e-08, 0, 0, 1]
       scale: [0.600000024, 0.600000024, 0.600000024]
     MeshComponent:

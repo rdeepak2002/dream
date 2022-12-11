@@ -44,6 +44,7 @@ namespace Dream {
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
         this->preRender(viewportWidth, viewportHeight, fullscreen);
 
+        glEnable(GL_BLEND);
         glEnable(GL_DEPTH_TEST);
 
         auto sceneCamera = Project::getScene()->getSceneCamera();

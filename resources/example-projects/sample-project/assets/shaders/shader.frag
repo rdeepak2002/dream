@@ -8,6 +8,8 @@ uniform sampler2D texture_diffuse1;
 
 void main()
 {
-    // linearly interpolate between both textures (80% container, 20% awesomeface)
-    FragColor = texture(texture_diffuse1, TexCoord);
+    vec4 texColor = texture(texture_diffuse1, TexCoord);
+    if(texColor.a < 0.1)
+        discard;
+    FragColor = texColor;
 }
