@@ -175,9 +175,10 @@ namespace Dream {
                                                         "scale", &Component::TransformComponent::scale,
                                                         "left", &Component::TransformComponent::left,
                                                         "front", &Component::TransformComponent::front,
-                                                        "up", &Component::TransformComponent::up);
-
-        // HOW TO ADD FUNCTION: "right", sol::as_function(&DeepsEngine::Component::Transform::right)
+                                                        "up", &Component::TransformComponent::up,
+                                                        "setRotation", &Component::TransformComponent::setRotation,
+                                                        "getEulerAngleRotation", &Component::TransformComponent::getEulerAngleRotation
+        );
 
         lua.end();
     }

@@ -84,6 +84,8 @@ namespace Dream::Component {
         glm::mat4 getTransform(Entity &curEntity);
         explicit TransformComponent();
         TransformComponent(glm::vec3 translation, glm::quat rotation, glm::vec3 scale);
+        void setRotation(glm::vec3 eulerAngles);
+        glm::vec3 getEulerAngleRotation();
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
     };

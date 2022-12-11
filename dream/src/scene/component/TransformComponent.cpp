@@ -59,4 +59,12 @@ namespace Dream::Component {
             entity.addComponent<TransformComponent>(translation, rotation, scale);
         }
     }
+
+    void TransformComponent::setRotation(glm::vec3 eulerAngles) {
+        this->rotation = glm::quat(eulerAngles);
+    }
+
+    glm::vec3 TransformComponent::getEulerAngleRotation() {
+        return glm::eulerAngles(this->rotation);
+    }
 }

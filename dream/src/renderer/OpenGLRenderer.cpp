@@ -71,22 +71,25 @@ namespace Dream {
             // update camera direction TODO: move this?
             glm::vec3 direction;
             glm::vec3 cameraEulerAngles = glm::eulerAngles(sceneCamera.getComponent<Component::TransformComponent>().rotation);
-            auto yaw = cameraEulerAngles.x;
-            auto pitch = cameraEulerAngles.y;
+            auto yaw = glm::degrees(cameraEulerAngles.x);
+            auto pitch = glm::degrees(cameraEulerAngles.y);
             if(pitch > 89.0f) {
                 pitch = 89.0f;
             }
             if(pitch < -89.0f) {
                 pitch = -89.0f;
             }
-            auto roll = cameraEulerAngles.z;
-            direction.x = cos(yaw) * cos(pitch);
-            direction.y = sin(pitch);
-            direction.z = sin(yaw) * cos(pitch);
+            auto roll = glm::degrees(cameraEulerAngles.z);
+            direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+            direction.y = sin(glm::radians(pitch));
+            direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
             cameraFront = glm::normalize(direction);
 
             // update camera front (based off yaw and pitch)
             sceneCamera.getComponent<Component::TransformComponent>().front = cameraFront;
+
+            // update camera left (based off front and up)
+            sceneCamera.getComponent<Component::TransformComponent>().left = glm::cross(cameraUp, cameraFront);
 
             projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
             // retrieve the matrix uniform locations
