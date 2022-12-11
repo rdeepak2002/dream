@@ -12,6 +12,7 @@
 #include "dream/scene/component/Component.h"
 #include "dream/renderer/OpenGLMesh.h"
 #include "dream/util/Logger.h"
+#include "dream/util/MathUtils.h"
 
 namespace Dream {
     OpenGLRenderer::OpenGLRenderer() : Renderer() {
@@ -56,7 +57,14 @@ namespace Dream {
             shader->setInt("texture_diffuse1", 0);
 
             // create transformations
-            glm::mat4 view = glm::mat4(1.0f);
+            glm::mat4 cameraTransformMatrix = sceneCamera.getComponent<Component::TransformComponent>().getTransform(sceneCamera);
+            glm::vec3 cameraPos;
+            glm::quat cameraRot;
+            glm::vec3 cameraScale;
+            MathUtils::decomposeMatrix(cameraTransformMatrix, cameraPos, cameraRot, cameraScale);
+            glm::vec3 cameraFront = sceneCamera.getComponent<Component::TransformComponent>().front;
+            glm::vec3 cameraUp = sceneCamera.getComponent<Component::TransformComponent>().up;
+            glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
             glm::mat4 projection = glm::mat4(1.0f);
             view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
             projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
