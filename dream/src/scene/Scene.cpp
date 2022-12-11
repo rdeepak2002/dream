@@ -110,4 +110,22 @@ namespace Dream {
         }
         return {};
     }
+
+    Entity Scene::getSceneCamera() {
+        auto entities = getEntitiesWithComponents<Component::SceneCameraComponent>();
+        for(auto entityHandle : entities) {
+            Entity entity = {entityHandle, this};
+            return entity;
+        }
+        return {};
+    }
+
+    Entity Scene::getMainCamera() {
+        auto entities = getEntitiesWithComponents<Component::CameraComponent>();
+        for(auto entityHandle : entities) {
+            Entity entity = {entityHandle, this};
+            return entity;
+        }
+        return {};
+    }
 }

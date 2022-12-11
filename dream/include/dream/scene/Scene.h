@@ -26,6 +26,8 @@ namespace Dream {
             return entityRegistry.view<Components ...>();
         }
         Entity getRootEntity();
+        Entity getSceneCamera();
+        Entity getMainCamera();
         Entity getEntityByID(const std::string& id);
         Entity getEntityByInternalID(int internalID);
         void removeEntity(Entity &entity);
