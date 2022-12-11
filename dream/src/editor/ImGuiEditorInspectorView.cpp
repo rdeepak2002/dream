@@ -283,18 +283,18 @@ namespace Dream {
                 if (!(component.meshType == Component::MeshComponent::FROM_FILE && !component.fileId.empty())) {
                     ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1));
                     if (ImGui::BeginCombo("##Change Mesh Type", dropdownPreview.c_str())) {
-                        bool changedSomething = false;
-                        if (!changedSomething && dropdownPreview != "File" && ImGui::Selectable("File")) {
+                        bool alreadyChangedMeshType = false;
+                        if (!alreadyChangedMeshType && dropdownPreview != "File" && ImGui::Selectable("File")) {
                             selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::FROM_FILE, selectedEntity);
-                            changedSomething = true;
+                            alreadyChangedMeshType = true;
                         }
-                        if (!changedSomething && dropdownPreview != "Sphere" && ImGui::Selectable("Sphere")) {
+                        if (!alreadyChangedMeshType && dropdownPreview != "Sphere" && ImGui::Selectable("Sphere")) {
                             selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::PRIMITIVE_SPHERE, selectedEntity);
-                            changedSomething = true;
+                            alreadyChangedMeshType = true;
                         }
-                        if (!changedSomething && dropdownPreview != "Cube" && ImGui::Selectable("Cube")) {
+                        if (!alreadyChangedMeshType && dropdownPreview != "Cube" && ImGui::Selectable("Cube")) {
                             selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::PRIMITIVE_CUBE, selectedEntity);
-                            changedSomething = true;
+                            alreadyChangedMeshType = true;
                         }
                         ImGui::EndCombo();
                     }
