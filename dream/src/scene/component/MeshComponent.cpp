@@ -10,6 +10,7 @@
 #include "dream/renderer/OpenGLSphereMesh.h"
 #include "dream/project/Project.h"
 #include "dream/util/Logger.h"
+#include "dream/util/SceneUtils.h"
 
 namespace Dream::Component {
     MeshComponent::MeshComponent(std::string guid, std::string fileID) {
@@ -99,5 +100,39 @@ namespace Dream::Component {
                 Logger::fatal("Invalid mesh scene data");
             }
         }
+    }
+
+    void MeshComponent::changeMeshType(MeshComponent::MeshType newMeshType, Entity entity) {
+        // remove child meshes
+        if (!guid.empty() && meshType == FROM_FILE) {
+            // TODO: remove mesh references (call below modifies other entities for some reason)
+//            SceneUtils::removeMeshReference(entity, guid, true);
+            std::map<std::string, float> primitiveMeshData;
+            entity.addComponent<MeshComponent>(PRIMITIVE_CUBE, primitiveMeshData);
+        }
+
+        // reset skeleton
+        this->m_BoneInfoMap.clear();
+        this->needsToLoadBones = true;
+
+        // change mesh
+        if (newMeshType == PRIMITIVE_CUBE) {
+            this->mesh = new OpenGLCubeMesh();
+            this->guid = "";
+            this->fileId = "";
+        } else if (newMeshType == PRIMITIVE_SPHERE) {
+            this->mesh = new OpenGLSphereMesh();
+            this->guid = "";
+            this->fileId = "";
+        } else if (newMeshType == FROM_FILE) {
+            // TODO: handle freeing of memory (but note other meshes share this memory)
+            this->mesh = nullptr;
+            this->guid = "";
+            this->fileId = "";
+        } else {
+            Logger::fatal("Unknown new mesh type");
+        }
+
+        this->meshType = newMeshType;
     }
 }

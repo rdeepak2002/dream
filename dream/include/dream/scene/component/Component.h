@@ -121,6 +121,7 @@ namespace Dream::Component {
         MeshComponent(MeshType meshType, std::map<std::string, float> primitiveMeshData);
         MeshComponent(std::string guid, std::map<std::string, BoneInfo> boneMap);
         void loadMesh();
+        void changeMeshType(MeshType newMeshType, Entity entity);
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
     };

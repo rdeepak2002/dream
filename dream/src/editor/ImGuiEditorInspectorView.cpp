@@ -250,20 +250,37 @@ namespace Dream {
             ImGui::PopStyleColor();
 
             if (treeNodeOpen) {
+                // dropdown to allow user to change mesh type
+                std::string dropdownPreview;
+
                 if (component.meshType == Component::MeshComponent::MeshType::FROM_FILE) {
-                    ImGui::Text("Type");
-                    ImGui::SameLine();
-                    ImGui::Text("%s", "From file");
+                    dropdownPreview = "File";
                 } else if (component.meshType == Component::MeshComponent::MeshType::PRIMITIVE_SPHERE) {
-                    ImGui::Text("Type");
-                    ImGui::SameLine();
-                    ImGui::Text("%s", "Sphere");
+                    dropdownPreview = "Sphere";
                 } else if (component.meshType == Component::MeshComponent::MeshType::PRIMITIVE_CUBE) {
-                    ImGui::Text("Type");
-                    ImGui::SameLine();
-                    ImGui::Text("%s", "Cube");
+                    dropdownPreview = "Cube";
                 }
 
+                ImGui::Text("Type");
+                ImGui::SameLine();
+                if (ImGui::BeginCombo("##Change Mesh Type", dropdownPreview.c_str())) {
+                    bool changedSomething = false;
+                    if (!changedSomething && dropdownPreview != "File" && ImGui::Selectable("File")) {
+                        selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::FROM_FILE, selectedEntity);
+                        changedSomething = true;
+                    }
+                    if (!changedSomething && dropdownPreview != "Sphere" && ImGui::Selectable("Sphere")) {
+                        selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::PRIMITIVE_SPHERE, selectedEntity);
+                        changedSomething = true;
+                    }
+                    if (!changedSomething && dropdownPreview != "Cube" && ImGui::Selectable("Cube")) {
+                        selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::PRIMITIVE_CUBE, selectedEntity);
+                        changedSomething = true;
+                    }
+                    ImGui::EndCombo();
+                }
+
+                // allow user to select mesh file
                 if (component.meshType == Component::MeshComponent::MeshType::FROM_FILE) {
                     std::string meshPath = shorten(Project::getResourceManager()->getFilePathFromGUID(component.guid));
                     ImGui::Text(canChangeMesh ? "Path" : "Model path");
