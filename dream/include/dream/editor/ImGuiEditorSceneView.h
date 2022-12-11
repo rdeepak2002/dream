@@ -16,6 +16,7 @@ namespace Dream {
         void renderSceneViewEntity(Entity &entity);
         void setInspectorView(ImGuiEditorInspectorView* inspectorView);
     private:
+        bool justSelectedEntity;
         ImGuiEditorInspectorView* inspectorView;
     };
 }

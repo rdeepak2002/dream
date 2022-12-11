@@ -13,9 +13,11 @@
 namespace Dream {
     ImGuiEditorSceneView::ImGuiEditorSceneView() {
         inspectorView = nullptr;
+        justSelectedEntity = false;
     }
 
     void ImGuiEditorSceneView::update() {
+        justSelectedEntity = false;
         ImGuiWindowClass scene_window_class;
         scene_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
         ImGui::SetNextWindowClass(&scene_window_class);
@@ -30,6 +32,17 @@ namespace Dream {
                 Project::getScene()->createEntity();
             }
             ImGui::EndPopup();
+        }
+        ImVec2 vMin = ImGui::GetWindowContentRegionMin();
+        ImVec2 vMax = ImGui::GetWindowContentRegionMax();
+
+        vMin.x += ImGui::GetWindowPos().x;
+        vMin.y += ImGui::GetWindowPos().y;
+        vMax.x += ImGui::GetWindowPos().x;
+        vMax.y += ImGui::GetWindowPos().y;
+
+        if (!justSelectedEntity && ImGui::IsMouseHoveringRect(vMin, vMax) && ImGui::IsMouseClicked(0)) {
+            inspectorView->unselectEntity();
         }
         ImGui::End();
     }
@@ -50,6 +63,7 @@ namespace Dream {
         if (ImGui::IsItemClicked()) {
             if (inspectorView) {
                 inspectorView->selectEntity(entity);
+                justSelectedEntity = true;
             }
         }
         if (ImGui::BeginDragDropTarget()) {

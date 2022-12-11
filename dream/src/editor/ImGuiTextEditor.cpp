@@ -3,6 +3,7 @@
 //
 
 #include "dream/editor/ImGuiTextEditor.h"
+#include "imgui_internal.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -11,7 +12,7 @@ namespace Dream {
     ImGuiTextEditor::ImGuiTextEditor() {
         this->textEditor = new TextEditor();
         this->visible = false;
-        this->shouldSetupPositionAndSize = true;
+        this->shouldSetupPositionAndSize = false;
         this->isFullscreen = false;
         this->isDarkMode = false;
     }
@@ -21,7 +22,7 @@ namespace Dream {
     }
 
     void ImGuiTextEditor::open(const std::string& filepath) {
-        shouldSetupPositionAndSize = true;
+        shouldSetupPositionAndSize = false;
         path = std::filesystem::path(filepath);
         if (path.extension() == ".lua") {
             textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
@@ -74,7 +75,6 @@ namespace Dream {
         }
 
         if (visible) {
-            ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(500, 500));
             auto viewport = ImGui::GetMainViewport();
             if (isFullscreen) {
                 ImGui::SetNextWindowPos(ImVec2(0, 0));
@@ -87,7 +87,10 @@ namespace Dream {
                 shouldSetupPositionAndSize = false;
             }
 
-            ImGui::Begin(filename.c_str(), nullptr, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+            ImGuiWindowClass editor_window_class;
+            editor_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
+            ImGui::SetNextWindowClass(&editor_window_class);
+            ImGui::Begin(std::string(filename + " ###File Editor").c_str(), nullptr, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
             if (ImGui::BeginMenuBar()) {
                 if (ImGui::BeginMenu("File")) {
@@ -126,7 +129,7 @@ namespace Dream {
             textEditor->Render("TextEditor");
 
             ImGui::End();
-            ImGui::PopStyleVar(1);
+//            ImGui::PopStyleVar(1);
         }
 
         justLoaded = false;

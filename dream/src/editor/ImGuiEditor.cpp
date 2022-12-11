@@ -164,7 +164,7 @@ namespace Dream {
         ImGui::PopStyleVar(2);
         ImGuiIO& io = ImGui::GetIO();
         if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
-            ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+            ImGuiID dockspace_id = ImGui::GetID("Editor");
             ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 
             static auto first_time = true;
@@ -180,6 +180,7 @@ namespace Dream {
                 auto dock_id_left = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Left, 0.25f, nullptr, &dockspace_id);
 
                 ImGui::DockBuilderDockWindow("Renderer", dockspace_id);
+                ImGui::DockBuilderDockWindow("###File Editor", dockspace_id);
                 ImGui::DockBuilderDockWindow("Inspector", dock_id_right);
                 ImGui::DockBuilderDockWindow("Console", dock_id_down);
                 ImGui::DockBuilderDockWindow("Project", dock_id_down);

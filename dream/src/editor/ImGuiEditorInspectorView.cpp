@@ -32,24 +32,26 @@ namespace Dream {
     }
 
     void ImGuiEditorInspectorView::update() {
-        ImGuiWindowClass inspector_window_class;
-        inspector_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
-        ImGui::SetNextWindowClass(&inspector_window_class);
-        ImGui::Begin("Inspector");
         if (selectedEntity) {
-            renderTagComponent();
-            renderTransformComponent();
-            renderMeshComponent();
-            renderMaterialComponent();
-            renderLuaScriptComponent();
-            renderAnimatorComponent();
-            renderBoneComponent();
-            renderSceneCameraComponent();
-            renderCameraComponent();
-            renderAddComponent();
-            renderRemoveComponent();
+            ImGuiWindowClass inspector_window_class;
+            inspector_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
+            ImGui::SetNextWindowClass(&inspector_window_class);
+            ImGui::Begin("Inspector");
+            if (selectedEntity) {
+                renderTagComponent();
+                renderTransformComponent();
+                renderMeshComponent();
+                renderMaterialComponent();
+                renderLuaScriptComponent();
+                renderAnimatorComponent();
+                renderBoneComponent();
+                renderSceneCameraComponent();
+                renderCameraComponent();
+                renderAddComponent();
+                renderRemoveComponent();
+            }
+            ImGui::End();
         }
-        ImGui::End();
     }
 
     void ImGuiEditorInspectorView::addComponent(std::string componentID) {
@@ -501,5 +503,9 @@ namespace Dream {
 
     Entity ImGuiEditorInspectorView::getSelectedEntity() {
         return selectedEntity;
+    }
+
+    void ImGuiEditorInspectorView::unselectEntity() {
+        this->selectedEntity = Entity();
     }
 }
