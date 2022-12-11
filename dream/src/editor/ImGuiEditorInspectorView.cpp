@@ -65,6 +65,7 @@ namespace Dream {
                 selectedEntity.addComponent<Component::AnimatorComponent>();
             } else if (componentID == Component::SceneCameraComponent::componentName) {
                 selectedEntity.addComponent<Component::SceneCameraComponent>(45.0f);
+                selectedEntity.getComponent<Component::TransformComponent>().rotation = {0, 0, -0.707, 0.707};
             } else if (componentID == Component::CameraComponent::componentName) {
                 selectedEntity.addComponent<Component::CameraComponent>(45.0f);
             } else {

@@ -56,7 +56,7 @@ namespace Dream {
             shader->use();
             shader->setInt("texture_diffuse1", 0);
 
-            // create transformations
+            // get transformations
             glm::mat4 cameraTransformMatrix = sceneCamera.getComponent<Component::TransformComponent>().getTransform(sceneCamera);
             glm::vec3 cameraPos;
             glm::quat cameraRot;
@@ -66,7 +66,27 @@ namespace Dream {
             glm::vec3 cameraUp = sceneCamera.getComponent<Component::TransformComponent>().up;
             glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
             glm::mat4 projection = glm::mat4(1.0f);
-            view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
+            // update camera direction TODO: move this?
+            glm::vec3 direction;
+            glm::vec3 cameraEulerAngles = glm::eulerAngles(sceneCamera.getComponent<Component::TransformComponent>().rotation);
+            auto yaw = cameraEulerAngles.x;
+            auto pitch = cameraEulerAngles.y;
+            if(pitch > 89.0f) {
+                pitch = 89.0f;
+            }
+            if(pitch < -89.0f) {
+                pitch = -89.0f;
+            }
+            auto roll = cameraEulerAngles.z;
+            direction.x = cos(yaw) * cos(pitch);
+            direction.y = sin(pitch);
+            direction.z = sin(yaw) * cos(pitch);
+            cameraFront = glm::normalize(direction);
+
+            // update camera front (based off yaw and pitch)
+            sceneCamera.getComponent<Component::TransformComponent>().front = cameraFront;
+
             projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
             // retrieve the matrix uniform locations
             int modelLoc = glGetUniformLocation(shader->ID, "model");
