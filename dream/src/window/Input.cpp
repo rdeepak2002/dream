@@ -32,4 +32,17 @@ namespace Dream {
     void Input::setMouseMovement(double x, double y) {
         Input::getInstance().mouseMovement = {x, y};
     }
+
+    glm::vec2 Input::getMouseScroll() {
+        return Input::getInstance().mouseScroll;
+    }
+
+    void Input::setMouseScroll(double x, double y) {
+        Input::getInstance().mouseScroll = {x, y};
+    }
+
+    void Input::resetMouseDynamicState() {
+        Input::setMouseMovement(0, 0);
+        Input::setMouseScroll(0, 0);
+    }
 }

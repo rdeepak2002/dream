@@ -5,6 +5,7 @@
 #include "dream/scene/Scene.h"
 #include "dream/scene/component/Component.h"
 #include "dream/scene/Entity.h"
+#include "dream/window/Input.h"
 
 namespace Dream {
     Scene::Scene() {
@@ -51,6 +52,7 @@ namespace Dream {
     void Scene::fixedUpdate(float dt) {
         animatorComponentSystem->update(dt);
         luaScriptComponentSystem->update(dt);
+        Input::resetMouseDynamicState();
     }
 
     Entity Scene::getRootEntity() {

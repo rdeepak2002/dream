@@ -3139,6 +3139,42 @@ const TextEditor::LanguageDefinition& TextEditor::LanguageDefinition::Lua()
 
         {
             Identifier id;
+            id.mDeclaration = "Check if button is pressed down";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("getButtonDown"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "Vec2 of mouse position";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("getMousePosition"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "Vec2 of mouse movement";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("getMouseMovement"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "Vec2 of mouse scroll";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("getMouseScroll"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "Enum for input buttons";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("Key"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "Class for checking button input states";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("Input"), id));
+        }
+
+        {
+            Identifier id;
             id.mDeclaration = "Variables to be persisted during runtime for the script";
             langDef.mIdentifiers.insert(std::make_pair(std::string("self"), id));
         }
@@ -3183,6 +3219,18 @@ const TextEditor::LanguageDefinition& TextEditor::LanguageDefinition::Lua()
             Identifier id;
             id.mDeclaration = "x component of vector";
             langDef.mIdentifiers.insert(std::make_pair(std::string("x"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "y component of vector";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("y"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "z component of vector";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("z"), id));
         }
 
 		langDef.mTokenRegexStrings.push_back(std::make_pair<std::string, PaletteIndex>("L?\\\"(\\\\.|[^\\\"])*\\\"", PaletteIndex::String));

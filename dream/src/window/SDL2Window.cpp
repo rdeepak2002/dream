@@ -102,6 +102,27 @@ namespace Dream {
                         Input::setButtonDown(keyCode, state);
                         break;
                 }
+            } else if (Event.type == SDL_MOUSEBUTTONDOWN) {
+                bool state = true;
+                if (Event.button.button == SDL_BUTTON_LEFT) {
+                    Input::setButtonDown(Key::LeftMouse, state);
+                }
+                if (Event.button.button == SDL_BUTTON_RIGHT) {
+                    Input::setButtonDown(Key::RightMouse, state);
+                }
+            }  else if (Event.type == SDL_MOUSEBUTTONUP) {
+                bool state = false;
+                if (Event.button.button == SDL_BUTTON_LEFT) {
+                    Input::setButtonDown(Key::LeftMouse, state);
+                }
+                if (Event.button.button == SDL_BUTTON_RIGHT) {
+                    Input::setButtonDown(Key::RightMouse, state);
+                }
+            } else if (Event.type == SDL_MOUSEMOTION) {
+                Input::setMouseMovement(Event.motion.xrel, Event.motion.yrel);
+                Input::setMousePosition(Event.motion.x, Event.motion.y);
+            } else if (Event.type == SDL_MOUSEWHEEL) {
+                Input::setMouseScroll(Event.wheel.x, Event.wheel.y);
             } else if (Event.type == SDL_WINDOWEVENT) {
                 switch (Event.window.event) {
                     case SDL_WINDOWEVENT_RESIZED:

@@ -79,7 +79,8 @@ namespace Dream::Component {
         glm::vec3 scale = {1, 1, 1};
         // runtime defined variables for camera
         glm::vec3 up = {0.0f, 1.0f, 0.0f};
-        glm::vec3 front = glm::vec3(0.0f, 0.0f, -1.0f);
+        glm::vec3 front = {0.0f, 0.0f, -1.0f};
+        glm::vec3 left = glm::cross(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
         glm::mat4 getTransform(Entity &curEntity);
         explicit TransformComponent();
         TransformComponent(glm::vec3 translation, glm::quat rotation, glm::vec3 scale);

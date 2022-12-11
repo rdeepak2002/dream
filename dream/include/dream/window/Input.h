@@ -26,11 +26,17 @@ namespace Dream {
 
         static glm::vec2 getMouseMovement();
         static void setMouseMovement(double x, double y);
+
+        static glm::vec2 getMouseScroll();
+        static void setMouseScroll(double x, double y);
+
+        static void resetMouseDynamicState();
     private:
         Input() {}
         std::unordered_map<int, bool> keyDownMap;
         glm::vec2 mousePosition;
         glm::vec2 mouseMovement;
+        glm::vec2 mouseScroll;
     public:
         Input(Input const&) = delete;
         void operator=(Input const&) = delete;

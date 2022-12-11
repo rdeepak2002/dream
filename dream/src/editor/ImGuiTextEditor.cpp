@@ -13,7 +13,7 @@ namespace Dream {
         this->visible = false;
         this->shouldSetupPositionAndSize = true;
         this->isFullscreen = false;
-        this->isDarkMode = true;
+        this->isDarkMode = false;
     }
 
     ImGuiTextEditor::~ImGuiTextEditor() {
@@ -87,7 +87,7 @@ namespace Dream {
                 shouldSetupPositionAndSize = false;
             }
 
-            ImGui::Begin(filename.c_str(), nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+            ImGui::Begin(filename.c_str(), nullptr, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
             if (ImGui::BeginMenuBar()) {
                 if (ImGui::BeginMenu("File")) {
