@@ -74,7 +74,7 @@ namespace Dream::Component {
                     boneEntities[Bone->getBoneID()].getComponent<TransformComponent>().rotation = rotation;
                     boneEntities[Bone->getBoneID()].getComponent<TransformComponent>().scale = scale;
                 } else {
-                    std::cout << "Warning: Cannot find entity for bone " << Bone->getBoneName() << std::endl;
+                    Logger::warn("Cannot find entity for bone " + Bone->getBoneName());
                 }
             }
         }

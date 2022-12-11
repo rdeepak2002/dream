@@ -13,11 +13,11 @@
 namespace Dream {
     class Input {
     public:
-        static Input& getInstance()
-        {
+        static Input& getInstance() {
             static Input instance;
             return instance;
         }
+
         static bool getButtonDown(int keyCode);
         static void setButtonDown(int keyCode, bool state);
 

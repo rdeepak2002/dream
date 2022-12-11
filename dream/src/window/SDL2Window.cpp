@@ -5,6 +5,8 @@
 #include "dream/window/SDL2Window.h"
 
 #include <iostream>
+#include "dream/window/Input.h"
+#include "dream/window/KeyCodes.h"
 
 #ifdef BORDERLESS
 static SDL_HitTestResult SDLCALL hitTest(SDL_Window *window, const SDL_Point *pt, void *data) {
@@ -47,18 +49,54 @@ namespace Dream {
         while (SDL_PollEvent(&Event))
         {
             this->pollEditorEvents(Event);
-            if (Event.type == SDL_KEYDOWN)
-            {
-                switch (Event.key.keysym.sym)
-                {
-                    case SDLK_ESCAPE:
-                        this->shouldCloseFlag = true;
+            if (Event.type == SDL_KEYDOWN) {
+                bool state = true;
+                switch (Event.key.keysym.sym) {
+                    case SDLK_DOWN:
+                        Input::setButtonDown(Key::Down, state);
+                        break;
+                    case SDLK_UP:
+                        Input::setButtonDown(Key::Up, state);
+                        break;
+                    case SDLK_LEFT:
+                        Input::setButtonDown(Key::Left, state);
+                        break;
+                    case SDLK_RIGHT:
+                        Input::setButtonDown(Key::Right, state);
+                        break;
+                    case SDLK_SPACE:
+                        Input::setButtonDown(Key::Space, state);
                         break;
                     default:
+                        int keyCode = (int) Event.key.keysym.sym;
+                        Input::setButtonDown(keyCode, state);
                         break;
                 }
             }
-            else if (Event.type == SDL_WINDOWEVENT) {
+            else if (Event.type == SDL_KEYUP) {
+                bool state = false;
+                switch (Event.key.keysym.sym) {
+                    case SDLK_DOWN:
+                        Input::setButtonDown(Key::Down, state);
+                        break;
+                    case SDLK_UP:
+                        Input::setButtonDown(Key::Up, state);
+                        break;
+                    case SDLK_LEFT:
+                        Input::setButtonDown(Key::Left, state);
+                        break;
+                    case SDLK_RIGHT:
+                        Input::setButtonDown(Key::Right, state);
+                        break;
+                    case SDLK_SPACE:
+                        Input::setButtonDown(Key::Space, state);
+                        break;
+                    default:
+                        int keyCode = (int) Event.key.keysym.sym;
+                        Input::setButtonDown(keyCode, state);
+                        break;
+                }
+            } else if (Event.type == SDL_WINDOWEVENT) {
                 switch (Event.window.event) {
                     case SDL_WINDOWEVENT_RESIZED:
                         this->windowWidth = Event.window.data1;
@@ -66,8 +104,7 @@ namespace Dream {
                         break;
                 }
             }
-            else if (Event.type == SDL_QUIT)
-            {
+            else if (Event.type == SDL_QUIT) {
                 this->shouldCloseFlag = true;
             }
         }

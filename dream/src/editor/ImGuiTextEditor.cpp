@@ -24,7 +24,6 @@ namespace Dream {
         shouldSetupPositionAndSize = true;
         path = std::filesystem::path(filepath);
         if (path.extension() == ".lua") {
-            std::cout << "detected lua" << std::endl;
             textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
         } else if (path.extension() == ".vert" || path.extension() == ".frag") {
             textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::GLSL());

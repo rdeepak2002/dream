@@ -114,7 +114,7 @@ namespace Dream {
                         shader->setInt("texture_diffuse1", 0);
                     }
                 } else {
-                    std::cout << "WARNING: no texture loaded" << std::endl;
+                    Logger::warn("No texture loaded");
                 }
             } else {
                 texture->bind(0);
@@ -152,7 +152,7 @@ namespace Dream {
                         Logger::fatal("Mesh cannot be rendered in OpenGL");
                     }
                 } else if (entity.getComponent<Component::MeshComponent>().mesh && !entity.getComponent<Component::MeshComponent>().fileId.empty()) {
-                    std::cout << "WARNING: no mesh loaded" << std::endl;
+                    Logger::warn("No mesh loaded");
                 }
             }
         }
