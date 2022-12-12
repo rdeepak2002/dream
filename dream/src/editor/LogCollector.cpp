@@ -68,4 +68,8 @@ namespace Dream {
     std::vector<Log> LogCollector::getLogs() {
         return logs;
     }
+
+    void LogCollector::clearLogs() {
+        logs.clear();
+    }
 }

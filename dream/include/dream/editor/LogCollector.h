@@ -27,6 +27,7 @@ namespace Dream {
         void infoLogPublished(std::string text) override;
         void fatalLogPublished(std::string text) override;
         std::vector<Log> getLogs();
+        void clearLogs();
     };
 }
 

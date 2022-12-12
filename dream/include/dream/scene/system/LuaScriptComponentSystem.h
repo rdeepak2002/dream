@@ -6,6 +6,7 @@
 #define DREAM_LUASCRIPTCOMPONENTSYSTEM_H
 
 #include <sol/sol.hpp>
+#include <set>
 
 namespace Dream {
     class LuaScriptComponentSystem {
@@ -15,6 +16,7 @@ namespace Dream {
         void update(float dt);
     private:
         sol::state lua;
+        std::set<std::string> errorPrintedForScript;
     };
 }
 

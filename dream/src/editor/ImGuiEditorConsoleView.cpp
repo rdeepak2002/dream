@@ -14,6 +14,12 @@ namespace Dream {
         console_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
         ImGui::SetNextWindowClass(&console_window_class);
         ImGui::Begin("Console");
+        if (ImGui::BeginPopupContextWindow()) {
+            if (ImGui::MenuItem("Clear")) {
+                logCollector->clearLogs();
+            }
+            ImGui::EndPopup();
+        }
         for (const auto& log : logCollector->getLogs()) {
             ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0, 1.0, 1.0, 1.0));
             std::string typeStr = "D";

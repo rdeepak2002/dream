@@ -193,6 +193,7 @@ namespace Dream {
         for(auto entityHandle : luaScriptEntities) {
             Entity entity = {entityHandle, Project::getScene()};
             auto& component = entity.getComponent<Component::LuaScriptComponent>();
+            std::string scriptGuid = component.guid;
             if (component.scriptPath.empty()) {
                 component.loadScriptPath();
             }
@@ -203,14 +204,27 @@ namespace Dream {
                     sol::protected_function scriptUpdateFunction = lua["update"];
                     sol::protected_function_result functionResult = scriptUpdateFunction(entity, dt);
                     if (!functionResult.valid()) {
-                        sol::error err = functionResult;
-                        std::string what = err.what();
-                        Logger::error("Lua function call error " + what);
+                        if (!errorPrintedForScript.count(scriptGuid)) {
+                            sol::error err = functionResult;
+                            std::string what = err.what();
+                            Logger::error("Lua function call error " + what);
+                            errorPrintedForScript.insert(scriptGuid);
+                            return;
+                        }
+                    } else {
+                        if (errorPrintedForScript.count(scriptGuid)) {
+                            Logger::debug("Fixed errors for script " + component.scriptPath);
+                            errorPrintedForScript.erase(scriptGuid);
+                        }
                     }
                 } else {
-                    sol::error err = scriptCompileResult;
-                    std::string what = err.what();
-                    Logger::error("Lua script parsing error " + what);
+                    if (!errorPrintedForScript.count(scriptGuid)) {
+                        sol::error err = scriptCompileResult;
+                        std::string what = err.what();
+                        Logger::error("Lua script parsing error " + what);
+                        errorPrintedForScript.insert(scriptGuid);
+                        return;
+                    }
                 }
             }
         }

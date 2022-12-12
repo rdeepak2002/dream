@@ -75,6 +75,7 @@ namespace Dream {
             return { rootEntities.front(), this };
         } else {
             Logger::fatal("More than one root entity");
+            return {};
         }
     }
 
