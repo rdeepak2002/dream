@@ -77,15 +77,9 @@ namespace Dream::Component {
         glm::quat rotation = {0, 0, 0, 1};
         inline static std::string k_scale = "scale";
         glm::vec3 scale = {1, 1, 1};
-        // runtime defined variables for camera
-        glm::vec3 up = {0.0f, 1.0f, 0.0f};
-        glm::vec3 front = {0.0f, 0.0f, -1.0f};
-        glm::vec3 left = glm::cross(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
         glm::mat4 getTransform(Entity &curEntity);
         explicit TransformComponent();
         TransformComponent(glm::vec3 translation, glm::quat rotation, glm::vec3 scale);
-        void setRotation(glm::vec3 eulerAngles);
-        glm::vec3 getEulerAngleRotation();
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
     };
@@ -205,9 +199,28 @@ namespace Dream::Component {
         inline static std::string componentName = "SceneCameraComponent";
         inline static std::string k_fov = "fov";
         float fov = 45.0f;
+        inline static std::string k_zNear = "zNear";
+        float zNear = 0.1f;
+        inline static std::string k_zFar = "zFar";
+        float zFar = 100.0f;
+        inline static std::string k_front = "front";
+        glm::vec3 front;
+        inline static std::string k_up = "up";
+        glm::vec3 up;
+        inline static std::string k_right = "right";
+        glm::vec3 right;
+        inline static std::string k_worldUp = "worldUp";
+        glm::vec3 worldUp;
+        inline static std::string k_yaw = "yaw";
+        float yaw;
+        inline static std::string k_pitch = "pitch";
+        float pitch;
         explicit SceneCameraComponent(float fov);
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
+        glm::mat4 getViewMatrix(Entity sceneCamera);
+        void processInput(Entity sceneCamera, float dt);
+        void updateCameraVectors();
     };
 }
 

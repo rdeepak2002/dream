@@ -57,51 +57,11 @@ namespace Dream {
             shader->use();
             shader->setInt("texture_diffuse1", 0);
 
-            // get transformations
-            glm::mat4 cameraTransformMatrix = sceneCamera.getComponent<Component::TransformComponent>().getTransform(sceneCamera);
-            glm::vec3 cameraPos;
-            glm::quat cameraRot;
-            glm::vec3 cameraScale;
-            MathUtils::decomposeMatrix(cameraTransformMatrix, cameraPos, cameraRot, cameraScale);
-            glm::vec3 cameraFront = sceneCamera.getComponent<Component::TransformComponent>().front;
-            glm::vec3 cameraUp = sceneCamera.getComponent<Component::TransformComponent>().up;
-            glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-            glm::mat4 projection = glm::mat4(1.0f);
-
-            // update camera direction TODO: move this?
-            glm::vec3 direction;
-            glm::vec3 cameraEulerAngles = glm::eulerAngles(sceneCamera.getComponent<Component::TransformComponent>().rotation);
-            auto yaw = glm::degrees(cameraEulerAngles.x);
-            auto pitch = glm::degrees(cameraEulerAngles.y);
-            if(pitch > 89.0f) {
-                pitch = 89.0f;
-            }
-            if(pitch < -89.0f) {
-                pitch = -89.0f;
-            }
-            auto roll = glm::degrees(cameraEulerAngles.z);
-            direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-            direction.y = sin(glm::radians(pitch));
-            direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-            cameraFront = glm::normalize(direction);
-
-            std::cout << "Camera front: " << cameraFront.x << ", " << cameraFront.y << ", " << cameraFront.z << std::endl;
-
-            // update camera front (based off yaw and pitch)
-            sceneCamera.getComponent<Component::TransformComponent>().front = cameraFront;
-
-            // update camera left (based off front and up)
-            sceneCamera.getComponent<Component::TransformComponent>().left = glm::cross(cameraUp, cameraFront);
-
-            projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
-            // retrieve the matrix uniform locations
-//            int modelLoc = glGetUniformLocation(shader->ID, "model");
-//            int viewLoc  = glGetUniformLocation(shader->ID, "view");
-            // pass them to the shaders (3 different ways)
-//            glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
-            shader->setMat4("view", view);
-            // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+            glm::mat4 projection = glm::perspective(glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov), (float) viewportWidth / (float) viewportHeight, sceneCamera.getComponent<Component::SceneCameraComponent>().zNear, sceneCamera.getComponent<Component::SceneCameraComponent>().zFar);
             shader->setMat4("projection", projection);
+
+            glm::mat4 view = sceneCamera.getComponent<Component::SceneCameraComponent>().getViewMatrix(sceneCamera);
+            shader->setMat4("view", view);
 
             // update all animator entities
             // TODO: IMPORTANT NOTE - THIS WILL USE THE SAME ANIMATOR FOR *ALL* MESHES, WE NEED TO SOMEHOW SEPARATE THEM
@@ -160,7 +120,6 @@ namespace Dream {
 
                 // get transform of entity
                 glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
-//                glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
                 shader->setMat4("model", model);
 
                 if (entity.hasComponent<Component::MeshComponent>()) {

@@ -52,6 +52,11 @@ namespace Dream {
     void Scene::fixedUpdate(float dt) {
         animatorComponentSystem->update(dt);
         luaScriptComponentSystem->update(dt);
+        // TODO: move to component system
+        Entity sceneCamera = getSceneCamera();
+        if (sceneCamera) {
+            sceneCamera.getComponent<Component::SceneCameraComponent>().processInput(sceneCamera, dt);
+        }
         Input::resetMouseDynamicState();
     }
 

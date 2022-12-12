@@ -172,12 +172,7 @@ namespace Dream {
         lua.new_usertype<Component::TransformComponent>("TransformComponent",
                                                         "translation", &Component::TransformComponent::translation,
                                                         "rotation", &Component::TransformComponent::rotation,
-                                                        "scale", &Component::TransformComponent::scale,
-                                                        "left", &Component::TransformComponent::left,
-                                                        "front", &Component::TransformComponent::front,
-                                                        "up", &Component::TransformComponent::up,
-                                                        "setRotation", &Component::TransformComponent::setRotation,
-                                                        "getEulerAngleRotation", &Component::TransformComponent::getEulerAngleRotation
+                                                        "scale", &Component::TransformComponent::scale
         );
 
         lua.end();
