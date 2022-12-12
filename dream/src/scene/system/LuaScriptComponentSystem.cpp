@@ -166,13 +166,18 @@ namespace Dream {
         lua.new_usertype<Entity>("Entity",
                                  "new", sol::no_constructor,
                                  "getID", &Dream::Entity::getID,
-                                 "getTransform", &Dream::Entity::getComponent<Dream::Component::TransformComponent>
+                                 "getTransform", &Dream::Entity::getComponent<Dream::Component::TransformComponent>,
+                                 "getCamera", &Dream::Entity::getComponent<Dream::Component::CameraComponent>
         );
 
         lua.new_usertype<Component::TransformComponent>("TransformComponent",
                                                         "translation", &Component::TransformComponent::translation,
                                                         "rotation", &Component::TransformComponent::rotation,
                                                         "scale", &Component::TransformComponent::scale
+        );
+
+        lua.new_usertype<Component::CameraComponent>("CameraComponent",
+                                                     "lookAt", &Component::CameraComponent::lookAt
         );
 
         lua.end();
