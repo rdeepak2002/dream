@@ -97,6 +97,7 @@ namespace Dream {
                     if (ImGui::MenuItem("Save")) {
                         std::ofstream fout(path);
                         fout << textEditor->GetText().c_str();
+                        fout.close();
                         unsavedChanges = false;
                     }
                     if (ImGui::MenuItem("Close")) {

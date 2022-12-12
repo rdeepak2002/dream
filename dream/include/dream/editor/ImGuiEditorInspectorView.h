@@ -44,6 +44,7 @@ namespace Dream {
         // mesh component renderer variables
         ImGui::FileBrowser* meshSelectorBrowser;
         std::string oldMeshGUID;
+        ImGui::FileBrowser* luaScriptSelectorBrowser;
         ImGuiTextEditor* imGuiTextEditor;
         ImGuiEditorAnimatorGraph* animatorGraphEditor;
     };

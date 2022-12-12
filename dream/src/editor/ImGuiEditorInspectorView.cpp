@@ -17,10 +17,12 @@ namespace Dream {
     ImGuiEditorInspectorView::ImGuiEditorInspectorView() {
         selectedEntity = Entity();
         meshSelectorBrowser = nullptr;
+        luaScriptSelectorBrowser = nullptr;
     }
 
     ImGuiEditorInspectorView::~ImGuiEditorInspectorView() {
         delete meshSelectorBrowser;
+        delete luaScriptSelectorBrowser;
     }
 
     void ImGuiEditorInspectorView::setTextEditor(ImGuiTextEditor *imGuiTextEditor) {
@@ -361,6 +363,15 @@ namespace Dream {
 
     void ImGuiEditorInspectorView::renderLuaScriptComponent() {
         if (selectedEntity.hasComponent<Component::LuaScriptComponent>()) {
+            if (luaScriptSelectorBrowser) {
+                luaScriptSelectorBrowser->Display();
+                if (luaScriptSelectorBrowser->HasSelected()) {
+                    std::filesystem::path selectedFilePath = luaScriptSelectorBrowser->GetSelected();
+                    selectedEntity.getComponent<Component::LuaScriptComponent>().changeScript(selectedFilePath);
+                    luaScriptSelectorBrowser->ClearSelected();
+                }
+            }
+
             auto &component = selectedEntity.getComponent<Component::LuaScriptComponent>();
             bool treeNodeOpen = ImGui::TreeNodeEx("##Lua Script", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
 
@@ -377,7 +388,13 @@ namespace Dream {
 
             if (treeNodeOpen) {
                 if (component.guid.empty()) {
-                    ImGui::Text("TODO: allow user to select script");
+                    if (ImGui::Button("Select")) {
+                        delete luaScriptSelectorBrowser;
+                        luaScriptSelectorBrowser = new ImGui::FileBrowser();
+                        luaScriptSelectorBrowser->SetTitle("select script");
+                        luaScriptSelectorBrowser->SetPwd(Project::getPath());
+                        luaScriptSelectorBrowser->Open();
+                    }
                 } else {
                     std::string scriptPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
                     std::string shortScriptPath = shorten(scriptPath);

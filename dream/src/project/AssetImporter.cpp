@@ -59,4 +59,17 @@ namespace Dream {
 
         Project::recognizeResources();
     }
+
+    void AssetImporter::createMetaFile(std::filesystem::path path) {
+        std::string fileName = path.filename();
+        auto metaFilePath = std::filesystem::path(std::string(path.c_str()) + ".meta");
+        if (!std::filesystem::exists(metaFilePath)) {
+            YAML::Emitter out;
+            out << YAML::BeginMap;
+            out << YAML::Key << "guid" << YAML::Value << IDUtils::newGUID();
+            out << YAML::EndMap;
+            std::ofstream fout(metaFilePath);
+            fout << out.c_str();
+        }
+    }
 }

@@ -4,10 +4,13 @@
 
 #include "dream/editor/ImGuiEditorProjectView.h"
 #include "dream/project/Project.h"
-#include <imgui/imgui_internal.h>
-#include <imgui/imgui.h>
 #include "dream/renderer/OpenGLTexture.h"
 #include "dream/util/Logger.h"
+#include <imgui/imgui_internal.h>
+#include <imgui/imgui.h>
+#include <fstream>
+#include <sstream>
+#include <iostream>
 
 namespace Dream {
     ImGuiEditorProjectView::ImGuiEditorProjectView(ImGuiTextEditor* textEditor) {
@@ -37,6 +40,36 @@ namespace Dream {
         project_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
         ImGui::SetNextWindowClass(&project_window_class);
         ImGui::Begin("Project");
+
+        if (ImGui::BeginPopupContextWindow()) {
+            if (ImGui::MenuItem("New script")) {
+                auto filename = "script";
+                auto extension = ".lua";
+                auto path = Project::getPath().append("assets").append("scripts");
+                if (!exists(path)) {
+                    path = Project::getPath().append("assets");
+                }
+                if (!exists(path)) {
+                    Logger::fatal("Cannot find assets folder to save new script to");
+                }
+                // find a unique file path to save new script file to
+                int i = 0;
+                while(exists(std::filesystem::path(path).append(filename + std::to_string(i) + extension))) {
+                    i++;
+                }
+                path = path.append(filename + std::to_string(i) + extension);
+                // create blank lua script
+                std::ofstream fout(path);
+                fout << "function update(entity, dt)" << std::endl;
+                fout << std::endl;
+                fout << "end" << std::endl;
+                fout.close();
+                Project::getAssetImporter()->createMetaFile(path);
+                Project::recognizeResources();
+            }
+            ImGui::EndPopup();
+        }
+
         std::vector<std::string> pathSplit = split(currentPath.c_str(), std::filesystem::path::preferred_separator);
         int start_i = split(Project::getPath().c_str(), std::filesystem::path::preferred_separator).size() - 1;
         std::filesystem::path p = std::filesystem::path(Project::getPath()).parent_path();

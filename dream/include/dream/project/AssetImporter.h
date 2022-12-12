@@ -16,6 +16,7 @@ namespace Dream {
          * @param path
          */
         void importAsset(std::filesystem::path path);
+        void createMetaFile(std::filesystem::path path);
     private:
         void importAssetHelper(std::filesystem::path rootPath, std::filesystem::path relativePath);
     };
