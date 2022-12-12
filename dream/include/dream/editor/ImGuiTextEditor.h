@@ -31,6 +31,7 @@ namespace Dream {
         ImGui::FileBrowser* fileBrowser;
         std::string filename;
         std::filesystem::path path;
+        std::string fileGuid;
     };
 }
 

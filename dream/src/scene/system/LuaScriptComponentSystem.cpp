@@ -200,29 +200,34 @@ namespace Dream {
             if (!component.scriptPath.empty()) {
                 sol::protected_function_result scriptCompileResult = lua.safe_script_file(component.scriptPath, &sol::script_pass_on_error);
                 if (scriptCompileResult.valid()) {
+                    if (component.needToInitTable) {
+                        component.table = lua.create_table_with("value", "key");
+                        component.needToInitTable = false;
+                    }
                     lua["self"] = component.table;
                     sol::protected_function scriptUpdateFunction = lua["update"];
                     sol::protected_function_result functionResult = scriptUpdateFunction(entity, dt);
                     if (!functionResult.valid()) {
-                        if (!errorPrintedForScript.count(scriptGuid)) {
+                        if (!LuaScriptComponentSystem::errorPrintedForScript.count(scriptGuid)) {
                             sol::error err = functionResult;
                             std::string what = err.what();
                             Logger::error("Lua function call error " + what);
-                            errorPrintedForScript.insert(scriptGuid);
+                            LuaScriptComponentSystem::errorPrintedForScript.insert(scriptGuid);
                             return;
                         }
                     } else {
-                        if (errorPrintedForScript.count(scriptGuid)) {
-                            Logger::debug("Fixed errors for script " + component.scriptPath);
-                            errorPrintedForScript.erase(scriptGuid);
+                        if (LuaScriptComponentSystem::errorPrintedForScript.count(scriptGuid) || LuaScriptComponentSystem::modifiedScripts.count(scriptGuid)) {
+                            Logger::debug("Script has no errors " + component.scriptPath);
+                            LuaScriptComponentSystem::errorPrintedForScript.erase(scriptGuid);
+                            LuaScriptComponentSystem::modifiedScripts.erase(scriptGuid);
                         }
                     }
                 } else {
-                    if (!errorPrintedForScript.count(scriptGuid)) {
+                    if (!LuaScriptComponentSystem::errorPrintedForScript.count(scriptGuid)) {
                         sol::error err = scriptCompileResult;
                         std::string what = err.what();
                         Logger::error("Lua script parsing error " + what);
-                        errorPrintedForScript.insert(scriptGuid);
+                        LuaScriptComponentSystem::errorPrintedForScript.insert(scriptGuid);
                         return;
                     }
                 }

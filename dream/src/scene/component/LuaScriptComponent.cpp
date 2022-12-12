@@ -9,13 +9,21 @@
 #include "dream/util/IDUtils.h"
 
 namespace Dream::Component {
+    LuaScriptComponent::~LuaScriptComponent() {
+        if (table.valid()) {
+            table.abandon();
+        }
+    }
+
     LuaScriptComponent::LuaScriptComponent(std::string guid) {
         this->guid = std::move(guid);
+        this->needToInitTable = true;
     }
 
     void LuaScriptComponent::loadScriptPath() {
         if (!this->guid.empty()) {
             this->scriptPath = Project::getResourceManager()->getFilePathFromGUID(this->guid);
+            this->needToInitTable = true;
         }
     }
 
@@ -37,6 +45,10 @@ namespace Dream::Component {
 
     void LuaScriptComponent::changeScript(std::string newScriptPath) {
         this->guid = IDUtils::getGUIDForFile(std::move(newScriptPath));
+        if (table.valid()) {
+            table.abandon();
+        }
+        this->needToInitTable = true;
         this->loadScriptPath();
     }
 }

@@ -5,6 +5,8 @@
 #include "dream/editor/ImGuiTextEditor.h"
 #include "imgui_internal.h"
 #include "dream/util/Logger.h"
+#include "dream/util/IDUtils.h"
+#include "dream/scene/system/LuaScriptComponentSystem.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -25,6 +27,7 @@ namespace Dream {
     void ImGuiTextEditor::open(const std::string& filepath) {
         shouldSetupPositionAndSize = false;
         path = std::filesystem::path(filepath);
+        fileGuid = IDUtils::getGUIDForFile(path);
         if (path.extension() == ".lua") {
             textEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
         } else if (path.extension() == ".vert" || path.extension() == ".frag") {
@@ -100,6 +103,8 @@ namespace Dream {
                         fout << textEditor->GetText().c_str();
                         fout.close();
                         unsavedChanges = false;
+                        LuaScriptComponentSystem::errorPrintedForScript.erase(fileGuid);
+                        LuaScriptComponentSystem::modifiedScripts.insert(fileGuid);
                     }
                     if (ImGui::MenuItem("Close")) {
                         this->setVisibility(false);

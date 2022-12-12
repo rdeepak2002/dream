@@ -148,6 +148,8 @@ namespace Dream::Component {
         std::string scriptPath;
         // runtime 'self' variables for script
         sol::table table = {};
+        bool needToInitTable;
+        ~LuaScriptComponent();
         explicit LuaScriptComponent(std::string guid);
         void loadScriptPath();
         void changeScript(std::string newScriptPath);
