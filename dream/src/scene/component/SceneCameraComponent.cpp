@@ -63,7 +63,7 @@ namespace Dream::Component {
 
     SceneCameraComponent::SceneCameraComponent(float fov) {
         this->fov = fov;
-        worldUp = {0, 1.f, 0};
+        worldUp = {0, -1.f, 0};
         yaw = -90.f;
         pitch = 0.0f;
         updateCameraVectors();
@@ -89,7 +89,7 @@ namespace Dream::Component {
         }
         if (Input::getButtonDown(Key::RightMouse)) {
             float padding = 0.4;
-            yaw += mouseMovement.x * padding;
+            yaw -= mouseMovement.x * padding;
             pitch += mouseMovement.y * padding;
         }
         if (pitch > 89.9) {
@@ -98,6 +98,7 @@ namespace Dream::Component {
         if (pitch < -89.9) {
             pitch = -89.9;
         }
+        sceneCamera.getComponent<TransformComponent>().rotation = glm::quat(glm::vec3(yaw, pitch, 0));
         updateCameraVectors();
     }
 

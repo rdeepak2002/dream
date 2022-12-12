@@ -74,7 +74,7 @@ namespace Dream::Component {
         inline static std::string k_translation = "translation";
         glm::vec3 translation = {0, 0, 0};
         inline static std::string k_rotation = "rotation";
-        glm::quat rotation = {0, 0, 0, 1};
+        glm::quat rotation = {1, 0, 0, 0};
         inline static std::string k_scale = "scale";
         glm::vec3 scale = {1, 1, 1};
         glm::mat4 getTransform(Entity &curEntity);
