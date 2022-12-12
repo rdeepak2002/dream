@@ -48,8 +48,9 @@ namespace Dream {
         glEnable(GL_DEPTH_TEST);
 
         auto sceneCamera = Project::getScene()->getSceneCamera();
+        auto mainCamera = Project::getScene()->getMainCamera();
 
-        if (sceneCamera) {
+        if ((Project::isPlaying() && mainCamera) || (!Project::isPlaying() && sceneCamera)) {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -57,10 +58,20 @@ namespace Dream {
             shader->use();
             shader->setInt("texture_diffuse1", 0);
 
-            glm::mat4 projection = glm::perspective(glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov), (float) viewportWidth / (float) viewportHeight, sceneCamera.getComponent<Component::SceneCameraComponent>().zNear, sceneCamera.getComponent<Component::SceneCameraComponent>().zFar);
+            glm::mat4 projection;
+            if (Project::isPlaying()) {
+                projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov), (float) viewportWidth / (float) viewportHeight, mainCamera.getComponent<Component::CameraComponent>().zNear, mainCamera.getComponent<Component::CameraComponent>().zFar);
+            } else {
+                projection = glm::perspective(glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov), (float) viewportWidth / (float) viewportHeight, sceneCamera.getComponent<Component::SceneCameraComponent>().zNear, sceneCamera.getComponent<Component::SceneCameraComponent>().zFar);
+            }
             shader->setMat4("projection", projection);
 
-            glm::mat4 view = sceneCamera.getComponent<Component::SceneCameraComponent>().getViewMatrix(sceneCamera);
+            glm::mat4 view;
+            if (Project::isPlaying()) {
+                view = mainCamera.getComponent<Component::CameraComponent>().getViewMatrix(mainCamera);
+            } else {
+                view = sceneCamera.getComponent<Component::SceneCameraComponent>().getViewMatrix(sceneCamera);
+            }
             shader->setMat4("view", view);
 
             // update all animator entities

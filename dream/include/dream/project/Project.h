@@ -32,6 +32,8 @@ namespace Dream {
         static Dream::Scene* getScene();
         static void recognizeResources();
         static void saveScene();
+        static bool isPlaying();
+        static void setIsPlaying(bool playing);
     private:
         Project();
         void recognizeResourcesHelper();
@@ -47,6 +49,7 @@ namespace Dream {
         Dream::AssetLoader* assetLoader;
         Dream::ResourceManager* resourceManager;
         Dream::AssetImporter* assetImporter;
+        bool playing;
     };
 }
 

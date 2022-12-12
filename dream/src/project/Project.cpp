@@ -17,6 +17,7 @@ namespace Dream {
         assetLoader = new OpenGLAssetLoader();
         resourceManager = new ResourceManager();
         scene = new Scene();
+        playing = false;
     }
 
     Project::~Project() {
@@ -115,5 +116,13 @@ namespace Dream {
 
     void Project::recognizeResources() {
         getInstance().recognizeResourcesHelper();
+    }
+
+    bool Project::isPlaying() {
+        return getInstance().playing;
+    }
+
+    void Project::setIsPlaying(bool playing) {
+        getInstance().playing = playing;
     }
 }
