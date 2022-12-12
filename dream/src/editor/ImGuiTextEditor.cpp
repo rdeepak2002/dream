@@ -88,9 +88,9 @@ namespace Dream {
             }
 
             ImGuiWindowClass editor_window_class;
-            editor_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
+            editor_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton;
             ImGui::SetNextWindowClass(&editor_window_class);
-            ImGui::Begin(std::string(filename + " ###File Editor").c_str(), nullptr, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+            ImGui::Begin(std::string(filename + " ###File Editor").c_str(), &visible, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
             if (ImGui::BeginMenuBar()) {
                 if (ImGui::BeginMenu("File")) {
@@ -129,7 +129,6 @@ namespace Dream {
             textEditor->Render("TextEditor");
 
             ImGui::End();
-//            ImGui::PopStyleVar(1);
         }
 
         justLoaded = false;
