@@ -57,6 +57,10 @@ namespace Dream {
         if (sceneCamera) {
             sceneCamera.getComponent<Component::SceneCameraComponent>().processInput(sceneCamera, dt);
         }
+        Entity mainCamera = getMainCamera();
+        if (mainCamera) {
+            mainCamera.getComponent<Component::CameraComponent>().updateCameraVectors(mainCamera);
+        }
         Input::resetMouseDynamicState();
     }
 
