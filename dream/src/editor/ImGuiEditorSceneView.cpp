@@ -94,8 +94,11 @@ namespace Dream {
         if (treeNodeOpen) {
             Entity child = entity.getComponent<Component::HierarchyComponent>().first;
             while (child) {
-                this->renderSceneViewEntity(child);
-                child = child.getComponent<Component::HierarchyComponent>().next;
+                Entity nextChild = child.getComponent<Component::HierarchyComponent>().next;
+                if (!child.hasComponent<Component::SceneCameraComponent>()) {
+                    this->renderSceneViewEntity(child);
+                }
+                child = nextChild;
             }
             ImGui::TreePop();
         }
