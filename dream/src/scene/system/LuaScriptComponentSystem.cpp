@@ -205,12 +205,12 @@ namespace Dream {
                     if (!functionResult.valid()) {
                         sol::error err = functionResult;
                         std::string what = err.what();
-                        std::cout << "Error: lua function call failed, sol::error::what() is " << what << std::endl;
+                        Logger::error("Lua function call error " + what);
                     }
                 } else {
                     sol::error err = scriptCompileResult;
                     std::string what = err.what();
-                    std::cout << "Error: lua script parsing failed, sol::error::what() is " << what << std::endl;
+                    Logger::error("Lua script parsing error " + what);
                 }
             }
         }

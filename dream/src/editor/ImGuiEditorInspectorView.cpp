@@ -351,7 +351,7 @@ namespace Dream {
                 ImGui::SameLine();
                 if (component.guid.empty()) {
                     if (ImGui::Button("Select")) {
-                        std::cout << "TODO: allow selection of diffuse texture" << std::endl;
+                        Logger::debug("TODO: allow selection of diffuse texture"); // TODO
                     }
                 } else {
                     ImGui::Text("%s", diffuseTexturePath.c_str());

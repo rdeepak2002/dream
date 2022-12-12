@@ -3,6 +3,7 @@
 //
 
 #include "dream/editor/ImGuiEditorAnimatorGraph.h"
+#include "dream/util/Logger.h"
 #include <iostream>
 
 namespace Dream {
@@ -40,7 +41,7 @@ namespace Dream {
             if (ImGui::BeginMenuBar()) {
                 if (ImGui::BeginMenu("File")) {
                     if (ImGui::MenuItem("Save")) {
-                        std::cout << "TODO: allow saving" << std::endl;
+                        Logger::debug("TODO: allow saving of animator");  // TODO
                     }
                     if (ImGui::MenuItem("Close")) {
                         this->visible = false;
@@ -84,6 +85,6 @@ namespace Dream {
 
     void ImGuiEditorAnimatorGraph::open(std::string guid) {
         this->visible = true;
-        std::cout << "TODO: load in animator graph for " << guid << std::endl;
+        Logger::debug("TODO: load in animator graph for " + guid); // TODO
     }
 }

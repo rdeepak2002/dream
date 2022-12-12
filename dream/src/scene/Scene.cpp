@@ -6,6 +6,7 @@
 #include "dream/scene/component/Component.h"
 #include "dream/scene/Entity.h"
 #include "dream/window/Input.h"
+#include "dream/util/Logger.h"
 
 namespace Dream {
     Scene::Scene() {
@@ -73,8 +74,7 @@ namespace Dream {
         } else if (rootEntities.size() == 1) {
             return { rootEntities.front(), this };
         } else {
-            std::cout << "More than one root entity" << std::endl;
-            exit(1);
+            Logger::fatal("More than one root entity");
         }
     }
 

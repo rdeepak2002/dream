@@ -3,6 +3,7 @@
 //
 
 #include "dream/renderer/Animation.h"
+#include "dream/util/Logger.h"
 
 namespace Dream {
     Animation::Animation(const std::string &animationPath, Entity modelEntity, int index) {
@@ -11,7 +12,7 @@ namespace Dream {
         const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
         assert(scene && scene->mRootNode);
         if (scene->mNumAnimations <= index) {
-            std::cout << "Error: animation " << index << " does not exist for " << animationPath << std::endl;
+            Logger::fatal("Animation " + std::to_string(index) + " does not exist for " + animationPath);
         }
         auto animation = scene->mAnimations[index];
         duration = animation->mDuration;
@@ -65,7 +66,7 @@ namespace Dream {
             std::string boneName = channel->mNodeName.data;
 
             if (boneInfoMap.find(boneName) == boneInfoMap.end()) {
-                std::cout << "Missing bone: " << boneName << std::endl;
+                Logger::warn("Mesh missing bone " + boneName);
                 boneInfoMap[boneName].id = boneCount;
                 boneCount++;
             }

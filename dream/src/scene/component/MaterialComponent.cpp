@@ -7,6 +7,7 @@
 #include "dream/scene/component/Component.h"
 #include "dream/renderer/OpenGLTexture.h"
 #include "dream/project/Project.h"
+#include "dream/util/Logger.h"
 
 namespace Dream::Component {
     MaterialComponent::MaterialComponent(std::string guid, bool isEmbedded) {
@@ -26,7 +27,7 @@ namespace Dream::Component {
 
     Texture *MaterialComponent::getTexture() {
         if (!this->diffuseTexture) {
-            std::cout << "Texture is null" << std::endl;
+            Logger::fatal("Texture is null");
         }
         return this->diffuseTexture;
     }

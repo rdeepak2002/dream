@@ -9,6 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <string>
 #include <glad/glad.h>
 
 namespace Dream {
@@ -65,9 +66,8 @@ namespace Dream {
             vertexCode = OpenGLShader::getShaderVersion() + "\n" + vertexCode;
             fragmentCode = OpenGLShader::getShaderVersion() + "\n" + fragmentCode;
         }
-        catch (std::ifstream::failure& e)
-        {
-            std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ: " << e.what() << std::endl;
+        catch (std::ifstream::failure& e) {
+            Logger::fatal("Shader file not successfully read vertex shader: " + std::string(vertexPath) + " fragment shader: " + std::string(fragmentPath) + " [" + std::string(e.what()) + "]");
         }
         const char* vShaderCode = vertexCode.c_str();
         const char* fShaderCode = fragmentCode.c_str();
@@ -165,7 +165,7 @@ namespace Dream {
             if(!success)
             {
                 glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-                std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+                Logger::fatal("Shader compilation error of type " + std::string(type) + "\n" + std::string(infoLog));
             }
         }
         else
@@ -174,7 +174,7 @@ namespace Dream {
             if(!success)
             {
                 glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-                std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+                Logger::fatal("Error linking shader program of type " + std::string(type) + "\n" + std::string(infoLog));
             }
         }
     }

@@ -4,6 +4,7 @@
 
 #include "dream/editor/ImGuiTextEditor.h"
 #include "imgui_internal.h"
+#include "dream/util/Logger.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -56,7 +57,7 @@ namespace Dream {
             justLoaded = true;
         }
         catch (std::ifstream::failure& e) {
-            std::cout << "Error reading file: " << e.what() << std::endl;
+            Logger::fatal("Error reading file " + filepath + " [" + std::string(e.what()) + "]");
         }
     }
 
