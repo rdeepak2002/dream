@@ -10,6 +10,8 @@
 
 namespace Dream {
     Scene::Scene() {
+        physicsComponentSystem = new PhysicsComponentSystem();
+        audioComponentSystem = new AudioComponentSystem();
         animatorComponentSystem = new AnimatorComponentSystem();
         luaScriptComponentSystem = new LuaScriptComponentSystem();
         collisionConfiguration = new btDefaultCollisionConfiguration();
@@ -21,6 +23,8 @@ namespace Dream {
     }
 
     Scene::~Scene() {
+        delete physicsComponentSystem;
+        delete audioComponentSystem;
         delete animatorComponentSystem;
         delete luaScriptComponentSystem;
         delete dynamicsWorld;
@@ -51,6 +55,8 @@ namespace Dream {
     }
 
     void Scene::fixedUpdate(float dt) {
+        physicsComponentSystem->update(dt);
+        audioComponentSystem->update(dt);
         animatorComponentSystem->update(dt);
         luaScriptComponentSystem->update(dt);
         // TODO: move to component system

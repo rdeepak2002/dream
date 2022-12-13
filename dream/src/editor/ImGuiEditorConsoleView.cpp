@@ -14,6 +14,7 @@ namespace Dream {
         console_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
         ImGui::SetNextWindowClass(&console_window_class);
         ImGui::Begin("Console");
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         if (ImGui::BeginPopupContextWindow()) {
             if (ImGui::MenuItem("Clear")) {
                 logCollector->clearLogs();

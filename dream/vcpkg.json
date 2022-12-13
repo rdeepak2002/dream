@@ -7,7 +7,8 @@
     "bullet3",
     "lua",
     "gtest",
-    "assimp"
+    "assimp",
+    "openal-soft"
   ],
   "overrides": [
     {
@@ -33,6 +34,10 @@
     {
       "name": "assimp",
       "version": "5.2.5"
+    },
+    {
+      "name": "openal-soft",
+      "version": "1.22.2"
     }
   ],
   "$x-default-baseline": "9fd3bd594f41afb8747e20f6ac9619f26f333cbe",

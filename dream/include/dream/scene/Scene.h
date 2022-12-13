@@ -11,6 +11,8 @@
 #include <btBulletDynamicsCommon.h>
 #include "dream/scene/system/LuaScriptComponentSystem.h"
 #include "dream/scene/system/AnimatorComponentSystem.h"
+#include "dream/scene/system/AudioComponentSystem.h"
+#include "dream/scene/system/PhysicsComponentSystem.h"
 
 namespace Dream {
     class Entity;
@@ -35,6 +37,8 @@ namespace Dream {
     private:
         entt::registry entityRegistry;
         friend class Entity;
+        PhysicsComponentSystem* physicsComponentSystem;
+        AudioComponentSystem* audioComponentSystem;
         AnimatorComponentSystem* animatorComponentSystem;
         LuaScriptComponentSystem* luaScriptComponentSystem;
         btDefaultCollisionConfiguration* collisionConfiguration;

@@ -53,6 +53,9 @@ macro(DREAM_FIND_AND_LINK_LIBRARIES)
         include_directories(${BULLET_INCLUDE_DIRS})
         message(STATUS BULLET_LIBRARIES=${BULLET_LIBRARIES})
         link_libraries(${BULLET_LIBRARIES})
+
+        # Link OpenAL library
+        find_package(OpenAL CONFIG REQUIRED)
     endif()
 endmacro()
 
@@ -65,6 +68,8 @@ macro(DREAM_FIND_AND_LINK_LIBRARIES_PART_2)
         target_link_libraries(${PROJECT_NAME} yaml-cpp)
         # Link g-test
         target_link_libraries(${PROJECT_NAME} GTest::gtest_main)
+        # Link OpenAL
+        target_link_libraries(${PROJECT_NAME} OpenAL::OpenAL)
     endif()
 endmacro()
 
