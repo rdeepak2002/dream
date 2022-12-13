@@ -133,6 +133,10 @@ namespace Dream::Component {
         std::string guid;
         inline static std::string k_isEmbedded = "isEmbedded";
         bool isEmbedded;
+        inline static std::string k_diffuseColor = "diffuseColor";
+        glm::vec4 diffuseColor = {1, 1, 1, 1};
+//        glm::vec4 specularColor = {1, 1, 1, 1}; // TODO: implement and serialize this
+//        glm::vec4 ambientColor = {1, 1, 1, 1}; // TODO: implement and serialize this
         explicit MaterialComponent(std::string guid, bool isEmbedded);
         Texture* getTexture();
         void loadTexture();

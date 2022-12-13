@@ -167,6 +167,9 @@ namespace Dream {
         auto textureType = aiTextureType_DIFFUSE;
         std::string texturePath = "";
         std::string textureFileGUID;
+        aiColor4D aiDiffuseColor;
+        material->Get(AI_MATKEY_COLOR_DIFFUSE, aiDiffuseColor);
+        glm::vec4 diffuseColor = { aiDiffuseColor.r, aiDiffuseColor.g, aiDiffuseColor.b, aiDiffuseColor.a };
         for(unsigned int i = 0; i < material->GetTextureCount(textureType); i++) {
             aiString str;
             material->GetTexture(textureType, i, &str);
@@ -233,6 +236,12 @@ namespace Dream {
             } else {
                 Logger::fatal("Invalid state while processing mesh");
             }
+        }
+        if (createEntities) {
+            if (!entity.hasComponent<Component::MaterialComponent>()) {
+                entity.addComponent<Component::MaterialComponent>("", false);
+            }
+            entity.getComponent<Component::MaterialComponent>().diffuseColor = diffuseColor;
         }
         return entity;
     }

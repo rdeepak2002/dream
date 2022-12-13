@@ -19,12 +19,13 @@ namespace Dream {
         this->printGLVersion();
 
         // build and compile our shader program
-        shader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shader.vert").c_str(), Project::getPath().append("assets").append("shaders").append("shader.frag").c_str(), nullptr);
+        shader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shader.vert").c_str(), Project::getPath().append("assets").append("shaders").append("shader_texture.frag").c_str(), nullptr);
         texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("missing.png"));
 
         // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
         shader->use();
         shader->setInt("texture_diffuse1", 0);
+        shader->setVec4("diffuse_color", glm::vec4(1, 1, 1, 1));
 
         frameBuffer = new OpenGLFrameBuffer();
     }
@@ -57,6 +58,7 @@ namespace Dream {
             // activate shader
             shader->use();
             shader->setInt("texture_diffuse1", 0);
+//            shader->setVec3("diffuse_color", glm::vec3(1, 0, 0));
 
             glm::mat4 projection;
             if (Project::isPlaying()) {
@@ -110,6 +112,7 @@ namespace Dream {
                     if (!entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
                         entity.getComponent<Component::MaterialComponent>().loadTexture();
                     }
+                    shader->setVec4("diffuse_color",  entity.getComponent<Component::MaterialComponent>().diffuseColor);
                 }
 
                 if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().guid.empty()) {
