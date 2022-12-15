@@ -32,6 +32,9 @@ namespace Dream {
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
         ImGuiWindowClass renderer_window_class;
         renderer_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
+        if (Project::isEditorFullscreen()) {
+            renderer_window_class.DockNodeFlagsOverrideSet |= ImGuiDockNodeFlags_NoTabBar;
+        }
         ImGui::SetNextWindowClass(&renderer_window_class);
         ImGuiWindowFlags renderer_window_flags = 0;
         renderer_window_flags |= ImGuiWindowFlags_NoScrollbar;

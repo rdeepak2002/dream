@@ -66,9 +66,9 @@ namespace Dream {
         animatorGraphEditor->update();
 
         // render panels
-        menu->update();
         rendererView->update(this->rendererViewportWidth, this->rendererViewportHeight, frameBufferTexture);
         if (!Project::isEditorFullscreen()) {
+            menu->update();
             inspectorView->update();
             consoleView->update(logCollector);
             projectView->update();
@@ -153,7 +153,10 @@ namespace Dream {
         ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
 
-        ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking;
+        if (!Project::isEditorFullscreen()) {
+            window_flags |= ImGuiWindowFlags_MenuBar;
+        }
         window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
         window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
 
