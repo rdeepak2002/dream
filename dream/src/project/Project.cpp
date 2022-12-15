@@ -18,6 +18,7 @@ namespace Dream {
         resourceManager = new ResourceManager();
         scene = new Scene();
         playing = false;
+        fullscreen = false;
     }
 
     Project::~Project() {
@@ -124,5 +125,13 @@ namespace Dream {
 
     void Project::setIsPlaying(bool playing) {
         getInstance().playing = playing;
+    }
+
+    bool Project::isFullscreen() {
+        return getInstance().fullscreen;
+    }
+
+    void Project::setIsFullscreen(bool fullscreen) {
+        getInstance().fullscreen = fullscreen;
     }
 }

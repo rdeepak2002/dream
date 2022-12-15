@@ -34,6 +34,8 @@ namespace Dream {
         static void saveScene();
         static bool isPlaying();
         static void setIsPlaying(bool playing);
+        static bool isFullscreen();
+        static void setIsFullscreen(bool fullscreen);
     private:
         Project();
         void recognizeResourcesHelper();
@@ -50,6 +52,7 @@ namespace Dream {
         Dream::ResourceManager* resourceManager;
         Dream::AssetImporter* assetImporter;
         bool playing;
+        bool fullscreen;
     };
 }
 

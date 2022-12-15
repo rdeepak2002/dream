@@ -49,13 +49,13 @@ namespace Dream {
         this->window->update(dt);
         // render
         std::pair<int, int> rendererViewportDimensions;
-        if (fullscreen) {
+        if (Project::isFullscreen()) {
             rendererViewportDimensions = this->window->getWindowDimensions();
         } else {
             rendererViewportDimensions = this->editor->getRendererViewportDimensions();
         }
-        this->renderer->render(rendererViewportDimensions.first, rendererViewportDimensions.second, fullscreen);
-        if (!fullscreen) {
+        this->renderer->render(rendererViewportDimensions.first, rendererViewportDimensions.second, Project::isFullscreen());
+        if (!Project::isFullscreen()) {
             // TODO: create fixed update for editor for more costly computations
             this->editor->update(this->window, this->renderer->getOutputRenderTexture());
         }

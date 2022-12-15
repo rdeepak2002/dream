@@ -8,6 +8,7 @@
 #include <chrono>
 #include "dream/window/Input.h"
 #include "dream/window/KeyCodes.h"
+#include "dream/project/Project.h"
 
 #ifdef BORDERLESS
 static SDL_HitTestResult SDLCALL hitTest(SDL_Window *window, const SDL_Point *pt, void *data) {
@@ -124,6 +125,9 @@ namespace Dream {
                         Input::setButtonDown(Key::Space, state);
                         break;
                     case SDLK_ESCAPE:
+                        if (Project::isFullscreen()) {
+                            Project::setIsFullscreen(false);
+                        }
                         Input::setButtonDown(Key::Escape, state);
                         break;
                     default:

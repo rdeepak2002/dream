@@ -81,7 +81,8 @@ namespace Dream
     }
 
     OpenGLTexture::~OpenGLTexture() {
-
+//        bind(0);
+//        glDeleteTextures(0, &id);
     }
 
     void OpenGLTexture::bind(int unit) {

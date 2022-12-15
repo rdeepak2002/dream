@@ -22,7 +22,6 @@ namespace Dream {
         void update();
         bool shouldClose();
     private:
-        bool fullscreen = false;
         LogCollector* logCollector;
         Window* window;
         Renderer* renderer;

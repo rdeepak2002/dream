@@ -13,6 +13,7 @@ namespace Dream {
     class ImGuiEditorProjectView {
     public:
         ImGuiEditorProjectView(ImGuiTextEditor* fileBrowser);
+        ~ImGuiEditorProjectView();
         void update();
     private:
         ImGuiTextEditor* textEditor;

@@ -10,7 +10,6 @@
 #include <imgui/imgui.h>
 #include <fstream>
 #include <sstream>
-#include <iostream>
 
 namespace Dream {
     ImGuiEditorProjectView::ImGuiEditorProjectView(ImGuiTextEditor* textEditor) {
@@ -31,6 +30,10 @@ namespace Dream {
         Texture* folderIconTexture = new OpenGLTexture(std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append("DirectoryIcon.png"), false);
         folderIcon = folderIconTexture->ID();
         delete folderIconTexture;
+    }
+
+    ImGuiEditorProjectView::~ImGuiEditorProjectView() {
+
     }
 
     void ImGuiEditorProjectView::update() {
