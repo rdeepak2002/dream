@@ -36,6 +36,8 @@ namespace Dream {
         static void setIsPlaying(bool playing);
         static bool isFullscreen();
         static void setIsFullscreen(bool fullscreen);
+        static bool isEditorFullscreen();
+        static void setIsEditorFullscreen(bool editorFullscreen);
     private:
         Project();
         void recognizeResourcesHelper();
@@ -53,6 +55,7 @@ namespace Dream {
         Dream::AssetImporter* assetImporter;
         bool playing;
         bool fullscreen;
+        bool editorFullscreen;
     };
 }
 

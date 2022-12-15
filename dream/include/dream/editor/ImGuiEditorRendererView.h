@@ -11,7 +11,7 @@ namespace Dream {
         ImGuiEditorRendererView();
         void update(int &rendererViewportWidth, int &rendererViewportHeight, unsigned int frameBufferTexture);
     private:
-        unsigned int playIcon, stopIcon, expandIcon;
+        unsigned int playIcon, stopIcon, expandIcon, collapseIcon;
     };
 }
 

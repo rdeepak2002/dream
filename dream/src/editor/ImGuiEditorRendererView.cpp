@@ -22,6 +22,10 @@ namespace Dream {
         Texture* expandIconTexture = new OpenGLTexture(std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append("ExpandIcon.png"), false);
         expandIcon = expandIconTexture->ID();
         delete expandIconTexture;
+        // TODO: use specific renderer (not OpenGL)
+        Texture* collapseIconTexture = new OpenGLTexture(std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append("CollapseIcon.png"), false);
+        collapseIcon = collapseIconTexture->ID();
+        delete collapseIconTexture;
     }
 
     void ImGuiEditorRendererView::update(int &rendererViewportWidth, int &rendererViewportHeight, unsigned int frameBufferTexture) {
@@ -46,9 +50,13 @@ namespace Dream {
             }
         }
         ImGui::SameLine();
-        if (!Project::isFullscreen()) {
+        if (Project::isEditorFullscreen()) {
+            if (ImGui::ImageButton("CollapseBtn", (void*)(intptr_t)collapseIcon, ImVec2(btnWidth,btnWidth))) {
+                Project::setIsEditorFullscreen(false);
+            }
+        } else {
             if (ImGui::ImageButton("ExpandBtn", (void*)(intptr_t)expandIcon, ImVec2(btnWidth,btnWidth))) {
-                Project::setIsFullscreen(true);
+                Project::setIsEditorFullscreen(true);
             }
         }
         buttonHeight = ImGui::GetCursorPosY() - buttonHeight;

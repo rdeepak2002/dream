@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <stack>
 #include <imgui/imgui_internal.h>
+#include "dream/project/Project.h"
 
 namespace Dream {
     ImGuiEditor::ImGuiEditor(Dream::Window *window) : Editor(window) {
@@ -67,10 +68,12 @@ namespace Dream {
         // render panels
         menu->update();
         rendererView->update(this->rendererViewportWidth, this->rendererViewportHeight, frameBufferTexture);
-        inspectorView->update();
-        consoleView->update(logCollector);
-        projectView->update();
-        sceneView->update();
+        if (!Project::isEditorFullscreen()) {
+            inspectorView->update();
+            consoleView->update(logCollector);
+            projectView->update();
+            sceneView->update();
+        }
 
         ImGui::Render();
         this->renderDrawData();
