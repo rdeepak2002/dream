@@ -22,6 +22,7 @@ namespace Dream {
         Scene();
         ~Scene();
         Entity createEntity(const std::string& name = "Entity", bool rootEntity = false, bool addChildStart = true);
+        void update(float dt);
         void fixedUpdate(float dt);
         template<typename... Components>
         auto getEntitiesWithComponents() {

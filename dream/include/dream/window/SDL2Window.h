@@ -12,13 +12,19 @@ namespace Dream {
     class SDL2Window : public Window {
     public:
         ~SDL2Window();
+        void update(float dt) override;
         void pollEvents() override;
         void swapBuffers() override;
         std::pair<int, int> getWindowDimensions() override;
         SDL_Window *getSDL2Window();
+    private:
+        bool firstLoad;
     protected:
         SDL2Window(Uint32 flags);
         virtual void pollEditorEvents(SDL_Event &Event);
+        #ifndef EMSCRIPTEN
+        SDL_Window *launchWindow;
+        #endif
         SDL_Window *sdlWindow;
         int windowWidth, windowHeight;
     };

@@ -11,6 +11,9 @@
 #include "dream/project/Project.h"
 #include "dream/editor/LogCollector.h"
 
+using namespace std::chrono_literals;
+constexpr std::chrono::nanoseconds timestep(16ms);
+
 namespace Dream {
     class Application {
     public:
@@ -18,6 +21,7 @@ namespace Dream {
         ~Application();
         void update();
         bool shouldClose();
+//        float getCurrentTime();
     private:
         bool fullscreen = false;
         LogCollector* logCollector;
@@ -26,6 +30,9 @@ namespace Dream {
         Editor* editor;
         void fixedUpdate();
         std::filesystem::path getResourcesRoot();
+        std::chrono::time_point<std::chrono::high_resolution_clock> currentTime;
+        std::chrono::nanoseconds lag;
+//        float deltaTime;
     };
 }
 

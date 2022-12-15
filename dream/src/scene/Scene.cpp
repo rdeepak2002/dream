@@ -54,10 +54,13 @@ namespace Dream {
         return entity;
     }
 
+    void Scene::update(float dt) {
+        animatorComponentSystem->update(dt);
+    }
+
     void Scene::fixedUpdate(float dt) {
         physicsComponentSystem->update(dt);
         audioComponentSystem->update(dt);
-        animatorComponentSystem->update(dt);
         luaScriptComponentSystem->update(dt);
         // TODO: move to component system
         Entity sceneCamera = getSceneCamera();

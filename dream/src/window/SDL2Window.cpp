@@ -4,7 +4,8 @@
 
 #include "dream/window/SDL2Window.h"
 
-#include <iostream>
+#include <thread>
+#include <chrono>
 #include "dream/window/Input.h"
 #include "dream/window/KeyCodes.h"
 
@@ -27,21 +28,49 @@ static SDL_HitTestResult SDLCALL hitTest(SDL_Window *window, const SDL_Point *pt
 
 namespace Dream {
     SDL2Window::SDL2Window(Uint32 flags) : sdlWindow() {
+        this->firstLoad = true;
+        this->isLoading = true;
         this->windowWidth = 1600;
         this->windowHeight = 900;
         Uint32 WindowFlags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | flags;
         #ifdef BORDERLESS
         WindowFlags |= SDL_WINDOW_BORDERLESS;
         #endif
+        #ifndef EMSCRIPTEN
+        // window when program launches to indicate loading
+        this->launchWindow = SDL_CreateWindow("Dream", 0, 0, 600, 400, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_BORDERLESS);
+        SDL_SetWindowPosition(this->launchWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+        SDL_ShowWindow(this->launchWindow);
+        SDL_RaiseWindow(this->launchWindow);
+        #endif
+        // main window with editor
         this->sdlWindow = SDL_CreateWindow("Dream", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
         SDL_SetWindowPosition(this->sdlWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+        SDL_RaiseWindow(this->sdlWindow);
+        #ifndef EMSCRIPTEN
+        SDL_HideWindow(this->sdlWindow);
+        #endif
         #ifdef BORDERLESS
         SDL_SetWindowHitTest(this->Window, hitTest, nullptr);
         #endif
     }
 
     SDL2Window::~SDL2Window() {
-        SDL_DestroyWindow(sdlWindow);
+        SDL_DestroyWindow(this->sdlWindow);
+        #ifndef EMSCRIPTEN
+        SDL_DestroyWindow(this->launchWindow);
+        #endif
+    }
+
+    void SDL2Window::update(float dt) {
+        #ifndef EMSCRIPTEN
+        if (!isLoading && firstLoad) {
+            std::this_thread::sleep_for(std::chrono::seconds(3));
+            SDL_ShowWindow(this->sdlWindow);
+            SDL_DestroyWindow(this->launchWindow);
+            this->firstLoad = false;
+        }
+        #endif
     }
 
     void SDL2Window::pollEvents() {

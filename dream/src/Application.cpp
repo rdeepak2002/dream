@@ -12,6 +12,8 @@
 #include <map>
 
 namespace Dream {
+    using clock = std::chrono::high_resolution_clock;
+
     Application::Application() {
         this->logCollector = new LogCollector();
         Project::open(this->getResourcesRoot().append("resources").append("example-projects").append("sample-project"));
@@ -19,6 +21,8 @@ namespace Dream {
         this->renderer = new OpenGLRenderer();
         this->editor = new ImGuiSDL2OpenGLEditor(this->window);
         this->editor->setLogCollector(logCollector);
+//        this->startTime = std::chrono::high_resolution_clock::now();
+        this->currentTime = clock::now();
     }
 
     Application::~Application() {
@@ -29,8 +33,21 @@ namespace Dream {
     }
 
     void Application::update() {
+        auto deltaTime = clock::now() - currentTime;
+        this->currentTime = clock::now();
+        this->lag += std::chrono::duration_cast<std::chrono::nanoseconds>(deltaTime);
+        // poll for input
         this->window->pollEvents();
-        this->fixedUpdate();
+        // fixed update (physics, scripts, etc.)
+        while (lag >= timestep) {
+            this->fixedUpdate();
+            lag -= timestep;
+        }
+        // not fixed update (ex: animations)
+        float dt = std::chrono::duration_cast<std::chrono::milliseconds>(deltaTime).count() * 0.001f;
+        Project::getScene()->update(dt);
+        this->window->update(dt);
+        // render
         std::pair<int, int> rendererViewportDimensions;
         if (fullscreen) {
             rendererViewportDimensions = this->window->getWindowDimensions();
@@ -39,9 +56,11 @@ namespace Dream {
         }
         this->renderer->render(rendererViewportDimensions.first, rendererViewportDimensions.second, fullscreen);
         if (!fullscreen) {
+            // TODO: create fixed update for editor for more costly computations
             this->editor->update(this->window, this->renderer->getOutputRenderTexture());
         }
         this->window->swapBuffers();
+        this->window->setIsLoading(false);
     }
 
     bool Application::shouldClose() {
@@ -49,7 +68,6 @@ namespace Dream {
     }
 
     void Application::fixedUpdate() {
-        // TODO: make this actually fixed update
         Project::getScene()->fixedUpdate(1.0 / 60.0);
     }
 
