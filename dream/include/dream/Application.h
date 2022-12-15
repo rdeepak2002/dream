@@ -21,7 +21,6 @@ namespace Dream {
         ~Application();
         void update();
         bool shouldClose();
-//        float getCurrentTime();
     private:
         bool fullscreen = false;
         LogCollector* logCollector;
@@ -32,7 +31,6 @@ namespace Dream {
         std::filesystem::path getResourcesRoot();
         std::chrono::time_point<std::chrono::high_resolution_clock> currentTime;
         std::chrono::nanoseconds lag;
-//        float deltaTime;
     };
 }
 

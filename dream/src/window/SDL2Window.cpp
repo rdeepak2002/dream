@@ -65,7 +65,7 @@ namespace Dream {
     void SDL2Window::update(float dt) {
         #ifndef EMSCRIPTEN
         if (!isLoading && firstLoad) {
-            std::this_thread::sleep_for(std::chrono::seconds(3));
+//            std::this_thread::sleep_for(std::chrono::seconds(3));
             SDL_ShowWindow(this->sdlWindow);
             SDL_DestroyWindow(this->launchWindow);
             this->firstLoad = false;

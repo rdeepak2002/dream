@@ -3,6 +3,7 @@
 //
 
 #include "dream/editor/ImGuiEditorRendererView.h"
+#include "dream/project/Project.h"
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
 
@@ -14,6 +15,17 @@ namespace Dream {
         ImGuiWindowFlags renderer_window_flags = 0;
         renderer_window_flags |= ImGuiWindowFlags_NoScrollbar;
         ImGui::Begin("Renderer", nullptr, renderer_window_flags);
+        float buttonHeight = ImGui::GetCursorPosY();
+        if (Project::isPlaying()) {
+            if (ImGui::Button("Stop")) {
+                Project::setIsPlaying(false);
+            }
+        } else {
+            if (ImGui::Button("Play")) {
+                Project::setIsPlaying(true);
+            }
+        }
+        buttonHeight = ImGui::GetCursorPosY() - buttonHeight;
         ImVec2 vMin = ImGui::GetWindowContentRegionMin();
         ImVec2 vMax = ImGui::GetWindowContentRegionMax();
         vMin.x += ImGui::GetWindowPos().x;
@@ -21,7 +33,7 @@ namespace Dream {
         vMax.x += ImGui::GetWindowPos().x;
         vMax.y += ImGui::GetWindowPos().y;
         float width = vMax.x - vMin.x;
-        float height = vMax.y - vMin.y;
+        float height = vMax.y - vMin.y - buttonHeight;
         rendererViewportWidth = int(width);
         rendererViewportHeight = int(height);
         ImGui::Image(reinterpret_cast<ImTextureID>(frameBufferTexture), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
