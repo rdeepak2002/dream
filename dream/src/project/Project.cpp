@@ -88,6 +88,10 @@ namespace Dream {
         return getInstance().scene;
     }
 
+    Scene &Project::getSceneReference() {
+        return *(getInstance().scene);
+    }
+
     AssetLoader *Project::getAssetLoaderHelper() {
         return assetLoader;
     }

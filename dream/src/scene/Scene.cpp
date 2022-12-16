@@ -135,6 +135,17 @@ namespace Dream {
         return {};
     }
 
+    Entity Scene::getEntityByTag(const std::string& tag) {
+        auto entities = getEntitiesWithComponents<Component::TagComponent>();
+        for(auto entityHandle : entities) {
+            Entity entity = {entityHandle, this};
+            if (entity.getComponent<Component::TagComponent>().tag == tag) {
+                return entity;
+            }
+        }
+        return {};
+    }
+
     Entity Scene::getEntityByInternalID(int internalID) {
         auto entities = getEntitiesWithComponents<Component::IDComponent>();
         for(auto entityHandle : entities) {

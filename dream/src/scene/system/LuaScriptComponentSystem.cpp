@@ -10,6 +10,10 @@
 #include "dream/window/KeyCodes.h"
 
 namespace Dream {
+    Entity getEntityByTag(const std::string& tag) {
+        return Project::getScene()->getEntityByTag(tag);
+    }
+
     LuaScriptComponentSystem::LuaScriptComponentSystem() {
         // open libraries with lua
         lua.open_libraries(sol::lib::base, sol::lib::math, sol::lib::string, sol::lib::io);
@@ -180,6 +184,10 @@ namespace Dream {
 
         lua.new_usertype<Component::CameraComponent>("CameraComponent",
                                                      "lookAt", &Component::CameraComponent::lookAt
+        );
+
+        lua.new_usertype<Scene>("Scene",
+                                 "getEntityByTag", sol::as_function(&getEntityByTag)
         );
 
         lua.end();

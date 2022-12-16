@@ -32,6 +32,7 @@ namespace Dream {
         Entity getSceneCamera();
         Entity getMainCamera();
         Entity getEntityByID(const std::string& id);
+        Entity getEntityByTag(const std::string& tag);
         Entity getEntityByInternalID(int internalID);
         void removeEntity(Entity &entity);
         void serialize(YAML::Emitter &out);

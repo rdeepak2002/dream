@@ -1,4 +1,17 @@
 function update(entity, dt)
+	-- get entity to orbit around and identify it by tag
+	if self.targetTag == nil then
+		self.targetTag = "knight"
+	end
+
+	local targetEntity = Scene.getEntityByTag(self.targetTag)
+
+	if targetEntity == nil then
+		Logger.error("Camera cannot find target entity")
+		Input.activatePointerLock(false)
+		return
+	end
+
 	-- activate pointer lock when clicking and escape to cancel pointer lock
 	if Input.getButtonDown(Key.Escape) then
 		Input.activatePointerLock(false)
@@ -21,9 +34,10 @@ function update(entity, dt)
 	end
 
 	-- set position of camera based off spherical coordinate values
-	local xPos = self.radius * math.sin(self.theta) * math.cos(self.phi)
-	local yPos = self.radius * math.cos(self.theta)
-	local zPos = self.radius * math.sin(self.theta) * math.sin(self.phi)
+	local targetTranslation = targetEntity:getTransform().translation
+	local xPos = -1 * targetTranslation.x + self.radius * math.sin(self.theta) * math.cos(self.phi)
+	local yPos = -1 * targetTranslation.y + self.radius * math.cos(self.theta)
+	local zPos = targetTranslation.z + self.radius * math.sin(self.theta) * math.sin(self.phi)
 	entity:getTransform().translation = vec3:new(xPos, yPos, zPos);
 
 	-- rotate around object using mouse input when pointer locked
@@ -40,32 +54,11 @@ function update(entity, dt)
 		self.phi = self.phi - 2 * math.pi
 	end
 
-	Logger.debug("phi: " .. tostring(self.phi))
-	Logger.debug("theta: " .. tostring(self.theta))
-
 	-- make camera look at target (player)
-	lookAt = vec3:new(0, -1, 0)
-	entity:getCamera().lookAt = lookAt
+	lookAt = vec3:new(-1 * targetTranslation.x, -1 * targetTranslation.y, targetTranslation.z)
+	local lookAtOffset = vec3:new(0, -1, 0)
+	entity:getCamera().lookAt = lookAt + lookAtOffset
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -8,6 +8,7 @@
 #include <stack>
 #include <imgui/imgui_internal.h>
 #include "dream/project/Project.h"
+#include "dream/window/Input.h"
 
 namespace Dream {
     ImGuiEditor::ImGuiEditor(Dream::Window *window) : Editor(window) {
@@ -56,6 +57,10 @@ namespace Dream {
     }
 
     void ImGuiEditor::update(Dream::Window *window, unsigned int frameBufferTexture) {
+        if (Input::pointerLockActivated()) {
+            ImGui::SetMouseCursor(ImGuiMouseCursor_None);
+        }
+
         this->style();
         this->newFrame(window);
         this->setupDockSpace();

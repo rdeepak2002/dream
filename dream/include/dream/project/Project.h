@@ -30,6 +30,7 @@ namespace Dream {
         static Dream::ResourceManager* getResourceManager();
         static Dream::AssetImporter* getAssetImporter();
         static Dream::Scene* getScene();
+        static Dream::Scene& getSceneReference();
         static void recognizeResources();
         static void saveScene();
         static bool isPlaying();
