@@ -58,7 +58,9 @@ namespace Dream::Component {
         if (glm::l2Norm(lookAt - position) <= 0.0f) {
             lookAt = position + glm::vec3(1, 0, 0);
         }
-        return glm::lookAt(position, lookAt, up);
+        auto view = glm::lookAt(position, lookAt, up);
+        camera.getComponent<TransformComponent>().rotation = glm::conjugate(glm::toQuat(view));
+        return view;
     }
 
     CameraComponent::CameraComponent(float fov) {

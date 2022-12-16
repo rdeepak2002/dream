@@ -71,7 +71,8 @@ namespace Dream::Component {
 
     glm::mat4 SceneCameraComponent::getViewMatrix(Entity sceneCamera) {
         glm::vec3 &position = sceneCamera.getComponent<TransformComponent>().translation;
-        return glm::lookAt(position, position + front, up);
+        auto view = glm::lookAt(position, position + front, up);
+        return view;
     }
 
     void SceneCameraComponent::processInput(Entity sceneCamera, float dt) {
