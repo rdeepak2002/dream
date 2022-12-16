@@ -28,6 +28,10 @@ namespace Dream::Component {
         }
     }
 
+    AnimatorComponent::~AnimatorComponent() {
+        // TODO: delete each animation in map
+    }
+
     void AnimatorComponent::updateAnimation(float dt)
     {
         if (m_CurrentAnimation)
@@ -157,6 +161,14 @@ namespace Dream::Component {
         while (child) {
             loadBoneEntities(child);
             child = child.getComponent<HierarchyComponent>().next;
+        }
+    }
+
+    void AnimatorComponent::playAnimation(std::string animationGUID) {
+        if (animationObjects.count(animationGUID) > 0) {
+            m_CurrentAnimation = animationObjects[animationGUID];
+        } else {
+            Logger::error("Unable to find animation with GUID " + animationGUID);
         }
     }
 }

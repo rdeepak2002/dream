@@ -13,6 +13,7 @@
 #include "dream/util/IDUtils.h"
 #include "dream/util/Logger.h"
 #include "dream/renderer/Animation.h"
+#include <imgui/misc/cpp/imgui_stdlib.h>
 
 namespace Dream {
     ImGuiEditorInspectorView::ImGuiEditorInspectorView() {
@@ -466,6 +467,9 @@ namespace Dream {
                 for (auto const& [key, val] : component.animationObjects) {
                     std::string fileName = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(key)).filename();
                     ImGui::Text("%s", fileName.c_str());
+                    ImGui::SameLine();
+                    std::string fileGUID = key;
+                    ImGui::InputText( (std::string("##AnimationGUID") + key).c_str(), &fileGUID, ImGuiInputTextFlags_ReadOnly);
                 }
                 if (ImGui::Button("Add")) {
                     delete animationSelectorBrowser;
