@@ -12,8 +12,8 @@
 #include "dream/util/SceneUtils.h"
 #include "dream/util/IDUtils.h"
 #include "dream/util/Logger.h"
-#include "dream/renderer/Animation.h"
-#include <imgui/misc/cpp/imgui_stdlib.h>
+#include "dream/renderer/OpenGLTexture.h"
+#include "dream/util/StringUtils.h"
 
 namespace Dream {
     ImGuiEditorInspectorView::ImGuiEditorInspectorView() {
@@ -21,6 +21,11 @@ namespace Dream {
         meshSelectorBrowser = nullptr;
         luaScriptSelectorBrowser = nullptr;
         animationSelectorBrowser = nullptr;
+
+        // TODO: use specific renderer (not OpenGL)
+        Texture* selectIconTexture = new OpenGLTexture(std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append("SelectIconWhite.png"), false);
+        selectIcon = selectIconTexture->ID();
+        delete selectIconTexture;
     }
 
     ImGuiEditorInspectorView::~ImGuiEditorInspectorView() {
@@ -326,13 +331,14 @@ namespace Dream {
 
                 // allow user to select mesh file
                 if (component.meshType == Component::MeshComponent::MeshType::FROM_FILE) {
-                    std::string meshPath = shorten(Project::getResourceManager()->getFilePathFromGUID(component.guid));
-                    ImGui::Text(canChangeMesh ? "Path" : "Model path");
-                    ImGui::SameLine();
-                    ImGui::Text("%s", meshPath.c_str());
+                    std::string meshPath = StringUtils::getFilePathRelativeToProjectFolder(Project::getResourceManager()->getFilePathFromGUID(component.guid));
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - 18 - (cursorPosX2));
+                    ImGui::InputText(std::string("##MeshPath").c_str(), &meshPath, ImGuiInputTextFlags_ReadOnly);
                     if (canChangeMesh) {
                         ImGui::SameLine();
-                        if (ImGui::Button("Select")) {
+                        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                        if (ImGui::ImageButton("##Select Mesh", (void*)(intptr_t)selectIcon, ImVec2(18,18))) {
                             delete meshSelectorBrowser;
                             meshSelectorBrowser = new ImGui::FileBrowser();
                             meshSelectorBrowser->SetTitle("select mesh");
@@ -340,6 +346,8 @@ namespace Dream {
                             meshSelectorBrowser->Open();
                             oldMeshGUID = component.guid;
                         }
+                        ImGui::PopStyleVar();
+                        ImGui::PopStyleColor();
                     }
                 }
 
@@ -369,9 +377,13 @@ namespace Dream {
                 ImGui::Text("Diffuse Texture");
                 ImGui::SameLine();
                 if (component.guid.empty()) {
-                    if (ImGui::Button("Select")) {
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                    if (ImGui::ImageButton("##Select Material", (void*)(intptr_t)selectIcon, ImVec2(18,18))) {
                         Logger::debug("TODO: allow selection of diffuse texture"); // TODO
                     }
+                    ImGui::PopStyleVar();
+                    ImGui::PopStyleColor();
                 } else {
                     ImGui::Text("%s", diffuseTexturePath.c_str());
                 }
@@ -407,13 +419,19 @@ namespace Dream {
 
             if (treeNodeOpen) {
                 if (component.guid.empty()) {
-                    if (ImGui::Button("Select")) {
+                    ImGui::Text("None");
+                    ImGui::SameLine();
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                    if (ImGui::ImageButton("##Select Lua Script", (void*)(intptr_t)selectIcon, ImVec2(18,18))) {
                         delete luaScriptSelectorBrowser;
                         luaScriptSelectorBrowser = new ImGui::FileBrowser();
                         luaScriptSelectorBrowser->SetTitle("select script");
                         luaScriptSelectorBrowser->SetPwd(Project::getPath());
                         luaScriptSelectorBrowser->Open();
                     }
+                    ImGui::PopStyleVar();
+                    ImGui::PopStyleColor();
                 } else {
                     std::string scriptPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
                     std::string shortScriptPath = shorten(scriptPath);
@@ -469,7 +487,7 @@ namespace Dream {
                     ImGui::Text("%s", fileName.c_str());
                     ImGui::SameLine();
                     std::string fileGUID = key;
-                    ImGui::InputText( (std::string("##AnimationGUID") + key).c_str(), &fileGUID, ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputText( (std::string("##AnimationGUID") + key).c_str(), &fileGUID, ImGuiInputTextFlags_ReadOnly | ImGuiInputTextFlags_AutoSelectAll);
                 }
                 if (ImGui::Button("Add")) {
                     delete animationSelectorBrowser;

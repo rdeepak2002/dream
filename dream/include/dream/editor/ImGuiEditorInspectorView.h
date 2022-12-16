@@ -26,6 +26,20 @@ namespace Dream {
         void setAnimatorGraphEditor(ImGuiEditorAnimatorGraph* animatorGraphEditor);
         Entity getSelectedEntity();
     private:
+
+
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        unsigned int selectIcon;
+
+
         Entity selectedEntity;
         std::string shorten(std::string str, int maxLength = 14);
         void addComponent(std::string componentID);
