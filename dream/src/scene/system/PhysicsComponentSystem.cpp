@@ -16,4 +16,8 @@ namespace Dream {
     void PhysicsComponentSystem::update(float dt) {
 
     }
+
+    void PhysicsComponentSystem::init() {
+
+    }
 }

@@ -61,9 +61,11 @@ namespace Dream {
         this->setupDockSpace();
 
         // update utility panels
-        textEditor->update();
-        fileBrowser->update();
-        animatorGraphEditor->update();
+        if (!Project::isEditorFullscreen()) {
+            textEditor->update();
+            fileBrowser->update();
+            animatorGraphEditor->update();
+        }
 
         // render panels
         rendererView->update(this->rendererViewportWidth, this->rendererViewportHeight, frameBufferTexture);

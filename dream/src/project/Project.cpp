@@ -11,6 +11,7 @@
 #include "dream/project/OpenGLAssetLoader.h"
 #include "dream/scene/component/Component.h"
 #include "dream/util/Logger.h"
+#include "dream/window/Input.h"
 
 namespace Dream {
     Project::Project() {
@@ -125,6 +126,7 @@ namespace Dream {
 
     void Project::setIsPlaying(bool playing) {
         getInstance().playing = playing;
+        Input::activatePointerLock(false);
     }
 
     bool Project::isFullscreen() {

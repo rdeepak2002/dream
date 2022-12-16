@@ -3118,70 +3118,93 @@ const TextEditor::LanguageDefinition& TextEditor::LanguageDefinition::Lua()
 		for (auto& k : keywords)
 			langDef.mKeywords.insert(k);
 
-		static const char* const identifiers[] = {
-			"assert", "collectgarbage", "dofile", "error", "getmetatable", "ipairs", "loadfile", "load", "loadstring",  "next",  "pairs",  "pcall",  "print",  "rawequal",  "rawlen",  "rawget",  "rawset",
-			"select",  "setmetatable",  "tonumber",  "tostring",  "type",  "xpcall",  "_G",  "_VERSION","arshift", "band", "bnot", "bor", "bxor", "btest", "extract", "lrotate", "lshift", "replace",
-			"rrotate", "rshift", "create", "resume", "running", "status", "wrap", "yield", "isyieldable", "debug","getuservalue", "gethook", "getinfo", "getlocal", "getregistry", "getmetatable",
-			"getupvalue", "upvaluejoin", "upvalueid", "setuservalue", "sethook", "setlocal", "setmetatable", "setupvalue", "traceback", "close", "flush", "input", "lines", "open", "output", "popen",
-			"read", "tmpfile", "type", "write", "close", "flush", "lines", "read", "seek", "setvbuf", "write", "__gc", "__tostring", "abs", "acos", "asin", "atan", "ceil", "cos", "deg", "exp", "tointeger",
-			"floor", "fmod", "ult", "log", "max", "min", "modf", "rad", "random", "randomseed", "sin", "sqrt", "string", "tan", "type", "atan2", "cosh", "sinh", "tanh",
-			"pow", "frexp", "ldexp", "log10", "pi", "huge", "maxinteger", "mininteger", "loadlib", "searchpath", "seeall", "preload", "cpath", "path", "searchers", "loaded", "module", "require", "clock",
-			"date", "difftime", "execute", "exit", "getenv", "remove", "rename", "setlocale", "time", "tmpname", "byte", "char", "dump", "find", "format", "gmatch", "gsub", "len", "lower", "match", "rep",
-			"reverse", "sub", "upper", "pack", "packsize", "unpack", "concat", "maxn", "insert", "pack", "unpack", "remove", "move", "sort", "offset", "codepoint", "char", "len", "codes", "charpattern",
-			"coroutine", "table", "io", "os", "string", "utf8", "bit32", "math", "debug", "package"
-		};
-		for (auto& k : identifiers)
-		{
-			Identifier id;
-			id.mDeclaration = "Built-in function";
-			langDef.mIdentifiers.insert(std::make_pair(std::string(k), id));
-		}
+        {
+            Identifier id;
+            id.mDeclaration = ":new()";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("vec3"), id));
+        }
 
         {
             Identifier id;
-            id.mDeclaration = "Check if button is pressed down";
+            id.mDeclaration = ".x\n.y";
             langDef.mIdentifiers.insert(std::make_pair(std::string("getButtonDown"), id));
         }
 
         {
             Identifier id;
-            id.mDeclaration = "Vec2 of mouse position";
+            id.mDeclaration = ".x\n.y";
             langDef.mIdentifiers.insert(std::make_pair(std::string("getMousePosition"), id));
         }
 
         {
             Identifier id;
-            id.mDeclaration = "Vec2 of mouse movement";
+            id.mDeclaration = ".x\n.y";
             langDef.mIdentifiers.insert(std::make_pair(std::string("getMouseMovement"), id));
         }
 
         {
             Identifier id;
-            id.mDeclaration = "Vec2 of mouse scroll";
+            id.mDeclaration = ".x\n.y";
             langDef.mIdentifiers.insert(std::make_pair(std::string("getMouseScroll"), id));
         }
 
         {
             Identifier id;
-            id.mDeclaration = "Enum for input buttons";
+            id.mDeclaration = ".A\n.B\n.RightMouse\n.LeftMouse\n.Escape\n.Space\netc.";
             langDef.mIdentifiers.insert(std::make_pair(std::string("Key"), id));
         }
 
         {
             Identifier id;
-            id.mDeclaration = "Class for checking button input states";
+            id.mDeclaration = ".debug(str)\n.warn(str)\n.error(str)\n.fatal(str)\n.info(str)";
+            langDef.mIdentifiers.insert(std::make_pair(std::string("Logger"), id));
+        }
+
+//        {
+//            Identifier id;
+//            id.mDeclaration = "Logger.debug(str)\nprint debug text";
+//            langDef.mIdentifiers.insert(std::make_pair(std::string(".debug"), id));
+//        }
+//
+//        {
+//            Identifier id;
+//            id.mDeclaration = "Logger.warn(str)\nprint warning text";
+//            langDef.mIdentifiers.insert(std::make_pair(std::string(".warn"), id));
+//        }
+//
+//        {
+//            Identifier id;
+//            id.mDeclaration = "Logger.error(str)\nprint error text";
+//            langDef.mIdentifiers.insert(std::make_pair(std::string(".error"), id));
+//        }
+//
+//        {
+//            Identifier id;
+//            id.mDeclaration = "Logger.info(str)\nprint info text";
+//            langDef.mIdentifiers.insert(std::make_pair(std::string(".info"), id));
+//        }
+
+        {
+            Identifier id;
+            id.mDeclaration = "Logger.fatal(str)\nprint fatal error (ends program)";
+            langDef.mIdentifiers.insert(std::make_pair(std::string(".fatal"), id));
+        }
+
+        {
+            Identifier id;
+            id.mDeclaration = ".getButtonDown()\n.getMousePosition()\n.getMouseMovement()\n.getMouseScroll()\n.activatePointerLock(bool)\n.pointerLockActivated()";
             langDef.mIdentifiers.insert(std::make_pair(std::string("Input"), id));
         }
 
         {
             Identifier id;
-            id.mDeclaration = "Variables to be persisted during runtime for the script";
+            id.mDeclaration = "example: .foo\nVariables to be persisted during runtime for the script";
             langDef.mIdentifiers.insert(std::make_pair(std::string("self"), id));
         }
 
         {
             Identifier id;
-            id.mDeclaration = "Entity with this script";
+            id.mDeclaration = ":getID()\n:getTransform()\n:getCamera()";
             langDef.mIdentifiers.insert(std::make_pair(std::string("entity"), id));
         }
 
@@ -3193,44 +3216,52 @@ const TextEditor::LanguageDefinition& TextEditor::LanguageDefinition::Lua()
 
         {
             Identifier id;
-            id.mDeclaration = "Get transform component of entity";
-            langDef.mIdentifiers.insert(std::make_pair(std::string("getTransform"), id));
+            id.mDeclaration = ".translation\n.rotation\n.scale";
+            langDef.mIdentifiers.insert(std::make_pair(std::string(":getTransform"), id));
         }
 
         {
             Identifier id;
-            id.mDeclaration = "Position vector of entity";
-            langDef.mIdentifiers.insert(std::make_pair(std::string("translation"), id));
+            id.mDeclaration = ".lookAt";
+            langDef.mIdentifiers.insert(std::make_pair(std::string(":getCamera"), id));
         }
 
         {
             Identifier id;
-            id.mDeclaration = "Rotation vector of entity";
-            langDef.mIdentifiers.insert(std::make_pair(std::string("rotation"), id));
+            id.mDeclaration = ".x\n.y\n.z";
+            langDef.mIdentifiers.insert(std::make_pair(std::string(".translation"), id));
         }
 
         {
             Identifier id;
-            id.mDeclaration = "Scale vector of entity";
-            langDef.mIdentifiers.insert(std::make_pair(std::string("scale"), id));
+            id.mDeclaration = ".w\n.x\n.y\n.z";
+            langDef.mIdentifiers.insert(std::make_pair(std::string(".rotation"), id));
         }
 
         {
             Identifier id;
-            id.mDeclaration = "x component of vector";
-            langDef.mIdentifiers.insert(std::make_pair(std::string("x"), id));
+            id.mDeclaration = ".x\n.y\n.z";
+            langDef.mIdentifiers.insert(std::make_pair(std::string(".scale"), id));
         }
 
-        {
-            Identifier id;
-            id.mDeclaration = "y component of vector";
-            langDef.mIdentifiers.insert(std::make_pair(std::string("y"), id));
-        }
+        static const char* const identifiers[] = {
+                "assert", "collectgarbage", "dofile", "error", "getmetatable", "ipairs", "loadfile", "load", "loadstring",  "next",  "pairs",  "pcall",  "print",  "rawequal",  "rawlen",  "rawget",  "rawset",
+                "select",  "setmetatable",  "tonumber",  "tostring",  "type",  "xpcall",  "_G",  "_VERSION","arshift", "band", "bnot", "bor", "bxor", "btest", "extract", "lrotate", "lshift", "replace",
+                "rrotate", "rshift", "create", "resume", "running", "status", "wrap", "yield", "isyieldable","getuservalue", "gethook", "getinfo", "getlocal", "getregistry", "getmetatable",
+                "getupvalue", "upvaluejoin", "upvalueid", "setuservalue", "sethook", "setlocal", "setmetatable", "setupvalue", "traceback", "close", "flush", "input", "lines", "open", "output", "popen",
+                "read", "tmpfile", "type", "write", "close", "flush", "lines", "read", "seek", "setvbuf", "write", "__gc", "__tostring", "abs", "acos", "asin", "atan", "ceil", "cos", "deg", "exp", "tointeger",
+                "floor", "fmod", "ult", "log", "max", "min", "modf", "rad", "random", "randomseed", "sin", "sqrt", "string", "tan", "type", "atan2", "cosh", "sinh", "tanh",
+                "pow", "frexp", "ldexp", "log10", "pi", "huge", "maxinteger", "mininteger", "loadlib", "searchpath", "seeall", "preload", "cpath", "path", "searchers", "loaded", "module", "require", "clock",
+                "date", "difftime", "execute", "exit", "getenv", "remove", "rename", "setlocale", "time", "tmpname", "byte", "char", "dump", "find", "format", "gmatch", "gsub", "len", "lower", "match", "rep",
+                "reverse", "sub", "upper", "pack", "packsize", "unpack", "concat", "maxn", "insert", "pack", "unpack", "remove", "move", "sort", "offset", "codepoint", "char", "len", "codes", "charpattern",
+                "coroutine", "table", "io", "os", "string", "utf8", "bit32", "math", "package"
+        };
 
+        for (auto& k : identifiers)
         {
             Identifier id;
-            id.mDeclaration = "z component of vector";
-            langDef.mIdentifiers.insert(std::make_pair(std::string("z"), id));
+            id.mDeclaration = "Built-in function";
+            langDef.mIdentifiers.insert(std::make_pair(std::string(k), id));
         }
 
 		langDef.mTokenRegexStrings.push_back(std::make_pair<std::string, PaletteIndex>("L?\\\"(\\\\.|[^\\\"])*\\\"", PaletteIndex::String));

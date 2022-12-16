@@ -10,6 +10,7 @@ namespace Dream {
     public:
         PhysicsComponentSystem();
         ~PhysicsComponentSystem();
+        void init();
         void update(float dt);
     };
 }

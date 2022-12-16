@@ -3,6 +3,7 @@
 //
 
 #include "dream/window/Input.h"
+#include "dream/util/Logger.h"
 
 namespace Dream {
     bool Input::getButtonDown(int keyCode) {
@@ -44,5 +45,13 @@ namespace Dream {
     void Input::resetMouseDynamicState() {
         Input::setMouseMovement(0, 0);
         Input::setMouseScroll(0, 0);
+    }
+
+    void Input::activatePointerLock(bool enablePointerLock) {
+        Input::getInstance().enablePointerLock = enablePointerLock;
+    }
+
+    bool Input::pointerLockActivated() {
+        return Input::getInstance().enablePointerLock;
     }
 }

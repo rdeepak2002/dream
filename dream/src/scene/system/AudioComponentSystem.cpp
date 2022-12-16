@@ -25,4 +25,8 @@ namespace Dream {
     void AudioComponentSystem::update(float dt) {
 
     }
+
+    void AudioComponentSystem::init() {
+
+    }
 }

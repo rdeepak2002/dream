@@ -47,6 +47,7 @@ namespace Dream {
         btBroadphaseInterface* overlappingPairCache;
         btSequentialImpulseConstraintSolver* solver;
         btDiscreteDynamicsWorld* dynamicsWorld;
+        bool shouldInitComponentSystems;
     };
 }
 

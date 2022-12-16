@@ -72,6 +72,11 @@ namespace Dream {
             this->firstLoad = false;
         }
         #endif
+        if (Input::pointerLockActivated()) {
+            SDL_SetRelativeMouseMode(SDL_TRUE);
+        } else {
+            SDL_SetRelativeMouseMode(SDL_FALSE);
+        }
     }
 
     void SDL2Window::pollEvents() {

@@ -160,7 +160,9 @@ namespace Dream {
                                 "getButtonDown", &Input::getButtonDown,
                                 "getMousePosition", &Input::getMousePosition,
                                 "getMouseMovement", &Input::getMouseMovement,
-                                "getMouseScroll", &Input::getMouseScroll
+                                "getMouseScroll", &Input::getMouseScroll,
+                                "activatePointerLock", sol::as_function(&Input::activatePointerLock),
+                                "pointerLockActivated", &Input::pointerLockActivated
         );
 
         lua.new_usertype<Entity>("Entity",
@@ -233,5 +235,9 @@ namespace Dream {
                 }
             }
         }
+    }
+
+    void LuaScriptComponentSystem::init() {
+
     }
 }

@@ -14,6 +14,7 @@ namespace Dream {
         LuaScriptComponentSystem();
         ~LuaScriptComponentSystem();
         void update(float dt);
+        void init();
         inline static std::set<std::string> errorPrintedForScript = {};
         inline static std::set<std::string> modifiedScripts = {};
     private:

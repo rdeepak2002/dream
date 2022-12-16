@@ -7,6 +7,10 @@
 #include "dream/scene/component/Component.h"
 
 namespace Dream {
+    void AnimatorComponentSystem::init() {
+
+    }
+
     void AnimatorComponentSystem::update(float dt) {
         auto animatorEntities = Project::getScene()->getEntitiesWithComponents<Component::AnimatorComponent>();
         for(auto entityHandle : animatorEntities) {

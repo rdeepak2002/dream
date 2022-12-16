@@ -31,12 +31,16 @@ namespace Dream {
         static void setMouseScroll(double x, double y);
 
         static void resetMouseDynamicState();
+
+        static void activatePointerLock(bool enablePointerLock);
+        static bool pointerLockActivated();
     private:
         Input() {}
         std::unordered_map<int, bool> keyDownMap;
         glm::vec2 mousePosition;
         glm::vec2 mouseMovement;
         glm::vec2 mouseScroll;
+        bool enablePointerLock = false;
     public:
         Input(Input const&) = delete;
         void operator=(Input const&) = delete;

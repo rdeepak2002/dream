@@ -41,8 +41,7 @@ namespace Dream {
         ImGui::Begin("Renderer", nullptr, renderer_window_flags);
         float buttonHeight = ImGui::GetCursorPosY();
         float btnWidth = 18.f;
-        int numBtns = 2;
-        ImGui::SetCursorPosX(ImGui::GetWindowContentRegionWidth() / 2 - numBtns * btnWidth / 2);
+        ImGui::SetCursorPosX(ImGui::GetWindowContentRegionWidth() / 2 - btnWidth / 2);
         if (Project::isPlaying()) {
             if (ImGui::ImageButton("StopBtn", (void*)(intptr_t)stopIcon, ImVec2(btnWidth,btnWidth))) {
                 Project::setIsPlaying(false);
@@ -53,6 +52,7 @@ namespace Dream {
             }
         }
         ImGui::SameLine();
+        ImGui::SetCursorPosX(ImGui::GetWindowContentRegionWidth() - btnWidth);
         if (Project::isEditorFullscreen()) {
             if (ImGui::ImageButton("CollapseBtn", (void*)(intptr_t)collapseIcon, ImVec2(btnWidth,btnWidth))) {
                 Project::setIsEditorFullscreen(false);

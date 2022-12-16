@@ -7,6 +7,7 @@
 #include "dream/scene/Entity.h"
 #include "dream/window/Input.h"
 #include "dream/util/Logger.h"
+#include "dream/project/Project.h"
 
 namespace Dream {
     Scene::Scene() {
@@ -55,21 +56,34 @@ namespace Dream {
     }
 
     void Scene::update(float dt) {
+        if (shouldInitComponentSystems) {
+            physicsComponentSystem->init();
+            animatorComponentSystem->init();
+            audioComponentSystem->init();
+            luaScriptComponentSystem->init();
+            shouldInitComponentSystems = false;
+        }
         animatorComponentSystem->update(dt);
     }
 
     void Scene::fixedUpdate(float dt) {
-        physicsComponentSystem->update(dt);
-        audioComponentSystem->update(dt);
-        luaScriptComponentSystem->update(dt);
-        // TODO: move to component system
-        Entity sceneCamera = getSceneCamera();
-        if (sceneCamera) {
-            sceneCamera.getComponent<Component::SceneCameraComponent>().processInput(sceneCamera, dt);
+        if (Project::isPlaying() && !shouldInitComponentSystems) {
+            physicsComponentSystem->update(dt);
+            audioComponentSystem->update(dt);
+            luaScriptComponentSystem->update(dt);
         }
-        Entity mainCamera = getMainCamera();
-        if (mainCamera) {
-            mainCamera.getComponent<Component::CameraComponent>().updateCameraVectors(mainCamera);
+        if (Project::isPlaying()) {
+            // TODO: move to component system
+            Entity mainCamera = getMainCamera();
+            if (mainCamera) {
+                mainCamera.getComponent<Component::CameraComponent>().updateCameraVectors(mainCamera);
+            }
+        } else {
+            // TODO: move to component system
+            Entity sceneCamera = getSceneCamera();
+            if (sceneCamera) {
+                sceneCamera.getComponent<Component::SceneCameraComponent>().processInput(sceneCamera, dt);
+            }
         }
         Input::resetMouseDynamicState();
     }
