@@ -332,7 +332,7 @@ namespace Dream {
                 // allow user to select mesh file
                 if (component.meshType == Component::MeshComponent::MeshType::FROM_FILE) {
                     std::string meshPath = StringUtils::getFilePathRelativeToProjectFolder(Project::getResourceManager()->getFilePathFromGUID(component.guid));
-                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - 18 - (cursorPosX2));
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() + (canChangeMesh ? (-18.f - cursorPosX2) : -(cursorPosX2 - cursorPosX1)));
                     ImGui::InputText(std::string("##MeshPath").c_str(), &meshPath, ImGuiInputTextFlags_ReadOnly);
                     if (canChangeMesh) {
                         ImGui::SameLine();
@@ -394,6 +394,8 @@ namespace Dream {
 
     void ImGuiEditorInspectorView::renderLuaScriptComponent() {
         if (selectedEntity.hasComponent<Component::LuaScriptComponent>()) {
+            auto cursorPosX1 = ImGui::GetCursorPosX();
+
             if (luaScriptSelectorBrowser) {
                 luaScriptSelectorBrowser->Display();
                 if (luaScriptSelectorBrowser->HasSelected()) {
@@ -418,8 +420,12 @@ namespace Dream {
             ImGui::PopStyleColor();
 
             if (treeNodeOpen) {
+                auto cursorPosX2 = ImGui::GetCursorPosX();
                 if (component.guid.empty()) {
-                    ImGui::Text("None");
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 18);
+                    std::string noneText = "None";
+                    ImGui::InputText("##LuaScriptPath", &noneText, ImGuiInputTextFlags_ReadOnly);
+
                     ImGui::SameLine();
                     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
@@ -434,20 +440,13 @@ namespace Dream {
                     ImGui::PopStyleColor();
                 } else {
                     std::string scriptPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
-                    std::string shortScriptPath = shorten(scriptPath);
-                    ImGui::Text("Script Path");
-                    ImGui::SameLine();
-                    ImGui::Text("%s", shortScriptPath.c_str());
-                    ImGui::SameLine();
-                    float btnWidth = ImGui::CalcTextSize("Edit").x;
-                    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetWindowContentRegionWidth() - ImGui::GetCursorPosX()) - btnWidth);
-                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-                    if (ImGui::Button("Edit", ImVec2(btnWidth, 0.f))) {
+                    std::string shortScriptPath = StringUtils::getFilePathRelativeToProjectFolder(scriptPath);
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1));
+                    ImGui::InputText("##LuaScriptPath", &shortScriptPath, ImGuiInputTextFlags_ReadOnly);
+                    // TODO: instead of edit button use a pencil icon
+                    if (ImGui::Button("Edit", ImVec2(ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1), 0))) {
                         this->imGuiTextEditor->open(scriptPath);
                     }
-                    ImGui::PopStyleColor();
-                    ImGui::PopStyleVar();
                 }
                 ImGui::TreePop();
             }
