@@ -37,7 +37,7 @@ namespace Dream {
         // TODO: load select icon and swap buttons with image button for this
         // TODO: load select icon and swap buttons with image button for this
         // TODO: load select icon and swap buttons with image button for this
-        unsigned int selectIcon;
+        unsigned int selectIcon, editIcon;
 
 
         Entity selectedEntity;

@@ -26,6 +26,11 @@ namespace Dream {
         Texture* selectIconTexture = new OpenGLTexture(std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append("SelectIconWhite.png"), false);
         selectIcon = selectIconTexture->ID();
         delete selectIconTexture;
+
+        // TODO: use specific renderer (not OpenGL)
+        Texture* editIconTexture = new OpenGLTexture(std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append("EditIconDark.png"), false);
+        editIcon = editIconTexture->ID();
+        delete editIconTexture;
     }
 
     ImGuiEditorInspectorView::~ImGuiEditorInspectorView() {
@@ -358,6 +363,7 @@ namespace Dream {
 
     void ImGuiEditorInspectorView::renderMaterialComponent() {
         if (selectedEntity.hasComponent<Component::MaterialComponent>()) {
+            float cursorPosX1 = ImGui::GetCursorPosX();
             auto &component = selectedEntity.getComponent<Component::MaterialComponent>();
             bool treeNodeOpen = ImGui::TreeNodeEx("##Material", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
 
@@ -373,20 +379,20 @@ namespace Dream {
             ImGui::PopStyleColor();
 
             if (treeNodeOpen) {
-                std::string diffuseTexturePath = shorten(Project::getResourceManager()->getFilePathFromGUID(component.guid));
+                float cursorPosX2 = ImGui::GetCursorPosX();
+                std::string diffuseTexturePath = StringUtils::getFilePathRelativeToProjectFolder(Project::getResourceManager()->getFilePathFromGUID(component.guid));
                 ImGui::Text("Diffuse Texture");
+                float cursorPosX3 = ImGui::GetCursorPosX();
+                ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 18);
+                ImGui::InputText("##DiffuseTexturePath", &diffuseTexturePath, ImGuiInputTextFlags_ReadOnly);
                 ImGui::SameLine();
-                if (component.guid.empty()) {
-                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-                    if (ImGui::ImageButton("##Select Material", (void*)(intptr_t)selectIcon, ImVec2(18,18))) {
-                        Logger::debug("TODO: allow selection of diffuse texture"); // TODO
-                    }
-                    ImGui::PopStyleVar();
-                    ImGui::PopStyleColor();
-                } else {
-                    ImGui::Text("%s", diffuseTexturePath.c_str());
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                if (ImGui::ImageButton("##Select Material", (void*)(intptr_t)selectIcon, ImVec2(18,18))) {
+                    Logger::debug("TODO: allow selection of diffuse texture"); // TODO
                 }
+                ImGui::PopStyleVar();
+                ImGui::PopStyleColor();
                 ImGui::TreePop();
             }
         }
@@ -441,12 +447,30 @@ namespace Dream {
                 } else {
                     std::string scriptPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
                     std::string shortScriptPath = StringUtils::getFilePathRelativeToProjectFolder(scriptPath);
-                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1));
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 2 * 22);
                     ImGui::InputText("##LuaScriptPath", &shortScriptPath, ImGuiInputTextFlags_ReadOnly);
-                    // TODO: instead of edit button use a pencil icon
-                    if (ImGui::Button("Edit", ImVec2(ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1), 0))) {
+
+                    ImGui::SameLine();
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                    if (ImGui::ImageButton("##Change Lua Script", (void*)(intptr_t)selectIcon, ImVec2(18,18))) {
+                        delete luaScriptSelectorBrowser;
+                        luaScriptSelectorBrowser = new ImGui::FileBrowser();
+                        luaScriptSelectorBrowser->SetTitle("change script");
+                        luaScriptSelectorBrowser->SetPwd(Project::getPath());
+                        luaScriptSelectorBrowser->Open();
+                    }
+                    ImGui::PopStyleVar();
+                    ImGui::PopStyleColor();
+
+                    ImGui::SameLine();
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                    if (ImGui::ImageButton("##Edit Lua Script", (void*)(intptr_t)editIcon, ImVec2(18,18))) {
                         this->imGuiTextEditor->open(scriptPath);
                     }
+                    ImGui::PopStyleVar();
+                    ImGui::PopStyleColor();
                 }
                 ImGui::TreePop();
             }
