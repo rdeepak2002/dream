@@ -19,6 +19,7 @@ namespace Dream {
         ImGuiEditorInspectorView();
         ~ImGuiEditorInspectorView();
         void update();
+        void lookAtSelectedEntity();
         void selectEntity(Entity& entity);
         void unselectEntity();
         void setTextEditor(ImGuiTextEditor* imGuiTextEditor);

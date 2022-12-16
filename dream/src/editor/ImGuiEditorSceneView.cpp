@@ -66,6 +66,11 @@ namespace Dream {
                 justSelectedEntity = true;
             }
         }
+        if (ImGui::IsMouseDoubleClicked(0) && ImGui::IsItemHovered()) {
+            if (inspectorView) {
+                inspectorView->lookAtSelectedEntity();
+            }
+        }
         if (ImGui::BeginDragDropTarget()) {
             const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("moveEntity");
             if(payload) {
