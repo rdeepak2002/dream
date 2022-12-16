@@ -532,24 +532,26 @@ namespace Dream {
                 ImGui::PopStyleVar();
                 ImGui::PopStyleColor();
 
-                if (!component.animationObjects.empty()) {
-                    ImGui::Text("Animations");
-                    for (auto const& [key, val] : component.animationObjects) {
-                        std::string fileName = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(key)).filename();
-                        ImGui::Text("%s", fileName.c_str());
-                        ImGui::SameLine();
-                        std::string fileGUID = key;
-                        ImGui::InputText( (std::string("##AnimationGUID") + key).c_str(), &fileGUID, ImGuiInputTextFlags_ReadOnly | ImGuiInputTextFlags_AutoSelectAll);
-                    }
-                }
+                // TODO: move below logic to animator graph editor
+//                if (!component.animationObjects.empty()) {
+//                    ImGui::Text("Animations");
+//                    for (auto const& [key, val] : component.animationObjects) {
+//                        std::string fileName = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(key)).filename();
+//                            ImGui::Text("%s", fileName.c_str());
+//                            ImGui::SameLine();
+//                            std::string fileGUID = key;
+//                            ImGui::InputText( (std::string("##AnimationGUID") + key).c_str(), &fileGUID, ImGuiInputTextFlags_ReadOnly | ImGuiInputTextFlags_AutoSelectAll);
+//                    }
+//                }
+//
+//                if (ImGui::Button("Add", ImVec2(ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1), 0))) {
+//                    delete animationSelectorBrowser;
+//                    animationSelectorBrowser = new ImGui::FileBrowser();
+//                    animationSelectorBrowser->SetTitle("select animation");
+//                    animationSelectorBrowser->SetPwd(Project::getPath());
+//                    animationSelectorBrowser->Open();
+//                }
 
-                if (ImGui::Button("Add", ImVec2(ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1), 0))) {
-                    delete animationSelectorBrowser;
-                    animationSelectorBrowser = new ImGui::FileBrowser();
-                    animationSelectorBrowser->SetTitle("select animation");
-                    animationSelectorBrowser->SetPwd(Project::getPath());
-                    animationSelectorBrowser->Open();
-                }
                 ImGui::TreePop();
             }
         }
