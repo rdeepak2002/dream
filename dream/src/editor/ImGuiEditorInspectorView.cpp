@@ -478,6 +478,8 @@ namespace Dream {
     }
 
     void ImGuiEditorInspectorView::renderAnimatorComponent() {
+        auto cursorPosX1 = ImGui::GetCursorPosX();
+
         if (animationSelectorBrowser) {
             animationSelectorBrowser->Display();
             if (animationSelectorBrowser->HasSelected()) {
@@ -505,22 +507,48 @@ namespace Dream {
             ImGui::PopStyleColor();
 
             if (treeNodeOpen) {
-                for (auto const& [key, val] : component.animationObjects) {
-                    std::string fileName = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(key)).filename();
-                    ImGui::Text("%s", fileName.c_str());
-                    ImGui::SameLine();
-                    std::string fileGUID = key;
-                    ImGui::InputText( (std::string("##AnimationGUID") + key).c_str(), &fileGUID, ImGuiInputTextFlags_ReadOnly | ImGuiInputTextFlags_AutoSelectAll);
+                auto cursorPosX2 = ImGui::GetCursorPosX();
+//                std::string animatorPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
+                std::string animatorPath = "dummy/path";
+                std::string shortAnimatorPath = StringUtils::getFilePathRelativeToProjectFolder(animatorPath);
+                ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 2 * 22);
+                ImGui::InputText("##AnimatorPath", &shortAnimatorPath, ImGuiInputTextFlags_ReadOnly);
+
+                ImGui::SameLine();
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                if (ImGui::ImageButton("##Change Animator", (void*)(intptr_t)selectIcon, ImVec2(18,18))) {
+                    Logger::debug("TODO: allow chaning of animator");
                 }
-                if (ImGui::Button("Add")) {
+                ImGui::PopStyleVar();
+                ImGui::PopStyleColor();
+
+                ImGui::SameLine();
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                if (ImGui::ImageButton("##Edit Animator", (void*)(intptr_t)editIcon, ImVec2(18,18))) {
+                    this->animatorGraphEditor->open("dummy_guid");
+                }
+                ImGui::PopStyleVar();
+                ImGui::PopStyleColor();
+
+                if (!component.animationObjects.empty()) {
+                    ImGui::Text("Animations");
+                    for (auto const& [key, val] : component.animationObjects) {
+                        std::string fileName = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(key)).filename();
+                        ImGui::Text("%s", fileName.c_str());
+                        ImGui::SameLine();
+                        std::string fileGUID = key;
+                        ImGui::InputText( (std::string("##AnimationGUID") + key).c_str(), &fileGUID, ImGuiInputTextFlags_ReadOnly | ImGuiInputTextFlags_AutoSelectAll);
+                    }
+                }
+
+                if (ImGui::Button("Add", ImVec2(ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1), 0))) {
                     delete animationSelectorBrowser;
                     animationSelectorBrowser = new ImGui::FileBrowser();
                     animationSelectorBrowser->SetTitle("select animation");
                     animationSelectorBrowser->SetPwd(Project::getPath());
                     animationSelectorBrowser->Open();
-                }
-                if (ImGui::Button("Edit")) {
-                    this->animatorGraphEditor->open("dummy_guid");
                 }
                 ImGui::TreePop();
             }
