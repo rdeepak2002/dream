@@ -4,6 +4,7 @@
 
 #include "dream/renderer/Animation.h"
 #include "dream/util/Logger.h"
+#include "dream/scene/component/Component.h"
 
 namespace Dream {
     Animation::Animation(const std::string &animationPath, Entity modelEntity, int index) {
@@ -88,5 +89,13 @@ namespace Dream {
             readHierarchyData(newData, src->mChildren[i]);
             dest.children.push_back(newData);
         }
+    }
+
+    int Animation::numberOfAnimationsForFile(const std::string &animationPath) {
+        Assimp::Importer importer;
+        importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);  // fixes mixamo animations
+        const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
+        assert(scene && scene->mRootNode);
+        return scene->mNumAnimations;
     }
 }

@@ -127,7 +127,15 @@ namespace Dream::Component {
         if (!this->animations.empty()) {
             for (const auto& guid : this->animations) {
                 auto animationFilePath = Project::getResourceManager()->getFilePathFromGUID(guid);
-                m_CurrentAnimation = new Animation(animationFilePath, modelEntity, 0);
+//                auto numAnimationsForFile = Animation::numberOfAnimationsForFile(animationFilePath);
+//                for (int i = 0; i < numAnimationsForFile; i++) {
+//                    auto *anim = new Animation(animationFilePath, modelEntity, i);
+//                    m_CurrentAnimation = anim;
+//                    animationObjects[guid] = {i, anim};
+//                }
+                auto *anim = new Animation(animationFilePath, modelEntity, 0);
+                animationObjects[guid] = anim;
+                m_CurrentAnimation = anim;
             }
         } else {
             m_CurrentAnimation = nullptr;

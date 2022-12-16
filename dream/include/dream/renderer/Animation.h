@@ -9,7 +9,6 @@
 #include "dream/renderer/AnimationBone.h"
 #include "dream/renderer/AnimationData.h"
 #include "dream/scene/Entity.h"
-#include "dream/scene/component/Component.h"
 #include "dream/renderer/AssimpNodeData.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -29,6 +28,7 @@ namespace Dream {
         const AssimpNodeData& getRootNode();
         const std::map<std::string,BoneInfo>& getBoneIdMap();
         std::string getName();
+        static int numberOfAnimationsForFile(const std::string& animationPath);
     private:
         void readMissingBones(const aiAnimation* animation, Entity& modelEntity);
         void readHierarchyData(AssimpNodeData& dest, const aiNode* src);

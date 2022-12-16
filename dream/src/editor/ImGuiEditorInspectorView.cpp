@@ -12,17 +12,20 @@
 #include "dream/util/SceneUtils.h"
 #include "dream/util/IDUtils.h"
 #include "dream/util/Logger.h"
+#include "dream/renderer/Animation.h"
 
 namespace Dream {
     ImGuiEditorInspectorView::ImGuiEditorInspectorView() {
         selectedEntity = Entity();
         meshSelectorBrowser = nullptr;
         luaScriptSelectorBrowser = nullptr;
+        animationSelectorBrowser = nullptr;
     }
 
     ImGuiEditorInspectorView::~ImGuiEditorInspectorView() {
         delete meshSelectorBrowser;
         delete luaScriptSelectorBrowser;
+        delete animationSelectorBrowser;
     }
 
     void ImGuiEditorInspectorView::setTextEditor(ImGuiTextEditor *imGuiTextEditor) {
@@ -135,8 +138,8 @@ namespace Dream {
             Entity sceneCamera = Project::getScene()->getSceneCamera();
             if (sceneCamera) {
                 auto selectedTrans = selectedEntity.getComponent<Component::TransformComponent>().translation;
-                glm::vec3 offest = {2, -2, 0};
-                glm::vec3 newPos = glm::vec3(-1 * selectedTrans.x, -1 * selectedTrans.y, selectedTrans.z) + offest;
+                glm::vec3 offset = {2, -2, 0};
+                glm::vec3 newPos = glm::vec3(-1 * selectedTrans.x, -1 * selectedTrans.y, selectedTrans.z) + offset;
                 glm::vec3 lookAtPos = glm::vec3(-1 * selectedTrans.x, -1 * selectedTrans.y, selectedTrans.z);
                 sceneCamera.getComponent<Component::TransformComponent>().translation = newPos;
                 sceneCamera.getComponent<Component::SceneCameraComponent>().lookAt(sceneCamera, lookAtPos);
@@ -433,6 +436,17 @@ namespace Dream {
     }
 
     void ImGuiEditorInspectorView::renderAnimatorComponent() {
+        if (animationSelectorBrowser) {
+            animationSelectorBrowser->Display();
+            if (animationSelectorBrowser->HasSelected()) {
+                std::filesystem::path selectedFilePath = animationSelectorBrowser->GetSelected();
+                std::string newAnimationGUID = IDUtils::getGUIDForFile(selectedFilePath);
+                selectedEntity.getComponent<Component::AnimatorComponent>().animations.push_back(newAnimationGUID);
+                selectedEntity.getComponent<Component::AnimatorComponent>().loadAnimations(selectedEntity);
+                animationSelectorBrowser->ClearSelected();
+            }
+        }
+
         if (selectedEntity.hasComponent<Component::AnimatorComponent>()) {
             auto &component = selectedEntity.getComponent<Component::AnimatorComponent>();
             bool treeNodeOpen = ImGui::TreeNodeEx("##Animator", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
@@ -449,6 +463,17 @@ namespace Dream {
             ImGui::PopStyleColor();
 
             if (treeNodeOpen) {
+                for (auto const& [key, val] : component.animationObjects) {
+                    std::string fileName = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(key)).filename();
+                    ImGui::Text("%s", fileName.c_str());
+                }
+                if (ImGui::Button("Add")) {
+                    delete animationSelectorBrowser;
+                    animationSelectorBrowser = new ImGui::FileBrowser();
+                    animationSelectorBrowser->SetTitle("select animation");
+                    animationSelectorBrowser->SetPwd(Project::getPath());
+                    animationSelectorBrowser->Open();
+                }
                 if (ImGui::Button("Edit")) {
                     this->animatorGraphEditor->open("dummy_guid");
                 }

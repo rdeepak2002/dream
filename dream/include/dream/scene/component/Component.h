@@ -166,6 +166,7 @@ namespace Dream::Component {
         std::string foo = "Animator";
         inline static std::string k_animations = "animations";
         std::vector<std::string> animations;
+        std::map<std::string, void*> animationObjects;     // each model file could have multiple animations
         std::vector<glm::mat4> m_FinalBoneMatrices;
         void* m_CurrentAnimation = nullptr;
         float m_CurrentTime = 0;
