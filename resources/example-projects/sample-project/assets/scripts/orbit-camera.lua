@@ -35,8 +35,8 @@ function update(entity, dt)
 
 	-- set position of camera based off spherical coordinate values
 	local targetTranslation = targetEntity:getTransform().translation
-	local xPos = -1 * targetTranslation.x + self.radius * math.sin(self.theta) * math.cos(self.phi)
-	local yPos = -1 * targetTranslation.y + self.radius * math.cos(self.theta)
+	local xPos = targetTranslation.x - self.radius * math.sin(self.theta) * math.cos(self.phi)
+	local yPos = targetTranslation.y - self.radius * math.cos(self.theta)
 	local zPos = targetTranslation.z + self.radius * math.sin(self.theta) * math.sin(self.phi)
 	entity:getTransform().translation = vec3:new(xPos, yPos, zPos);
 
@@ -59,6 +59,7 @@ function update(entity, dt)
 	local lookAtOffset = vec3:new(0, -1, 0)
 	entity:getCamera().lookAt = lookAt + lookAtOffset
 end
+
 
 
 
