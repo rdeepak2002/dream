@@ -243,6 +243,7 @@ namespace Dream::Component {
         glm::mat4 getViewMatrix(Entity sceneCamera);
         void processInput(Entity sceneCamera, float dt);
         void updateCameraVectors();
+        void lookAt(Entity sceneCamera, glm::vec3 lookAtPos);
     };
 }
 

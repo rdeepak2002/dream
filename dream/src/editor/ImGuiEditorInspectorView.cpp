@@ -127,6 +127,15 @@ namespace Dream {
 
     void ImGuiEditorInspectorView::selectEntity(Entity &entity) {
         selectedEntity = entity;
+        Entity sceneCamera = Project::getScene()->getSceneCamera();
+        if (sceneCamera) {
+            auto selectedTrans = selectedEntity.getComponent<Component::TransformComponent>().translation;
+            glm::vec3 offest = {2, -2, 0};
+            glm::vec3 newPos = glm::vec3(-1 * selectedTrans.x, -1 * selectedTrans.y, selectedTrans.z) + offest;
+            glm::vec3 lookAtPos = glm::vec3(-1 * selectedTrans.x, -1 * selectedTrans.y, selectedTrans.z);
+            sceneCamera.getComponent<Component::TransformComponent>().translation = newPos;
+            sceneCamera.getComponent<Component::SceneCameraComponent>().lookAt(sceneCamera, lookAtPos);
+        }
     }
 
     std::string ImGuiEditorInspectorView::shorten(std::string str, int maxLength) {

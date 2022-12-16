@@ -112,4 +112,17 @@ namespace Dream::Component {
         right = glm::normalize(glm::cross(front, worldUp));
         up = glm::normalize(glm::cross(right, front));
     }
+
+    void SceneCameraComponent::lookAt(Entity sceneCamera, glm::vec3 lookAtPos) {
+        glm::vec3 &position = sceneCamera.getComponent<TransformComponent>().translation;
+        glm::quat q = glm::conjugate(glm::toQuat(
+                glm::lookAt(position,
+                            glm::vec3(lookAtPos.x, lookAtPos.y, lookAtPos.z),
+                            glm::vec3(0, 1, 0)
+                )
+        ));
+        glm::vec3 eulerAngles = glm::eulerAngles(q);
+        yaw = glm::degrees(eulerAngles.y) + 90;
+        pitch = glm::degrees(eulerAngles.x);
+    }
 }
