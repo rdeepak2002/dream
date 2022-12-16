@@ -3,28 +3,27 @@
 //
 
 #include "dream/renderer/OpenGLShader.h"
+#include "dream/util/Logger.h"
 
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <string>
 #include <glad/glad.h>
 
 namespace Dream {
     OpenGLShader::OpenGLShader(const char *vertexPath, const char *fragmentPath, const char *geometryPath) {
         if (!std::filesystem::exists(vertexPath)) {
-            fprintf(stderr, "Error: vertex shader file does not exist %s\n", vertexPath);
-            exit(EXIT_FAILURE);
+            Logger::fatal("Vertex shader file does not exist " + std::string(vertexPath));
         }
 
         if (!std::filesystem::exists(fragmentPath)) {
-            fprintf(stderr, "Error: fragment shader file does not exist %s\n", fragmentPath);
-            exit(EXIT_FAILURE);
+            Logger::fatal("Fragment shader file does not exist " + std::string(fragmentPath));
         }
 
         if (geometryPath != nullptr && !std::filesystem::exists(geometryPath)) {
-            fprintf(stderr, "Error: geometry shader file does not exist %s\n", geometryPath);
-            exit(EXIT_FAILURE);
+            Logger::fatal("Geometry shader file does not exist " + std::string(geometryPath));
         }
 
         // 1. retrieve the vertex/fragment source code from filePath
@@ -67,9 +66,8 @@ namespace Dream {
             vertexCode = OpenGLShader::getShaderVersion() + "\n" + vertexCode;
             fragmentCode = OpenGLShader::getShaderVersion() + "\n" + fragmentCode;
         }
-        catch (std::ifstream::failure& e)
-        {
-            std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ: " << e.what() << std::endl;
+        catch (std::ifstream::failure& e) {
+            Logger::fatal("Shader file not successfully read vertex shader: " + std::string(vertexPath) + " fragment shader: " + std::string(fragmentPath) + " [" + std::string(e.what()) + "]");
         }
         const char* vShaderCode = vertexCode.c_str();
         const char* fShaderCode = fragmentCode.c_str();
@@ -167,7 +165,7 @@ namespace Dream {
             if(!success)
             {
                 glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-                std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+                Logger::fatal("Shader compilation error of type " + std::string(type) + "\n" + std::string(infoLog));
             }
         }
         else
@@ -176,7 +174,7 @@ namespace Dream {
             if(!success)
             {
                 glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-                std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+                Logger::fatal("Error linking shader program of type " + std::string(type) + "\n" + std::string(infoLog));
             }
         }
     }

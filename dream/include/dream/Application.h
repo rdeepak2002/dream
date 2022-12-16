@@ -9,6 +9,10 @@
 #include "dream/editor/Editor.h"
 #include "dream/window/Window.h"
 #include "dream/project/Project.h"
+#include "dream/editor/LogCollector.h"
+
+using namespace std::chrono_literals;
+constexpr std::chrono::nanoseconds timestep(16ms);
 
 namespace Dream {
     class Application {
@@ -18,12 +22,14 @@ namespace Dream {
         void update();
         bool shouldClose();
     private:
-        bool fullscreen = false;
+        LogCollector* logCollector;
         Window* window;
         Renderer* renderer;
         Editor* editor;
         void fixedUpdate();
         std::filesystem::path getResourcesRoot();
+        std::chrono::time_point<std::chrono::high_resolution_clock> currentTime;
+        std::chrono::nanoseconds lag;
     };
 }
 

@@ -41,8 +41,9 @@ Dream::OpenGLFrameBuffer::OpenGLFrameBuffer() {
     glGenTextures(1, &textureColorbuffer);
     glGenRenderbuffers(1, &rbo);
     // now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        Logger::fatal("Framebuffer is not complete");
+    }
     this->width = 0;
     this->height = 0;
 }

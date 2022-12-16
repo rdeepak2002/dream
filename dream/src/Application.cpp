@@ -7,81 +7,60 @@
 #include "dream/renderer/OpenGLRenderer.h"
 #include "dream/editor/ImGuiSDL2OpenGLEditor.h"
 #include "dream/window/SDL2OpenGLWindow.h"
-#include "dream/scene/component/Component.h"
-#include "dream/renderer/OpenGLCubeMesh.h"
-#include "dream/renderer/OpenGLTexture.h"
-#include <iostream>
+#include "dream/util/Logger.h"
 #include <filesystem>
+#include <map>
 
 namespace Dream {
+    using clock = std::chrono::high_resolution_clock;
+
     Application::Application() {
-        Project::open(this->getResourcesRoot().append("examples").append("hello_world"));
+        this->logCollector = new LogCollector();
+        Project::open(this->getResourcesRoot().append("resources").append("example-projects").append("sample-project"));
         this->window = new SDL2OpenGLWindow();
         this->renderer = new OpenGLRenderer();
         this->editor = new ImGuiSDL2OpenGLEditor(this->window);
-
-        // TODO: load from project's scene file
-        auto sphereEntity = Project::getInstance().getScene().createEntity("Sphere");
-        sphereEntity.addComponent<Component::MeshComponent>(new OpenGLSphereMesh());
-        sphereEntity.getComponent<Component::TransformComponent>().translation = {-0.7, -0.7, 0};
-        sphereEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
-
-        auto cubeEntity = Project::getInstance().getScene().createEntity("Cube");
-        cubeEntity.addComponent<Component::MeshComponent>(new OpenGLCubeMesh());
-        cubeEntity.addComponent<Component::MaterialComponent>(new OpenGLTexture(Project::getPath().append("assets").append("textures").append("container.jpg")));
-        cubeEntity.getComponent<Component::TransformComponent>().translation = {1, 0.7, 0};
-        cubeEntity.getComponent<Component::TransformComponent>().scale = {0.4, 0.4, 0.4};
-
-//        Entity teapotEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("teapot.stl"));
-//        teapotEntity.getComponent<Component::TransformComponent>().scale = {0.05, 0.05, 0.05};
-
-//        Entity cuteGhostEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("cute-ghost").append("source").append("Ghost.fbx"));
-//        if (cuteGhostEntity) {
-//            cuteGhostEntity.getComponent<Component::TransformComponent>().translation = {0, 0, 0};
-//            cuteGhostEntity.getComponent<Component::TransformComponent>().scale = {0.2, 0.2, 0.2};
-//            cuteGhostEntity.getComponent<Component::TransformComponent>().rotation = {0.707, -0.5, 0, 0.0};
-//        } else {
-//            std::cout << "Error importing ghost model" << std::endl;
-//        }
-
-        Entity knightEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("knight").append("scene.gltf"));
-        if (knightEntity) {
-            knightEntity.getComponent<Component::TransformComponent>().translation = {0, -0.3, 0};
-            knightEntity.getComponent<Component::TransformComponent>().scale = {0.007, 0.007, 0.007};
-        } else {
-            std::cout << "Error importing knight model" << std::endl;
-        }
-
-        Entity dragonEntity = Project::getInstance().getAssetImporter()->importMesh(Project::getPath().append("assets").append("models").append("alduin").append("scene.gltf"));
-        if (dragonEntity) {
-            dragonEntity.getComponent<Component::TransformComponent>().translation = {0.5, 0, 0};
-            dragonEntity.getComponent<Component::TransformComponent>().scale = {0.0025, 0.0025, 0.0025};
-            dragonEntity.getComponent<Component::TransformComponent>().rotation = {0.707, 0.707, 0, 0};
-        } else {
-            std::cout << "Error importing dragon model" << std::endl;
-        }
+        this->editor->setLogCollector(logCollector);
+//        this->startTime = std::chrono::high_resolution_clock::now();
+        this->currentTime = clock::now();
     }
 
     Application::~Application() {
+        delete this->logCollector;
         delete this->window;
         delete this->renderer;
         delete this->editor;
     }
 
     void Application::update() {
+        auto deltaTime = clock::now() - currentTime;
+        this->currentTime = clock::now();
+        this->lag += std::chrono::duration_cast<std::chrono::nanoseconds>(deltaTime);
+        // poll for input
         this->window->pollEvents();
-        this->fixedUpdate();
+        // fixed update (physics, scripts, etc.)
+        while (lag >= timestep) {
+            this->fixedUpdate();
+            lag -= timestep;
+        }
+        // not fixed update (ex: animations)
+        float dt = std::chrono::duration_cast<std::chrono::milliseconds>(deltaTime).count() * 0.001f;
+        Project::getScene()->update(dt);
+        this->window->update(dt);
+        // render
         std::pair<int, int> rendererViewportDimensions;
-        if (fullscreen) {
+        if (Project::isFullscreen()) {
             rendererViewportDimensions = this->window->getWindowDimensions();
         } else {
             rendererViewportDimensions = this->editor->getRendererViewportDimensions();
         }
-        this->renderer->render(rendererViewportDimensions.first, rendererViewportDimensions.second, fullscreen);
-        if (!fullscreen) {
+        this->renderer->render(rendererViewportDimensions.first, rendererViewportDimensions.second, Project::isFullscreen());
+        if (!Project::isFullscreen()) {
+            // TODO: create fixed update for editor for more costly computations
             this->editor->update(this->window, this->renderer->getOutputRenderTexture());
         }
         this->window->swapBuffers();
+        this->window->setIsLoading(false);
     }
 
     bool Application::shouldClose() {
@@ -89,23 +68,24 @@ namespace Dream {
     }
 
     void Application::fixedUpdate() {
-
+        Project::getScene()->fixedUpdate(1.0 / 60.0);
     }
 
     std::filesystem::path Application::getResourcesRoot() {
-        if (std::filesystem::exists(std::filesystem::current_path().append("examples"))) {
+        // check if current path already has resources folder
+        if (std::filesystem::exists(std::filesystem::current_path().append("resources"))) {
             return std::filesystem::current_path();
         }
-        // try to find location of examples folder for desktop debug build
-        auto examplesFolder = std::filesystem::current_path()
+        // try to find location of resources folder for desktop debug build
+        auto resourcesFolder = std::filesystem::current_path()
                 .append("..")
                 .append("..")
                 .append("..")
-                .append("examples");
-        if (std::filesystem::exists(examplesFolder)) {
-            return examplesFolder.append("..");
+                .append("resources");
+        if (std::filesystem::exists(resourcesFolder)) {
+            return resourcesFolder.append("..");
         }
-        fprintf(stderr, "Error: unable to find examples folder\n");
-        exit(EXIT_FAILURE);
+        Logger::fatal("Unable to find examples folder");
+        return {};
     }
 }

@@ -54,6 +54,50 @@ else
   cd ..
 fi
 
+# build lua if necessary
+if [ -d "lua-5.4.4" ]; then
+  echo "lua already built."
+else
+  echo "Building lua..."
+  tar -xf lua-5.4.4.tar.gz lua-5.4.4
+  cd lua-5.4.4
+  cd src
+  make generic CC='emcc -s WASM=1' AR='emar rcu' RANLIB='emranlib'
+  make
+
+  RESULT=$?
+
+  if [ $RESULT -eq 0 ]; then
+    echo "lua build succeeded"
+  else
+    echo "lua build failed"
+    cd ..
+    cd ..
+    rm -rf lua-5.4.4
+    exit 1
+  fi
+
+  cd ..
+  cd ..
+fi
+
+# extract headers for bullet physics for web build
+if [ -d "bullet-2.82-r2704" ]; then
+  echo "bullet already extracted."
+else
+  echo "extracting bullet..."
+  tar -xf bullet-2.82-r2704.tgz bullet-2.82-r2704
+
+  RESULT=$?
+
+  if [ $RESULT -eq 0 ]; then
+    echo "extracted bullet"
+  else
+    echo "failed to extract bullet"
+    exit 1
+  fi
+fi
+
 # stop building web libraries
 cd ..
 

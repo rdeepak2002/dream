@@ -10,6 +10,7 @@
 #include "backends/imgui_impl_opengl3.h"
 #include "dream/renderer/OpenGLShader.h"
 #include "dream/window/SDL2OpenGLWindow.h"
+#include "dream/util/Logger.h"
 
 namespace Dream {
     ImGuiSDL2OpenGLEditor::ImGuiSDL2OpenGLEditor(Dream::Window *window) : ImGuiEditor(window) {
@@ -18,8 +19,7 @@ namespace Dream {
         if (sdl2OpenGLWindow) {
             ImGui_ImplSDL2_InitForOpenGL(sdl2OpenGLWindow->getSDL2Window(), sdl2OpenGLWindow->getSDL2GLContext());
         } else {
-            printf("Window instance does not support OpenGL rendering");
-            exit(EXIT_FAILURE);
+            Logger::fatal("Window instance does not support OpenGL rendering");
         }
         ImGui_ImplOpenGL3_Init(OpenGLShader::getShaderVersion().c_str());
     }
@@ -30,8 +30,7 @@ namespace Dream {
         if (sdl2OpenGLWindow) {
             ImGui_ImplSDL2_NewFrame(sdl2OpenGLWindow->getSDL2Window());
         } else {
-            printf("Window instance does not support OpenGL rendering");
-            exit(EXIT_FAILURE);
+            Logger::fatal("Window instance does not support OpenGL rendering");
         }
     }
 

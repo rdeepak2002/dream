@@ -12,9 +12,9 @@
  * Test HierarchyComponent addChild()
  */
 TEST(HierarchyComponentTest, AddChild) {
-    auto entityA = Dream::Project::getInstance().getScene().createEntity("A");
-    auto entityB = Dream::Project::getInstance().getScene().createEntity("B");
-    auto entityC = Dream::Project::getInstance().getScene().createEntity("C");
+    auto entityA = Dream::Project::getScene()->createEntity("A");
+    auto entityB = Dream::Project::getScene()->createEntity("B");
+    auto entityC = Dream::Project::getScene()->createEntity("C");
     // check root entity
     Dream::Entity rootEntity = entityA.scene->getRootEntity();
     EXPECT_EQ(rootEntity.numChildren(), 3);

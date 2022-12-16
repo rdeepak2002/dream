@@ -9,27 +9,29 @@
 #include <functional>
 #include <glm/glm.hpp>
 
+#define MAX_BONES 200
+#define MAX_BONE_INFLUENCE 4
+
 namespace Dream {
+    struct Vertex {
+        glm::vec3 position;
+        glm::vec2 uv;
+        glm::vec3 normal;
+        glm::vec3 tangent;
+        glm::vec3 bitangent;
+        // bones that influence this vertex
+        int boneIDs[MAX_BONE_INFLUENCE];
+        // effect of each bone on this vertex
+        float boneWeights[MAX_BONE_INFLUENCE];
+    };
     class Mesh {
     public:
-        void setPositions(std::vector<glm::vec3> positions);
-        void setUVs(std::vector<glm::vec2> uv);
-        void setNormals(std::vector<glm::vec3> normals);
-        void setTangents(std::vector<glm::vec3> tangents);
-        void setBitangents(std::vector<glm::vec3> bitangents);
         void setIndices(std::vector<unsigned int> indices);
-        virtual std::vector<glm::vec3> getPositions();
-        virtual std::vector<glm::vec2> getUVs();
-        virtual std::vector<glm::vec3> getNormals();
-        virtual std::vector<glm::vec3> getTangents();
-        virtual std::vector<glm::vec3> getBitangents();
+        void setVertices(std::vector<Vertex> vertices);
         virtual std::vector<unsigned int> getIndices();
+        virtual std::vector<Vertex> getVertices();
     protected:
-        std::vector<glm::vec3> positions;
-        std::vector<glm::vec2> uv;
-        std::vector<glm::vec3> normals;
-        std::vector<glm::vec3> tangents;
-        std::vector<glm::vec3> bitangents;
+        std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
     };
 }

@@ -18,7 +18,7 @@ namespace Dream {
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
         #endif
-        glContext = SDL_GL_CreateContext(Window);
+        glContext = SDL_GL_CreateContext(sdlWindow);
 
         // Check OpenGL properties
         #ifdef EMSCRIPTEN
@@ -29,7 +29,7 @@ namespace Dream {
     }
 
     void SDL2OpenGLWindow::swapBuffers() {
-        SDL_GL_SwapWindow(Window);
+        SDL_GL_SwapWindow(sdlWindow);
     }
 
     SDL_GLContext SDL2OpenGLWindow::getSDL2GLContext() {

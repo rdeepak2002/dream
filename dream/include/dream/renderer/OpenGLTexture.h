@@ -7,6 +7,7 @@
 
 #include <glad/glad.h>
 #include <iostream>
+#include <stb/stb_image.h>
 #include "dream/renderer/Texture.h"
 
 namespace Dream {
@@ -24,7 +25,7 @@ namespace Dream {
 //            GLenum WrapT          = GL_REPEAT;               // wrapping method of the T coordinate
 //            GLenum WrapR          = GL_REPEAT;               // wrapping method of the R coordinate
 //            bool Mipmapping       = true;
-//
+
             unsigned int id = 0;
             int width  = 0;
             int height = 0;
@@ -32,10 +33,12 @@ namespace Dream {
 //            unsigned int Depth  = 0;
         private:
         public:
-            OpenGLTexture(std::string texturePath);
+            OpenGLTexture(std::string texturePath, bool flipTexture=true);
+            OpenGLTexture(stbi_uc const *buffer, int len, bool flipTexture=true);
             ~OpenGLTexture();
             void bind(int unit = -1);
             void unbind();
+            unsigned int ID() override;
     };
 }
 

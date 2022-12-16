@@ -8,11 +8,13 @@
 #include <iostream>
 #include <filesystem>
 #include "dream/scene/Scene.h"
+#include "dream/project/AssetLoader.h"
 #include "dream/project/AssetImporter.h"
+#include "dream/project/ResourceManager.h"
 
 namespace Dream {
     class Project {
-    public:
+    private:
         static Project& getInstance()
         {
             static Project instance;
@@ -24,15 +26,37 @@ namespace Dream {
         void operator=(Project const&) = delete;
         static void open(std::filesystem::path filepath);
         static std::filesystem::path getPath();
-        Scene &getScene();
-        AssetImporter* getAssetImporter();
+        static Dream::AssetLoader* getAssetLoader();
+        static Dream::ResourceManager* getResourceManager();
+        static Dream::AssetImporter* getAssetImporter();
+        static Dream::Scene* getScene();
+        static Dream::Scene& getSceneReference();
+        static void recognizeResources();
+        static void saveScene();
+        static bool isPlaying();
+        static void setIsPlaying(bool playing);
+        static bool isFullscreen();
+        static void setIsFullscreen(bool fullscreen);
+        static bool isEditorFullscreen();
+        static void setIsEditorFullscreen(bool editorFullscreen);
     private:
         Project();
-        std::filesystem::path path;
+        void recognizeResourcesHelper();
         void openHelper(std::filesystem::path filepath);
+        void loadScene();
+        Dream::AssetLoader* getAssetLoaderHelper();
+        Dream::ResourceManager* getResourceManagerHelper();
+        Dream::AssetImporter* getAssetImporterHelper();
         std::filesystem::path getPathHelper();
-        Scene scene;
-        AssetImporter* assetImporter;
+        Scene *getSceneHelper();
+        Scene *scene;
+        std::filesystem::path path;
+        Dream::AssetLoader* assetLoader;
+        Dream::ResourceManager* resourceManager;
+        Dream::AssetImporter* assetImporter;
+        bool playing;
+        bool fullscreen;
+        bool editorFullscreen;
     };
 }
 

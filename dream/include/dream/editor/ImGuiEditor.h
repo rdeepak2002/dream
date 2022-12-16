@@ -10,6 +10,13 @@
 #include "dream/editor/Editor.h"
 #include "dream/editor/ImGuiEditorSceneView.h"
 #include "dream/editor/ImGuiEditorInspectorView.h"
+#include "dream/editor/ImGuiEditorProjectView.h"
+#include "dream/editor/ImGuiEditorConsoleView.h"
+#include "dream/editor/ImGuiEditorRendererView.h"
+#include "dream/editor/ImGuiEditorMenu.h"
+#include "dream/editor/ImGuiTextEditor.h"
+#include "dream/editor/ImGuiFileBrowser.h"
+#include "dream/editor/ImGuiEditorAnimatorGraph.h"
 
 namespace Dream {
     class ImGuiEditor : public Editor {
@@ -24,8 +31,16 @@ namespace Dream {
         void renderDrawData() override;
         int rendererViewportWidth, rendererViewportHeight;
     private:
+        void setupDockSpace();
         ImGuiEditorSceneView* sceneView;
         ImGuiEditorInspectorView* inspectorView;
+        ImGuiEditorProjectView* projectView;
+        ImGuiEditorConsoleView* consoleView;
+        ImGuiEditorRendererView* rendererView;
+        ImGuiEditorMenu* menu;
+        ImGuiTextEditor* textEditor;
+        ImGuiFileBrowser* fileBrowser;
+        ImGuiEditorAnimatorGraph* animatorGraphEditor;
     };
 }
 

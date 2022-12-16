@@ -14,4 +14,6 @@ Deepak Ramalingam
 
 Cross-platform and web compatible real-time 3D engine with support for plugins and native scripting
 
-![Screenshot](images/screenshot.png "Screenshot")
+![Screenshot](images/screenshot-0.png "Screenshot")
+
+![Screenshot](images/screenshot-1.png "Scripting Screenshot")

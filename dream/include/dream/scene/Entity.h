@@ -6,7 +6,9 @@
 #define DREAM_ENTITY_H
 
 #include <entt/entt.hpp>
+#include <yaml-cpp/yaml.h>
 #include "dream/scene/Scene.h"
+#include "dream/util/Logger.h"
 
 namespace Dream {
     class Entity {
@@ -23,8 +25,7 @@ namespace Dream {
         template<typename T>
         T& getComponent() {
             if (!hasComponent<T>()) {
-                std::cout << "Entity does not have component" << std::endl;
-                exit(1);
+                Logger::fatal("Entity does not have component");
             }
             return scene->entityRegistry.get<T>(entityHandle);
         }
@@ -39,13 +40,15 @@ namespace Dream {
         template<typename T>
         void removeComponent() {
             if (!hasComponent<T>()) {
-                std::cout << "Entity does not have component" << std::endl;
-                exit(1);
+                Logger::fatal("Entity does not have component (for removal)");
             }
             scene->entityRegistry.remove<T>(entityHandle);
         }
-        void addChild(Entity entity);
+        void addChild(Entity entity, bool atStart = true);
         int numChildren();
+        void serialize(YAML::Emitter &out);
+        void deserialize(YAML::Node node);
+        std::string getID();
         explicit operator bool() const;
         explicit operator entt::entity() const;
         bool operator==(const Entity& other) const;

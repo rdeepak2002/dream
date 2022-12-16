@@ -24,4 +24,12 @@ namespace Dream {
     Window::Window() {
         this->shouldCloseFlag = false;
     }
+
+    void Window::setIsLoading(bool isLoading) {
+        this->isLoading = isLoading;
+    }
+
+    void Window::update(float dt) {
+
+    }
 }

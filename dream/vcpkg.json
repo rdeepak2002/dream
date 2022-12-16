@@ -1,0 +1,45 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "dependencies": [
+    "yaml-cpp",
+    "sdl2",
+    "bullet3",
+    "lua",
+    "gtest",
+    "assimp",
+    "openal-soft"
+  ],
+  "overrides": [
+    {
+      "name": "yaml-cpp",
+      "version": "0.7.0"
+    },
+    {
+      "name": "sdl2",
+      "version": "2.24.0"
+    },
+    {
+      "name": "bullet3",
+      "version": "3.22#1"
+    },
+    {
+      "name": "lua",
+      "version": "5.4.4"
+    },
+    {
+      "name": "gtest",
+      "version": "1.12.1"
+    },
+    {
+      "name": "assimp",
+      "version": "5.2.5"
+    },
+    {
+      "name": "openal-soft",
+      "version": "1.22.2"
+    }
+  ],
+  "$x-default-baseline": "9fd3bd594f41afb8747e20f6ac9619f26f333cbe",
+  "builtin-baseline": "62d01b70df227850b728f5050418b917ad6d2b32"
+}

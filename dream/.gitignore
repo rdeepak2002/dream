@@ -79,3 +79,4 @@ fabric.properties
 # Emscripten
 /emsdk/
 !/vendor/
+/vcpkg_installed/
