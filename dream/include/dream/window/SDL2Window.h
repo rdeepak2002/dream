@@ -27,6 +27,8 @@ namespace Dream {
         #endif
         SDL_Window *sdlWindow;
         int windowWidth, windowHeight;
+        SDL_Renderer* launchWindowRenderer;
+        SDL_Texture *launchWindowImage;
     };
 }
 

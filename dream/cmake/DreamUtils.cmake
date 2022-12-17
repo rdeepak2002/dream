@@ -28,7 +28,9 @@ macro(DREAM_FIND_AND_LINK_LIBRARIES)
         message(STATUS "SDL2_INCLUDE_DIRS = ${SDL2_INCLUDE_DIRS}")
         include_directories(${SDL2_INCLUDE_DIRS})
         message(STATUS "SDL2_LIBRARIES = ${SDL2_LIBRARIES}")
-        link_libraries(${SDL2_LIBRARIES})
+
+        # Link SDL2-image library
+        find_package(sdl2-image CONFIG REQUIRED)
 
         # Link assimp library
         find_package(ASSIMP REQUIRED)
@@ -70,6 +72,8 @@ macro(DREAM_FIND_AND_LINK_LIBRARIES_PART_2)
         target_link_libraries(${PROJECT_NAME} GTest::gtest_main)
         # Link OpenAL
         target_link_libraries(${PROJECT_NAME} OpenAL::OpenAL)
+        # Link SDL2-image
+        target_link_libraries(${PROJECT_NAME} SDL2::SDL2_image)
     endif()
 endmacro()
 

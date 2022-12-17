@@ -8,7 +8,8 @@
     "lua",
     "gtest",
     "assimp",
-    "openal-soft"
+    "openal-soft",
+    "sdl2-image"
   ],
   "overrides": [
     {
@@ -38,6 +39,10 @@
     {
       "name": "openal-soft",
       "version": "1.22.2"
+    },
+    {
+      "name": "sdl2-image",
+      "version": "2.0.5"
     }
   ],
   "$x-default-baseline": "9fd3bd594f41afb8747e20f6ac9619f26f333cbe",

@@ -36,6 +36,9 @@ namespace Dream {
         auto deltaTime = clock::now() - currentTime;
         this->currentTime = clock::now();
         this->lag += std::chrono::duration_cast<std::chrono::nanoseconds>(deltaTime);
+        float dt = std::chrono::duration_cast<std::chrono::milliseconds>(deltaTime).count() * 0.001f;
+        // update startup logo and other window-specific logic
+        this->window->update(dt);
         // poll for input
         this->window->pollEvents();
         // fixed update (physics, scripts, etc.)
@@ -44,9 +47,7 @@ namespace Dream {
             lag -= timestep;
         }
         // not fixed update (ex: animations)
-        float dt = std::chrono::duration_cast<std::chrono::milliseconds>(deltaTime).count() * 0.001f;
         Project::getScene()->update(dt);
-        this->window->update(dt);
         // render
         std::pair<int, int> rendererViewportDimensions;
         if (Project::isFullscreen()) {
