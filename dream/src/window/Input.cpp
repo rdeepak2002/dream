@@ -54,4 +54,12 @@ namespace Dream {
     bool Input::pointerLockActivated() {
         return Input::getInstance().enablePointerLock;
     }
+
+    bool Input::isEditorRendererActive() {
+        return Input::getInstance().editorRendererActive;
+    }
+
+    void Input::setEditorRendererActive(bool editorRendererActive) {
+        Input::getInstance().editorRendererActive = editorRendererActive;
+    }
 }

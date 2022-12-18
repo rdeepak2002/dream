@@ -7,6 +7,7 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
 #include "dream/renderer/OpenGLTexture.h"
+#include "dream/window/Input.h"
 
 namespace Dream {
     ImGuiEditorRendererView::ImGuiEditorRendererView() {
@@ -74,6 +75,11 @@ namespace Dream {
         rendererViewportWidth = int(width);
         rendererViewportHeight = int(height);
         ImGui::Image(reinterpret_cast<ImTextureID>(frameBufferTexture), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
+        if (ImGui::IsItemHovered()) {
+            Input::setEditorRendererActive(true);
+        } else {
+            Input::setEditorRendererActive(false);
+        }
         ImGui::End();
         ImGui::PopStyleColor();
     }

@@ -34,6 +34,9 @@ namespace Dream {
 
         static void activatePointerLock(bool enablePointerLock);
         static bool pointerLockActivated();
+
+        static bool isEditorRendererActive();
+        static void setEditorRendererActive(bool editorRendererActive);
     private:
         Input() {}
         std::unordered_map<int, bool> keyDownMap;
@@ -41,6 +44,7 @@ namespace Dream {
         glm::vec2 mouseMovement;
         glm::vec2 mouseScroll;
         bool enablePointerLock = false;
+        bool editorRendererActive = false;
     public:
         Input(Input const&) = delete;
         void operator=(Input const&) = delete;

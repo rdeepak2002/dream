@@ -81,7 +81,7 @@ namespace Dream {
         } else {
             // TODO: move to component system
             Entity sceneCamera = getSceneCamera();
-            if (sceneCamera) {
+            if (sceneCamera && Input::isEditorRendererActive()) {
                 sceneCamera.getComponent<Component::SceneCameraComponent>().processInput(sceneCamera, dt);
             }
         }
