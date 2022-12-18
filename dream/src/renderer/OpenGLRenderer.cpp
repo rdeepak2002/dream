@@ -13,6 +13,7 @@
 #include "dream/renderer/OpenGLMesh.h"
 #include "dream/util/Logger.h"
 #include "dream/util/MathUtils.h"
+#include "dream/window/Input.h"
 
 namespace Dream {
     OpenGLRenderer::OpenGLRenderer() : Renderer() {
@@ -43,6 +44,7 @@ namespace Dream {
     }
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
+        Input::setPlayWindowActive(true);
         this->preRender(viewportWidth, viewportHeight, fullscreen);
 
         glEnable(GL_BLEND);

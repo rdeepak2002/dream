@@ -11,11 +11,17 @@ namespace Dream {
             return false;
         }
 
-        return Input::getInstance().keyDownMap[keyCode];
+        if (Input::getInstance().playWindowActive) {
+            return Input::getInstance().keyDownMap[keyCode];
+        } else {
+            return false;
+        }
     }
 
     void Input::setButtonDown(int keyCode, bool state) {
-        Input::getInstance().keyDownMap[keyCode] = state;
+        if (Input::getInstance().playWindowActive) {
+            Input::getInstance().keyDownMap[keyCode] = state;
+        }
     }
 
     glm::vec2 Input::getMousePosition() {
@@ -23,11 +29,17 @@ namespace Dream {
     }
 
     void Input::setMousePosition(double x, double y) {
-        Input::getInstance().mousePosition = {x, y};
+        if (Input::getInstance().playWindowActive) {
+            Input::getInstance().mousePosition = {x, y};
+        }
     }
 
     glm::vec2 Input::getMouseMovement() {
-        return Input::getInstance().mouseMovement;
+        if (Input::getInstance().playWindowActive) {
+            return Input::getInstance().mouseMovement;
+        } else {
+            return {0, 0};
+        }
     }
 
     void Input::setMouseMovement(double x, double y) {
@@ -35,7 +47,11 @@ namespace Dream {
     }
 
     glm::vec2 Input::getMouseScroll() {
-        return Input::getInstance().mouseScroll;
+        if (Input::getInstance().playWindowActive) {
+            return Input::getInstance().mouseScroll;
+        } else {
+            return {0, 0};
+        }
     }
 
     void Input::setMouseScroll(double x, double y) {
@@ -61,5 +77,13 @@ namespace Dream {
 
     void Input::setEditorRendererActive(bool editorRendererActive) {
         Input::getInstance().editorRendererActive = editorRendererActive;
+    }
+
+    bool Input::isPlayWindowActive() {
+        return Input::getInstance().playWindowActive;
+    }
+
+    void Input::setPlayWindowActive(bool playWindowActive) {
+        Input::getInstance().playWindowActive = playWindowActive;
     }
 }
