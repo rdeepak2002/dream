@@ -3505,8 +3505,7 @@ Entities:
       guid: F5D080D2-8FF5-4C33-BFA4-B640FEEAD5CA
       fileId: ""
     AnimatorComponent:
-      animations:
-        - F5D080D2-8FF5-4C33-BFA4-B640FEEAD5CA
+      guid: EA342F2C-8329-4A68-B8A9-A77B9984E71A
   - Entity: 99C14584-5EA3-4A41-AFF5-2D8B05515704
     IDComponent:
       id: 99C14584-5EA3-4A41-AFF5-2D8B05515704
