@@ -76,7 +76,7 @@ namespace Dream {
         rendererViewportHeight = int(height);
         ImGui::Image(reinterpret_cast<ImTextureID>(frameBufferTexture), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
         Input::setPlayWindowActive(true);
-        if (ImGui::IsItemHovered()) {
+        if (ImGui::IsItemHovered() || Input::pointerLockActivated()) {
             Input::setEditorRendererActive(true);
         } else {
             Input::setEditorRendererActive(false);

@@ -2,6 +2,8 @@
 // Created by Deepak Ramalingam on 12/3/22.
 //
 
+#include <utility>
+
 #include "dream/scene/component/Component.h"
 #include "dream/renderer/Animation.h"
 #include "dream/project/Project.h"
@@ -10,6 +12,7 @@
 
 namespace Dream::Component {
     AnimatorComponent::AnimatorComponent() {
+        this->guid = "";
         m_CurrentTime = 0.0;
         m_CurrentAnimation = nullptr;
         m_FinalBoneMatrices.reserve(MAX_BONES);
@@ -18,8 +21,8 @@ namespace Dream::Component {
         }
     }
 
-    AnimatorComponent::AnimatorComponent(Entity modelEntity, std::vector<std::string> animations) {
-        this->animations = std::move(animations);
+    AnimatorComponent::AnimatorComponent(std::string animatorGUID) {
+        this->guid = std::move(animatorGUID);
         m_CurrentTime = 0.0;
         m_CurrentAnimation = nullptr;
         m_FinalBoneMatrices.reserve(MAX_BONES);
@@ -109,9 +112,9 @@ namespace Dream::Component {
 
     void AnimatorComponent::deserialize(YAML::Node node, Entity &entity) {
         if (node[componentName]) {
-            if (node[componentName][AnimatorComponent::k_animations]) {
-                auto animations = node[componentName][AnimatorComponent::k_animations].as<std::vector<std::string>>();
-                entity.addComponent<AnimatorComponent>(entity, animations);
+            if (node[componentName][AnimatorComponent::k_guid]) {
+                auto guid = node[componentName][AnimatorComponent::k_guid].as<std::string>();
+                entity.addComponent<AnimatorComponent>(guid);
             } else {
                 entity.addComponent<AnimatorComponent>();
             }
@@ -122,23 +125,26 @@ namespace Dream::Component {
         if (entity.hasComponent<AnimatorComponent>()) {
             out << YAML::Key << AnimatorComponent::componentName;
             out << YAML::BeginMap;
-            out << YAML::Key << AnimatorComponent::k_animations << YAML::Value << entity.getComponent<AnimatorComponent>().animations;
+            out << YAML::Key << AnimatorComponent::k_guid << YAML::Value << entity.getComponent<AnimatorComponent>().guid;
             out << YAML::EndMap;
         }
     }
 
     void AnimatorComponent::loadAnimations(Entity modelEntity) {
-        if (!this->animations.empty()) {
-            for (const auto& guid : this->animations) {
-                auto animationFilePath = Project::getResourceManager()->getFilePathFromGUID(guid);
-//                auto numAnimationsForFile = Animation::numberOfAnimationsForFile(animationFilePath);
-//                for (int i = 0; i < numAnimationsForFile; i++) {
-//                    auto *anim = new Animation(animationFilePath, modelEntity, i);
-//                    m_CurrentAnimation = anim;
-//                    animationObjects[guid] = {i, anim};
-//                }
+        std::vector<std::string> animationGUIDS;
+        std::string animatorFilePath = Project::getResourceManager()->getFilePathFromGUID(guid);
+        // get guids for animation files from animator file
+        YAML::Node doc = YAML::LoadFile(animatorFilePath);
+        auto animationsNode = doc["Animations"].as<std::vector<YAML::Node>>();
+        for (const YAML::Node& animationGUIDNode : animationsNode) {
+            animationGUIDS.push_back(animationGUIDNode.as<std::string>());
+        }
+        // load animation data from animation files
+        if (!animationGUIDS.empty()) {
+            for (const auto& animationGUID : animationGUIDS) {
+                auto animationFilePath = Project::getResourceManager()->getFilePathFromGUID(animationGUID);
                 auto *anim = new Animation(animationFilePath, modelEntity, 0);
-                animationObjects[guid] = anim;
+                animationObjects[animationGUID] = anim;
                 m_CurrentAnimation = anim;
             }
         } else {

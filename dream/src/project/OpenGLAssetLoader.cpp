@@ -57,8 +57,8 @@ namespace Dream {
             } else {
                 // rigged model
                 dreamEntityRootNode.addComponent<Component::MeshComponent>(guid, boneInfoMapCpy);
-                std::vector<std::string> animations {guid};
-                dreamEntityRootNode.addComponent<Component::AnimatorComponent>(dreamEntityRootNode, animations);
+                Logger::warn("TODO: OpenGLAssetLoader should create an animator file and link it to this component");   // TODO
+                dreamEntityRootNode.addComponent<Component::AnimatorComponent>();
             }
         }
         return boneInfoMapCpy;

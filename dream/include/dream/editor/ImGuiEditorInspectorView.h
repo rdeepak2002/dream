@@ -61,7 +61,6 @@ namespace Dream {
         std::string oldMeshGUID;
         ImGui::FileBrowser* luaScriptSelectorBrowser;
         ImGuiTextEditor* imGuiTextEditor;
-        ImGui::FileBrowser* animationSelectorBrowser;
         ImGuiEditorAnimatorGraph* animatorGraphEditor;
     };
 }

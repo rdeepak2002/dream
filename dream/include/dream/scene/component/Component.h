@@ -164,9 +164,9 @@ namespace Dream::Component {
     struct AnimatorComponent : public Component {
         inline static std::string componentName = "AnimatorComponent";
         std::string foo = "Animator";
-        inline static std::string k_animations = "animations";
-        std::vector<std::string> animations;
-        std::map<std::string, void*> animationObjects;     // each model file could have multiple animations
+        inline static std::string k_guid = "guid";          // guid of the animator file
+        std::string guid;
+        std::map<std::string, void*> animationObjects;      // each model file could have multiple animations
         std::vector<glm::mat4> m_FinalBoneMatrices;
         void* m_CurrentAnimation = nullptr;
         float m_CurrentTime = 0;
@@ -175,7 +175,7 @@ namespace Dream::Component {
         std::map<int, Entity> boneEntities;
         explicit AnimatorComponent();
         ~AnimatorComponent();
-        AnimatorComponent(Entity modelEntity, std::vector<std::string> animations);
+        AnimatorComponent(std::string animatorGUID);
         void calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform, int depth=0);
         void updateAnimation(float dt);
         void loadAnimations(Entity modelEntity);

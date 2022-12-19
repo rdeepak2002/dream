@@ -7,6 +7,10 @@
 
 #include <imgui_node_editor.h>
 #include <imgui_internal.h>
+#include <string>
+#include <vector>
+#include <iostream>
+#include <imgui-filebrowser/imfilebrowser.h>
 
 namespace Dream {
     class ImGuiEditorAnimatorGraph {
@@ -15,11 +19,16 @@ namespace Dream {
         ~ImGuiEditorAnimatorGraph();
         void update();
         void open(std::string guid);
+        void loadStateMachine();
+        void serializeStateMachine();
     private:
         bool visible;
         bool isFullscreen;
         bool shouldSetupPositionAndSize;
         ax::NodeEditor::EditorContext* m_Context;
+        std::string animatorFileGUID;
+        std::vector<std::string> animationGUIDS;
+        ImGui::FileBrowser* animationSelectorBrowser;
     };
 }
 

@@ -70,6 +70,32 @@ namespace Dream {
                 Project::getAssetImporter()->createMetaFile(path);
                 Project::recognizeResources();
             }
+            if (ImGui::MenuItem("New animator")) {
+                auto filename = "anim";
+                auto extension = ".animator";
+                auto path = Project::getPath().append("assets").append("animators");
+                if (!exists(path)) {
+                    path = Project::getPath().append("assets");
+                }
+                if (!exists(path)) {
+                    Logger::fatal("Cannot find assets folder to save new animator to");
+                }
+                // find a unique file path to save new script file to
+                int i = 0;
+                while(exists(std::filesystem::path(path).append(filename + std::to_string(i) + extension))) {
+                    i++;
+                }
+                path = path.append(filename + std::to_string(i) + extension);
+                // create blank animator
+                std::ofstream fout(path);
+                fout << "Animations: " << "[]" << std::endl;
+                fout << "States: " << "[]" << std::endl;
+                fout << "Transitions: " << "[]" << std::endl;
+                fout << "Conditions: " << "[]" << std::endl;
+                fout.close();
+                Project::getAssetImporter()->createMetaFile(path);
+                Project::recognizeResources();
+            }
             ImGui::EndPopup();
         }
 

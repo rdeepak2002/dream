@@ -20,7 +20,6 @@ namespace Dream {
         selectedEntity = Entity();
         meshSelectorBrowser = nullptr;
         luaScriptSelectorBrowser = nullptr;
-        animationSelectorBrowser = nullptr;
 
         // TODO: use specific renderer (not OpenGL)
         Texture* selectIconTexture = new OpenGLTexture(std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append("SelectIconWhite.png"), false);
@@ -36,7 +35,6 @@ namespace Dream {
     ImGuiEditorInspectorView::~ImGuiEditorInspectorView() {
         delete meshSelectorBrowser;
         delete luaScriptSelectorBrowser;
-        delete animationSelectorBrowser;
     }
 
     void ImGuiEditorInspectorView::setTextEditor(ImGuiTextEditor *imGuiTextEditor) {
@@ -118,7 +116,7 @@ namespace Dream {
             components.insert(std::make_pair("Animator", Component::AnimatorComponent::componentName));
         }
 
-        if (!selectedEntity.hasComponent<Component::SceneCameraComponent>()) {
+        if (!selectedEntity.hasComponent<Component::SceneCameraComponent>() && !Project::getScene()->getSceneCamera()) {
             components.insert(std::make_pair("Scene Camera", Component::SceneCameraComponent::componentName));
         }
 
@@ -480,17 +478,6 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderAnimatorComponent() {
         auto cursorPosX1 = ImGui::GetCursorPosX();
 
-        if (animationSelectorBrowser) {
-            animationSelectorBrowser->Display();
-            if (animationSelectorBrowser->HasSelected()) {
-                std::filesystem::path selectedFilePath = animationSelectorBrowser->GetSelected();
-                std::string newAnimationGUID = IDUtils::getGUIDForFile(selectedFilePath);
-                selectedEntity.getComponent<Component::AnimatorComponent>().animations.push_back(newAnimationGUID);
-                selectedEntity.getComponent<Component::AnimatorComponent>().loadAnimations(selectedEntity);
-                animationSelectorBrowser->ClearSelected();
-            }
-        }
-
         if (selectedEntity.hasComponent<Component::AnimatorComponent>()) {
             auto &component = selectedEntity.getComponent<Component::AnimatorComponent>();
             bool treeNodeOpen = ImGui::TreeNodeEx("##Animator", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
@@ -508,8 +495,7 @@ namespace Dream {
 
             if (treeNodeOpen) {
                 auto cursorPosX2 = ImGui::GetCursorPosX();
-//                std::string animatorPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
-                std::string animatorPath = "dummy/path";
+                std::string animatorPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
                 std::string shortAnimatorPath = StringUtils::getFilePathRelativeToProjectFolder(animatorPath);
                 ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 2 * 22);
                 ImGui::InputText("##AnimatorPath", &shortAnimatorPath, ImGuiInputTextFlags_ReadOnly);
@@ -518,7 +504,7 @@ namespace Dream {
                 ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                 ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
                 if (ImGui::ImageButton("##Change Animator", (void*)(intptr_t)selectIcon, ImVec2(18,18))) {
-                    Logger::debug("TODO: allow chaning of animator");
+                    Logger::fatal("NOT IMPLEMENTED: allow animator to be changed");
                 }
                 ImGui::PopStyleVar();
                 ImGui::PopStyleColor();
@@ -527,31 +513,10 @@ namespace Dream {
                 ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                 ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
                 if (ImGui::ImageButton("##Edit Animator", (void*)(intptr_t)editIcon, ImVec2(18,18))) {
-                    this->animatorGraphEditor->open("dummy_guid");
+                    this->animatorGraphEditor->open(component.guid);
                 }
                 ImGui::PopStyleVar();
                 ImGui::PopStyleColor();
-
-                // TODO: move below logic to animator graph editor
-//                if (!component.animationObjects.empty()) {
-//                    ImGui::Text("Animations");
-//                    for (auto const& [key, val] : component.animationObjects) {
-//                        std::string fileName = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(key)).filename();
-//                            ImGui::Text("%s", fileName.c_str());
-//                            ImGui::SameLine();
-//                            std::string fileGUID = key;
-//                            ImGui::InputText( (std::string("##AnimationGUID") + key).c_str(), &fileGUID, ImGuiInputTextFlags_ReadOnly | ImGuiInputTextFlags_AutoSelectAll);
-//                    }
-//                }
-//
-//                if (ImGui::Button("Add", ImVec2(ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1), 0))) {
-//                    delete animationSelectorBrowser;
-//                    animationSelectorBrowser = new ImGui::FileBrowser();
-//                    animationSelectorBrowser->SetTitle("select animation");
-//                    animationSelectorBrowser->SetPwd(Project::getPath());
-//                    animationSelectorBrowser->Open();
-//                }
-
                 ImGui::TreePop();
             }
         }
