@@ -131,18 +131,18 @@ namespace Dream::Component {
     }
 
     void AnimatorComponent::loadStateMachine(Entity modelEntity) {
-        std::vector<std::string> animationGUIDS;
+        states.clear();
         std::string animatorFilePath = Project::getResourceManager()->getFilePathFromGUID(guid);
         // get guids for animation files from animator file
         YAML::Node doc = YAML::LoadFile(animatorFilePath);
         auto animationsNode = doc[k_states].as<std::vector<YAML::Node>>();
         for (const YAML::Node& animationGUIDNode : animationsNode) {
-            animationGUIDS.push_back(animationGUIDNode.as<std::string>());
+            states.push_back(animationGUIDNode.as<std::string>());
         }
         auto transitionsNode = doc[k_transitions].as<std::vector<YAML::Node>>();
         // load animation data from animation files
-        if (!animationGUIDS.empty()) {
-            for (const auto& animationGUID : animationGUIDS) {
+        if (!states.empty()) {
+            for (const auto& animationGUID : states) {
                 auto animationFilePath = Project::getResourceManager()->getFilePathFromGUID(animationGUID);
                 auto *anim = new Animation(animationFilePath, modelEntity, 0);
                 animationObjects[animationGUID] = anim;

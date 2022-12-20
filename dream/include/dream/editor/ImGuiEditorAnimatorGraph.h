@@ -28,7 +28,10 @@ namespace Dream {
         ax::NodeEditor::EditorContext* m_Context;
         std::string animatorFileGUID;
         std::vector<std::string> states;
+        std::bitset<16> variableBits;
+        std::vector<std::string> variableNames;
         ImGui::FileBrowser* animationSelectorBrowser;
+        std::string settingsFilePath;
     };
 }
 
