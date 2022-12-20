@@ -194,6 +194,7 @@ namespace Dream {
 
                 ImGui::DockBuilderDockWindow("Renderer", dockspace_id);
                 ImGui::DockBuilderDockWindow("###File Editor", dockspace_id);
+                ImGui::DockBuilderDockWindow("###Animator", dockspace_id);
                 ImGui::DockBuilderDockWindow("Inspector", dock_id_right);
                 ImGui::DockBuilderDockWindow("Console", dock_id_down);
                 ImGui::DockBuilderDockWindow("Project", dock_id_down);

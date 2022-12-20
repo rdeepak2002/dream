@@ -1,7 +1,6 @@
-Animations:
+States:
   - F5D080D2-8FF5-4C33-BFA4-B640FEEAD5CA
   - EE92CB4C-ECCB-478D-BC8F-D149C0E20DDB
   - CF0A078D-032B-48BA-9B98-8858D5BB4414
-States: []
 Transitions: []
-Conditions: []
+Variables: []

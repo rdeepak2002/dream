@@ -19,7 +19,7 @@ namespace Dream {
         m_Context = ax::NodeEditor::CreateEditor(&config);
         visible = false;
         isFullscreen = false;
-        shouldSetupPositionAndSize = true;
+        shouldSetupPositionAndSize = false;
         animationSelectorBrowser = nullptr;
     }
 
@@ -44,7 +44,13 @@ namespace Dream {
                 shouldSetupPositionAndSize = false;
             }
 
-            ImGui::Begin("Animator", nullptr,  ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+            std::string filename = "Animator";
+            if (!animatorFileGUID.empty()) {
+                std::filesystem::path path = Project::getResourceManager()->getFilePathFromGUID(animatorFileGUID);
+                filename = path.filename();
+            }
+
+            ImGui::Begin(std::string(filename + "###Animator").c_str(), &visible,  ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
             if (ImGui::BeginPopupContextWindow()) {
                 if (ImGui::MenuItem("New animation")) {
@@ -62,7 +68,7 @@ namespace Dream {
                 if (animationSelectorBrowser->HasSelected()) {
                     std::filesystem::path selectedFilePath = animationSelectorBrowser->GetSelected();
                     std::string newAnimationGUID = IDUtils::getGUIDForFile(selectedFilePath);
-                    animationGUIDS.push_back(newAnimationGUID);
+                    states.push_back(newAnimationGUID);
                     animationSelectorBrowser->ClearSelected();
                 }
             }
@@ -74,7 +80,7 @@ namespace Dream {
                     }
                     if (ImGui::MenuItem("Close")) {
                         this->visible = false;
-                        this->animationGUIDS.clear();
+                        this->states.clear();
                     }
                     ImGui::EndMenu();
                 }
@@ -96,7 +102,7 @@ namespace Dream {
             ax::NodeEditor::Begin("Animator", ImVec2(0.0, 0.0f));
             int uniqueId = 1;
             // draw nodes
-            for (const auto& animationGUID : animationGUIDS) {
+            for (const auto& animationGUID : states) {
                 // example node
                 ax::NodeEditor::BeginNode(uniqueId++);
                 std::string animationFilePath = Project::getResourceManager()->getFilePathFromGUID(animationGUID);
@@ -128,12 +134,12 @@ namespace Dream {
         if (animatorFileGUID.empty()) {
             Logger::fatal("No file specified for animator");
         }
-        animationGUIDS.clear();
+        states.clear();
         std::string animatorFilePath = Project::getResourceManager()->getFilePathFromGUID(animatorFileGUID);
         YAML::Node doc = YAML::LoadFile(animatorFilePath);
-        auto animationsNode = doc["Animations"].as<std::vector<YAML::Node>>();
+        auto animationsNode = doc[Component::AnimatorComponent::k_states].as<std::vector<YAML::Node>>();
         for (const YAML::Node& animationGUIDNode : animationsNode) {
-            animationGUIDS.push_back(animationGUIDNode.as<std::string>());
+            states.push_back(animationGUIDNode.as<std::string>());
         }
     }
 
@@ -141,30 +147,30 @@ namespace Dream {
         if (animatorFileGUID.empty()) {
             Logger::fatal("No file specified for animator");
         }
+        // update the animator file
         std::string animatorFilePath = Project::getResourceManager()->getFilePathFromGUID(animatorFileGUID);
         YAML::Emitter out;
         out << YAML::BeginMap;
-        out << YAML::Key << "Animations";
+        out << YAML::Key << Component::AnimatorComponent::k_states;
         YAML::Node node;
-        for (const auto &animationGUID : animationGUIDS) {
+        for (const auto &animationGUID : states) {
             node.push_back(animationGUID);
         }
-        out  << YAML::Value << node;
-        // TODO: serialize states
-        out << YAML::Key << "States" << YAML::Value << YAML::Node(YAML::NodeType::Sequence);
+        out << YAML::Value << node;
         // TODO: serialize transitions
-        out << YAML::Key << "Transitions" << YAML::Value << YAML::Node(YAML::NodeType::Sequence);
+        out << YAML::Key << Component::AnimatorComponent::k_transitions << YAML::Value << YAML::Node(YAML::NodeType::Sequence);
         // TODO: serialize conditions
-        out << YAML::Key << "Conditions" << YAML::Value << YAML::Node(YAML::NodeType::Sequence);
+        out << YAML::Key << Component::AnimatorComponent::k_variables << YAML::Value << YAML::Node(YAML::NodeType::Sequence);
         out << YAML::EndMap;
         std::ofstream fout(animatorFilePath.c_str());
         fout << out.c_str();
         fout.close();
+        // update all entities with this animator
         auto animatorEntities = Project::getScene()->getEntitiesWithComponents<Component::AnimatorComponent>();
         for(auto entityHandle : animatorEntities) {
             Entity entity = {entityHandle, Project::getScene()};
             if (entity.getComponent<Component::AnimatorComponent>().guid == animatorFileGUID) {
-                entity.getComponent<Component::AnimatorComponent>().loadAnimations(entity);
+                entity.getComponent<Component::AnimatorComponent>().loadStateMachine(entity);
             }
         }
     }

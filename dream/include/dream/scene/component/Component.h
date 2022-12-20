@@ -163,7 +163,6 @@ namespace Dream::Component {
 
     struct AnimatorComponent : public Component {
         inline static std::string componentName = "AnimatorComponent";
-        std::string foo = "Animator";
         inline static std::string k_guid = "guid";          // guid of the animator file
         std::string guid;
         std::map<std::string, void*> animationObjects;      // each model file could have multiple animations
@@ -173,12 +172,17 @@ namespace Dream::Component {
         bool needsToLoadAnimations = true;
         bool needsToFindBoneEntities = true;
         std::map<int, Entity> boneEntities;
+        // state machine variables
+        std::string currentState;
+        inline static std::string k_states = "States";
+        inline static std::string k_transitions = "Transitions";
+        inline static std::string k_variables = "Variables";
         explicit AnimatorComponent();
         ~AnimatorComponent();
         AnimatorComponent(std::string animatorGUID);
         void calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform, int depth=0);
         void updateAnimation(float dt);
-        void loadAnimations(Entity modelEntity);
+        void loadStateMachine(Entity modelEntity);
         void loadBoneEntities(Entity entity);
         void playAnimation(std::string animationGUID);
         std::vector<glm::mat4> computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones);

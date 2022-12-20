@@ -92,7 +92,7 @@ namespace Dream {
                     Logger::fatal("No mesh component for entity with animator so bones cannot be loaded");
                 }
                 if (entity.getComponent<Component::AnimatorComponent>().needsToLoadAnimations) {
-                    entity.getComponent<Component::AnimatorComponent>().loadAnimations(entity);
+                    entity.getComponent<Component::AnimatorComponent>().loadStateMachine(entity);
                 }
                 finalBoneMatrices = entity.getComponent<Component::AnimatorComponent>().m_FinalBoneMatrices;
             }

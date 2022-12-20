@@ -6,6 +6,7 @@
 #include "dream/project/Project.h"
 #include "dream/renderer/OpenGLTexture.h"
 #include "dream/util/Logger.h"
+#include "dream/scene/component/Component.h"
 #include <imgui/imgui_internal.h>
 #include <imgui/imgui.h>
 #include <fstream>
@@ -87,11 +88,11 @@ namespace Dream {
                 }
                 path = path.append(filename + std::to_string(i) + extension);
                 // create blank animator
+                // TODO: generate this using yaml=cpp library
                 std::ofstream fout(path);
-                fout << "Animations: " << "[]" << std::endl;
-                fout << "States: " << "[]" << std::endl;
-                fout << "Transitions: " << "[]" << std::endl;
-                fout << "Conditions: " << "[]" << std::endl;
+                fout << Component::AnimatorComponent::k_states << ": []" << std::endl;
+                fout << Component::AnimatorComponent::k_transitions << ": []" << std::endl;
+                fout << Component::AnimatorComponent::k_variables << ": []" << std::endl;
                 fout.close();
                 Project::getAssetImporter()->createMetaFile(path);
                 Project::recognizeResources();

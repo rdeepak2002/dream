@@ -27,7 +27,7 @@ namespace Dream {
         bool shouldSetupPositionAndSize;
         ax::NodeEditor::EditorContext* m_Context;
         std::string animatorFileGUID;
-        std::vector<std::string> animationGUIDS;
+        std::vector<std::string> states;
         ImGui::FileBrowser* animationSelectorBrowser;
     };
 }
