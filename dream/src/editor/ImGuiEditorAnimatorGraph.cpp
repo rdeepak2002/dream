@@ -8,15 +8,13 @@
 #include "dream/project/Project.h"
 #include "dream/scene/component/Component.h"
 #include "dream/util/IDUtils.h"
+#include <misc/cpp/imgui_stdlib.h>
 #include <iostream>
 #include <utility>
 #include <fstream>
 
 namespace Dream {
     ImGuiEditorAnimatorGraph::ImGuiEditorAnimatorGraph() {
-//        ax::NodeEditor::Config config;
-//        config.SettingsFile = nullptr;
-//        m_Context = ax::NodeEditor::CreateEditor(&config);
         visible = false;
         isFullscreen = false;
         shouldSetupPositionAndSize = false;
@@ -52,27 +50,7 @@ namespace Dream {
 
             ImGui::Begin(std::string(filename + "###Animator").c_str(), &visible,  ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
-            if (ImGui::BeginPopupContextWindow()) {
-                if (ImGui::MenuItem("New animation")) {
-                    delete animationSelectorBrowser;
-                    animationSelectorBrowser = new ImGui::FileBrowser();
-                    animationSelectorBrowser->SetTitle("select animation");
-                    animationSelectorBrowser->SetPwd(Project::getPath());
-                    animationSelectorBrowser->Open();
-                }
-                ImGui::EndPopup();
-            }
-
-            if (animationSelectorBrowser) {
-                animationSelectorBrowser->Display();
-                if (animationSelectorBrowser->HasSelected()) {
-                    std::filesystem::path selectedFilePath = animationSelectorBrowser->GetSelected();
-                    std::string newAnimationGUID = IDUtils::getGUIDForFile(selectedFilePath);
-                    states.push_back(newAnimationGUID);
-                    animationSelectorBrowser->ClearSelected();
-                }
-            }
-
+            // menu bar
             if (ImGui::BeginMenuBar()) {
                 if (ImGui::BeginMenu("File")) {
                     if (ImGui::MenuItem("Save")) {
@@ -98,6 +76,48 @@ namespace Dream {
                 ImGui::EndMenuBar();
             }
 
+            // variables panel
+            float variablesPanelWidth = 200.f;
+            ImGui::BeginChild("Variables", ImVec2(variablesPanelWidth, 0));
+            for (int i = 0; i < variableNames.size(); ++i) {
+                float InputWidth = 40.0f;
+                ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - InputWidth);
+                ImGui::InputText(("##variable" + std::to_string(i)).c_str(), &variableNames[i]);
+                ImGui::SameLine();
+                ImGui::SetNextItemWidth(InputWidth);
+                ImGui::InputInt(("##variable-edit" + std::to_string(i)).c_str(), &variableValues[i], 0);
+            }
+            if (ImGui::Button("Add", ImVec2(ImGui::GetWindowContentRegionWidth(), 0))) {
+                variableNames.emplace_back("variable");
+                variableValues.push_back(0);
+            }
+            ImGui::EndChild();
+
+            ImGui::SameLine();
+
+            // graph panel
+            ImGui::BeginChild("Graph", ImVec2(ImGui::GetWindowContentRegionWidth() - variablesPanelWidth, 0));
+            if (ImGui::BeginPopupContextWindow()) {
+                if (ImGui::MenuItem("New animation")) {
+                    delete animationSelectorBrowser;
+                    animationSelectorBrowser = new ImGui::FileBrowser();
+                    animationSelectorBrowser->SetTitle("select animation");
+                    animationSelectorBrowser->SetPwd(Project::getPath());
+                    animationSelectorBrowser->Open();
+                }
+                ImGui::EndPopup();
+            }
+
+            if (animationSelectorBrowser) {
+                animationSelectorBrowser->Display();
+                if (animationSelectorBrowser->HasSelected()) {
+                    std::filesystem::path selectedFilePath = animationSelectorBrowser->GetSelected();
+                    std::string newAnimationGUID = IDUtils::getGUIDForFile(selectedFilePath);
+                    states.push_back(newAnimationGUID);
+                    animationSelectorBrowser->ClearSelected();
+                }
+            }
+
             ax::NodeEditor::SetCurrentEditor(m_Context);
             ax::NodeEditor::Begin("Animator", ImVec2(0.0, 0.0f));
             int uniqueId = 1;
@@ -119,6 +139,8 @@ namespace Dream {
             }
             ax::NodeEditor::End();
             ax::NodeEditor::SetCurrentEditor(nullptr);
+            ImGui::EndChild();
+
             ImGui::End();
             ImGui::PopStyleVar();
         }
@@ -144,11 +166,23 @@ namespace Dream {
             Logger::fatal("No file specified for animator (2)");
         }
         states.clear();
+        variableNames.clear();
+        variableValues.clear();
         std::string animatorFilePath = Project::getResourceManager()->getFilePathFromGUID(animatorFileGUID);
         YAML::Node doc = YAML::LoadFile(animatorFilePath);
-        auto animationsNode = doc[Component::AnimatorComponent::k_states].as<std::vector<YAML::Node>>();
-        for (const YAML::Node& animationGUIDNode : animationsNode) {
+        // deserialize states
+        auto statesNode = doc[Component::AnimatorComponent::k_states].as<std::vector<YAML::Node>>();
+        for (const YAML::Node& animationGUIDNode : statesNode) {
             states.push_back(animationGUIDNode.as<std::string>());
+        }
+        // TODO: deserialize transitions
+        // deserialize variables
+        auto variablesNode = doc[Component::AnimatorComponent::k_variables].as<std::vector<YAML::Node>>();
+        for (const YAML::Node& variableNode : variablesNode) {
+            auto name = variableNode["Name"].as<std::string>();
+            int value = variableNode["Value"].as<int>();
+            variableNames.push_back(name);
+            variableValues.push_back(value);
         }
     }
 
@@ -175,7 +209,7 @@ namespace Dream {
         for (int i = 0; i < variableNames.size(); ++i) {
             YAML::Node variableNode;
             variableNode["Name"] = variableNames[i];
-            variableNode["Value"] = variableBits.test(i);
+            variableNode["Value"] = variableValues[i];
             variablesNode.push_back(variableNode);
         }
         out << YAML::Value << variablesNode;

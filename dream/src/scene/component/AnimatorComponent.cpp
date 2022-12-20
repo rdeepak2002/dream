@@ -135,9 +135,19 @@ namespace Dream::Component {
         std::string animatorFilePath = Project::getResourceManager()->getFilePathFromGUID(guid);
         // get guids for animation files from animator file
         YAML::Node doc = YAML::LoadFile(animatorFilePath);
+        // load states
         auto animationsNode = doc[k_states].as<std::vector<YAML::Node>>();
         for (const YAML::Node& animationGUIDNode : animationsNode) {
             states.push_back(animationGUIDNode.as<std::string>());
+        }
+        // TODO: load transitions
+        // load variables
+        auto variablesNode = doc[k_variables].as<std::vector<YAML::Node>>();
+        for (const YAML::Node& variableNode : variablesNode) {
+            auto name = variableNode["Name"].as<std::string>();
+            int value = variableNode["Value"].as<int>();
+            variableNames.emplace_back(name);
+            variableValues.emplace_back(value);
         }
         auto transitionsNode = doc[k_transitions].as<std::vector<YAML::Node>>();
         // load animation data from animation files

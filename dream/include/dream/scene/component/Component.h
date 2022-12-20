@@ -178,8 +178,8 @@ namespace Dream::Component {
         std::vector<std::string> states;
         inline static std::string k_transitions = "Transitions";
         inline static std::string k_variables = "Variables";
-        std::bitset<16> variableBits;
         std::vector<std::string> variableNames;
+        std::vector<int> variableValues;
         explicit AnimatorComponent();
         ~AnimatorComponent();
         AnimatorComponent(std::string animatorGUID);

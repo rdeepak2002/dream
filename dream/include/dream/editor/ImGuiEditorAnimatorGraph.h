@@ -11,6 +11,7 @@
 #include <vector>
 #include <iostream>
 #include <imgui-filebrowser/imfilebrowser.h>
+#include "dream/scene/component/Component.h"
 
 namespace Dream {
     class ImGuiEditorAnimatorGraph {
@@ -28,8 +29,8 @@ namespace Dream {
         ax::NodeEditor::EditorContext* m_Context;
         std::string animatorFileGUID;
         std::vector<std::string> states;
-        std::bitset<16> variableBits;
         std::vector<std::string> variableNames;
+        std::vector<int> variableValues;
         ImGui::FileBrowser* animationSelectorBrowser;
         std::string settingsFilePath;
     };
