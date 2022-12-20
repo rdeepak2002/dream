@@ -15,6 +15,9 @@
 
 namespace Dream {
     ImGuiEditorAnimatorGraph::ImGuiEditorAnimatorGraph() {
+        ax::NodeEditor::Config config;
+        config.SettingsFile = nullptr;
+        m_Context = ax::NodeEditor::CreateEditor(&config);
         visible = false;
         isFullscreen = false;
         shouldSetupPositionAndSize = false;
