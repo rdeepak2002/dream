@@ -2,5 +2,24 @@ States:
   - F5D080D2-8FF5-4C33-BFA4-B640FEEAD5CA
   - EE92CB4C-ECCB-478D-BC8F-D149C0E20DDB
   - CF0A078D-032B-48BA-9B98-8858D5BB4414
-Transitions: []
-Variables: []
+Transitions:
+  - Source: F5D080D2-8FF5-4C33-BFA4-B640FEEAD5CA
+    Sink: EE92CB4C-ECCB-478D-BC8F-D149C0E20DDB
+    Conditions:
+      - Variable1Idx: 0
+        Condition: >
+        Variable2: 0
+  - Source: EE92CB4C-ECCB-478D-BC8F-D149C0E20DDB
+    Sink: CF0A078D-032B-48BA-9B98-8858D5BB4414
+    Conditions:
+      - Variable1Idx: 0
+        Condition: ==
+        Variable2Idx: 1
+      - Variable1: 0
+        Condition: <
+        Variable2Idx: 1
+Variables:
+  - Name: grounded
+    Value: 1
+  - Name: velocity
+    Value: 2

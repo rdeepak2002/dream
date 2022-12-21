@@ -57,6 +57,7 @@ namespace Dream {
         #ifdef BORDERLESS
         SDL_SetWindowHitTest(this->Window, hitTest, nullptr);
         #endif
+        SDL_SetRelativeMouseMode(SDL_TRUE);
     }
 
     SDL2Window::~SDL2Window() {

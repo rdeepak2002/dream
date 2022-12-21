@@ -8,6 +8,7 @@
 #include "dream/project/Project.h"
 #include "dream/scene/component/Component.h"
 #include "dream/util/IDUtils.h"
+#include "imgui_node_editor.h"
 #include <misc/cpp/imgui_stdlib.h>
 #include <iostream>
 #include <utility>
@@ -22,6 +23,7 @@ namespace Dream {
         isFullscreen = false;
         shouldSetupPositionAndSize = false;
         animationSelectorBrowser = nullptr;
+        nextLinkId = 0;
     }
 
     ImGuiEditorAnimatorGraph::~ImGuiEditorAnimatorGraph() {
@@ -123,24 +125,73 @@ namespace Dream {
 
             ax::NodeEditor::SetCurrentEditor(m_Context);
             ax::NodeEditor::Begin("Animator", ImVec2(0.0, 0.0f));
-            int uniqueId = 1;
+            ax::NodeEditor::PushStyleColor(ax::NodeEditor::StyleColor_Bg, ImColor( 0.1f, 0.105f, 0.11f, 1.0f));
+            ax::NodeEditor::PushStyleColor(ax::NodeEditor::StyleColor_NodeBg, ImColor( 0.2f, 0.205f, 0.21f, 1.0f));
             // draw nodes
-            for (const auto& animationGUID : states) {
+            for (int i = 0; i < states.size(); ++i) {
+                auto animationGUID = states[i];
+                int nodeID = 3 * i;
                 // example node
-                ax::NodeEditor::BeginNode(uniqueId++);
+                ax::NodeEditor::BeginNode(nodeID);
                 std::string animationFilePath = Project::getResourceManager()->getFilePathFromGUID(animationGUID);
                 std::string shortenedAnimationFilePath = StringUtils::getFilePathRelativeToProjectFolder(animationFilePath);
                 ImGui::Text("%s", shortenedAnimationFilePath.c_str());
-                ax::NodeEditor::BeginPin(uniqueId++, ax::NodeEditor::PinKind::Input);
+                ax::NodeEditor::BeginPin(nodeID - 1, ax::NodeEditor::PinKind::Input);
                 ImGui::Text("-> In");
                 ax::NodeEditor::EndPin();
                 ImGui::SameLine();
-                ax::NodeEditor::BeginPin(uniqueId++, ax::NodeEditor::PinKind::Output);
+                ax::NodeEditor::BeginPin(nodeID + 1, ax::NodeEditor::PinKind::Output);
                 ImGui::Text("Out ->");
                 ax::NodeEditor::EndPin();
                 ax::NodeEditor::EndNode();
             }
+
+            // draw links
+            for (auto& linkInfo : links) {
+                ax::NodeEditor::Link(linkInfo.Id, linkInfo.InputId, linkInfo.OutputId);
+            }
+
+            // handle creation action, returns true if editor want to create new object (node or link)
+            if (ax::NodeEditor::BeginCreate()) {
+                ax::NodeEditor::PinId inputPinId, outputPinId;
+                if (ax::NodeEditor::QueryNewLink(&inputPinId, &outputPinId)) {
+                    if (inputPinId && outputPinId) {
+                        if (ax::NodeEditor::AcceptNewItem()) {
+                            links.push_back({ ax::NodeEditor::LinkId(nextLinkId++), inputPinId, outputPinId });
+                            ax::NodeEditor::Link(links.back().Id, links.back().InputId, links.back().OutputId);
+                        }
+
+                        // You may reject link deletion by calling:
+//                         ed::RejectDeletedItem();
+                    }
+                }
+            }
+            ax::NodeEditor::EndCreate(); // Wraps up object creation action handling.
+
+            // handle deletion action
+            if (ax::NodeEditor::BeginDelete()) {
+                // There may be many links marked for deletion, let's loop over them.
+                ax::NodeEditor::LinkId deletedLinkId;
+                while (ax::NodeEditor::QueryDeletedLink(&deletedLinkId)) {
+                    // If you agree that link can be deleted, accept deletion.
+                    if (ax::NodeEditor::AcceptDeletedItem()) {
+                        for (int i = 0; i < links.size(); ++i) {
+                            auto& link = links[i];
+                            if (link.Id == deletedLinkId) {
+                                links.erase(links.begin() + i);
+                                break;
+                            }
+                        }
+                    }
+
+                    // You may reject link deletion by calling:
+                    // ed::RejectDeletedItem();
+                }
+            }
+            ax::NodeEditor::EndDelete(); // Wrap up deletion action
+
             ax::NodeEditor::End();
+            ax::NodeEditor::PopStyleColor(2);
             ax::NodeEditor::SetCurrentEditor(nullptr);
             ImGui::EndChild();
 
@@ -150,6 +201,7 @@ namespace Dream {
     }
 
     void ImGuiEditorAnimatorGraph::open(std::string guid) {
+        this->nextLinkId = 0;
         this->visible = true;
         this->animatorFileGUID = guid;
         if (animatorFileGUID.empty()) {
