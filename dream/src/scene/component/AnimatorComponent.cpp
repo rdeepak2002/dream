@@ -157,11 +157,11 @@ namespace Dream::Component {
                 auto *anim = new Animation(animationFilePath, modelEntity, 0);
                 animationObjects[animationGUID] = anim;
                 m_CurrentAnimation = anim;
-                currentState = animationGUID;
+                currentState = animationObjects.size() - 1;
             }
         } else {
             m_CurrentAnimation = nullptr;
-            currentState = "";
+            currentState = 0;
             Logger::fatal("No animation found");
         }
         if (m_CurrentAnimation && needsToFindBoneEntities) {
@@ -183,10 +183,11 @@ namespace Dream::Component {
         }
     }
 
-    void AnimatorComponent::playAnimation(std::string animationGUID) {
+    void AnimatorComponent::playAnimation(int stateID) {
+        std::string animationGUID = states[stateID];
         if (animationObjects.count(animationGUID) > 0) {
             m_CurrentAnimation = animationObjects[animationGUID];
-            currentState = animationGUID;
+            currentState = stateID;
         } else {
             Logger::error("Unable to find animation with GUID " + animationGUID);
         }

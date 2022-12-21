@@ -130,17 +130,20 @@ namespace Dream {
             // draw nodes
             for (int i = 0; i < states.size(); ++i) {
                 auto animationGUID = states[i];
-                int nodeID = 3 * i;
+                auto nodeAndPinIDs = getNodeAndPinIDsFromStateID(i);
+                auto inputPinID = std::get<0>(nodeAndPinIDs);
+                auto nodeID = std::get<1>(nodeAndPinIDs);
+                auto outputPinID = std::get<2>(nodeAndPinIDs);
                 // example node
                 ax::NodeEditor::BeginNode(nodeID);
                 std::string animationFilePath = Project::getResourceManager()->getFilePathFromGUID(animationGUID);
                 std::string shortenedAnimationFilePath = StringUtils::getFilePathRelativeToProjectFolder(animationFilePath);
                 ImGui::Text("%s", shortenedAnimationFilePath.c_str());
-                ax::NodeEditor::BeginPin(nodeID - 1, ax::NodeEditor::PinKind::Input);
+                ax::NodeEditor::BeginPin(inputPinID, ax::NodeEditor::PinKind::Input);
                 ImGui::Text("-> In");
                 ax::NodeEditor::EndPin();
                 ImGui::SameLine();
-                ax::NodeEditor::BeginPin(nodeID + 1, ax::NodeEditor::PinKind::Output);
+                ax::NodeEditor::BeginPin(outputPinID, ax::NodeEditor::PinKind::Output);
                 ImGui::Text("Out ->");
                 ax::NodeEditor::EndPin();
                 ax::NodeEditor::EndNode();
@@ -280,5 +283,28 @@ namespace Dream {
                 entity.getComponent<Component::AnimatorComponent>().loadStateMachine(entity);
             }
         }
+    }
+
+    std::tuple<int, int, int> ImGuiEditorAnimatorGraph::getNodeAndPinIDsFromStateID(int nodeIdx) {
+        return std::make_tuple(3 * nodeIdx - 1, 3 * nodeIdx, 3 * nodeIdx + 1);
+    }
+
+    int ImGuiEditorAnimatorGraph::getStateForPinID(int pinID) {
+        if (pinID % 3 == 0) {
+            Logger::fatal("NodeID, not PinID");
+        } else if (pinID % 3 == 2) {
+            return (pinID + 1) / 3;
+        } else if (pinID % 3 == 1) {
+            return (pinID - 1) / 3;
+        }
+        Logger::fatal("Invalid state");
+        return -1;
+    }
+
+    int ImGuiEditorAnimatorGraph::getStateForNodeID(int nodeID) {
+        if (nodeID % 3 != 0) {
+            Logger::fatal("PinID, not NodeID");
+        }
+        return nodeID / 3;
     }
 }

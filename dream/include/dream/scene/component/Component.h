@@ -162,6 +162,16 @@ namespace Dream::Component {
     };
 
     struct AnimatorComponent : public Component {
+        struct Condition {
+            int VariableId;
+            std::string Condition;
+            int Variable1;
+        };
+        struct Transition {
+            std::string InputStateID;
+            std::string OutputStateID;
+            std::vector<Condition> Conditions;
+        };
         inline static std::string componentName = "AnimatorComponent";
         inline static std::string k_guid = "guid";          // guid of the animator file
         std::string guid;
@@ -173,10 +183,11 @@ namespace Dream::Component {
         bool needsToFindBoneEntities = true;
         std::map<int, Entity> boneEntities;
         // state machine variables
-        std::string currentState;
+        int currentState;
         inline static std::string k_states = "States";
         std::vector<std::string> states;
         inline static std::string k_transitions = "Transitions";
+        std::vector<Transition> transitions;
         inline static std::string k_variables = "Variables";
         std::vector<std::string> variableNames;
         std::vector<int> variableValues;
@@ -187,7 +198,7 @@ namespace Dream::Component {
         void updateAnimation(float dt);
         void loadStateMachine(Entity modelEntity);
         void loadBoneEntities(Entity entity);
-        void playAnimation(std::string animationGUID);
+        void playAnimation(int stateID);
         std::vector<glm::mat4> computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones);
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);

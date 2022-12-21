@@ -38,12 +38,16 @@ namespace Dream {
         ax::NodeEditor::EditorContext* m_Context;
         std::string animatorFileGUID;
         std::vector<std::string> states;
+        std::vector<Component::AnimatorComponent::Transition> transitions;
         std::vector<std::string> variableNames;
         std::vector<int> variableValues;
         ImGui::FileBrowser* animationSelectorBrowser;
         std::string settingsFilePath;
         // TODO: replace links with transitions data
         std::vector<LinkInfo> links;
+        std::tuple<int, int, int> getNodeAndPinIDsFromStateID(int stateID);
+        int getStateForPinID(int pinID);
+        int getStateForNodeID(int nodeID);
     };
 }
 
