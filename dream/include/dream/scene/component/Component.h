@@ -164,12 +164,12 @@ namespace Dream::Component {
     struct AnimatorComponent : public Component {
         struct Condition {
             int VariableId;
-            std::string Condition;
+            std::string Operator;
             int Variable1;
         };
         struct Transition {
-            std::string InputStateID;
-            std::string OutputStateID;
+            int InputStateID;
+            int OutputStateID;
             std::vector<Condition> Conditions;
         };
         inline static std::string componentName = "AnimatorComponent";

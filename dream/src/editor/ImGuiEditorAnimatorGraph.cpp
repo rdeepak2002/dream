@@ -23,7 +23,7 @@ namespace Dream {
         isFullscreen = false;
         shouldSetupPositionAndSize = false;
         animationSelectorBrowser = nullptr;
-        nextLinkId = 0;
+//        nextLinkId = 0;
     }
 
     ImGuiEditorAnimatorGraph::~ImGuiEditorAnimatorGraph() {
@@ -140,18 +140,19 @@ namespace Dream {
                 std::string shortenedAnimationFilePath = StringUtils::getFilePathRelativeToProjectFolder(animationFilePath);
                 ImGui::Text("%s", shortenedAnimationFilePath.c_str());
                 ax::NodeEditor::BeginPin(inputPinID, ax::NodeEditor::PinKind::Input);
-                ImGui::Text("-> In");
+                ImGui::Text("-> To");   // In
                 ax::NodeEditor::EndPin();
                 ImGui::SameLine();
                 ax::NodeEditor::BeginPin(outputPinID, ax::NodeEditor::PinKind::Output);
-                ImGui::Text("Out ->");
+                ImGui::Text("From ->");  // Out
                 ax::NodeEditor::EndPin();
                 ax::NodeEditor::EndNode();
             }
 
             // draw links
-            for (auto& linkInfo : links) {
-                ax::NodeEditor::Link(linkInfo.Id, linkInfo.InputId, linkInfo.OutputId);
+            for (int transitionID = 0; transitionID < transitions.size(); ++transitionID) {
+                auto transition = transitions[transitionID];
+                ax::NodeEditor::Link(transitionID, transition.InputStateID, transition.OutputStateID);
             }
 
             // handle creation action, returns true if editor want to create new object (node or link)
@@ -160,8 +161,13 @@ namespace Dream {
                 if (ax::NodeEditor::QueryNewLink(&inputPinId, &outputPinId)) {
                     if (inputPinId && outputPinId) {
                         if (ax::NodeEditor::AcceptNewItem()) {
-                            links.push_back({ ax::NodeEditor::LinkId(nextLinkId++), inputPinId, outputPinId });
-                            ax::NodeEditor::Link(links.back().Id, links.back().InputId, links.back().OutputId);
+                            std::vector<Component::AnimatorComponent::Condition> newConditions;
+                            Component::AnimatorComponent::Transition newTransition = {
+                                    (int) inputPinId.Get(), (int) outputPinId.Get(), newConditions
+                            };
+                            transitions.push_back(newTransition);
+//                            links.push_back({ ax::NodeEditor::LinkId(nextLinkId++), inputPinId, outputPinId });
+                            ax::NodeEditor::Link(transitions.size() - 1, transitions.back().InputStateID, transitions.back().OutputStateID);
                         }
 
                         // You may reject link deletion by calling:
@@ -171,27 +177,27 @@ namespace Dream {
             }
             ax::NodeEditor::EndCreate(); // Wraps up object creation action handling.
 
-            // handle deletion action
-            if (ax::NodeEditor::BeginDelete()) {
-                // There may be many links marked for deletion, let's loop over them.
-                ax::NodeEditor::LinkId deletedLinkId;
-                while (ax::NodeEditor::QueryDeletedLink(&deletedLinkId)) {
-                    // If you agree that link can be deleted, accept deletion.
-                    if (ax::NodeEditor::AcceptDeletedItem()) {
-                        for (int i = 0; i < links.size(); ++i) {
-                            auto& link = links[i];
-                            if (link.Id == deletedLinkId) {
-                                links.erase(links.begin() + i);
-                                break;
-                            }
-                        }
-                    }
-
-                    // You may reject link deletion by calling:
-                    // ed::RejectDeletedItem();
-                }
-            }
-            ax::NodeEditor::EndDelete(); // Wrap up deletion action
+//            // handle deletion action
+//            if (ax::NodeEditor::BeginDelete()) {
+//                // There may be many links marked for deletion, let's loop over them.
+//                ax::NodeEditor::LinkId deletedLinkId;
+//                while (ax::NodeEditor::QueryDeletedLink(&deletedLinkId)) {
+//                    // If you agree that link can be deleted, accept deletion.
+//                    if (ax::NodeEditor::AcceptDeletedItem()) {
+//                        for (int i = 0; i < links.size(); ++i) {
+//                            auto& link = links[i];
+//                            if (link.Id == deletedLinkId) {
+//                                links.erase(links.begin() + i);
+//                                break;
+//                            }
+//                        }
+//                    }
+//
+//                    // You may reject link deletion by calling:
+//                    // ed::RejectDeletedItem();
+//                }
+//            }
+//            ax::NodeEditor::EndDelete(); // Wrap up deletion action
 
             ax::NodeEditor::End();
             ax::NodeEditor::PopStyleColor(2);
@@ -204,7 +210,7 @@ namespace Dream {
     }
 
     void ImGuiEditorAnimatorGraph::open(std::string guid) {
-        this->nextLinkId = 0;
+//        this->nextLinkId = 0;
         this->visible = true;
         this->animatorFileGUID = guid;
         if (animatorFileGUID.empty()) {
