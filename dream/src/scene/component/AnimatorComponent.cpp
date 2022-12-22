@@ -13,21 +13,23 @@
 namespace Dream::Component {
     AnimatorComponent::AnimatorComponent() {
         this->guid = "";
-        m_CurrentTime = 0.0;
-        m_CurrentAnimation = nullptr;
-        m_FinalBoneMatrices.reserve(MAX_BONES);
+        this->currentState = -1;
+        this->m_CurrentTime = 0.0;
+        this->m_CurrentAnimation = nullptr;
+        this->m_FinalBoneMatrices.reserve(MAX_BONES);
         for (int i = 0; i < MAX_BONES; i++) {
-            m_FinalBoneMatrices.push_back(glm::mat4(1.0f));
+            this->m_FinalBoneMatrices.emplace_back(1.0f);
         }
     }
 
     AnimatorComponent::AnimatorComponent(std::string animatorGUID) {
         this->guid = std::move(animatorGUID);
-        m_CurrentTime = 0.0;
-        m_CurrentAnimation = nullptr;
-        m_FinalBoneMatrices.reserve(MAX_BONES);
+        this->currentState = -1;
+        this->m_CurrentTime = 0.0;
+        this->m_CurrentAnimation = nullptr;
+        this->m_FinalBoneMatrices.reserve(MAX_BONES);
         for (int i = 0; i < MAX_BONES; i++) {
-            m_FinalBoneMatrices.push_back(glm::mat4(1.0f));
+            this->m_FinalBoneMatrices.emplace_back(1.0f);
         }
     }
 
@@ -35,18 +37,64 @@ namespace Dream::Component {
         // TODO: delete each animation in map
     }
 
-    void AnimatorComponent::updateAnimation(float dt)
-    {
-        if (m_CurrentAnimation)
-        {
-            m_CurrentTime += ((Animation *) m_CurrentAnimation)->getTicksPerSecond() * dt;
-            m_CurrentTime = fmod(m_CurrentTime, ((Animation *) m_CurrentAnimation)->getDuration());
-            calculateBoneTransform(&((Animation *) m_CurrentAnimation)->getRootNode(), glm::mat4(1.0f));
+    void AnimatorComponent::updateAnimation(float dt) {
+        if (m_CurrentAnimation) {
+            auto* animation = (Animation *) m_CurrentAnimation;
+            m_CurrentTime += animation->getTicksPerSecond() * dt;
+            if (m_CurrentTime > animation->getDuration()) {
+                numTimesAnimationPlayed = (numTimesAnimationPlayed + 1) % INT_MAX;
+            }
+            m_CurrentTime = fmod(m_CurrentTime, animation->getDuration());
+            calculateBoneTransform(&animation->getRootNode(), glm::mat4(1.0f));
         }
     }
 
-    void AnimatorComponent::calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform, int depth)
-    {
+    void AnimatorComponent::updateStateMachine(float dt) {
+        if (m_CurrentAnimation) {
+            if (numTimesAnimationPlayed >= 1) {
+                for (const auto &transition : transitions) {
+                    if (transition.OutputStateID == currentState) {
+                        bool allConditionsPassed = true;
+                        for (const auto &condition : transition.Conditions) {
+                            int variable1Value = condition.Variable1;
+                            int variable2Value = condition.Variable2;
+                            if (condition.Variable1Idx != -1) {
+                                variable1Value = variableValues.at(condition.Variable1Idx);
+                            }
+                            if (condition.Variable2Idx != -1) {
+                                variable2Value = variableValues.at(condition.Variable2Idx);
+                            }
+                            bool conditionPassed = false;
+                            if (condition.Operator == "==") {
+                                conditionPassed = variable1Value == variable2Value;
+                            } else if (condition.Operator == ">") {
+                                conditionPassed = variable1Value > variable2Value;
+                            } else if (condition.Operator == "<") {
+                                conditionPassed = variable1Value < variable2Value;
+                            } else if (condition.Operator == ">=") {
+                                conditionPassed = variable1Value >= variable2Value;
+                            } else if (condition.Operator == "<=") {
+                                conditionPassed = variable1Value <= variable2Value;
+                            } else if (condition.Operator == "!=") {
+                                conditionPassed = variable1Value != variable2Value;
+                            } else {
+                                Logger::fatal("Unknown operator for animator state machine " + condition.Operator);
+                            }
+                            if (!conditionPassed) {
+                                allConditionsPassed = false;
+                            }
+                        }
+                        if (allConditionsPassed) {
+                            playAnimation(transition.InputStateID);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    void AnimatorComponent::calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform, int depth) {
         std::string nodeName = node->name;
         glm::mat4 nodeTransform = node->transformation;
 
@@ -187,12 +235,11 @@ namespace Dream::Component {
                 auto *anim = new Animation(animationFilePath, modelEntity, 0);
                 animationObjects[animationGUID] = anim;
                 m_CurrentAnimation = anim;
-                currentState = animationObjects.size() - 1;
+                if (animationObjects.size() > INT_MAX) {
+                    Logger::fatal("Too many animations to store in memory");
+                }
+                currentState = (int) animationObjects.size() - 1;
             }
-        } else {
-            m_CurrentAnimation = nullptr;
-            currentState = 0;
-            Logger::fatal("No animation found");
         }
         if (m_CurrentAnimation && needsToFindBoneEntities) {
             boneEntities.clear();
@@ -214,12 +261,13 @@ namespace Dream::Component {
     }
 
     void AnimatorComponent::playAnimation(int stateID) {
+        numTimesAnimationPlayed = 0;
         std::string animationGUID = states[stateID];
         if (animationObjects.count(animationGUID) > 0) {
             m_CurrentAnimation = animationObjects[animationGUID];
             currentState = stateID;
         } else {
-            Logger::error("Unable to find animation with GUID " + animationGUID);
+            Logger::fatal("Unable to find animation with GUID " + animationGUID);
         }
     }
 }

@@ -181,6 +181,7 @@ namespace Dream::Component {
         std::vector<glm::mat4> m_FinalBoneMatrices;
         void* m_CurrentAnimation = nullptr;
         float m_CurrentTime = 0;
+        int numTimesAnimationPlayed = 0;
         bool needsToLoadAnimations = true;
         bool needsToFindBoneEntities = true;
         std::map<int, Entity> boneEntities;
@@ -203,6 +204,7 @@ namespace Dream::Component {
         AnimatorComponent(std::string animatorGUID);
         void calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform, int depth=0);
         void updateAnimation(float dt);
+        void updateStateMachine(float dt);
         void loadStateMachine(Entity modelEntity);
         void loadBoneEntities(Entity entity);
         void playAnimation(int stateID);

@@ -16,6 +16,8 @@ namespace Dream {
         for(auto entityHandle : animatorEntities) {
             Entity entity = {entityHandle, Project::getScene()};
             entity.getComponent<Component::AnimatorComponent>().updateAnimation(dt);
+            // TODO: this should be in fixed update?
+            entity.getComponent<Component::AnimatorComponent>().updateStateMachine(dt);
         }
     }
 }
