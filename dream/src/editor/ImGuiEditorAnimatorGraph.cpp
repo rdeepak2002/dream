@@ -218,7 +218,6 @@ namespace Dream {
     }
 
     void ImGuiEditorAnimatorGraph::open(std::string guid) {
-//        this->nextLinkId = 0;
         this->visible = true;
         this->animatorFileGUID = guid;
         if (animatorFileGUID.empty()) {
