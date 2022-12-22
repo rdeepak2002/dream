@@ -163,9 +163,11 @@ namespace Dream::Component {
 
     struct AnimatorComponent : public Component {
         struct Condition {
-            int VariableId;
-            std::string Operator;
-            int Variable1;
+            int Variable1Idx = -1;
+            int Variable1 = 0;
+            std::string Operator = "==";
+            int Variable2Idx = -1;
+            int Variable2 = 0;
         };
         struct Transition {
             int InputStateID;
@@ -187,6 +189,9 @@ namespace Dream::Component {
         inline static std::string k_states = "States";
         std::vector<std::string> states;
         inline static std::string k_transitions = "Transitions";
+        inline static std::string k_transition_InputStateID = "To";
+        inline static std::string k_transition_OutputStateID = "From";
+        inline static std::string k_transition_Conditions = "Conditions";
         std::vector<Transition> transitions;
         inline static std::string k_variables = "Variables";
         inline static std::string k_variable_name = "Name";

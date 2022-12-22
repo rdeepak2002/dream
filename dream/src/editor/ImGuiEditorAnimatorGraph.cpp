@@ -152,7 +152,9 @@ namespace Dream {
             // draw links
             for (int transitionID = 0; transitionID < transitions.size(); ++transitionID) {
                 auto transition = transitions[transitionID];
-                ax::NodeEditor::Link(transitionID, transition.InputStateID, transition.OutputStateID);
+                auto node1InputPinID = std::get<0>(getNodeAndPinIDsFromStateID(transition.InputStateID));
+                auto node2OutputPinID = std::get<2>(getNodeAndPinIDsFromStateID(transition.OutputStateID));
+                ax::NodeEditor::Link(transitionID, node1InputPinID, node2OutputPinID);
             }
 
             // handle creation action, returns true if editor want to create new object (node or link)
@@ -160,15 +162,20 @@ namespace Dream {
                 ax::NodeEditor::PinId inputPinId, outputPinId;
                 if (ax::NodeEditor::QueryNewLink(&inputPinId, &outputPinId)) {
                     if (inputPinId && outputPinId) {
+                        int pin1IdCount = (int) ((inputPinId.Get() + 2) % 3);
+                        int pin2IdCount = (int) ((outputPinId.Get() + 2) % 3);
                         // ensure connection is "From" to "To"
-                        if ((int) (inputPinId.Get() % 3) - (int) (outputPinId.Get() % 3) == -1) {
+                        if (pin2IdCount == 1 && pin1IdCount == 0) {
                             if (ax::NodeEditor::AcceptNewItem()) {
                                 std::vector<Component::AnimatorComponent::Condition> newConditions;
+                                auto state1 = getStateForPinID((int) outputPinId.Get());
+                                auto state2 = getStateForPinID((int) inputPinId.Get());
                                 Component::AnimatorComponent::Transition newTransition = {
-                                        (int) inputPinId.Get(), (int) outputPinId.Get(), newConditions
+                                        .InputStateID=state1,
+                                        .OutputStateID=state2,
+                                        .Conditions=newConditions
                                 };
                                 transitions.push_back(newTransition);
-                                ax::NodeEditor::Link(transitions.size() - 1, transitions.back().InputStateID, transitions.back().OutputStateID);
                             }
                         } else {
                             ax::NodeEditor::RejectNewItem(ImColor(1.0f, 0.0f, 0.0f, 1.0f), 1.0f);
@@ -240,12 +247,35 @@ namespace Dream {
         for (const YAML::Node& animationGUIDNode : statesNode) {
             states.push_back(animationGUIDNode.as<std::string>());
         }
-        // TODO: deserialize transitions
+        // deserialize transitions
+        auto transitionsNodes = doc[Component::AnimatorComponent::k_transitions].as<std::vector<YAML::Node>>();
+        for (const YAML::Node& transitionNode : transitionsNodes) {
+            std::vector<Component::AnimatorComponent::Condition> conditions;
+            auto conditionNodes = transitionNode[Component::AnimatorComponent::k_transition_Conditions].as<std::vector<YAML::Node>>();
+            for (const YAML::Node& conditionNode : conditionNodes) {
+                Component::AnimatorComponent::Condition condition = {
+                        .Variable1Idx=conditionNode["Variable1Idx"] ? conditionNode["Variable1Idx"].as<int>() : -1,
+                        .Variable1=conditionNode["Variable1"] ? conditionNode["Variable1"].as<int>() : 0,
+                        .Operator=conditionNode["Operator"] ? conditionNode["Operator"].as<std::string>() : "==",
+                        .Variable2Idx=conditionNode["Variable2Idx"] ? conditionNode["Variable2Idx"].as<int>() : -1,
+                        .Variable2=conditionNode["Variable2"] ? conditionNode["Variable2"].as<int>() : 0,
+                };
+                conditions.push_back(condition);
+            }
+            auto inputNodeID = transitionNode[Component::AnimatorComponent::k_transition_InputStateID].as<int>();
+            auto outputNodeID = transitionNode[Component::AnimatorComponent::k_transition_OutputStateID].as<int>();
+            Component::AnimatorComponent::Transition transition = {
+                    .InputStateID=inputNodeID,
+                    .OutputStateID=outputNodeID,
+                    .Conditions=conditions
+            };
+            transitions.push_back(transition);
+        }
         // deserialize variables
         auto variablesNode = doc[Component::AnimatorComponent::k_variables].as<std::vector<YAML::Node>>();
         for (const YAML::Node& variableNode : variablesNode) {
-            auto name = variableNode["Name"].as<std::string>();
-            int value = variableNode["Value"].as<int>();
+            auto name = variableNode[Component::AnimatorComponent::k_variable_name].as<std::string>();
+            int value = variableNode[Component::AnimatorComponent::k_variable_value].as<int>();
             variableNames.push_back(name);
             variableValues.push_back(value);
         }
@@ -261,16 +291,35 @@ namespace Dream {
         out << YAML::BeginMap;
         // serialize states
         out << YAML::Key << Component::AnimatorComponent::k_states;
-        YAML::Node statesNode;
+        YAML::Node statesNode = YAML::Node(YAML::NodeType::Sequence);
         for (const auto &animationGUID : states) {
             statesNode.push_back(animationGUID);
         }
         out << YAML::Value << statesNode;
-        // TODO: serialize transitions
-        out << YAML::Key << Component::AnimatorComponent::k_transitions << YAML::Value << YAML::Node(YAML::NodeType::Sequence);
+        // serialize transitions
+        out << YAML::Key << Component::AnimatorComponent::k_transitions;
+        YAML::Node transitionsNode = YAML::Node(YAML::NodeType::Sequence);
+        for (const auto &transition : transitions) {
+            YAML::Node transitionNode;
+            transitionNode[Component::AnimatorComponent::k_transition_InputStateID] = transition.InputStateID;
+            transitionNode[Component::AnimatorComponent::k_transition_OutputStateID] = transition.OutputStateID;
+            YAML::Node conditionsNode = YAML::Node(YAML::NodeType::Sequence);
+            for (const auto &condition : transition.Conditions) {
+                YAML::Node conditionNode;
+                conditionNode["Variable1Idx"] = condition.Variable1Idx;
+                conditionNode["Variable1"] = condition.Variable1;
+                conditionNode["Operator"] = condition.Operator;
+                conditionNode["Variable2Idx"] = condition.Variable2Idx;
+                conditionNode["Variable2"] = condition.Variable2;
+                conditionsNode.push_back(conditionNode);
+            }
+            transitionNode[Component::AnimatorComponent::k_transition_Conditions] = conditionsNode;
+            transitionsNode.push_back(transitionNode);
+        }
+        out << YAML::Value << transitionsNode;
         // serialize variables
         out << YAML::Key << Component::AnimatorComponent::k_variables;
-        YAML::Node variablesNode;
+        YAML::Node variablesNode = YAML::Node(YAML::NodeType::Sequence);
         for (int i = 0; i < variableNames.size(); ++i) {
             YAML::Node variableNode;
             variableNode[Component::AnimatorComponent::k_variable_name] = variableNames[i];
@@ -303,8 +352,10 @@ namespace Dream {
             return (pinID + 1) / 3;
         } else if (pinID % 3 == 1) {
             return (pinID - 1) / 3;
+        } else if (pinID % 3 == -1) {
+            return 0;
         }
-        Logger::fatal("Invalid state");
+        Logger::fatal("Invalid state " + std::to_string(pinID % 3));
         return -1;
     }
 
