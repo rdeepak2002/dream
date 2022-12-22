@@ -13,15 +13,7 @@
 #include <imgui-filebrowser/imfilebrowser.h>
 #include "dream/scene/component/Component.h"
 
-#define MAX_STATES 5000
-
 namespace Dream {
-//    struct LinkInfo {
-//        ax::NodeEditor::LinkId Id;
-//        ax::NodeEditor::PinId InputId;
-//        ax::NodeEditor::PinId OutputId;
-//    };
-
     class ImGuiEditorAnimatorGraph {
     public:
         ImGuiEditorAnimatorGraph();
@@ -31,7 +23,6 @@ namespace Dream {
         void loadStateMachine();
         void serializeStateMachine();
     private:
-//        int nextLinkId;
         bool visible;
         bool isFullscreen;
         bool shouldSetupPositionAndSize;
@@ -43,7 +34,6 @@ namespace Dream {
         std::vector<int> variableValues;
         ImGui::FileBrowser* animationSelectorBrowser;
         std::string settingsFilePath;
-//        std::vector<LinkInfo> links;
         std::tuple<int, int, int> getNodeAndPinIDsFromStateID(int stateID);
         int getStateForPinID(int pinID);
         int getStateForNodeID(int nodeID);

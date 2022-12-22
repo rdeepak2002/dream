@@ -144,8 +144,8 @@ namespace Dream::Component {
         // load variables
         auto variablesNode = doc[k_variables].as<std::vector<YAML::Node>>();
         for (const YAML::Node& variableNode : variablesNode) {
-            auto name = variableNode["Name"].as<std::string>();
-            int value = variableNode["Value"].as<int>();
+            auto name = variableNode[k_variable_name].as<std::string>();
+            int value = variableNode[k_variable_value].as<int>();
             variableNames.emplace_back(name);
             variableValues.emplace_back(value);
         }

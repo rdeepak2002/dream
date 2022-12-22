@@ -160,18 +160,19 @@ namespace Dream {
                 ax::NodeEditor::PinId inputPinId, outputPinId;
                 if (ax::NodeEditor::QueryNewLink(&inputPinId, &outputPinId)) {
                     if (inputPinId && outputPinId) {
-                        if (ax::NodeEditor::AcceptNewItem()) {
-                            std::vector<Component::AnimatorComponent::Condition> newConditions;
-                            Component::AnimatorComponent::Transition newTransition = {
-                                    (int) inputPinId.Get(), (int) outputPinId.Get(), newConditions
-                            };
-                            transitions.push_back(newTransition);
-//                            links.push_back({ ax::NodeEditor::LinkId(nextLinkId++), inputPinId, outputPinId });
-                            ax::NodeEditor::Link(transitions.size() - 1, transitions.back().InputStateID, transitions.back().OutputStateID);
+                        // ensure connection is "From" to "To"
+                        if ((int) (inputPinId.Get() % 3) - (int) (outputPinId.Get() % 3) == -1) {
+                            if (ax::NodeEditor::AcceptNewItem()) {
+                                std::vector<Component::AnimatorComponent::Condition> newConditions;
+                                Component::AnimatorComponent::Transition newTransition = {
+                                        (int) inputPinId.Get(), (int) outputPinId.Get(), newConditions
+                                };
+                                transitions.push_back(newTransition);
+                                ax::NodeEditor::Link(transitions.size() - 1, transitions.back().InputStateID, transitions.back().OutputStateID);
+                            }
+                        } else {
+                            ax::NodeEditor::RejectNewItem(ImColor(1.0f, 0.0f, 0.0f, 1.0f), 1.0f);
                         }
-
-                        // You may reject link deletion by calling:
-//                         ed::RejectDeletedItem();
                     }
                 }
             }
@@ -272,8 +273,8 @@ namespace Dream {
         YAML::Node variablesNode;
         for (int i = 0; i < variableNames.size(); ++i) {
             YAML::Node variableNode;
-            variableNode["Name"] = variableNames[i];
-            variableNode["Value"] = variableValues[i];
+            variableNode[Component::AnimatorComponent::k_variable_name] = variableNames[i];
+            variableNode[Component::AnimatorComponent::k_variable_value] = variableValues[i];
             variablesNode.push_back(variableNode);
         }
         out << YAML::Value << variablesNode;

@@ -189,6 +189,8 @@ namespace Dream::Component {
         inline static std::string k_transitions = "Transitions";
         std::vector<Transition> transitions;
         inline static std::string k_variables = "Variables";
+        inline static std::string k_variable_name = "Name";
+        inline static std::string k_variable_value = "Value";
         std::vector<std::string> variableNames;
         std::vector<int> variableValues;
         explicit AnimatorComponent();
