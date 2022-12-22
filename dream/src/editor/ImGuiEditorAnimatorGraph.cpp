@@ -225,7 +225,7 @@ namespace Dream {
         }
         ax::NodeEditor::DestroyEditor(m_Context);
         ax::NodeEditor::Config config;
-        settingsFilePath = Project::getResourceManager()->getFilePathFromGUID(animatorFileGUID).append(".editor-layout.json");
+        settingsFilePath = Project::getResourceManager()->getFilePathFromGUID(animatorFileGUID).append(".editor-layout.json.dream-ignore");
         config.SettingsFile = settingsFilePath.c_str();
         m_Context = ax::NodeEditor::CreateEditor(&config);
         ax::NodeEditor::SetCurrentEditor(m_Context);

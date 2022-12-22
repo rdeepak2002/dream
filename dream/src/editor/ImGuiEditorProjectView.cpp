@@ -21,6 +21,7 @@ namespace Dream {
         } else {
             Logger::fatal("Assets folder does not exist in project");
         }
+        ignoredExtensions.insert(".dream-ignore");
         ignoredExtensions.insert(".meta");
         ignoredFileNames.insert(".DS_Store");
         // TODO: use specific renderer (not OpenGL)
@@ -70,6 +71,7 @@ namespace Dream {
                 fout.close();
                 Project::getAssetImporter()->createMetaFile(path);
                 Project::recognizeResources();
+                currentPath = path.parent_path();
             }
             if (ImGui::MenuItem("New animator")) {
                 auto filename = "anim";
@@ -88,14 +90,18 @@ namespace Dream {
                 }
                 path = path.append(filename + std::to_string(i) + extension);
                 // create blank animator
-                // TODO: generate this using yaml=cpp library
-                std::ofstream fout(path);
-                fout << Component::AnimatorComponent::k_states << ": []" << std::endl;
-                fout << Component::AnimatorComponent::k_transitions << ": []" << std::endl;
-                fout << Component::AnimatorComponent::k_variables << ": []" << std::endl;
+                YAML::Emitter out;
+                out << YAML::BeginMap;
+                out << YAML::Key << Component::AnimatorComponent::k_states << YAML::Value << YAML::Node(YAML::NodeType::Sequence);
+                out << YAML::Key << Component::AnimatorComponent::k_transitions << YAML::Value << YAML::Node(YAML::NodeType::Sequence);
+                out << YAML::Key << Component::AnimatorComponent::k_variables << YAML::Value << YAML::Node(YAML::NodeType::Sequence);
+                out << YAML::EndMap;
+                std::ofstream fout(path.c_str());
+                fout << out.c_str();
                 fout.close();
                 Project::getAssetImporter()->createMetaFile(path);
                 Project::recognizeResources();
+                currentPath = path.parent_path();
             }
             ImGui::EndPopup();
         }
