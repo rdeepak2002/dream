@@ -134,17 +134,43 @@ namespace Dream::Component {
         if (guid.empty()) {
             return;
         }
-
+        // reset animations state
         states.clear();
+        transitions.clear();
+        variableNames.clear();
+        variableValues.clear();
+        // deserialize animator file
         std::string animatorFilePath = Project::getResourceManager()->getFilePathFromGUID(guid);
-        // get guids for animation files from animator file
         YAML::Node doc = YAML::LoadFile(animatorFilePath);
         // load states
         auto animationsNode = doc[k_states].as<std::vector<YAML::Node>>();
         for (const YAML::Node& animationGUIDNode : animationsNode) {
             states.push_back(animationGUIDNode.as<std::string>());
         }
-        // TODO: load transitions
+        // deserialize transitions
+        auto transitionsNodes = doc[k_transitions].as<std::vector<YAML::Node>>();
+        for (const YAML::Node& transitionNode : transitionsNodes) {
+            std::vector<Condition> conditions;
+            auto conditionNodes = transitionNode[k_transition_Conditions].as<std::vector<YAML::Node>>();
+            for (const YAML::Node& conditionNode : conditionNodes) {
+                Condition condition = {
+                        .Variable1Idx=conditionNode["Variable1Idx"] ? conditionNode["Variable1Idx"].as<int>() : -1,
+                        .Variable1=conditionNode["Variable1"] ? conditionNode["Variable1"].as<int>() : 0,
+                        .Operator=conditionNode["Operator"] ? conditionNode["Operator"].as<std::string>() : "==",
+                        .Variable2Idx=conditionNode["Variable2Idx"] ? conditionNode["Variable2Idx"].as<int>() : -1,
+                        .Variable2=conditionNode["Variable2"] ? conditionNode["Variable2"].as<int>() : 0,
+                };
+                conditions.push_back(condition);
+            }
+            auto inputNodeID = transitionNode[k_transition_InputStateID].as<int>();
+            auto outputNodeID = transitionNode[k_transition_OutputStateID].as<int>();
+            AnimatorComponent::Transition transition = {
+                    .InputStateID=inputNodeID,
+                    .OutputStateID=outputNodeID,
+                    .Conditions=conditions
+            };
+            transitions.push_back(transition);
+        }
         // load variables
         auto variablesNode = doc[k_variables].as<std::vector<YAML::Node>>();
         for (const YAML::Node& variableNode : variablesNode) {
