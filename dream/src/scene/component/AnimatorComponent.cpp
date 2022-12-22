@@ -131,6 +131,10 @@ namespace Dream::Component {
     }
 
     void AnimatorComponent::loadStateMachine(Entity modelEntity) {
+        if (guid.empty()) {
+            return;
+        }
+
         states.clear();
         std::string animatorFilePath = Project::getResourceManager()->getFilePathFromGUID(guid);
         // get guids for animation files from animator file

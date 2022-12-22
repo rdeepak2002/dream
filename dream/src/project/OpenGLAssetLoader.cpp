@@ -57,7 +57,6 @@ namespace Dream {
             } else {
                 // rigged model
                 dreamEntityRootNode.addComponent<Component::MeshComponent>(guid, boneInfoMapCpy);
-                Logger::warn("TODO: OpenGLAssetLoader should create an animator file and link it to this component");   // TODO
                 dreamEntityRootNode.addComponent<Component::AnimatorComponent>();
             }
         }
