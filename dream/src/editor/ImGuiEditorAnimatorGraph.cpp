@@ -23,6 +23,9 @@ namespace Dream {
         isFullscreen = false;
         shouldSetupPositionAndSize = false;
         animationSelectorBrowser = nullptr;
+        contextNodeId = -1;
+        contextLinkId = -1;
+        contextBackground = false;
 //        nextLinkId = 0;
     }
 
@@ -55,6 +58,9 @@ namespace Dream {
 
             ImGui::Begin(std::string(filename + "###Animator").c_str(), &visible,  ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
+            // update popups
+            updatePopups();
+
             // menu bar
             if (ImGui::BeginMenuBar()) {
                 if (ImGui::BeginMenu("File")) {
@@ -81,37 +87,13 @@ namespace Dream {
                 ImGui::EndMenuBar();
             }
 
-            // variables panel
-            float variablesPanelWidth = 200.f;
-            ImGui::BeginChild("Variables", ImVec2(variablesPanelWidth, 0));
-            for (int i = 0; i < variableNames.size(); ++i) {
-                float InputWidth = 40.0f;
-                ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - InputWidth);
-                ImGui::InputText(("##variable" + std::to_string(i)).c_str(), &variableNames[i]);
-                ImGui::SameLine();
-                ImGui::SetNextItemWidth(InputWidth);
-                ImGui::InputInt(("##variable-edit" + std::to_string(i)).c_str(), &variableValues[i], 0);
-            }
-            if (ImGui::Button("Add", ImVec2(ImGui::GetWindowContentRegionWidth(), 0))) {
-                variableNames.emplace_back("variable");
-                variableValues.push_back(0);
-            }
-            ImGui::EndChild();
-
+            // state machine panel
+            float stateMachinePanelWidth = 310.f;
+            updateStateMachinePanel(stateMachinePanelWidth);
             ImGui::SameLine();
 
             // graph panel
-            ImGui::BeginChild("Graph", ImVec2(ImGui::GetWindowContentRegionWidth() - variablesPanelWidth, 0));
-            if (ImGui::BeginPopupContextWindow()) {
-                if (ImGui::MenuItem("New animation")) {
-                    delete animationSelectorBrowser;
-                    animationSelectorBrowser = new ImGui::FileBrowser();
-                    animationSelectorBrowser->SetTitle("select animation");
-                    animationSelectorBrowser->SetPwd(Project::getPath());
-                    animationSelectorBrowser->Open();
-                }
-                ImGui::EndPopup();
-            }
+            ImGui::BeginChild("Graph", ImVec2(ImGui::GetWindowContentRegionWidth() - stateMachinePanelWidth, 0));
 
             if (animationSelectorBrowser) {
                 animationSelectorBrowser->Display();
@@ -185,27 +167,35 @@ namespace Dream {
             }
             ax::NodeEditor::EndCreate(); // Wraps up object creation action handling.
 
-//            // handle deletion action
-//            if (ax::NodeEditor::BeginDelete()) {
-//                // There may be many links marked for deletion, let's loop over them.
-//                ax::NodeEditor::LinkId deletedLinkId;
-//                while (ax::NodeEditor::QueryDeletedLink(&deletedLinkId)) {
-//                    // If you agree that link can be deleted, accept deletion.
-//                    if (ax::NodeEditor::AcceptDeletedItem()) {
-//                        for (int i = 0; i < links.size(); ++i) {
-//                            auto& link = links[i];
-//                            if (link.Id == deletedLinkId) {
-//                                links.erase(links.begin() + i);
-//                                break;
-//                            }
-//                        }
-//                    }
-//
-//                    // You may reject link deletion by calling:
-//                    // ed::RejectDeletedItem();
-//                }
-//            }
-//            ax::NodeEditor::EndDelete(); // Wrap up deletion action
+            // handle deletion action
+            if (ax::NodeEditor::BeginDelete()) {
+                // There may be many links marked for deletion, let's loop over them.
+                ax::NodeEditor::LinkId deletedLinkId;
+                while (ax::NodeEditor::QueryDeletedLink(&deletedLinkId)) {
+                    // If you agree that link can be deleted, accept deletion.
+                    if (ax::NodeEditor::AcceptDeletedItem()) {
+                        for (int i = 0; i < transitions.size(); ++i) {
+                            auto& link = transitions[i];
+                            if (i == (int) deletedLinkId.Get()) {
+                                transitions.erase(transitions.begin() + i);
+                                break;
+                            }
+                        }
+                    }
+
+                    // You may reject link deletion by calling:
+                    // ed::RejectDeletedItem();
+                }
+            }
+            ax::NodeEditor::EndDelete(); // Wrap up deletion action
+
+            ax::NodeEditor::Suspend();
+            if (ax::NodeEditor::ShowBackgroundContextMenu()) {
+                contextBackground = true;
+            }
+            ax::NodeEditor::ShowLinkContextMenu(&contextLinkId);
+            ax::NodeEditor::ShowNodeContextMenu(&contextNodeId);
+            ax::NodeEditor::Resume();
 
             ax::NodeEditor::End();
             ax::NodeEditor::PopStyleColor(2);
@@ -363,5 +353,103 @@ namespace Dream {
             Logger::fatal("PinID, not NodeID");
         }
         return nodeID / 3;
+    }
+
+    void ImGuiEditorAnimatorGraph::updatePopups() {
+        if (contextBackground) {
+            ImGui::OpenPopup("Background");
+        } else if (contextLinkId.Get() != -1) {
+            ImGui::OpenPopup("Link");
+        } else if (contextNodeId.Get() != -1) {
+            ImGui::OpenPopup("Node");
+        }
+
+        if (ImGui::BeginPopup("Background")) {
+            if (ImGui::MenuItem("New animation")) {
+                selectNewAnimation();
+            }
+            ImGui::EndPopup();
+        } else if (ImGui::BeginPopup("Link")) {
+            ImGui::Text("TODO: Link menu");
+            ImGui::EndPopup();
+        } else if (ImGui::BeginPopup("Node")) {
+            ImGui::Text("TODO: Node menu");
+            ImGui::EndPopup();
+        }
+
+        contextBackground = false;
+        contextLinkId = -1;
+        contextNodeId = -1;
+    }
+
+    void ImGuiEditorAnimatorGraph::updateStateMachinePanel(float stateMachinePanelWidth) {
+        ImGui::BeginChild("State Machine", ImVec2(stateMachinePanelWidth, 0));
+        auto cursorPosX1 = ImGui::GetCursorPosX();
+        // variables
+        if (ImGui::TreeNodeEx("Variables", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
+            auto cursorPosX2 = ImGui::GetCursorPosX();
+            auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
+            for (int i = 0; i < variableNames.size(); ++i) {
+                float InputWidth = 40.0f;
+                ImGui::SetNextItemWidth(treeNodeWidth - InputWidth);
+                ImGui::InputText(("##variable" + std::to_string(i)).c_str(), &variableNames[i]);
+                ImGui::SameLine();
+                ImGui::SetNextItemWidth(InputWidth - 8);
+                ImGui::InputInt(("##variable-edit" + std::to_string(i)).c_str(), &variableValues[i], 0);
+            }
+            if (ImGui::Button("Add", ImVec2(treeNodeWidth, 0))) {
+                variableNames.emplace_back("variable");
+                variableValues.push_back(0);
+            }
+            ImGui::TreePop();
+        }
+        // states
+        if (ImGui::TreeNodeEx("States", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
+            auto cursorPosX2 = ImGui::GetCursorPosX();
+            auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
+            for (int i = 0; i < states.size(); ++i) {
+                ImGui::SetNextItemWidth(treeNodeWidth);
+                ImGui::Text("[%d] %s", i, StringUtils::getFilePathRelativeToProjectFolder(Project::getResourceManager()->getFilePathFromGUID(states[i])).c_str());
+            }
+            if (ImGui::Button("Add", ImVec2(treeNodeWidth, 0))) {
+                selectNewAnimation();
+            }
+            ImGui::TreePop();
+        }
+        // transitions
+        if (ImGui::TreeNodeEx("Transitions", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
+            auto cursorPosX2 = ImGui::GetCursorPosX();
+            auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
+            for (int i = 0; i < transitions.size(); ++i) {
+                auto transition = transitions.at(i);
+                auto label = "From " + std::to_string(transition.InputStateID) + " to " + std::to_string(transition.OutputStateID);
+                if (ImGui::TreeNodeEx(label.c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
+                    for (int j = 0; j < transition.Conditions.size(); ++j) {
+                        Component::AnimatorComponent::Condition condition = transition.Conditions.at(j);
+                        ImGui::Text("Var1");
+                        ImGui::SameLine();
+                        ImGui::Text("%s", condition.Operator.c_str());
+                        ImGui::SameLine();
+                        ImGui::Text("Var2");
+                    }
+                    ImGui::TreePop();
+                }
+            }
+            if (ImGui::Button("Add", ImVec2(treeNodeWidth, 0))) {
+                Logger::fatal("Allow adding of transitions");
+            }
+            ImGui::TreePop();
+        }
+
+        ImGui::EndChild();
+
+    }
+
+    void ImGuiEditorAnimatorGraph::selectNewAnimation() {
+        delete animationSelectorBrowser;
+        animationSelectorBrowser = new ImGui::FileBrowser();
+        animationSelectorBrowser->SetTitle("add animation");
+        animationSelectorBrowser->SetPwd(Project::getPath());
+        animationSelectorBrowser->Open();
     }
 }

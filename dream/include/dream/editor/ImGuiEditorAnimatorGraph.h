@@ -23,6 +23,9 @@ namespace Dream {
         void loadStateMachine();
         void serializeStateMachine();
     private:
+        void updatePopups();
+        void updateStateMachinePanel(float stateMachinePanelWidth);
+        void selectNewAnimation();
         bool visible;
         bool isFullscreen;
         bool shouldSetupPositionAndSize;
@@ -37,6 +40,9 @@ namespace Dream {
         std::tuple<int, int, int> getNodeAndPinIDsFromStateID(int stateID);
         int getStateForPinID(int pinID);
         int getStateForNodeID(int nodeID);
+        ax::NodeEditor::LinkId contextLinkId;
+        ax::NodeEditor::NodeId contextNodeId;
+        bool contextBackground;
     };
 }
 
