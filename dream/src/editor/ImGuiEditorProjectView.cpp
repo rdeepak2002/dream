@@ -131,22 +131,25 @@ namespace Dream {
 
         ImGui::BeginColumns("projectGrid", numColumns, ImGuiColumnsFlags_NoResize | ImGuiColumnsFlags_NoBorder);
 
-        if (currentPath != Project::getPath()) {
-            if (ImGui::ImageButton("..", (void*)(intptr_t)folderIcon, ImVec2(40,40))) {
-                currentPath = currentPath.parent_path();
-            }
-            ImGui::Text("%s", "..");
-            ImGui::NextColumn();
-        }
+//        if (currentPath != Project::getPath()) {
+//            ImGui::ImageButton("..", (void*)(intptr_t)folderIcon, ImVec2(40,40));
+//            if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
+//                currentPath = currentPath.parent_path();
+//            }
+//            ImGui::Text("%s", "..");
+//            ImGui::NextColumn();
+//        }
 
         for (const auto & entry : std::filesystem::directory_iterator(currentPath)) {
             if (ignoredExtensions.count(entry.path().extension()) == 0 && ignoredFileNames.count(entry.path().filename()) == 0) {
                 if (entry.is_directory()) {
-                    if (ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)folderIcon, ImVec2(40,40))) {
+                    ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)folderIcon, ImVec2(40,40));
+                    if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
                         currentPath = currentPath.append(entry.path().filename().c_str());
                     }
                 } else {
-                    if (ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)fileIcon, ImVec2(40,40))) {
+                    ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)fileIcon, ImVec2(40,40));
+                    if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
                         textEditor->open(entry.path());
                     }
                 }
