@@ -11,6 +11,7 @@ namespace Dream {
     class StringUtils {
     public:
         static std::string getFilePathRelativeToProjectFolder(std::string path);
+        static std::string shorten(std::string str, bool ellipsis = true, int maxLength = 5);
     };
 }
 

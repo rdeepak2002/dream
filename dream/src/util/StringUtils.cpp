@@ -14,4 +14,15 @@ namespace Dream {
         }
         return path;
     }
+
+    std::string StringUtils::shorten(std::string str, bool ellipsis, int maxLength) {
+        if (str.length() > maxLength) {
+            if (ellipsis) {
+                return str.substr(0, maxLength) + "…";
+            } else {
+                return str.substr(0, maxLength - 3) + "...";
+            }
+        }
+        return str;
+    }
 }

@@ -7,6 +7,7 @@
 #include "dream/renderer/OpenGLTexture.h"
 #include "dream/util/Logger.h"
 #include "dream/scene/component/Component.h"
+#include "dream/util/StringUtils.h"
 #include <imgui/imgui_internal.h>
 #include <imgui/imgui.h>
 #include <fstream>
@@ -124,40 +125,46 @@ namespace Dream {
 
         auto windowSize = ImGui::GetWindowSize();
 
-        int numColumns = (int)(windowSize.x / 100.0f);
+        float imageSize = 40.0f;
+        float columnWidth = 120.0f;
+        int numColumns = (int)(windowSize.x / (columnWidth + 0.1f));
         if (numColumns == 0) {
             numColumns = 1;
         }
 
-        ImGui::BeginColumns("projectGrid", numColumns, ImGuiColumnsFlags_NoResize | ImGuiColumnsFlags_NoBorder);
-
-//        if (currentPath != Project::getPath()) {
-//            ImGui::ImageButton("..", (void*)(intptr_t)folderIcon, ImVec2(40,40));
-//            if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
-//                currentPath = currentPath.parent_path();
-//            }
-//            ImGui::Text("%s", "..");
-//            ImGui::NextColumn();
-//        }
+        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+        ImGui::BeginColumns("projectGrid", numColumns, ImGuiColumnsFlags_NoResize | ImGuiColumnsFlags_NoBorder | ImGuiTableColumnFlags_WidthFixed);
+        ImGui::SetColumnWidth(-1, columnWidth);
 
         for (const auto & entry : std::filesystem::directory_iterator(currentPath)) {
             if (ignoredExtensions.count(entry.path().extension()) == 0 && ignoredFileNames.count(entry.path().filename()) == 0) {
+                float currentCursorPos = ImGui::GetCursorPosX();
                 if (entry.is_directory()) {
-                    ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)folderIcon, ImVec2(40,40));
+                    ImGui::SetCursorPosX(currentCursorPos + (columnWidth - (imageSize + 0.0f)) * 0.5f);
+                    ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)folderIcon, ImVec2(imageSize,imageSize));
                     if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
                         currentPath = currentPath.append(entry.path().filename().c_str());
                     }
                 } else {
-                    ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)fileIcon, ImVec2(40,40));
+                    ImGui::SetCursorPosX(currentCursorPos + (columnWidth - (imageSize + 0.0f)) * 0.5f);
+                    ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)fileIcon, ImVec2(imageSize,imageSize));
                     if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
                         textEditor->open(entry.path());
                     }
                 }
-                ImGui::Text("%s", entry.path().filename().c_str());
+                currentCursorPos = ImGui::GetCursorPosX();
+                auto text = StringUtils::shorten(entry.path().filename(), false, 12);
+                ImVec2 textSize = ImGui::CalcTextSize(text.c_str());
+                ImGui::SetCursorPosX(currentCursorPos + (columnWidth - textSize.x) * 0.5f);
+                ImGui::Text("%s", text.c_str());
                 ImGui::NextColumn();
+                ImGui::SetColumnWidth(-1, columnWidth);
             }
         }
 
+        ImGui::EndColumns();
+
+        ImGui::PopStyleVar();
         ImGui::End();
 
         ImGui::PopStyleColor();
