@@ -156,74 +156,41 @@ namespace Dream {
         }
     }
 
-    std::string ImGuiEditorInspectorView::shorten(std::string str, int maxLength) {
-        if (str.length() > maxLength) {
-            return "..." + str.substr(str.length() - maxLength, str.length());
-        }
-        return str;
-    }
-
-    void ImGuiEditorInspectorView::renderVec3Control(const std::string& label, glm::vec3& values, float resetValue, float columnWidth) {
+    void ImGuiEditorInspectorView::renderVec3Control(const std::string& label, glm::vec3& values, float contentWidth, float resetValue) {
         ImGuiIO& io = ImGui::GetIO();
         auto boldFont = io.Fonts->Fonts[0];
 
         ImGui::PushID(label.c_str());
 
-        ImGui::BeginColumns("transformGrid", 2, ImGuiColumnsFlags_NoResize | ImGuiColumnsFlags_NoBorder);
-        ImGui::SetColumnWidth(0, columnWidth);
         ImGui::Text("%s", label.c_str());
-        ImGui::NextColumn();
+        ImGui::SameLine();
+        float inputsWidth = 180.0f;
+        ImGui::SetCursorPosX(contentWidth - 100 - inputsWidth + 50);
 
-        ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
-        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 0 });
+        ImGui::PushMultiItemsWidths(3, inputsWidth);
 
         float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
         ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
 
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.9f, 0.2f, 0.2f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
-        ImGui::PushFont(boldFont);
-        if (ImGui::Button("X", buttonSize))
-            values.x = resetValue;
-        ImGui::PopFont();
-        ImGui::PopStyleColor(3);
+        ImGui::Text("X");
 
         ImGui::SameLine();
         ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.3f");
         ImGui::PopItemWidth();
         ImGui::SameLine();
 
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.3f, 0.8f, 0.3f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
-        ImGui::PushFont(boldFont);
-        if (ImGui::Button("Y", buttonSize))
-            values.y = resetValue;
-        ImGui::PopFont();
-        ImGui::PopStyleColor(3);
+        ImGui::Text("Y");
 
         ImGui::SameLine();
         ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.3f");
         ImGui::PopItemWidth();
         ImGui::SameLine();
 
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.1f, 0.25f, 0.8f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.2f, 0.35f, 0.9f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.1f, 0.25f, 0.8f, 1.0f });
-        ImGui::PushFont(boldFont);
-        if (ImGui::Button("Z", buttonSize))
-            values.z = resetValue;
-        ImGui::PopFont();
-        ImGui::PopStyleColor(3);
+        ImGui::Text("Z");
 
         ImGui::SameLine();
         ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.3f");
         ImGui::PopItemWidth();
-
-        ImGui::PopStyleVar();
-
-        ImGui::Columns(1);
 
         ImGui::PopID();
     }
@@ -250,16 +217,19 @@ namespace Dream {
         if (selectedEntity.hasComponent<Component::TransformComponent>()) {
             auto &component = selectedEntity.getComponent<Component::TransformComponent>();
             bool treeNodeOpen = ImGui::TreeNodeEx("##Transform", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            auto cursorPosX1 = ImGui::GetCursorPosX();
 
             ImGui::SameLine();
             ImGui::Text("Transform");
 
             if (treeNodeOpen) {
-                renderVec3Control("Position", component.translation);
+                auto cursorPosX2 = ImGui::GetCursorPosX();
+                float contentWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
+                renderVec3Control("Position", component.translation, contentWidth, 0.0f);
                 glm::vec3 eulerRot = glm::eulerAngles(component.rotation);
-                renderVec3Control("Rotation", eulerRot);
+                renderVec3Control("Rotation", eulerRot, contentWidth, 0.0f);
                 component.rotation = glm::quat(eulerRot);
-                renderVec3Control("Scale", component.scale);
+                renderVec3Control("Scale", component.scale, contentWidth, 0.0f);
                 ImGui::TreePop();
             }
         }

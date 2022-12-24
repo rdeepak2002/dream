@@ -41,11 +41,10 @@ namespace Dream {
 
 
         Entity selectedEntity;
-        std::string shorten(std::string str, int maxLength = 14);
         void addComponent(std::string componentID);
         void renderRemoveComponent();
         void renderAddComponent();
-        void renderVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f);
+        void renderVec3Control(const std::string& label, glm::vec3& values, float contentWidth, float resetValue);
         void renderTagComponent();
         void renderTransformComponent();
         void renderMeshComponent();
