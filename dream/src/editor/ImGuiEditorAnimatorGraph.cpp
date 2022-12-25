@@ -409,20 +409,7 @@ namespace Dream {
                     auto cursorPosX3 = ImGui::GetCursorPosX();
                     for (int j = 0; j < transition.Conditions.size(); ++j) {
                         Component::AnimatorComponent::Condition &condition = transition.Conditions.at(j);
-                        auto var1 = condition.Variable1;
-                        if (condition.Variable1Idx >= 0) {
-                            if (condition.Variable1Idx >= variableValues.size()) {
-                                Logger::fatal("Variable 1 index out of bounds");
-                            }
-                            var1 = variableValues.at(condition.Variable1Idx);
-                        }
-                        auto var2 = condition.Variable2;
-                        if (condition.Variable2Idx >= 0) {
-                            if (condition.Variable2Idx >= variableValues.size()) {
-                                Logger::fatal("Variable 2 index out of bounds");
-                            }
-                            var2 = variableValues.at(condition.Variable2Idx);
-                        }
+
                         {
                             // edit variable 1 for condition
                             ImGui::SetNextItemWidth(100);
