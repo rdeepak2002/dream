@@ -88,7 +88,7 @@ namespace Dream {
             }
 
             // state machine panel
-            float stateMachinePanelWidth = 310.f;
+            float stateMachinePanelWidth = 380.f;
             updateStateMachinePanel(stateMachinePanelWidth);
             ImGui::SameLine();
 
@@ -385,8 +385,120 @@ namespace Dream {
     void ImGuiEditorAnimatorGraph::updateStateMachinePanel(float stateMachinePanelWidth) {
         ImGui::BeginChild("State Machine", ImVec2(stateMachinePanelWidth, 0));
         auto cursorPosX1 = ImGui::GetCursorPosX();
+        // states
+        if (ImGui::TreeNodeEx("states", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
+            auto cursorPosX2 = ImGui::GetCursorPosX();
+            auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
+            for (int i = 0; i < states.size(); ++i) {
+                ImGui::SetNextItemWidth(treeNodeWidth);
+                ImGui::Text("[%d] %s", i, StringUtils::getFilePathRelativeToProjectFolder(Project::getResourceManager()->getFilePathFromGUID(states[i])).c_str());
+            }
+            if (ImGui::Button("Add", ImVec2(treeNodeWidth, 0))) {
+                selectNewAnimation();
+            }
+            ImGui::TreePop();
+        }
+        // transitions
+        if (ImGui::TreeNodeEx("transitions", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
+            auto cursorPosX2 = ImGui::GetCursorPosX();
+            auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
+            for (int i = 0; i < transitions.size(); ++i) {
+                auto &transition = transitions.at(i);
+                auto label = "state " + std::to_string(transition.InputStateID) + " to state " + std::to_string(transition.OutputStateID);
+                if (ImGui::TreeNodeEx(label.c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
+                    auto cursorPosX3 = ImGui::GetCursorPosX();
+                    for (int j = 0; j < transition.Conditions.size(); ++j) {
+                        Component::AnimatorComponent::Condition &condition = transition.Conditions.at(j);
+                        auto var1 = condition.Variable1;
+                        if (condition.Variable1Idx >= 0) {
+                            if (condition.Variable1Idx >= variableValues.size()) {
+                                Logger::fatal("Variable 1 index out of bounds");
+                            }
+                            var1 = variableValues.at(condition.Variable1Idx);
+                        }
+                        auto var2 = condition.Variable2;
+                        if (condition.Variable2Idx >= 0) {
+                            if (condition.Variable2Idx >= variableValues.size()) {
+                                Logger::fatal("Variable 2 index out of bounds");
+                            }
+                            var2 = variableValues.at(condition.Variable2Idx);
+                        }
+                        {
+                            // edit variable 1 for condition
+                            ImGui::SetNextItemWidth(100);
+                            auto uniqueLabel = std::to_string(i) + "/" + std::to_string(j);
+                            if (ImGui::BeginCombo(("##Var1/" + uniqueLabel).c_str(), condition.Variable1Idx == -1 ? "Custom" : variableNames.at(condition.Variable1Idx).c_str())) {
+                                if (ImGui::Selectable("custom")) {
+                                    condition.Variable1Idx = -1;
+                                }
+                                for (int k = 0; k < variableNames.size(); ++k) {
+                                    if (ImGui::Selectable(variableNames[k].c_str())) {
+                                        condition.Variable1Idx = k;
+                                    }
+                                }
+                                ImGui::EndCombo();
+                            }
+                            if (condition.Variable1Idx == -1) {
+                                ImGui::SameLine();
+                                ImGui::SetNextItemWidth(20);
+                                ImGui::InputInt(("##Var1Input/" + uniqueLabel).c_str(), &condition.Variable1, 0);
+                            }
+                        }
+                        {
+                            // TODO: edit operator for condition
+                            ImGui::SameLine();
+                            ImGui::Text("%s", condition.Operator.c_str());
+                        }
+                        {
+                            // edit variable 2 for condition
+                            ImGui::SameLine();
+                            ImGui::SetNextItemWidth(100);
+                            auto uniqueLabel = std::to_string(i) + "/" + std::to_string(j);
+                            if (ImGui::BeginCombo(("##Var2/" + uniqueLabel).c_str(), condition.Variable2Idx == -1 ? "Custom" : variableNames.at(condition.Variable2Idx).c_str())) {
+                                if (ImGui::Selectable("custom")) {
+                                    condition.Variable2Idx = -1;
+                                }
+                                for (int k = 0; k < variableNames.size(); ++k) {
+                                    if (ImGui::Selectable(variableNames[k].c_str())) {
+                                        condition.Variable2Idx = k;
+                                    }
+                                }
+                                ImGui::EndCombo();
+                            }
+                            if (condition.Variable2Idx == -1) {
+                                ImGui::SameLine();
+                                ImGui::SetNextItemWidth(20);
+                                ImGui::InputInt(("##Var2Input/" + uniqueLabel).c_str(), &condition.Variable2, 0);
+                            }
+                        }
+                    }
+                    auto innerTreeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1) - (cursorPosX3 - cursorPosX2);
+                    if (ImGui::Button("Add", ImVec2(innerTreeNodeWidth, 0))) {
+                        transition.Conditions.push_back(Component::AnimatorComponent::Condition {
+                            .Variable1Idx = -1,
+                            .Variable1 = 0,
+                            .Operator = "==",
+                            .Variable2Idx = -1,
+                            .Variable2 = 0
+                        });
+                    }
+                    ImGui::TreePop();
+                }
+            }
+            if (states.size() >= 2) {
+                if (ImGui::Button("Add", ImVec2(treeNodeWidth, 0))) {
+                    std::vector<Component::AnimatorComponent::Condition> conditions;
+                    transitions.push_back(Component::AnimatorComponent::Transition{
+                            .InputStateID=0,
+                            .OutputStateID=1,
+                            .Conditions=conditions
+                    });
+                }
+            }
+            ImGui::TreePop();
+        }
         // variables
-        if (ImGui::TreeNodeEx("Variables", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
+        if (ImGui::TreeNodeEx("variables", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
             auto cursorPosX2 = ImGui::GetCursorPosX();
             auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
             for (int i = 0; i < variableNames.size(); ++i) {
@@ -400,43 +512,6 @@ namespace Dream {
             if (ImGui::Button("Add", ImVec2(treeNodeWidth, 0))) {
                 variableNames.emplace_back("variable");
                 variableValues.push_back(0);
-            }
-            ImGui::TreePop();
-        }
-        // states
-        if (ImGui::TreeNodeEx("States", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
-            auto cursorPosX2 = ImGui::GetCursorPosX();
-            auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
-            for (int i = 0; i < states.size(); ++i) {
-                ImGui::SetNextItemWidth(treeNodeWidth);
-                ImGui::Text("[%d] %s", i, StringUtils::getFilePathRelativeToProjectFolder(Project::getResourceManager()->getFilePathFromGUID(states[i])).c_str());
-            }
-            if (ImGui::Button("Add", ImVec2(treeNodeWidth, 0))) {
-                selectNewAnimation();
-            }
-            ImGui::TreePop();
-        }
-        // transitions
-        if (ImGui::TreeNodeEx("Transitions", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
-            auto cursorPosX2 = ImGui::GetCursorPosX();
-            auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
-            for (int i = 0; i < transitions.size(); ++i) {
-                auto transition = transitions.at(i);
-                auto label = "From " + std::to_string(transition.InputStateID) + " to " + std::to_string(transition.OutputStateID);
-                if (ImGui::TreeNodeEx(label.c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
-                    for (int j = 0; j < transition.Conditions.size(); ++j) {
-                        Component::AnimatorComponent::Condition condition = transition.Conditions.at(j);
-                        ImGui::Text("Var1");
-                        ImGui::SameLine();
-                        ImGui::Text("%s", condition.Operator.c_str());
-                        ImGui::SameLine();
-                        ImGui::Text("Var2");
-                    }
-                    ImGui::TreePop();
-                }
-            }
-            if (ImGui::Button("Add", ImVec2(treeNodeWidth, 0))) {
-                Logger::fatal("Allow adding of transitions");
             }
             ImGui::TreePop();
         }
