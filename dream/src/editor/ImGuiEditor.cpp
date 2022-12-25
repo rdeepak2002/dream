@@ -57,8 +57,10 @@ namespace Dream {
     }
 
     void ImGuiEditor::update(Dream::Window *window, unsigned int frameBufferTexture) {
+        ImGuiIO& io = ImGui::GetIO();
         if (Input::pointerLockActivated()) {
             ImGui::SetMouseCursor(ImGuiMouseCursor_None);
+            io.ConfigFlags |= ImGuiConfigFlags_NoMouseCursorChange;
         }
 
         this->style();
@@ -80,6 +82,11 @@ namespace Dream {
             consoleView->update(logCollector);
             projectView->update();
             sceneView->update();
+        }
+
+        if (Input::pointerLockActivated()) {
+            ImGui::SetMouseCursor(ImGuiMouseCursor_None);
+            io.ConfigFlags |= ImGuiConfigFlags_NoMouseCursorChange;
         }
 
         ImGui::Render();

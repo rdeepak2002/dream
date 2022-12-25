@@ -463,9 +463,24 @@ namespace Dream {
                             }
                         }
                         {
-                            // TODO: edit operator for condition
+                            // edit operator for condition
                             ImGui::SameLine();
-                            ImGui::Text("%s", condition.Operator.c_str());
+                            auto uniqueLabel = std::to_string(i) + "/" + std::to_string(j);
+                            ImGui::SetNextItemWidth(50);
+                            if (ImGui::BeginCombo(("##Operator/" + uniqueLabel).c_str(), condition.Operator.c_str())) {
+                                std::vector<std::string> operators;
+                                operators.emplace_back("==");
+                                operators.emplace_back(">");
+                                operators.emplace_back("<");
+                                operators.emplace_back(">=");
+                                operators.emplace_back("<=");
+                                for (auto const &op : operators) {
+                                    if (ImGui::Selectable(op.c_str())) {
+                                        condition.Operator = op;
+                                    }
+                                }
+                                ImGui::EndCombo();
+                            }
                         }
                         {
                             // edit variable 2 for condition

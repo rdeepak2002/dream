@@ -130,7 +130,6 @@ namespace Dream {
 
     void Project::setIsPlaying(bool playing) {
         getInstance().playing = playing;
-        Input::activatePointerLock(false);
     }
 
     bool Project::isFullscreen() {
