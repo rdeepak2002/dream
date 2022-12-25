@@ -93,7 +93,7 @@ namespace Dream {
             ImGui::SameLine();
 
             // graph panel
-            ImGui::BeginChild("Graph", ImVec2(ImGui::GetWindowContentRegionWidth() - stateMachinePanelWidth, 0));
+            ImGui::BeginChild("Graph", ImVec2(ImGui::GetWindowContentRegionWidth() - stateMachinePanelWidth - 10, 0));
 
             if (animationSelectorBrowser) {
                 animationSelectorBrowser->Display();
