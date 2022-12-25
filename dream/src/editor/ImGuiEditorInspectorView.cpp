@@ -7,6 +7,8 @@
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <misc/cpp/imgui_stdlib.h>
+#include <glm/glm.hpp>
+#include <glm/gtx/euler_angles.hpp>
 #include "dream/scene/component/Component.h"
 #include "dream/project/Project.h"
 #include "dream/util/SceneUtils.h"
@@ -156,7 +158,7 @@ namespace Dream {
         }
     }
 
-    void ImGuiEditorInspectorView::renderVec3Control(const std::string& label, glm::vec3& values, float contentWidth, float resetValue) {
+    void ImGuiEditorInspectorView::renderVec3Control(const std::string& label, glm::vec3& values, float contentWidth, float resetValue, float vSpeed, std::pair<float, float> vMinMax1, std::pair<float, float> vMinMax2, std::pair<float, float> vMinMax3) {
         ImGuiIO& io = ImGui::GetIO();
         auto boldFont = io.Fonts->Fonts[0];
 
@@ -175,21 +177,21 @@ namespace Dream {
         ImGui::Text("X");
 
         ImGui::SameLine();
-        ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.3f");
+        ImGui::DragFloat("##X", &values.x, vSpeed, vMinMax1.first, vMinMax1.second, "%.3f");
         ImGui::PopItemWidth();
         ImGui::SameLine();
 
         ImGui::Text("Y");
 
         ImGui::SameLine();
-        ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.3f");
+        ImGui::DragFloat("##Y", &values.y, vSpeed, vMinMax2.first, vMinMax2.second, "%.3f");
         ImGui::PopItemWidth();
         ImGui::SameLine();
 
         ImGui::Text("Z");
 
         ImGui::SameLine();
-        ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.3f");
+        ImGui::DragFloat("##Z", &values.z, vSpeed, vMinMax3.first, vMinMax3.second, "%.3f");
         ImGui::PopItemWidth();
 
         ImGui::PopID();
@@ -225,11 +227,11 @@ namespace Dream {
             if (treeNodeOpen) {
                 auto cursorPosX2 = ImGui::GetCursorPosX();
                 float contentWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
-                renderVec3Control("Position", component.translation, contentWidth, 0.0f);
+                renderVec3Control("Position", component.translation, contentWidth, 0.0f, 0.1);
                 glm::vec3 eulerRot = glm::eulerAngles(component.rotation);
-                renderVec3Control("Rotation", eulerRot, contentWidth, 0.0f);
+                renderVec3Control("Rotation", eulerRot, contentWidth, 0.0f, 0.1, {0, 0}, {-3.14 / 2, 3.14 / 2});
                 component.rotation = glm::quat(eulerRot);
-                renderVec3Control("Scale", component.scale, contentWidth, 0.0f);
+                renderVec3Control("Scale", component.scale, contentWidth, 0.0f, 0.1);
                 ImGui::TreePop();
             }
         }

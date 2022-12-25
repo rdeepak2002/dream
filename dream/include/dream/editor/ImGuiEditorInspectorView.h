@@ -44,7 +44,7 @@ namespace Dream {
         void addComponent(std::string componentID);
         void renderRemoveComponent();
         void renderAddComponent();
-        void renderVec3Control(const std::string& label, glm::vec3& values, float contentWidth, float resetValue);
+        void renderVec3Control(const std::string& label, glm::vec3& values, float contentWidth, float resetValue, float vSpeed, std::pair<float, float> vMinMax1 = {0, 0}, std::pair<float, float> vMinMax2 = {0, 0}, std::pair<float, float> vMinMax3 = {0, 0});
         void renderTagComponent();
         void renderTransformComponent();
         void renderMeshComponent();
