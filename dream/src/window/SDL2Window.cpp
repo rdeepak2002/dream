@@ -123,6 +123,7 @@ namespace Dream {
                         break;
                     case SDLK_ESCAPE:
                         Input::setButtonDown(Key::Escape, state);
+                        Input::activatePointerLock(false);
                         break;
                     default:
                         int keyCode = (int) Event.key.keysym.sym;

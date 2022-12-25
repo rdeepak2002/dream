@@ -13,9 +13,9 @@ function update(entity, dt)
 	end
 
 	-- activate pointer lock when clicking and escape to cancel pointer lock
-	if Input.getButtonDown(Key.Escape) then
-		Input.activatePointerLock(false)
-	end
+	-- if Input.getButtonDown(Key.Escape) then
+	-- 	Input.activatePointerLock(false)
+	-- end
 	if Input.getButtonDown(Key.LeftMouse) then
 		Input.activatePointerLock(true)
 	end
