@@ -407,9 +407,40 @@ namespace Dream {
                 auto label = "state " + std::to_string(transition.InputStateID) + " to state " + std::to_string(transition.OutputStateID);
                 if (ImGui::TreeNodeEx(label.c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
                     auto cursorPosX3 = ImGui::GetCursorPosX();
+                    {
+                        // edit 'from' conditions for transition
+                        ImGui::Text("from ");
+                        ImGui::SameLine();
+                        ImGui::SetCursorPosX(120);
+                        auto fromFilename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[transition.OutputStateID])).filename();
+                        if (ImGui::BeginCombo(("##From/" + std::to_string(i)).c_str(), fromFilename.c_str())) {
+                            for (int j = 0; j < states.size(); ++j) {
+                                auto filename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[j])).filename();
+                                if (ImGui::Selectable(std::string("[" + std::to_string(j) + "] " + filename.string()).c_str())) {
+                                    transition.OutputStateID = j;
+                                }
+                            }
+                            ImGui::EndCombo();
+                        }
+                    }
+                    {
+                        // edit 'to' conditions for transition
+                        ImGui::Text("to ");
+                        ImGui::SameLine();
+                        ImGui::SetCursorPosX(120);
+                        auto toFilename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[transition.InputStateID])).filename();
+                        if (ImGui::BeginCombo(("##To/" + std::to_string(i)).c_str(), toFilename.c_str())) {
+                            for (int j = 0; j < states.size(); ++j) {
+                                auto filename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[j])).filename();
+                                if (ImGui::Selectable(std::string("[" + std::to_string(j) + "] " + filename.string()).c_str())) {
+                                    transition.InputStateID = j;
+                                }
+                            }
+                            ImGui::EndCombo();
+                        }
+                    }
                     for (int j = 0; j < transition.Conditions.size(); ++j) {
                         Component::AnimatorComponent::Condition &condition = transition.Conditions.at(j);
-
                         {
                             // edit variable 1 for condition
                             ImGui::SetNextItemWidth(100);
