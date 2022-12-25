@@ -80,7 +80,29 @@
         printErr: function(text) {
             console.error(text);
         },
+        getPreloadedPackage: function(remotePackageName, remotePackageSize) {
+            console.log("remote package name", remotePackageName);
+            console.log("remote pacakge size", remotePackageSize);
+        },
         canvas: document.getElementById('canvas'),
+        onRuntimeInitialized: function() {
+            let disablePointerLock = Module.cwrap('disablePointerLock', null, []);
+            document.addEventListener('pointerlockchange', lockChangeAlert, false);
+            function lockChangeAlert() {
+                if (!document.pointerLockElement) {
+                    disablePointerLock();
+                }
+            }
+        },
+        totalDependencies: 0,
+        monitorRunDependencies: function(left) {
+            console.log(left);
+            this.totalDependencies = Math.max(this.totalDependencies, left);
+            let dependencyDownloadStatus = left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.';
+            // if (element) element.value += dependencyDownloadStatus + "\n";
+            // if (element) element.scrollTop = element.scrollHeight; // focus on bottom
+            console.log(dependencyDownloadStatus);
+        }
     };
 </script>
 <script async type="text/javascript" src="dream.js"></script>

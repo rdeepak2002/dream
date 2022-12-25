@@ -7,6 +7,13 @@
 
 #ifdef EMSCRIPTEN
 #include "emscripten.h"
+#include "dream/window/Input.h"
+
+extern "C" {
+    void disablePointerLock() {
+        Dream::Input::activatePointerLock(false);
+    }
+}
 #endif
 
 Dream::Application* application = nullptr;
