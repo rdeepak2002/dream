@@ -153,10 +153,13 @@ namespace Dream {
                     }
                 }
                 currentCursorPos = ImGui::GetCursorPosX();
-                auto text = StringUtils::shorten(entry.path().filename(), false, 12);
-                ImVec2 textSize = ImGui::CalcTextSize(text.c_str());
+                auto text = StringUtils::splitAndShorten(entry.path().filename(), true, 24, 12);
+                ImVec2 textSize = ImGui::CalcTextSize(text.first.c_str());
                 ImGui::SetCursorPosX(currentCursorPos + (columnWidth - textSize.x) * 0.5f);
-                ImGui::Text("%s", text.c_str());
+                ImGui::Text("%s", text.first.c_str());
+                textSize = ImGui::CalcTextSize(text.second.c_str());
+                ImGui::SetCursorPosX(currentCursorPos + (columnWidth - textSize.x) * 0.5f);
+                ImGui::Text("%s", text.second.c_str());
                 ImGui::NextColumn();
                 ImGui::SetColumnWidth(-1, columnWidth);
             }
