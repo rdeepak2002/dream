@@ -573,11 +573,33 @@ namespace Dream {
             auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
             for (int i = 0; i < variableNames.size(); ++i) {
                 float InputWidth = 40.0f;
-                ImGui::SetNextItemWidth(treeNodeWidth - InputWidth);
+                ImGui::SetNextItemWidth(treeNodeWidth - InputWidth - 25);
                 ImGui::InputText(("##variable" + std::to_string(i)).c_str(), &variableNames[i]);
                 ImGui::SameLine();
                 ImGui::SetNextItemWidth(InputWidth - 8);
                 ImGui::InputInt(("##variable-edit" + std::to_string(i)).c_str(), &variableValues[i], 0);
+                ImGui::SameLine();
+                if (ImGui::Button(("X##VariableRemoveBtn/" + std::to_string(i)).c_str())) {
+                    variableNames.erase(variableNames.begin() + i);
+                    variableValues.erase(variableValues.begin() + i);
+                    for (auto &transition : transitions) {
+                        // remove conditions that rely on this variable
+                        for (int j = (int) transition.Conditions.size() - 1; j >= 0; --j) {
+                            if (transition.Conditions[j].Variable1Idx == i || transition.Conditions[j].Variable2Idx == i) {
+                                transition.Conditions.erase(transition.Conditions.begin() + j);
+                            }
+                        }
+                        // update variable indices for transition conditions
+                        for (auto &condition : transition.Conditions) {
+                            if (condition.Variable1Idx > i) {
+                                condition.Variable1Idx--;
+                            }
+                            if (condition.Variable2Idx > i) {
+                                condition.Variable2Idx--;
+                            }
+                        }
+                    }
+                }
             }
             if (ImGui::Button("Add", ImVec2(treeNodeWidth, 0))) {
                 variableNames.emplace_back("variable");
