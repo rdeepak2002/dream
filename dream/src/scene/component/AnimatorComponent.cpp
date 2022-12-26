@@ -90,7 +90,7 @@ namespace Dream::Component {
                         }
                     }
                     if (allConditionsPassed) {
-                        int numRequiredTimesToPlay = states[transition.InputStateID].PlayOnce ? 1 : 0;
+                        int numRequiredTimesToPlay = states[transition.OutputStateID].PlayOnce ? 1 : 0;
                         if (numTimesAnimationPlayed >= numRequiredTimesToPlay) {
                             playAnimation(transition.InputStateID);
                         } else {
