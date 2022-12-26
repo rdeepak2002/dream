@@ -84,7 +84,7 @@ namespace Dream {
             }
 
             // state machine panel
-            float stateMachinePanelWidth = 380.f;
+            float stateMachinePanelWidth = 400.f;
             updateStateMachinePanel(stateMachinePanelWidth);
             ImGui::SameLine();
 
@@ -535,6 +535,11 @@ namespace Dream {
                                 ImGui::SetNextItemWidth(20);
                                 ImGui::InputInt(("##Var2Input/" + uniqueLabel).c_str(), &condition.Variable2, 0);
                             }
+                        }
+                        // remove condition
+                        ImGui::SameLine();
+                        if (ImGui::Button(("X##CondRemoveBtn" + std::to_string(j)).c_str(), ImVec2(0.f, 0.f))) {
+                            transition.Conditions.erase(transition.Conditions.begin() + j);
                         }
                     }
                     auto innerTreeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1) - (cursorPosX3 - cursorPosX2);
