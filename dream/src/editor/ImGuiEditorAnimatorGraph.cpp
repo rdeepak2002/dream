@@ -538,7 +538,7 @@ namespace Dream {
                         }
                         // remove condition
                         ImGui::SameLine();
-                        if (ImGui::Button(("X##CondRemoveBtn" + std::to_string(j)).c_str(), ImVec2(0.f, 0.f))) {
+                        if (ImGui::Button(("X##CondRemoveBtn/" + std::to_string(i) + "/" + std::to_string(j)).c_str(), ImVec2(0.f, 0.f))) {
                             transition.Conditions.erase(transition.Conditions.begin() + j);
                         }
                     }
