@@ -162,6 +162,10 @@ namespace Dream::Component {
     };
 
     struct AnimatorComponent : public Component {
+        struct State {
+            std::string Guid = "";
+            bool PlayOnce = true;
+        };
         struct Condition {
             int Variable1Idx = -1;
             int Variable1 = 0;
@@ -188,7 +192,7 @@ namespace Dream::Component {
         // state machine variables
         int currentState;
         inline static std::string k_states = "States";
-        std::vector<std::string> states;
+        std::vector<State> states;
         inline static std::string k_transitions = "Transitions";
         inline static std::string k_transition_InputStateID = "To";
         inline static std::string k_transition_OutputStateID = "From";

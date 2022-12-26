@@ -31,7 +31,7 @@ namespace Dream {
         bool shouldSetupPositionAndSize;
         ax::NodeEditor::EditorContext* m_Context;
         std::string animatorFileGUID;
-        std::vector<std::string> states;
+        std::vector<Component::AnimatorComponent::State> states;
         std::vector<Component::AnimatorComponent::Transition> transitions;
         std::vector<std::string> variableNames;
         std::vector<int> variableValues;

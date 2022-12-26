@@ -90,12 +90,13 @@ namespace Dream::Component {
                         }
                     }
                     if (allConditionsPassed) {
-                        if (numTimesAnimationPlayed >= 1) {
+                        int numRequiredTimesToPlay = states[transition.InputStateID].PlayOnce ? 1 : 0;
+                        if (numTimesAnimationPlayed >= numRequiredTimesToPlay) {
                             playAnimation(transition.InputStateID);
                         } else {
-                            std::cout << "should transition to next state " << transition.InputStateID << std::endl;
+                            // TODO: do animation blending here
+//                            std::cout << "should transition to next state " << transition.InputStateID << std::endl;
                         }
-//                        playAnimation(transition.InputStateID);
                         break;
                     }
                 }
@@ -245,8 +246,11 @@ namespace Dream::Component {
         YAML::Node doc = YAML::LoadFile(animatorFilePath);
         // load states
         auto animationsNode = doc[k_states].as<std::vector<YAML::Node>>();
-        for (const YAML::Node& animationGUIDNode : animationsNode) {
-            states.push_back(animationGUIDNode.as<std::string>());
+        for (const YAML::Node& animationNode : animationsNode) {
+            states.push_back(State{
+                .Guid=animationNode["Guid"].as<std::string>(),
+                .PlayOnce=animationNode["PlayOnce"].as<bool>()
+            });
         }
         // deserialize transitions
         auto transitionsNodes = doc[k_transitions].as<std::vector<YAML::Node>>();
@@ -283,10 +287,10 @@ namespace Dream::Component {
         auto transitionsNode = doc[k_transitions].as<std::vector<YAML::Node>>();
         // load animation data from animation files
         if (!states.empty()) {
-            for (const auto& animationGUID : states) {
-                auto animationFilePath = Project::getResourceManager()->getFilePathFromGUID(animationGUID);
+            for (const auto& state : states) {
+                auto animationFilePath = Project::getResourceManager()->getFilePathFromGUID(state.Guid);
                 auto *anim = new Animation(animationFilePath, modelEntity, 0);
-                animationObjects[animationGUID] = anim;
+                animationObjects[state.Guid] = anim;
 //                m_CurrentAnimation = anim;
                 if (animationObjects.size() > INT_MAX) {
                     Logger::fatal("Too many animations to store in memory");
@@ -320,12 +324,12 @@ namespace Dream::Component {
     void AnimatorComponent::playAnimation(int stateID) {
 //        Logger::debug("Playing animation " + std::to_string(stateID));
         numTimesAnimationPlayed = 0;
-        std::string animationGUID = states[stateID];
-        if (animationObjects.count(animationGUID) > 0) {
-            m_CurrentAnimation = animationObjects[animationGUID];
+        auto state = states[stateID];
+        if (animationObjects.count(state.Guid) > 0) {
+            m_CurrentAnimation = animationObjects[state.Guid];
             currentState = stateID;
         } else {
-            Logger::fatal("Unable to find animation with GUID " + animationGUID);
+            Logger::fatal("Unable to find animation with GUID " + state.Guid);
         }
     }
 

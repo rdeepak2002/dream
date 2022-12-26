@@ -96,7 +96,10 @@ namespace Dream {
                 if (animationSelectorBrowser->HasSelected()) {
                     std::filesystem::path selectedFilePath = animationSelectorBrowser->GetSelected();
                     std::string newAnimationGUID = IDUtils::getGUIDForFile(selectedFilePath);
-                    states.push_back(newAnimationGUID);
+                    states.push_back(Component::AnimatorComponent::State{
+                        .Guid=newAnimationGUID,
+                        .PlayOnce=true
+                    });
                     animationSelectorBrowser->ClearSelected();
                 }
             }
@@ -107,14 +110,14 @@ namespace Dream {
             ax::NodeEditor::PushStyleColor(ax::NodeEditor::StyleColor_NodeBg, ImColor( 0.2f, 0.205f, 0.21f, 1.0f));
             // draw nodes
             for (int i = 0; i < states.size(); ++i) {
-                auto animationGUID = states[i];
+                auto state = states[i];
                 auto nodeAndPinIDs = getNodeAndPinIDsFromStateID(i);
                 auto inputPinID = std::get<0>(nodeAndPinIDs);
                 auto nodeID = std::get<1>(nodeAndPinIDs);
                 auto outputPinID = std::get<2>(nodeAndPinIDs);
                 // example node
                 ax::NodeEditor::BeginNode(nodeID);
-                std::string animationFilePath = Project::getResourceManager()->getFilePathFromGUID(animationGUID);
+                std::string animationFilePath = Project::getResourceManager()->getFilePathFromGUID(state.Guid);
                 std::string shortenedAnimationFilePath = StringUtils::getFilePathRelativeToProjectFolder(animationFilePath);
                 ImGui::Text("%s", shortenedAnimationFilePath.c_str());
                 ax::NodeEditor::BeginPin(inputPinID, ax::NodeEditor::PinKind::Input);
@@ -232,8 +235,11 @@ namespace Dream {
         YAML::Node doc = YAML::LoadFile(animatorFilePath);
         // deserialize states
         auto statesNode = doc[Component::AnimatorComponent::k_states].as<std::vector<YAML::Node>>();
-        for (const YAML::Node& animationGUIDNode : statesNode) {
-            states.push_back(animationGUIDNode.as<std::string>());
+        for (const YAML::Node& animationNode : statesNode) {
+            states.push_back(Component::AnimatorComponent::State{
+                .Guid=animationNode["Guid"].as<std::string>(),
+                .PlayOnce=animationNode["PlayOnce"].as<bool>()
+            });
         }
         // deserialize transitions
         auto transitionsNodes = doc[Component::AnimatorComponent::k_transitions].as<std::vector<YAML::Node>>();
@@ -280,8 +286,11 @@ namespace Dream {
         // serialize states
         out << YAML::Key << Component::AnimatorComponent::k_states;
         YAML::Node statesNode = YAML::Node(YAML::NodeType::Sequence);
-        for (const auto &animationGUID : states) {
-            statesNode.push_back(animationGUID);
+        for (const auto &state : states) {
+            YAML::Node stateNode = YAML::Node(YAML::NodeType::Map);
+            stateNode["Guid"] = state.Guid;
+            stateNode["PlayOnce"] = state.PlayOnce;
+            statesNode.push_back(stateNode);
         }
         out << YAML::Value << statesNode;
         // serialize transitions
@@ -423,7 +432,7 @@ namespace Dream {
             auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
             for (int i = 0; i < states.size(); ++i) {
                 ImGui::SetNextItemWidth(treeNodeWidth);
-                ImGui::Text("[%d] %s", i, StringUtils::getFilePathRelativeToProjectFolder(Project::getResourceManager()->getFilePathFromGUID(states[i])).c_str());
+                ImGui::Text("[%d] %s", i, StringUtils::getFilePathRelativeToProjectFolder(Project::getResourceManager()->getFilePathFromGUID(states[i].Guid)).c_str());
             }
             if (ImGui::Button("Add", ImVec2(treeNodeWidth, 0))) {
                 selectNewAnimation();
@@ -444,10 +453,10 @@ namespace Dream {
                         ImGui::Text("from ");
                         ImGui::SameLine();
                         ImGui::SetCursorPosX(120);
-                        auto fromFilename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[transition.OutputStateID])).filename();
+                        auto fromFilename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[transition.OutputStateID].Guid)).filename();
                         if (ImGui::BeginCombo(("##From/" + std::to_string(i)).c_str(), fromFilename.c_str())) {
                             for (int j = 0; j < states.size(); ++j) {
-                                auto filename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[j])).filename();
+                                auto filename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[j].Guid)).filename();
                                 if (ImGui::Selectable(std::string("[" + std::to_string(j) + "] " + filename.string()).c_str())) {
                                     transition.OutputStateID = j;
                                 }
@@ -460,10 +469,10 @@ namespace Dream {
                         ImGui::Text("to ");
                         ImGui::SameLine();
                         ImGui::SetCursorPosX(120);
-                        auto toFilename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[transition.InputStateID])).filename();
+                        auto toFilename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[transition.InputStateID].Guid)).filename();
                         if (ImGui::BeginCombo(("##To/" + std::to_string(i)).c_str(), toFilename.c_str())) {
                             for (int j = 0; j < states.size(); ++j) {
-                                auto filename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[j])).filename();
+                                auto filename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[j].Guid)).filename();
                                 if (ImGui::Selectable(std::string("[" + std::to_string(j) + "] " + filename.string()).c_str())) {
                                     transition.InputStateID = j;
                                 }
