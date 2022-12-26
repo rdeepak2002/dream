@@ -431,11 +431,12 @@ namespace Dream {
             auto cursorPosX2 = ImGui::GetCursorPosX();
             auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
             for (int i = 0; i < states.size(); ++i) {
-                ImGui::SetNextItemWidth(treeNodeWidth);
-                ImGui::Checkbox(("Play Once##PlayOnceCheckBox" + std::to_string(i)).c_str(), &states[i].PlayOnce);
-                ImGui::SameLine();
-                ImGui::SetNextItemWidth(treeNodeWidth);
-                ImGui::Text("[%d] %s", i, StringUtils::getFilePathRelativeToProjectFolder(Project::getResourceManager()->getFilePathFromGUID(states[i].Guid)).c_str());
+                auto label = "state " + std::to_string(i);
+                if (ImGui::TreeNodeEx(label.c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
+                    ImGui::Text("Path: %s", StringUtils::getFilePathRelativeToProjectFolder(Project::getResourceManager()->getFilePathFromGUID(states[i].Guid)).c_str());
+                    ImGui::Checkbox(("Play at least once ##PlayOnceCheckBox" + std::to_string(i)).c_str(), &states[i].PlayOnce);
+                    ImGui::TreePop();
+                }
             }
             if (ImGui::Button("Add", ImVec2(treeNodeWidth, 0))) {
                 selectNewAnimation();
