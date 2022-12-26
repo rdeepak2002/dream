@@ -7,7 +7,19 @@ Transitions:
   - To: 1
     From: 0
     Conditions:
-      - Variable1Idx: 0
+      []
+  - To: 2
+    From: 1
+    Conditions:
+      - Variable1Idx: 1
+        Variable1: 0
+        Operator: ">="
+        Variable2Idx: -1
+        Variable2: 1
+  - To: 1
+    From: 2
+    Conditions:
+      - Variable1Idx: 1
         Variable1: 0
         Operator: ==
         Variable2Idx: -1
@@ -16,4 +28,4 @@ Variables:
   - Name: grounded
     Value: 1
   - Name: velocity
-    Value: 2
+    Value: 0
