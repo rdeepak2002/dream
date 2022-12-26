@@ -26,7 +26,6 @@ namespace Dream {
         contextNodeId = -1;
         contextLinkId = -1;
         contextBackground = false;
-//        nextLinkId = 0;
     }
 
     ImGuiEditorAnimatorGraph::~ImGuiEditorAnimatorGraph() {
@@ -57,9 +56,6 @@ namespace Dream {
             }
 
             ImGui::Begin(std::string(filename + "###Animator").c_str(), &visible,  ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
-
-            // update popups
-            updatePopups();
 
             // menu bar
             if (ImGui::BeginMenuBar()) {
@@ -201,6 +197,9 @@ namespace Dream {
             ax::NodeEditor::PopStyleColor(2);
             ax::NodeEditor::SetCurrentEditor(nullptr);
             ImGui::EndChild();
+
+            // update popups
+            updatePopups();
 
             ImGui::End();
             ImGui::PopStyleVar();
@@ -367,19 +366,52 @@ namespace Dream {
         if (ImGui::BeginPopup("Background")) {
             if (ImGui::MenuItem("New animation")) {
                 selectNewAnimation();
+                contextBackground = false;
+            }
+            if (ImGui::MenuItem("Close popup")) {
+                contextBackground = false;
             }
             ImGui::EndPopup();
         } else if (ImGui::BeginPopup("Link")) {
-            ImGui::Text("TODO: Link menu");
+            if (ImGui::MenuItem("Remove link")) {
+                int linkToRemove = (int) contextLinkId.Get();
+                transitions.erase(transitions.begin() + linkToRemove);
+                contextLinkId = -1;
+            }
+            if (ImGui::MenuItem("Close popup")) {
+                contextLinkId = -1;
+            }
             ImGui::EndPopup();
         } else if (ImGui::BeginPopup("Node")) {
-            ImGui::Text("TODO: Node menu");
+            if (ImGui::MenuItem("Remove node")) {
+                int stateToRemove = getStateForNodeID((int) contextNodeId.Get());
+                std::cout << "Going to remove state " << stateToRemove << std::endl;
+                // remove transitions that reference this node
+                for (int i = (int) transitions.size() - 1; i >= 0; --i) {
+                    auto transition = transitions[i];
+                    if (transition.OutputStateID == stateToRemove || transition.InputStateID == stateToRemove) {
+                        transitions.erase(transitions.begin() + i);
+                    }
+                }
+                // increment id of transitions after this node
+                for (int i = (int) transitions.size() - 1; i >= 0; --i) {
+                    auto &transition = transitions[i];
+                    if (transition.OutputStateID > stateToRemove) {
+                        transition.OutputStateID--;
+                    }
+                    if (transition.InputStateID > stateToRemove) {
+                        transition.InputStateID--;
+                    }
+                }
+                // remove the node
+                states.erase(states.begin() + stateToRemove);
+                contextNodeId = -1;
+            }
+            if (ImGui::MenuItem("Close popup")) {
+                contextNodeId = -1;
+            }
             ImGui::EndPopup();
         }
-
-        contextBackground = false;
-        contextLinkId = -1;
-        contextNodeId = -1;
     }
 
     void ImGuiEditorAnimatorGraph::updateStateMachinePanel(float stateMachinePanelWidth) {
