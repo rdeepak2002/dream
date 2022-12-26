@@ -50,48 +50,100 @@ namespace Dream::Component {
     }
 
     void AnimatorComponent::updateStateMachine(float dt) {
+//        std::cout << "===========" << std::endl;
+//        std::cout << "current state: " << currentState << std::endl;
+//        for (int i = 0; i < variableNames.size(); ++i) {
+//            std::cout << variableNames[i] << " : " << variableValues[i] << std::endl;
+//        }
+//        std::cout << "===========" << std::endl << std::endl;
         if (m_CurrentAnimation) {
-            if (numTimesAnimationPlayed >= 1) {
-                for (const auto &transition : transitions) {
-                    if (transition.OutputStateID == currentState) {
-                        bool allConditionsPassed = true;
-                        for (const auto &condition : transition.Conditions) {
-                            int variable1Value = condition.Variable1;
-                            int variable2Value = condition.Variable2;
-                            if (condition.Variable1Idx != -1) {
-                                variable1Value = variableValues.at(condition.Variable1Idx);
-                            }
-                            if (condition.Variable2Idx != -1) {
-                                variable2Value = variableValues.at(condition.Variable2Idx);
-                            }
-                            bool conditionPassed = false;
-                            if (condition.Operator == "==") {
-                                conditionPassed = variable1Value == variable2Value;
-                            } else if (condition.Operator == ">") {
-                                conditionPassed = variable1Value > variable2Value;
-                            } else if (condition.Operator == "<") {
-                                conditionPassed = variable1Value < variable2Value;
-                            } else if (condition.Operator == ">=") {
-                                conditionPassed = variable1Value >= variable2Value;
-                            } else if (condition.Operator == "<=") {
-                                conditionPassed = variable1Value <= variable2Value;
-                            } else if (condition.Operator == "!=") {
-                                conditionPassed = variable1Value != variable2Value;
-                            } else {
-                                Logger::fatal("Unknown operator for animator state machine " + condition.Operator);
-                            }
-                            if (!conditionPassed) {
-                                allConditionsPassed = false;
-                            }
+            for (const auto &transition : transitions) {
+                if (transition.OutputStateID == currentState) {
+                    bool allConditionsPassed = true;
+                    for (const auto &condition : transition.Conditions) {
+                        int variable1Value = condition.Variable1;
+                        int variable2Value = condition.Variable2;
+                        if (condition.Variable1Idx != -1) {
+                            variable1Value = variableValues.at(condition.Variable1Idx);
                         }
-                        if (allConditionsPassed) {
+                        if (condition.Variable2Idx != -1) {
+                            variable2Value = variableValues.at(condition.Variable2Idx);
+                        }
+                        bool conditionPassed = false;
+                        if (condition.Operator == "==") {
+                            conditionPassed = variable1Value == variable2Value;
+                        } else if (condition.Operator == ">") {
+                            conditionPassed = variable1Value > variable2Value;
+                        } else if (condition.Operator == "<") {
+                            conditionPassed = variable1Value < variable2Value;
+                        } else if (condition.Operator == ">=") {
+                            conditionPassed = variable1Value >= variable2Value;
+                        } else if (condition.Operator == "<=") {
+                            conditionPassed = variable1Value <= variable2Value;
+                        } else if (condition.Operator == "!=") {
+                            conditionPassed = variable1Value != variable2Value;
+                        } else {
+                            Logger::fatal("Unknown operator for animator state machine " + condition.Operator);
+                        }
+                        if (!conditionPassed) {
+                            allConditionsPassed = false;
+                        }
+                    }
+                    if (allConditionsPassed) {
+                        if (numTimesAnimationPlayed >= 1) {
                             playAnimation(transition.InputStateID);
-                            break;
+                        } else {
+                            std::cout << "should transition to next state " << transition.InputStateID << std::endl;
                         }
+//                        playAnimation(transition.InputStateID);
+                        break;
                     }
                 }
             }
         }
+
+//        if (m_CurrentAnimation) {
+//            if (numTimesAnimationPlayed >= 1) {
+//                for (const auto &transition : transitions) {
+//                    if (transition.OutputStateID == currentState) {
+//                        bool allConditionsPassed = true;
+//                        for (const auto &condition : transition.Conditions) {
+//                            int variable1Value = condition.Variable1;
+//                            int variable2Value = condition.Variable2;
+//                            if (condition.Variable1Idx != -1) {
+//                                variable1Value = variableValues.at(condition.Variable1Idx);
+//                            }
+//                            if (condition.Variable2Idx != -1) {
+//                                variable2Value = variableValues.at(condition.Variable2Idx);
+//                            }
+//                            bool conditionPassed = false;
+//                            if (condition.Operator == "==") {
+//                                conditionPassed = variable1Value == variable2Value;
+//                            } else if (condition.Operator == ">") {
+//                                conditionPassed = variable1Value > variable2Value;
+//                            } else if (condition.Operator == "<") {
+//                                conditionPassed = variable1Value < variable2Value;
+//                            } else if (condition.Operator == ">=") {
+//                                conditionPassed = variable1Value >= variable2Value;
+//                            } else if (condition.Operator == "<=") {
+//                                conditionPassed = variable1Value <= variable2Value;
+//                            } else if (condition.Operator == "!=") {
+//                                conditionPassed = variable1Value != variable2Value;
+//                            } else {
+//                                Logger::fatal("Unknown operator for animator state machine " + condition.Operator);
+//                            }
+//                            if (!conditionPassed) {
+//                                allConditionsPassed = false;
+//                            }
+//                        }
+//                        if (allConditionsPassed) {
+//                            playAnimation(transition.InputStateID);
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 
     void AnimatorComponent::calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform, int depth) {
@@ -282,7 +334,6 @@ namespace Dream::Component {
         if (iter != variableNames.end()) {
             int index = (int) std::distance(variableNames.begin(), iter);
             variableValues[index] = value;
-            std::cout << "setting variable " << variableName << " to " << value << std::endl;
             return index;
         } else {
             Logger::error("Unable to find variable " + variableName + " in animator");
