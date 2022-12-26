@@ -182,6 +182,7 @@ namespace Dream::Component {
         if (guid.empty()) {
             return;
         }
+        currentState = 0;
         // reset animations state
         states.clear();
         transitions.clear();
@@ -234,11 +235,15 @@ namespace Dream::Component {
                 auto animationFilePath = Project::getResourceManager()->getFilePathFromGUID(animationGUID);
                 auto *anim = new Animation(animationFilePath, modelEntity, 0);
                 animationObjects[animationGUID] = anim;
-                m_CurrentAnimation = anim;
+//                m_CurrentAnimation = anim;
                 if (animationObjects.size() > INT_MAX) {
                     Logger::fatal("Too many animations to store in memory");
                 }
-                currentState = (int) animationObjects.size() - 1;
+//                currentState = (int) animationObjects.size() - 1;
+                currentState = 0;
+            }
+            if (currentState >= 0) {
+                playAnimation(currentState);
             }
         }
         if (m_CurrentAnimation && needsToFindBoneEntities) {
@@ -261,6 +266,7 @@ namespace Dream::Component {
     }
 
     void AnimatorComponent::playAnimation(int stateID) {
+//        Logger::debug("Playing animation " + std::to_string(stateID));
         numTimesAnimationPlayed = 0;
         std::string animationGUID = states[stateID];
         if (animationObjects.count(animationGUID) > 0) {
@@ -268,6 +274,19 @@ namespace Dream::Component {
             currentState = stateID;
         } else {
             Logger::fatal("Unable to find animation with GUID " + animationGUID);
+        }
+    }
+
+    int AnimatorComponent::setVariable(const std::string& variableName, int value) {
+        auto iter = std::find(variableNames.begin(), variableNames.end(), variableName);
+        if (iter != variableNames.end()) {
+            int index = (int) std::distance(variableNames.begin(), iter);
+            variableValues[index] = value;
+            std::cout << "setting variable " << variableName << " to " << value << std::endl;
+            return index;
+        } else {
+            Logger::error("Unable to find variable " + variableName + " in animator");
+            return -1;
         }
     }
 }

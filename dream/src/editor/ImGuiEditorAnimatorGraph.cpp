@@ -436,7 +436,7 @@ namespace Dream {
             auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
             for (int i = 0; i < transitions.size(); ++i) {
                 auto &transition = transitions.at(i);
-                auto label = "state " + std::to_string(transition.InputStateID) + " to state " + std::to_string(transition.OutputStateID);
+                auto label = "state " + std::to_string(transition.OutputStateID) + " to state " + std::to_string(transition.InputStateID);
                 if (ImGui::TreeNodeEx(label.c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
                     auto cursorPosX3 = ImGui::GetCursorPosX();
                     {

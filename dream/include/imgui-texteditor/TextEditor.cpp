@@ -3204,7 +3204,7 @@ const TextEditor::LanguageDefinition& TextEditor::LanguageDefinition::Lua()
 
         {
             Identifier id;
-            id.mDeclaration = ":getID()\n:getTransform()\n:getCamera()";
+            id.mDeclaration = ":getID()\n:getTransform()\n:getCamera()\n:getAnimator()";
             langDef.mIdentifiers.insert(std::make_pair(std::string("entity"), id));
         }
 

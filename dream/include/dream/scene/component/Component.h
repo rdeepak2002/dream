@@ -208,6 +208,7 @@ namespace Dream::Component {
         void loadStateMachine(Entity modelEntity);
         void loadBoneEntities(Entity entity);
         void playAnimation(int stateID);
+        int setVariable(const std::string& variableName, int value);
         std::vector<glm::mat4> computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones);
         static void deserialize(YAML::Node node, Entity &entity);
         static void serialize(YAML::Emitter &out, Entity &entity);
