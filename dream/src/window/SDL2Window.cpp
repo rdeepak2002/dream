@@ -164,6 +164,7 @@ namespace Dream {
                 bool state = true;
                 if (Event.button.button == SDL_BUTTON_LEFT) {
                     Input::setButtonDown(Key::LeftMouse, state);
+                    SDL_SetWindowInputFocus(sdlWindow);
                 }
                 if (Event.button.button == SDL_BUTTON_RIGHT) {
                     Input::setButtonDown(Key::RightMouse, state);
