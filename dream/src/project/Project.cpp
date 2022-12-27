@@ -47,10 +47,11 @@ namespace Dream {
     }
 
     void Project::recognizeResourcesHelper() {
-        for (const auto& file : std::filesystem::recursive_directory_iterator(Project::getPath().append("assets"))) {
+        for (const auto &file: std::filesystem::recursive_directory_iterator(Project::getPath().append("assets"))) {
             std::string metaExtension = ".meta";
             if (!std::filesystem::is_directory(file) && file.path().extension() == metaExtension) {
-                std::string originalFilePath = file.path().string().substr(0, file.path().string().length() - metaExtension.length());
+                std::string originalFilePath = file.path().string().substr(0, file.path().string().length() -
+                                                                              metaExtension.length());
                 YAML::Node doc = YAML::LoadFile(file.path());
                 auto guid = doc["guid"].as<std::string>();
                 Project::getResourceManager()->setFilePathFromGUID(guid, originalFilePath);
@@ -87,7 +88,7 @@ namespace Dream {
         std::string loadPath = std::filesystem::path(Project::getPath()).append("assets").append("main.scene");
         YAML::Node doc = YAML::LoadFile(loadPath);
         auto entitiesYaml = doc["Entities"].as<std::vector<YAML::Node>>();
-        for (const YAML::Node& entityYaml : entitiesYaml) {
+        for (const YAML::Node &entityYaml: entitiesYaml) {
             bool isRootEntity = entityYaml[Component::RootComponent::componentName] ? true : false;
             Entity entity = Project::getScene()->createEntity("Entity", isRootEntity, false);
             entity.deserialize(entityYaml);
@@ -95,7 +96,7 @@ namespace Dream {
     }
 
     std::filesystem::path Project::getPathHelper() {
-        return { this->path };
+        return {this->path};
     }
 
     Scene *Project::getScene() {

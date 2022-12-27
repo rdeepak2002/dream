@@ -53,7 +53,7 @@ namespace Dream {
         return getComponent<Component::HierarchyComponent>().numChildren();
     }
 
-    void Entity::serialize(YAML::Emitter& out) {
+    void Entity::serialize(YAML::Emitter &out) {
         // serialize this entity
         out << YAML::BeginMap;
         out << YAML::Key << "Entity" << YAML::Value << getComponent<Dream::Component::IDComponent>().getID();

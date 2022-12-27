@@ -24,7 +24,7 @@ namespace Dream {
     Animation::Animation(const std::string &animationPath, Entity modelEntity, int index) {
         Assimp::Importer importer;
         importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);  // fixes mixamo animations
-        const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
+        const aiScene *scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
         assert(scene && scene->mRootNode);
         if (scene->mNumAnimations <= index) {
             Logger::fatal("Animation " + std::to_string(index) + " does not exist for " + animationPath);
@@ -41,7 +41,7 @@ namespace Dream {
 
     AnimationBone *Animation::findBone(const std::string &name) {
         auto iter = std::find_if(bones.begin(), bones.end(),
-                                 [&](const AnimationBone& Bone) {
+                                 [&](const AnimationBone &Bone) {
                                      return Bone.getBoneName() == name;
                                  }
         );
@@ -72,8 +72,8 @@ namespace Dream {
     void Animation::readMissingBones(const aiAnimation *animation, Entity &modelEntity) {
         int size = animation->mNumChannels;
 
-        auto& boneInfoMap = modelEntity.getComponent<Component::MeshComponent>().m_BoneInfoMap;//getting m_BoneInfoMap from Model class
-        int& boneCount = modelEntity.getComponent<Component::MeshComponent>().m_BoneCount; //getting the m_BoneCounter from Model class
+        auto &boneInfoMap = modelEntity.getComponent<Component::MeshComponent>().m_BoneInfoMap;//getting m_BoneInfoMap from Model class
+        int &boneCount = modelEntity.getComponent<Component::MeshComponent>().m_BoneCount; //getting the m_BoneCounter from Model class
 
         //reading channels(bones engaged in an animation and their keyframes)
         for (int i = 0; i < size; i++) {
@@ -108,7 +108,7 @@ namespace Dream {
     int Animation::numberOfAnimationsForFile(const std::string &animationPath) {
         Assimp::Importer importer;
         importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);  // fixes mixamo animations
-        const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
+        const aiScene *scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
         assert(scene && scene->mRootNode);
         return scene->mNumAnimations;
     }

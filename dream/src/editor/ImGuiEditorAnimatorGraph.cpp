@@ -69,7 +69,8 @@ namespace Dream {
                 filename = path.filename();
             }
 
-            ImGui::Begin(std::string(filename + "###Animator").c_str(), &visible,  ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+            ImGui::Begin(std::string(filename + "###Animator").c_str(), &visible,
+                         ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
             // menu bar
             if (ImGui::BeginMenuBar()) {
@@ -111,8 +112,8 @@ namespace Dream {
                     std::filesystem::path selectedFilePath = animationSelectorBrowser->GetSelected();
                     std::string newAnimationGUID = IDUtils::getGUIDForFile(selectedFilePath);
                     states.push_back(Component::AnimatorComponent::State{
-                        .Guid=newAnimationGUID,
-                        .PlayOnce=true
+                            .Guid=newAnimationGUID,
+                            .PlayOnce=true
                     });
                     animationSelectorBrowser->ClearSelected();
                 }
@@ -120,8 +121,8 @@ namespace Dream {
 
             ax::NodeEditor::SetCurrentEditor(m_Context);
             ax::NodeEditor::Begin("Animator", ImVec2(0.0, 0.0f));
-            ax::NodeEditor::PushStyleColor(ax::NodeEditor::StyleColor_Bg, ImColor( 0.1f, 0.105f, 0.11f, 1.0f));
-            ax::NodeEditor::PushStyleColor(ax::NodeEditor::StyleColor_NodeBg, ImColor( 0.2f, 0.205f, 0.21f, 1.0f));
+            ax::NodeEditor::PushStyleColor(ax::NodeEditor::StyleColor_Bg, ImColor(0.1f, 0.105f, 0.11f, 1.0f));
+            ax::NodeEditor::PushStyleColor(ax::NodeEditor::StyleColor_NodeBg, ImColor(0.2f, 0.205f, 0.21f, 1.0f));
             // draw nodes
             for (int i = 0; i < states.size(); ++i) {
                 auto state = states[i];
@@ -132,7 +133,8 @@ namespace Dream {
                 // example node
                 ax::NodeEditor::BeginNode(nodeID);
                 std::string animationFilePath = Project::getResourceManager()->getFilePathFromGUID(state.Guid);
-                std::string shortenedAnimationFilePath = StringUtils::getFilePathRelativeToProjectFolder(animationFilePath);
+                std::string shortenedAnimationFilePath = StringUtils::getFilePathRelativeToProjectFolder(
+                        animationFilePath);
                 ImGui::Text("%s", shortenedAnimationFilePath.c_str());
                 ax::NodeEditor::BeginPin(inputPinID, ax::NodeEditor::PinKind::Input);
                 ImGui::Text("-> To");   // In
@@ -188,7 +190,7 @@ namespace Dream {
                     // If you agree that link can be deleted, accept deletion.
                     if (ax::NodeEditor::AcceptDeletedItem()) {
                         for (int i = 0; i < transitions.size(); ++i) {
-                            auto& link = transitions[i];
+                            auto &link = transitions[i];
                             if (i == (int) deletedLinkId.Get()) {
                                 transitions.erase(transitions.begin() + i);
                                 break;
@@ -231,7 +233,8 @@ namespace Dream {
         }
         ax::NodeEditor::DestroyEditor(m_Context);
         ax::NodeEditor::Config config;
-        settingsFilePath = Project::getResourceManager()->getFilePathFromGUID(animatorFileGUID).append(".editor-layout.json.dream-ignore");
+        settingsFilePath = Project::getResourceManager()->getFilePathFromGUID(animatorFileGUID).append(
+                ".editor-layout.json.dream-ignore");
         config.SettingsFile = settingsFilePath.c_str();
         m_Context = ax::NodeEditor::CreateEditor(&config);
         ax::NodeEditor::SetCurrentEditor(m_Context);
@@ -249,18 +252,18 @@ namespace Dream {
         YAML::Node doc = YAML::LoadFile(animatorFilePath);
         // deserialize states
         auto statesNode = doc[Component::AnimatorComponent::k_states].as<std::vector<YAML::Node>>();
-        for (const YAML::Node& animationNode : statesNode) {
+        for (const YAML::Node &animationNode: statesNode) {
             states.push_back(Component::AnimatorComponent::State{
-                .Guid=animationNode["Guid"].as<std::string>(),
-                .PlayOnce=animationNode["PlayOnce"].as<bool>()
+                    .Guid=animationNode["Guid"].as<std::string>(),
+                    .PlayOnce=animationNode["PlayOnce"].as<bool>()
             });
         }
         // deserialize transitions
         auto transitionsNodes = doc[Component::AnimatorComponent::k_transitions].as<std::vector<YAML::Node>>();
-        for (const YAML::Node& transitionNode : transitionsNodes) {
+        for (const YAML::Node &transitionNode: transitionsNodes) {
             std::vector<Component::AnimatorComponent::Condition> conditions;
             auto conditionNodes = transitionNode[Component::AnimatorComponent::k_transition_Conditions].as<std::vector<YAML::Node>>();
-            for (const YAML::Node& conditionNode : conditionNodes) {
+            for (const YAML::Node &conditionNode: conditionNodes) {
                 Component::AnimatorComponent::Condition condition = {
                         .Variable1Idx=conditionNode["Variable1Idx"] ? conditionNode["Variable1Idx"].as<int>() : -1,
                         .Variable1=conditionNode["Variable1"] ? conditionNode["Variable1"].as<int>() : 0,
@@ -281,7 +284,7 @@ namespace Dream {
         }
         // deserialize variables
         auto variablesNode = doc[Component::AnimatorComponent::k_variables].as<std::vector<YAML::Node>>();
-        for (const YAML::Node& variableNode : variablesNode) {
+        for (const YAML::Node &variableNode: variablesNode) {
             auto name = variableNode[Component::AnimatorComponent::k_variable_name].as<std::string>();
             int value = variableNode[Component::AnimatorComponent::k_variable_value].as<int>();
             variableNames.push_back(name);
@@ -300,7 +303,7 @@ namespace Dream {
         // serialize states
         out << YAML::Key << Component::AnimatorComponent::k_states;
         YAML::Node statesNode = YAML::Node(YAML::NodeType::Sequence);
-        for (const auto &state : states) {
+        for (const auto &state: states) {
             YAML::Node stateNode = YAML::Node(YAML::NodeType::Map);
             stateNode["Guid"] = state.Guid;
             stateNode["PlayOnce"] = state.PlayOnce;
@@ -310,12 +313,12 @@ namespace Dream {
         // serialize transitions
         out << YAML::Key << Component::AnimatorComponent::k_transitions;
         YAML::Node transitionsNode = YAML::Node(YAML::NodeType::Sequence);
-        for (const auto &transition : transitions) {
+        for (const auto &transition: transitions) {
             YAML::Node transitionNode;
             transitionNode[Component::AnimatorComponent::k_transition_InputStateID] = transition.InputStateID;
             transitionNode[Component::AnimatorComponent::k_transition_OutputStateID] = transition.OutputStateID;
             YAML::Node conditionsNode = YAML::Node(YAML::NodeType::Sequence);
-            for (const auto &condition : transition.Conditions) {
+            for (const auto &condition: transition.Conditions) {
                 YAML::Node conditionNode;
                 conditionNode["Variable1Idx"] = condition.Variable1Idx;
                 conditionNode["Variable1"] = condition.Variable1;
@@ -344,7 +347,7 @@ namespace Dream {
         fout.close();
         // update all entities with this animator
         auto animatorEntities = Project::getScene()->getEntitiesWithComponents<Component::AnimatorComponent>();
-        for(auto entityHandle : animatorEntities) {
+        for (auto entityHandle: animatorEntities) {
             Entity entity = {entityHandle, Project::getScene()};
             if (entity.getComponent<Component::AnimatorComponent>().guid == animatorFileGUID) {
                 entity.getComponent<Component::AnimatorComponent>().loadStateMachine(entity);
@@ -446,9 +449,12 @@ namespace Dream {
             auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
             for (int i = 0; i < states.size(); ++i) {
                 auto label = "state " + std::to_string(i);
-                if (ImGui::TreeNodeEx(label.c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
-                    ImGui::Text("Path: %s", StringUtils::getFilePathRelativeToProjectFolder(Project::getResourceManager()->getFilePathFromGUID(states[i].Guid)).c_str());
-                    ImGui::Checkbox(("Play at least once ##PlayOnceCheckBox" + std::to_string(i)).c_str(), &states[i].PlayOnce);
+                if (ImGui::TreeNodeEx(label.c_str(),
+                                      ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
+                    ImGui::Text("Path: %s", StringUtils::getFilePathRelativeToProjectFolder(
+                            Project::getResourceManager()->getFilePathFromGUID(states[i].Guid)).c_str());
+                    ImGui::Checkbox(("Play at least once ##PlayOnceCheckBox" + std::to_string(i)).c_str(),
+                                    &states[i].PlayOnce);
                     ImGui::TreePop();
                 }
             }
@@ -463,19 +469,24 @@ namespace Dream {
             auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
             for (int i = 0; i < transitions.size(); ++i) {
                 auto &transition = transitions.at(i);
-                auto label = "state " + std::to_string(transition.OutputStateID) + " to state " + std::to_string(transition.InputStateID);
-                if (ImGui::TreeNodeEx(label.c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
+                auto label = "state " + std::to_string(transition.OutputStateID) + " to state " +
+                             std::to_string(transition.InputStateID);
+                if (ImGui::TreeNodeEx(label.c_str(),
+                                      ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
                     auto cursorPosX3 = ImGui::GetCursorPosX();
                     {
                         // edit 'from' conditions for transition
                         ImGui::Text("from ");
                         ImGui::SameLine();
                         ImGui::SetCursorPosX(120);
-                        auto fromFilename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[transition.OutputStateID].Guid)).filename();
+                        auto fromFilename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(
+                                states[transition.OutputStateID].Guid)).filename();
                         if (ImGui::BeginCombo(("##From/" + std::to_string(i)).c_str(), fromFilename.c_str())) {
                             for (int j = 0; j < states.size(); ++j) {
-                                auto filename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[j].Guid)).filename();
-                                if (ImGui::Selectable(std::string("[" + std::to_string(j) + "] " + filename.string()).c_str())) {
+                                auto filename = std::filesystem::path(
+                                        Project::getResourceManager()->getFilePathFromGUID(states[j].Guid)).filename();
+                                if (ImGui::Selectable(
+                                        std::string("[" + std::to_string(j) + "] " + filename.string()).c_str())) {
                                     transition.OutputStateID = j;
                                 }
                             }
@@ -487,11 +498,14 @@ namespace Dream {
                         ImGui::Text("to ");
                         ImGui::SameLine();
                         ImGui::SetCursorPosX(120);
-                        auto toFilename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[transition.InputStateID].Guid)).filename();
+                        auto toFilename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(
+                                states[transition.InputStateID].Guid)).filename();
                         if (ImGui::BeginCombo(("##To/" + std::to_string(i)).c_str(), toFilename.c_str())) {
                             for (int j = 0; j < states.size(); ++j) {
-                                auto filename = std::filesystem::path(Project::getResourceManager()->getFilePathFromGUID(states[j].Guid)).filename();
-                                if (ImGui::Selectable(std::string("[" + std::to_string(j) + "] " + filename.string()).c_str())) {
+                                auto filename = std::filesystem::path(
+                                        Project::getResourceManager()->getFilePathFromGUID(states[j].Guid)).filename();
+                                if (ImGui::Selectable(
+                                        std::string("[" + std::to_string(j) + "] " + filename.string()).c_str())) {
                                     transition.InputStateID = j;
                                 }
                             }
@@ -504,7 +518,9 @@ namespace Dream {
                             // edit variable 1 for condition
                             ImGui::SetNextItemWidth(100);
                             auto uniqueLabel = std::to_string(i) + "/" + std::to_string(j);
-                            if (ImGui::BeginCombo(("##Var1/" + uniqueLabel).c_str(), condition.Variable1Idx == -1 ? "Custom" : variableNames.at(condition.Variable1Idx).c_str())) {
+                            if (ImGui::BeginCombo(("##Var1/" + uniqueLabel).c_str(),
+                                                  condition.Variable1Idx == -1 ? "Custom" : variableNames.at(
+                                                          condition.Variable1Idx).c_str())) {
                                 if (ImGui::Selectable("custom")) {
                                     condition.Variable1Idx = -1;
                                 }
@@ -533,7 +549,7 @@ namespace Dream {
                                 operators.emplace_back("<");
                                 operators.emplace_back(">=");
                                 operators.emplace_back("<=");
-                                for (auto const &op : operators) {
+                                for (auto const &op: operators) {
                                     if (ImGui::Selectable(op.c_str())) {
                                         condition.Operator = op;
                                     }
@@ -546,7 +562,9 @@ namespace Dream {
                             ImGui::SameLine();
                             ImGui::SetNextItemWidth(100);
                             auto uniqueLabel = std::to_string(i) + "/" + std::to_string(j);
-                            if (ImGui::BeginCombo(("##Var2/" + uniqueLabel).c_str(), condition.Variable2Idx == -1 ? "Custom" : variableNames.at(condition.Variable2Idx).c_str())) {
+                            if (ImGui::BeginCombo(("##Var2/" + uniqueLabel).c_str(),
+                                                  condition.Variable2Idx == -1 ? "Custom" : variableNames.at(
+                                                          condition.Variable2Idx).c_str())) {
                                 if (ImGui::Selectable("custom")) {
                                     condition.Variable2Idx = -1;
                                 }
@@ -565,18 +583,20 @@ namespace Dream {
                         }
                         // remove condition
                         ImGui::SameLine();
-                        if (ImGui::Button(("X##CondRemoveBtn/" + std::to_string(i) + "/" + std::to_string(j)).c_str(), ImVec2(0.f, 0.f))) {
+                        if (ImGui::Button(("X##CondRemoveBtn/" + std::to_string(i) + "/" + std::to_string(j)).c_str(),
+                                          ImVec2(0.f, 0.f))) {
                             transition.Conditions.erase(transition.Conditions.begin() + j);
                         }
                     }
-                    auto innerTreeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1) - (cursorPosX3 - cursorPosX2);
+                    auto innerTreeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1) -
+                                              (cursorPosX3 - cursorPosX2);
                     if (ImGui::Button("Add", ImVec2(innerTreeNodeWidth, 0))) {
-                        transition.Conditions.push_back(Component::AnimatorComponent::Condition {
-                            .Variable1Idx = -1,
-                            .Variable1 = 0,
-                            .Operator = "==",
-                            .Variable2Idx = -1,
-                            .Variable2 = 0
+                        transition.Conditions.push_back(Component::AnimatorComponent::Condition{
+                                .Variable1Idx = -1,
+                                .Variable1 = 0,
+                                .Operator = "==",
+                                .Variable2Idx = -1,
+                                .Variable2 = 0
                         });
                     }
                     ImGui::TreePop();
@@ -609,15 +629,16 @@ namespace Dream {
                 if (ImGui::Button(("X##VariableRemoveBtn/" + std::to_string(i)).c_str())) {
                     variableNames.erase(variableNames.begin() + i);
                     variableValues.erase(variableValues.begin() + i);
-                    for (auto &transition : transitions) {
+                    for (auto &transition: transitions) {
                         // remove conditions that rely on this variable
                         for (int j = (int) transition.Conditions.size() - 1; j >= 0; --j) {
-                            if (transition.Conditions[j].Variable1Idx == i || transition.Conditions[j].Variable2Idx == i) {
+                            if (transition.Conditions[j].Variable1Idx == i ||
+                                transition.Conditions[j].Variable2Idx == i) {
                                 transition.Conditions.erase(transition.Conditions.begin() + j);
                             }
                         }
                         // update variable indices for transition conditions
-                        for (auto &condition : transition.Conditions) {
+                        for (auto &condition: transition.Conditions) {
                             if (condition.Variable1Idx > i) {
                                 condition.Variable1Idx--;
                             }

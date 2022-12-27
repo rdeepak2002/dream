@@ -29,7 +29,7 @@
 namespace Dream {
     ImGuiSDL2OpenGLEditor::ImGuiSDL2OpenGLEditor(Dream::Window *window) : ImGuiEditor(window) {
         // setup platform/renderer bindings
-        auto sdl2OpenGLWindow = dynamic_cast<SDL2OpenGLWindow*>(window);
+        auto sdl2OpenGLWindow = dynamic_cast<SDL2OpenGLWindow *>(window);
         if (sdl2OpenGLWindow) {
             ImGui_ImplSDL2_InitForOpenGL(sdl2OpenGLWindow->getSDL2Window(), sdl2OpenGLWindow->getSDL2GLContext());
         } else {
@@ -40,7 +40,7 @@ namespace Dream {
 
     void ImGuiSDL2OpenGLEditor::newFrame(Dream::Window *window) {
         ImGui_ImplOpenGL3_NewFrame();
-        auto sdl2OpenGLWindow = dynamic_cast<SDL2OpenGLWindow*>(window);
+        auto sdl2OpenGLWindow = dynamic_cast<SDL2OpenGLWindow *>(window);
         if (sdl2OpenGLWindow) {
             ImGui_ImplSDL2_NewFrame(sdl2OpenGLWindow->getSDL2Window());
         } else {

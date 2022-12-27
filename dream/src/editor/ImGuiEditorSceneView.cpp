@@ -63,7 +63,8 @@ namespace Dream {
 
     void ImGuiEditorSceneView::renderSceneViewEntity(Entity &entity) {
         std::string tagStr = entity.getComponent<Component::TagComponent>().tag;
-        auto treeNodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_None | ImGuiTreeNodeFlags_SpanFullWidth;
+        auto treeNodeFlags =
+                ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_None | ImGuiTreeNodeFlags_SpanFullWidth;
         if (entity.numChildren() == 0) {
             treeNodeFlags = treeNodeFlags | ImGuiTreeNodeFlags_Leaf;
         }
@@ -73,7 +74,8 @@ namespace Dream {
         if (inspectorView && entity == inspectorView->getSelectedEntity()) {
             treeNodeFlags = treeNodeFlags | ImGuiTreeNodeFlags_Selected;
         }
-        bool treeNodeOpen = ImGui::TreeNodeEx(entity.getComponent<Component::IDComponent>().getID().c_str(), treeNodeFlags, "%s", tagStr.c_str());
+        bool treeNodeOpen = ImGui::TreeNodeEx(entity.getComponent<Component::IDComponent>().getID().c_str(),
+                                              treeNodeFlags, "%s", tagStr.c_str());
         if (ImGui::IsItemClicked()) {
             if (inspectorView) {
                 inspectorView->selectEntity(entity);
@@ -86,9 +88,9 @@ namespace Dream {
             }
         }
         if (ImGui::BeginDragDropTarget()) {
-            const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("moveEntity");
-            if(payload) {
-                int* internalEntityIDPtr = (int*)(payload->Data);
+            const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("moveEntity");
+            if (payload) {
+                int *internalEntityIDPtr = (int *) (payload->Data);
                 Entity draggedEntity = Project::getScene()->getEntityByInternalID(*internalEntityIDPtr);
                 if (draggedEntity) {
                     entity.addChild(draggedEntity);
@@ -105,7 +107,7 @@ namespace Dream {
         if (canMoveEntityInHierarchy) {
             if (ImGui::BeginDragDropSource()) {
                 int internalEntityID = (int) entity.entityHandle;
-                ImGui::SetDragDropPayload("moveEntity", &internalEntityID, sizeof(int*));
+                ImGui::SetDragDropPayload("moveEntity", &internalEntityID, sizeof(int *));
                 ImGui::Text("%s", entity.getComponent<Component::TagComponent>().tag.c_str());
                 ImGui::EndDragDropSource();
             }

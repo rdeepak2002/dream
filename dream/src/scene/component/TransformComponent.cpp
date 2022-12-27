@@ -55,8 +55,10 @@ namespace Dream::Component {
             auto &transformComponent = entity.getComponent<TransformComponent>();
             out << YAML::Key << componentName;
             out << YAML::BeginMap;
-            out << YAML::Key << k_translation << YAML::Value << YAML::convert<glm::vec3>().encode(transformComponent.translation);
-            out << YAML::Key << k_rotation << YAML::Value << YAML::convert<glm::quat>().encode(transformComponent.rotation);
+            out << YAML::Key << k_translation << YAML::Value
+                << YAML::convert<glm::vec3>().encode(transformComponent.translation);
+            out << YAML::Key << k_rotation << YAML::Value
+                << YAML::convert<glm::quat>().encode(transformComponent.rotation);
             out << YAML::Key << k_scale << YAML::Value << YAML::convert<glm::vec3>().encode(transformComponent.scale);
             out << YAML::EndMap;
         }

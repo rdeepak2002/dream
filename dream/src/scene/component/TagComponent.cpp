@@ -23,7 +23,7 @@ namespace Dream::Component {
         this->tag = std::move(tag);
     }
 
-    void TagComponent::serialize(YAML::Emitter& out, Entity &entity) {
+    void TagComponent::serialize(YAML::Emitter &out, Entity &entity) {
         if (entity.hasComponent<TagComponent>()) {
             out << YAML::Key << componentName;
             out << YAML::BeginMap;

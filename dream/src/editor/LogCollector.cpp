@@ -26,9 +26,9 @@ namespace Dream {
 
     void LogCollector::debugLogPublished(std::string text) {
         logs.push_back({
-            .type=LogType::debug,
-            .text=text
-        });
+                               .type=LogType::debug,
+                               .text=text
+                       });
 
         while (logs.size() > MAX_LOGS) {
             logs.erase(logs.begin());
@@ -37,9 +37,9 @@ namespace Dream {
 
     void LogCollector::warnLogPublished(std::string text) {
         logs.push_back({
-            .type=LogType::warn,
-            .text=text
-        });
+                               .type=LogType::warn,
+                               .text=text
+                       });
 
         if (logs.size() > MAX_LOGS) {
             logs.erase(logs.begin());
@@ -48,9 +48,9 @@ namespace Dream {
 
     void LogCollector::errorLogPublished(std::string text) {
         logs.push_back({
-            .type=LogType::error,
-            .text=text
-        });
+                               .type=LogType::error,
+                               .text=text
+                       });
 
         while (logs.size() > MAX_LOGS) {
             logs.erase(logs.begin());
@@ -59,9 +59,9 @@ namespace Dream {
 
     void LogCollector::infoLogPublished(std::string text) {
         logs.push_back({
-            .type=LogType::info,
-            .text=text
-        });
+                               .type=LogType::info,
+                               .text=text
+                       });
 
         while (logs.size() > MAX_LOGS) {
             logs.erase(logs.begin());
@@ -70,9 +70,9 @@ namespace Dream {
 
     void LogCollector::fatalLogPublished(std::string text) {
         logs.push_back({
-            .type=LogType::fatal,
-            .text=text
-        });
+                               .type=LogType::fatal,
+                               .text=text
+                       });
 
         while (logs.size() > MAX_LOGS) {
             logs.erase(logs.begin());

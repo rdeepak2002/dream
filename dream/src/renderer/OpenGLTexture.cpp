@@ -20,11 +20,12 @@
 #include "dream/util/Logger.h"
 
 #include <cassert>
+
 #define STB_IMAGE_IMPLEMENTATION
+
 #include <stb/stb_image.h>
 
-namespace Dream
-{
+namespace Dream {
     OpenGLTexture::OpenGLTexture(stbi_uc const *buffer, int len, bool flipTexture) {
         glGenTextures(1, &id);
         this->bind();
@@ -34,11 +35,9 @@ namespace Dream
             int format;
             if (nrChannels == 1) {
                 format = GL_RED;
-            }
-            else if (nrChannels == 3) {
+            } else if (nrChannels == 3) {
                 format = GL_RGB;
-            }
-            else if (nrChannels == 4) {
+            } else if (nrChannels == 4) {
                 format = GL_RGBA;
             } else {
                 Logger::fatal("Unable to parse texture with " + std::to_string(nrChannels) + " channels");
@@ -51,8 +50,7 @@ namespace Dream
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             glGenerateMipmap(GL_TEXTURE_2D);
-        }
-        else {
+        } else {
             Logger::fatal("(1) Failed to load texture from data");
         }
         stbi_image_free(data);
@@ -70,14 +68,12 @@ namespace Dream
             int format;
             if (nrChannels == 1) {
                 format = GL_RED;
-            }
-            else if (nrChannels == 3) {
+            } else if (nrChannels == 3) {
                 format = GL_RGB;
-            }
-            else if (nrChannels == 4) {
+            } else if (nrChannels == 4) {
                 format = GL_RGBA;
             } else {
-                Logger::fatal("Unable to parse texture with " + std::to_string(nrChannels) + " channels" );
+                Logger::fatal("Unable to parse texture with " + std::to_string(nrChannels) + " channels");
             }
             glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
             // set the texture wrapping parameters
@@ -87,8 +83,7 @@ namespace Dream
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             glGenerateMipmap(GL_TEXTURE_2D);
-        }
-        else {
+        } else {
             Logger::fatal("(2) Failed to load texture " + texturePath);
         }
         stbi_image_free(data);
@@ -100,7 +95,7 @@ namespace Dream
     }
 
     void OpenGLTexture::bind(int unit) {
-        if(unit >= 0)
+        if (unit >= 0)
             glActiveTexture(GL_TEXTURE0 + unit);
         glBindTexture(GL_TEXTURE_2D, id);
     }

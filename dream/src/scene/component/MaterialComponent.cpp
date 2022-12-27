@@ -36,7 +36,7 @@ namespace Dream::Component {
                 std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
                 Project::getResourceManager()->storeData(this->guid, new OpenGLTexture(path));
             }
-            this->diffuseTexture = (OpenGLTexture*) Project::getResourceManager()->getData(this->guid);
+            this->diffuseTexture = (OpenGLTexture *) Project::getResourceManager()->getData(this->guid);
         }
     }
 
@@ -53,7 +53,8 @@ namespace Dream::Component {
             out << YAML::BeginMap;
             out << YAML::Key << k_guid << YAML::Value << entity.getComponent<MaterialComponent>().guid;
             out << YAML::Key << k_isEmbedded << YAML::Value << entity.getComponent<MaterialComponent>().isEmbedded;
-            out << YAML::Key << k_diffuseColor << YAML::Value << YAML::convert<glm::vec4>().encode(entity.getComponent<MaterialComponent>().diffuseColor);
+            out << YAML::Key << k_diffuseColor << YAML::Value
+                << YAML::convert<glm::vec4>().encode(entity.getComponent<MaterialComponent>().diffuseColor);
             out << YAML::EndMap;
         }
     }

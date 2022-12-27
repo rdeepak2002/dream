@@ -44,11 +44,14 @@ namespace Dream {
         // setup Dear ImGui context
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
-        ImGuiIO& io = ImGui::GetIO(); (void)io;
+        ImGuiIO &io = ImGui::GetIO();
+        (void) io;
         io.IniFilename = NULL;
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
         float fontSize = 16.f;
-        io.Fonts->AddFontFromFileTTF(std::filesystem::current_path().append("resources").append("editor-resources").append("fonts").append("font.otf").c_str(), fontSize);
+        io.Fonts->AddFontFromFileTTF(
+                std::filesystem::current_path().append("resources").append("editor-resources").append("fonts").append(
+                        "font.otf").c_str(), fontSize);
 
         // setup Dear ImGui style
         ImGui::StyleColorsDark();
@@ -71,7 +74,7 @@ namespace Dream {
     }
 
     void ImGuiEditor::update(Dream::Window *window, unsigned int frameBufferTexture) {
-        ImGuiIO& io = ImGui::GetIO();
+        ImGuiIO &io = ImGui::GetIO();
         if (Input::pointerLockActivated()) {
             ImGui::SetMouseCursor(ImGuiMouseCursor_None);
             io.ConfigFlags |= ImGuiConfigFlags_NoMouseCursorChange;
@@ -112,13 +115,13 @@ namespace Dream {
     }
 
     void ImGuiEditor::style() {
-        auto& colors = ImGui::GetStyle().Colors;
-        auto primary0 = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };        // example: background for windows
-        auto primary1 = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };     // example: colors for separators
-        auto primary2 = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };        // example: bg color of drop down
-        auto primary3 = ImVec4{ 0.3f, 0.305f, 0.31f, 1.0f };        // example: color of headers and hovered buttons
+        auto &colors = ImGui::GetStyle().Colors;
+        auto primary0 = ImVec4{0.1f, 0.105f, 0.11f, 1.0f};        // example: background for windows
+        auto primary1 = ImVec4{0.15f, 0.1505f, 0.151f, 1.0f};     // example: colors for separators
+        auto primary2 = ImVec4{0.2f, 0.205f, 0.21f, 1.0f};        // example: bg color of drop down
+        auto primary3 = ImVec4{0.3f, 0.305f, 0.31f, 1.0f};        // example: color of headers and hovered buttons
         auto dockingPreview = ImVec4{0.6, 0.6, 0.6, 0.6};
-        auto btn = ImVec4{80.f/255.0f,76.f/255.f,76.f/255.f, 1.0f};
+        auto btn = ImVec4{80.f / 255.0f, 76.f / 255.f, 76.f / 255.f, 1.0f};
 
         // Docking
         colors[ImGuiCol_DockingPreview] = dockingPreview;
@@ -172,7 +175,7 @@ namespace Dream {
     void ImGuiEditor::setupDockSpace() {
         ImGui::NewFrame();
 
-        ImGuiViewport* viewport = ImGui::GetMainViewport();
+        ImGuiViewport *viewport = ImGui::GetMainViewport();
         ImVec2 viewportPosition = ImVec2(viewport->Pos.x, viewport->Pos.y);
         ImVec2 viewportSize = ImVec2(viewport->Size.x, viewport->Size.y);
         ImGui::SetNextWindowPos(viewportPosition);
@@ -185,7 +188,8 @@ namespace Dream {
         if (!Project::isEditorFullscreen()) {
             window_flags |= ImGuiWindowFlags_MenuBar;
         }
-        window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+        window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize |
+                        ImGuiWindowFlags_NoMove;
         window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
 
         static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
@@ -196,7 +200,7 @@ namespace Dream {
         ImGui::Begin("DockSpace", nullptr, window_flags);
         ImGui::PopStyleVar();
         ImGui::PopStyleVar(2);
-        ImGuiIO& io = ImGui::GetIO();
+        ImGuiIO &io = ImGui::GetIO();
         if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
             ImGuiID dockspace_id = ImGui::GetID("Editor");
             ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
@@ -209,9 +213,12 @@ namespace Dream {
                 ImGui::DockBuilderAddNode(dockspace_id, dockspace_flags | ImGuiDockNodeFlags_DockSpace);
                 ImGui::DockBuilderSetNodeSize(dockspace_id, viewportSize);
 
-                auto dock_id_right = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.25f, nullptr, &dockspace_id);
-                auto dock_id_down = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Down, 0.3f, nullptr, &dockspace_id);
-                auto dock_id_left = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Left, 0.2f, nullptr, &dockspace_id);
+                auto dock_id_right = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.25f, nullptr,
+                                                                 &dockspace_id);
+                auto dock_id_down = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Down, 0.3f, nullptr,
+                                                                &dockspace_id);
+                auto dock_id_left = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Left, 0.2f, nullptr,
+                                                                &dockspace_id);
 
                 ImGui::DockBuilderDockWindow("Renderer", dockspace_id);
                 ImGui::DockBuilderDockWindow("###File Editor", dockspace_id);

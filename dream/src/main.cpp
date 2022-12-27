@@ -20,7 +20,9 @@
 #include <iostream>
 
 #ifndef EMSCRIPTEN
+
 #include <gtest/gtest.h>
+
 #endif
 
 #ifdef EMSCRIPTEN
@@ -34,24 +36,24 @@ extern "C" {
 }
 #endif
 
-Dream::Application* application = nullptr;
+Dream::Application *application = nullptr;
 
 void mainLoop() {
-    #ifdef EMSCRIPTEN
+#ifdef EMSCRIPTEN
     application->update();
-    #else
+#else
     while (!application->shouldClose()) {
         application->update();
     }
-    #endif
+#endif
 }
 
 void startUpdateLoop() {
-    #ifdef EMSCRIPTEN // TODO: only render on repaint call
+#ifdef EMSCRIPTEN // TODO: only render on repaint call
     emscripten_set_main_loop(&mainLoop, 0, 1);
-    #else
+#else
     mainLoop();
-    #endif
+#endif
 }
 
 int main(int ArgCount, char **Args) {

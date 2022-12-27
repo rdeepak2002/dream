@@ -38,12 +38,16 @@ namespace Dream {
         luaScriptSelectorBrowser = nullptr;
 
         // TODO: use specific renderer (not OpenGL)
-        Texture* selectIconTexture = new OpenGLTexture(std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append("SelectIconWhite.png"), false);
+        Texture *selectIconTexture = new OpenGLTexture(
+                std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append(
+                        "SelectIconWhite.png"), false);
         selectIcon = selectIconTexture->ID();
         delete selectIconTexture;
 
         // TODO: use specific renderer (not OpenGL)
-        Texture* editIconTexture = new OpenGLTexture(std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append("EditIconDark.png"), false);
+        Texture *editIconTexture = new OpenGLTexture(
+                std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append(
+                        "EditIconDark.png"), false);
         editIcon = editIconTexture->ID();
         delete editIconTexture;
     }
@@ -57,7 +61,7 @@ namespace Dream {
         this->imGuiTextEditor = imGuiTextEditor;
     }
 
-    void ImGuiEditorInspectorView::setAnimatorGraphEditor(ImGuiEditorAnimatorGraph* animatorGraphEditor) {
+    void ImGuiEditorInspectorView::setAnimatorGraphEditor(ImGuiEditorAnimatorGraph *animatorGraphEditor) {
         this->animatorGraphEditor = animatorGraphEditor;
     }
 
@@ -172,8 +176,11 @@ namespace Dream {
         }
     }
 
-    void ImGuiEditorInspectorView::renderVec3Control(const std::string& label, glm::vec3& values, float contentWidth, float resetValue, float vSpeed, std::pair<float, float> vMinMax1, std::pair<float, float> vMinMax2, std::pair<float, float> vMinMax3) {
-        ImGuiIO& io = ImGui::GetIO();
+    void ImGuiEditorInspectorView::renderVec3Control(const std::string &label, glm::vec3 &values, float contentWidth,
+                                                     float resetValue, float vSpeed, std::pair<float, float> vMinMax1,
+                                                     std::pair<float, float> vMinMax2,
+                                                     std::pair<float, float> vMinMax3) {
+        ImGuiIO &io = ImGui::GetIO();
         auto boldFont = io.Fonts->Fonts[0];
 
         ImGui::PushID(label.c_str());
@@ -186,7 +193,7 @@ namespace Dream {
         ImGui::PushMultiItemsWidths(3, inputsWidth);
 
         float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
-        ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+        ImVec2 buttonSize = {lineHeight + 3.0f, lineHeight};
 
         ImGui::Text("X");
 
@@ -215,7 +222,9 @@ namespace Dream {
         if (selectedEntity.hasComponent<Component::TagComponent>()) {
             auto &component = selectedEntity.getComponent<Component::TagComponent>();
             auto cursorPosX1 = ImGui::GetCursorPosX();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Tag", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Tag",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::SameLine();
             ImGui::Text("Tag");
@@ -232,7 +241,9 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderTransformComponent() {
         if (selectedEntity.hasComponent<Component::TransformComponent>()) {
             auto &component = selectedEntity.getComponent<Component::TransformComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Transform", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Transform",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
             auto cursorPosX1 = ImGui::GetCursorPosX();
 
             ImGui::SameLine();
@@ -271,7 +282,9 @@ namespace Dream {
 
             auto &component = selectedEntity.getComponent<Component::MeshComponent>();
             auto cursorPosX1 = ImGui::GetCursorPosX();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Mesh", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Mesh",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
             bool canChangeMesh = component.fileId.empty();
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
@@ -280,7 +293,8 @@ namespace Dream {
             ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
             ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
             if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
-                SceneUtils::removeMeshReference(selectedEntity, selectedEntity.getComponent<Component::MeshComponent>().guid, true);
+                SceneUtils::removeMeshReference(selectedEntity,
+                                                selectedEntity.getComponent<Component::MeshComponent>().guid, true);
             }
             ImGui::PopStyleVar();
             ImGui::PopStyleColor();
@@ -303,15 +317,18 @@ namespace Dream {
                     if (ImGui::BeginCombo("##Change Mesh Type", dropdownPreview.c_str())) {
                         bool alreadyChangedMeshType = false;
                         if (!alreadyChangedMeshType && dropdownPreview != "File" && ImGui::Selectable("File")) {
-                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::FROM_FILE, selectedEntity);
+                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(
+                                    Component::MeshComponent::FROM_FILE, selectedEntity);
                             alreadyChangedMeshType = true;
                         }
                         if (!alreadyChangedMeshType && dropdownPreview != "Sphere" && ImGui::Selectable("Sphere")) {
-                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::PRIMITIVE_SPHERE, selectedEntity);
+                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(
+                                    Component::MeshComponent::PRIMITIVE_SPHERE, selectedEntity);
                             alreadyChangedMeshType = true;
                         }
                         if (!alreadyChangedMeshType && dropdownPreview != "Cube" && ImGui::Selectable("Cube")) {
-                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::PRIMITIVE_CUBE, selectedEntity);
+                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(
+                                    Component::MeshComponent::PRIMITIVE_CUBE, selectedEntity);
                             alreadyChangedMeshType = true;
                         }
                         ImGui::EndCombo();
@@ -320,14 +337,16 @@ namespace Dream {
 
                 // allow user to select mesh file
                 if (component.meshType == Component::MeshComponent::MeshType::FROM_FILE) {
-                    std::string meshPath = StringUtils::getFilePathRelativeToProjectFolder(Project::getResourceManager()->getFilePathFromGUID(component.guid));
-                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() + (canChangeMesh ? (-18.f - cursorPosX2) : -(cursorPosX2 - cursorPosX1)));
+                    std::string meshPath = StringUtils::getFilePathRelativeToProjectFolder(
+                            Project::getResourceManager()->getFilePathFromGUID(component.guid));
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() +
+                                            (canChangeMesh ? (-18.f - cursorPosX2) : -(cursorPosX2 - cursorPosX1)));
                     ImGui::InputText(std::string("##MeshPath").c_str(), &meshPath, ImGuiInputTextFlags_ReadOnly);
                     if (canChangeMesh) {
                         ImGui::SameLine();
                         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                         ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-                        if (ImGui::ImageButton("##Select Mesh", (void*)(intptr_t)selectIcon, ImVec2(18,18))) {
+                        if (ImGui::ImageButton("##Select Mesh", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
                             delete meshSelectorBrowser;
                             meshSelectorBrowser = new ImGui::FileBrowser();
                             meshSelectorBrowser->SetTitle("select mesh");
@@ -349,7 +368,9 @@ namespace Dream {
         if (selectedEntity.hasComponent<Component::MaterialComponent>()) {
             float cursorPosX1 = ImGui::GetCursorPosX();
             auto &component = selectedEntity.getComponent<Component::MaterialComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Material", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Material",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();
@@ -364,7 +385,8 @@ namespace Dream {
 
             if (treeNodeOpen) {
                 float cursorPosX2 = ImGui::GetCursorPosX();
-                std::string diffuseTexturePath = StringUtils::getFilePathRelativeToProjectFolder(Project::getResourceManager()->getFilePathFromGUID(component.guid));
+                std::string diffuseTexturePath = StringUtils::getFilePathRelativeToProjectFolder(
+                        Project::getResourceManager()->getFilePathFromGUID(component.guid));
                 ImGui::Text("Diffuse Texture");
                 float cursorPosX3 = ImGui::GetCursorPosX();
                 ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 18);
@@ -372,7 +394,7 @@ namespace Dream {
                 ImGui::SameLine();
                 ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                 ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-                if (ImGui::ImageButton("##Select Material", (void*)(intptr_t)selectIcon, ImVec2(18,18))) {
+                if (ImGui::ImageButton("##Select Material", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
                     Logger::debug("TODO: allow selection of diffuse texture"); // TODO
                 }
                 ImGui::PopStyleVar();
@@ -396,7 +418,9 @@ namespace Dream {
             }
 
             auto &component = selectedEntity.getComponent<Component::LuaScriptComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Lua Script", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Lua Script",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();
@@ -419,7 +443,7 @@ namespace Dream {
                     ImGui::SameLine();
                     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-                    if (ImGui::ImageButton("##Select Lua Script", (void*)(intptr_t)selectIcon, ImVec2(18,18))) {
+                    if (ImGui::ImageButton("##Select Lua Script", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
                         delete luaScriptSelectorBrowser;
                         luaScriptSelectorBrowser = new ImGui::FileBrowser();
                         luaScriptSelectorBrowser->SetTitle("select script");
@@ -437,7 +461,7 @@ namespace Dream {
                     ImGui::SameLine();
                     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-                    if (ImGui::ImageButton("##Change Lua Script", (void*)(intptr_t)selectIcon, ImVec2(18,18))) {
+                    if (ImGui::ImageButton("##Change Lua Script", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
                         delete luaScriptSelectorBrowser;
                         luaScriptSelectorBrowser = new ImGui::FileBrowser();
                         luaScriptSelectorBrowser->SetTitle("change script");
@@ -450,7 +474,7 @@ namespace Dream {
                     ImGui::SameLine();
                     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-                    if (ImGui::ImageButton("##Edit Lua Script", (void*)(intptr_t)editIcon, ImVec2(18,18))) {
+                    if (ImGui::ImageButton("##Edit Lua Script", (void *) (intptr_t) editIcon, ImVec2(18, 18))) {
                         this->imGuiTextEditor->open(scriptPath);
                     }
                     ImGui::PopStyleVar();
@@ -466,7 +490,9 @@ namespace Dream {
 
         if (selectedEntity.hasComponent<Component::AnimatorComponent>()) {
             auto &component = selectedEntity.getComponent<Component::AnimatorComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Animator", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Animator",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();
@@ -489,7 +515,7 @@ namespace Dream {
                 ImGui::SameLine();
                 ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                 ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-                if (ImGui::ImageButton("##Change Animator", (void*)(intptr_t)selectIcon, ImVec2(18,18))) {
+                if (ImGui::ImageButton("##Change Animator", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
                     Logger::fatal("NOT IMPLEMENTED: allow animator to be changed");
                 }
                 ImGui::PopStyleVar();
@@ -498,7 +524,7 @@ namespace Dream {
                 ImGui::SameLine();
                 ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                 ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-                if (ImGui::ImageButton("##Edit Animator", (void*)(intptr_t)editIcon, ImVec2(18,18))) {
+                if (ImGui::ImageButton("##Edit Animator", (void *) (intptr_t) editIcon, ImVec2(18, 18))) {
                     this->animatorGraphEditor->open(component.guid);
                 }
                 ImGui::PopStyleVar();
@@ -511,7 +537,9 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderBoneComponent() {
         if (selectedEntity.hasComponent<Component::BoneComponent>()) {
             auto &component = selectedEntity.getComponent<Component::BoneComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Bone", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Bone",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();
@@ -537,7 +565,9 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderSceneCameraComponent() {
         if (selectedEntity.hasComponent<Component::SceneCameraComponent>()) {
             auto &component = selectedEntity.getComponent<Component::SceneCameraComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Scene Camera", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Scene Camera",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();
@@ -562,7 +592,9 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderCameraComponent() {
         if (selectedEntity.hasComponent<Component::CameraComponent>()) {
             auto &component = selectedEntity.getComponent<Component::CameraComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Camera", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Camera",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();

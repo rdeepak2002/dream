@@ -39,7 +39,7 @@ namespace Dream {
 
     }
 
-    void Editor::setLogCollector(LogCollector* logCollector) {
+    void Editor::setLogCollector(LogCollector *logCollector) {
         this->logCollector = logCollector;
     }
 }

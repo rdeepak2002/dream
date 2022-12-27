@@ -24,8 +24,11 @@
 #elif __linux__
 #include <uuid/uuid.h>
 #elif __APPLE__
+
 #include <uuid/uuid.h>
+
 #endif
+
 #include <filesystem>
 #include <yaml-cpp/yaml.h>
 
@@ -61,35 +64,35 @@ namespace uuid {
 namespace Dream {
     std::string IDUtils::newGUID() {
 #ifdef WIN32
-    UUID uuid;
-    UuidCreate ( &uuid );
+        UUID uuid;
+        UuidCreate ( &uuid );
 
-    unsigned char * str;
-    UuidToStringA ( &uuid, &str );
+        unsigned char * str;
+        UuidToStringA ( &uuid, &str );
 
-    std::string s( ( char* ) str );
+        std::string s( ( char* ) str );
 
-    RpcStringFreeA ( &str );
-    return s;
+        RpcStringFreeA ( &str );
+        return s;
 #elif __linux__
-    uuid_t uuid;
-    uuid_generate_random ( uuid );
-    char s[37];
-    uuid_unparse ( uuid, s );
-    return s;
+        uuid_t uuid;
+        uuid_generate_random ( uuid );
+        char s[37];
+        uuid_unparse ( uuid, s );
+        return s;
 #elif __APPLE__
-    uuid_t uuid;
-    uuid_generate_random ( uuid );
-    char s[37];
-    uuid_unparse ( uuid, s );
-    return s;
+        uuid_t uuid;
+        uuid_generate_random(uuid);
+        char s[37];
+        uuid_unparse(uuid, s);
+        return s;
 #else
-    static bool printedGUIDWarning;
-    if (!printedGUIDWarning) {
-        Logger::warn("Hardware does not support GUID generation, defaulting to pseudorandom generation");
-        printedGUIDWarning = true;
-    }
-    return uuid::generate_uuid_v4();
+        static bool printedGUIDWarning;
+        if (!printedGUIDWarning) {
+            Logger::warn("Hardware does not support GUID generation, defaulting to pseudorandom generation");
+            printedGUIDWarning = true;
+        }
+        return uuid::generate_uuid_v4();
 #endif
     }
 

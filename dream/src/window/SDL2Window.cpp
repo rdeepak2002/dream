@@ -51,42 +51,44 @@ namespace Dream {
         this->launchWindowRenderer = nullptr;
         this->launchWindowImage = nullptr;
         Uint32 WindowFlags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | flags;
-        #ifdef BORDERLESS
+#ifdef BORDERLESS
         WindowFlags |= SDL_WINDOW_BORDERLESS;
-        #endif
-        #ifndef EMSCRIPTEN
+#endif
+#ifndef EMSCRIPTEN
         // window when program launches to indicate loading
-        this->launchWindow = SDL_CreateWindow("Dream", 0, 0, 300, 300, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_BORDERLESS);
+        this->launchWindow = SDL_CreateWindow("Dream", 0, 0, 300, 300,
+                                              SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_BORDERLESS);
         SDL_SetWindowPosition(this->launchWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         SDL_ShowWindow(this->launchWindow);
         SDL_RaiseWindow(this->launchWindow);
-        #endif
+#endif
         // main window with editor
         this->sdlWindow = SDL_CreateWindow("Dream", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
         SDL_SetWindowPosition(this->sdlWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         SDL_RaiseWindow(this->sdlWindow);
-        #ifndef EMSCRIPTEN
+#ifndef EMSCRIPTEN
         SDL_HideWindow(this->sdlWindow);
-        #endif
-        #ifdef BORDERLESS
+#endif
+#ifdef BORDERLESS
         SDL_SetWindowHitTest(this->Window, hitTest, nullptr);
-        #endif
+#endif
         SDL_SetRelativeMouseMode(SDL_TRUE);
     }
 
     SDL2Window::~SDL2Window() {
         SDL_DestroyWindow(this->sdlWindow);
-        #ifndef EMSCRIPTEN
+#ifndef EMSCRIPTEN
         SDL_DestroyWindow(this->launchWindow);
-        #endif
+#endif
     }
 
     void SDL2Window::update(float dt) {
-        #ifndef EMSCRIPTEN
+#ifndef EMSCRIPTEN
         // draw Dream logo in launch screen
         if (!launchWindowRenderer) {
             launchWindowRenderer = SDL_CreateRenderer(launchWindow, -1, SDL_RENDERER_ACCELERATED);
-            std::string launchWindowImagePath = std::filesystem::current_path().append("resources").append("editor-resources").append("logo").append("logo-original.png");
+            std::string launchWindowImagePath = std::filesystem::current_path().append("resources").append(
+                    "editor-resources").append("logo").append("logo-original.png");
             launchWindowImage = IMG_LoadTexture(launchWindowRenderer, launchWindowImagePath.c_str());
         }
         SDL_RenderClear(launchWindowRenderer);
@@ -104,7 +106,7 @@ namespace Dream {
             SDL_ShowWindow(this->sdlWindow);
             this->firstLoad = false;
         }
-        #endif
+#endif
         if (Input::pointerLockActivated()) {
             SDL_SetRelativeMouseMode(SDL_TRUE);
         } else {
@@ -114,8 +116,7 @@ namespace Dream {
 
     void SDL2Window::pollEvents() {
         SDL_Event Event;
-        while (SDL_PollEvent(&Event))
-        {
+        while (SDL_PollEvent(&Event)) {
             this->pollEditorEvents(Event);
             if (Event.type == SDL_KEYDOWN) {
                 bool state = true;
@@ -144,8 +145,7 @@ namespace Dream {
                         Input::setButtonDown(keyCode, state);
                         break;
                 }
-            }
-            else if (Event.type == SDL_KEYUP) {
+            } else if (Event.type == SDL_KEYUP) {
                 bool state = false;
                 switch (Event.key.keysym.sym) {
                     case SDLK_DOWN:
@@ -183,7 +183,7 @@ namespace Dream {
                 if (Event.button.button == SDL_BUTTON_RIGHT) {
                     Input::setButtonDown(Key::RightMouse, state);
                 }
-            }  else if (Event.type == SDL_MOUSEBUTTONUP) {
+            } else if (Event.type == SDL_MOUSEBUTTONUP) {
                 bool state = false;
                 if (Event.button.button == SDL_BUTTON_LEFT) {
                     Input::setButtonDown(Key::LeftMouse, state);
@@ -203,8 +203,7 @@ namespace Dream {
                         this->windowHeight = Event.window.data2;
                         break;
                 }
-            }
-            else if (Event.type == SDL_QUIT) {
+            } else if (Event.type == SDL_QUIT) {
                 this->shouldCloseFlag = true;
             }
         }

@@ -71,40 +71,40 @@ namespace Dream {
             // positions
             size_t offset = 0;
             glEnableVertexAttribArray(0);
-            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
             offset += 3 * sizeof(float);
 
             // uvs
             glEnableVertexAttribArray(1);
-            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
             offset += 2 * sizeof(float);
 
             // normals
             glEnableVertexAttribArray(2);
-            glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
             offset += 3 * sizeof(float);
 
             // tangents
             glEnableVertexAttribArray(3);
-            glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
             offset += 3 * sizeof(float);
 
             // bitangents
             glEnableVertexAttribArray(4);
-            glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
             offset += 3 * sizeof(float);
 
             // bone ids
             glEnableVertexAttribArray(5);
-            glVertexAttribIPointer(5, MAX_BONE_INFLUENCE, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, boneIDs));
+            glVertexAttribIPointer(5, MAX_BONE_INFLUENCE, GL_INT, sizeof(Vertex), (void *) offsetof(Vertex, boneIDs));
             offset += offsetof(Vertex, boneIDs);
 
             // weights
             glEnableVertexAttribArray(6);
-            glVertexAttribPointer(6, MAX_BONE_INFLUENCE, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, boneWeights));
+            glVertexAttribPointer(6, MAX_BONE_INFLUENCE, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+                                  (void *) offsetof(Vertex, boneWeights));
             offset += offsetof(Vertex, boneWeights);
-        }
-        else {
+        } else {
             Logger::fatal("Not interleaved not supported");
         }
         glBindVertexArray(0);

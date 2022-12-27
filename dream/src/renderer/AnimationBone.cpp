@@ -19,7 +19,8 @@
 #include "dream/renderer/AnimationBone.h"
 
 namespace Dream {
-    AnimationBone::AnimationBone(const std::string &name, int ID, const aiNodeAnim *channel) : name(name), id(ID), localTransform(1.0f) {
+    AnimationBone::AnimationBone(const std::string &name, int ID, const aiNodeAnim *channel) : name(name), id(ID),
+                                                                                               localTransform(1.0f) {
         numPositions = channel->mNumPositionKeys;
 
         for (int positionIndex = 0; positionIndex < numPositions; ++positionIndex) {
@@ -72,8 +73,7 @@ namespace Dream {
     }
 
     int AnimationBone::getPositionIndex(float animationTime) {
-        for (int index = 0; index < numPositions - 1; ++index)
-        {
+        for (int index = 0; index < numPositions - 1; ++index) {
             if (animationTime < positions[index + 1].timeStamp)
                 return index;
         }
@@ -108,14 +108,13 @@ namespace Dream {
 
     glm::mat4 AnimationBone::interpolatePosition(float animationTime) {
         if (1 == numPositions)
-        return glm::translate(glm::mat4(1.0f), positions[0].position);
+            return glm::translate(glm::mat4(1.0f), positions[0].position);
 
         int p0Index = getPositionIndex(animationTime);
         int p1Index = p0Index + 1;
         float scaleFactor = getScaleFactor(positions[p0Index].timeStamp,
                                            positions[p1Index].timeStamp, animationTime);
-        glm::vec3 finalPosition = glm::mix(positions[p0Index].position, positions[p1Index].position
-                , scaleFactor);
+        glm::vec3 finalPosition = glm::mix(positions[p0Index].position, positions[p1Index].position, scaleFactor);
         return glm::translate(glm::mat4(1.0f), finalPosition);
     }
 
@@ -129,7 +128,8 @@ namespace Dream {
         int p1Index = p0Index + 1;
         float scaleFactor = getScaleFactor(rotations[p0Index].timeStamp,
                                            rotations[p1Index].timeStamp, animationTime);
-        glm::quat finalRotation = glm::slerp(rotations[p0Index].orientation, rotations[p1Index].orientation, scaleFactor);
+        glm::quat finalRotation = glm::slerp(rotations[p0Index].orientation, rotations[p1Index].orientation,
+                                             scaleFactor);
         finalRotation = glm::normalize(finalRotation);
         return glm::toMat4(finalRotation);
     }

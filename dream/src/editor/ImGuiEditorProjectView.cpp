@@ -28,7 +28,7 @@
 #include <sstream>
 
 namespace Dream {
-    ImGuiEditorProjectView::ImGuiEditorProjectView(ImGuiTextEditor* textEditor) {
+    ImGuiEditorProjectView::ImGuiEditorProjectView(ImGuiTextEditor *textEditor) {
         this->textEditor = textEditor;
         auto assetsFolderPath = std::filesystem::path(Project::getPath()).append("assets");
         if (std::filesystem::exists(assetsFolderPath)) {
@@ -40,11 +40,15 @@ namespace Dream {
         ignoredExtensions.insert(".meta");
         ignoredFileNames.insert(".DS_Store");
         // TODO: use specific renderer (not OpenGL)
-        Texture* fileIconTexture = new OpenGLTexture(std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append("FileIcon.png"), false);
+        Texture *fileIconTexture = new OpenGLTexture(
+                std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append(
+                        "FileIcon.png"), false);
         fileIcon = fileIconTexture->ID();
         delete fileIconTexture;
         // TODO: use specific renderer (not OpenGL)
-        Texture* folderIconTexture = new OpenGLTexture(std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append("DirectoryIcon.png"), false);
+        Texture *folderIconTexture = new OpenGLTexture(
+                std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append(
+                        "DirectoryIcon.png"), false);
         folderIcon = folderIconTexture->ID();
         delete folderIconTexture;
     }
@@ -74,7 +78,7 @@ namespace Dream {
                 }
                 // find a unique file path to save new script file to
                 int i = 0;
-                while(exists(std::filesystem::path(path).append(filename + std::to_string(i) + extension))) {
+                while (exists(std::filesystem::path(path).append(filename + std::to_string(i) + extension))) {
                     i++;
                 }
                 path = path.append(filename + std::to_string(i) + extension);
@@ -100,16 +104,19 @@ namespace Dream {
                 }
                 // find a unique file path to save new script file to
                 int i = 0;
-                while(exists(std::filesystem::path(path).append(filename + std::to_string(i) + extension))) {
+                while (exists(std::filesystem::path(path).append(filename + std::to_string(i) + extension))) {
                     i++;
                 }
                 path = path.append(filename + std::to_string(i) + extension);
                 // create blank animator
                 YAML::Emitter out;
                 out << YAML::BeginMap;
-                out << YAML::Key << Component::AnimatorComponent::k_states << YAML::Value << YAML::Node(YAML::NodeType::Sequence);
-                out << YAML::Key << Component::AnimatorComponent::k_transitions << YAML::Value << YAML::Node(YAML::NodeType::Sequence);
-                out << YAML::Key << Component::AnimatorComponent::k_variables << YAML::Value << YAML::Node(YAML::NodeType::Sequence);
+                out << YAML::Key << Component::AnimatorComponent::k_states << YAML::Value
+                    << YAML::Node(YAML::NodeType::Sequence);
+                out << YAML::Key << Component::AnimatorComponent::k_transitions << YAML::Value
+                    << YAML::Node(YAML::NodeType::Sequence);
+                out << YAML::Key << Component::AnimatorComponent::k_variables << YAML::Value
+                    << YAML::Node(YAML::NodeType::Sequence);
                 out << YAML::EndMap;
                 std::ofstream fout(path.c_str());
                 fout << out.c_str();
@@ -141,27 +148,31 @@ namespace Dream {
 
         float imageSize = 40.0f;
         float columnWidth = 120.0f;
-        int numColumns = (int)(windowSize.x / (columnWidth + 0.1f));
+        int numColumns = (int) (windowSize.x / (columnWidth + 0.1f));
         if (numColumns == 0) {
             numColumns = 1;
         }
 
         ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-        ImGui::BeginColumns("projectGrid", numColumns, ImGuiColumnsFlags_NoResize | ImGuiColumnsFlags_NoBorder | ImGuiTableColumnFlags_WidthFixed);
+        ImGui::BeginColumns("projectGrid", numColumns,
+                            ImGuiColumnsFlags_NoResize | ImGuiColumnsFlags_NoBorder | ImGuiTableColumnFlags_WidthFixed);
         ImGui::SetColumnWidth(-1, columnWidth);
 
-        for (const auto & entry : std::filesystem::directory_iterator(currentPath)) {
-            if (ignoredExtensions.count(entry.path().extension()) == 0 && ignoredFileNames.count(entry.path().filename()) == 0) {
+        for (const auto &entry: std::filesystem::directory_iterator(currentPath)) {
+            if (ignoredExtensions.count(entry.path().extension()) == 0 &&
+                ignoredFileNames.count(entry.path().filename()) == 0) {
                 float currentCursorPos = ImGui::GetCursorPosX();
                 if (entry.is_directory()) {
                     ImGui::SetCursorPosX(currentCursorPos + (columnWidth - (imageSize + 0.0f)) * 0.5f);
-                    ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)folderIcon, ImVec2(imageSize,imageSize));
+                    ImGui::ImageButton(entry.path().c_str(), (void *) (intptr_t) folderIcon,
+                                       ImVec2(imageSize, imageSize));
                     if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
                         currentPath = currentPath.append(entry.path().filename().c_str());
                     }
                 } else {
                     ImGui::SetCursorPosX(currentCursorPos + (columnWidth - (imageSize + 0.0f)) * 0.5f);
-                    ImGui::ImageButton(entry.path().c_str(), (void*)(intptr_t)fileIcon, ImVec2(imageSize,imageSize));
+                    ImGui::ImageButton(entry.path().c_str(), (void *) (intptr_t) fileIcon,
+                                       ImVec2(imageSize, imageSize));
                     if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
                         textEditor->open(entry.path());
                     }
@@ -191,7 +202,7 @@ namespace Dream {
         std::string next;
         std::vector<std::string> result;
 
-        for (char it : str) {
+        for (char it: str) {
             if (it == ch) {
                 if (!next.empty()) {
                     result.push_back(next);

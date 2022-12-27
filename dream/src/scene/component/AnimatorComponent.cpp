@@ -57,8 +57,8 @@ namespace Dream::Component {
         if (!states.empty()) {
             currentState = 1;
             nextState = 2;
-            auto* animation1 = (Animation *) animationObjects[states[currentState].Guid];
-            auto* animation2 = (Animation *) animationObjects[states[nextState].Guid];
+            auto *animation1 = (Animation *) animationObjects[states[currentState].Guid];
+            auto *animation2 = (Animation *) animationObjects[states[nextState].Guid];
             blendTwoAnimations(animation1, animation2, blendFactor, dt);
             blendFactor += 0.1f * dt;
             if (blendFactor > 1.0) {
@@ -85,10 +85,10 @@ namespace Dream::Component {
 //        }
 //        std::cout << "===========" << std::endl << std::endl;
         if (m_CurrentAnimation) {
-            for (const auto &transition : transitions) {
+            for (const auto &transition: transitions) {
                 if (transition.OutputStateID == currentState) {
                     bool allConditionsPassed = true;
-                    for (const auto &condition : transition.Conditions) {
+                    for (const auto &condition: transition.Conditions) {
                         int variable1Value = condition.Variable1;
                         int variable2Value = condition.Variable2;
                         if (condition.Variable1Idx != -1) {
@@ -177,11 +177,11 @@ namespace Dream::Component {
 //        }
     }
 
-    void AnimatorComponent::calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform, int depth) {
+    void AnimatorComponent::calculateBoneTransform(const AssimpNodeData *node, glm::mat4 parentTransform, int depth) {
         std::string nodeName = node->name;
         glm::mat4 nodeTransform = node->transformation;
 
-        AnimationBone* Bone = ((Animation *) m_CurrentAnimation)->findBone(nodeName);
+        AnimationBone *Bone = ((Animation *) m_CurrentAnimation)->findBone(nodeName);
 
         if (Bone) {
             Bone->update(m_CurrentTime);
@@ -223,13 +223,14 @@ namespace Dream::Component {
         }
     }
 
-    std::vector<glm::mat4> AnimatorComponent::computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones) {
+    std::vector<glm::mat4>
+    AnimatorComponent::computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones) {
         std::vector<glm::mat4> finalBoneMatrices;
         for (int i = 0; i < MAX_BONES; ++i) {
             finalBoneMatrices.emplace_back(1.0);
         }
 
-        for (auto boneEntity : bones) {
+        for (auto boneEntity: bones) {
             auto boneID = boneEntity.getComponent<BoneComponent>().boneID;
             if (boneID < finalBoneMatrices.size()) {
                 auto trans = glm::mat4(1.0);
@@ -256,7 +257,8 @@ namespace Dream::Component {
         if (entity.hasComponent<AnimatorComponent>()) {
             out << YAML::Key << AnimatorComponent::componentName;
             out << YAML::BeginMap;
-            out << YAML::Key << AnimatorComponent::k_guid << YAML::Value << entity.getComponent<AnimatorComponent>().guid;
+            out << YAML::Key << AnimatorComponent::k_guid << YAML::Value
+                << entity.getComponent<AnimatorComponent>().guid;
             out << YAML::EndMap;
         }
     }
@@ -277,18 +279,18 @@ namespace Dream::Component {
         YAML::Node doc = YAML::LoadFile(animatorFilePath);
         // load states
         auto animationsNode = doc[k_states].as<std::vector<YAML::Node>>();
-        for (const YAML::Node& animationNode : animationsNode) {
+        for (const YAML::Node &animationNode: animationsNode) {
             states.push_back(State{
-                .Guid=animationNode["Guid"].as<std::string>(),
-                .PlayOnce=animationNode["PlayOnce"].as<bool>()
+                    .Guid=animationNode["Guid"].as<std::string>(),
+                    .PlayOnce=animationNode["PlayOnce"].as<bool>()
             });
         }
         // deserialize transitions
         auto transitionsNodes = doc[k_transitions].as<std::vector<YAML::Node>>();
-        for (const YAML::Node& transitionNode : transitionsNodes) {
+        for (const YAML::Node &transitionNode: transitionsNodes) {
             std::vector<Condition> conditions;
             auto conditionNodes = transitionNode[k_transition_Conditions].as<std::vector<YAML::Node>>();
-            for (const YAML::Node& conditionNode : conditionNodes) {
+            for (const YAML::Node &conditionNode: conditionNodes) {
                 Condition condition = {
                         .Variable1Idx=conditionNode["Variable1Idx"] ? conditionNode["Variable1Idx"].as<int>() : -1,
                         .Variable1=conditionNode["Variable1"] ? conditionNode["Variable1"].as<int>() : 0,
@@ -309,7 +311,7 @@ namespace Dream::Component {
         }
         // load variables
         auto variablesNode = doc[k_variables].as<std::vector<YAML::Node>>();
-        for (const YAML::Node& variableNode : variablesNode) {
+        for (const YAML::Node &variableNode: variablesNode) {
             auto name = variableNode[k_variable_name].as<std::string>();
             int value = variableNode[k_variable_value].as<int>();
             variableNames.emplace_back(name);
@@ -318,7 +320,7 @@ namespace Dream::Component {
         auto transitionsNode = doc[k_transitions].as<std::vector<YAML::Node>>();
         // load animation data from animation files
         if (!states.empty()) {
-            for (const auto& state : states) {
+            for (const auto &state: states) {
                 auto animationFilePath = Project::getResourceManager()->getFilePathFromGUID(state.Guid);
                 auto *anim = new Animation(animationFilePath, modelEntity, 0);
                 animationObjects[state.Guid] = anim;
@@ -369,7 +371,7 @@ namespace Dream::Component {
         }
     }
 
-    int AnimatorComponent::setVariable(const std::string& variableName, int value) {
+    int AnimatorComponent::setVariable(const std::string &variableName, int value) {
         auto iter = std::find(variableNames.begin(), variableNames.end(), variableName);
         if (iter != variableNames.end()) {
             int index = (int) std::distance(variableNames.begin(), iter);
@@ -381,29 +383,27 @@ namespace Dream::Component {
         }
     }
 
-    void AnimatorComponent::calculateBlendedBoneTransform(void* pAnimationBaseV,  const AssimpNodeData* node,
-                                                          void* pAnimationLayerV, const AssimpNodeData* nodeLayered,
+    void AnimatorComponent::calculateBlendedBoneTransform(void *pAnimationBaseV, const AssimpNodeData *node,
+                                                          void *pAnimationLayerV, const AssimpNodeData *nodeLayered,
                                                           const float currentTimeBase, const float currentTimeLayered,
-                                                          const glm::mat4& parentTransform,
+                                                          const glm::mat4 &parentTransform,
                                                           const float blendFactor,
                                                           int depth) {
-        Animation* pAnimationBase = (Animation *) pAnimationBaseV;
-        Animation* pAnimationLayer = (Animation *) pAnimationLayerV;
+        Animation *pAnimationBase = (Animation *) pAnimationBaseV;
+        Animation *pAnimationLayer = (Animation *) pAnimationLayerV;
 
-        const std::string& nodeName = node->name;
+        const std::string &nodeName = node->name;
 
         glm::mat4 nodeTransform = node->transformation;
-        AnimationBone* pBone = pAnimationBase->findBone(nodeName);
-        if (pBone)
-        {
+        AnimationBone *pBone = pAnimationBase->findBone(nodeName);
+        if (pBone) {
             pBone->update(currentTimeBase);
             nodeTransform = pBone->getLocalTransform();
         }
 
         glm::mat4 layeredNodeTransform = nodeLayered->transformation;
         pBone = pAnimationLayer->findBone(nodeName);
-        if (pBone)
-        {
+        if (pBone) {
             pBone->update(currentTimeLayered);
             layeredNodeTransform = pBone->getLocalTransform();
         }
@@ -417,11 +417,10 @@ namespace Dream::Component {
 
         glm::mat4 globalTransformation = parentTransform * blendedMat;
 
-        const auto& boneInfoMap = pAnimationBase->getBoneIdMap();
-        if (boneInfoMap.find(nodeName) != boneInfoMap.end())
-        {
+        const auto &boneInfoMap = pAnimationBase->getBoneIdMap();
+        if (boneInfoMap.find(nodeName) != boneInfoMap.end()) {
             const int index = boneInfoMap.at(nodeName).id;
-            const glm::mat4& offset = boneInfoMap.at(nodeName).offset;
+            const glm::mat4 &offset = boneInfoMap.at(nodeName).offset;
 
             m_FinalBoneMatrices[index] = globalTransformation * offset;
 
@@ -442,19 +441,22 @@ namespace Dream::Component {
                     boneEntities[pBone->getBoneID()].getComponent<TransformComponent>().rotation = rotation;
                     boneEntities[pBone->getBoneID()].getComponent<TransformComponent>().scale = scale;
                 } else {
-                    Logger::warn("Cannot find entity for bone " + pBone->getBoneName() + " with ID " + std::to_string(pBone->getBoneID()));
+                    Logger::warn("Cannot find entity for bone " + pBone->getBoneName() + " with ID " +
+                                 std::to_string(pBone->getBoneID()));
                 }
             }
         }
 
         for (size_t i = 0; i < node->children.size(); ++i)
-            calculateBlendedBoneTransform(pAnimationBase, &node->children[i], pAnimationLayer, &nodeLayered->children[i], currentTimeBase, currentTimeLayered, globalTransformation, blendFactor);
+            calculateBlendedBoneTransform(pAnimationBase, &node->children[i], pAnimationLayer,
+                                          &nodeLayered->children[i], currentTimeBase, currentTimeLayered,
+                                          globalTransformation, blendFactor);
     }
 
     void AnimatorComponent::blendTwoAnimations(void *pBaseAnimationV, void *pLayeredAnimationV, float blendFactor,
                                                float deltaTime) {
-        Animation* pBaseAnimation = (Animation *) pBaseAnimationV;
-        Animation* pLayeredAnimation = (Animation *) pLayeredAnimationV;
+        Animation *pBaseAnimation = (Animation *) pBaseAnimationV;
+        Animation *pLayeredAnimation = (Animation *) pLayeredAnimationV;
         // Speed multipliers to correctly transition from one animation to another
         float a = 1.0f;
         float b = pBaseAnimation->getDuration() / pLayeredAnimation->getDuration();
@@ -473,6 +475,8 @@ namespace Dream::Component {
         currentTimeLayered += pLayeredAnimation->getTicksPerSecond() * deltaTime * animSpeedMultiplierDown;
         currentTimeLayered = fmod(currentTimeLayered, pLayeredAnimation->getDuration());
 
-        calculateBlendedBoneTransform(pBaseAnimation, &pBaseAnimation->getRootNode(), pLayeredAnimation, &pLayeredAnimation->getRootNode(), currentTimeBase, currentTimeLayered, glm::mat4(1.0f), blendFactor);
+        calculateBlendedBoneTransform(pBaseAnimation, &pBaseAnimation->getRootNode(), pLayeredAnimation,
+                                      &pLayeredAnimation->getRootNode(), currentTimeBase, currentTimeLayered,
+                                      glm::mat4(1.0f), blendFactor);
     }
 }

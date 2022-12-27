@@ -23,23 +23,23 @@
 
 namespace Dream {
     SDL2OpenGLWindow::SDL2OpenGLWindow() : SDL2Window(SDL_WINDOW_OPENGL) {
-        #ifdef EMSCRIPTEN
+#ifdef EMSCRIPTEN
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
-        #else
+#else
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-        #endif
+#endif
         glContext = SDL_GL_CreateContext(sdlWindow);
 
         // Check OpenGL properties
-        #ifdef EMSCRIPTEN
+#ifdef EMSCRIPTEN
         gladLoadGLES2Loader(SDL_GL_GetProcAddress);
-        #else
+#else
         gladLoadGLLoader(SDL_GL_GetProcAddress);
-        #endif
+#endif
     }
 
     void SDL2OpenGLWindow::swapBuffers() {

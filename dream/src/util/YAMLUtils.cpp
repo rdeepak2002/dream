@@ -19,7 +19,7 @@
 #include "dream/util/YAMLUtils.h"
 
 namespace YAML {
-    Node convert<glm::vec2>::encode(const glm::vec2& rhs) {
+    Node convert<glm::vec2>::encode(const glm::vec2 &rhs) {
         Node node;
         node.push_back(rhs.x);
         node.push_back(rhs.y);
@@ -27,7 +27,7 @@ namespace YAML {
         return node;
     }
 
-    bool convert<glm::vec2>::decode(const Node& node, glm::vec2& rhs) {
+    bool convert<glm::vec2>::decode(const Node &node, glm::vec2 &rhs) {
         if (!node.IsSequence() || node.size() != 2)
             return false;
 
@@ -36,7 +36,7 @@ namespace YAML {
         return true;
     }
 
-    Node convert<glm::vec3>::encode(const glm::vec3& rhs) {
+    Node convert<glm::vec3>::encode(const glm::vec3 &rhs) {
         Node node;
         node.push_back(rhs.x);
         node.push_back(rhs.y);
@@ -55,8 +55,7 @@ namespace YAML {
         return true;
     }
 
-    Node convert<glm::vec4>::encode(const glm::vec4& rhs)
-    {
+    Node convert<glm::vec4>::encode(const glm::vec4 &rhs) {
         Node node;
         node.push_back(rhs.x);
         node.push_back(rhs.y);
@@ -66,8 +65,7 @@ namespace YAML {
         return node;
     }
 
-    bool convert<glm::vec4>::decode(const Node& node, glm::vec4& rhs)
-    {
+    bool convert<glm::vec4>::decode(const Node &node, glm::vec4 &rhs) {
         if (!node.IsSequence() || node.size() != 4)
             return false;
 
@@ -78,7 +76,7 @@ namespace YAML {
         return true;
     }
 
-    Node convert<glm::quat>::encode(const glm::quat& rhs) {
+    Node convert<glm::quat>::encode(const glm::quat &rhs) {
         Node node;
         node.push_back(rhs.w);
         node.push_back(rhs.x);
@@ -88,8 +86,7 @@ namespace YAML {
         return node;
     }
 
-    bool convert<glm::quat>::decode(const Node& node, glm::quat& rhs)
-    {
+    bool convert<glm::quat>::decode(const Node &node, glm::quat &rhs) {
         if (!node.IsSequence() || node.size() != 4)
             return false;
 

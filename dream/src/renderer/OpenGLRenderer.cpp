@@ -34,7 +34,9 @@ namespace Dream {
         this->printGLVersion();
 
         // build and compile our shader program
-        shader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shader.vert").c_str(), Project::getPath().append("assets").append("shaders").append("shader_texture.frag").c_str(), nullptr);
+        shader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shader.vert").c_str(),
+                                  Project::getPath().append("assets").append("shaders").append(
+                                          "shader_texture.frag").c_str(), nullptr);
         texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("missing.png"));
 
         // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
@@ -78,9 +80,16 @@ namespace Dream {
 
             glm::mat4 projection;
             if (Project::isPlaying()) {
-                projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov), (float) viewportWidth / (float) viewportHeight, mainCamera.getComponent<Component::CameraComponent>().zNear, mainCamera.getComponent<Component::CameraComponent>().zFar);
+                projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov),
+                                              (float) viewportWidth / (float) viewportHeight,
+                                              mainCamera.getComponent<Component::CameraComponent>().zNear,
+                                              mainCamera.getComponent<Component::CameraComponent>().zFar);
             } else {
-                projection = glm::perspective(glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov), (float) viewportWidth / (float) viewportHeight, sceneCamera.getComponent<Component::SceneCameraComponent>().zNear, sceneCamera.getComponent<Component::SceneCameraComponent>().zFar);
+                projection = glm::perspective(
+                        glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov),
+                        (float) viewportWidth / (float) viewportHeight,
+                        sceneCamera.getComponent<Component::SceneCameraComponent>().zNear,
+                        sceneCamera.getComponent<Component::SceneCameraComponent>().zFar);
             }
             shader->setMat4("projection", projection);
 
@@ -98,7 +107,7 @@ namespace Dream {
             // TODO: POSSIBLE SOLUTION 2 (WORSE and more complicated): USE DATA STRUCTURE TO STORE FINAL TRANSFORM BONES PER GUID
             std::vector<glm::mat4> finalBoneMatrices;
             auto animatorEntities = Project::getScene()->getEntitiesWithComponents<Component::AnimatorComponent>();
-            for(auto entityHandle : animatorEntities) {
+            for (auto entityHandle: animatorEntities) {
                 Entity entity = {entityHandle, Project::getScene()};
                 if (entity.hasComponent<Component::MeshComponent>()) {
                     entity.getComponent<Component::MeshComponent>().loadMesh();
@@ -113,7 +122,7 @@ namespace Dream {
 
             // draw all entities with meshes
             auto meshEntities = Project::getScene()->getEntitiesWithComponents<Component::MeshComponent>();
-            for(auto entityHandle : meshEntities) {
+            for (auto entityHandle: meshEntities) {
                 Entity entity = {entityHandle, Project::getScene()};
 
                 // load mesh of entity
@@ -128,12 +137,13 @@ namespace Dream {
                     if (!entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
                         entity.getComponent<Component::MaterialComponent>().loadTexture();
                     }
-                    shader->setVec4("diffuse_color",  entity.getComponent<Component::MaterialComponent>().diffuseColor);
+                    shader->setVec4("diffuse_color", entity.getComponent<Component::MaterialComponent>().diffuseColor);
                 }
 
-                if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().guid.empty()) {
+                if (entity.hasComponent<Component::MaterialComponent>() &&
+                    !entity.getComponent<Component::MaterialComponent>().guid.empty()) {
                     if (entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
-                        auto* openGLTexture = dynamic_cast<OpenGLTexture*>(entity.getComponent<Component::MaterialComponent>().diffuseTexture);
+                        auto *openGLTexture = dynamic_cast<OpenGLTexture *>(entity.getComponent<Component::MaterialComponent>().diffuseTexture);
                         if (openGLTexture) {
                             shader->use();
                             shader->setInt("texture_diffuse1", 0);
@@ -160,7 +170,7 @@ namespace Dream {
 
                     // draw mesh of entity
                     if (entity.getComponent<Component::MeshComponent>().mesh) {
-                        auto* openGLMesh = dynamic_cast<OpenGLMesh*>(entity.getComponent<Component::MeshComponent>().mesh);
+                        auto *openGLMesh = dynamic_cast<OpenGLMesh *>(entity.getComponent<Component::MeshComponent>().mesh);
                         if (openGLMesh) {
                             if (!openGLMesh->getIndices().empty()) {
                                 // case where vertices are indexed
@@ -179,7 +189,8 @@ namespace Dream {
                         } else {
                             Logger::fatal("Mesh cannot be rendered in OpenGL");
                         }
-                    } else if (entity.getComponent<Component::MeshComponent>().mesh && !entity.getComponent<Component::MeshComponent>().fileId.empty()) {
+                    } else if (entity.getComponent<Component::MeshComponent>().mesh &&
+                               !entity.getComponent<Component::MeshComponent>().fileId.empty()) {
                         Logger::warn("No mesh loaded");
                     }
                 }
@@ -214,9 +225,9 @@ namespace Dream {
     }
 
     void OpenGLRenderer::printGLVersion() {
-        Logger::info("GL Vendor: " + std::string((const char*) glGetString(GL_VENDOR)));
-        Logger::info("GL Renderer: " + std::string((const char*) glGetString(GL_RENDERER)));
-        Logger::info("GL Version: " + std::string((const char*) glGetString(GL_VERSION)));
+        Logger::info("GL Vendor: " + std::string((const char *) glGetString(GL_VENDOR)));
+        Logger::info("GL Renderer: " + std::string((const char *) glGetString(GL_RENDERER)));
+        Logger::info("GL Version: " + std::string((const char *) glGetString(GL_VERSION)));
     }
 
     std::pair<int, int> OpenGLRenderer::getViewportDimensions() {
@@ -226,12 +237,12 @@ namespace Dream {
     }
 
     void OpenGLRenderer::updateViewportSize(int viewportWidth, int viewportHeight, bool fullscreen) {
-        #ifdef EMSCRIPTEN
+#ifdef EMSCRIPTEN
         if (fullscreen) {
             auto dpiScale = 2;
             glViewport(0, 0, viewportWidth * dpiScale, viewportHeight * dpiScale);
         }
-        #endif
+#endif
     }
 
     unsigned int OpenGLRenderer::getOutputRenderTexture() {

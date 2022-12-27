@@ -27,7 +27,7 @@ namespace Dream {
 
     void AnimatorComponentSystem::update(float dt) {
         auto animatorEntities = Project::getScene()->getEntitiesWithComponents<Component::AnimatorComponent>();
-        for(auto entityHandle : animatorEntities) {
+        for (auto entityHandle: animatorEntities) {
             Entity entity = {entityHandle, Project::getScene()};
             entity.getComponent<Component::AnimatorComponent>().updateAnimation(dt);
             // TODO: this should be in fixed update?

@@ -19,7 +19,7 @@
 #include "dream/project/ResourceManager.h"
 #include "dream/util/Logger.h"
 
-std::string Dream::ResourceManager::getFilePathFromGUID(const std::string& guid) {
+std::string Dream::ResourceManager::getFilePathFromGUID(const std::string &guid) {
     return guidMap[guid];
 }
 
@@ -27,11 +27,11 @@ void Dream::ResourceManager::setFilePathFromGUID(const std::string &guid, const 
     guidMap[guid] = filepath;
 }
 
-void *Dream::ResourceManager::getData(const std::string& guid, const std::string& fileID) {
+void *Dream::ResourceManager::getData(const std::string &guid, const std::string &fileID) {
     return fileIDMap[std::make_pair(guid, fileID)];
 }
 
-void Dream::ResourceManager::storeData(const std::string &guid, const std::string &fileID, void* data) {
+void Dream::ResourceManager::storeData(const std::string &guid, const std::string &fileID, void *data) {
     if (guid.empty()) {
         Logger::fatal("GUID cannot be empty");
     }

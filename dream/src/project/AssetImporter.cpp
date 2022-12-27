@@ -42,7 +42,7 @@ namespace Dream {
             if (!std::filesystem::exists(new_directory_folder)) {
                 std::filesystem::create_directory(new_directory_folder);
             }
-            for (const auto & entry : std::filesystem::directory_iterator(combinedPath)) {
+            for (const auto &entry: std::filesystem::directory_iterator(combinedPath)) {
                 std::filesystem::path newRelativePath = std::filesystem::path(relativePath);
                 newRelativePath += std::filesystem::path::preferred_separator;
                 newRelativePath += entry.path().filename();

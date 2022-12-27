@@ -30,7 +30,8 @@
 #include "dream/util/Logger.h"
 
 namespace Dream {
-    std::map<std::string, BoneInfo> OpenGLAssetLoader::loadMesh(std::string guid, bool createEntities, Entity rootEntity) {
+    std::map<std::string, BoneInfo>
+    OpenGLAssetLoader::loadMesh(std::string guid, bool createEntities, Entity rootEntity) {
         std::string path = Project::getResourceManager()->getFilePathFromGUID(guid);
         if (!std::filesystem::exists(path)) {
             Logger::fatal("Mesh file at " + path + " does not exist");
@@ -38,8 +39,9 @@ namespace Dream {
         // use assimp to get scene of model
         Assimp::Importer importer;
         importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);  // fixes mixamo animations
-        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
-        if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+        const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals |
+                                                       aiProcess_CalcTangentSpace);
+        if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
             Logger::fatal("Assimp importing error " + std::string(importer.GetErrorString()));
             return {};
         }
@@ -54,7 +56,7 @@ namespace Dream {
         // go through bone info map and see if an entity exists for a bone, then create a bone component for that entity
         if (createEntities) {
             // add bone component to nodes that are associated to bones
-            for (auto nodeEntity : nodeEntities) {
+            for (auto nodeEntity: nodeEntities) {
                 auto entityTag = nodeEntity.getComponent<Component::TagComponent>().tag;
                 if (m_BoneInfoMap.count(entityTag) > 0) {
                     BoneInfo boneInfo = m_BoneInfoMap[entityTag];
@@ -77,7 +79,8 @@ namespace Dream {
         return boneInfoMapCpy;
     }
 
-    Entity OpenGLAssetLoader::processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene, bool createEntities, Entity rootEntity, bool createMeshObjects) {
+    Entity OpenGLAssetLoader::processNode(std::string path, std::string guid, aiNode *node, const aiScene *scene,
+                                          bool createEntities, Entity rootEntity, bool createMeshObjects) {
         Entity dreamNode;
         if (createEntities) {
             if (rootEntity) {
@@ -88,15 +91,15 @@ namespace Dream {
             nodeEntities.push_back(dreamNode);
         }
         // process meshes for this node
-        for(unsigned int i = 0; i < node->mNumMeshes; i++) {
-            aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+        for (unsigned int i = 0; i < node->mNumMeshes; i++) {
+            aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
             Entity child = processMesh(path, guid, mesh, scene, createEntities, createMeshObjects);
             if (createEntities) {
                 dreamNode.addChild(child);
             }
         }
         // process child nodes
-        for(unsigned int i = 0; i < node->mNumChildren; i++) {
+        for (unsigned int i = 0; i < node->mNumChildren; i++) {
             Entity child = processNode(path, guid, node->mChildren[i], scene, createEntities, {}, createMeshObjects);
             if (createEntities) {
                 dreamNode.addChild(child);
@@ -105,7 +108,7 @@ namespace Dream {
         return dreamNode;
     }
 
-    void OpenGLAssetLoader::setVertexBoneData(Vertex& vertex, int boneID, float weight) {
+    void OpenGLAssetLoader::setVertexBoneData(Vertex &vertex, int boneID, float weight) {
         for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
             if (vertex.boneIDs[i] < 0) {
                 vertex.boneWeights[i] = weight;
@@ -115,14 +118,14 @@ namespace Dream {
         }
     }
 
-    Entity OpenGLAssetLoader::processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene, bool createEntities, bool createMeshObjects) {
+    Entity OpenGLAssetLoader::processMesh(std::string path, std::string guid, aiMesh *mesh, const aiScene *scene,
+                                          bool createEntities, bool createMeshObjects) {
         meshID++;
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
 
         // walk through each of the mesh's vertices
-        for(unsigned int i = 0; i < mesh->mNumVertices; i++)
-        {
+        for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
             Vertex vertex = {};
 
             // positions
@@ -134,7 +137,7 @@ namespace Dream {
             }
             // texture coordinates
             glm::vec2 uv = {0, 0};
-            if(mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
+            if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
             {
                 // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't
                 // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
@@ -165,28 +168,27 @@ namespace Dream {
             vertices.push_back(vertex);
         }
         // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
-        for(unsigned int i = 0; i < mesh->mNumFaces; i++)
-        {
+        for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
             aiFace face = mesh->mFaces[i];
             // retrieve all indices of the face and store them in the indices vector
-            for(unsigned int j = 0; j < face.mNumIndices; j++)
+            for (unsigned int j = 0; j < face.mNumIndices; j++)
                 indices.push_back(face.mIndices[j]);
         }
 
         // process materials
-        aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+        aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
         bool textureEmbeddedInModel = false;
-        const aiTexture* assimpTexture = nullptr;
+        const aiTexture *assimpTexture = nullptr;
         auto textureType = aiTextureType_DIFFUSE;
         std::string texturePath = "";
         std::string textureFileGUID;
         aiColor4D aiDiffuseColor;
         material->Get(AI_MATKEY_COLOR_DIFFUSE, aiDiffuseColor);
-        glm::vec4 diffuseColor = { aiDiffuseColor.r, aiDiffuseColor.g, aiDiffuseColor.b, aiDiffuseColor.a };
-        for(unsigned int i = 0; i < material->GetTextureCount(textureType); i++) {
+        glm::vec4 diffuseColor = {aiDiffuseColor.r, aiDiffuseColor.g, aiDiffuseColor.b, aiDiffuseColor.a};
+        for (unsigned int i = 0; i < material->GetTextureCount(textureType); i++) {
             aiString str;
             material->GetTexture(textureType, i, &str);
-            if(auto texture = scene->GetEmbeddedTexture(str.C_Str())) {
+            if (auto texture = scene->GetEmbeddedTexture(str.C_Str())) {
                 // texture embedded in model
                 textureEmbeddedInModel = true;
                 assimpTexture = texture;
@@ -215,7 +217,7 @@ namespace Dream {
         std::string subMeshFileID = IDUtils::newFileID(std::string(std::to_string(meshID) + "0"));
         if (!Project::getResourceManager()->hasData(meshFileGUID)) {
             if (createMeshObjects) {
-                auto* dreamMesh = new OpenGLMesh(vertices, indices);
+                auto *dreamMesh = new OpenGLMesh(vertices, indices);
                 Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
             }
         }
@@ -226,10 +228,11 @@ namespace Dream {
         if (!texturePath.empty()) {
             if (textureEmbeddedInModel && assimpTexture) {
                 // add texture embedded into model file
-                auto buffer = reinterpret_cast<unsigned char*>(assimpTexture->pcData);
-                int len = assimpTexture->mHeight == 0 ? static_cast<int>(assimpTexture->mWidth) : static_cast<int>(assimpTexture->mWidth * assimpTexture->mHeight);
+                auto buffer = reinterpret_cast<unsigned char *>(assimpTexture->pcData);
+                int len = assimpTexture->mHeight == 0 ? static_cast<int>(assimpTexture->mWidth) : static_cast<int>(
+                        assimpTexture->mWidth * assimpTexture->mHeight);
                 if (createMeshObjects) {
-                    auto* dreamTexture = new OpenGLTexture(buffer, len);
+                    auto *dreamTexture = new OpenGLTexture(buffer, len);
                     Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
                     if (createEntities) {
                         entity.addComponent<Component::MaterialComponent>(textureFileGUID, true);
@@ -239,7 +242,7 @@ namespace Dream {
                 // add texture stored in an external image file
                 if (!Project::getResourceManager()->hasData(textureFileGUID)) {
                     if (createMeshObjects) {
-                        auto* dreamTexture = new OpenGLTexture(texturePath);
+                        auto *dreamTexture = new OpenGLTexture(texturePath);
                         Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
                     }
                 }
@@ -259,9 +262,9 @@ namespace Dream {
         return entity;
     }
 
-    void OpenGLAssetLoader::extractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh) {
-        auto& boneInfoMap = m_BoneInfoMap;
-        int& boneCount1 = this->boneCount;
+    void OpenGLAssetLoader::extractBoneWeightForVertices(std::vector<Vertex> &vertices, aiMesh *mesh) {
+        auto &boneInfoMap = m_BoneInfoMap;
+        int &boneCount1 = this->boneCount;
 
         for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex) {
             int boneID = -1;
@@ -273,8 +276,7 @@ namespace Dream {
                 boneInfoMap[boneName] = newBoneInfo;
                 boneID = boneCount1;
                 boneCount1++;
-            }
-            else {
+            } else {
                 boneID = boneInfoMap[boneName].id;
             }
             assert(boneID != -1);
@@ -298,8 +300,9 @@ namespace Dream {
         // use assimp to get scene of model
         Assimp::Importer importer;
         importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);  // fixes mixamo animations
-        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
-        if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+        const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals |
+                                                       aiProcess_CalcTangentSpace);
+        if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
             Logger::fatal("Assimp scene parsing error " + std::string(importer.GetErrorString()));
             return {};
         }

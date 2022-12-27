@@ -38,7 +38,7 @@ namespace Dream {
         delete this->textEditor;
     }
 
-    void ImGuiTextEditor::open(const std::string& filepath) {
+    void ImGuiTextEditor::open(const std::string &filepath) {
         shouldSetupPositionAndSize = false;
         path = std::filesystem::path(filepath);
         fileGuid = IDUtils::getGUIDForFile(path);
@@ -59,7 +59,7 @@ namespace Dream {
         std::string fileContent;
         this->setVisibility(true);
         std::ifstream file;
-        file.exceptions (std::ifstream::failbit | std::ifstream::badbit);
+        file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
         try {
             // open files
             file.open(filepath);
@@ -73,7 +73,7 @@ namespace Dream {
             textEditor->SetText(fileContent);
             justLoaded = true;
         }
-        catch (std::ifstream::failure& e) {
+        catch (std::ifstream::failure &e) {
             Logger::fatal("Error reading file " + filepath + " [" + std::string(e.what()) + "]");
         }
     }
@@ -106,9 +106,11 @@ namespace Dream {
             }
 
             ImGuiWindowClass editor_window_class;
-            editor_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton;
+            editor_window_class.DockNodeFlagsOverrideSet =
+                    ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton;
             ImGui::SetNextWindowClass(&editor_window_class);
-            ImGui::Begin(std::string(filename + " ###File Editor").c_str(), &visible, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+            ImGui::Begin(std::string(filename + " ###File Editor").c_str(), &visible,
+                         ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
             if (ImGui::BeginMenuBar()) {
                 if (ImGui::BeginMenu("File")) {

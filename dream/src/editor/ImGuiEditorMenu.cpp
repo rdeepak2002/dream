@@ -20,20 +20,20 @@
 #include "dream/project/Project.h"
 
 namespace Dream {
-    ImGuiEditorMenu::ImGuiEditorMenu(ImGuiFileBrowser* fileBrowser) {
+    ImGuiEditorMenu::ImGuiEditorMenu(ImGuiFileBrowser *fileBrowser) {
         this->fileBrowser = fileBrowser;
     }
 
     void ImGuiEditorMenu::update() {
-        if(ImGui::BeginMainMenuBar()) {
+        if (ImGui::BeginMainMenuBar()) {
             if (ImGui::BeginMenu("File")) {
-                if(ImGui::MenuItem("Save")) {
+                if (ImGui::MenuItem("Save")) {
                     Project::saveScene();
                 }
                 ImGui::EndMenu();
             }
             if (ImGui::BeginMenu("Assets")) {
-                if(ImGui::MenuItem("Import Folder")) {
+                if (ImGui::MenuItem("Import Folder")) {
                     this->fileBrowser->selectDirectory();
 //                    delete fileImporterBrowser;
 //                    fileImporterBrowser = new ImGui::FileBrowser(ImGuiFileBrowserFlags_SelectDirectory);
@@ -41,7 +41,7 @@ namespace Dream {
 //                    fileImporterBrowser->SetPwd(Project::getPath());
 //                    fileImporterBrowser->Open();
                 }
-                if(ImGui::MenuItem("Import File")) {
+                if (ImGui::MenuItem("Import File")) {
                     this->fileBrowser->selectFile();
 //                    delete fileImporterBrowser;
 //                    fileImporterBrowser = new ImGui::FileBrowser();

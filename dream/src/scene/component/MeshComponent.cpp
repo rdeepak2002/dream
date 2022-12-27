@@ -46,7 +46,8 @@ namespace Dream::Component {
         this->m_BoneInfoMap = std::move(boneMap);
     }
 
-    MeshComponent::MeshComponent(Dream::Component::MeshComponent::MeshType meshType, std::map<std::string, float> primitiveMeshData) {
+    MeshComponent::MeshComponent(Dream::Component::MeshComponent::MeshType meshType,
+                                 std::map<std::string, float> primitiveMeshData) {
         this->meshType = meshType;
     }
 
@@ -57,7 +58,7 @@ namespace Dream::Component {
                     std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
                     Project::getAssetLoader()->loadMesh(this->guid);
                 }
-                this->mesh = (OpenGLMesh*) Project::getResourceManager()->getData(this->guid, this->fileId);
+                this->mesh = (OpenGLMesh *) Project::getResourceManager()->getData(this->guid, this->fileId);
             } else {
                 if (!this->guid.empty()) {
                     if (needsToLoadBones) {

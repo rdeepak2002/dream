@@ -47,7 +47,7 @@ namespace Dream::Component {
             if (childToRemove.getComponent<HierarchyComponent>().next) {
                 // update 'prev' pointer of sibling that will be the new first child
                 auto &nextEntity = childToRemove.getComponent<HierarchyComponent>().next;
-                nextEntity.getComponent<HierarchyComponent>().prev = Entity {entt::null, nullptr};
+                nextEntity.getComponent<HierarchyComponent>().prev = Entity{entt::null, nullptr};
             }
             first = childToRemove.getComponent<HierarchyComponent>().next;
         } else {
@@ -76,9 +76,11 @@ namespace Dream::Component {
                 if (atStart) {
                     // insert child into front of list
                     auto formerFirstChild = parentHierarchyComp.first;
-                    formerFirstChild.getComponent<HierarchyComponent>().prev = Entity {newChild.entityHandle, Project::getScene()};
-                    newChild.getComponent<HierarchyComponent>().next = Entity {formerFirstChild.entityHandle, Project::getScene()};
-                    newChild.getComponent<HierarchyComponent>().prev = Entity {entt::null, nullptr};
+                    formerFirstChild.getComponent<HierarchyComponent>().prev = Entity{newChild.entityHandle,
+                                                                                      Project::getScene()};
+                    newChild.getComponent<HierarchyComponent>().next = Entity{formerFirstChild.entityHandle,
+                                                                              Project::getScene()};
+                    newChild.getComponent<HierarchyComponent>().prev = Entity{entt::null, nullptr};
                     parentHierarchyComp.first = newChild;
                 } else {
                     // insert child into end of list
@@ -86,14 +88,16 @@ namespace Dream::Component {
                     while (endChild.getComponent<HierarchyComponent>().next) {
                         endChild = endChild.getComponent<HierarchyComponent>().next;
                     }
-                    endChild.getComponent<HierarchyComponent>().next = Entity { newChild.entityHandle, Project::getScene() };
-                    newChild.getComponent<HierarchyComponent>().next = Entity {entt::null, nullptr};
-                    newChild.getComponent<HierarchyComponent>().prev = Entity { endChild.entityHandle, Project::getScene() } ;
+                    endChild.getComponent<HierarchyComponent>().next = Entity{newChild.entityHandle,
+                                                                              Project::getScene()};
+                    newChild.getComponent<HierarchyComponent>().next = Entity{entt::null, nullptr};
+                    newChild.getComponent<HierarchyComponent>().prev = Entity{endChild.entityHandle,
+                                                                              Project::getScene()};
                 }
             } else {
                 // make child head of list
-                newChild.getComponent<HierarchyComponent>().prev = Entity {entt::null, nullptr};
-                newChild.getComponent<HierarchyComponent>().next = Entity {entt::null, nullptr};
+                newChild.getComponent<HierarchyComponent>().prev = Entity{entt::null, nullptr};
+                newChild.getComponent<HierarchyComponent>().next = Entity{entt::null, nullptr};
                 parentHierarchyComp.first = newChild;
             }
             // update parent of new child
@@ -108,18 +112,22 @@ namespace Dream::Component {
         if (entity.hasComponent<HierarchyComponent>()) {
             out << YAML::Key << componentName;
             out << YAML::BeginMap;
-            auto& hierarchyComponent = entity.getComponent<HierarchyComponent>();
+            auto &hierarchyComponent = entity.getComponent<HierarchyComponent>();
             if (hierarchyComponent.first) {
-                out << YAML::Key << k_first << YAML::Value << hierarchyComponent.first.getComponent<IDComponent>().getID();
+                out << YAML::Key << k_first << YAML::Value
+                    << hierarchyComponent.first.getComponent<IDComponent>().getID();
             }
             if (hierarchyComponent.prev) {
-                out << YAML::Key << k_prev << YAML::Value << hierarchyComponent.prev.getComponent<IDComponent>().getID();
+                out << YAML::Key << k_prev << YAML::Value
+                    << hierarchyComponent.prev.getComponent<IDComponent>().getID();
             }
             if (hierarchyComponent.next) {
-                out << YAML::Key << k_next << YAML::Value << hierarchyComponent.next.getComponent<IDComponent>().getID();
+                out << YAML::Key << k_next << YAML::Value
+                    << hierarchyComponent.next.getComponent<IDComponent>().getID();
             }
             if (hierarchyComponent.parent) {
-                out << YAML::Key << k_parent << YAML::Value << hierarchyComponent.parent.getComponent<IDComponent>().getID();
+                out << YAML::Key << k_parent << YAML::Value
+                    << hierarchyComponent.parent.getComponent<IDComponent>().getID();
             }
             out << YAML::EndMap;
         }

@@ -31,10 +31,14 @@ namespace Dream::Component {
             out << YAML::Key << k_fov << YAML::Value << entity.getComponent<SceneCameraComponent>().fov;
             out << YAML::Key << k_zNear << YAML::Value << entity.getComponent<SceneCameraComponent>().zNear;
             out << YAML::Key << k_zFar << YAML::Value << entity.getComponent<SceneCameraComponent>().zFar;
-            out << YAML::Key << k_front << YAML::Value << YAML::convert<glm::vec3>().encode(entity.getComponent<SceneCameraComponent>().front);
-            out << YAML::Key << k_up << YAML::Value << YAML::convert<glm::vec3>().encode(entity.getComponent<SceneCameraComponent>().up);
-            out << YAML::Key << k_right << YAML::Value << YAML::convert<glm::vec3>().encode(entity.getComponent<SceneCameraComponent>().right);
-            out << YAML::Key << k_worldUp << YAML::Value << YAML::convert<glm::vec3>().encode(entity.getComponent<SceneCameraComponent>().worldUp);
+            out << YAML::Key << k_front << YAML::Value
+                << YAML::convert<glm::vec3>().encode(entity.getComponent<SceneCameraComponent>().front);
+            out << YAML::Key << k_up << YAML::Value
+                << YAML::convert<glm::vec3>().encode(entity.getComponent<SceneCameraComponent>().up);
+            out << YAML::Key << k_right << YAML::Value
+                << YAML::convert<glm::vec3>().encode(entity.getComponent<SceneCameraComponent>().right);
+            out << YAML::Key << k_worldUp << YAML::Value
+                << YAML::convert<glm::vec3>().encode(entity.getComponent<SceneCameraComponent>().worldUp);
             out << YAML::Key << k_yaw << YAML::Value << entity.getComponent<SceneCameraComponent>().yaw;
             out << YAML::Key << k_pitch << YAML::Value << entity.getComponent<SceneCameraComponent>().pitch;
             out << YAML::EndMap;

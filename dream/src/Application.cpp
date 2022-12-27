@@ -69,7 +69,8 @@ namespace Dream {
         } else {
             rendererViewportDimensions = this->editor->getRendererViewportDimensions();
         }
-        this->renderer->render(rendererViewportDimensions.first, rendererViewportDimensions.second, Project::isFullscreen());
+        this->renderer->render(rendererViewportDimensions.first, rendererViewportDimensions.second,
+                               Project::isFullscreen());
         if (!Project::isFullscreen()) {
             // TODO: create fixed update for editor for more costly computations
             this->editor->update(this->window, this->renderer->getOutputRenderTexture());

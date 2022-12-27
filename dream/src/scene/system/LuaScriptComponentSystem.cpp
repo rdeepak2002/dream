@@ -24,7 +24,7 @@
 #include "dream/window/KeyCodes.h"
 
 namespace Dream {
-    Entity getEntityByTag(const std::string& tag) {
+    Entity getEntityByTag(const std::string &tag) {
         return Project::getScene()->getEntityByTag(tag);
     }
 
@@ -101,44 +101,50 @@ namespace Dream {
                                     "x", &glm::vec2::x,
                                     "y", &glm::vec2::y,
                                     sol::meta_function::multiplication, sol::overload(
-                        [](const glm::vec2& v1, const glm::vec2& v2) -> glm::vec2 { return v1*v2; },
-                        [](const glm::vec2& v1, float f) -> glm::vec2 { return v1*f; },
-                        [](float f, const glm::vec2& v1) -> glm::vec2 { return f*v1; }
+                        [](const glm::vec2 &v1, const glm::vec2 &v2) -> glm::vec2 { return v1 * v2; },
+                        [](const glm::vec2 &v1, float f) -> glm::vec2 { return v1 * f; },
+                        [](float f, const glm::vec2 &v1) -> glm::vec2 { return f * v1; }
                 ),
                                     sol::meta_function::addition, sol::overload(
-                        [](const glm::vec2& v1, const glm::vec2& v2) -> glm::vec2 { return v1+v2; }
+                        [](const glm::vec2 &v1, const glm::vec2 &v2) -> glm::vec2 { return v1 + v2; }
                 ),
                                     sol::meta_function::subtraction, sol::overload(
-                        [](const glm::vec2& v1, const glm::vec2& v2) -> glm::vec2 { return v1-v2; }
+                        [](const glm::vec2 &v1, const glm::vec2 &v2) -> glm::vec2 { return v1 - v2; }
                 ),
                                     sol::meta_function::equal_to, sol::overload(
-                        [](const glm::vec2& v1, const glm::vec2& v2) -> bool { return v1 == v2; }
+                        [](const glm::vec2 &v1, const glm::vec2 &v2) -> bool { return v1 == v2; }
                 ),
                                     sol::meta_function::to_string, sol::overload(
-                        [](const glm::vec2& v1) -> std::string { return "(" + std::to_string(v1.x) + ", "+ std::to_string(v1.y) + ")"; }
+                        [](const glm::vec2 &v1) -> std::string {
+                            return "(" + std::to_string(v1.x) + ", " + std::to_string(v1.y) + ")";
+                        }
                 )
         );
 
-        lua.new_usertype<glm::vec3>("vec3", sol::constructors<glm::vec3(), glm::vec3(float), glm::vec3(float, float, float)>(),
+        lua.new_usertype<glm::vec3>("vec3",
+                                    sol::constructors<glm::vec3(), glm::vec3(float), glm::vec3(float, float, float)>(),
                                     "x", &glm::vec3::x,
                                     "y", &glm::vec3::y,
                                     "z", &glm::vec3::z,
                                     sol::meta_function::multiplication, sol::overload(
-                        [](const glm::vec3& v1, const glm::vec3& v2) -> glm::vec3 { return v1*v2; },
-                        [](const glm::vec3& v1, float f) -> glm::vec3 { return v1*f; },
-                        [](float f, const glm::vec3& v1) -> glm::vec3 { return f*v1; }
+                        [](const glm::vec3 &v1, const glm::vec3 &v2) -> glm::vec3 { return v1 * v2; },
+                        [](const glm::vec3 &v1, float f) -> glm::vec3 { return v1 * f; },
+                        [](float f, const glm::vec3 &v1) -> glm::vec3 { return f * v1; }
                 ),
                                     sol::meta_function::addition, sol::overload(
-                        [](const glm::vec3& v1, const glm::vec3& v2) -> glm::vec3 { return v1+v2; }
+                        [](const glm::vec3 &v1, const glm::vec3 &v2) -> glm::vec3 { return v1 + v2; }
                 ),
                                     sol::meta_function::subtraction, sol::overload(
-                        [](const glm::vec3& v1, const glm::vec3& v2) -> glm::vec3 { return v1-v2; }
+                        [](const glm::vec3 &v1, const glm::vec3 &v2) -> glm::vec3 { return v1 - v2; }
                 ),
                                     sol::meta_function::equal_to, sol::overload(
-                        [](const glm::vec3& v1, const glm::vec3& v2) -> bool { return v1 == v2; }
+                        [](const glm::vec3 &v1, const glm::vec3 &v2) -> bool { return v1 == v2; }
                 ),
                                     sol::meta_function::to_string, sol::overload(
-                        [](const glm::vec3& v1) -> std::string { return "(" + std::to_string(v1.x) + ", "+ std::to_string(v1.y) + ", " + std::to_string(v1.z) + ")"; }
+                        [](const glm::vec3 &v1) -> std::string {
+                            return "(" + std::to_string(v1.x) + ", " + std::to_string(v1.y) + ", " +
+                                   std::to_string(v1.z) + ")";
+                        }
                 )
         );
 
@@ -148,21 +154,24 @@ namespace Dream {
                                     "y", &glm::quat::y,
                                     "z", &glm::quat::z,
                                     sol::meta_function::multiplication, sol::overload(
-                        [](const glm::quat& v1, const glm::quat& v2) -> glm::quat { return v1*v2; },
-                        [](const glm::quat& v1, float f) -> glm::quat { return v1*f; },
-                        [](float f, const glm::quat& v1) -> glm::quat { return f*v1; }
+                        [](const glm::quat &v1, const glm::quat &v2) -> glm::quat { return v1 * v2; },
+                        [](const glm::quat &v1, float f) -> glm::quat { return v1 * f; },
+                        [](float f, const glm::quat &v1) -> glm::quat { return f * v1; }
                 ),
                                     sol::meta_function::addition, sol::overload(
-                        [](const glm::quat& v1, const glm::quat& v2) -> glm::quat { return v1+v2; }
+                        [](const glm::quat &v1, const glm::quat &v2) -> glm::quat { return v1 + v2; }
                 ),
                                     sol::meta_function::subtraction, sol::overload(
-                        [](const glm::quat& v1, const glm::quat& v2) -> glm::quat { return v1-v2; }
+                        [](const glm::quat &v1, const glm::quat &v2) -> glm::quat { return v1 - v2; }
                 ),
                                     sol::meta_function::equal_to, sol::overload(
-                        [](const glm::quat& v1, const glm::quat& v2) -> bool { return v1 == v2; }
+                        [](const glm::quat &v1, const glm::quat &v2) -> bool { return v1 == v2; }
                 ),
                                     sol::meta_function::to_string, sol::overload(
-                        [](const glm::quat& v1) -> std::string { return "(" + std::to_string(v1.w) + ", " + std::to_string(v1.x) + ", "+ std::to_string(v1.y) + ", " + std::to_string(v1.z) + ")"; }
+                        [](const glm::quat &v1) -> std::string {
+                            return "(" + std::to_string(v1.w) + ", " + std::to_string(v1.x) + ", " +
+                                   std::to_string(v1.y) + ", " + std::to_string(v1.z) + ")";
+                        }
                 )
         );
 
@@ -203,11 +212,12 @@ namespace Dream {
         );
 
         lua.new_usertype<Component::AnimatorComponent>("AnimatorComponent",
-                                                       "setVariable", sol::as_function(&Component::AnimatorComponent::setVariable)
+                                                       "setVariable",
+                                                       sol::as_function(&Component::AnimatorComponent::setVariable)
         );
 
         lua.new_usertype<Scene>("Scene",
-                                 "getEntityByTag", sol::as_function(&getEntityByTag)
+                                "getEntityByTag", sol::as_function(&getEntityByTag)
         );
 
         lua.end();
@@ -220,15 +230,16 @@ namespace Dream {
     void LuaScriptComponentSystem::update(float dt) {
         // update all entities with lua script
         auto luaScriptEntities = Project::getScene()->getEntitiesWithComponents<Component::LuaScriptComponent>();
-        for(auto entityHandle : luaScriptEntities) {
+        for (auto entityHandle: luaScriptEntities) {
             Entity entity = {entityHandle, Project::getScene()};
-            auto& component = entity.getComponent<Component::LuaScriptComponent>();
+            auto &component = entity.getComponent<Component::LuaScriptComponent>();
             std::string scriptGuid = component.guid;
             if (component.scriptPath.empty()) {
                 component.loadScriptPath();
             }
             if (!component.scriptPath.empty()) {
-                sol::protected_function_result scriptCompileResult = lua.safe_script_file(component.scriptPath, &sol::script_pass_on_error);
+                sol::protected_function_result scriptCompileResult = lua.safe_script_file(component.scriptPath,
+                                                                                          &sol::script_pass_on_error);
                 if (scriptCompileResult.valid()) {
                     if (component.needToInitTable) {
                         component.table = lua.create_table_with("value", "key");
@@ -246,7 +257,8 @@ namespace Dream {
                             return;
                         }
                     } else {
-                        if (LuaScriptComponentSystem::errorPrintedForScript.count(scriptGuid) || LuaScriptComponentSystem::modifiedScripts.count(scriptGuid)) {
+                        if (LuaScriptComponentSystem::errorPrintedForScript.count(scriptGuid) ||
+                            LuaScriptComponentSystem::modifiedScripts.count(scriptGuid)) {
                             Logger::debug("Script has no errors " + component.scriptPath);
                             LuaScriptComponentSystem::errorPrintedForScript.erase(scriptGuid);
                             LuaScriptComponentSystem::modifiedScripts.erase(scriptGuid);

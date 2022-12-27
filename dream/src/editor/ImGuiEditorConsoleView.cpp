@@ -22,20 +22,21 @@
 #include <imgui/imgui.h>
 
 namespace Dream {
-    void ImGuiEditorConsoleView::update(LogCollector* logCollector) {
+    void ImGuiEditorConsoleView::update(LogCollector *logCollector) {
         ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0, 0, 0, 1.0));
         ImGuiWindowClass console_window_class;
         console_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
         ImGui::SetNextWindowClass(&console_window_class);
         ImGui::Begin("Console");
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
+                    ImGui::GetIO().Framerate);
         if (ImGui::BeginPopupContextWindow()) {
             if (ImGui::MenuItem("Clear")) {
                 logCollector->clearLogs();
             }
             ImGui::EndPopup();
         }
-        for (const auto& log : logCollector->getLogs()) {
+        for (const auto &log: logCollector->getLogs()) {
             ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0, 1.0, 1.0, 1.0));
             std::string typeStr = "D";
             if (log.type == debug) {
