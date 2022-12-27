@@ -14,6 +14,7 @@ namespace Dream::Component {
     AnimatorComponent::AnimatorComponent() {
         this->guid = "";
         this->currentState = -1;
+        this->nextState = -1;
         this->m_CurrentTime = 0.0;
         this->m_CurrentAnimation = nullptr;
         this->m_FinalBoneMatrices.reserve(MAX_BONES);
@@ -25,6 +26,7 @@ namespace Dream::Component {
     AnimatorComponent::AnimatorComponent(std::string animatorGUID) {
         this->guid = std::move(animatorGUID);
         this->currentState = -1;
+        this->nextState = -1;
         this->m_CurrentTime = 0.0;
         this->m_CurrentAnimation = nullptr;
         this->m_FinalBoneMatrices.reserve(MAX_BONES);
@@ -38,15 +40,27 @@ namespace Dream::Component {
     }
 
     void AnimatorComponent::updateAnimation(float dt) {
-        if (m_CurrentAnimation) {
-            auto* animation = (Animation *) m_CurrentAnimation;
-            m_CurrentTime += animation->getTicksPerSecond() * dt;
-            if (m_CurrentTime > animation->getDuration()) {
-                numTimesAnimationPlayed = (numTimesAnimationPlayed + 1) % INT_MAX;
+        if (!states.empty()) {
+            currentState = 1;
+            nextState = 2;
+            auto* animation1 = (Animation *) animationObjects[states[currentState].Guid];
+            auto* animation2 = (Animation *) animationObjects[states[nextState].Guid];
+            blendTwoAnimations(animation1, animation2, blendFactor, dt);
+            blendFactor += 0.1f * dt;
+            if (blendFactor > 1.0) {
+                blendFactor = 1.0;
             }
-            m_CurrentTime = fmod(m_CurrentTime, animation->getDuration());
-            calculateBoneTransform(&animation->getRootNode(), glm::mat4(1.0f));
         }
+
+//        if (m_CurrentAnimation) {
+//            auto* animation = (Animation *) m_CurrentAnimation;
+//            m_CurrentTime += animation->getTicksPerSecond() * dt;
+//            if (m_CurrentTime > animation->getDuration()) {
+//                numTimesAnimationPlayed = (numTimesAnimationPlayed + 1) % INT_MAX;
+//            }
+//            m_CurrentTime = fmod(m_CurrentTime, animation->getDuration());
+//            calculateBoneTransform(&animation->getRootNode(), glm::mat4(1.0f));
+//        }
     }
 
     void AnimatorComponent::updateStateMachine(float dt) {
@@ -92,7 +106,9 @@ namespace Dream::Component {
                     if (allConditionsPassed) {
                         int numRequiredTimesToPlay = states[transition.OutputStateID].PlayOnce ? 1 : 0;
                         if (numTimesAnimationPlayed >= numRequiredTimesToPlay) {
-                            playAnimation(transition.InputStateID);
+//                            playAnimation(transition.InputStateID);
+                            currentState = transition.InputStateID;
+
                         } else {
                             // TODO: do animation blending here
 //                            std::cout << "should transition to next state " << transition.InputStateID << std::endl;
@@ -236,6 +252,7 @@ namespace Dream::Component {
             return;
         }
         currentState = 0;
+        nextState = 0;
         // reset animations state
         states.clear();
         transitions.clear();
@@ -297,16 +314,20 @@ namespace Dream::Component {
                 }
 //                currentState = (int) animationObjects.size() - 1;
                 currentState = 0;
+                nextState = 0;
             }
             if (currentState >= 0) {
                 playAnimation(currentState);
             }
         }
-        if (m_CurrentAnimation && needsToFindBoneEntities) {
-            boneEntities.clear();
-            loadBoneEntities(modelEntity);
-            needsToFindBoneEntities = false;
-        }
+        boneEntities.clear();
+        loadBoneEntities(modelEntity);
+        needsToFindBoneEntities = false;
+//        if (m_CurrentAnimation && needsToFindBoneEntities) {
+//            boneEntities.clear();
+//            loadBoneEntities(modelEntity);
+//            needsToFindBoneEntities = false;
+//        }
         this->needsToLoadAnimations = false;
     }
 
@@ -326,8 +347,9 @@ namespace Dream::Component {
         numTimesAnimationPlayed = 0;
         auto state = states[stateID];
         if (animationObjects.count(state.Guid) > 0) {
-            m_CurrentAnimation = animationObjects[state.Guid];
+//            m_CurrentAnimation = animationObjects[state.Guid];
             currentState = stateID;
+            nextState = stateID;
         } else {
             Logger::fatal("Unable to find animation with GUID " + state.Guid);
         }
@@ -349,7 +371,8 @@ namespace Dream::Component {
                                                           void* pAnimationLayerV, const AssimpNodeData* nodeLayered,
                                                           const float currentTimeBase, const float currentTimeLayered,
                                                           const glm::mat4& parentTransform,
-                                                          const float blendFactor) {
+                                                          const float blendFactor,
+                                                          int depth) {
         Animation* pAnimationBase = (Animation *) pAnimationBaseV;
         Animation* pAnimationLayer = (Animation *) pAnimationLayerV;
 
@@ -387,6 +410,27 @@ namespace Dream::Component {
             const glm::mat4& offset = boneInfoMap.at(nodeName).offset;
 
             m_FinalBoneMatrices[index] = globalTransformation * offset;
+
+            if (pBone) {
+                if (boneEntities.count(pBone->getBoneID()) > 0) {
+                    glm::vec3 scale;
+                    glm::quat rotation;
+                    glm::vec3 translation;
+                    if (depth == 1) {
+                        // we don't count 'RootNode' as a bone, so we have to do this to include its transformation
+                        // for the first layer of bones
+                        MathUtils::decomposeMatrix(parentTransform * nodeTransform, translation, rotation, scale);
+                    } else {
+                        // all bones after the first layer (usually everything after hip bone for skeletons)
+                        MathUtils::decomposeMatrix(nodeTransform, translation, rotation, scale);
+                    }
+                    boneEntities[pBone->getBoneID()].getComponent<TransformComponent>().translation = translation;
+                    boneEntities[pBone->getBoneID()].getComponent<TransformComponent>().rotation = rotation;
+                    boneEntities[pBone->getBoneID()].getComponent<TransformComponent>().scale = scale;
+                } else {
+                    Logger::warn("Cannot find entity for bone " + pBone->getBoneName() + " with ID " + std::to_string(pBone->getBoneID()));
+                }
+            }
         }
 
         for (size_t i = 0; i < node->children.size(); ++i)

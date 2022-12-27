@@ -188,9 +188,10 @@ namespace Dream::Component {
         int numTimesAnimationPlayed = 0;
         bool needsToLoadAnimations = true;
         bool needsToFindBoneEntities = true;
+        float blendFactor = 0.0f;
         std::map<int, Entity> boneEntities;
         // state machine variables
-        int currentState;
+        int currentState, nextState;
         inline static std::string k_states = "States";
         std::vector<State> states;
         inline static std::string k_transitions = "Transitions";
@@ -213,7 +214,8 @@ namespace Dream::Component {
                 void* pAnimationLayerV, const AssimpNodeData* nodeLayered,
                 const float currentTimeBase, const float currentTimeLayered,
                 const glm::mat4& parentTransform,
-                const float blendFactor);
+                const float blendFactor,
+                int depth=0);
         void updateAnimation(float dt);
         void updateStateMachine(float dt);
         void loadStateMachine(Entity modelEntity);
