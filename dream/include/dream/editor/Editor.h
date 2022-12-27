@@ -26,13 +26,19 @@ namespace Dream {
     class Editor {
     public:
         virtual void update(Dream::Window *window, unsigned int frameBufferTexture);
+
         virtual std::pair<int, int> getRendererViewportDimensions();
-        void setLogCollector(LogCollector* logCollector);
+
+        void setLogCollector(LogCollector *logCollector);
+
     protected:
         explicit Editor(Dream::Window *window);
+
         virtual void newFrame(Dream::Window *window);
+
         virtual void renderDrawData();
-        LogCollector* logCollector;
+
+        LogCollector *logCollector;
     };
 }
 

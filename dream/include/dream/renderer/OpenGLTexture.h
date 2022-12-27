@@ -26,7 +26,7 @@
 
 namespace Dream {
     class OpenGLTexture : public Texture {
-        private:
+    private:
 //            unsigned int ID;
 //            // directly change the texture state where relevant from within the setters.
 //            GLenum Target         = GL_TEXTURE_2D;           // what type of texture we're dealing with
@@ -40,19 +40,24 @@ namespace Dream {
 //            GLenum WrapR          = GL_REPEAT;               // wrapping method of the R coordinate
 //            bool Mipmapping       = true;
 
-            unsigned int id = 0;
-            int width  = 0;
-            int height = 0;
-            int nrChannels = 0;
+        unsigned int id = 0;
+        int width = 0;
+        int height = 0;
+        int nrChannels = 0;
 //            unsigned int Depth  = 0;
-        private:
-        public:
-            OpenGLTexture(std::string texturePath, bool flipTexture=true);
-            OpenGLTexture(stbi_uc const *buffer, int len, bool flipTexture=true);
-            ~OpenGLTexture();
-            void bind(int unit = -1);
-            void unbind();
-            unsigned int ID() override;
+    private:
+    public:
+        OpenGLTexture(std::string texturePath, bool flipTexture = true);
+
+        OpenGLTexture(stbi_uc const *buffer, int len, bool flipTexture = true);
+
+        ~OpenGLTexture();
+
+        void bind(int unit = -1);
+
+        void unbind();
+
+        unsigned int ID() override;
     };
 }
 

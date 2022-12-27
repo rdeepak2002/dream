@@ -25,22 +25,32 @@
 #define MAX_LOGS 100
 
 namespace Dream {
-    enum LogType { debug, warn, error, info, fatal };
+    enum LogType {
+        debug, warn, error, info, fatal
+    };
     struct Log {
         LogType type;
         std::string text;
     };
+
     class LogCollector : public LoggerListener {
     private:
         std::vector<Log> logs;
     public:
         LogCollector();
+
         void debugLogPublished(std::string text) override;
+
         void warnLogPublished(std::string text) override;
+
         void errorLogPublished(std::string text) override;
+
         void infoLogPublished(std::string text) override;
+
         void fatalLogPublished(std::string text) override;
+
         std::vector<Log> getLogs();
+
         void clearLogs();
     };
 }

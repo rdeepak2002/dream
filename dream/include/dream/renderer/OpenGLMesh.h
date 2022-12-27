@@ -28,12 +28,18 @@ namespace Dream {
     class OpenGLMesh : public Mesh {
     public:
         OpenGLMesh(std::vector<Vertex> vertices, std::vector<unsigned int> indicesIn);
+
         unsigned int getVAO();
+
         unsigned int getVBO();
+
         unsigned int getEBO();
+
         void finalize(bool interleaved = true);
+
     protected:
         OpenGLMesh();
+
         unsigned int vao = 0;
         unsigned int vbo = 0;
         unsigned int ebo = 0;

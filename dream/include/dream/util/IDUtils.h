@@ -25,8 +25,8 @@
 #include "dream/util/MD5.h"
 
 namespace uuid {
-    static std::random_device              rd;
-    static std::mt19937                    gen(rd());
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
     static std::uniform_int_distribution<> dis(0, 15);
     static std::uniform_int_distribution<> dis2(8, 11);
 
@@ -37,7 +37,9 @@ namespace Dream {
     class IDUtils {
     public:
         static std::string newGUID();
+
         static std::string newFileID(std::string uniqueIdentifier);
+
         static std::string getGUIDForFile(std::string filepath);
     };
 }

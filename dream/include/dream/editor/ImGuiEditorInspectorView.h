@@ -31,14 +31,23 @@ namespace Dream {
     class ImGuiEditorInspectorView {
     public:
         ImGuiEditorInspectorView();
+
         ~ImGuiEditorInspectorView();
+
         void update();
+
         void lookAtSelectedEntity();
-        void selectEntity(Entity& entity);
+
+        void selectEntity(Entity &entity);
+
         void unselectEntity();
-        void setTextEditor(ImGuiTextEditor* imGuiTextEditor);
-        void setAnimatorGraphEditor(ImGuiEditorAnimatorGraph* animatorGraphEditor);
+
+        void setTextEditor(ImGuiTextEditor *imGuiTextEditor);
+
+        void setAnimatorGraphEditor(ImGuiEditorAnimatorGraph *animatorGraphEditor);
+
         Entity getSelectedEntity();
+
     private:
 
 
@@ -55,26 +64,42 @@ namespace Dream {
 
 
         Entity selectedEntity;
+
         void addComponent(std::string componentID);
+
         void renderRemoveComponent();
+
         void renderAddComponent();
-        void renderVec3Control(const std::string& label, glm::vec3& values, float contentWidth, float resetValue, float vSpeed, std::pair<float, float> vMinMax1 = {0, 0}, std::pair<float, float> vMinMax2 = {0, 0}, std::pair<float, float> vMinMax3 = {0, 0});
+
+        void renderVec3Control(const std::string &label, glm::vec3 &values, float contentWidth, float resetValue,
+                               float vSpeed, std::pair<float, float> vMinMax1 = {0, 0},
+                               std::pair<float, float> vMinMax2 = {0, 0}, std::pair<float, float> vMinMax3 = {0, 0});
+
         void renderTagComponent();
+
         void renderTransformComponent();
+
         void renderMeshComponent();
+
         void renderMaterialComponent();
+
         void renderLuaScriptComponent();
+
         void renderAnimatorComponent();
+
         void renderBoneComponent();
+
         void renderSceneCameraComponent();
+
         void renderCameraComponent();
+
         // TODO: move mesh component render method to new class
         // mesh component renderer variables
-        ImGui::FileBrowser* meshSelectorBrowser;
+        ImGui::FileBrowser *meshSelectorBrowser;
         std::string oldMeshGUID;
-        ImGui::FileBrowser* luaScriptSelectorBrowser;
-        ImGuiTextEditor* imGuiTextEditor;
-        ImGuiEditorAnimatorGraph* animatorGraphEditor;
+        ImGui::FileBrowser *luaScriptSelectorBrowser;
+        ImGuiTextEditor *imGuiTextEditor;
+        ImGuiEditorAnimatorGraph *animatorGraphEditor;
     };
 }
 

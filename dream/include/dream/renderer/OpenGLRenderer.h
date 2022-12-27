@@ -31,18 +31,28 @@ namespace Dream {
     class OpenGLRenderer : public Renderer {
     public:
         OpenGLRenderer();
+
         ~OpenGLRenderer();
+
         void render(int viewportWidth, int viewportHeight, bool fullscreen) override;
+
         unsigned int getOutputRenderTexture() override;
+
     private:
         OpenGLShader *shader;
-        OpenGLFrameBuffer* frameBuffer;
-        OpenGLTexture* texture;
+        OpenGLFrameBuffer *frameBuffer;
+        OpenGLTexture *texture;
+
         void resizeFrameBuffer();
+
         void printGLVersion();
+
         void updateViewportSize(int viewportWidth, int viewportHeight, bool fullscreen);
+
         void preRender(int viewportWidth, int viewportHeight, bool fullscreen);
+
         void postRender(bool fullscreen);
+
         std::pair<int, int> getViewportDimensions();
     };
 }

@@ -25,7 +25,7 @@
 namespace Dream {
     class MathUtils {
     public:
-        static void decomposeMatrix(const glm::mat4& m, glm::vec3& pos, glm::quat& rot, glm::vec3& scale);
+        static void decomposeMatrix(const glm::mat4 &m, glm::vec3 &pos, glm::quat &rot, glm::vec3 &scale);
     };
 }
 

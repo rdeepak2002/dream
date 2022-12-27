@@ -23,6 +23,7 @@ namespace Dream {
     class AnimatorComponentSystem {
     public:
         void init();
+
         void update(float dt);
     };
 }

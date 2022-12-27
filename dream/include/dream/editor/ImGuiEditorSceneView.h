@@ -26,12 +26,16 @@ namespace Dream {
     class ImGuiEditorSceneView {
     public:
         ImGuiEditorSceneView();
+
         void update();
+
         void renderSceneViewEntity(Entity &entity);
-        void setInspectorView(ImGuiEditorInspectorView* inspectorView);
+
+        void setInspectorView(ImGuiEditorInspectorView *inspectorView);
+
     private:
         bool justSelectedEntity;
-        ImGuiEditorInspectorView* inspectorView;
+        ImGuiEditorInspectorView *inspectorView;
     };
 }
 

@@ -26,7 +26,9 @@
 namespace Dream {
     class AssetLoader {
     public:
-        virtual std::map<std::string, BoneInfo> loadMesh(std::string guid, bool createEntities=false, Entity rootEntity={});
+        virtual std::map<std::string, BoneInfo>
+        loadMesh(std::string guid, bool createEntities = false, Entity rootEntity = {});
+
         virtual std::map<std::string, BoneInfo> loadBones(std::string guid);
     };
 }

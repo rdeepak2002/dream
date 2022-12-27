@@ -30,7 +30,7 @@ namespace Dream {
          * @param meshGUID
          * @param recursively
          */
-        static void removeMeshReference(Entity entity, std::string meshGUID, bool recursively=true);
+        static void removeMeshReference(Entity entity, std::string meshGUID, bool recursively = true);
     };
 }
 

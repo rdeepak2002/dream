@@ -26,16 +26,20 @@
 namespace Dream {
     class ImGuiEditorProjectView {
     public:
-        ImGuiEditorProjectView(ImGuiTextEditor* fileBrowser);
+        ImGuiEditorProjectView(ImGuiTextEditor *fileBrowser);
+
         ~ImGuiEditorProjectView();
+
         void update();
+
     private:
-        ImGuiTextEditor* textEditor;
+        ImGuiTextEditor *textEditor;
         std::filesystem::path currentPath;
         unsigned int fileIcon, folderIcon;
         std::set<std::string> ignoredExtensions;
         std::set<std::string> ignoredFileNames;
-        std::vector<std::string> split(const std::string& str, const char& ch);
+
+        std::vector<std::string> split(const std::string &str, const char &ch);
     };
 }
 

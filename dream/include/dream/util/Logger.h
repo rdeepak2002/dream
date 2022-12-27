@@ -34,22 +34,31 @@
 namespace Dream {
     class Logger {
     public:
-        static Logger& getInstance() {
+        static Logger &getInstance() {
             static Logger instance;
             return instance;
         }
-        static void debug(const std::string& text);
-        static void error(const std::string& text);
-        static void warn(const std::string& text);
-        static void info(const std::string& text);
-        static void fatal(const std::string& text, bool endProgram = true);
-        static void registerLoggerListener(LoggerListener* loggerListener);
+
+        static void debug(const std::string &text);
+
+        static void error(const std::string &text);
+
+        static void warn(const std::string &text);
+
+        static void info(const std::string &text);
+
+        static void fatal(const std::string &text, bool endProgram = true);
+
+        static void registerLoggerListener(LoggerListener *loggerListener);
+
     private:
         Logger() = default;
-        LoggerListener* loggerListener;
+
+        LoggerListener *loggerListener;
     public:
-        Logger(Logger const&) = delete;
-        void operator=(Logger const&) = delete;
+        Logger(Logger const &) = delete;
+
+        void operator=(Logger const &) = delete;
     };
 }
 

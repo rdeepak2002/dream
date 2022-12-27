@@ -26,12 +26,17 @@ namespace Dream {
     class ImGuiFileBrowser {
     public:
         ImGuiFileBrowser();
+
         ~ImGuiFileBrowser();
+
         void update();
+
         void selectDirectory();
+
         void selectFile();
+
     private:
-        ImGui::FileBrowser* fileImporterBrowser;
+        ImGui::FileBrowser *fileImporterBrowser;
     };
 }
 

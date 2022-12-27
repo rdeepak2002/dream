@@ -38,12 +38,17 @@ namespace Dream {
         // effect of each bone on this vertex
         float boneWeights[MAX_BONE_INFLUENCE];
     };
+
     class Mesh {
     public:
         void setIndices(std::vector<unsigned int> indices);
+
         void setVertices(std::vector<Vertex> vertices);
+
         virtual std::vector<unsigned int> getIndices();
+
         virtual std::vector<Vertex> getVertices();
+
     protected:
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;

@@ -36,25 +36,33 @@ namespace Dream {
     class ImGuiEditor : public Editor {
     public:
         ~ImGuiEditor();
+
         void update(Dream::Window *window, unsigned int frameBufferTexture) override;
+
         void style();
+
         std::pair<int, int> getRendererViewportDimensions() override;
+
     protected:
         explicit ImGuiEditor(Dream::Window *window);
+
         void newFrame(Dream::Window *window) override;
+
         void renderDrawData() override;
+
         int rendererViewportWidth, rendererViewportHeight;
     private:
         void setupDockSpace();
-        ImGuiEditorSceneView* sceneView;
-        ImGuiEditorInspectorView* inspectorView;
-        ImGuiEditorProjectView* projectView;
-        ImGuiEditorConsoleView* consoleView;
-        ImGuiEditorRendererView* rendererView;
-        ImGuiEditorMenu* menu;
-        ImGuiTextEditor* textEditor;
-        ImGuiFileBrowser* fileBrowser;
-        ImGuiEditorAnimatorGraph* animatorGraphEditor;
+
+        ImGuiEditorSceneView *sceneView;
+        ImGuiEditorInspectorView *inspectorView;
+        ImGuiEditorProjectView *projectView;
+        ImGuiEditorConsoleView *consoleView;
+        ImGuiEditorRendererView *rendererView;
+        ImGuiEditorMenu *menu;
+        ImGuiTextEditor *textEditor;
+        ImGuiFileBrowser *fileBrowser;
+        ImGuiEditorAnimatorGraph *animatorGraphEditor;
     };
 }
 

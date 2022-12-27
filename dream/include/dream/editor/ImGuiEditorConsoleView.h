@@ -24,7 +24,7 @@
 namespace Dream {
     class ImGuiEditorConsoleView {
     public:
-        void update(LogCollector* logCollector);
+        void update(LogCollector *logCollector);
     };
 }
 

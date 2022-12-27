@@ -28,12 +28,19 @@ namespace Dream {
     class ImGuiTextEditor {
     public:
         ImGuiTextEditor();
+
         ~ImGuiTextEditor();
-        void open(const std::string& filepath);
+
+        void open(const std::string &filepath);
+
         void save();
+
         void loadEmptyFile();
+
         void update();
+
         void setVisibility(bool isVisible);
+
     private:
         bool isDarkMode;
         bool isFullscreen;
@@ -41,8 +48,8 @@ namespace Dream {
         bool visible;
         bool unsavedChanges;
         bool justLoaded;
-        TextEditor* textEditor;
-        ImGui::FileBrowser* fileBrowser;
+        TextEditor *textEditor;
+        ImGui::FileBrowser *fileBrowser;
         std::string filename;
         std::filesystem::path path;
         std::string fileGuid;

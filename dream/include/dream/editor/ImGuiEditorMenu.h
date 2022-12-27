@@ -25,10 +25,12 @@
 namespace Dream {
     class ImGuiEditorMenu {
     public:
-        ImGuiEditorMenu(ImGuiFileBrowser* fileBrowser);
+        ImGuiEditorMenu(ImGuiFileBrowser *fileBrowser);
+
         void update();
+
     private:
-        ImGuiFileBrowser* fileBrowser;
+        ImGuiFileBrowser *fileBrowser;
     };
 }
 

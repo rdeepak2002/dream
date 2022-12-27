@@ -23,7 +23,9 @@ namespace Dream {
     class Renderer {
     public:
         virtual void render(int viewportWidth, int viewportHeight, bool fullscreen);
+
         virtual unsigned int getOutputRenderTexture();
+
     protected:
         Renderer();
     };

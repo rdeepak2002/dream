@@ -25,9 +25,13 @@ namespace Dream {
     class LoggerListener {
     public:
         virtual void debugLogPublished(std::string text) = 0;
+
         virtual void warnLogPublished(std::string text) = 0;
+
         virtual void errorLogPublished(std::string text) = 0;
+
         virtual void infoLogPublished(std::string text) = 0;
+
         virtual void fatalLogPublished(std::string text) = 0;
     };
 }

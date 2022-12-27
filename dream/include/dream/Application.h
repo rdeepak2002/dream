@@ -32,16 +32,23 @@ namespace Dream {
     class Application {
     public:
         Application();
+
         ~Application();
+
         void update();
+
         bool shouldClose();
+
     private:
-        LogCollector* logCollector;
-        Window* window;
-        Renderer* renderer;
-        Editor* editor;
+        LogCollector *logCollector;
+        Window *window;
+        Renderer *renderer;
+        Editor *editor;
+
         void fixedUpdate();
+
         std::filesystem::path getResourcesRoot();
+
         std::chrono::time_point<std::chrono::high_resolution_clock> currentTime;
         std::chrono::nanoseconds lag;
     };

@@ -27,22 +27,27 @@
 namespace Dream {
     class Entity {
     public:
-        entt::entity entityHandle { entt::null };
-        Scene* scene = nullptr;
+        entt::entity entityHandle{entt::null};
+        Scene *scene = nullptr;
+
         Entity();
-        Entity(entt::entity handle, Scene* scene);
+
+        Entity(entt::entity handle, Scene *scene);
+
         template<typename T, typename ... Args>
-        T& addComponent(Args&&... args) {
-            T& component = scene->entityRegistry.emplace_or_replace<T>(entityHandle, std::forward<Args>(args)...);
+        T &addComponent(Args &&... args) {
+            T &component = scene->entityRegistry.emplace_or_replace<T>(entityHandle, std::forward<Args>(args)...);
             return component;
         }
+
         template<typename T>
-        T& getComponent() {
+        T &getComponent() {
             if (!hasComponent<T>()) {
                 Logger::fatal("Entity does not have component");
             }
             return scene->entityRegistry.get<T>(entityHandle);
         }
+
         template<typename T>
         bool hasComponent() {
             if (auto *comp = scene->entityRegistry.try_get<T>(entityHandle)) {
@@ -51,6 +56,7 @@ namespace Dream {
                 return false;
             }
         }
+
         template<typename T>
         void removeComponent() {
             if (!hasComponent<T>()) {
@@ -58,16 +64,26 @@ namespace Dream {
             }
             scene->entityRegistry.remove<T>(entityHandle);
         }
+
         void addChild(Entity entity, bool atStart = true);
+
         int numChildren();
+
         void serialize(YAML::Emitter &out);
+
         void deserialize(YAML::Node node);
+
         std::string getID();
+
         bool isValid();
+
         explicit operator bool() const;
+
         explicit operator entt::entity() const;
-        bool operator==(const Entity& other) const;
-        bool operator!=(const Entity& other) const;
+
+        bool operator==(const Entity &other) const;
+
+        bool operator!=(const Entity &other) const;
     };
 }
 

@@ -26,9 +26,13 @@ namespace Dream {
     class AudioComponentSystem {
     public:
         AudioComponentSystem();
+
         ~AudioComponentSystem();
+
         void update(float dt);
+
         void init();
+
     private:
         ALCdevice *device;
     };

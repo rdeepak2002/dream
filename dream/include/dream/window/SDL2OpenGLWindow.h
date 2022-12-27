@@ -26,10 +26,14 @@ namespace Dream {
     class SDL2OpenGLWindow : public SDL2Window {
     public:
         SDL2OpenGLWindow();
+
         void swapBuffers() override;
+
         SDL_GLContext getSDL2GLContext();
+
     protected:
         void pollEditorEvents(SDL_Event &Event) override;
+
     private:
         SDL_GLContext glContext;
     };

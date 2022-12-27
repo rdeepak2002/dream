@@ -25,16 +25,27 @@ namespace Dream {
     class OpenGLFrameBuffer {
     public:
         OpenGLFrameBuffer();
+
         ~OpenGLFrameBuffer();
+
         void resize(int fbWidth, int fbHeight);
+
         void bindTexture();
+
         void bindFrameBuffer();
+
         void bindDefaultFrameBuffer();
+
         void renderScreenQuad();
+
         void clear();
+
         int getTexture();
+
         int getWidth();
+
         int getHeight();
+
     private:
         int width, height;
         unsigned int framebuffer, textureColorbuffer, rbo, screenQuadVAO;
