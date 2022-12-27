@@ -432,10 +432,10 @@ namespace Dream::Component {
                     if (depth == 1) {
                         // we don't count 'RootNode' as a bone, so we have to do this to include its transformation
                         // for the first layer of bones
-                        MathUtils::decomposeMatrix(parentTransform * nodeTransform, translation, rotation, scale);
+                        MathUtils::decomposeMatrix(parentTransform * blendedMat, translation, rotation, scale);
                     } else {
                         // all bones after the first layer (usually everything after hip bone for skeletons)
-                        MathUtils::decomposeMatrix(nodeTransform, translation, rotation, scale);
+                        MathUtils::decomposeMatrix(blendedMat, translation, rotation, scale);
                     }
                     boneEntities[pBone->getBoneID()].getComponent<TransformComponent>().translation = translation;
                     boneEntities[pBone->getBoneID()].getComponent<TransformComponent>().rotation = rotation;
@@ -450,7 +450,7 @@ namespace Dream::Component {
         for (size_t i = 0; i < node->children.size(); ++i)
             calculateBlendedBoneTransform(pAnimationBase, &node->children[i], pAnimationLayer,
                                           &nodeLayered->children[i], currentTimeBase, currentTimeLayered,
-                                          globalTransformation, blendFactor);
+                                          globalTransformation, blendFactor, depth + 1);
     }
 
     void AnimatorComponent::blendTwoAnimations(void *pBaseAnimationV, void *pLayeredAnimationV, float blendFactor,
