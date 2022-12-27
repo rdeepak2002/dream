@@ -207,6 +207,13 @@ namespace Dream::Component {
         ~AnimatorComponent();
         AnimatorComponent(std::string animatorGUID);
         void calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform, int depth=0);
+        void blendTwoAnimations(void* pBaseAnimationV, void* pLayeredAnimationV, float blendFactor, float deltaTime);
+        void calculateBlendedBoneTransform(
+                void* pAnimationBaseV,  const AssimpNodeData* node,
+                void* pAnimationLayerV, const AssimpNodeData* nodeLayered,
+                const float currentTimeBase, const float currentTimeLayered,
+                const glm::mat4& parentTransform,
+                const float blendFactor);
         void updateAnimation(float dt);
         void updateStateMachine(float dt);
         void loadStateMachine(Entity modelEntity);

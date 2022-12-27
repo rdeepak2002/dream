@@ -344,4 +344,77 @@ namespace Dream::Component {
             return -1;
         }
     }
+
+    void AnimatorComponent::calculateBlendedBoneTransform(void* pAnimationBaseV,  const AssimpNodeData* node,
+                                                          void* pAnimationLayerV, const AssimpNodeData* nodeLayered,
+                                                          const float currentTimeBase, const float currentTimeLayered,
+                                                          const glm::mat4& parentTransform,
+                                                          const float blendFactor) {
+        Animation* pAnimationBase = (Animation *) pAnimationBaseV;
+        Animation* pAnimationLayer = (Animation *) pAnimationLayerV;
+
+        const std::string& nodeName = node->name;
+
+        glm::mat4 nodeTransform = node->transformation;
+        AnimationBone* pBone = pAnimationBase->findBone(nodeName);
+        if (pBone)
+        {
+            pBone->update(currentTimeBase);
+            nodeTransform = pBone->getLocalTransform();
+        }
+
+        glm::mat4 layeredNodeTransform = nodeLayered->transformation;
+        pBone = pAnimationLayer->findBone(nodeName);
+        if (pBone)
+        {
+            pBone->update(currentTimeLayered);
+            layeredNodeTransform = pBone->getLocalTransform();
+        }
+
+        // Blend two matrices
+        const glm::quat rot0 = glm::quat_cast(nodeTransform);
+        const glm::quat rot1 = glm::quat_cast(layeredNodeTransform);
+        const glm::quat finalRot = glm::slerp(rot0, rot1, blendFactor);
+        glm::mat4 blendedMat = glm::mat4_cast(finalRot);
+        blendedMat[3] = (1.0f - blendFactor) * nodeTransform[3] + layeredNodeTransform[3] * blendFactor;
+
+        glm::mat4 globalTransformation = parentTransform * blendedMat;
+
+        const auto& boneInfoMap = pAnimationBase->getBoneIdMap();
+        if (boneInfoMap.find(nodeName) != boneInfoMap.end())
+        {
+            const int index = boneInfoMap.at(nodeName).id;
+            const glm::mat4& offset = boneInfoMap.at(nodeName).offset;
+
+            m_FinalBoneMatrices[index] = globalTransformation * offset;
+        }
+
+        for (size_t i = 0; i < node->children.size(); ++i)
+            calculateBlendedBoneTransform(pAnimationBase, &node->children[i], pAnimationLayer, &nodeLayered->children[i], currentTimeBase, currentTimeLayered, globalTransformation, blendFactor);
+    }
+
+    void AnimatorComponent::blendTwoAnimations(void *pBaseAnimationV, void *pLayeredAnimationV, float blendFactor,
+                                               float deltaTime) {
+        Animation* pBaseAnimation = (Animation *) pBaseAnimationV;
+        Animation* pLayeredAnimation = (Animation *) pLayeredAnimationV;
+        // Speed multipliers to correctly transition from one animation to another
+        float a = 1.0f;
+        float b = pBaseAnimation->getDuration() / pLayeredAnimation->getDuration();
+        const float animSpeedMultiplierUp = (1.0f - blendFactor) * a + b * blendFactor; // Lerp
+
+        a = pLayeredAnimation->getDuration() / pBaseAnimation->getDuration();
+        b = 1.0f;
+        const float animSpeedMultiplierDown = (1.0f - blendFactor) * a + b * blendFactor; // Lerp
+
+        // Current time of each animation, "scaled" by the above speed multiplier variables
+        static float currentTimeBase = 0.0f;
+        currentTimeBase += pBaseAnimation->getTicksPerSecond() * deltaTime * animSpeedMultiplierUp;
+        currentTimeBase = fmod(currentTimeBase, pBaseAnimation->getDuration());
+
+        static float currentTimeLayered = 0.0f;
+        currentTimeLayered += pLayeredAnimation->getTicksPerSecond() * deltaTime * animSpeedMultiplierDown;
+        currentTimeLayered = fmod(currentTimeLayered, pLayeredAnimation->getDuration());
+
+        calculateBlendedBoneTransform(pBaseAnimation, &pBaseAnimation->getRootNode(), pLayeredAnimation, &pLayeredAnimation->getRootNode(), currentTimeBase, currentTimeLayered, glm::mat4(1.0f), blendFactor);
+    }
 }
