@@ -39,6 +39,8 @@ namespace Dream {
 
         bool shouldClose();
 
+        static std::filesystem::path getResourcesRoot();
+
     private:
         LogCollector *logCollector;
         Window *window;
@@ -46,8 +48,6 @@ namespace Dream {
         Editor *editor;
 
         void fixedUpdate();
-
-        std::filesystem::path getResourcesRoot();
 
         std::chrono::time_point<std::chrono::high_resolution_clock> currentTime;
         std::chrono::nanoseconds lag;

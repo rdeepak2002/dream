@@ -23,6 +23,7 @@
 #include "dream/window/Input.h"
 #include "dream/window/KeyCodes.h"
 #include "dream/project/Project.h"
+#include "dream/Application.h"
 #include <SDL2/SDL_image.h>
 
 #ifdef BORDERLESS
@@ -87,7 +88,7 @@ namespace Dream {
         // draw Dream logo in launch screen
         if (!launchWindowRenderer) {
             launchWindowRenderer = SDL_CreateRenderer(launchWindow, -1, SDL_RENDERER_ACCELERATED);
-            std::string launchWindowImagePath = std::filesystem::current_path().append("resources").append(
+            std::string launchWindowImagePath = Application::getResourcesRoot().append(
                     "editor-resources").append("logo").append("logo-original.png");
             launchWindowImage = IMG_LoadTexture(launchWindowRenderer, launchWindowImagePath.c_str());
         }

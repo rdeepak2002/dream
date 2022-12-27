@@ -30,6 +30,7 @@
 #include "dream/util/Logger.h"
 #include "dream/renderer/OpenGLTexture.h"
 #include "dream/util/StringUtils.h"
+#include "dream/Application.h"
 
 namespace Dream {
     ImGuiEditorInspectorView::ImGuiEditorInspectorView() {
@@ -39,14 +40,14 @@ namespace Dream {
 
         // TODO: use specific renderer (not OpenGL)
         Texture *selectIconTexture = new OpenGLTexture(
-                std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("editor-resources").append("icons").append(
                         "SelectIconWhite.png"), false);
         selectIcon = selectIconTexture->ID();
         delete selectIconTexture;
 
         // TODO: use specific renderer (not OpenGL)
         Texture *editIconTexture = new OpenGLTexture(
-                std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("editor-resources").append("icons").append(
                         "EditIconDark.png"), false);
         editIcon = editIconTexture->ID();
         delete editIconTexture;

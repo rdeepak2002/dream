@@ -23,6 +23,7 @@
 #include <imgui/imgui_internal.h>
 #include "dream/project/Project.h"
 #include "dream/window/Input.h"
+#include "dream/Application.h"
 
 namespace Dream {
     ImGuiEditor::ImGuiEditor(Dream::Window *window) : Editor(window) {
@@ -50,7 +51,7 @@ namespace Dream {
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
         float fontSize = 16.f;
         io.Fonts->AddFontFromFileTTF(
-                std::filesystem::current_path().append("resources").append("editor-resources").append("fonts").append(
+                Application::getResourcesRoot().append("editor-resources").append("fonts").append(
                         "font.otf").c_str(), fontSize);
 
         // setup Dear ImGui style

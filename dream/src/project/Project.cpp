@@ -69,7 +69,7 @@ namespace Dream {
             this->recognizeResourcesHelper();
             this->loadScene();
         } else {
-            Logger::fatal("Project folder does not exist");
+            Logger::fatal("Project folder does not exist " + filepath.string());
         }
     }
 

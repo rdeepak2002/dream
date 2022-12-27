@@ -30,7 +30,7 @@ namespace Dream {
 
     Application::Application() {
         this->logCollector = new LogCollector();
-        Project::open(this->getResourcesRoot().append("resources").append("example-projects").append("sample-project"));
+        Project::open(this->getResourcesRoot().append("example-projects").append("sample-project"));
         this->window = new SDL2OpenGLWindow();
         this->renderer = new OpenGLRenderer();
         this->editor = new ImGuiSDL2OpenGLEditor(this->window);
@@ -88,20 +88,12 @@ namespace Dream {
     }
 
     std::filesystem::path Application::getResourcesRoot() {
-        // check if current path already has resources folder
-        if (std::filesystem::exists(std::filesystem::current_path().append("resources"))) {
-            return std::filesystem::current_path();
+        if (!std::filesystem::exists(std::filesystem::current_path().append("editor-resources"))) {
+            Logger::fatal("Cannot find editor resources folder");
         }
-        // try to find location of resources folder for desktop debug build
-        auto resourcesFolder = std::filesystem::current_path()
-                .append("..")
-                .append("..")
-                .append("..")
-                .append("resources");
-        if (std::filesystem::exists(resourcesFolder)) {
-            return resourcesFolder.append("..");
+        if (!std::filesystem::exists(std::filesystem::current_path().append("example-projects"))) {
+            Logger::fatal("Cannot find example projects folder");
         }
-        Logger::fatal("Unable to find examples folder");
-        return {};
+        return std::filesystem::current_path();
     }
 }

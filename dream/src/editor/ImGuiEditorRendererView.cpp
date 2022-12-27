@@ -22,30 +22,31 @@
 #include <imgui/imgui_internal.h>
 #include "dream/renderer/OpenGLTexture.h"
 #include "dream/window/Input.h"
+#include "dream/Application.h"
 
 namespace Dream {
     ImGuiEditorRendererView::ImGuiEditorRendererView() {
         // TODO: use specific renderer (not OpenGL)
         Texture *playIconTexture = new OpenGLTexture(
-                std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("editor-resources").append("icons").append(
                         "PlayIcon.png"), false);
         playIcon = playIconTexture->ID();
         delete playIconTexture;
         // TODO: use specific renderer (not OpenGL)
         Texture *stopIconTexture = new OpenGLTexture(
-                std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("editor-resources").append("icons").append(
                         "StopIcon.png"), false);
         stopIcon = stopIconTexture->ID();
         delete stopIconTexture;
         // TODO: use specific renderer (not OpenGL)
         Texture *expandIconTexture = new OpenGLTexture(
-                std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("editor-resources").append("icons").append(
                         "ExpandIcon.png"), false);
         expandIcon = expandIconTexture->ID();
         delete expandIconTexture;
         // TODO: use specific renderer (not OpenGL)
         Texture *collapseIconTexture = new OpenGLTexture(
-                std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("editor-resources").append("icons").append(
                         "CollapseIcon.png"), false);
         collapseIcon = collapseIconTexture->ID();
         delete collapseIconTexture;

@@ -22,6 +22,7 @@
 #include "dream/util/Logger.h"
 #include "dream/scene/component/Component.h"
 #include "dream/util/StringUtils.h"
+#include "dream/Application.h"
 #include <imgui/imgui_internal.h>
 #include <imgui/imgui.h>
 #include <fstream>
@@ -41,13 +42,13 @@ namespace Dream {
         ignoredFileNames.insert(".DS_Store");
         // TODO: use specific renderer (not OpenGL)
         Texture *fileIconTexture = new OpenGLTexture(
-                std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("editor-resources").append("icons").append(
                         "FileIcon.png"), false);
         fileIcon = fileIconTexture->ID();
         delete fileIconTexture;
         // TODO: use specific renderer (not OpenGL)
         Texture *folderIconTexture = new OpenGLTexture(
-                std::filesystem::current_path().append("resources").append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("editor-resources").append("icons").append(
                         "DirectoryIcon.png"), false);
         folderIcon = folderIconTexture->ID();
         delete folderIconTexture;
