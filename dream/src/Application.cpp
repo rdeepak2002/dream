@@ -30,7 +30,7 @@ namespace Dream {
 
     Application::Application() {
         this->logCollector = new LogCollector();
-        Project::open(this->getResourcesRoot().append("example-projects").append("sample-project"));
+        Project::open(this->getResourcesRoot().append("examples").append("sample-project"));
         this->window = new SDL2OpenGLWindow();
         this->renderer = new OpenGLRenderer();
         this->editor = new ImGuiSDL2OpenGLEditor(this->window);
@@ -88,11 +88,11 @@ namespace Dream {
     }
 
     std::filesystem::path Application::getResourcesRoot() {
-        if (!std::filesystem::exists(std::filesystem::current_path().append("editor-resources"))) {
-            Logger::fatal("Cannot find editor resources folder");
+        if (!std::filesystem::exists(std::filesystem::current_path().append("assets"))) {
+            Logger::fatal("Cannot find assets folder in " + std::filesystem::current_path().string());
         }
-        if (!std::filesystem::exists(std::filesystem::current_path().append("example-projects"))) {
-            Logger::fatal("Cannot find example projects folder");
+        if (!std::filesystem::exists(std::filesystem::current_path().append("examples"))) {
+            Logger::fatal("Cannot find example projects folder in " + std::filesystem::current_path().string());
         }
         return std::filesystem::current_path();
     }

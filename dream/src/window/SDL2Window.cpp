@@ -89,7 +89,7 @@ namespace Dream {
         if (!launchWindowRenderer) {
             launchWindowRenderer = SDL_CreateRenderer(launchWindow, -1, SDL_RENDERER_ACCELERATED);
             std::string launchWindowImagePath = Application::getResourcesRoot().append(
-                    "editor-resources").append("logo").append("logo-original.png");
+                    "assets").append("logo").append("logo-original.png");
             launchWindowImage = IMG_LoadTexture(launchWindowRenderer, launchWindowImagePath.c_str());
         }
         SDL_RenderClear(launchWindowRenderer);

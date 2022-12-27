@@ -51,7 +51,7 @@ namespace Dream {
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
         float fontSize = 16.f;
         io.Fonts->AddFontFromFileTTF(
-                Application::getResourcesRoot().append("editor-resources").append("fonts").append(
+                Application::getResourcesRoot().append("assets").append("fonts").append(
                         "font.otf").c_str(), fontSize);
 
         // setup Dear ImGui style

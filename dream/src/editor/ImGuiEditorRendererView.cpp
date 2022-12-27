@@ -28,25 +28,25 @@ namespace Dream {
     ImGuiEditorRendererView::ImGuiEditorRendererView() {
         // TODO: use specific renderer (not OpenGL)
         Texture *playIconTexture = new OpenGLTexture(
-                Application::getResourcesRoot().append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("assets").append("icons").append(
                         "PlayIcon.png"), false);
         playIcon = playIconTexture->ID();
         delete playIconTexture;
         // TODO: use specific renderer (not OpenGL)
         Texture *stopIconTexture = new OpenGLTexture(
-                Application::getResourcesRoot().append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("assets").append("icons").append(
                         "StopIcon.png"), false);
         stopIcon = stopIconTexture->ID();
         delete stopIconTexture;
         // TODO: use specific renderer (not OpenGL)
         Texture *expandIconTexture = new OpenGLTexture(
-                Application::getResourcesRoot().append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("assets").append("icons").append(
                         "ExpandIcon.png"), false);
         expandIcon = expandIconTexture->ID();
         delete expandIconTexture;
         // TODO: use specific renderer (not OpenGL)
         Texture *collapseIconTexture = new OpenGLTexture(
-                Application::getResourcesRoot().append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("assets").append("icons").append(
                         "CollapseIcon.png"), false);
         collapseIcon = collapseIconTexture->ID();
         delete collapseIconTexture;

@@ -42,13 +42,13 @@ namespace Dream {
         ignoredFileNames.insert(".DS_Store");
         // TODO: use specific renderer (not OpenGL)
         Texture *fileIconTexture = new OpenGLTexture(
-                Application::getResourcesRoot().append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("assets").append("icons").append(
                         "FileIcon.png"), false);
         fileIcon = fileIconTexture->ID();
         delete fileIconTexture;
         // TODO: use specific renderer (not OpenGL)
         Texture *folderIconTexture = new OpenGLTexture(
-                Application::getResourcesRoot().append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("assets").append("icons").append(
                         "DirectoryIcon.png"), false);
         folderIcon = folderIconTexture->ID();
         delete folderIconTexture;

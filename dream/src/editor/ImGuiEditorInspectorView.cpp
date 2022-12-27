@@ -40,14 +40,14 @@ namespace Dream {
 
         // TODO: use specific renderer (not OpenGL)
         Texture *selectIconTexture = new OpenGLTexture(
-                Application::getResourcesRoot().append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("assets").append("icons").append(
                         "SelectIconWhite.png"), false);
         selectIcon = selectIconTexture->ID();
         delete selectIconTexture;
 
         // TODO: use specific renderer (not OpenGL)
         Texture *editIconTexture = new OpenGLTexture(
-                Application::getResourcesRoot().append("editor-resources").append("icons").append(
+                Application::getResourcesRoot().append("assets").append("icons").append(
                         "EditIconDark.png"), false);
         editIcon = editIconTexture->ID();
         delete editIconTexture;
