@@ -172,6 +172,7 @@ namespace Dream {
         lua.new_usertype<Entity>("Entity",
                                  "new", sol::no_constructor,
                                  "getID", &Dream::Entity::getID,
+                                 "isValid", &Dream::Entity::isValid,
                                  "getTransform", &Dream::Entity::getComponent<Dream::Component::TransformComponent>,
                                  "getCamera", &Dream::Entity::getComponent<Dream::Component::CameraComponent>,
                                  "getAnimator", &Dream::Entity::getComponent<Dream::Component::AnimatorComponent>

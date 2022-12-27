@@ -86,4 +86,9 @@ namespace Dream {
     std::string Entity::getID() {
         return getComponent<Component::IDComponent>().getID();
     }
+
+    bool Entity::isValid() {
+        bool isInvalid = (scene == nullptr || entityHandle == entt::null);
+        return !isInvalid;
+    }
 }

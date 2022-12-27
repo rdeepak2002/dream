@@ -6,7 +6,7 @@ function update(entity, dt)
 
 	local targetEntity = Scene.getEntityByTag(self.targetTag)
 
-	if targetEntity == nil then
+	if not targetEntity:isValid() then
 		Logger.error("Camera cannot find target entity")
 		Input.activatePointerLock(false)
 		return
@@ -59,6 +59,8 @@ function update(entity, dt)
 	local lookAtOffset = vec3:new(0, -1, 0)
 	entity:getCamera().lookAt = lookAt + lookAtOffset
 end
+
+
 
 
 

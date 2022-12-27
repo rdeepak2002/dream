@@ -49,6 +49,7 @@ namespace Dream {
         void serialize(YAML::Emitter &out);
         void deserialize(YAML::Node node);
         std::string getID();
+        bool isValid();
         explicit operator bool() const;
         explicit operator entt::entity() const;
         bool operator==(const Entity& other) const;
