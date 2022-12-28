@@ -380,6 +380,47 @@ namespace Dream::Component {
 
         void lookAt(Entity sceneCamera, glm::vec3 lookAtPos);
     };
+
+    struct CollisionComponent : public Component {
+        inline static std::string componentName = "CollisionComponent";
+        enum Axis {
+            X, Y, Z
+        };
+        enum ColliderType {
+            BOX, CAPSULE, CONE, CYLINDER, MESH, SPHERE
+        };
+        struct Collider {
+            // type of collision primitive
+            inline static std::string k_type = "type";
+            ColliderType type = ColliderType::BOX;
+            // (box only) half-extents of the collision box: a 3-dimensional vector: local space half-width, half-height, and half-depth
+            inline static std::string k_halfExtents = "halfExtents";
+            glm::vec3 halfExtents = {1, 1, 1};
+            // (capsule only) aligns the capsule with the local-space X, Y or Z axis of the entity
+            inline static std::string k_axis = "axis";
+            Axis axis = Axis::Y;
+            // (capsule only) tip-to-tip height of the capsule
+            inline static std::string k_height = "height";
+            float height = 1.0f;
+            // (sphere and capsule only) radius of the sphere or capsule body
+            inline static std::string k_radius = "radius";
+            float radius = 1.0f;
+            // (mesh only) model asset that will be used as a source for the triangle-based collision mesh
+            inline static std::string k_assetGUID = "assetGUID";
+            std::string assetGUID = "";
+        };
+        std::vector<Collider> colliders;
+
+        static void deserialize(YAML::Node node, Entity &entity);
+
+        static void serialize(YAML::Emitter &out, Entity &entity);
+    };
+
+    struct RigidBodyComponent : public Component {
+        inline static std::string componentName = "RigidBodyComponent";
+        // runtime created collider shape
+        btCompoundShape *colliderCompoundShape = nullptr;
+    };
 }
 
 #endif //DREAM_COMPONENT_H

@@ -93,6 +93,8 @@ namespace Dream {
 
         void renderCameraComponent();
 
+        void renderCollisionComponent();
+
         // TODO: move mesh component render method to new class
         // mesh component renderer variables
         ImGui::FileBrowser *meshSelectorBrowser;

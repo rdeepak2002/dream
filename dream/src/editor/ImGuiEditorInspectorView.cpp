@@ -82,6 +82,7 @@ namespace Dream {
                 renderBoneComponent();
                 renderSceneCameraComponent();
                 renderCameraComponent();
+                renderCollisionComponent();
                 renderAddComponent();
                 renderRemoveComponent();
             }
@@ -105,6 +106,8 @@ namespace Dream {
                 selectedEntity.getComponent<Component::TransformComponent>().rotation = {0, 0, -0.707, 0.707};
             } else if (componentID == Component::CameraComponent::componentName) {
                 selectedEntity.addComponent<Component::CameraComponent>(45.0f);
+            } else if (componentID == Component::CollisionComponent::componentName) {
+                selectedEntity.addComponent<Component::CollisionComponent>();
             } else {
                 Logger::fatal("Unknown component to add " + componentID);
             }
@@ -143,6 +146,10 @@ namespace Dream {
 
         if (!selectedEntity.hasComponent<Component::CameraComponent>()) {
             components.insert(std::make_pair("Camera", Component::CameraComponent::componentName));
+        }
+
+        if (!selectedEntity.hasComponent<Component::CollisionComponent>()) {
+            components.insert(std::make_pair("Collision", Component::CollisionComponent::componentName));
         }
 
         if (!selectedEntity.hasComponent<Component::RootComponent>() && !components.empty()) {
@@ -612,6 +619,30 @@ namespace Dream {
                 ImGui::Text("Fov");
                 ImGui::SameLine();
                 ImGui::Text("%s", std::to_string(component.fov).c_str());
+                ImGui::TreePop();
+            }
+        }
+    }
+
+    void ImGuiEditorInspectorView::renderCollisionComponent() {
+        if (selectedEntity.hasComponent<Component::CollisionComponent>()) {
+            auto &component = selectedEntity.getComponent<Component::CollisionComponent>();
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Collision",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+            ImGui::SameLine();
+            ImGui::Text("Collision");
+            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                selectedEntity.removeComponent<Component::CollisionComponent>();
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+
+            if (treeNodeOpen) {
                 ImGui::TreePop();
             }
         }
