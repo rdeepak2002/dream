@@ -26,11 +26,12 @@
 
 namespace Dream::Component {
     AnimatorComponent::AnimatorComponent() {
+        this->blendFactor = 1.0;
         this->guid = "";
         this->currentState = -1;
         this->nextState = -1;
         this->m_CurrentTime = 0.0;
-        this->m_CurrentAnimation = nullptr;
+//        this->m_CurrentAnimation = nullptr;
         this->m_FinalBoneMatrices.reserve(MAX_BONES);
         for (int i = 0; i < MAX_BONES; i++) {
             this->m_FinalBoneMatrices.emplace_back(1.0f);
@@ -38,11 +39,12 @@ namespace Dream::Component {
     }
 
     AnimatorComponent::AnimatorComponent(std::string animatorGUID) {
+        this->blendFactor = 1.0;
         this->guid = std::move(animatorGUID);
         this->currentState = -1;
         this->nextState = -1;
         this->m_CurrentTime = 0.0;
-        this->m_CurrentAnimation = nullptr;
+//        this->m_CurrentAnimation = nullptr;
         this->m_FinalBoneMatrices.reserve(MAX_BONES);
         for (int i = 0; i < MAX_BONES; i++) {
             this->m_FinalBoneMatrices.emplace_back(1.0f);
@@ -54,27 +56,16 @@ namespace Dream::Component {
     }
 
     void AnimatorComponent::updateAnimation(float dt) {
-        if (!states.empty()) {
-            currentState = 1;
-            nextState = 2;
+        if (currentState != -1 && nextState != -1) {
             auto *animation1 = (Animation *) animationObjects[states[currentState].Guid];
             auto *animation2 = (Animation *) animationObjects[states[nextState].Guid];
             blendTwoAnimations(animation1, animation2, blendFactor, dt);
-            blendFactor += 0.1f * dt;
+            blendFactor += 5.0f * dt;
             if (blendFactor > 1.0) {
                 blendFactor = 1.0;
+                currentState = nextState;
             }
         }
-
-//        if (m_CurrentAnimation) {
-//            auto* animation = (Animation *) m_CurrentAnimation;
-//            m_CurrentTime += animation->getTicksPerSecond() * dt;
-//            if (m_CurrentTime > animation->getDuration()) {
-//                numTimesAnimationPlayed = (numTimesAnimationPlayed + 1) % INT_MAX;
-//            }
-//            m_CurrentTime = fmod(m_CurrentTime, animation->getDuration());
-//            calculateBoneTransform(&animation->getRootNode(), glm::mat4(1.0f));
-//        }
     }
 
     void AnimatorComponent::updateStateMachine(float dt) {
@@ -84,7 +75,7 @@ namespace Dream::Component {
 //            std::cout << variableNames[i] << " : " << variableValues[i] << std::endl;
 //        }
 //        std::cout << "===========" << std::endl << std::endl;
-        if (m_CurrentAnimation) {
+        if (currentState != -1 && blendFactor == 1.0) {
             for (const auto &transition: transitions) {
                 if (transition.OutputStateID == currentState) {
                     bool allConditionsPassed = true;
@@ -120,126 +111,14 @@ namespace Dream::Component {
                     if (allConditionsPassed) {
                         int numRequiredTimesToPlay = states[transition.OutputStateID].PlayOnce ? 1 : 0;
                         if (numTimesAnimationPlayed >= numRequiredTimesToPlay) {
-//                            playAnimation(transition.InputStateID);
-                            currentState = transition.InputStateID;
-
-                        } else {
-                            // TODO: do animation blending here
-//                            std::cout << "should transition to next state " << transition.InputStateID << std::endl;
+                            nextState = transition.InputStateID;
+                            blendFactor = 0.0;
                         }
                         break;
                     }
                 }
             }
         }
-
-//        if (m_CurrentAnimation) {
-//            if (numTimesAnimationPlayed >= 1) {
-//                for (const auto &transition : transitions) {
-//                    if (transition.OutputStateID == currentState) {
-//                        bool allConditionsPassed = true;
-//                        for (const auto &condition : transition.Conditions) {
-//                            int variable1Value = condition.Variable1;
-//                            int variable2Value = condition.Variable2;
-//                            if (condition.Variable1Idx != -1) {
-//                                variable1Value = variableValues.at(condition.Variable1Idx);
-//                            }
-//                            if (condition.Variable2Idx != -1) {
-//                                variable2Value = variableValues.at(condition.Variable2Idx);
-//                            }
-//                            bool conditionPassed = false;
-//                            if (condition.Operator == "==") {
-//                                conditionPassed = variable1Value == variable2Value;
-//                            } else if (condition.Operator == ">") {
-//                                conditionPassed = variable1Value > variable2Value;
-//                            } else if (condition.Operator == "<") {
-//                                conditionPassed = variable1Value < variable2Value;
-//                            } else if (condition.Operator == ">=") {
-//                                conditionPassed = variable1Value >= variable2Value;
-//                            } else if (condition.Operator == "<=") {
-//                                conditionPassed = variable1Value <= variable2Value;
-//                            } else if (condition.Operator == "!=") {
-//                                conditionPassed = variable1Value != variable2Value;
-//                            } else {
-//                                Logger::fatal("Unknown operator for animator state machine " + condition.Operator);
-//                            }
-//                            if (!conditionPassed) {
-//                                allConditionsPassed = false;
-//                            }
-//                        }
-//                        if (allConditionsPassed) {
-//                            playAnimation(transition.InputStateID);
-//                            break;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-    }
-
-    void AnimatorComponent::calculateBoneTransform(const AssimpNodeData *node, glm::mat4 parentTransform, int depth) {
-        std::string nodeName = node->name;
-        glm::mat4 nodeTransform = node->transformation;
-
-        AnimationBone *Bone = ((Animation *) m_CurrentAnimation)->findBone(nodeName);
-
-        if (Bone) {
-            Bone->update(m_CurrentTime);
-            nodeTransform = Bone->getLocalTransform();
-        }
-
-        glm::mat4 globalTransformation = parentTransform * nodeTransform;
-
-        auto boneInfoMap = ((Animation *) m_CurrentAnimation)->getBoneIdMap();
-        if (boneInfoMap.find(nodeName) != boneInfoMap.end()) {
-            int index = boneInfoMap[nodeName].id;
-            glm::mat4 offset = boneInfoMap[nodeName].offset;
-            m_FinalBoneMatrices[index] = globalTransformation * offset;
-
-            if (Bone) {
-                if (boneEntities.count(Bone->getBoneID()) > 0) {
-                    glm::vec3 scale;
-                    glm::quat rotation;
-                    glm::vec3 translation;
-                    if (depth == 1) {
-                        // we don't count 'RootNode' as a bone, so we have to do this to include its transformation
-                        // for the first layer of bones
-                        MathUtils::decomposeMatrix(parentTransform * nodeTransform, translation, rotation, scale);
-                    } else {
-                        // all bones after the first layer (usually everything after hip bone for skeletons)
-                        MathUtils::decomposeMatrix(nodeTransform, translation, rotation, scale);
-                    }
-                    boneEntities[Bone->getBoneID()].getComponent<TransformComponent>().translation = translation;
-                    boneEntities[Bone->getBoneID()].getComponent<TransformComponent>().rotation = rotation;
-                    boneEntities[Bone->getBoneID()].getComponent<TransformComponent>().scale = scale;
-                } else {
-                    Logger::warn("Cannot find entity for bone " + Bone->getBoneName());
-                }
-            }
-        }
-
-        for (int i = 0; i < node->childrenCount; i++) {
-            calculateBoneTransform(&node->children[i], globalTransformation, depth + 1);
-        }
-    }
-
-    std::vector<glm::mat4>
-    AnimatorComponent::computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones) {
-        std::vector<glm::mat4> finalBoneMatrices;
-        for (int i = 0; i < MAX_BONES; ++i) {
-            finalBoneMatrices.emplace_back(1.0);
-        }
-
-        for (auto boneEntity: bones) {
-            auto boneID = boneEntity.getComponent<BoneComponent>().boneID;
-            if (boneID < finalBoneMatrices.size()) {
-                auto trans = glm::mat4(1.0);
-//                trans = glm::scale(trans, glm::vec3(2, 3, 2));
-                finalBoneMatrices.at(boneID) = trans;
-            }
-        }
-
-        return finalBoneMatrices;
     }
 
     void AnimatorComponent::deserialize(YAML::Node node, Entity &entity) {
@@ -324,26 +203,16 @@ namespace Dream::Component {
                 auto animationFilePath = Project::getResourceManager()->getFilePathFromGUID(state.Guid);
                 auto *anim = new Animation(animationFilePath, modelEntity, 0);
                 animationObjects[state.Guid] = anim;
-//                m_CurrentAnimation = anim;
                 if (animationObjects.size() > INT_MAX) {
                     Logger::fatal("Too many animations to store in memory");
                 }
-//                currentState = (int) animationObjects.size() - 1;
                 currentState = 0;
                 nextState = 0;
-            }
-            if (currentState >= 0) {
-                playAnimation(currentState);
             }
         }
         boneEntities.clear();
         loadBoneEntities(modelEntity);
         needsToFindBoneEntities = false;
-//        if (m_CurrentAnimation && needsToFindBoneEntities) {
-//            boneEntities.clear();
-//            loadBoneEntities(modelEntity);
-//            needsToFindBoneEntities = false;
-//        }
         this->needsToLoadAnimations = false;
     }
 
@@ -355,19 +224,6 @@ namespace Dream::Component {
         while (child) {
             loadBoneEntities(child);
             child = child.getComponent<HierarchyComponent>().next;
-        }
-    }
-
-    void AnimatorComponent::playAnimation(int stateID) {
-//        Logger::debug("Playing animation " + std::to_string(stateID));
-        numTimesAnimationPlayed = 0;
-        auto state = states[stateID];
-        if (animationObjects.count(state.Guid) > 0) {
-//            m_CurrentAnimation = animationObjects[state.Guid];
-            currentState = stateID;
-            nextState = stateID;
-        } else {
-            Logger::fatal("Unable to find animation with GUID " + state.Guid);
         }
     }
 

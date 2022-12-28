@@ -241,7 +241,7 @@ namespace Dream::Component {
         std::string guid;
         std::map<std::string, void *> animationObjects;      // each model file could have multiple animations
         std::vector<glm::mat4> m_FinalBoneMatrices;
-        void *m_CurrentAnimation = nullptr;
+//        void *m_CurrentAnimation = nullptr;
         float m_CurrentTime = 0;
         int numTimesAnimationPlayed = 0;
         bool needsToLoadAnimations = true;
@@ -269,7 +269,7 @@ namespace Dream::Component {
 
         AnimatorComponent(std::string animatorGUID);
 
-        void calculateBoneTransform(const AssimpNodeData *node, glm::mat4 parentTransform, int depth = 0);
+//        void calculateBoneTransform(const AssimpNodeData *node, glm::mat4 parentTransform, int depth = 0);
 
         void blendTwoAnimations(void *pBaseAnimationV, void *pLayeredAnimationV, float blendFactor, float deltaTime);
 
@@ -289,11 +289,11 @@ namespace Dream::Component {
 
         void loadBoneEntities(Entity entity);
 
-        void playAnimation(int stateID);
+//        void playAnimation(int stateID);
 
         int setVariable(const std::string &variableName, int value);
 
-        std::vector<glm::mat4> computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones);
+//        std::vector<glm::mat4> computeFinalBoneMatrices(Entity armatureEntity, std::vector<Entity> bones);
 
         static void deserialize(YAML::Node node, Entity &entity);
 
