@@ -1,6 +1,20 @@
-//
-// Created by Deepak Ramalingam on 11/27/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #include "dream/editor/ImGuiTextEditor.h"
 #include "imgui_internal.h"
@@ -24,7 +38,7 @@ namespace Dream {
         delete this->textEditor;
     }
 
-    void ImGuiTextEditor::open(const std::string& filepath) {
+    void ImGuiTextEditor::open(const std::string &filepath) {
         shouldSetupPositionAndSize = false;
         path = std::filesystem::path(filepath);
         fileGuid = IDUtils::getGUIDForFile(path);
@@ -45,7 +59,7 @@ namespace Dream {
         std::string fileContent;
         this->setVisibility(true);
         std::ifstream file;
-        file.exceptions (std::ifstream::failbit | std::ifstream::badbit);
+        file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
         try {
             // open files
             file.open(filepath);
@@ -59,7 +73,7 @@ namespace Dream {
             textEditor->SetText(fileContent);
             justLoaded = true;
         }
-        catch (std::ifstream::failure& e) {
+        catch (std::ifstream::failure &e) {
             Logger::fatal("Error reading file " + filepath + " [" + std::string(e.what()) + "]");
         }
     }
@@ -92,9 +106,11 @@ namespace Dream {
             }
 
             ImGuiWindowClass editor_window_class;
-            editor_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton;
+            editor_window_class.DockNodeFlagsOverrideSet =
+                    ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton;
             ImGui::SetNextWindowClass(&editor_window_class);
-            ImGui::Begin(std::string(filename + " ###File Editor").c_str(), &visible, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+            ImGui::Begin(std::string(filename + " ###File Editor").c_str(), &visible,
+                         ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
             if (ImGui::BeginMenuBar()) {
                 if (ImGui::BeginMenu("File")) {

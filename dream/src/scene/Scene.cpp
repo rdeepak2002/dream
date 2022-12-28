@@ -1,6 +1,20 @@
-//
-// Created by Deepak Ramalingam on 11/12/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #include "dream/scene/Scene.h"
 #include "dream/scene/component/Component.h"
@@ -36,7 +50,7 @@ namespace Dream {
     }
 
     Entity Dream::Scene::createEntity(const std::string &name, bool rootEntity, bool addChildStart) {
-        Entity entity = { entityRegistry.create(), this };
+        Entity entity = {entityRegistry.create(), this};
         // add id component to entity
         entity.addComponent<Component::IDComponent>();
         // add transform component to entity
@@ -81,8 +95,10 @@ namespace Dream {
         } else {
             // TODO: move to component system
             Entity sceneCamera = getSceneCamera();
-            if (sceneCamera) {
+            if (sceneCamera && Input::isEditorRendererActive()) {
                 sceneCamera.getComponent<Component::SceneCameraComponent>().processInput(sceneCamera, dt);
+            } else if (sceneCamera) {
+                sceneCamera.getComponent<Component::SceneCameraComponent>().updateCameraVectors();
             }
         }
         Input::resetMouseDynamicState();
@@ -95,14 +111,14 @@ namespace Dream {
             newRootEntity.addComponent<Component::RootComponent>();
             return newRootEntity;
         } else if (rootEntities.size() == 1) {
-            return { rootEntities.front(), this };
+            return {rootEntities.front(), this};
         } else {
             Logger::fatal("More than one root entity");
             return {};
         }
     }
 
-    void Scene::removeEntity(Entity& entity) {
+    void Scene::removeEntity(Entity &entity) {
         Entity child = entity.getComponent<Component::HierarchyComponent>().first;
         while (child) {
             Entity nextChild = child.getComponent<Component::HierarchyComponent>().next;
@@ -110,7 +126,8 @@ namespace Dream {
             child = nextChild;
         }
         if (!entity.hasComponent<Component::RootComponent>()) {
-            entity.getComponent<Component::HierarchyComponent>().parent.getComponent<Component::HierarchyComponent>().removeChild(entity);
+            entity.getComponent<Component::HierarchyComponent>().parent.getComponent<Component::HierarchyComponent>().removeChild(
+                    entity);
         }
         entityRegistry.destroy(entity.entityHandle);
     }
@@ -124,9 +141,9 @@ namespace Dream {
         out << YAML::EndSeq;
     }
 
-    Entity Scene::getEntityByID(const std::string& id) {
+    Entity Scene::getEntityByID(const std::string &id) {
         auto entities = getEntitiesWithComponents<Component::IDComponent>();
-        for(auto entityHandle : entities) {
+        for (auto entityHandle: entities) {
             Entity entity = {entityHandle, this};
             if (entity.getID() == id) {
                 return entity;
@@ -135,9 +152,9 @@ namespace Dream {
         return {};
     }
 
-    Entity Scene::getEntityByTag(const std::string& tag) {
+    Entity Scene::getEntityByTag(const std::string &tag) {
         auto entities = getEntitiesWithComponents<Component::TagComponent>();
-        for(auto entityHandle : entities) {
+        for (auto entityHandle: entities) {
             Entity entity = {entityHandle, this};
             if (entity.getComponent<Component::TagComponent>().tag == tag) {
                 return entity;
@@ -148,7 +165,7 @@ namespace Dream {
 
     Entity Scene::getEntityByInternalID(int internalID) {
         auto entities = getEntitiesWithComponents<Component::IDComponent>();
-        for(auto entityHandle : entities) {
+        for (auto entityHandle: entities) {
             Entity entity = {entityHandle, this};
             if ((int) entityHandle == internalID) {
                 return entity;
@@ -159,7 +176,7 @@ namespace Dream {
 
     Entity Scene::getSceneCamera() {
         auto entities = getEntitiesWithComponents<Component::SceneCameraComponent>();
-        for(auto entityHandle : entities) {
+        for (auto entityHandle: entities) {
             Entity entity = {entityHandle, this};
             return entity;
         }
@@ -168,7 +185,7 @@ namespace Dream {
 
     Entity Scene::getMainCamera() {
         auto entities = getEntitiesWithComponents<Component::CameraComponent>();
-        for(auto entityHandle : entities) {
+        for (auto entityHandle: entities) {
             Entity entity = {entityHandle, this};
             return entity;
         }

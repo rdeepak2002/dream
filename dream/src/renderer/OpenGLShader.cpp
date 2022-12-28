@@ -1,6 +1,20 @@
-//
-// Created by Deepak Ramalingam on 10/29/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #include "dream/renderer/OpenGLShader.h"
 #include "dream/util/Logger.h"
@@ -34,11 +48,10 @@ namespace Dream {
         std::ifstream fShaderFile;
         std::ifstream gShaderFile;
         // ensure ifstream objects can throw exceptions:
-        vShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
-        fShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
-        gShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
-        try
-        {
+        vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+        fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+        gShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+        try {
             // open files
             vShaderFile.open(vertexPath);
             fShaderFile.open(fragmentPath);
@@ -53,8 +66,7 @@ namespace Dream {
             vertexCode = vShaderStream.str();
             fragmentCode = fShaderStream.str();
             // if geometry shader path is present, also load a geometry shader
-            if(geometryPath != nullptr)
-            {
+            if (geometryPath != nullptr) {
                 gShaderFile.open(geometryPath);
                 std::stringstream gShaderStream;
                 gShaderStream << gShaderFile.rdbuf();
@@ -66,11 +78,12 @@ namespace Dream {
             vertexCode = OpenGLShader::getShaderVersion() + "\n" + vertexCode;
             fragmentCode = OpenGLShader::getShaderVersion() + "\n" + fragmentCode;
         }
-        catch (std::ifstream::failure& e) {
-            Logger::fatal("Shader file not successfully read vertex shader: " + std::string(vertexPath) + " fragment shader: " + std::string(fragmentPath) + " [" + std::string(e.what()) + "]");
+        catch (std::ifstream::failure &e) {
+            Logger::fatal("Shader file not successfully read vertex shader: " + std::string(vertexPath) +
+                          " fragment shader: " + std::string(fragmentPath) + " [" + std::string(e.what()) + "]");
         }
-        const char* vShaderCode = vertexCode.c_str();
-        const char* fShaderCode = fragmentCode.c_str();
+        const char *vShaderCode = vertexCode.c_str();
+        const char *fShaderCode = fragmentCode.c_str();
         // 2. compile shaders
         unsigned int vertex, fragment;
         // vertex shader
@@ -85,9 +98,8 @@ namespace Dream {
         checkCompileErrors(fragment, "FRAGMENT");
         // if geometry shader is given, compile geometry shader
         unsigned int geometry;
-        if(geometryPath != nullptr)
-        {
-            const char * gShaderCode = geometryCode.c_str();
+        if (geometryPath != nullptr) {
+            const char *gShaderCode = geometryCode.c_str();
             geometry = glCreateShader(GL_GEOMETRY_SHADER);
             glShaderSource(geometry, 1, &gShaderCode, NULL);
             glCompileShader(geometry);
@@ -97,14 +109,14 @@ namespace Dream {
         ID = glCreateProgram();
         glAttachShader(ID, vertex);
         glAttachShader(ID, fragment);
-        if(geometryPath != nullptr)
+        if (geometryPath != nullptr)
             glAttachShader(ID, geometry);
         glLinkProgram(ID);
         checkCompileErrors(ID, "PROGRAM");
         // delete the shaders as they're linked into our program now and no longer necessery
         glDeleteShader(vertex);
         glDeleteShader(fragment);
-        if(geometryPath != nullptr)
+        if (geometryPath != nullptr)
             glDeleteShader(geometry);
     }
 
@@ -113,7 +125,7 @@ namespace Dream {
     }
 
     void OpenGLShader::setBool(const std::string &name, bool value) const {
-        glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
+        glUniform1i(glGetUniformLocation(ID, name.c_str()), (int) value);
     }
 
     void OpenGLShader::setInt(const std::string &name, int value) const {
@@ -159,31 +171,27 @@ namespace Dream {
     void OpenGLShader::checkCompileErrors(int shader, std::string type) {
         GLint success;
         GLchar infoLog[1024];
-        if(type != "PROGRAM")
-        {
+        if (type != "PROGRAM") {
             glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-            if(!success)
-            {
+            if (!success) {
                 glGetShaderInfoLog(shader, 1024, NULL, infoLog);
                 Logger::fatal("Shader compilation error of type " + std::string(type) + "\n" + std::string(infoLog));
             }
-        }
-        else
-        {
+        } else {
             glGetProgramiv(shader, GL_LINK_STATUS, &success);
-            if(!success)
-            {
+            if (!success) {
                 glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-                Logger::fatal("Error linking shader program of type " + std::string(type) + "\n" + std::string(infoLog));
+                Logger::fatal(
+                        "Error linking shader program of type " + std::string(type) + "\n" + std::string(infoLog));
             }
         }
     }
 
     std::string OpenGLShader::getShaderVersion() {
-        #ifdef EMSCRIPTEN
+#ifdef EMSCRIPTEN
         return "#version 300 es";
-        #else
+#else
         return "#version 330 core";
-        #endif
+#endif
     }
 }

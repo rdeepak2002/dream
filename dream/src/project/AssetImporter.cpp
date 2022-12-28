@@ -1,7 +1,20 @@
-//
-// Created by Deepak Ramalingam on 11/18/22.
-//
-
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 #include <utility>
 #include <fstream>
 #include "dream/project/AssetImporter.h"
@@ -29,7 +42,7 @@ namespace Dream {
             if (!std::filesystem::exists(new_directory_folder)) {
                 std::filesystem::create_directory(new_directory_folder);
             }
-            for (const auto & entry : std::filesystem::directory_iterator(combinedPath)) {
+            for (const auto &entry: std::filesystem::directory_iterator(combinedPath)) {
                 std::filesystem::path newRelativePath = std::filesystem::path(relativePath);
                 newRelativePath += std::filesystem::path::preferred_separator;
                 newRelativePath += entry.path().filename();

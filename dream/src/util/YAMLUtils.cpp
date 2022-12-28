@@ -1,11 +1,25 @@
-//
-// Created by Deepak Ramalingam on 11/19/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #include "dream/util/YAMLUtils.h"
 
 namespace YAML {
-    Node convert<glm::vec2>::encode(const glm::vec2& rhs) {
+    Node convert<glm::vec2>::encode(const glm::vec2 &rhs) {
         Node node;
         node.push_back(rhs.x);
         node.push_back(rhs.y);
@@ -13,7 +27,7 @@ namespace YAML {
         return node;
     }
 
-    bool convert<glm::vec2>::decode(const Node& node, glm::vec2& rhs) {
+    bool convert<glm::vec2>::decode(const Node &node, glm::vec2 &rhs) {
         if (!node.IsSequence() || node.size() != 2)
             return false;
 
@@ -22,7 +36,7 @@ namespace YAML {
         return true;
     }
 
-    Node convert<glm::vec3>::encode(const glm::vec3& rhs) {
+    Node convert<glm::vec3>::encode(const glm::vec3 &rhs) {
         Node node;
         node.push_back(rhs.x);
         node.push_back(rhs.y);
@@ -41,8 +55,7 @@ namespace YAML {
         return true;
     }
 
-    Node convert<glm::vec4>::encode(const glm::vec4& rhs)
-    {
+    Node convert<glm::vec4>::encode(const glm::vec4 &rhs) {
         Node node;
         node.push_back(rhs.x);
         node.push_back(rhs.y);
@@ -52,8 +65,7 @@ namespace YAML {
         return node;
     }
 
-    bool convert<glm::vec4>::decode(const Node& node, glm::vec4& rhs)
-    {
+    bool convert<glm::vec4>::decode(const Node &node, glm::vec4 &rhs) {
         if (!node.IsSequence() || node.size() != 4)
             return false;
 
@@ -64,7 +76,7 @@ namespace YAML {
         return true;
     }
 
-    Node convert<glm::quat>::encode(const glm::quat& rhs) {
+    Node convert<glm::quat>::encode(const glm::quat &rhs) {
         Node node;
         node.push_back(rhs.w);
         node.push_back(rhs.x);
@@ -74,8 +86,7 @@ namespace YAML {
         return node;
     }
 
-    bool convert<glm::quat>::decode(const Node& node, glm::quat& rhs)
-    {
+    bool convert<glm::quat>::decode(const Node &node, glm::quat &rhs) {
         if (!node.IsSequence() || node.size() != 4)
             return false;
 

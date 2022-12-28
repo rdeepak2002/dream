@@ -1,6 +1,20 @@
-//
-// Created by Deepak Ramalingam on 11/13/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #include "dream/scene/component/Component.h"
 
@@ -41,8 +55,10 @@ namespace Dream::Component {
             auto &transformComponent = entity.getComponent<TransformComponent>();
             out << YAML::Key << componentName;
             out << YAML::BeginMap;
-            out << YAML::Key << k_translation << YAML::Value << YAML::convert<glm::vec3>().encode(transformComponent.translation);
-            out << YAML::Key << k_rotation << YAML::Value << YAML::convert<glm::quat>().encode(transformComponent.rotation);
+            out << YAML::Key << k_translation << YAML::Value
+                << YAML::convert<glm::vec3>().encode(transformComponent.translation);
+            out << YAML::Key << k_rotation << YAML::Value
+                << YAML::convert<glm::quat>().encode(transformComponent.rotation);
             out << YAML::Key << k_scale << YAML::Value << YAML::convert<glm::vec3>().encode(transformComponent.scale);
             out << YAML::EndMap;
         }

@@ -1,23 +1,56 @@
-//
-// Created by Deepak Ramalingam on 11/13/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #include "dream/editor/ImGuiEditorInspectorView.h"
 
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <misc/cpp/imgui_stdlib.h>
+#include <glm/glm.hpp>
+#include <glm/gtx/euler_angles.hpp>
 #include "dream/scene/component/Component.h"
 #include "dream/project/Project.h"
 #include "dream/util/SceneUtils.h"
 #include "dream/util/IDUtils.h"
 #include "dream/util/Logger.h"
+#include "dream/renderer/OpenGLTexture.h"
+#include "dream/util/StringUtils.h"
+#include "dream/Application.h"
 
 namespace Dream {
     ImGuiEditorInspectorView::ImGuiEditorInspectorView() {
         selectedEntity = Entity();
         meshSelectorBrowser = nullptr;
         luaScriptSelectorBrowser = nullptr;
+
+        // TODO: use specific renderer (not OpenGL)
+        Texture *selectIconTexture = new OpenGLTexture(
+                Application::getResourcesRoot().append("assets").append("icons").append(
+                        "SelectIconWhite.png"), false);
+        selectIcon = selectIconTexture->ID();
+        delete selectIconTexture;
+
+        // TODO: use specific renderer (not OpenGL)
+        Texture *editIconTexture = new OpenGLTexture(
+                Application::getResourcesRoot().append("assets").append("icons").append(
+                        "EditIconDark.png"), false);
+        editIcon = editIconTexture->ID();
+        delete editIconTexture;
     }
 
     ImGuiEditorInspectorView::~ImGuiEditorInspectorView() {
@@ -29,7 +62,7 @@ namespace Dream {
         this->imGuiTextEditor = imGuiTextEditor;
     }
 
-    void ImGuiEditorInspectorView::setAnimatorGraphEditor(ImGuiEditorAnimatorGraph* animatorGraphEditor) {
+    void ImGuiEditorInspectorView::setAnimatorGraphEditor(ImGuiEditorAnimatorGraph *animatorGraphEditor) {
         this->animatorGraphEditor = animatorGraphEditor;
     }
 
@@ -104,7 +137,7 @@ namespace Dream {
             components.insert(std::make_pair("Animator", Component::AnimatorComponent::componentName));
         }
 
-        if (!selectedEntity.hasComponent<Component::SceneCameraComponent>()) {
+        if (!selectedEntity.hasComponent<Component::SceneCameraComponent>() && !Project::getScene()->getSceneCamera()) {
             components.insert(std::make_pair("Scene Camera", Component::SceneCameraComponent::componentName));
         }
 
@@ -135,8 +168,8 @@ namespace Dream {
             Entity sceneCamera = Project::getScene()->getSceneCamera();
             if (sceneCamera) {
                 auto selectedTrans = selectedEntity.getComponent<Component::TransformComponent>().translation;
-                glm::vec3 offest = {2, -2, 0};
-                glm::vec3 newPos = glm::vec3(-1 * selectedTrans.x, -1 * selectedTrans.y, selectedTrans.z) + offest;
+                glm::vec3 offset = {2, -2, 0};
+                glm::vec3 newPos = glm::vec3(-1 * selectedTrans.x, -1 * selectedTrans.y, selectedTrans.z) + offset;
                 glm::vec3 lookAtPos = glm::vec3(-1 * selectedTrans.x, -1 * selectedTrans.y, selectedTrans.z);
                 sceneCamera.getComponent<Component::TransformComponent>().translation = newPos;
                 sceneCamera.getComponent<Component::SceneCameraComponent>().lookAt(sceneCamera, lookAtPos);
@@ -144,74 +177,44 @@ namespace Dream {
         }
     }
 
-    std::string ImGuiEditorInspectorView::shorten(std::string str, int maxLength) {
-        if (str.length() > maxLength) {
-            return "..." + str.substr(str.length() - maxLength, str.length());
-        }
-        return str;
-    }
-
-    void ImGuiEditorInspectorView::renderVec3Control(const std::string& label, glm::vec3& values, float resetValue, float columnWidth) {
-        ImGuiIO& io = ImGui::GetIO();
+    void ImGuiEditorInspectorView::renderVec3Control(const std::string &label, glm::vec3 &values, float contentWidth,
+                                                     float resetValue, float vSpeed, std::pair<float, float> vMinMax1,
+                                                     std::pair<float, float> vMinMax2,
+                                                     std::pair<float, float> vMinMax3) {
+        ImGuiIO &io = ImGui::GetIO();
         auto boldFont = io.Fonts->Fonts[0];
 
         ImGui::PushID(label.c_str());
 
-        ImGui::BeginColumns("transformGrid", 2, ImGuiColumnsFlags_NoResize | ImGuiColumnsFlags_NoBorder);
-        ImGui::SetColumnWidth(0, columnWidth);
         ImGui::Text("%s", label.c_str());
-        ImGui::NextColumn();
+        ImGui::SameLine();
+        float inputsWidth = 180.0f;
+        ImGui::SetCursorPosX(contentWidth - 100 - inputsWidth + 50);
 
-        ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
-        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 0 });
+        ImGui::PushMultiItemsWidths(3, inputsWidth);
 
         float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
-        ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+        ImVec2 buttonSize = {lineHeight + 3.0f, lineHeight};
 
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.9f, 0.2f, 0.2f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
-        ImGui::PushFont(boldFont);
-        if (ImGui::Button("X", buttonSize))
-            values.x = resetValue;
-        ImGui::PopFont();
-        ImGui::PopStyleColor(3);
+        ImGui::Text("X");
 
         ImGui::SameLine();
-        ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.3f");
+        ImGui::DragFloat("##X", &values.x, vSpeed, vMinMax1.first, vMinMax1.second, "%.3f");
         ImGui::PopItemWidth();
         ImGui::SameLine();
 
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.3f, 0.8f, 0.3f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
-        ImGui::PushFont(boldFont);
-        if (ImGui::Button("Y", buttonSize))
-            values.y = resetValue;
-        ImGui::PopFont();
-        ImGui::PopStyleColor(3);
+        ImGui::Text("Y");
 
         ImGui::SameLine();
-        ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.3f");
+        ImGui::DragFloat("##Y", &values.y, vSpeed, vMinMax2.first, vMinMax2.second, "%.3f");
         ImGui::PopItemWidth();
         ImGui::SameLine();
 
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.1f, 0.25f, 0.8f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.2f, 0.35f, 0.9f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.1f, 0.25f, 0.8f, 1.0f });
-        ImGui::PushFont(boldFont);
-        if (ImGui::Button("Z", buttonSize))
-            values.z = resetValue;
-        ImGui::PopFont();
-        ImGui::PopStyleColor(3);
+        ImGui::Text("Z");
 
         ImGui::SameLine();
-        ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.3f");
+        ImGui::DragFloat("##Z", &values.z, vSpeed, vMinMax3.first, vMinMax3.second, "%.3f");
         ImGui::PopItemWidth();
-
-        ImGui::PopStyleVar();
-
-        ImGui::Columns(1);
 
         ImGui::PopID();
     }
@@ -220,7 +223,9 @@ namespace Dream {
         if (selectedEntity.hasComponent<Component::TagComponent>()) {
             auto &component = selectedEntity.getComponent<Component::TagComponent>();
             auto cursorPosX1 = ImGui::GetCursorPosX();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Tag", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Tag",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::SameLine();
             ImGui::Text("Tag");
@@ -237,17 +242,22 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderTransformComponent() {
         if (selectedEntity.hasComponent<Component::TransformComponent>()) {
             auto &component = selectedEntity.getComponent<Component::TransformComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Transform", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Transform",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
+            auto cursorPosX1 = ImGui::GetCursorPosX();
 
             ImGui::SameLine();
             ImGui::Text("Transform");
 
             if (treeNodeOpen) {
-                renderVec3Control("Position", component.translation);
+                auto cursorPosX2 = ImGui::GetCursorPosX();
+                float contentWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
+                renderVec3Control("Position", component.translation, contentWidth, 0.0f, 0.1);
                 glm::vec3 eulerRot = glm::eulerAngles(component.rotation);
-                renderVec3Control("Rotation", eulerRot);
+                renderVec3Control("Rotation", eulerRot, contentWidth, 0.0f, 0.1, {0, 0}, {-3.14 / 2, 3.14 / 2});
                 component.rotation = glm::quat(eulerRot);
-                renderVec3Control("Scale", component.scale);
+                renderVec3Control("Scale", component.scale, contentWidth, 0.0f, 0.1);
                 ImGui::TreePop();
             }
         }
@@ -273,7 +283,9 @@ namespace Dream {
 
             auto &component = selectedEntity.getComponent<Component::MeshComponent>();
             auto cursorPosX1 = ImGui::GetCursorPosX();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Mesh", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Mesh",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
             bool canChangeMesh = component.fileId.empty();
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
@@ -282,7 +294,8 @@ namespace Dream {
             ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
             ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
             if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
-                SceneUtils::removeMeshReference(selectedEntity, selectedEntity.getComponent<Component::MeshComponent>().guid, true);
+                SceneUtils::removeMeshReference(selectedEntity,
+                                                selectedEntity.getComponent<Component::MeshComponent>().guid, true);
             }
             ImGui::PopStyleVar();
             ImGui::PopStyleColor();
@@ -305,15 +318,18 @@ namespace Dream {
                     if (ImGui::BeginCombo("##Change Mesh Type", dropdownPreview.c_str())) {
                         bool alreadyChangedMeshType = false;
                         if (!alreadyChangedMeshType && dropdownPreview != "File" && ImGui::Selectable("File")) {
-                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::FROM_FILE, selectedEntity);
+                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(
+                                    Component::MeshComponent::FROM_FILE, selectedEntity);
                             alreadyChangedMeshType = true;
                         }
                         if (!alreadyChangedMeshType && dropdownPreview != "Sphere" && ImGui::Selectable("Sphere")) {
-                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::PRIMITIVE_SPHERE, selectedEntity);
+                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(
+                                    Component::MeshComponent::PRIMITIVE_SPHERE, selectedEntity);
                             alreadyChangedMeshType = true;
                         }
                         if (!alreadyChangedMeshType && dropdownPreview != "Cube" && ImGui::Selectable("Cube")) {
-                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(Component::MeshComponent::PRIMITIVE_CUBE, selectedEntity);
+                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(
+                                    Component::MeshComponent::PRIMITIVE_CUBE, selectedEntity);
                             alreadyChangedMeshType = true;
                         }
                         ImGui::EndCombo();
@@ -322,13 +338,16 @@ namespace Dream {
 
                 // allow user to select mesh file
                 if (component.meshType == Component::MeshComponent::MeshType::FROM_FILE) {
-                    std::string meshPath = shorten(Project::getResourceManager()->getFilePathFromGUID(component.guid));
-                    ImGui::Text(canChangeMesh ? "Path" : "Model path");
-                    ImGui::SameLine();
-                    ImGui::Text("%s", meshPath.c_str());
+                    std::string meshPath = StringUtils::getFilePathRelativeToProjectFolder(
+                            Project::getResourceManager()->getFilePathFromGUID(component.guid));
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() +
+                                            (canChangeMesh ? (-18.f - cursorPosX2) : -(cursorPosX2 - cursorPosX1)));
+                    ImGui::InputText(std::string("##MeshPath").c_str(), &meshPath, ImGuiInputTextFlags_ReadOnly);
                     if (canChangeMesh) {
                         ImGui::SameLine();
-                        if (ImGui::Button("Select")) {
+                        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                        if (ImGui::ImageButton("##Select Mesh", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
                             delete meshSelectorBrowser;
                             meshSelectorBrowser = new ImGui::FileBrowser();
                             meshSelectorBrowser->SetTitle("select mesh");
@@ -336,6 +355,8 @@ namespace Dream {
                             meshSelectorBrowser->Open();
                             oldMeshGUID = component.guid;
                         }
+                        ImGui::PopStyleVar();
+                        ImGui::PopStyleColor();
                     }
                 }
 
@@ -346,8 +367,11 @@ namespace Dream {
 
     void ImGuiEditorInspectorView::renderMaterialComponent() {
         if (selectedEntity.hasComponent<Component::MaterialComponent>()) {
+            float cursorPosX1 = ImGui::GetCursorPosX();
             auto &component = selectedEntity.getComponent<Component::MaterialComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Material", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Material",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();
@@ -361,16 +385,21 @@ namespace Dream {
             ImGui::PopStyleColor();
 
             if (treeNodeOpen) {
-                std::string diffuseTexturePath = shorten(Project::getResourceManager()->getFilePathFromGUID(component.guid));
+                float cursorPosX2 = ImGui::GetCursorPosX();
+                std::string diffuseTexturePath = StringUtils::getFilePathRelativeToProjectFolder(
+                        Project::getResourceManager()->getFilePathFromGUID(component.guid));
                 ImGui::Text("Diffuse Texture");
+                float cursorPosX3 = ImGui::GetCursorPosX();
+                ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 18);
+                ImGui::InputText("##DiffuseTexturePath", &diffuseTexturePath, ImGuiInputTextFlags_ReadOnly);
                 ImGui::SameLine();
-                if (component.guid.empty()) {
-                    if (ImGui::Button("Select")) {
-                        Logger::debug("TODO: allow selection of diffuse texture"); // TODO
-                    }
-                } else {
-                    ImGui::Text("%s", diffuseTexturePath.c_str());
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                if (ImGui::ImageButton("##Select Material", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
+                    Logger::debug("TODO: allow selection of diffuse texture"); // TODO
                 }
+                ImGui::PopStyleVar();
+                ImGui::PopStyleColor();
                 ImGui::TreePop();
             }
         }
@@ -378,6 +407,8 @@ namespace Dream {
 
     void ImGuiEditorInspectorView::renderLuaScriptComponent() {
         if (selectedEntity.hasComponent<Component::LuaScriptComponent>()) {
+            auto cursorPosX1 = ImGui::GetCursorPosX();
+
             if (luaScriptSelectorBrowser) {
                 luaScriptSelectorBrowser->Display();
                 if (luaScriptSelectorBrowser->HasSelected()) {
@@ -388,7 +419,9 @@ namespace Dream {
             }
 
             auto &component = selectedEntity.getComponent<Component::LuaScriptComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Lua Script", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Lua Script",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();
@@ -402,30 +435,51 @@ namespace Dream {
             ImGui::PopStyleColor();
 
             if (treeNodeOpen) {
+                auto cursorPosX2 = ImGui::GetCursorPosX();
                 if (component.guid.empty()) {
-                    if (ImGui::Button("Select")) {
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 18);
+                    std::string noneText = "None";
+                    ImGui::InputText("##LuaScriptPath", &noneText, ImGuiInputTextFlags_ReadOnly);
+
+                    ImGui::SameLine();
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                    if (ImGui::ImageButton("##Select Lua Script", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
                         delete luaScriptSelectorBrowser;
                         luaScriptSelectorBrowser = new ImGui::FileBrowser();
                         luaScriptSelectorBrowser->SetTitle("select script");
                         luaScriptSelectorBrowser->SetPwd(Project::getPath());
                         luaScriptSelectorBrowser->Open();
                     }
+                    ImGui::PopStyleVar();
+                    ImGui::PopStyleColor();
                 } else {
                     std::string scriptPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
-                    std::string shortScriptPath = shorten(scriptPath);
-                    ImGui::Text("Script Path");
+                    std::string shortScriptPath = StringUtils::getFilePathRelativeToProjectFolder(scriptPath);
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 2 * 22);
+                    ImGui::InputText("##LuaScriptPath", &shortScriptPath, ImGuiInputTextFlags_ReadOnly);
+
                     ImGui::SameLine();
-                    ImGui::Text("%s", shortScriptPath.c_str());
-                    ImGui::SameLine();
-                    float btnWidth = ImGui::CalcTextSize("Edit").x;
-                    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetWindowContentRegionWidth() - ImGui::GetCursorPosX()) - btnWidth);
-                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
                     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-                    if (ImGui::Button("Edit", ImVec2(btnWidth, 0.f))) {
+                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                    if (ImGui::ImageButton("##Change Lua Script", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
+                        delete luaScriptSelectorBrowser;
+                        luaScriptSelectorBrowser = new ImGui::FileBrowser();
+                        luaScriptSelectorBrowser->SetTitle("change script");
+                        luaScriptSelectorBrowser->SetPwd(Project::getPath());
+                        luaScriptSelectorBrowser->Open();
+                    }
+                    ImGui::PopStyleVar();
+                    ImGui::PopStyleColor();
+
+                    ImGui::SameLine();
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                    if (ImGui::ImageButton("##Edit Lua Script", (void *) (intptr_t) editIcon, ImVec2(18, 18))) {
                         this->imGuiTextEditor->open(scriptPath);
                     }
-                    ImGui::PopStyleColor();
                     ImGui::PopStyleVar();
+                    ImGui::PopStyleColor();
                 }
                 ImGui::TreePop();
             }
@@ -433,9 +487,13 @@ namespace Dream {
     }
 
     void ImGuiEditorInspectorView::renderAnimatorComponent() {
+        auto cursorPosX1 = ImGui::GetCursorPosX();
+
         if (selectedEntity.hasComponent<Component::AnimatorComponent>()) {
             auto &component = selectedEntity.getComponent<Component::AnimatorComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Animator", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Animator",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();
@@ -449,9 +507,29 @@ namespace Dream {
             ImGui::PopStyleColor();
 
             if (treeNodeOpen) {
-                if (ImGui::Button("Edit")) {
-                    this->animatorGraphEditor->open("dummy_guid");
+                auto cursorPosX2 = ImGui::GetCursorPosX();
+                std::string animatorPath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
+                std::string shortAnimatorPath = StringUtils::getFilePathRelativeToProjectFolder(animatorPath);
+                ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 2 * 22);
+                ImGui::InputText("##AnimatorPath", &shortAnimatorPath, ImGuiInputTextFlags_ReadOnly);
+
+                ImGui::SameLine();
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                if (ImGui::ImageButton("##Change Animator", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
+                    Logger::fatal("NOT IMPLEMENTED: allow animator to be changed");
                 }
+                ImGui::PopStyleVar();
+                ImGui::PopStyleColor();
+
+                ImGui::SameLine();
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                if (ImGui::ImageButton("##Edit Animator", (void *) (intptr_t) editIcon, ImVec2(18, 18))) {
+                    this->animatorGraphEditor->open(component.guid);
+                }
+                ImGui::PopStyleVar();
+                ImGui::PopStyleColor();
                 ImGui::TreePop();
             }
         }
@@ -460,7 +538,9 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderBoneComponent() {
         if (selectedEntity.hasComponent<Component::BoneComponent>()) {
             auto &component = selectedEntity.getComponent<Component::BoneComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Bone", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Bone",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();
@@ -486,7 +566,9 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderSceneCameraComponent() {
         if (selectedEntity.hasComponent<Component::SceneCameraComponent>()) {
             auto &component = selectedEntity.getComponent<Component::SceneCameraComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Scene Camera", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Scene Camera",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();
@@ -511,7 +593,9 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderCameraComponent() {
         if (selectedEntity.hasComponent<Component::CameraComponent>()) {
             auto &component = selectedEntity.getComponent<Component::CameraComponent>();
-            bool treeNodeOpen = ImGui::TreeNodeEx("##Camera", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_AllowItemOverlap);
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Camera",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();

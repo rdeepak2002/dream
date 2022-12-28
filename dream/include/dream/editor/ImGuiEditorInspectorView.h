@@ -1,6 +1,20 @@
-//
-// Created by Deepak Ramalingam on 11/13/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #ifndef DREAM_IMGUIEDITORINSPECTORVIEW_H
 #define DREAM_IMGUIEDITORINSPECTORVIEW_H
@@ -17,37 +31,75 @@ namespace Dream {
     class ImGuiEditorInspectorView {
     public:
         ImGuiEditorInspectorView();
+
         ~ImGuiEditorInspectorView();
+
         void update();
+
         void lookAtSelectedEntity();
-        void selectEntity(Entity& entity);
+
+        void selectEntity(Entity &entity);
+
         void unselectEntity();
-        void setTextEditor(ImGuiTextEditor* imGuiTextEditor);
-        void setAnimatorGraphEditor(ImGuiEditorAnimatorGraph* animatorGraphEditor);
+
+        void setTextEditor(ImGuiTextEditor *imGuiTextEditor);
+
+        void setAnimatorGraphEditor(ImGuiEditorAnimatorGraph *animatorGraphEditor);
+
         Entity getSelectedEntity();
+
     private:
+
+
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        // TODO: load select icon and swap buttons with image button for this
+        unsigned int selectIcon, editIcon;
+
+
         Entity selectedEntity;
-        std::string shorten(std::string str, int maxLength = 14);
+
         void addComponent(std::string componentID);
+
         void renderRemoveComponent();
+
         void renderAddComponent();
-        void renderVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f);
+
+        void renderVec3Control(const std::string &label, glm::vec3 &values, float contentWidth, float resetValue,
+                               float vSpeed, std::pair<float, float> vMinMax1 = {0, 0},
+                               std::pair<float, float> vMinMax2 = {0, 0}, std::pair<float, float> vMinMax3 = {0, 0});
+
         void renderTagComponent();
+
         void renderTransformComponent();
+
         void renderMeshComponent();
+
         void renderMaterialComponent();
+
         void renderLuaScriptComponent();
+
         void renderAnimatorComponent();
+
         void renderBoneComponent();
+
         void renderSceneCameraComponent();
+
         void renderCameraComponent();
+
         // TODO: move mesh component render method to new class
         // mesh component renderer variables
-        ImGui::FileBrowser* meshSelectorBrowser;
+        ImGui::FileBrowser *meshSelectorBrowser;
         std::string oldMeshGUID;
-        ImGui::FileBrowser* luaScriptSelectorBrowser;
-        ImGuiTextEditor* imGuiTextEditor;
-        ImGuiEditorAnimatorGraph* animatorGraphEditor;
+        ImGui::FileBrowser *luaScriptSelectorBrowser;
+        ImGuiTextEditor *imGuiTextEditor;
+        ImGuiEditorAnimatorGraph *animatorGraphEditor;
     };
 }
 

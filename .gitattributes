@@ -1,0 +1,12 @@
+dream/include/KHR/** linguist-vendored=false
+dream/include/entt/** linguist-vendored=false
+dream/include/glad/** linguist-vendored=false
+dream/include/glm/** linguist-vendored=false
+dream/include/gmock/** linguist-vendored=false
+dream/include/gtest/** linguist-vendored=false
+dream/include/imgui-filebrowser/** linguist-vendored=false
+dream/include/imgui-node-editor/** linguist-vendored=false
+dream/include/imgui-texteditor/** linguist-vendored=false
+dream/include/imgui/** linguist-vendored=false
+dream/include/sol/** linguist-vendored=false
+dream/include/stb/** linguist-vendored=false

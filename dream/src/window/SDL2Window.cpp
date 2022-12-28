@@ -1,6 +1,20 @@
-//
-// Created by Deepak Ramalingam on 11/3/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #include "dream/window/SDL2Window.h"
 
@@ -9,6 +23,8 @@
 #include "dream/window/Input.h"
 #include "dream/window/KeyCodes.h"
 #include "dream/project/Project.h"
+#include "dream/Application.h"
+#include <SDL2/SDL_image.h>
 
 #ifdef BORDERLESS
 static SDL_HitTestResult SDLCALL hitTest(SDL_Window *window, const SDL_Point *pt, void *data) {
@@ -33,45 +49,65 @@ namespace Dream {
         this->isLoading = true;
         this->windowWidth = 1600;
         this->windowHeight = 900;
+        this->launchWindowRenderer = nullptr;
+        this->launchWindowImage = nullptr;
         Uint32 WindowFlags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | flags;
-        #ifdef BORDERLESS
+#ifdef BORDERLESS
         WindowFlags |= SDL_WINDOW_BORDERLESS;
-        #endif
-        #ifndef EMSCRIPTEN
+#endif
+#ifndef EMSCRIPTEN
         // window when program launches to indicate loading
-        this->launchWindow = SDL_CreateWindow("Dream", 0, 0, 600, 400, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_BORDERLESS);
+        this->launchWindow = SDL_CreateWindow("Dream", 0, 0, 300, 300,
+                                              SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_BORDERLESS);
         SDL_SetWindowPosition(this->launchWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         SDL_ShowWindow(this->launchWindow);
         SDL_RaiseWindow(this->launchWindow);
-        #endif
+#endif
         // main window with editor
         this->sdlWindow = SDL_CreateWindow("Dream", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
         SDL_SetWindowPosition(this->sdlWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         SDL_RaiseWindow(this->sdlWindow);
-        #ifndef EMSCRIPTEN
+#ifndef EMSCRIPTEN
         SDL_HideWindow(this->sdlWindow);
-        #endif
-        #ifdef BORDERLESS
+#endif
+#ifdef BORDERLESS
         SDL_SetWindowHitTest(this->Window, hitTest, nullptr);
-        #endif
+#endif
+        SDL_SetRelativeMouseMode(SDL_TRUE);
     }
 
     SDL2Window::~SDL2Window() {
         SDL_DestroyWindow(this->sdlWindow);
-        #ifndef EMSCRIPTEN
+#ifndef EMSCRIPTEN
         SDL_DestroyWindow(this->launchWindow);
-        #endif
+#endif
     }
 
     void SDL2Window::update(float dt) {
-        #ifndef EMSCRIPTEN
+#ifndef EMSCRIPTEN
+        // draw Dream logo in launch screen
+        if (!launchWindowRenderer) {
+            launchWindowRenderer = SDL_CreateRenderer(launchWindow, -1, SDL_RENDERER_ACCELERATED);
+            std::string launchWindowImagePath = Application::getResourcesRoot().append(
+                    "assets").append("logo").append("logo-original.png");
+            launchWindowImage = IMG_LoadTexture(launchWindowRenderer, launchWindowImagePath.c_str());
+        }
+        SDL_RenderClear(launchWindowRenderer);
+        SDL_SetRenderDrawColor(launchWindowRenderer, 255, 255, 255, 0);
+        SDL_Rect textureBounds = {0, 0, 300 * 2, 300 * 2};
+        SDL_RenderCopy(launchWindowRenderer, launchWindowImage, nullptr, &textureBounds);
+        SDL_RenderPresent(launchWindowRenderer);
+
         if (!isLoading && firstLoad) {
-//            std::this_thread::sleep_for(std::chrono::seconds(3));
-            SDL_ShowWindow(this->sdlWindow);
+//            std::this_thread::sleep_for(std::chrono::seconds(1));
+            SDL_HideWindow(this->launchWindow);
             SDL_DestroyWindow(this->launchWindow);
+            SDL_DestroyTexture(launchWindowImage);
+            SDL_DestroyRenderer(this->launchWindowRenderer);
+            SDL_ShowWindow(this->sdlWindow);
             this->firstLoad = false;
         }
-        #endif
+#endif
         if (Input::pointerLockActivated()) {
             SDL_SetRelativeMouseMode(SDL_TRUE);
         } else {
@@ -81,8 +117,7 @@ namespace Dream {
 
     void SDL2Window::pollEvents() {
         SDL_Event Event;
-        while (SDL_PollEvent(&Event))
-        {
+        while (SDL_PollEvent(&Event)) {
             this->pollEditorEvents(Event);
             if (Event.type == SDL_KEYDOWN) {
                 bool state = true;
@@ -104,14 +139,14 @@ namespace Dream {
                         break;
                     case SDLK_ESCAPE:
                         Input::setButtonDown(Key::Escape, state);
+                        Input::activatePointerLock(false);
                         break;
                     default:
                         int keyCode = (int) Event.key.keysym.sym;
                         Input::setButtonDown(keyCode, state);
                         break;
                 }
-            }
-            else if (Event.type == SDL_KEYUP) {
+            } else if (Event.type == SDL_KEYUP) {
                 bool state = false;
                 switch (Event.key.keysym.sym) {
                     case SDLK_DOWN:
@@ -144,11 +179,12 @@ namespace Dream {
                 bool state = true;
                 if (Event.button.button == SDL_BUTTON_LEFT) {
                     Input::setButtonDown(Key::LeftMouse, state);
+                    SDL_SetWindowInputFocus(sdlWindow);
                 }
                 if (Event.button.button == SDL_BUTTON_RIGHT) {
                     Input::setButtonDown(Key::RightMouse, state);
                 }
-            }  else if (Event.type == SDL_MOUSEBUTTONUP) {
+            } else if (Event.type == SDL_MOUSEBUTTONUP) {
                 bool state = false;
                 if (Event.button.button == SDL_BUTTON_LEFT) {
                     Input::setButtonDown(Key::LeftMouse, state);
@@ -168,8 +204,7 @@ namespace Dream {
                         this->windowHeight = Event.window.data2;
                         break;
                 }
-            }
-            else if (Event.type == SDL_QUIT) {
+            } else if (Event.type == SDL_QUIT) {
                 this->shouldCloseFlag = true;
             }
         }

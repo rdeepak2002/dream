@@ -1,6 +1,20 @@
-//
-// Created by Deepak Ramalingam on 11/26/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #include "dream/window/Input.h"
 #include "dream/util/Logger.h"
@@ -11,11 +25,17 @@ namespace Dream {
             return false;
         }
 
-        return Input::getInstance().keyDownMap[keyCode];
+        if (Input::getInstance().playWindowActive) {
+            return Input::getInstance().keyDownMap[keyCode];
+        } else {
+            return false;
+        }
     }
 
     void Input::setButtonDown(int keyCode, bool state) {
-        Input::getInstance().keyDownMap[keyCode] = state;
+        if (Input::getInstance().playWindowActive) {
+            Input::getInstance().keyDownMap[keyCode] = state;
+        }
     }
 
     glm::vec2 Input::getMousePosition() {
@@ -23,11 +43,17 @@ namespace Dream {
     }
 
     void Input::setMousePosition(double x, double y) {
-        Input::getInstance().mousePosition = {x, y};
+        if (Input::getInstance().playWindowActive) {
+            Input::getInstance().mousePosition = {x, y};
+        }
     }
 
     glm::vec2 Input::getMouseMovement() {
-        return Input::getInstance().mouseMovement;
+        if (Input::getInstance().playWindowActive) {
+            return Input::getInstance().mouseMovement;
+        } else {
+            return {0, 0};
+        }
     }
 
     void Input::setMouseMovement(double x, double y) {
@@ -35,7 +61,11 @@ namespace Dream {
     }
 
     glm::vec2 Input::getMouseScroll() {
-        return Input::getInstance().mouseScroll;
+        if (Input::getInstance().playWindowActive) {
+            return Input::getInstance().mouseScroll;
+        } else {
+            return {0, 0};
+        }
     }
 
     void Input::setMouseScroll(double x, double y) {
@@ -53,5 +83,21 @@ namespace Dream {
 
     bool Input::pointerLockActivated() {
         return Input::getInstance().enablePointerLock;
+    }
+
+    bool Input::isEditorRendererActive() {
+        return Input::getInstance().editorRendererActive;
+    }
+
+    void Input::setEditorRendererActive(bool editorRendererActive) {
+        Input::getInstance().editorRendererActive = editorRendererActive;
+    }
+
+    bool Input::isPlayWindowActive() {
+        return Input::getInstance().playWindowActive;
+    }
+
+    void Input::setPlayWindowActive(bool playWindowActive) {
+        Input::getInstance().playWindowActive = playWindowActive;
     }
 }

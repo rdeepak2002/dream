@@ -1,6 +1,20 @@
-//
-// Created by Deepak Ramalingam on 11/13/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #include <utility>
 
@@ -32,7 +46,8 @@ namespace Dream::Component {
         this->m_BoneInfoMap = std::move(boneMap);
     }
 
-    MeshComponent::MeshComponent(Dream::Component::MeshComponent::MeshType meshType, std::map<std::string, float> primitiveMeshData) {
+    MeshComponent::MeshComponent(Dream::Component::MeshComponent::MeshType meshType,
+                                 std::map<std::string, float> primitiveMeshData) {
         this->meshType = meshType;
     }
 
@@ -43,7 +58,7 @@ namespace Dream::Component {
                     std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
                     Project::getAssetLoader()->loadMesh(this->guid);
                 }
-                this->mesh = (OpenGLMesh*) Project::getResourceManager()->getData(this->guid, this->fileId);
+                this->mesh = (OpenGLMesh *) Project::getResourceManager()->getData(this->guid, this->fileId);
             } else {
                 if (!this->guid.empty()) {
                     if (needsToLoadBones) {

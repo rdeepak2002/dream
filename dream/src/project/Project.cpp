@@ -1,6 +1,20 @@
-//
-// Created by Deepak Ramalingam on 10/29/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #include "dream/project/Project.h"
 
@@ -33,10 +47,11 @@ namespace Dream {
     }
 
     void Project::recognizeResourcesHelper() {
-        for (const auto& file : std::filesystem::recursive_directory_iterator(Project::getPath().append("assets"))) {
+        for (const auto &file: std::filesystem::recursive_directory_iterator(Project::getPath().append("assets"))) {
             std::string metaExtension = ".meta";
             if (!std::filesystem::is_directory(file) && file.path().extension() == metaExtension) {
-                std::string originalFilePath = file.path().string().substr(0, file.path().string().length() - metaExtension.length());
+                std::string originalFilePath = file.path().string().substr(0, file.path().string().length() -
+                                                                              metaExtension.length());
                 YAML::Node doc = YAML::LoadFile(file.path());
                 auto guid = doc["guid"].as<std::string>();
                 Project::getResourceManager()->setFilePathFromGUID(guid, originalFilePath);
@@ -54,7 +69,7 @@ namespace Dream {
             this->recognizeResourcesHelper();
             this->loadScene();
         } else {
-            Logger::fatal("Project folder does not exist");
+            Logger::fatal("Project folder does not exist " + filepath.string());
         }
     }
 
@@ -73,7 +88,7 @@ namespace Dream {
         std::string loadPath = std::filesystem::path(Project::getPath()).append("assets").append("main.scene");
         YAML::Node doc = YAML::LoadFile(loadPath);
         auto entitiesYaml = doc["Entities"].as<std::vector<YAML::Node>>();
-        for (const YAML::Node& entityYaml : entitiesYaml) {
+        for (const YAML::Node &entityYaml: entitiesYaml) {
             bool isRootEntity = entityYaml[Component::RootComponent::componentName] ? true : false;
             Entity entity = Project::getScene()->createEntity("Entity", isRootEntity, false);
             entity.deserialize(entityYaml);
@@ -81,7 +96,7 @@ namespace Dream {
     }
 
     std::filesystem::path Project::getPathHelper() {
-        return { this->path };
+        return {this->path};
     }
 
     Scene *Project::getScene() {
@@ -130,7 +145,6 @@ namespace Dream {
 
     void Project::setIsPlaying(bool playing) {
         getInstance().playing = playing;
-        Input::activatePointerLock(false);
     }
 
     bool Project::isFullscreen() {

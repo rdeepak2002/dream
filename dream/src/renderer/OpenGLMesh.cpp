@@ -1,6 +1,20 @@
-//
-// Created by Deepak Ramalingam on 11/10/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #include "dream/renderer/OpenGLMesh.h"
 #include "dream/util/Logger.h"
@@ -57,40 +71,40 @@ namespace Dream {
             // positions
             size_t offset = 0;
             glEnableVertexAttribArray(0);
-            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
             offset += 3 * sizeof(float);
 
             // uvs
             glEnableVertexAttribArray(1);
-            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
             offset += 2 * sizeof(float);
 
             // normals
             glEnableVertexAttribArray(2);
-            glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
             offset += 3 * sizeof(float);
 
             // tangents
             glEnableVertexAttribArray(3);
-            glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
             offset += 3 * sizeof(float);
 
             // bitangents
             glEnableVertexAttribArray(4);
-            glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
+            glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
             offset += 3 * sizeof(float);
 
             // bone ids
             glEnableVertexAttribArray(5);
-            glVertexAttribIPointer(5, MAX_BONE_INFLUENCE, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, boneIDs));
+            glVertexAttribIPointer(5, MAX_BONE_INFLUENCE, GL_INT, sizeof(Vertex), (void *) offsetof(Vertex, boneIDs));
             offset += offsetof(Vertex, boneIDs);
 
             // weights
             glEnableVertexAttribArray(6);
-            glVertexAttribPointer(6, MAX_BONE_INFLUENCE, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, boneWeights));
+            glVertexAttribPointer(6, MAX_BONE_INFLUENCE, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+                                  (void *) offsetof(Vertex, boneWeights));
             offset += offsetof(Vertex, boneWeights);
-        }
-        else {
+        } else {
             Logger::fatal("Not interleaved not supported");
         }
         glBindVertexArray(0);

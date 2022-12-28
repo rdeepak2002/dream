@@ -1,6 +1,20 @@
-//
-// Created by Deepak Ramalingam on 12/10/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #include "dream/scene/component/Component.h"
 #include "dream/util/Logger.h"
@@ -14,10 +28,14 @@ namespace Dream::Component {
             out << YAML::Key << k_fov << YAML::Value << entity.getComponent<CameraComponent>().fov;
             out << YAML::Key << k_zNear << YAML::Value << entity.getComponent<CameraComponent>().zNear;
             out << YAML::Key << k_zFar << YAML::Value << entity.getComponent<CameraComponent>().zFar;
-            out << YAML::Key << k_lookAt << YAML::Value << YAML::convert<glm::vec3>().encode(entity.getComponent<CameraComponent>().lookAt);
-            out << YAML::Key << k_front << YAML::Value << YAML::convert<glm::vec3>().encode(entity.getComponent<CameraComponent>().front);
-            out << YAML::Key << k_up << YAML::Value << YAML::convert<glm::vec3>().encode(entity.getComponent<CameraComponent>().up);
-            out << YAML::Key << k_right << YAML::Value << YAML::convert<glm::vec3>().encode(entity.getComponent<CameraComponent>().right);
+            out << YAML::Key << k_lookAt << YAML::Value
+                << YAML::convert<glm::vec3>().encode(entity.getComponent<CameraComponent>().lookAt);
+            out << YAML::Key << k_front << YAML::Value
+                << YAML::convert<glm::vec3>().encode(entity.getComponent<CameraComponent>().front);
+            out << YAML::Key << k_up << YAML::Value
+                << YAML::convert<glm::vec3>().encode(entity.getComponent<CameraComponent>().up);
+            out << YAML::Key << k_right << YAML::Value
+                << YAML::convert<glm::vec3>().encode(entity.getComponent<CameraComponent>().right);
             out << YAML::EndMap;
         }
     }

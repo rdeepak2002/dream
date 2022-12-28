@@ -1,6 +1,20 @@
-//
-// Created by Deepak Ramalingam on 10/21/22.
-//
+/**********************************************************************************
+ *  Dream is a software for developing real-time 3D experiences.
+ *  Copyright (C) 2023 Deepak Ramalignam
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ **********************************************************************************/
 
 #include "dream/Application.h"
 
@@ -16,7 +30,7 @@ namespace Dream {
 
     Application::Application() {
         this->logCollector = new LogCollector();
-        Project::open(this->getResourcesRoot().append("resources").append("example-projects").append("sample-project"));
+        Project::open(this->getResourcesRoot().append("examples").append("sample-project"));
         this->window = new SDL2OpenGLWindow();
         this->renderer = new OpenGLRenderer();
         this->editor = new ImGuiSDL2OpenGLEditor(this->window);
@@ -36,6 +50,9 @@ namespace Dream {
         auto deltaTime = clock::now() - currentTime;
         this->currentTime = clock::now();
         this->lag += std::chrono::duration_cast<std::chrono::nanoseconds>(deltaTime);
+        float dt = std::chrono::duration_cast<std::chrono::milliseconds>(deltaTime).count() * 0.001f;
+        // update startup logo and other window-specific logic
+        this->window->update(dt);
         // poll for input
         this->window->pollEvents();
         // fixed update (physics, scripts, etc.)
@@ -44,9 +61,7 @@ namespace Dream {
             lag -= timestep;
         }
         // not fixed update (ex: animations)
-        float dt = std::chrono::duration_cast<std::chrono::milliseconds>(deltaTime).count() * 0.001f;
         Project::getScene()->update(dt);
-        this->window->update(dt);
         // render
         std::pair<int, int> rendererViewportDimensions;
         if (Project::isFullscreen()) {
@@ -54,7 +69,8 @@ namespace Dream {
         } else {
             rendererViewportDimensions = this->editor->getRendererViewportDimensions();
         }
-        this->renderer->render(rendererViewportDimensions.first, rendererViewportDimensions.second, Project::isFullscreen());
+        this->renderer->render(rendererViewportDimensions.first, rendererViewportDimensions.second,
+                               Project::isFullscreen());
         if (!Project::isFullscreen()) {
             // TODO: create fixed update for editor for more costly computations
             this->editor->update(this->window, this->renderer->getOutputRenderTexture());
@@ -72,20 +88,12 @@ namespace Dream {
     }
 
     std::filesystem::path Application::getResourcesRoot() {
-        // check if current path already has resources folder
-        if (std::filesystem::exists(std::filesystem::current_path().append("resources"))) {
-            return std::filesystem::current_path();
+        if (!std::filesystem::exists(std::filesystem::current_path().append("assets"))) {
+            Logger::fatal("Cannot find assets folder in " + std::filesystem::current_path().string());
         }
-        // try to find location of resources folder for desktop debug build
-        auto resourcesFolder = std::filesystem::current_path()
-                .append("..")
-                .append("..")
-                .append("..")
-                .append("resources");
-        if (std::filesystem::exists(resourcesFolder)) {
-            return resourcesFolder.append("..");
+        if (!std::filesystem::exists(std::filesystem::current_path().append("examples"))) {
+            Logger::fatal("Cannot find example projects folder in " + std::filesystem::current_path().string());
         }
-        Logger::fatal("Unable to find examples folder");
-        return {};
+        return std::filesystem::current_path();
     }
 }
