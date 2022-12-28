@@ -1,27 +1,19 @@
 States:
-  - Guid: F5D080D2-8FF5-4C33-BFA4-B640FEEAD5CA
-    PlayOnce: false
   - Guid: EE92CB4C-ECCB-478D-BC8F-D149C0E20DDB
     PlayOnce: false
   - Guid: CF0A078D-032B-48BA-9B98-8858D5BB4414
     PlayOnce: false
-  - Guid: 1D206AE0-8702-4EA8-8407-781A5F43B3E4
-    PlayOnce: false
 Transitions:
   - To: 1
     From: 0
-    Conditions:
-      []
-  - To: 2
-    From: 1
     Conditions:
       - Variable1Idx: 1
         Variable1: 0
         Operator: ">="
         Variable2Idx: -1
         Variable2: 1
-  - To: 1
-    From: 2
+  - To: 0
+    From: 1
     Conditions:
       - Variable1Idx: 1
         Variable1: 0

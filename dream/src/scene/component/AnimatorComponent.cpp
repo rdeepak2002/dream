@@ -63,7 +63,10 @@ namespace Dream::Component {
             blendFactor += 5.0f * dt;
             if (blendFactor > 1.0) {
                 blendFactor = 1.0;
-                currentState = nextState;
+                if (currentState != nextState) {
+                    currentState = nextState;
+                    numTimesAnimationPlayed = 0;
+                }
             }
         }
     }
@@ -109,10 +112,11 @@ namespace Dream::Component {
                         }
                     }
                     if (allConditionsPassed) {
-                        int numRequiredTimesToPlay = states[transition.OutputStateID].PlayOnce ? 1 : 0;
+                        int numRequiredTimesToPlay = states[currentState].PlayOnce ? 1 : 0;
                         if (numTimesAnimationPlayed >= numRequiredTimesToPlay) {
                             nextState = transition.InputStateID;
                             blendFactor = 0.0;
+                            numTimesAnimationPlayed = 0;
                         }
                         break;
                     }
@@ -329,6 +333,11 @@ namespace Dream::Component {
 
         static float currentTimeLayered = 0.0f;
         currentTimeLayered += pLayeredAnimation->getTicksPerSecond() * deltaTime * animSpeedMultiplierDown;
+        if (currentState == nextState) {
+            if (currentTimeLayered > pLayeredAnimation->getDuration()) {
+                numTimesAnimationPlayed += 1;
+            }
+        }
         currentTimeLayered = fmod(currentTimeLayered, pLayeredAnimation->getDuration());
 
         calculateBlendedBoneTransform(pBaseAnimation, &pBaseAnimation->getRootNode(), pLayeredAnimation,
