@@ -336,7 +336,7 @@ namespace Dream::Component {
 
         // Current time of each animation, "scaled" by the above speed multiplier variables
         currentTimeBase += pBaseAnimation->getTicksPerSecond() * deltaTime * animSpeedMultiplierUp;
-        if (states[currentState].PlayOnce && currentTimeBase > pBaseAnimation->getDuration()) {
+        if (states[currentState].PlayOnce && currentTimeBase >= pBaseAnimation->getDuration()) {
             currentTimeBase = pBaseAnimation->getDuration() - 0.01f;
         } else {
             currentTimeBase = fmod(currentTimeBase, pBaseAnimation->getDuration());
@@ -349,7 +349,7 @@ namespace Dream::Component {
             }
         }
 
-        if (states[currentState].PlayOnce && currentTimeLayered > pLayeredAnimation->getDuration()) {
+        if (states[currentState].PlayOnce && currentTimeLayered >= pLayeredAnimation->getDuration()) {
             currentTimeLayered = pLayeredAnimation->getDuration() - 0.01f;
         } else {
             currentTimeLayered = fmod(currentTimeLayered, pLayeredAnimation->getDuration());
