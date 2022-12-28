@@ -26,6 +26,7 @@
 #include "dream/renderer/OpenGLMesh.h"
 #include "dream/renderer/OpenGLSphereMesh.h"
 #include "dream/renderer/Mesh.h"
+#include "dream/scene/Entity.h"
 
 namespace Dream {
     class OpenGLRenderer : public Renderer {
@@ -52,6 +53,8 @@ namespace Dream {
         void preRender(int viewportWidth, int viewportHeight, bool fullscreen);
 
         void postRender(bool fullscreen);
+
+        void renderEntityAndChildren(Entity entity);
 
         std::pair<int, int> getViewportDimensions();
     };

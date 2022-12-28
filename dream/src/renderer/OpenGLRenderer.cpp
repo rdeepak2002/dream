@@ -101,106 +101,109 @@ namespace Dream {
             }
             shader->setMat4("view", view);
 
-            // update all animator entities
-            // TODO: IMPORTANT NOTE - THIS WILL USE THE SAME ANIMATOR FOR *ALL* MESHES, WE NEED TO SOMEHOW SEPARATE THEM
-            // TODO: POSSIBLE SOLUTION 1 (BETTER - better runtime and allows for BSP in future): RENDER STARTING AT ROOT COMPONENT SINCE THIS ENSURES WE WILL USE THE CORRECT ANIMATOR FOR SUB-MESHES
-            // TODO: POSSIBLE SOLUTION 2 (WORSE and more complicated): USE DATA STRUCTURE TO STORE FINAL TRANSFORM BONES PER GUID
-            std::vector<glm::mat4> finalBoneMatrices;
-            auto animatorEntities = Project::getScene()->getEntitiesWithComponents<Component::AnimatorComponent>();
-            for (auto entityHandle: animatorEntities) {
-                Entity entity = {entityHandle, Project::getScene()};
-                if (entity.hasComponent<Component::MeshComponent>()) {
-                    entity.getComponent<Component::MeshComponent>().loadMesh();
-                } else {
-                    Logger::fatal("No mesh component for entity with animator so bones cannot be loaded");
-                }
-                if (entity.getComponent<Component::AnimatorComponent>().needsToLoadAnimations) {
-                    entity.getComponent<Component::AnimatorComponent>().loadStateMachine(entity);
-                }
-                finalBoneMatrices = entity.getComponent<Component::AnimatorComponent>().m_FinalBoneMatrices;
-            }
-
-            // draw all entities with meshes
-            auto meshEntities = Project::getScene()->getEntitiesWithComponents<Component::MeshComponent>();
-            for (auto entityHandle: meshEntities) {
-                Entity entity = {entityHandle, Project::getScene()};
-
-                // load mesh of entity
-                if (entity.hasComponent<Component::MeshComponent>()) {
-                    if (!entity.getComponent<Component::MeshComponent>().mesh) {
-                        entity.getComponent<Component::MeshComponent>().loadMesh();
-                    }
-                }
-
-                // load material of entity
-                if (entity.hasComponent<Component::MaterialComponent>()) {
-                    if (!entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
-                        entity.getComponent<Component::MaterialComponent>().loadTexture();
-                    }
-                    shader->setVec4("diffuse_color", entity.getComponent<Component::MaterialComponent>().diffuseColor);
-                }
-
-                if (entity.hasComponent<Component::MaterialComponent>() &&
-                    !entity.getComponent<Component::MaterialComponent>().guid.empty()) {
-                    if (entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
-                        auto *openGLTexture = dynamic_cast<OpenGLTexture *>(entity.getComponent<Component::MaterialComponent>().diffuseTexture);
-                        if (openGLTexture) {
-                            shader->use();
-                            shader->setInt("texture_diffuse1", 0);
-                            openGLTexture->bind(0);
-                            shader->use();
-                            shader->setInt("texture_diffuse1", 0);
-                        }
-                    } else {
-                        Logger::warn("No texture loaded");
-                    }
-                } else {
-                    texture->bind(0);
-                }
-
-                // get transform of entity
-                glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
-                shader->setMat4("model", model);
-
-                if (entity.hasComponent<Component::MeshComponent>()) {
-                    // set bones for animation
-                    for (int i = 0; i < finalBoneMatrices.size(); i++) {
-                        shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", finalBoneMatrices[i]);
-                    }
-
-                    // draw mesh of entity
-                    if (entity.getComponent<Component::MeshComponent>().mesh) {
-                        auto *openGLMesh = dynamic_cast<OpenGLMesh *>(entity.getComponent<Component::MeshComponent>().mesh);
-                        if (openGLMesh) {
-                            if (!openGLMesh->getIndices().empty()) {
-                                // case where vertices are indexed
-                                auto numIndices = openGLMesh->getIndices().size();
-                                glBindVertexArray(openGLMesh->getVAO());
-                                glDrawElements(GL_TRIANGLES, (int) numIndices, GL_UNSIGNED_INT, nullptr);
-                                glBindVertexArray(0);
-                            } else if (!openGLMesh->getVertices().empty()) {
-                                // case where vertices are not indexed
-                                glBindVertexArray(openGLMesh->getVAO());
-                                glDrawArrays(GL_TRIANGLES, 0, (int) openGLMesh->getVertices().size());
-                                glBindVertexArray(0);
-                            } else {
-                                Logger::fatal("Unable to render mesh");
-                            }
-                        } else {
-                            Logger::fatal("Mesh cannot be rendered in OpenGL");
-                        }
-                    } else if (entity.getComponent<Component::MeshComponent>().mesh &&
-                               !entity.getComponent<Component::MeshComponent>().fileId.empty()) {
-                        Logger::warn("No mesh loaded");
-                    }
-                }
-            }
+            // render in hierarchy
+            renderEntityAndChildren(Project::getScene()->getRootEntity());
         } else {
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         }
 
         this->postRender(fullscreen);
+    }
+
+    void OpenGLRenderer::renderEntityAndChildren(Entity entity) {
+        // part 1
+        // initialize bones for animated meshes
+        std::vector<glm::mat4> finalBoneMatrices;
+        if (entity.hasComponent<Component::AnimatorComponent>()) {
+            if (entity.hasComponent<Component::MeshComponent>()) {
+                entity.getComponent<Component::MeshComponent>().loadMesh();
+            } else {
+                Logger::fatal("No mesh component for entity with animator so bones cannot be loaded");
+            }
+            if (entity.getComponent<Component::AnimatorComponent>().needsToLoadAnimations) {
+                entity.getComponent<Component::AnimatorComponent>().loadStateMachine(entity);
+            }
+            finalBoneMatrices = entity.getComponent<Component::AnimatorComponent>().m_FinalBoneMatrices;
+        }
+
+        // part 2
+        // draw mesh of entity
+        if (entity.hasComponent<Component::MeshComponent>()) {
+            // load mesh of entity
+            if (!entity.getComponent<Component::MeshComponent>().mesh) {
+                entity.getComponent<Component::MeshComponent>().loadMesh();
+            }
+
+            // load material of entity
+            if (entity.hasComponent<Component::MaterialComponent>()) {
+                if (!entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
+                    entity.getComponent<Component::MaterialComponent>().loadTexture();
+                }
+                shader->setVec4("diffuse_color", entity.getComponent<Component::MaterialComponent>().diffuseColor);
+            }
+
+            if (entity.hasComponent<Component::MaterialComponent>() &&
+                !entity.getComponent<Component::MaterialComponent>().guid.empty()) {
+                if (entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
+                    auto *openGLTexture = dynamic_cast<OpenGLTexture *>(entity.getComponent<Component::MaterialComponent>().diffuseTexture);
+                    if (openGLTexture) {
+                        shader->use();
+                        shader->setInt("texture_diffuse1", 0);
+                        openGLTexture->bind(0);
+                        shader->use();
+                        shader->setInt("texture_diffuse1", 0);
+                    }
+                } else {
+                    Logger::warn("No texture loaded");
+                }
+            } else {
+                texture->bind(0);
+            }
+
+            // get transform of entity
+            glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
+            shader->setMat4("model", model);
+
+            // set bones for animation
+            for (int i = 0; i < finalBoneMatrices.size(); i++) {
+                shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", finalBoneMatrices[i]);
+            }
+
+            // draw mesh of entity
+            if (entity.getComponent<Component::MeshComponent>().mesh) {
+                auto *openGLMesh = dynamic_cast<OpenGLMesh *>(entity.getComponent<Component::MeshComponent>().mesh);
+                if (openGLMesh) {
+                    if (!openGLMesh->getIndices().empty()) {
+                        // case where vertices are indexed
+                        auto numIndices = openGLMesh->getIndices().size();
+                        glBindVertexArray(openGLMesh->getVAO());
+                        glDrawElements(GL_TRIANGLES, (int) numIndices, GL_UNSIGNED_INT, nullptr);
+                        glBindVertexArray(0);
+                    } else if (!openGLMesh->getVertices().empty()) {
+                        // case where vertices are not indexed
+                        glBindVertexArray(openGLMesh->getVAO());
+                        glDrawArrays(GL_TRIANGLES, 0, (int) openGLMesh->getVertices().size());
+                        glBindVertexArray(0);
+                    } else {
+                        Logger::fatal("Unable to render mesh");
+                    }
+                } else {
+                    Logger::fatal("Mesh cannot be rendered in OpenGL");
+                }
+            } else if (entity.getComponent<Component::MeshComponent>().mesh &&
+                       !entity.getComponent<Component::MeshComponent>().fileId.empty()) {
+                Logger::warn("No mesh loaded");
+            }
+        }
+
+        // part 3
+        // repeat process for children
+        Entity child = entity.getComponent<Component::HierarchyComponent>().first;
+        while (child) {
+            renderEntityAndChildren(child);
+            child = child.getComponent<Component::HierarchyComponent>().next;
+        }
     }
 
     void OpenGLRenderer::postRender(bool fullscreen) {
