@@ -336,7 +336,11 @@ namespace Dream::Component {
 
         // Current time of each animation, "scaled" by the above speed multiplier variables
         currentTimeBase += pBaseAnimation->getTicksPerSecond() * deltaTime * animSpeedMultiplierUp;
-        currentTimeBase = fmod(currentTimeBase, pBaseAnimation->getDuration());
+        if (states[currentState].PlayOnce && currentTimeBase > pBaseAnimation->getDuration()) {
+            currentTimeBase = pBaseAnimation->getDuration() - 0.01f;
+        } else {
+            currentTimeBase = fmod(currentTimeBase, pBaseAnimation->getDuration());
+        }
 
         currentTimeLayered += pLayeredAnimation->getTicksPerSecond() * deltaTime * animSpeedMultiplierDown;
         if (currentState == nextState) {
@@ -344,7 +348,12 @@ namespace Dream::Component {
                 numTimesAnimationPlayed += 1;
             }
         }
-        currentTimeLayered = fmod(currentTimeLayered, pLayeredAnimation->getDuration());
+
+        if (states[currentState].PlayOnce && currentTimeLayered > pLayeredAnimation->getDuration()) {
+            currentTimeLayered = pLayeredAnimation->getDuration() - 0.01f;
+        } else {
+            currentTimeLayered = fmod(currentTimeLayered, pLayeredAnimation->getDuration());
+        }
 
         calculateBlendedBoneTransform(pBaseAnimation, &pBaseAnimation->getRootNode(), pLayeredAnimation,
                                       &pLayeredAnimation->getRootNode(), currentTimeBase, currentTimeLayered,
