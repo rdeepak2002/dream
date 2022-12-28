@@ -22,7 +22,6 @@
 #include <iostream>
 #include <entt/entt.hpp>
 #include <yaml-cpp/yaml.h>
-#include <btBulletDynamicsCommon.h>
 #include "dream/scene/system/LuaScriptComponentSystem.h"
 #include "dream/scene/system/AnimatorComponentSystem.h"
 #include "dream/scene/system/AudioComponentSystem.h"
@@ -73,11 +72,6 @@ namespace Dream {
         AudioComponentSystem *audioComponentSystem;
         AnimatorComponentSystem *animatorComponentSystem;
         LuaScriptComponentSystem *luaScriptComponentSystem;
-        btDefaultCollisionConfiguration *collisionConfiguration;
-        btCollisionDispatcher *dispatcher;
-        btBroadphaseInterface *overlappingPairCache;
-        btSequentialImpulseConstraintSolver *solver;
-        btDiscreteDynamicsWorld *dynamicsWorld;
         bool shouldInitComponentSystems;
     };
 }

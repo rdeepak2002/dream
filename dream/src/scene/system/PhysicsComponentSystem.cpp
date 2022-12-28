@@ -20,11 +20,20 @@
 
 namespace Dream {
     PhysicsComponentSystem::PhysicsComponentSystem() {
-
+        collisionConfiguration = new btDefaultCollisionConfiguration();
+        dispatcher = new btCollisionDispatcher(collisionConfiguration);
+        overlappingPairCache = new btDbvtBroadphase();
+        solver = new btSequentialImpulseConstraintSolver;
+        dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
+        dynamicsWorld->setGravity(btVector3(0, -10, 0));
     }
 
     PhysicsComponentSystem::~PhysicsComponentSystem() {
-
+        delete dynamicsWorld;
+        delete solver;
+        delete overlappingPairCache;
+        delete dispatcher;
+        delete collisionConfiguration;
     }
 
     void PhysicsComponentSystem::update(float dt) {

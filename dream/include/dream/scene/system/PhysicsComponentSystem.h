@@ -19,6 +19,8 @@
 #ifndef DREAM_PHYSICSCOMPONENTSYSTEM_H
 #define DREAM_PHYSICSCOMPONENTSYSTEM_H
 
+#include <btBulletDynamicsCommon.h>
+
 namespace Dream {
     class PhysicsComponentSystem {
     public:
@@ -29,6 +31,12 @@ namespace Dream {
         void init();
 
         void update(float dt);
+    private:
+        btDefaultCollisionConfiguration *collisionConfiguration;
+        btCollisionDispatcher *dispatcher;
+        btBroadphaseInterface *overlappingPairCache;
+        btSequentialImpulseConstraintSolver *solver;
+        btDiscreteDynamicsWorld *dynamicsWorld;
     };
 }
 
