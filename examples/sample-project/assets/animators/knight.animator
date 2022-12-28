@@ -10,7 +10,6 @@ States:
 Transitions:
   - To: 0
     From: 3
-    Blend: true
     Conditions:
       - Variable1Idx: 1
         Variable1: 0
@@ -22,9 +21,9 @@ Transitions:
         Operator: ==
         Variable2Idx: -1
         Variable2: 0
+    Blend: true
   - To: 3
     From: 0
-    Blend: true
     Conditions:
       - Variable1Idx: 1
         Variable1: 0
@@ -36,24 +35,52 @@ Transitions:
         Operator: ==
         Variable2Idx: -1
         Variable2: 0
-  - To: 2
+    Blend: true
+  - To: 1
     From: 3
-    Blend: false
     Conditions:
       - Variable1Idx: 2
         Variable1: 0
         Operator: ==
         Variable2Idx: -1
         Variable2: 1
-  - To: 3
-    From: 2
     Blend: false
+  - To: 3
+    From: 1
     Conditions:
       - Variable1Idx: 2
         Variable1: 0
         Operator: ==
         Variable2Idx: -1
         Variable2: 0
+    Blend: false
+  - To: 2
+    From: 1
+    Conditions:
+      - Variable1Idx: 2
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 1
+    Blend: false
+  - To: 1
+    From: 2
+    Conditions:
+      - Variable1Idx: 2
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 1
+    Blend: false
+  - To: 3
+    From: 2
+    Conditions:
+      - Variable1Idx: 2
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 0
+    Blend: false
 Variables:
   - Name: grounded
     Value: 1
