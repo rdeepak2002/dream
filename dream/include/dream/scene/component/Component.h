@@ -235,6 +235,7 @@ namespace Dream::Component {
             int InputStateID;
             int OutputStateID;
             std::vector<Condition> Conditions;
+            bool Blend;
         };
         inline static std::string componentName = "AnimatorComponent";
         inline static std::string k_guid = "guid";          // guid of the animator file
@@ -262,6 +263,8 @@ namespace Dream::Component {
         inline static std::string k_variable_value = "Value";
         std::vector<std::string> variableNames;
         std::vector<int> variableValues;
+        float currentTimeLayered = 0.0f;
+        float currentTimeBase = 0.0f;
 
         explicit AnimatorComponent();
 

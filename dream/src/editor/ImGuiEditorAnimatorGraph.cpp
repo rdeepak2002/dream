@@ -170,7 +170,8 @@ namespace Dream {
                                 Component::AnimatorComponent::Transition newTransition = {
                                         .InputStateID=state1,
                                         .OutputStateID=state2,
-                                        .Conditions=newConditions
+                                        .Conditions=newConditions,
+                                        .Blend=false
                                 };
                                 transitions.push_back(newTransition);
                             }
@@ -275,10 +276,12 @@ namespace Dream {
             }
             auto inputNodeID = transitionNode[Component::AnimatorComponent::k_transition_InputStateID].as<int>();
             auto outputNodeID = transitionNode[Component::AnimatorComponent::k_transition_OutputStateID].as<int>();
+            auto blend = transitionNode["Blend"].as<bool>();
             Component::AnimatorComponent::Transition transition = {
                     .InputStateID=inputNodeID,
                     .OutputStateID=outputNodeID,
-                    .Conditions=conditions
+                    .Conditions=conditions,
+                    .Blend=blend
             };
             transitions.push_back(transition);
         }
@@ -328,6 +331,7 @@ namespace Dream {
                 conditionsNode.push_back(conditionNode);
             }
             transitionNode[Component::AnimatorComponent::k_transition_Conditions] = conditionsNode;
+            transitionNode["Blend"] = transition.Blend;
             transitionsNode.push_back(transitionNode);
         }
         out << YAML::Value << transitionsNode;
@@ -512,6 +516,10 @@ namespace Dream {
                             ImGui::EndCombo();
                         }
                     }
+                    {
+                        // enable or disable blending
+                        ImGui::Checkbox(("Blend ##BlendCheckBox" + std::to_string(i)).c_str(), &transition.Blend);
+                    }
                     for (int j = 0; j < transition.Conditions.size(); ++j) {
                         Component::AnimatorComponent::Condition &condition = transition.Conditions.at(j);
                         {
@@ -608,7 +616,8 @@ namespace Dream {
                     transitions.push_back(Component::AnimatorComponent::Transition{
                             .InputStateID=0,
                             .OutputStateID=1,
-                            .Conditions=conditions
+                            .Conditions=conditions,
+                            .Blend=false
                     });
                 }
             }

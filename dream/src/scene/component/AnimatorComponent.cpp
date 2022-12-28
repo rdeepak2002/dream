@@ -66,6 +66,8 @@ namespace Dream::Component {
                 if (currentState != nextState) {
                     currentState = nextState;
                     numTimesAnimationPlayed = 0;
+//                    currentTimeLayered = 0.0f;
+//                    currentTimeBase = 0.0f;
                 }
             }
         }
@@ -78,7 +80,7 @@ namespace Dream::Component {
 //            std::cout << variableNames[i] << " : " << variableValues[i] << std::endl;
 //        }
 //        std::cout << "===========" << std::endl << std::endl;
-        if (currentState != -1 && blendFactor == 1.0) {
+        if (currentState != -1 && currentState == nextState) {
             for (const auto &transition: transitions) {
                 if (transition.OutputStateID == currentState) {
                     bool allConditionsPassed = true;
@@ -115,8 +117,12 @@ namespace Dream::Component {
                         int numRequiredTimesToPlay = states[currentState].PlayOnce ? 1 : 0;
                         if (numTimesAnimationPlayed >= numRequiredTimesToPlay) {
                             nextState = transition.InputStateID;
-                            blendFactor = 0.0;
+                            blendFactor = transition.Blend ? 0.0 : 1.0;
                             numTimesAnimationPlayed = 0;
+                            if (!transition.Blend) {
+                                currentTimeLayered = 0.0f;
+                                currentTimeBase = 0.0f;
+                            }
                         }
                         break;
                     }
@@ -185,10 +191,12 @@ namespace Dream::Component {
             }
             auto inputNodeID = transitionNode[k_transition_InputStateID].as<int>();
             auto outputNodeID = transitionNode[k_transition_OutputStateID].as<int>();
+            auto blend = transitionNode["Blend"].as<bool>();
             AnimatorComponent::Transition transition = {
                     .InputStateID=inputNodeID,
                     .OutputStateID=outputNodeID,
-                    .Conditions=conditions
+                    .Conditions=conditions,
+                    .Blend = blend
             };
             transitions.push_back(transition);
         }
@@ -327,11 +335,9 @@ namespace Dream::Component {
         const float animSpeedMultiplierDown = (1.0f - blendFactor) * a + b * blendFactor; // Lerp
 
         // Current time of each animation, "scaled" by the above speed multiplier variables
-        static float currentTimeBase = 0.0f;
         currentTimeBase += pBaseAnimation->getTicksPerSecond() * deltaTime * animSpeedMultiplierUp;
         currentTimeBase = fmod(currentTimeBase, pBaseAnimation->getDuration());
 
-        static float currentTimeLayered = 0.0f;
         currentTimeLayered += pLayeredAnimation->getTicksPerSecond() * deltaTime * animSpeedMultiplierDown;
         if (currentState == nextState) {
             if (currentTimeLayered > pLayeredAnimation->getDuration()) {
