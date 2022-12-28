@@ -80,11 +80,13 @@ namespace Dream {
             auto channel = animation->mChannels[i];
             std::string boneName = channel->mNodeName.data;
 
-            if (boneInfoMap.find(boneName) == boneInfoMap.end()) {
-                Logger::warn("Mesh missing bone " + boneName);
-                boneInfoMap[boneName].id = boneCount;
-                boneCount++;
-            }
+            // commented out since this attempts to find bones for nodes that are not actually bones
+//            if (boneInfoMap.find(boneName) == boneInfoMap.end()) {
+//                Logger::warn("Mesh missing bone " + boneName);
+//                boneInfoMap[boneName].id = boneCount;
+//                boneCount++;
+//            }
+
             bones.emplace_back(channel->mNodeName.data, boneInfoMap[channel->mNodeName.data].id, channel);
         }
 
