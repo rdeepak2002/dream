@@ -59,6 +59,72 @@ namespace Dream::Component {
             entity.getComponent<RigidBodyComponent>().angularFactor = angularFactor;
             entity.getComponent<RigidBodyComponent>().friction = friction;
             entity.getComponent<RigidBodyComponent>().restitution = restitution;
+            entity.getComponent<RigidBodyComponent>().updateRigidBody(entity);
+        }
+    }
+
+    void RigidBodyComponent::updateRigidBody(Entity &entity) {
+        const auto &transformComponent = entity.getComponent<TransformComponent>();
+        const auto &translation = transformComponent.translation;
+        const auto &rotation = transformComponent.rotation;
+
+        btVector3 localInertia(0, 0, 0);
+        if (entity.hasComponent<CollisionComponent>()) {
+            if (!entity.getComponent<CollisionComponent>().colliderCompoundShape) {
+                entity.getComponent<CollisionComponent>().updateColliderCompoundShape();
+            }
+            // TODO: only do this when dynamic?
+            entity.getComponent<CollisionComponent>().colliderCompoundShape->calculateLocalInertia(mass, localInertia);
+        } else {
+            Logger::fatal("Rigid body cannot be initialized because entity " + entity.getComponent<TagComponent>().tag +
+                          " does not have collision component");
+        }
+
+        if (type == RigidBodyComponent::DYNAMIC) {
+            auto *motionState = new btDefaultMotionState(btTransform(
+                    btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
+                    btVector3(translation.x, translation.y, translation.z)
+            ));
+
+            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(
+                    mass,
+                    motionState,
+                    entity.getComponent<CollisionComponent>().colliderCompoundShape,
+                    localInertia
+            );
+
+            rigidBody = new btRigidBody(rigidBodyCI);
+
+            rigidBody->setFriction(friction);
+//            rigidBody->setRollingFriction(physicsComponent.rollingFriction);
+//            rigidBody->setSpinningFriction(physicsComponent.spinningFriction);
+            rigidBody->setAnisotropicFriction(
+                    entity.getComponent<CollisionComponent>().colliderCompoundShape->getAnisotropicRollingFrictionDirection(),
+                    btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
+            rigidBody->setDamping(linearDamping, angularDamping);
+            rigidBody->setRestitution(restitution);
+//            rigidBody->setFlags(rigidBody->getFlags() | btCollisionObject::CollisionFlags::CF_DYNAMIC_OBJECT);
+
+            rigidBody->setLinearFactor(btVector3(linearFactor.x, linearFactor.y, linearFactor.z));
+            rigidBody->setAngularFactor(btVector3(angularFactor.x, angularFactor.y, angularFactor.z));
+
+            rigidBody->activate();
+            rigidBody->setActivationState(DISABLE_DEACTIVATION);
+//            dynamicsWorld->addRigidBody(rigidBody);
+//            physicsComponent.rigidBody = rigidBody;
+
+//                var mass = 0;
+//                var localInertia = new Ammo.btVector3(0, 0, 0);
+//                var myMotionState = new Ammo.btDefaultMotionState(groundTransform);
+//                var rbInfo = new Ammo.btRigidBodyConstructionInfo(0, myMotionState, groundShape, localInertia);
+//                var body = new Ammo.btRigidBody(rbInfo);
+//                dynamicsWorld.addRigidBody(body);
+        } else if (type == RigidBodyComponent::KINEMATIC) {
+            Logger::fatal("KINEMATIC RIGID BODY NOT IMPLEMENTED");
+        } else if (type == RigidBodyComponent::STATIC) {
+            Logger::fatal("STATIC RIGID BODY NOT IMPLEMENTED");
+        } else {
+            Logger::fatal("Unknown rigid body type " + std::to_string(static_cast<int>(type)));
         }
     }
 }

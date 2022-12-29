@@ -36,6 +36,9 @@ namespace Dream::Component {
         if (node[componentName]) {
             auto tag = node[componentName][k_tag].as<std::string>();
             entity.addComponent<TagComponent>(tag);
+        } else {
+            Logger::error("Entity does not have tag component");
+            entity.addComponent<TagComponent>("tag");
         }
     }
 }

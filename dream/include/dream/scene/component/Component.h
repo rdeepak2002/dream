@@ -455,6 +455,11 @@ namespace Dream::Component {
         inline static std::string k_restitution = "restitution";
         float restitution = 0.5f;
 
+        // runtime created rigid body
+        btRigidBody *rigidBody = nullptr;
+
+        void updateRigidBody(Entity &entity);
+
         static void deserialize(YAML::Node node, Entity &entity);
 
         static void serialize(YAML::Emitter &out, Entity &entity);
