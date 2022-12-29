@@ -84,11 +84,6 @@ namespace Dream {
         }
         std::ofstream fout(savePath);
         fout << out.c_str();
-        if (temporary) {
-            Logger::info("Saved temporary copy of scene to " + savePath);
-        } else {
-            Logger::info("Saved scene to " + savePath);
-        }
     }
 
     void Project::reloadScene() {
