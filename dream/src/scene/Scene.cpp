@@ -73,14 +73,14 @@ namespace Dream {
         delete physicsComponentSystem;
         delete animatorComponentSystem;
         delete audioComponentSystem;
-//        delete luaScriptComponentSystem;
+        delete luaScriptComponentSystem;
     }
 
     void Scene::resetComponentSystems() {
         physicsComponentSystem = new PhysicsComponentSystem();
         audioComponentSystem = new AudioComponentSystem();
         animatorComponentSystem = new AnimatorComponentSystem();
-//        luaScriptComponentSystem = new LuaScriptComponentSystem();
+        luaScriptComponentSystem = new LuaScriptComponentSystem();
         shouldInitComponentSystems = true;
     }
 

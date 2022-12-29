@@ -224,7 +224,14 @@ namespace Dream {
     }
 
     LuaScriptComponentSystem::~LuaScriptComponentSystem() {
-
+        auto luaScriptEntities = Project::getScene()->getEntitiesWithComponents<Component::LuaScriptComponent>();
+        for (auto entityHandle: luaScriptEntities) {
+            Entity entity = {entityHandle, Project::getScene()};
+            auto &luaScriptComponent = entity.getComponent<Component::LuaScriptComponent>();
+            if (luaScriptComponent.table.valid()) {
+                luaScriptComponent.table.abandon();
+            }
+        }
     }
 
     void LuaScriptComponentSystem::update(float dt) {
