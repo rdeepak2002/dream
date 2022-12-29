@@ -37,6 +37,8 @@ namespace Dream {
         selectedEntity = Entity();
         meshSelectorBrowser = nullptr;
         luaScriptSelectorBrowser = nullptr;
+        animatorSelectorBrowser = nullptr;
+        collisionMeshSelectorBrowser = nullptr;
 
         // TODO: use specific renderer (not OpenGL)
         Texture *selectIconTexture = new OpenGLTexture(
@@ -496,6 +498,16 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderAnimatorComponent() {
         auto cursorPosX1 = ImGui::GetCursorPosX();
 
+        if (animatorSelectorBrowser) {
+            animatorSelectorBrowser->Display();
+            if (animatorSelectorBrowser->HasSelected()) {
+                std::filesystem::path selectedFilePath = animatorSelectorBrowser->GetSelected();
+                selectedEntity.getComponent<Component::AnimatorComponent>().guid = IDUtils::getGUIDForFile(selectedFilePath);
+                selectedEntity.getComponent<Component::AnimatorComponent>().loadStateMachine(selectedEntity);
+                animatorSelectorBrowser->ClearSelected();
+            }
+        }
+
         if (selectedEntity.hasComponent<Component::AnimatorComponent>()) {
             auto &component = selectedEntity.getComponent<Component::AnimatorComponent>();
             bool treeNodeOpen = ImGui::TreeNodeEx("##Animator",
@@ -524,7 +536,11 @@ namespace Dream {
                 ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                 ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
                 if (ImGui::ImageButton("##Change Animator", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
-                    Logger::fatal("TODO: NOT IMPLEMENTED: allow animator to be changed");
+                    delete animatorSelectorBrowser;
+                    animatorSelectorBrowser = new ImGui::FileBrowser();
+                    animatorSelectorBrowser->SetTitle("select animator");
+                    animatorSelectorBrowser->SetPwd(Project::getPath());
+                    animatorSelectorBrowser->Open();
                 }
                 ImGui::PopStyleVar();
                 ImGui::PopStyleColor();

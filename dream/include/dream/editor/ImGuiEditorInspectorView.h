@@ -97,9 +97,11 @@ namespace Dream {
 
         // TODO: move mesh component render method to new class
         // mesh component renderer variables
-        ImGui::FileBrowser *meshSelectorBrowser;
         std::string oldMeshGUID;
+        ImGui::FileBrowser *meshSelectorBrowser;
         ImGui::FileBrowser *luaScriptSelectorBrowser;
+        ImGui::FileBrowser *animatorSelectorBrowser;
+        ImGui::FileBrowser *collisionMeshSelectorBrowser;
         ImGuiTextEditor *imGuiTextEditor;
         ImGuiEditorAnimatorGraph *animatorGraphEditor;
     };
