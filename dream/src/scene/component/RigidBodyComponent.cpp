@@ -98,7 +98,6 @@ namespace Dream::Component {
             );
 
             rigidBody = new btRigidBody(rigidBodyCI);
-            rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_DYNAMIC_OBJECT);
             rigidBody->setFriction(friction);
             rigidBody->setAnisotropicFriction(
                     entity.getComponent<CollisionComponent>().colliderCompoundShape->getAnisotropicRollingFrictionDirection(),
