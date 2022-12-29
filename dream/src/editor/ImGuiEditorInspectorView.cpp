@@ -39,6 +39,7 @@ namespace Dream {
         luaScriptSelectorBrowser = nullptr;
         animatorSelectorBrowser = nullptr;
         collisionMeshSelectorBrowser = nullptr;
+        colliderIndex = -1;
 
         // TODO: use specific renderer (not OpenGL)
         Texture *selectIconTexture = new OpenGLTexture(
@@ -58,6 +59,8 @@ namespace Dream {
     ImGuiEditorInspectorView::~ImGuiEditorInspectorView() {
         delete meshSelectorBrowser;
         delete luaScriptSelectorBrowser;
+        delete animatorSelectorBrowser;
+        delete collisionMeshSelectorBrowser;
     }
 
     void ImGuiEditorInspectorView::setTextEditor(ImGuiTextEditor *imGuiTextEditor) {
@@ -641,6 +644,20 @@ namespace Dream {
     }
 
     void ImGuiEditorInspectorView::renderCollisionComponent() {
+        if (collisionMeshSelectorBrowser) {
+            collisionMeshSelectorBrowser->Display();
+            if (collisionMeshSelectorBrowser->HasSelected()) {
+                if (colliderIndex == -1) {
+                    Logger::error("No collider to update assigned");
+                } else {
+                    std::filesystem::path selectedFilePath = collisionMeshSelectorBrowser->GetSelected();
+                    selectedEntity.getComponent<Component::CollisionComponent>().colliders.at(colliderIndex).assetGUID = IDUtils::getGUIDForFile(selectedFilePath);
+                    collisionMeshSelectorBrowser->ClearSelected();
+                    colliderIndex = -1;
+                }
+            }
+        }
+
         if (selectedEntity.hasComponent<Component::CollisionComponent>()) {
             auto cursorPosX1 = ImGui::GetCursorPosX();
             auto &component = selectedEntity.getComponent<Component::CollisionComponent>();
@@ -766,8 +783,12 @@ namespace Dream {
                         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                         ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
                         if (ImGui::ImageButton(("##ChangeColliderMesh/" + std::to_string(i)).c_str(), (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
-                            Logger::fatal("TODO: NOT IMPLEMENTED: allow collider mesh to be changed");
-                            // collider.assetGUID = "something";
+                            delete collisionMeshSelectorBrowser;
+                            collisionMeshSelectorBrowser = new ImGui::FileBrowser();
+                            collisionMeshSelectorBrowser->SetTitle("select mesh");
+                            collisionMeshSelectorBrowser->SetPwd(Project::getPath());
+                            collisionMeshSelectorBrowser->Open();
+                            colliderIndex = i;
                         }
                         ImGui::PopStyleVar();
                         ImGui::PopStyleColor();
