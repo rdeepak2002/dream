@@ -31,6 +31,34 @@ namespace Dream {
     }
 
     PhysicsComponentSystem::~PhysicsComponentSystem() {
+        if (dynamicsWorld) {
+            // delete rigid bodies
+            for (int i=dynamicsWorld->getNumCollisionObjects()-1; i>=0 ;i--) {
+                btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
+                btRigidBody* body = btRigidBody::upcast(obj);
+                if (body && body->getMotionState()) {
+                    delete body->getMotionState();
+                }
+                dynamicsWorld->removeCollisionObject(obj);
+                delete obj;
+            }
+            auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
+            for (auto entityHandle: rigidBodyEntities) {
+                Entity entity = {entityHandle, Project::getScene()};
+                auto *rigidBody = entity.getComponent<Component::RigidBodyComponent>().rigidBody;
+                delete rigidBody;
+                rigidBody = nullptr;
+            }
+
+            // delete collision shapes
+            auto collisionEntities = Project::getScene()->getEntitiesWithComponents<Component::CollisionComponent>();
+            for (auto entityHandle: collisionEntities) {
+                Entity entity = {entityHandle, Project::getScene()};
+                auto *shape = entity.getComponent<Component::CollisionComponent>().colliderCompoundShape;
+                delete shape;
+                shape = nullptr;
+            }
+        }
         delete dynamicsWorld;
         delete solver;
         delete overlappingPairCache;

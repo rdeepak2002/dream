@@ -59,6 +59,8 @@ namespace Dream {
 
         static void saveScene();
 
+        static void reloadScene();
+
         static bool isPlaying();
 
         static void setIsPlaying(bool playing);

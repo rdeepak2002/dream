@@ -42,6 +42,10 @@ namespace Dream {
 
         void fixedUpdate(float dt);
 
+        void destroyComponentSystems();
+
+        void resetComponentSystems();
+
         template<typename... Components>
         auto getEntitiesWithComponents() {
             return entityRegistry.view<Components ...>();
@@ -60,6 +64,8 @@ namespace Dream {
         Entity getEntityByInternalID(int internalID);
 
         void removeEntity(Entity &entity);
+
+        void clear();
 
         void serialize(YAML::Emitter &out);
 

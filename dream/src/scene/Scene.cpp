@@ -69,6 +69,21 @@ namespace Dream {
         animatorComponentSystem->update(dt);
     }
 
+    void Scene::destroyComponentSystems() {
+        delete physicsComponentSystem;
+        delete animatorComponentSystem;
+        delete audioComponentSystem;
+        delete luaScriptComponentSystem;
+    }
+
+    void Scene::resetComponentSystems() {
+        physicsComponentSystem = new PhysicsComponentSystem();
+        audioComponentSystem = new AudioComponentSystem();
+        animatorComponentSystem = new AnimatorComponentSystem();
+        luaScriptComponentSystem = new LuaScriptComponentSystem();
+        shouldInitComponentSystems = true;
+    }
+
     void Scene::fixedUpdate(float dt) {
         if (Project::isPlaying() && !shouldInitComponentSystems) {
             physicsComponentSystem->update(dt);
@@ -179,5 +194,14 @@ namespace Dream {
             return entity;
         }
         return {};
+    }
+
+    void Scene::clear() {
+        Entity rootEntity = getRootEntity();
+        if (rootEntity) {
+            removeEntity(rootEntity);
+        } else {
+            Logger::debug("Scene already cleared");
+        }
     }
 }

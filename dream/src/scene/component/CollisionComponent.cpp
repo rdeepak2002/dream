@@ -22,7 +22,7 @@
 
 namespace Dream::Component {
     CollisionComponent::~CollisionComponent() {
-        delete colliderCompoundShape;
+//        delete colliderCompoundShape;
     }
 
     void CollisionComponent::updateColliderCompoundShape() {
@@ -135,7 +135,7 @@ namespace Dream::Component {
             }
             entity.addComponent<CollisionComponent>();
             entity.getComponent<CollisionComponent>().colliders = std::move(colliders);
-            entity.getComponent<CollisionComponent>().updateColliderCompoundShape();
+//            entity.getComponent<CollisionComponent>().updateColliderCompoundShape();
         }
     }
 }

@@ -664,7 +664,6 @@ namespace Dream {
                             colliderIndex).assetGUID = IDUtils::getGUIDForFile(selectedFilePath);
                     collisionMeshSelectorBrowser->ClearSelected();
                     colliderIndex = -1;
-                    selectedEntity.getComponent<Component::CollisionComponent>().updateColliderCompoundShape();
                 }
             }
         }
@@ -836,13 +835,11 @@ namespace Dream {
                     if (ImGui::Button(("Remove ##RemoveCollider/" + std::to_string(i)).c_str(),
                                       ImVec2(treeNodeWidth, 0))) {
                         component.colliders.erase(component.colliders.begin() + i);
-                        selectedEntity.getComponent<Component::CollisionComponent>().updateColliderCompoundShape();
                     }
                 }
                 // add collider btn
                 if (ImGui::Button("Add Collider", ImVec2(treeNodeWidth, 0))) {
                     component.colliders.emplace_back();
-                    selectedEntity.getComponent<Component::CollisionComponent>().updateColliderCompoundShape();
                 }
                 ImGui::TreePop();
             }
