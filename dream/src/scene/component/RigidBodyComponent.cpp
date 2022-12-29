@@ -152,4 +152,12 @@ namespace Dream::Component {
             Logger::fatal("Unknown rigid body type " + std::to_string(static_cast<int>(type)));
         }
     }
+
+    void RigidBodyComponent::setLinearVelocity(glm::vec3 newLinearVelocity) {
+        if (rigidBody) {
+            rigidBody->setLinearVelocity(btVector3(newLinearVelocity.x, newLinearVelocity.y, newLinearVelocity.z));
+        } else {
+            Logger::warn("Rigid body not initialized");
+        }
+    }
 }

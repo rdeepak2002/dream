@@ -198,7 +198,8 @@ namespace Dream {
                                  "isValid", &Dream::Entity::isValid,
                                  "getTransform", &Dream::Entity::getComponent<Dream::Component::TransformComponent>,
                                  "getCamera", &Dream::Entity::getComponent<Dream::Component::CameraComponent>,
-                                 "getAnimator", &Dream::Entity::getComponent<Dream::Component::AnimatorComponent>
+                                 "getAnimator", &Dream::Entity::getComponent<Dream::Component::AnimatorComponent>,
+                                 "getRigidBody", &Dream::Entity::getComponent<Dream::Component::RigidBodyComponent>
         );
 
         lua.new_usertype<Component::TransformComponent>("TransformComponent",
@@ -214,6 +215,11 @@ namespace Dream {
         lua.new_usertype<Component::AnimatorComponent>("AnimatorComponent",
                                                        "setVariable",
                                                        sol::as_function(&Component::AnimatorComponent::setVariable)
+        );
+
+        lua.new_usertype<Component::RigidBodyComponent>("RigidBodyComponent",
+                                                       "setLinearVelocity",
+                                                       sol::as_function(&Component::RigidBodyComponent::setLinearVelocity)
         );
 
         lua.new_usertype<Scene>("Scene",

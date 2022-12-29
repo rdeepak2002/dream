@@ -466,6 +466,8 @@ namespace Dream::Component {
 
         void updateRigidBody(Entity &entity);
 
+        void setLinearVelocity(glm::vec3 newLinearVelocity);
+
         static void deserialize(YAML::Node node, Entity &entity);
 
         static void serialize(YAML::Emitter &out, Entity &entity);
