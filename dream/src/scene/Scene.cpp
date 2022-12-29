@@ -71,15 +71,23 @@ namespace Dream {
 
     void Scene::destroyComponentSystems() {
         delete physicsComponentSystem;
+        physicsComponentSystem = nullptr;
         delete animatorComponentSystem;
+        animatorComponentSystem = nullptr;
         delete audioComponentSystem;
+        audioComponentSystem = nullptr;
         delete luaScriptComponentSystem;
+        luaScriptComponentSystem = nullptr;
     }
 
     void Scene::resetComponentSystems() {
+        delete physicsComponentSystem;
         physicsComponentSystem = new PhysicsComponentSystem();
+        delete audioComponentSystem;
         audioComponentSystem = new AudioComponentSystem();
+        delete animatorComponentSystem;
         animatorComponentSystem = new AnimatorComponentSystem();
+        delete luaScriptComponentSystem;
         luaScriptComponentSystem = new LuaScriptComponentSystem();
         shouldInitComponentSystems = true;
     }
