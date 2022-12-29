@@ -414,6 +414,11 @@ namespace Dream::Component {
         };
         std::vector<Collider> colliders;
 
+        // runtime created collider shape
+        btCompoundShape *colliderCompoundShape = nullptr;
+
+        void updateColliderCompoundShape();
+
         static void deserialize(YAML::Node node, Entity &entity);
 
         static void serialize(YAML::Emitter &out, Entity &entity);
@@ -421,8 +426,6 @@ namespace Dream::Component {
 
     struct RigidBodyComponent : public Component {
         inline static std::string componentName = "RigidBodyComponent";
-        // runtime created collider shape
-        btCompoundShape *colliderCompoundShape = nullptr;
     };
 }
 

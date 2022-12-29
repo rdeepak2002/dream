@@ -654,6 +654,7 @@ namespace Dream {
                     selectedEntity.getComponent<Component::CollisionComponent>().colliders.at(colliderIndex).assetGUID = IDUtils::getGUIDForFile(selectedFilePath);
                     collisionMeshSelectorBrowser->ClearSelected();
                     colliderIndex = -1;
+                    selectedEntity.getComponent<Component::CollisionComponent>().updateColliderCompoundShape();
                 }
             }
         }
@@ -720,11 +721,11 @@ namespace Dream {
                     // offset
                     renderVec3Control("Offset", collider.offset, treeNodeWidth + 20, 1.0, 0.1, i);
                     // half extents
-                    if (collider.type == Component::CollisionComponent::BOX) {
+                    if (collider.type == Component::CollisionComponent::BOX ||  collider.type == Component::CollisionComponent::CYLINDER) {
                         renderVec3Control("Half Extents", collider.halfExtents, treeNodeWidth + 20, 1.0, 0.1, i);
                     }
                     // axis selector
-                    if (collider.type == Component::CollisionComponent::CAPSULE) {
+                    if (collider.type == Component::CollisionComponent::CAPSULE || collider.type == Component::CollisionComponent::CONE) {
                         auto cursorPosX3 = ImGui::GetCursorPosX();
                         ImGui::Text("Axis");
                         std::string capsuleAxis = "";
@@ -753,7 +754,7 @@ namespace Dream {
                         }
                     }
                     // height input
-                    if (collider.type == Component::CollisionComponent::CAPSULE) {
+                    if (collider.type == Component::CollisionComponent::CAPSULE || collider.type == Component::CollisionComponent::CONE) {
                         auto cursorPosX3 = ImGui::GetCursorPosX();
                         ImGui::Text("Height");
                         ImGui::SameLine();
@@ -763,7 +764,7 @@ namespace Dream {
                         ImGui::DragFloat(("##ColliderHeight/" + std::to_string(i)).c_str(), &collider.height, 0.1f, 0.0f, 0.0f, "%.3f");
                     }
                     // radius input
-                    if (collider.type == Component::CollisionComponent::CAPSULE || collider.type == Component::CollisionComponent::SPHERE) {
+                    if (collider.type == Component::CollisionComponent::CAPSULE || collider.type == Component::CollisionComponent::SPHERE || collider.type == Component::CollisionComponent::CONE) {
                         auto cursorPosX3 = ImGui::GetCursorPosX();
                         ImGui::Text("Radius");
                         ImGui::SameLine();
@@ -798,11 +799,13 @@ namespace Dream {
                     // remove collider btn
                     if (ImGui::Button(("Remove ##RemoveCollider/" + std::to_string(i)).c_str(), ImVec2(treeNodeWidth, 0))) {
                         component.colliders.erase(component.colliders.begin() + i);
+                        selectedEntity.getComponent<Component::CollisionComponent>().updateColliderCompoundShape();
                     }
                 }
                 // add collider btn
                 if (ImGui::Button("Add Collider", ImVec2(treeNodeWidth, 0))) {
                     component.colliders.emplace_back();
+                    selectedEntity.getComponent<Component::CollisionComponent>().updateColliderCompoundShape();
                 }
                 ImGui::TreePop();
             }

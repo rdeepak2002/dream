@@ -21,6 +21,66 @@
 #include "dream/util/YAMLUtils.h"
 
 namespace Dream::Component {
+    void CollisionComponent::updateColliderCompoundShape() {
+        delete colliderCompoundShape;
+        colliderCompoundShape = new btCompoundShape();
+        for (const auto &collider : colliders) {
+            btTransform t;
+            t.setIdentity();
+            t.setOrigin(btVector3(collider.offset.x, collider.offset.y, collider.offset.z));
+            if (collider.type == BOX) {
+                auto shape = new btBoxShape(btVector3(collider.halfExtents.x, collider.halfExtents.y, collider.halfExtents.z));
+                colliderCompoundShape->addChildShape(t, shape);
+            } else if (collider.type == CAPSULE) {
+                btCapsuleShape *shape = nullptr;
+                if (collider.axis == Y) {
+                    shape = new btCapsuleShape(collider.radius, collider.height);
+                } else if (collider.axis == X) {
+                    shape = new btCapsuleShapeX(collider.radius, collider.height);
+                } else if (collider.axis == Z) {
+                    shape = new btCapsuleShapeZ(collider.radius, collider.height);
+                } else {
+                    Logger::fatal("Unknown capsule axis " + std::to_string(collider.axis));
+                }
+                colliderCompoundShape->addChildShape(t, shape);
+            } else if (collider.type == CONE) {
+                btConeShape *shape = nullptr;
+                if (collider.axis == Y) {
+                    shape = new btConeShape(collider.radius, collider.height);
+                } else if (collider.axis == X) {
+                    shape = new btConeShapeX(collider.radius, collider.height);
+                } else if (collider.axis == Z) {
+                    shape = new btConeShapeZ(collider.radius, collider.height);
+                } else {
+                    Logger::fatal("Unknown cone axis " + std::to_string(collider.axis));
+                }
+                colliderCompoundShape->addChildShape(t, shape);
+            } else if (collider.type == CYLINDER) {
+                btCylinderShape *shape = nullptr;
+                if (collider.axis == Y) {
+                    shape = new btCylinderShape(btVector3(collider.halfExtents.x, collider.halfExtents.y, collider.halfExtents.z));
+                } else if (collider.axis == X) {
+                    shape = new btCylinderShapeX(btVector3(collider.halfExtents.x, collider.halfExtents.y, collider.halfExtents.z));
+                } else if (collider.axis == Z) {
+                    shape = new btCylinderShapeZ(btVector3(collider.halfExtents.x, collider.halfExtents.y, collider.halfExtents.z));
+                } else {
+                    Logger::fatal("Unknown cylinder axis " + std::to_string(collider.axis));
+                }
+                colliderCompoundShape->addChildShape(t, shape);
+            } else if (collider.type == MESH) {
+//                auto *shape = btTriangleMeshShape();
+//                colliderCompoundShape->addChildShape(t, shape);
+                // TODO
+                Logger::fatal("TODO: support mesh shape loading in CollisionComponent");
+            } else if (collider.type == SPHERE) {
+                auto *shape = new btSphereShape(collider.radius);
+                colliderCompoundShape->addChildShape(t, shape);
+            } else {
+                Logger::fatal("Unknown collider type " + std::to_string(static_cast<int>(collider.type)));
+            }
+        }
+    }
+
     void CollisionComponent::serialize(YAML::Emitter &out, Dream::Entity &entity) {
         if (entity.hasComponent<CollisionComponent>()) {
             auto &collisionComponent = entity.getComponent<CollisionComponent>();
@@ -67,6 +127,7 @@ namespace Dream::Component {
             }
             entity.addComponent<CollisionComponent>();
             entity.getComponent<CollisionComponent>().colliders = std::move(colliders);
+            entity.getComponent<CollisionComponent>().updateColliderCompoundShape();
         }
     }
 }
