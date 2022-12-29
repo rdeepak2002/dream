@@ -75,6 +75,7 @@ namespace Dream {
         } else {
             if (ImGui::ImageButton("PlayBtn", (void *) (intptr_t) playIcon, ImVec2(btnWidth, btnWidth))) {
                 Project::setIsPlaying(true);
+                Project::saveScene(true);
             }
         }
         ImGui::SameLine();

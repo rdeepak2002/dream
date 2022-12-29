@@ -73,15 +73,22 @@ namespace Dream {
         }
     }
 
-    void Project::saveScene() {
+    void Project::saveScene(bool temporary) {
         YAML::Emitter out;
         out << YAML::BeginMap;
         Project::getInstance().scene->serialize(out);
         out << YAML::EndMap;
         std::string savePath = std::filesystem::path(Project::getPath()).append("assets").append("main.scene");
+        if (temporary) {
+            savePath = std::filesystem::path(Project::getPath()).append("assets").append(std::string("main.scene") + std::string(".tmp"));
+        }
         std::ofstream fout(savePath);
         fout << out.c_str();
-        Logger::info("Saved scene to " + savePath);
+        if (temporary) {
+            Logger::info("Saved temporary copy of scene to " + savePath);
+        } else {
+            Logger::info("Saved scene to " + savePath);
+        }
     }
 
     void Project::reloadScene() {
@@ -89,20 +96,28 @@ namespace Dream {
             Project::getInstance().scene->destroyComponentSystems();
             Project::getInstance().scene->clear();
             Project::getInstance().scene->resetComponentSystems();
-            Project::getInstance().loadScene();
+            Project::getInstance().loadScene(true);
         } else {
             Logger::debug("No scene to reload");
         }
     }
 
-    void Project::loadScene() {
+    void Project::loadScene(bool temporary) {
         std::string loadPath = std::filesystem::path(Project::getPath()).append("assets").append("main.scene");
+        if (temporary) {
+            loadPath = std::filesystem::path(Project::getPath()).append("assets").append(std::string("main.scene") + std::string(".tmp"));
+        }
         YAML::Node doc = YAML::LoadFile(loadPath);
         auto entitiesYaml = doc["Entities"].as<std::vector<YAML::Node>>();
         for (const YAML::Node &entityYaml: entitiesYaml) {
             bool isRootEntity = entityYaml[Component::RootComponent::componentName] ? true : false;
             Entity entity = Project::getScene()->createEntity("Entity", isRootEntity, false);
             entity.deserialize(entityYaml);
+        }
+
+        if (temporary) {
+            // delete temporary scene file
+            std::filesystem::remove(loadPath);
         }
     }
 

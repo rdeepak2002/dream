@@ -57,7 +57,7 @@ namespace Dream {
 
         static void recognizeResources();
 
-        static void saveScene();
+        static void saveScene(bool temporary=false);
 
         static void reloadScene();
 
@@ -80,7 +80,7 @@ namespace Dream {
 
         void openHelper(std::filesystem::path filepath);
 
-        void loadScene();
+        void loadScene(bool temporary=false);
 
         Dream::AssetLoader *getAssetLoaderHelper();
 
