@@ -75,6 +75,9 @@ namespace Dream::Component {
             if (!entity.getComponent<CollisionComponent>().colliderCompoundShape) {
                 entity.getComponent<CollisionComponent>().updateColliderCompoundShape();
             }
+            if (!entity.getComponent<CollisionComponent>().colliderCompoundShape) {
+                Logger::fatal("Unable to initialize compound collider shape");
+            }
             entity.getComponent<CollisionComponent>().colliderCompoundShape->calculateLocalInertia(mass, localInertia);
         } else {
             Logger::fatal("Rigid body cannot be initialized because entity " + entity.getComponent<TagComponent>().tag +
@@ -95,35 +98,67 @@ namespace Dream::Component {
             );
 
             rigidBody = new btRigidBody(rigidBodyCI);
-
+            rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_DYNAMIC_OBJECT);
             rigidBody->setFriction(friction);
-//            rigidBody->setRollingFriction(physicsComponent.rollingFriction);
-//            rigidBody->setSpinningFriction(physicsComponent.spinningFriction);
             rigidBody->setAnisotropicFriction(
                     entity.getComponent<CollisionComponent>().colliderCompoundShape->getAnisotropicRollingFrictionDirection(),
                     btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
             rigidBody->setDamping(linearDamping, angularDamping);
             rigidBody->setRestitution(restitution);
-//            rigidBody->setFlags(rigidBody->getFlags() | btCollisionObject::CollisionFlags::CF_DYNAMIC_OBJECT);
-
             rigidBody->setLinearFactor(btVector3(linearFactor.x, linearFactor.y, linearFactor.z));
             rigidBody->setAngularFactor(btVector3(angularFactor.x, angularFactor.y, angularFactor.z));
-
             rigidBody->activate();
             rigidBody->setActivationState(DISABLE_DEACTIVATION);
-//            dynamicsWorld->addRigidBody(rigidBody);
-//            physicsComponent.rigidBody = rigidBody;
-
-//                var mass = 0;
-//                var localInertia = new Ammo.btVector3(0, 0, 0);
-//                var myMotionState = new Ammo.btDefaultMotionState(groundTransform);
-//                var rbInfo = new Ammo.btRigidBodyConstructionInfo(0, myMotionState, groundShape, localInertia);
-//                var body = new Ammo.btRigidBody(rbInfo);
-//                dynamicsWorld.addRigidBody(body);
         } else if (type == RigidBodyComponent::KINEMATIC) {
-            Logger::fatal("KINEMATIC RIGID BODY NOT IMPLEMENTED");
+            auto *motionState = new btDefaultMotionState(btTransform(
+                    btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
+                    btVector3(translation.x, translation.y, translation.z)
+            ));
+
+            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(
+                    0,
+                    motionState,
+                    entity.getComponent<CollisionComponent>().colliderCompoundShape,
+                    localInertia
+            );
+
+            rigidBody = new btRigidBody(rigidBodyCI);
+            rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+            rigidBody->setFriction(friction);
+            rigidBody->setAnisotropicFriction(
+                    entity.getComponent<CollisionComponent>().colliderCompoundShape->getAnisotropicRollingFrictionDirection(),
+                    btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
+            rigidBody->setDamping(linearDamping, angularDamping);
+            rigidBody->setRestitution(restitution);
+            rigidBody->setLinearFactor(btVector3(linearFactor.x, linearFactor.y, linearFactor.z));
+            rigidBody->setAngularFactor(btVector3(angularFactor.x, angularFactor.y, angularFactor.z));
+            rigidBody->activate();
+            rigidBody->setActivationState(DISABLE_DEACTIVATION);
         } else if (type == RigidBodyComponent::STATIC) {
-            Logger::fatal("STATIC RIGID BODY NOT IMPLEMENTED");
+            auto *motionState = new btDefaultMotionState(btTransform(
+                    btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
+                    btVector3(translation.x, translation.y, translation.z)
+            ));
+
+            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(
+                    0,
+                    motionState,
+                    entity.getComponent<CollisionComponent>().colliderCompoundShape,
+                    localInertia
+            );
+
+            rigidBody = new btRigidBody(rigidBodyCI);
+            rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+            rigidBody->setFriction(friction);
+            rigidBody->setAnisotropicFriction(
+                    entity.getComponent<CollisionComponent>().colliderCompoundShape->getAnisotropicRollingFrictionDirection(),
+                    btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
+            rigidBody->setDamping(linearDamping, angularDamping);
+            rigidBody->setRestitution(restitution);
+            rigidBody->setLinearFactor(btVector3(linearFactor.x, linearFactor.y, linearFactor.z));
+            rigidBody->setAngularFactor(btVector3(angularFactor.x, angularFactor.y, angularFactor.z));
+            rigidBody->activate();
+            rigidBody->setActivationState(DISABLE_DEACTIVATION);
         } else {
             Logger::fatal("Unknown rigid body type " + std::to_string(static_cast<int>(type)));
         }
