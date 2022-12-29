@@ -64,6 +64,8 @@ namespace Dream::Component {
     }
 
     void RigidBodyComponent::updateRigidBody(Entity &entity) {
+        delete rigidBody;
+
         const auto &transformComponent = entity.getComponent<TransformComponent>();
         const auto &translation = transformComponent.translation;
         const auto &rotation = transformComponent.rotation;
@@ -73,7 +75,6 @@ namespace Dream::Component {
             if (!entity.getComponent<CollisionComponent>().colliderCompoundShape) {
                 entity.getComponent<CollisionComponent>().updateColliderCompoundShape();
             }
-            // TODO: only do this when dynamic?
             entity.getComponent<CollisionComponent>().colliderCompoundShape->calculateLocalInertia(mass, localInertia);
         } else {
             Logger::fatal("Rigid body cannot be initialized because entity " + entity.getComponent<TagComponent>().tag +

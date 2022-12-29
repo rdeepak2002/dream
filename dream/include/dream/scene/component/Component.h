@@ -458,6 +458,8 @@ namespace Dream::Component {
         // runtime created rigid body
         btRigidBody *rigidBody = nullptr;
 
+        bool shouldBeAddedToWorld = true;
+
         void updateRigidBody(Entity &entity);
 
         static void deserialize(YAML::Node node, Entity &entity);
