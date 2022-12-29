@@ -55,12 +55,16 @@ namespace Dream {
                 }
                 // update transform and rotation components of entity
                 btTransform trans;
-                entity.getComponent<Component::RigidBodyComponent>().rigidBody->getMotionState()->getWorldTransform(trans);
+                entity.getComponent<Component::RigidBodyComponent>().rigidBody->getMotionState()->getWorldTransform(
+                        trans);
                 auto &transformComponent = entity.getComponent<Component::TransformComponent>();
-                transformComponent.translation = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
-                transformComponent.rotation = glm::quat(trans.getRotation().getW(), trans.getRotation().getX(), trans.getRotation().getY(), trans.getRotation().getZ());
+                transformComponent.translation = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(),
+                                                           trans.getOrigin().getZ());
+                transformComponent.rotation = glm::quat(trans.getRotation().getW(), trans.getRotation().getX(),
+                                                        trans.getRotation().getY(), trans.getRotation().getZ());
             } else {
-                Logger::warn("Rigid body not initialized for entity " + entity.getComponent<Component::TagComponent>().tag);
+                Logger::warn(
+                        "Rigid body not initialized for entity " + entity.getComponent<Component::TagComponent>().tag);
             }
         }
         // update dynamic world

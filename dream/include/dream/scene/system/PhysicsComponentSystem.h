@@ -31,6 +31,7 @@ namespace Dream {
         void init();
 
         void update(float dt);
+
     private:
         btDefaultCollisionConfiguration *collisionConfiguration;
         btCollisionDispatcher *dispatcher;
