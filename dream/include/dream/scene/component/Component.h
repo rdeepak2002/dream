@@ -393,6 +393,9 @@ namespace Dream::Component {
             // type of collision primitive
             inline static std::string k_type = "type";
             ColliderType type = ColliderType::BOX;
+            // offset
+            inline static std::string k_offset = "offset";
+            glm::vec3 offset = {0, 0, 0};
             // (box only) half-extents of the collision box: a 3-dimensional vector: local space half-width, half-height, and half-depth
             inline static std::string k_halfExtents = "halfExtents";
             glm::vec3 halfExtents = {1, 1, 1};

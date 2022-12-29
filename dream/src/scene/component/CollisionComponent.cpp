@@ -29,6 +29,7 @@ namespace Dream::Component {
             for (const auto &collider : collisionComponent.colliders) {
                 YAML::Node colliderNode = YAML::Node(YAML::NodeType::Map);
                 colliderNode[Collider::k_type] = static_cast<int>(collider.type);
+                colliderNode[Collider::k_offset] = YAML::convert<glm::vec3>().encode(collider.offset);
                 colliderNode[Collider::k_halfExtents] = YAML::convert<glm::vec3>().encode(collider.halfExtents);
                 colliderNode[Collider::k_axis] = static_cast<int>(collider.axis);
                 colliderNode[Collider::k_height] = collider.height;
@@ -45,6 +46,8 @@ namespace Dream::Component {
             std::vector<Collider> colliders;
             for (const auto &colliderNode : node[componentName]) {
                 auto type = static_cast<ColliderType>(colliderNode[Collider::k_type].as<int>());
+                glm::vec3 offset;
+                YAML::convert<glm::vec3>().decode(colliderNode[Collider::k_offset], offset);
                 glm::vec3 halfExtents;
                 YAML::convert<glm::vec3>().decode(colliderNode[Collider::k_halfExtents], halfExtents);
                 auto axis = static_cast<Axis>(colliderNode[Collider::k_axis].as<int>());
@@ -53,6 +56,7 @@ namespace Dream::Component {
                 auto assetGUID = colliderNode[Collider::k_assetGUID].as<std::string>();
                 Collider collider = {
                         .type=type,
+                        .offset=offset,
                         .halfExtents=halfExtents,
                         .axis=axis,
                         .height=height,

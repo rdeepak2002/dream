@@ -717,6 +717,8 @@ namespace Dream {
                         }
                         ImGui::EndCombo();
                     }
+                    // offset
+                    renderVec3Control("Offset", collider.offset, treeNodeWidth + 20, 1.0, 0.1, i);
                     // half extents
                     if (collider.type == Component::CollisionComponent::BOX) {
                         renderVec3Control("Half Extents", collider.halfExtents, treeNodeWidth + 20, 1.0, 0.1, i);
