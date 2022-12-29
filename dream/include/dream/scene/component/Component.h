@@ -417,6 +417,8 @@ namespace Dream::Component {
         // runtime created collider shape
         btCompoundShape *colliderCompoundShape = nullptr;
 
+        ~CollisionComponent();
+
         void updateColliderCompoundShape();
 
         static void deserialize(YAML::Node node, Entity &entity);
@@ -459,6 +461,8 @@ namespace Dream::Component {
         btRigidBody *rigidBody = nullptr;
 
         bool shouldBeAddedToWorld = true;
+
+        ~RigidBodyComponent();
 
         void updateRigidBody(Entity &entity);
 

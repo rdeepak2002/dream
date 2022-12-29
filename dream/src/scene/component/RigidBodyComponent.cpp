@@ -21,6 +21,10 @@
 #include "dream/util/YAMLUtils.h"
 
 namespace Dream::Component {
+    RigidBodyComponent::~RigidBodyComponent() {
+        delete rigidBody;
+    }
+
     void RigidBodyComponent::serialize(YAML::Emitter &out, Dream::Entity &entity) {
         if (entity.hasComponent<RigidBodyComponent>()) {
             auto &rigidBodyComponent = entity.getComponent<RigidBodyComponent>();
@@ -30,8 +34,10 @@ namespace Dream::Component {
             out << YAML::Key << k_mass << YAML::Value << rigidBodyComponent.mass;
             out << YAML::Key << k_linearDamping << YAML::Value << rigidBodyComponent.linearDamping;
             out << YAML::Key << k_angularDamping << YAML::Value << rigidBodyComponent.angularDamping;
-            out << YAML::Key << k_linearFactor << YAML::Value << YAML::convert<glm::vec3>().encode(rigidBodyComponent.linearFactor);
-            out << YAML::Key << k_angularFactor << YAML::Value << YAML::convert<glm::vec3>().encode(rigidBodyComponent.angularFactor);
+            out << YAML::Key << k_linearFactor << YAML::Value
+                << YAML::convert<glm::vec3>().encode(rigidBodyComponent.linearFactor);
+            out << YAML::Key << k_angularFactor << YAML::Value
+                << YAML::convert<glm::vec3>().encode(rigidBodyComponent.angularFactor);
             out << YAML::Key << k_friction << YAML::Value << rigidBodyComponent.friction;
             out << YAML::Key << k_restitution << YAML::Value << rigidBodyComponent.restitution;
             out << YAML::EndMap;
@@ -85,18 +91,12 @@ namespace Dream::Component {
         }
 
         if (type == RigidBodyComponent::DYNAMIC) {
-            auto *motionState = new btDefaultMotionState(btTransform(
-                    btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
-                    btVector3(translation.x, translation.y, translation.z)
-            ));
-
-            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(
-                    mass,
-                    motionState,
-                    entity.getComponent<CollisionComponent>().colliderCompoundShape,
-                    localInertia
-            );
-
+            auto *motionState = new btDefaultMotionState(
+                    btTransform(btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
+                                btVector3(translation.x, translation.y, translation.z)));
+            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(mass, motionState,
+                                                                 entity.getComponent<CollisionComponent>().colliderCompoundShape,
+                                                                 localInertia);
             rigidBody = new btRigidBody(rigidBodyCI);
             rigidBody->setFriction(friction);
             rigidBody->setAnisotropicFriction(
@@ -109,18 +109,12 @@ namespace Dream::Component {
             rigidBody->activate();
             rigidBody->setActivationState(DISABLE_DEACTIVATION);
         } else if (type == RigidBodyComponent::KINEMATIC) {
-            auto *motionState = new btDefaultMotionState(btTransform(
-                    btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
-                    btVector3(translation.x, translation.y, translation.z)
-            ));
-
-            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(
-                    0,
-                    motionState,
-                    entity.getComponent<CollisionComponent>().colliderCompoundShape,
-                    localInertia
-            );
-
+            auto *motionState = new btDefaultMotionState(
+                    btTransform(btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
+                                btVector3(translation.x, translation.y, translation.z)));
+            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(0, motionState,
+                                                                 entity.getComponent<CollisionComponent>().colliderCompoundShape,
+                                                                 localInertia);
             rigidBody = new btRigidBody(rigidBodyCI);
             rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
             rigidBody->setFriction(friction);
@@ -134,18 +128,12 @@ namespace Dream::Component {
             rigidBody->activate();
             rigidBody->setActivationState(DISABLE_DEACTIVATION);
         } else if (type == RigidBodyComponent::STATIC) {
-            auto *motionState = new btDefaultMotionState(btTransform(
-                    btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
-                    btVector3(translation.x, translation.y, translation.z)
-            ));
-
-            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(
-                    0,
-                    motionState,
-                    entity.getComponent<CollisionComponent>().colliderCompoundShape,
-                    localInertia
-            );
-
+            auto *motionState = new btDefaultMotionState(
+                    btTransform(btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
+                                btVector3(translation.x, translation.y, translation.z)));
+            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(0, motionState,
+                                                                 entity.getComponent<CollisionComponent>().colliderCompoundShape,
+                                                                 localInertia);
             rigidBody = new btRigidBody(rigidBodyCI);
             rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
             rigidBody->setFriction(friction);

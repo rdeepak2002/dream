@@ -21,15 +21,20 @@
 #include "dream/util/YAMLUtils.h"
 
 namespace Dream::Component {
+    CollisionComponent::~CollisionComponent() {
+        delete colliderCompoundShape;
+    }
+
     void CollisionComponent::updateColliderCompoundShape() {
         delete colliderCompoundShape;
         colliderCompoundShape = new btCompoundShape();
-        for (const auto &collider : colliders) {
+        for (const auto &collider: colliders) {
             btTransform t;
             t.setIdentity();
             t.setOrigin(btVector3(collider.offset.x, collider.offset.y, collider.offset.z));
             if (collider.type == BOX) {
-                auto shape = new btBoxShape(btVector3(collider.halfExtents.x, collider.halfExtents.y, collider.halfExtents.z));
+                auto shape = new btBoxShape(
+                        btVector3(collider.halfExtents.x, collider.halfExtents.y, collider.halfExtents.z));
                 colliderCompoundShape->addChildShape(t, shape);
             } else if (collider.type == CAPSULE) {
                 btCapsuleShape *shape = nullptr;
@@ -58,11 +63,14 @@ namespace Dream::Component {
             } else if (collider.type == CYLINDER) {
                 btCylinderShape *shape = nullptr;
                 if (collider.axis == Y) {
-                    shape = new btCylinderShape(btVector3(collider.halfExtents.x, collider.halfExtents.y, collider.halfExtents.z));
+                    shape = new btCylinderShape(
+                            btVector3(collider.halfExtents.x, collider.halfExtents.y, collider.halfExtents.z));
                 } else if (collider.axis == X) {
-                    shape = new btCylinderShapeX(btVector3(collider.halfExtents.x, collider.halfExtents.y, collider.halfExtents.z));
+                    shape = new btCylinderShapeX(
+                            btVector3(collider.halfExtents.x, collider.halfExtents.y, collider.halfExtents.z));
                 } else if (collider.axis == Z) {
-                    shape = new btCylinderShapeZ(btVector3(collider.halfExtents.x, collider.halfExtents.y, collider.halfExtents.z));
+                    shape = new btCylinderShapeZ(
+                            btVector3(collider.halfExtents.x, collider.halfExtents.y, collider.halfExtents.z));
                 } else {
                     Logger::fatal("Unknown cylinder axis " + std::to_string(collider.axis));
                 }
@@ -86,7 +94,7 @@ namespace Dream::Component {
             auto &collisionComponent = entity.getComponent<CollisionComponent>();
             out << YAML::Key << componentName;
             YAML::Node collidersNode = YAML::Node(YAML::NodeType::Sequence);
-            for (const auto &collider : collisionComponent.colliders) {
+            for (const auto &collider: collisionComponent.colliders) {
                 YAML::Node colliderNode = YAML::Node(YAML::NodeType::Map);
                 colliderNode[Collider::k_type] = static_cast<int>(collider.type);
                 colliderNode[Collider::k_offset] = YAML::convert<glm::vec3>().encode(collider.offset);
@@ -104,7 +112,7 @@ namespace Dream::Component {
     void CollisionComponent::deserialize(YAML::Node node, Dream::Entity &entity) {
         if (node[componentName]) {
             std::vector<Collider> colliders;
-            for (const auto &colliderNode : node[componentName]) {
+            for (const auto &colliderNode: node[componentName]) {
                 auto type = static_cast<ColliderType>(colliderNode[Collider::k_type].as<int>());
                 glm::vec3 offset;
                 YAML::convert<glm::vec3>().decode(colliderNode[Collider::k_offset], offset);
