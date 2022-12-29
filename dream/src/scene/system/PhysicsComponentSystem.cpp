@@ -42,21 +42,11 @@ namespace Dream {
                 dynamicsWorld->removeCollisionObject(obj);
                 delete obj;
             }
-            auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
-            for (auto entityHandle: rigidBodyEntities) {
-                Entity entity = {entityHandle, Project::getScene()};
-                auto *rigidBody = entity.getComponent<Component::RigidBodyComponent>().rigidBody;
-                delete rigidBody;
-                rigidBody = nullptr;
-            }
-
             // delete collision shapes
             auto collisionEntities = Project::getScene()->getEntitiesWithComponents<Component::CollisionComponent>();
             for (auto entityHandle: collisionEntities) {
                 Entity entity = {entityHandle, Project::getScene()};
-                auto *shape = entity.getComponent<Component::CollisionComponent>().colliderCompoundShape;
-                delete shape;
-                shape = nullptr;
+                delete entity.getComponent<Component::CollisionComponent>().colliderCompoundShape;
             }
         }
         delete dynamicsWorld;

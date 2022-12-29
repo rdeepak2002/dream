@@ -22,7 +22,7 @@
 
 namespace Dream::Component {
     RigidBodyComponent::~RigidBodyComponent() {
-        if (rigidBody && !rigidBody->isInWorld()) {
+        if (rigidBody && rigidBody->isInWorld()) {
             delete rigidBody;
         }
     }
