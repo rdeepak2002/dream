@@ -95,6 +95,8 @@ namespace Dream {
 
         void renderCollisionComponent();
 
+        void renderRigidBodyComponent();
+
         // TODO: move mesh component render method to new class
         // mesh component renderer variables
         std::string oldMeshGUID;

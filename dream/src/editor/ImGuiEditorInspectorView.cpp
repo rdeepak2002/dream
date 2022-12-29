@@ -88,6 +88,7 @@ namespace Dream {
                 renderSceneCameraComponent();
                 renderCameraComponent();
                 renderCollisionComponent();
+                renderRigidBodyComponent();
                 renderAddComponent();
                 renderRemoveComponent();
             }
@@ -113,6 +114,8 @@ namespace Dream {
                 selectedEntity.addComponent<Component::CameraComponent>(45.0f);
             } else if (componentID == Component::CollisionComponent::componentName) {
                 selectedEntity.addComponent<Component::CollisionComponent>();
+            } else if (componentID == Component::RigidBodyComponent::componentName) {
+                selectedEntity.addComponent<Component::RigidBodyComponent>();
             } else {
                 Logger::fatal("Unknown component to add " + componentID);
             }
@@ -155,6 +158,10 @@ namespace Dream {
 
         if (!selectedEntity.hasComponent<Component::CollisionComponent>()) {
             components.insert(std::make_pair("Collision", Component::CollisionComponent::componentName));
+        }
+
+        if (!selectedEntity.hasComponent<Component::RigidBodyComponent>()) {
+            components.insert(std::make_pair("Rigid Body", Component::RigidBodyComponent::componentName));
         }
 
         if (!selectedEntity.hasComponent<Component::RootComponent>() && !components.empty()) {
@@ -683,118 +690,132 @@ namespace Dream {
                 for (int i = 0; i < component.colliders.size(); ++i) {
                     auto &collider = component.colliders[i];
                     // type selector
-                    std::string dropdownPreview = "";
-                    if (collider.type == Component::CollisionComponent::BOX) {
-                        dropdownPreview = "Box";
-                    } else if (collider.type == Component::CollisionComponent::CAPSULE) {
-                        dropdownPreview = "Capsule";
-                    } else if (collider.type == Component::CollisionComponent::CONE) {
-                        dropdownPreview = "Cone";
-                    } else if (collider.type == Component::CollisionComponent::CYLINDER) {
-                        dropdownPreview = "Cylinder";
-                    } else if (collider.type == Component::CollisionComponent::MESH) {
-                        dropdownPreview = "Mesh";
-                    } else if (collider.type == Component::CollisionComponent::SPHERE) {
-                        dropdownPreview = "Sphere";
-                    } else {
-                        Logger::fatal("Unknown collider type " + std::to_string(static_cast<int>(collider.type)));
-                    }
-                    ImGui::SetNextItemWidth(treeNodeWidth);
-                    if (ImGui::BeginCombo(("##Change Collider Type /" + std::to_string(i)).c_str(), dropdownPreview.c_str())) {
-                        if (ImGui::Selectable("Box")) {
-                            collider.type = Component::CollisionComponent::BOX;
+                    {
+                        std::string dropdownPreview = "";
+                        if (collider.type == Component::CollisionComponent::BOX) {
+                            dropdownPreview = "Box";
+                        } else if (collider.type == Component::CollisionComponent::CAPSULE) {
+                            dropdownPreview = "Capsule";
+                        } else if (collider.type == Component::CollisionComponent::CONE) {
+                            dropdownPreview = "Cone";
+                        } else if (collider.type == Component::CollisionComponent::CYLINDER) {
+                            dropdownPreview = "Cylinder";
+                        } else if (collider.type == Component::CollisionComponent::MESH) {
+                            dropdownPreview = "Mesh";
+                        } else if (collider.type == Component::CollisionComponent::SPHERE) {
+                            dropdownPreview = "Sphere";
+                        } else {
+                            Logger::fatal("Unknown collider type " + std::to_string(static_cast<int>(collider.type)));
                         }
-                        if (ImGui::Selectable("Capsule")) {
-                            collider.type = Component::CollisionComponent::CAPSULE;
-                        }
-                        if (ImGui::Selectable("Cone")) {
-                            collider.type = Component::CollisionComponent::CONE;
-                        }
-                        if (ImGui::Selectable("Mesh")) {
-                            collider.type = Component::CollisionComponent::MESH;
-                        }
-                        if (ImGui::Selectable("Sphere")) {
-                            collider.type = Component::CollisionComponent::SPHERE;
-                        }
-                        ImGui::EndCombo();
-                    }
-                    // offset
-                    renderVec3Control("Offset", collider.offset, treeNodeWidth + 20, 1.0, 0.1, i);
-                    // half extents
-                    if (collider.type == Component::CollisionComponent::BOX ||  collider.type == Component::CollisionComponent::CYLINDER) {
-                        renderVec3Control("Half Extents", collider.halfExtents, treeNodeWidth + 20, 1.0, 0.1, i);
-                    }
-                    // axis selector
-                    if (collider.type == Component::CollisionComponent::CAPSULE || collider.type == Component::CollisionComponent::CONE) {
-                        auto cursorPosX3 = ImGui::GetCursorPosX();
-                        ImGui::Text("Axis");
-                        std::string capsuleAxis = "";
-                        if (collider.axis == Component::CollisionComponent::X) {
-                            capsuleAxis = "X";
-                        } else if (collider.axis == Component::CollisionComponent::Y) {
-                            capsuleAxis = "Y";
-                        } else if (collider.axis == Component::CollisionComponent::Z) {
-                            capsuleAxis = "Z";
-                        }
-                        ImGui::SameLine();
-                        float axisComboWidth = 100.0f;
-                        ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - axisComboWidth);
-                        ImGui::SetNextItemWidth(axisComboWidth);
-                        if (ImGui::BeginCombo(("##Change Capsule Axis /" + std::to_string(i)).c_str(), capsuleAxis.c_str())) {
-                            if (ImGui::Selectable("X")) {
-                                collider.axis = Component::CollisionComponent::X;
+                        ImGui::SetNextItemWidth(treeNodeWidth);
+                        if (ImGui::BeginCombo(("##Change Collider Type /" + std::to_string(i)).c_str(), dropdownPreview.c_str())) {
+                            if (ImGui::Selectable("Box")) {
+                                collider.type = Component::CollisionComponent::BOX;
                             }
-                            if (ImGui::Selectable("Y")) {
-                                collider.axis = Component::CollisionComponent::Y;
+                            if (ImGui::Selectable("Capsule")) {
+                                collider.type = Component::CollisionComponent::CAPSULE;
                             }
-                            if (ImGui::Selectable("Z")) {
-                                collider.axis = Component::CollisionComponent::Z;
+                            if (ImGui::Selectable("Cone")) {
+                                collider.type = Component::CollisionComponent::CONE;
+                            }
+                            if (ImGui::Selectable("Mesh")) {
+                                collider.type = Component::CollisionComponent::MESH;
+                            }
+                            if (ImGui::Selectable("Sphere")) {
+                                collider.type = Component::CollisionComponent::SPHERE;
                             }
                             ImGui::EndCombo();
                         }
                     }
+                    // offset
+                    {
+                        renderVec3Control("Offset", collider.offset, treeNodeWidth + 20, 1.0, 0.1, i);
+                    }
+                    // half extents
+                    {
+                        if (collider.type == Component::CollisionComponent::BOX ||  collider.type == Component::CollisionComponent::CYLINDER) {
+                            renderVec3Control("Half Extents", collider.halfExtents, treeNodeWidth + 20, 1.0, 0.1, i);
+                        }
+                    }
+                    // axis selector
+                    {
+                        if (collider.type == Component::CollisionComponent::CAPSULE || collider.type == Component::CollisionComponent::CONE) {
+                            auto cursorPosX3 = ImGui::GetCursorPosX();
+                            ImGui::Text("Axis");
+                            std::string capsuleAxis = "";
+                            if (collider.axis == Component::CollisionComponent::X) {
+                                capsuleAxis = "X";
+                            } else if (collider.axis == Component::CollisionComponent::Y) {
+                                capsuleAxis = "Y";
+                            } else if (collider.axis == Component::CollisionComponent::Z) {
+                                capsuleAxis = "Z";
+                            }
+                            ImGui::SameLine();
+                            float axisComboWidth = 100.0f;
+                            ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - axisComboWidth);
+                            ImGui::SetNextItemWidth(axisComboWidth);
+                            if (ImGui::BeginCombo(("##Change Capsule Axis /" + std::to_string(i)).c_str(), capsuleAxis.c_str())) {
+                                if (ImGui::Selectable("X")) {
+                                    collider.axis = Component::CollisionComponent::X;
+                                }
+                                if (ImGui::Selectable("Y")) {
+                                    collider.axis = Component::CollisionComponent::Y;
+                                }
+                                if (ImGui::Selectable("Z")) {
+                                    collider.axis = Component::CollisionComponent::Z;
+                                }
+                                ImGui::EndCombo();
+                            }
+                        }
+                    }
                     // height input
-                    if (collider.type == Component::CollisionComponent::CAPSULE || collider.type == Component::CollisionComponent::CONE) {
-                        auto cursorPosX3 = ImGui::GetCursorPosX();
-                        ImGui::Text("Height");
-                        ImGui::SameLine();
-                        float floatInputWidth = 100.0f;
-                        ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
-                        ImGui::SetNextItemWidth(floatInputWidth);
-                        ImGui::DragFloat(("##ColliderHeight/" + std::to_string(i)).c_str(), &collider.height, 0.1f, 0.0f, 0.0f, "%.3f");
+                    {
+                        if (collider.type == Component::CollisionComponent::CAPSULE || collider.type == Component::CollisionComponent::CONE) {
+                            auto cursorPosX3 = ImGui::GetCursorPosX();
+                            ImGui::Text("Height");
+                            ImGui::SameLine();
+                            float floatInputWidth = 100.0f;
+                            ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                            ImGui::SetNextItemWidth(floatInputWidth);
+                            ImGui::DragFloat(("##ColliderHeight/" + std::to_string(i)).c_str(), &collider.height, 0.1f, 0.0f, 0.0f, "%.3f");
+                        }
                     }
                     // radius input
-                    if (collider.type == Component::CollisionComponent::CAPSULE || collider.type == Component::CollisionComponent::SPHERE || collider.type == Component::CollisionComponent::CONE) {
-                        auto cursorPosX3 = ImGui::GetCursorPosX();
-                        ImGui::Text("Radius");
-                        ImGui::SameLine();
-                        float floatInputWidth = 100.0f;
-                        ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
-                        ImGui::SetNextItemWidth(floatInputWidth);
-                        ImGui::DragFloat(("##ColliderRadius/" + std::to_string(i)).c_str(), &collider.radius, 0.1f, 0.0f, 0.0f, "%.3f");
+                    {
+                        if (collider.type == Component::CollisionComponent::CAPSULE || collider.type == Component::CollisionComponent::SPHERE || collider.type == Component::CollisionComponent::CONE) {
+                            auto cursorPosX3 = ImGui::GetCursorPosX();
+                            ImGui::Text("Radius");
+                            ImGui::SameLine();
+                            float floatInputWidth = 100.0f;
+                            ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                            ImGui::SetNextItemWidth(floatInputWidth);
+                            ImGui::DragFloat(("##ColliderRadius/" + std::to_string(i)).c_str(), &collider.radius, 0.1f, 0.0f, 0.0f, "%.3f");
+                        }
                     }
                     // mesh guid input
-                    if (collider.type == Component::CollisionComponent::MESH) {
-                        std::string shortAnimatorPath = "";
-                        if (!collider.assetGUID.empty()) {
-                            std::string meshPath = Project::getResourceManager()->getFilePathFromGUID(collider.assetGUID);
-                            shortAnimatorPath = StringUtils::getFilePathRelativeToProjectFolder(meshPath);
+                    {
+                        if (collider.type == Component::CollisionComponent::MESH) {
+                            std::string shortAnimatorPath = "";
+                            if (!collider.assetGUID.empty()) {
+                                std::string meshPath = Project::getResourceManager()->getFilePathFromGUID(collider.assetGUID);
+                                shortAnimatorPath = StringUtils::getFilePathRelativeToProjectFolder(meshPath);
+                            }
+                            ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 22);
+                            ImGui::InputText(("##ColliderMeshPath/" + std::to_string(i)).c_str(), &shortAnimatorPath, ImGuiInputTextFlags_ReadOnly);
+                            ImGui::SameLine();
+                            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                            if (ImGui::ImageButton(("##ChangeColliderMesh/" + std::to_string(i)).c_str(), (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
+                                delete collisionMeshSelectorBrowser;
+                                collisionMeshSelectorBrowser = new ImGui::FileBrowser();
+                                collisionMeshSelectorBrowser->SetTitle("select mesh");
+                                collisionMeshSelectorBrowser->SetPwd(Project::getPath());
+                                collisionMeshSelectorBrowser->Open();
+                                colliderIndex = i;
+                            }
+                            ImGui::PopStyleVar();
+                            ImGui::PopStyleColor();
                         }
-                        ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 22);
-                        ImGui::InputText(("##ColliderMeshPath/" + std::to_string(i)).c_str(), &shortAnimatorPath, ImGuiInputTextFlags_ReadOnly);
-                        ImGui::SameLine();
-                        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-                        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-                        if (ImGui::ImageButton(("##ChangeColliderMesh/" + std::to_string(i)).c_str(), (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
-                            delete collisionMeshSelectorBrowser;
-                            collisionMeshSelectorBrowser = new ImGui::FileBrowser();
-                            collisionMeshSelectorBrowser->SetTitle("select mesh");
-                            collisionMeshSelectorBrowser->SetPwd(Project::getPath());
-                            collisionMeshSelectorBrowser->Open();
-                            colliderIndex = i;
-                        }
-                        ImGui::PopStyleVar();
-                        ImGui::PopStyleColor();
                     }
                     // remove collider btn
                     if (ImGui::Button(("Remove ##RemoveCollider/" + std::to_string(i)).c_str(), ImVec2(treeNodeWidth, 0))) {
@@ -806,6 +827,131 @@ namespace Dream {
                 if (ImGui::Button("Add Collider", ImVec2(treeNodeWidth, 0))) {
                     component.colliders.emplace_back();
                     selectedEntity.getComponent<Component::CollisionComponent>().updateColliderCompoundShape();
+                }
+                ImGui::TreePop();
+            }
+        }
+    }
+
+    void ImGuiEditorInspectorView::renderRigidBodyComponent() {
+        if (selectedEntity.hasComponent<Component::RigidBodyComponent>()) {
+            auto cursorPosX1 = ImGui::GetCursorPosX();
+            auto &component = selectedEntity.getComponent<Component::RigidBodyComponent>();
+            bool treeNodeOpen = ImGui::TreeNodeEx("##RigidBody",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+            ImGui::SameLine();
+            ImGui::Text("Rigid Body");
+            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                selectedEntity.removeComponent<Component::RigidBodyComponent>();
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+
+            if (treeNodeOpen) {
+                auto cursorPosX2 = ImGui::GetCursorPosX();
+                auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
+                // type selector
+                {
+                    std::string dropdownPreview = "";
+                    if (component.type == Component::RigidBodyComponent::STATIC) {
+                        dropdownPreview = "Static";
+                    } else if (component.type == Component::RigidBodyComponent::DYNAMIC) {
+                        dropdownPreview = "Dynamic";
+                    } else if (component.type == Component::RigidBodyComponent::KINEMATIC) {
+                        dropdownPreview = "Kinematic";
+                    } else {
+                        Logger::fatal("Unknown rigid body type " + std::to_string(static_cast<int>(component.type)));
+                    }
+                    ImGui::SetNextItemWidth(treeNodeWidth);
+                    if (ImGui::BeginCombo("##Change Rigid Body Type", dropdownPreview.c_str())) {
+                        if (ImGui::Selectable("Static")) {
+                            component.type = Component::RigidBodyComponent::STATIC;
+                        }
+                        if (ImGui::Selectable("Dynamic")) {
+                            component.type = Component::RigidBodyComponent::DYNAMIC;
+                        }
+                        if (ImGui::Selectable("Kinematic")) {
+                            component.type = Component::RigidBodyComponent::KINEMATIC;
+                        }
+                        ImGui::EndCombo();
+                    }
+                }
+                // mass input
+                {
+                    if (component.type == Component::RigidBodyComponent::DYNAMIC) {
+                        auto cursorPosX3 = ImGui::GetCursorPosX();
+                        ImGui::Text("Mass");
+                        ImGui::SameLine();
+                        float floatInputWidth = 100.0f;
+                        ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                        ImGui::SetNextItemWidth(floatInputWidth);
+                        ImGui::DragFloat("##RigidBodyMass", &component.mass, 0.1f, 0.0f, 0.0f, "%.3f");
+                    }
+                }
+                // linear damping input
+                {
+                    if (component.type == Component::RigidBodyComponent::DYNAMIC) {
+                        auto cursorPosX3 = ImGui::GetCursorPosX();
+                        ImGui::Text("Linear Damping");
+                        ImGui::SameLine();
+                        float floatInputWidth = 100.0f;
+                        ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                        ImGui::SetNextItemWidth(floatInputWidth);
+                        ImGui::DragFloat("##RigidBodyLinearDamping", &component.linearDamping, 0.1f, 0.0f, 0.0f, "%.3f");
+                    }
+                }
+                // angular damping input
+                {
+                    if (component.type == Component::RigidBodyComponent::DYNAMIC) {
+                        auto cursorPosX3 = ImGui::GetCursorPosX();
+                        ImGui::Text("Angular Damping");
+                        ImGui::SameLine();
+                        float floatInputWidth = 100.0f;
+                        ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                        ImGui::SetNextItemWidth(floatInputWidth);
+                        ImGui::DragFloat("##RigidBodyAngularDamping", &component.angularDamping, 0.1f, 0.0f, 0.0f, "%.3f");
+                    }
+                }
+                // linear factor input
+                {
+                    if (component.type == Component::RigidBodyComponent::DYNAMIC) {
+                        renderVec3Control("Linear Factor", component.linearFactor, treeNodeWidth + 20, 1.0, 0.1);
+                    }
+                }
+                // angular factor input
+                {
+                    if (component.type == Component::RigidBodyComponent::DYNAMIC) {
+                        renderVec3Control("Angular Factor", component.angularFactor, treeNodeWidth + 20, 1.0, 0.1);
+                    }
+                }
+                // friction input
+                {
+                    auto cursorPosX3 = ImGui::GetCursorPosX();
+                    ImGui::Text("Friction");
+                    ImGui::SameLine();
+                    float floatInputWidth = 100.0f;
+                    ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                    ImGui::SetNextItemWidth(floatInputWidth);
+                    ImGui::DragFloat("##RigidBodyFriction", &component.friction, 0.1f, 0.0f, 1.0f, "%.3f");
+                    component.friction = fmin(component.friction, 1.0f);
+                    component.friction = fmax(component.friction, 0.0f);
+                }
+                // restitution input
+                {
+                    auto cursorPosX3 = ImGui::GetCursorPosX();
+                    ImGui::Text("Restitution");
+                    ImGui::SameLine();
+                    float floatInputWidth = 100.0f;
+                    ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                    ImGui::SetNextItemWidth(floatInputWidth);
+                    ImGui::DragFloat("##RigidBodyRestitution", &component.restitution, 0.1f, 0.0f, 1.0f, "%.3f");
+                    component.restitution = fmin(component.restitution, 1.0f);
+                    component.restitution = fmax(component.restitution, 0.0f);
                 }
                 ImGui::TreePop();
             }

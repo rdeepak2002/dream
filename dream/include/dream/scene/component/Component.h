@@ -426,6 +426,38 @@ namespace Dream::Component {
 
     struct RigidBodyComponent : public Component {
         inline static std::string componentName = "RigidBodyComponent";
+        enum RigidBodyType {
+            STATIC, DYNAMIC, KINEMATIC
+        };
+        // type of rigid body primitive
+        inline static std::string k_type = "type";
+        RigidBodyType type = RigidBodyType::DYNAMIC;
+        // mass of the body in kg
+        inline static std::string k_mass = "mass";
+        float mass = 1.0f;
+        // proportion of linear velocity that is lost by the body every second
+        inline static std::string k_linearDamping = "linearDamping";
+        float linearDamping = 0.0f;
+        // proportion of angular velocity that is lost by the body every second
+        inline static std::string k_angularDamping = "angularDamping";
+        float angularDamping = 0.0f;
+        // multiplier for a body's linear movement in each world axis (can set x or z to 0 to create 2D game)
+        inline static std::string k_linearFactor = "linearFactor";
+        glm::vec3 linearFactor = {1, 1, 1};
+        // multiplier for a body's angular (rotational) movement about each world axis
+        inline static std::string k_angularFactor = "angularFactor";
+        glm::vec3 angularFactor = {1, 1, 1};
+        // controls how quickly a body loses velocity when in contact with other bodies
+        inline static std::string k_friction = "friction";
+        float friction = 0.5f;
+        // a measure of the bounciness of a body between 0 and 1
+        // setting to 1 means a moving body will never come to a stop (unless colliding with other bodies with restitutions below 1, or unless a stop is scripted)
+        inline static std::string k_restitution = "restitution";
+        float restitution = 0.5f;
+
+        static void deserialize(YAML::Node node, Entity &entity);
+
+        static void serialize(YAML::Emitter &out, Entity &entity);
     };
 }
 
