@@ -115,6 +115,9 @@ namespace Dream {
             } else if (componentID == Component::CollisionComponent::componentName) {
                 selectedEntity.addComponent<Component::CollisionComponent>();
             } else if (componentID == Component::RigidBodyComponent::componentName) {
+                if (!selectedEntity.hasComponent<Component::CollisionComponent>()) {
+                    selectedEntity.addComponent<Component::CollisionComponent>();
+                }
                 selectedEntity.addComponent<Component::RigidBodyComponent>();
             } else {
                 Logger::fatal("Unknown component to add " + componentID);
