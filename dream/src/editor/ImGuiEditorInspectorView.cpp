@@ -678,12 +678,14 @@ namespace Dream {
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
             ImGui::SameLine();
             ImGui::Text("Collision");
-            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
-            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
-                selectedEntity.removeComponent<Component::CollisionComponent>();
+            if (!selectedEntity.hasComponent<Component::RigidBodyComponent>()) {
+                ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
+                ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                    selectedEntity.removeComponent<Component::CollisionComponent>();
+                }
+                ImGui::PopStyleVar();
             }
-            ImGui::PopStyleVar();
             ImGui::PopStyleColor();
 
             if (treeNodeOpen) {

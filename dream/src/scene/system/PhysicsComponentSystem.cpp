@@ -47,6 +47,7 @@ namespace Dream {
             for (auto entityHandle: collisionEntities) {
                 Entity entity = {entityHandle, Project::getScene()};
                 delete entity.getComponent<Component::CollisionComponent>().colliderCompoundShape;
+                entity.getComponent<Component::CollisionComponent>().colliderCompoundShape = nullptr;
             }
         }
         delete dynamicsWorld;
