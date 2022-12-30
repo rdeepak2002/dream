@@ -112,6 +112,8 @@ namespace Dream::Component {
 
         glm::mat4 getTransform(Entity &curEntity);
 
+        glm::vec3 getFront();
+
         explicit TransformComponent();
 
         TransformComponent(glm::vec3 translation, glm::quat rotation, glm::vec3 scale);

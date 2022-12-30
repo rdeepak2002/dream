@@ -22,6 +22,7 @@
 #include "dream/util/Logger.h"
 #include "dream/window/Input.h"
 #include "dream/window/KeyCodes.h"
+#include "dream/util/MathUtils.h"
 
 namespace Dream {
     Entity getEntityByTag(const std::string &tag) {
@@ -205,7 +206,9 @@ namespace Dream {
         lua.new_usertype<Component::TransformComponent>("TransformComponent",
                                                         "translation", &Component::TransformComponent::translation,
                                                         "rotation", &Component::TransformComponent::rotation,
-                                                        "scale", &Component::TransformComponent::scale
+                                                        "scale", &Component::TransformComponent::scale,
+                                                        "getFront",
+                                                        sol::as_function(&Component::TransformComponent::getFront)
         );
 
         lua.new_usertype<Component::CameraComponent>("CameraComponent",
@@ -226,6 +229,15 @@ namespace Dream {
                                                         sol::as_function(&Component::RigidBodyComponent::setAngularVelocity),
                                                         "getAngularVelocity",
                                                         sol::as_function(&Component::RigidBodyComponent::getAngularVelocity)
+        );
+
+        lua.new_usertype<MathUtils>("MathUtils",
+                                    "eulerAngles", sol::as_function(&MathUtils::eulerAngles),
+                                    "normalizeVec3", sol::as_function(&MathUtils::normalizeVec3),
+                                    "normalizeVec2", sol::as_function(&MathUtils::normalizeVec2),
+                                    "angle", sol::as_function(&MathUtils::angle),
+                                    "safeQuatLookAt", sol::as_function(&MathUtils::safeQuatLookAt),
+                                    "crossProductVec3", sol::as_function(&MathUtils::crossProductVec3)
         );
 
         lua.new_usertype<Scene>("Scene",
