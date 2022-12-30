@@ -160,4 +160,32 @@ namespace Dream::Component {
             Logger::warn("Rigid body not initialized");
         }
     }
+
+    glm::vec3 RigidBodyComponent::getLinearVelocity() {
+        if (rigidBody) {
+            btVector3 linVel = rigidBody->getLinearVelocity();
+            return {linVel.getX(), linVel.getY(), linVel.getZ()};
+        } else {
+            Logger::warn("Rigid body not initialized");
+            return {0, 0, 0};
+        }
+    }
+
+    void RigidBodyComponent::setAngularVelocity(glm::vec3 newAngularVelocity) {
+        if (rigidBody) {
+            rigidBody->setAngularVelocity(btVector3(newAngularVelocity.x, newAngularVelocity.y, newAngularVelocity.z));
+        } else {
+            Logger::warn("Rigid body not initialized");
+        }
+    }
+
+    glm::vec3 RigidBodyComponent::getAngularVelocity() {
+        if (rigidBody) {
+            btVector3 linVel = rigidBody->getAngularVelocity();
+            return {linVel.getX(), linVel.getY(), linVel.getZ()};
+        } else {
+            Logger::warn("Rigid body not initialized");
+            return {0, 0, 0};
+        }
+    }
 }

@@ -468,6 +468,12 @@ namespace Dream::Component {
 
         void setLinearVelocity(glm::vec3 newLinearVelocity);
 
+        glm::vec3 getLinearVelocity();
+
+        void setAngularVelocity(glm::vec3 newAngularVelocity);
+
+        glm::vec3 getAngularVelocity();
+
         static void deserialize(YAML::Node node, Entity &entity);
 
         static void serialize(YAML::Emitter &out, Entity &entity);

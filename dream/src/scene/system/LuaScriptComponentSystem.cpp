@@ -218,8 +218,14 @@ namespace Dream {
         );
 
         lua.new_usertype<Component::RigidBodyComponent>("RigidBodyComponent",
-                                                       "setLinearVelocity",
-                                                       sol::as_function(&Component::RigidBodyComponent::setLinearVelocity)
+                                                        "setLinearVelocity",
+                                                        sol::as_function(&Component::RigidBodyComponent::setLinearVelocity),
+                                                        "getLinearVelocity",
+                                                        sol::as_function(&Component::RigidBodyComponent::getLinearVelocity),
+                                                        "setAngularVelocity",
+                                                        sol::as_function(&Component::RigidBodyComponent::setAngularVelocity),
+                                                        "getAngularVelocity",
+                                                        sol::as_function(&Component::RigidBodyComponent::getAngularVelocity)
         );
 
         lua.new_usertype<Scene>("Scene",
