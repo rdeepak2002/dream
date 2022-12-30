@@ -87,4 +87,8 @@ namespace Dream {
     glm::vec3 MathUtils::crossProductVec3(glm::vec3 a, glm::vec3 b) {
         return glm::normalize(glm::cross(a, b));
     }
+
+    float MathUtils::magnitudeVec3(glm::vec3 v) {
+        return glm::l2Norm(v);
+    }
 }

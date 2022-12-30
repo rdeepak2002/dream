@@ -188,4 +188,12 @@ namespace Dream::Component {
             return {0, 0, 0};
         }
     }
+
+    void RigidBodyComponent::setRotation(glm::quat rot) {
+        if (rigidBody) {
+            rigidBody->getWorldTransform().setRotation(btQuaternion(rot.x, rot.y, rot.z, rot.w));
+        } else {
+            Logger::warn("Rigid body not initialized");
+        }
+    }
 }

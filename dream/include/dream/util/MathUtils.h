@@ -32,6 +32,7 @@ namespace Dream {
         static float angle(glm::vec2 vec1, glm::vec2 vec2);
         static glm::quat safeQuatLookAt(glm::vec3 const& lookFrom,glm::vec3 const& lookTo,glm::vec3 const& up, glm::vec3 const& alternativeUp);
         static glm::vec3 crossProductVec3(glm::vec3 a, glm::vec3 b);
+        static float magnitudeVec3(glm::vec3 v);
     };
 }
 
