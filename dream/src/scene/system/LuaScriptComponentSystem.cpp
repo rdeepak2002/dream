@@ -208,7 +208,11 @@ namespace Dream {
                                                         "rotation", &Component::TransformComponent::rotation,
                                                         "scale", &Component::TransformComponent::scale,
                                                         "getFront",
-                                                        sol::as_function(&Component::TransformComponent::getFront)
+                                                        sol::as_function(&Component::TransformComponent::getFront),
+                                                        "getLeft",
+                                                        sol::as_function(&Component::TransformComponent::getLeft),
+                                                        "getUp",
+                                                        sol::as_function(&Component::TransformComponent::getUp)
         );
 
         lua.new_usertype<Component::CameraComponent>("CameraComponent",

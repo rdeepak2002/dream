@@ -114,6 +114,10 @@ namespace Dream::Component {
 
         glm::vec3 getFront();
 
+        glm::vec3 getLeft();
+
+        glm::vec3 getUp();
+
         explicit TransformComponent();
 
         TransformComponent(glm::vec3 translation, glm::quat rotation, glm::vec3 scale);

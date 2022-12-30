@@ -81,15 +81,19 @@ namespace Dream::Component {
         float y = 2 * (rotation.y * rotation.z - rotation.w * rotation.x);
         float z = 1 - 2 * (rotation.x * rotation.x + rotation.y * rotation.y);
         return {x, y, z};
+    }
 
-//        up vector
-//        x = 2 * (x*y - w*z)
-//        y = 1 - 2 * (x*x + z*z)
-//        z = 2 * (y*z + w*x)
-//
-//        left vector
-//        x = 1 - 2 * (y*y + z*z)
-//        y = 2 * (x*y + w*z)
-//        z = 2 * (x*z - w*y)
+    glm::vec3 TransformComponent::getLeft() {
+        float x = 1 - 2 * (rotation.y * rotation.y + rotation.z * rotation.z);
+        float y = 2 * (rotation.x * rotation.y + rotation.w * rotation.z);
+        float z = 2 * (rotation.x * rotation.z - rotation.w * rotation.y);
+        return {x, y, z};
+    }
+
+    glm::vec3 TransformComponent::getUp() {
+        float x = 2 * (rotation.x * rotation.y - rotation.w * rotation.z);
+        float y = 1 - 2 * (rotation.x * rotation.x + rotation.z * rotation.z);
+        float z = 2 * (rotation.y * rotation.z + rotation.w * rotation.x);
+        return {x, y, z};
     }
 }
