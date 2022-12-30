@@ -9,6 +9,8 @@ States:
     PlayOnce: true
   - Guid: 74C3646B-2217-4551-B2D1-8958F9CC8DE0
     PlayOnce: true
+  - Guid: C318B52A-AD70-4509-B77A-21B70D266B1C
+    PlayOnce: false
 Transitions:
   - To: 1
     From: 0
@@ -85,7 +87,21 @@ Transitions:
   - To: 0
     From: 4
     Conditions:
-      - Variable1Idx: 1
+      []
+    Blend: true
+  - To: 5
+    From: 0
+    Conditions:
+      - Variable1Idx: 0
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: -1
+    Blend: true
+  - To: 0
+    From: 5
+    Conditions:
+      - Variable1Idx: 0
         Variable1: 0
         Operator: ==
         Variable2Idx: -1
