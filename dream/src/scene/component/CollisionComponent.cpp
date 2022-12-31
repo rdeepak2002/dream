@@ -23,8 +23,7 @@
 
 namespace Dream::Component {
     CollisionComponent::~CollisionComponent() {
-//        Logger::info("Deleting collider shape");
-//        delete colliderCompoundShape;
+
     }
 
     void CollisionComponent::updateColliderCompoundShape() {

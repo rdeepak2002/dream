@@ -42,8 +42,6 @@ namespace Dream {
 
         void fixedUpdate(float dt);
 
-        void destroyComponentSystems();
-
         void resetComponentSystems();
 
         template<typename... Components>

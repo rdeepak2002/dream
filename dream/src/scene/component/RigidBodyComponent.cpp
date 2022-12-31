@@ -23,9 +23,7 @@
 
 namespace Dream::Component {
     RigidBodyComponent::~RigidBodyComponent() {
-//        if (rigidBody && rigidBody->isInWorld()) {
-//            delete rigidBody;
-//        }
+
     }
 
     void RigidBodyComponent::serialize(YAML::Emitter &out, Dream::Entity &entity) {
@@ -68,6 +66,7 @@ namespace Dream::Component {
             entity.getComponent<RigidBodyComponent>().angularFactor = angularFactor;
             entity.getComponent<RigidBodyComponent>().friction = friction;
             entity.getComponent<RigidBodyComponent>().restitution = restitution;
+            entity.getComponent<RigidBodyComponent>().rigidBodyIndex = -1;
 //            entity.getComponent<RigidBodyComponent>().updateRigidBody(entity);
         }
     }

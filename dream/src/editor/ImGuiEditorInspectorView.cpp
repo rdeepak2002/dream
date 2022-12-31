@@ -128,7 +128,6 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderRemoveComponent() {
         if (ImGui::Button("Remove Entity", ImVec2(ImGui::GetWindowContentRegionWidth(), 0.0f))) {
             Project::getScene()->removeEntity(selectedEntity);
-            Project::getScene()->getPhysicsComponentSystem()->clearWorld();
             selectedEntity = Entity();
         }
     }

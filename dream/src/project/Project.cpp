@@ -88,7 +88,6 @@ namespace Dream {
 
     void Project::reloadScene() {
         if (Project::getInstance().scene) {
-            Project::getInstance().scene->destroyComponentSystems();
             Project::getInstance().scene->clear();
             Project::getInstance().scene->resetComponentSystems();
             Project::getInstance().loadScene(true);

@@ -69,7 +69,7 @@ namespace Dream {
         animatorComponentSystem->update(dt);
     }
 
-    void Scene::destroyComponentSystems() {
+    void Scene::resetComponentSystems() {
         delete physicsComponentSystem;
         physicsComponentSystem = nullptr;
         delete animatorComponentSystem;
@@ -78,16 +78,10 @@ namespace Dream {
         audioComponentSystem = nullptr;
         delete luaScriptComponentSystem;
         luaScriptComponentSystem = nullptr;
-    }
 
-    void Scene::resetComponentSystems() {
-        delete physicsComponentSystem;
         physicsComponentSystem = new PhysicsComponentSystem();
-        delete audioComponentSystem;
         audioComponentSystem = new AudioComponentSystem();
-        delete animatorComponentSystem;
         animatorComponentSystem = new AnimatorComponentSystem();
-        delete luaScriptComponentSystem;
         luaScriptComponentSystem = new LuaScriptComponentSystem();
         shouldInitComponentSystems = true;
     }
@@ -135,15 +129,26 @@ namespace Dream {
 
     void Scene::removeEntity(Entity &entity) {
         Entity child = entity.getComponent<Component::HierarchyComponent>().first;
+
         while (child) {
             Entity nextChild = child.getComponent<Component::HierarchyComponent>().next;
             removeEntity(child);
             child = nextChild;
         }
+
         if (!entity.hasComponent<Component::RootComponent>()) {
             entity.getComponent<Component::HierarchyComponent>().parent.getComponent<Component::HierarchyComponent>().removeChild(
                     entity);
         }
+
+        if (entity.hasComponent<Component::RigidBodyComponent>()) {
+            Project::getScene()->getPhysicsComponentSystem()->removeRigidBody(entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex);
+        }
+
+        if (entity.hasComponent<Component::CollisionComponent>()) {
+            Project::getScene()->getPhysicsComponentSystem()->deleteCollisionShape(entity.getComponent<Component::CollisionComponent>().colliderShapeIndex);
+        }
+
         entityRegistry.destroy(entity.entityHandle);
     }
 

@@ -51,6 +51,10 @@ namespace Dream {
 
         btRigidBody* getRigidBody(int index);
 
+        void removeRigidBody(int index);
+
+        void deleteCollisionShape(int index);
+
     private:
         btDefaultCollisionConfiguration *collisionConfiguration;
         btCollisionDispatcher *dispatcher;

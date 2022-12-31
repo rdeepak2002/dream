@@ -32,7 +32,7 @@ namespace Dream {
     }
 
     PhysicsComponentSystem::~PhysicsComponentSystem() {
-        clearWorld();
+//        clearWorld();
         delete dynamicsWorld;
         delete solver;
         delete overlappingPairCache;
@@ -172,5 +172,41 @@ namespace Dream {
 
     btRigidBody* PhysicsComponentSystem::getRigidBody(int index) {
         return rigidBodies.at(index);
+    }
+
+    void PhysicsComponentSystem::removeRigidBody(int index) {
+        // delete rigid bodies
+        dynamicsWorld->removeRigidBody(rigidBodies.at(index));
+        delete rigidBodies.at(index)->getMotionState();
+        delete rigidBodies.at(index);
+        rigidBodies.erase(rigidBodies.begin() + index);
+
+        // push back index for rigid body entities
+        auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
+        for (auto entityHandle: rigidBodyEntities) {
+            Entity entity = {entityHandle, Project::getScene()};
+            if (entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex > index) {
+                entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex -= 1;
+            } else if (entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex == index) {
+                entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex = -1;
+            }
+        }
+    }
+
+    void PhysicsComponentSystem::deleteCollisionShape(int index) {
+        // delete collision shapes
+        delete colliderShapes.at(index);
+        colliderShapes.erase(colliderShapes.begin() + index);
+
+        // push back index for collision entities
+        auto collisionEntities = Project::getScene()->getEntitiesWithComponents<Component::CollisionComponent>();
+        for (auto entityHandle: collisionEntities) {
+            Entity entity = {entityHandle, Project::getScene()};
+            if (entity.getComponent<Component::CollisionComponent>().colliderShapeIndex > index) {
+                entity.getComponent<Component::CollisionComponent>().colliderShapeIndex -= 1;
+            } else if (entity.getComponent<Component::CollisionComponent>().colliderShapeIndex == index) {
+                entity.getComponent<Component::CollisionComponent>().colliderShapeIndex = -1;
+            }
+        }
     }
 }
