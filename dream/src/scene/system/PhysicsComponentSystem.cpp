@@ -97,4 +97,16 @@ namespace Dream {
     void PhysicsComponentSystem::init() {
 
     }
+
+    bool PhysicsComponentSystem::checkRaycast(glm::vec3 rayFromWorld, glm::vec3 rayToWorld) {
+        auto rfw = btVector3(rayFromWorld.x, rayFromWorld.y, rayFromWorld.z);
+        auto rtw = btVector3(rayToWorld.x, rayToWorld.y, rayToWorld.z);
+        btCollisionWorld::ClosestRayResultCallback raycastResult(rfw, rtw);
+        dynamicsWorld->rayTest(rfw, rtw, raycastResult);
+        if (raycastResult.hasHit()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

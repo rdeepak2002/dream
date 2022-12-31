@@ -29,6 +29,15 @@ namespace Dream {
         return Project::getScene()->getEntityByTag(tag);
     }
 
+    bool checkRaycast(glm::vec3 from, glm::vec3 to) {
+        if (!Project::getScene()->getPhysicsComponentSystem()) {
+            Logger::error("Physics component system not initialized");
+            return false;
+        } else {
+            return Project::getScene()->getPhysicsComponentSystem()->checkRaycast(from, to);
+        }
+    }
+
     LuaScriptComponentSystem::LuaScriptComponentSystem() {
         // open libraries with lua
         lua.open_libraries(sol::lib::base, sol::lib::math, sol::lib::string, sol::lib::io);
@@ -258,6 +267,10 @@ namespace Dream {
 
         lua.new_usertype<Scene>("Scene",
                                 "getEntityByTag", sol::as_function(&getEntityByTag)
+        );
+
+        lua.new_usertype<PhysicsComponentSystem>("PhysicsComponentSystem",
+                                                 "checkRaycast", sol::as_function(&checkRaycast)
         );
 
         lua.end();

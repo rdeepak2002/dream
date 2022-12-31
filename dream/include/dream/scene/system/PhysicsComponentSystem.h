@@ -20,6 +20,7 @@
 #define DREAM_PHYSICSCOMPONENTSYSTEM_H
 
 #include <btBulletDynamicsCommon.h>
+#include <glm/glm.hpp>
 
 namespace Dream {
     class PhysicsComponentSystem {
@@ -31,6 +32,8 @@ namespace Dream {
         void init();
 
         void update(float dt);
+
+        bool checkRaycast(glm::vec3 rayFromWorld, glm::vec3 rayToWorld);
 
     private:
         btDefaultCollisionConfiguration *collisionConfiguration;

@@ -69,6 +69,8 @@ namespace Dream {
 
         void serialize(YAML::Emitter &out);
 
+        PhysicsComponentSystem* getPhysicsComponentSystem();
+
     private:
         entt::registry entityRegistry;
 

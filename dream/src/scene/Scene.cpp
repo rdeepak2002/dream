@@ -212,4 +212,8 @@ namespace Dream {
             Logger::debug("Scene already cleared");
         }
     }
+
+    PhysicsComponentSystem* Scene::getPhysicsComponentSystem() {
+        return physicsComponentSystem;
+    }
 }

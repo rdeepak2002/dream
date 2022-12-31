@@ -1,14 +1,6 @@
 function update(entity, dt)
 	local animVelForward = 0
 
-	-- if self.quatLerp == nil then
-	-- 	self.quatLerp = 0.0
-	-- else
-	-- 	self.quatLerp += dt * 0.05
-	-- 	self.quatLerp = math.min(self.quatLerp, 1.0)
-	-- 	self.quatLerp = math.max(self.quatLerp, 0.0)
-	-- end
-
 	-- get main camera
 	local cameraEntity = Scene.getEntityByTag("camera")
 	if not cameraEntity:isValid() then
@@ -58,7 +50,12 @@ function update(entity, dt)
 	end
 
 	if Input.getButtonDown(Key.Space) then
-		entity:getRigidBody():applyCentralImpulse(vec3:new(0, 40.0 * dt, 0))
+		local isGrounded = PhysicsComponentSystem.checkRaycast(knightTranslation - vec3:new(0, -0.1, 0), knightTranslation - vec3:new(0, 1.0, 0))
+		if isGrounded then
+			entity:getRigidBody():applyCentralImpulse(vec3:new(0, 20.0 * dt, 0))
+		else
+			-- Logger.debug("in air")
+		end
 	end
 
 	if MathUtils.magnitudeVec3(linearVelocity) > 0 then
@@ -89,6 +86,11 @@ function update(entity, dt)
 	end
 	entity:getAnimator():setVariable("slash", slash)
 end
+
+
+
+
+
 
 
 
