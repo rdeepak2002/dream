@@ -57,13 +57,19 @@ function update(entity, dt)
 		linearVelocity = linearVelocity - cameraRightVector
 	end
 
+	if Input.getButtonDown(Key.Space) then
+		entity:getRigidBody():applyCentralImpulse(vec3:new(0, 40.0 * dt, 0))
+	end
+
 	if MathUtils.magnitudeVec3(linearVelocity) > 0 then
 		-- set rigid body velocity
 		linearVelocity = MathUtils.normalizeVec3(linearVelocity)
 		linearVelocity = linearVelocity * speed
+		linearVelocity.y = entity:getRigidBody():getLinearVelocity().y
 		entity:getRigidBody():setLinearVelocity(linearVelocity)
 
 		-- rotate rigid body in direction of velocity
+		linearVelocity.y = 0
 		local targetRotationQuat = MathUtils.safeQuatLookAt(pKnightTranslation, pKnightTranslation - linearVelocity, vec3:new(0, 1, 0) , vec3:new(0, 1, 0))
 		local curRot = entity:getRigidBody():getRotation()
 		local newQuat = MathUtils.quatSlerp(curRot, targetRotationQuat, math.min(6.0 * dt, 1.0))
