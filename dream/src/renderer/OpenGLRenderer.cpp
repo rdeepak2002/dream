@@ -116,7 +116,9 @@ namespace Dream {
                 physicsDebugShader->use();
                 physicsDebugShader->setMat4("projection", projection);
                 physicsDebugShader->setMat4("view", view);
-                Project::getScene()->getPhysicsComponentSystem()->debugDrawWorld();
+                if (Project::getScene()->getPhysicsComponentSystem()) {
+                    Project::getScene()->getPhysicsComponentSystem()->debugDrawWorld();
+                }
                 glEnable(GL_DEPTH_TEST);
             }
         } else {
