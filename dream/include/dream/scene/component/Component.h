@@ -484,6 +484,10 @@ namespace Dream::Component {
 
         glm::quat getRotation();
 
+        void applyCentralImpulse(glm::vec3 impulseDirection);
+
+        void applyCentralForce(glm::vec3 forceDirection);
+
         static void deserialize(YAML::Node node, Entity &entity);
 
         static void serialize(YAML::Emitter &out, Entity &entity);

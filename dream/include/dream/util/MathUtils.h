@@ -33,8 +33,9 @@ namespace Dream {
         static glm::quat safeQuatLookAt(glm::vec3 const& lookFrom,glm::vec3 const& lookTo,glm::vec3 const& up, glm::vec3 const& alternativeUp);
         static glm::vec3 crossProductVec3(glm::vec3 a, glm::vec3 b);
         static float magnitudeVec3(glm::vec3 v);
-        static glm::quat quatLerp(glm::quat q1, glm::quat q2, float blend);
+        static glm::quat quatMix(glm::quat q1, glm::quat q2, float blend);
         static glm::quat quatSlerp(glm::quat q1, glm::quat q2, float blend);
+        static glm::vec3 vec3Lerp(glm::vec3 x, glm::vec3 y, float t);
     };
 }
 

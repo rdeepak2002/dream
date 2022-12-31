@@ -206,4 +206,20 @@ namespace Dream::Component {
             return {1, 0, 0, 0};
         }
     }
+
+    void RigidBodyComponent::applyCentralImpulse(glm::vec3 impulseDirection) {
+        if (rigidBody) {
+            rigidBody->applyCentralImpulse(btVector3(impulseDirection.x, impulseDirection.y, impulseDirection.z));
+        } else {
+            Logger::warn("Rigid body not initialized");
+        }
+    }
+
+    void RigidBodyComponent::applyCentralForce(glm::vec3 forceDirection) {
+        if (rigidBody) {
+            rigidBody->applyCentralForce(btVector3(forceDirection.x, forceDirection.y, forceDirection.z));
+        } else {
+            Logger::warn("Rigid body not initialized");
+        }
+    }
 }

@@ -92,11 +92,15 @@ namespace Dream {
         return glm::l2Norm(v);
     }
 
-    glm::quat MathUtils::quatLerp(glm::quat q1, glm::quat q2, float blend) {
+    glm::quat MathUtils::quatMix(glm::quat q1, glm::quat q2, float blend) {
         return glm::mix(q1, q2, blend);
     }
 
     glm::quat MathUtils::quatSlerp(glm::quat q1, glm::quat q2, float blend) {
         return glm::slerp(q1, q2, blend);
+    }
+
+    glm::vec3 MathUtils::vec3Lerp(glm::vec3 x, glm::vec3 y, float t) {
+        return x * (1.f - t) + y * t;
     }
 }

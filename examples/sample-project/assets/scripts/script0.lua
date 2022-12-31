@@ -1,6 +1,14 @@
 function update(entity, dt)
 	local animVelForward = 0
 
+	-- if self.quatLerp == nil then
+	-- 	self.quatLerp = 0.0
+	-- else
+	-- 	self.quatLerp += dt * 0.05
+	-- 	self.quatLerp = math.min(self.quatLerp, 1.0)
+	-- 	self.quatLerp = math.max(self.quatLerp, 0.0)
+	-- end
+
 	-- get main camera
 	local cameraEntity = Scene.getEntityByTag("camera")
 	if not cameraEntity:isValid() then
@@ -57,7 +65,9 @@ function update(entity, dt)
 
 		-- rotate rigid body in direction of velocity
 		local targetRotationQuat = MathUtils.safeQuatLookAt(pKnightTranslation, pKnightTranslation - linearVelocity, vec3:new(0, 1, 0) , vec3:new(0, 1, 0))
-		entity:getRigidBody():setRotation(targetRotationQuat)
+		local curRot = entity:getRigidBody():getRotation()
+		local newQuat = MathUtils.quatSlerp(curRot, targetRotationQuat, math.min(6.0 * dt, 1.0))
+		entity:getRigidBody():setRotation(newQuat)
 
 		-- set velocity for animator
 		entity:getAnimator():setVariable("velocity", 1)
@@ -73,6 +83,7 @@ function update(entity, dt)
 	end
 	entity:getAnimator():setVariable("slash", slash)
 end
+
 
 
 
