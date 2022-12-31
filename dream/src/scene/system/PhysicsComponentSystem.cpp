@@ -43,18 +43,26 @@ namespace Dream {
     void PhysicsComponentSystem::clearWorld() {
         if (dynamicsWorld) {
             // delete rigid bodies
-            for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
-                btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
-                btRigidBody* body = btRigidBody::upcast(obj);
-                if (body && body->getMotionState()) {
-                    delete body->getMotionState();
-                }
-                dynamicsWorld->removeCollisionObject(obj);
-                delete obj;
+//            for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
+//                btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
+//                btRigidBody* body = btRigidBody::upcast(obj);
+//                if (body && body->getMotionState()) {
+//                    delete body->getMotionState();
+//                }
+//                dynamicsWorld->removeCollisionObject(obj);
+//                delete obj;
+//            }
+            // delete rigid bodies
+            for (int i = (int) rigidBodies.size() - 1; i >= 0; i--) {
+                dynamicsWorld->removeRigidBody(rigidBodies.at(i));
+                delete rigidBodies.at(i)->getMotionState();
+                delete rigidBodies.at(i);
+                rigidBodies.erase(rigidBodies.begin() + i);
             }
             // delete collision shapes
             for (int i = (int) colliderShapes.size() - 1; i >= 0; i--) {
                 delete colliderShapes.at(i);
+                colliderShapes.erase(colliderShapes.begin() + i);
             }
             // reference -1 for rigid body entities
             auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
