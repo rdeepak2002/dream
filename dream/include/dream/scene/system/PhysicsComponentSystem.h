@@ -21,6 +21,7 @@
 
 #include <btBulletDynamicsCommon.h>
 #include <glm/glm.hpp>
+#include "dream/renderer/OpenGLPhysicsDebugDrawer.h"
 
 namespace Dream {
     class PhysicsComponentSystem {
@@ -35,12 +36,15 @@ namespace Dream {
 
         bool checkRaycast(glm::vec3 rayFromWorld, glm::vec3 rayToWorld);
 
+        void debugDrawWorld();
+
     private:
         btDefaultCollisionConfiguration *collisionConfiguration;
         btCollisionDispatcher *dispatcher;
         btBroadphaseInterface *overlappingPairCache;
         btSequentialImpulseConstraintSolver *solver;
         btDiscreteDynamicsWorld *dynamicsWorld;
+        OpenGLPhysicsDebugDrawer openGlPhysicsDebugDrawer;
     };
 }
 

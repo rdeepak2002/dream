@@ -37,6 +37,11 @@ namespace Dream {
         shader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shader.vert").c_str(),
                                   Project::getPath().append("assets").append("shaders").append(
                                           "shader_texture.frag").c_str(), nullptr);
+
+        physicsDebugShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("physics.vert").c_str(),
+                                  Project::getPath().append("assets").append("shaders").append(
+                                          "physics.frag").c_str(), nullptr);
+
         texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("missing.png"));
 
         // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
@@ -49,6 +54,7 @@ namespace Dream {
 
     OpenGLRenderer::~OpenGLRenderer() {
         delete this->shader;
+        delete this->physicsDebugShader;
         delete this->frameBuffer;
         delete this->texture;
     }
@@ -73,11 +79,7 @@ namespace Dream {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            // activate shader
-            shader->use();
-            shader->setInt("texture_diffuse1", 0);
-//            shader->setVec3("diffuse_color", glm::vec3(1, 0, 0));
-
+            // calculate projection and view using current camera
             glm::mat4 projection;
             if (Project::isPlaying()) {
                 projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov),
@@ -91,7 +93,6 @@ namespace Dream {
                         sceneCamera.getComponent<Component::SceneCameraComponent>().zNear,
                         sceneCamera.getComponent<Component::SceneCameraComponent>().zFar);
             }
-            shader->setMat4("projection", projection);
 
             glm::mat4 view;
             if (Project::isPlaying()) {
@@ -99,10 +100,25 @@ namespace Dream {
             } else {
                 view = sceneCamera.getComponent<Component::SceneCameraComponent>().getViewMatrix(sceneCamera);
             }
-            shader->setMat4("view", view);
 
-            // render in hierarchy
-            renderEntityAndChildren(Project::getScene()->getRootEntity());
+            // draw meshes
+            {
+                shader->use();
+                shader->setInt("texture_diffuse1", 0);
+                shader->setMat4("projection", projection);
+                shader->setMat4("view", view);
+                renderEntityAndChildren(Project::getScene()->getRootEntity());
+            }
+
+            // draw physics debug
+            {
+                glDisable(GL_DEPTH_TEST);
+                physicsDebugShader->use();
+                physicsDebugShader->setMat4("projection", projection);
+                physicsDebugShader->setMat4("view", view);
+                Project::getScene()->getPhysicsComponentSystem()->debugDrawWorld();
+                glEnable(GL_DEPTH_TEST);
+            }
         } else {
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

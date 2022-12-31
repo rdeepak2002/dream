@@ -22,12 +22,14 @@
 
 namespace Dream {
     PhysicsComponentSystem::PhysicsComponentSystem() {
+//        openGlPhysicsDebugDrawer = new OpenGLPhysicsDebugDrawer();
         collisionConfiguration = new btDefaultCollisionConfiguration();
         dispatcher = new btCollisionDispatcher(collisionConfiguration);
         overlappingPairCache = new btDbvtBroadphase();
         solver = new btSequentialImpulseConstraintSolver;
         dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
         dynamicsWorld->setGravity(btVector3(0, -10, 0));
+        dynamicsWorld->setDebugDrawer(&openGlPhysicsDebugDrawer);
     }
 
     PhysicsComponentSystem::~PhysicsComponentSystem() {
@@ -55,6 +57,7 @@ namespace Dream {
         delete overlappingPairCache;
         delete dispatcher;
         delete collisionConfiguration;
+//        delete openGlPhysicsDebugDrawer;
     }
 
     void PhysicsComponentSystem::update(float dt) {
@@ -107,6 +110,12 @@ namespace Dream {
             return true;
         } else {
             return false;
+        }
+    }
+
+    void PhysicsComponentSystem::debugDrawWorld() {
+        if (dynamicsWorld) {
+            dynamicsWorld->debugDrawWorld();
         }
     }
 }
