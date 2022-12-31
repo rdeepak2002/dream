@@ -45,7 +45,7 @@ namespace Dream {
     void PhysicsComponentSystem::clearWorld() {
         if (dynamicsWorld) {
             // delete rigid bodies
-            for (int i=dynamicsWorld->getNumCollisionObjects()-1; i>=0 ;i--) {
+            for (int i=dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
                 btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
                 btRigidBody* body = btRigidBody::upcast(obj);
                 if (body && body->getMotionState()) {
