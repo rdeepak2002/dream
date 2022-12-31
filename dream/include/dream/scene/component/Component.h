@@ -482,6 +482,8 @@ namespace Dream::Component {
 
         void setRotation(glm::quat rot);
 
+        glm::quat getRotation();
+
         static void deserialize(YAML::Node node, Entity &entity);
 
         static void serialize(YAML::Emitter &out, Entity &entity);

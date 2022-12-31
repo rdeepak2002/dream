@@ -91,4 +91,12 @@ namespace Dream {
     float MathUtils::magnitudeVec3(glm::vec3 v) {
         return glm::l2Norm(v);
     }
+
+    glm::quat MathUtils::quatLerp(glm::quat q1, glm::quat q2, float blend) {
+        return glm::mix(q1, q2, blend);
+    }
+
+    glm::quat MathUtils::quatSlerp(glm::quat q1, glm::quat q2, float blend) {
+        return glm::slerp(q1, q2, blend);
+    }
 }

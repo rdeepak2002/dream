@@ -234,7 +234,9 @@ namespace Dream {
                                                         "getAngularVelocity",
                                                         sol::as_function(&Component::RigidBodyComponent::getAngularVelocity),
                                                         "setRotation",
-                                                        sol::as_function(&Component::RigidBodyComponent::setRotation)
+                                                        sol::as_function(&Component::RigidBodyComponent::setRotation),
+                                                        "getRotation",
+                                                        sol::as_function(&Component::RigidBodyComponent::getRotation)
         );
 
         lua.new_usertype<MathUtils>("MathUtils",
@@ -244,7 +246,9 @@ namespace Dream {
                                     "angle", sol::as_function(&MathUtils::angle),
                                     "safeQuatLookAt", sol::as_function(&MathUtils::safeQuatLookAt),
                                     "crossProductVec3", sol::as_function(&MathUtils::crossProductVec3),
-                                    "magnitudeVec3", sol::as_function(&MathUtils::magnitudeVec3)
+                                    "magnitudeVec3", sol::as_function(&MathUtils::magnitudeVec3),
+                                    "quatLerp", sol::as_function(&MathUtils::quatLerp),
+                                    "quatSlerp", sol::as_function(&MathUtils::quatSlerp)
         );
 
         lua.new_usertype<Scene>("Scene",

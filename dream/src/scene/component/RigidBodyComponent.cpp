@@ -196,4 +196,14 @@ namespace Dream::Component {
             Logger::warn("Rigid body not initialized");
         }
     }
+
+    glm::quat RigidBodyComponent::getRotation() {
+        if (rigidBody) {
+            auto btQuat = rigidBody->getWorldTransform().getRotation();
+            return {btQuat.getW(), btQuat.getX(), btQuat.getY(), btQuat.getZ()};
+        } else {
+            Logger::warn("Rigid body not initialized");
+            return {1, 0, 0, 0};
+        }
+    }
 }
