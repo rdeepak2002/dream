@@ -22,7 +22,6 @@
 
 namespace Dream {
     PhysicsComponentSystem::PhysicsComponentSystem() {
-//        openGlPhysicsDebugDrawer = new OpenGLPhysicsDebugDrawer();
         collisionConfiguration = new btDefaultCollisionConfiguration();
         dispatcher = new btCollisionDispatcher(collisionConfiguration);
         overlappingPairCache = new btDbvtBroadphase();
@@ -39,35 +38,40 @@ namespace Dream {
         delete overlappingPairCache;
         delete dispatcher;
         delete collisionConfiguration;
-//        delete openGlPhysicsDebugDrawer;
     }
 
     void PhysicsComponentSystem::clearWorld() {
-//        if (dynamicsWorld) {
-//            // delete rigid bodies
-//            for (int i=dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
-//                btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
-//                btRigidBody* body = btRigidBody::upcast(obj);
-//                if (body && body->getMotionState()) {
-//                    delete body->getMotionState();
-//                }
-//                dynamicsWorld->removeCollisionObject(obj);
-//                delete obj;
-//            }
-//            // reference nullptr for rigid body entities
-//            auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
-//            for (auto entityHandle: rigidBodyEntities) {
-//                Entity entity = {entityHandle, Project::getScene()};
-//                entity.getComponent<Component::RigidBodyComponent>().rigidBody = nullptr;
-//            }
-//            // delete collision shapes
-//            auto collisionEntities = Project::getScene()->getEntitiesWithComponents<Component::CollisionComponent>();
-//            for (auto entityHandle: collisionEntities) {
-//                Entity entity = {entityHandle, Project::getScene()};
-//                delete entity.getComponent<Component::CollisionComponent>().colliderCompoundShape;
-//                entity.getComponent<Component::CollisionComponent>().colliderCompoundShape = nullptr;
-//            }
-//        }
+        if (dynamicsWorld) {
+            // delete rigid bodies
+            for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
+                btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
+                btRigidBody* body = btRigidBody::upcast(obj);
+                if (body && body->getMotionState()) {
+                    delete body->getMotionState();
+                }
+                dynamicsWorld->removeCollisionObject(obj);
+                delete obj;
+            }
+            // delete collision shapes
+            for (int i = (int) colliderShapes.size() - 1; i >= 0; i--) {
+                delete colliderShapes.at(i);
+            }
+            // reference -1 for rigid body entities
+            auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
+            for (auto entityHandle: rigidBodyEntities) {
+                Entity entity = {entityHandle, Project::getScene()};
+                entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex = -1;
+            }
+            // reference -1 for collision entities
+            auto collisionEntities = Project::getScene()->getEntitiesWithComponents<Component::CollisionComponent>();
+            for (auto entityHandle: collisionEntities) {
+                Entity entity = {entityHandle, Project::getScene()};
+                entity.getComponent<Component::CollisionComponent>().colliderShapeIndex = -1;
+            }
+            // clear vectors
+            colliderShapes.clear();
+            rigidBodies.clear();
+        }
     }
 
     void PhysicsComponentSystem::removeRigidBodyFromWorld(btRigidBody* rb) {
