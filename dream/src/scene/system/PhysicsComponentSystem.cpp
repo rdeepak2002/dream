@@ -63,14 +63,12 @@ namespace Dream {
     void PhysicsComponentSystem::removeRigidBodyFromWorld(btRigidBody* rb) {
         if (dynamicsWorld) {
             // delete rigid bodies
-            int i = rb->getWorldArrayIndex();
-            btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
-            btRigidBody* body = btRigidBody::upcast(obj);
-            if (body && body->getMotionState()) {
-                delete body->getMotionState();
+            if (rb && rb->isInWorld()) {
+                delete rb->getMotionState();
+                delete rb->getCollisionShape();
+                dynamicsWorld->removeRigidBody(rb);
+                delete rb;
             }
-            dynamicsWorld->removeCollisionObject(obj);
-            delete obj;
         } else {
             Logger::fatal("Dynamics world not initialized");
         }

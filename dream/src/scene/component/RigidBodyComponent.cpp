@@ -23,10 +23,6 @@
 
 namespace Dream::Component {
     RigidBodyComponent::~RigidBodyComponent() {
-//        if (rigidBody) {
-//            Logger::info("Deleting rigid body");
-//            Project::getScene()->getPhysicsComponentSystem()->removeRigidBodyFromWorld(rigidBody);
-//        }
         if (rigidBody && rigidBody->isInWorld()) {
             delete rigidBody;
         }
@@ -105,7 +101,12 @@ namespace Dream::Component {
             btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(mass, motionState,
                                                                  entity.getComponent<CollisionComponent>().colliderCompoundShape,
                                                                  localInertia);
-            rigidBody = new btRigidBody(rigidBodyCI);
+            if (rigidBody) {
+                Logger::fatal("Previous rigid body not deleted");
+            } else {
+                rigidBody = new btRigidBody(rigidBodyCI);
+            }
+
             rigidBody->setFriction(friction);
             rigidBody->setAnisotropicFriction(
                     entity.getComponent<CollisionComponent>().colliderCompoundShape->getAnisotropicRollingFrictionDirection(),

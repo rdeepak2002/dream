@@ -28,7 +28,11 @@ namespace Dream::Component {
 
     void CollisionComponent::updateColliderCompoundShape() {
 //        delete colliderCompoundShape;
-        colliderCompoundShape = new btCompoundShape();
+        if (colliderCompoundShape) {
+            Logger::fatal("Previous collider compound shape not deleted");
+        } else {
+            colliderCompoundShape = new btCompoundShape();
+        }
         for (const auto &collider: colliders) {
             btTransform t;
             t.setIdentity();
