@@ -98,6 +98,9 @@ namespace Dream {
             audioComponentSystem->update(dt);
             luaScriptComponentSystem->update(dt);
         }
+        if (!Project::isPlaying()) {
+            physicsComponentSystem->update(0.0);
+        }
         if (Project::isPlaying()) {
             // TODO: move to component system
             Entity mainCamera = getMainCamera();
