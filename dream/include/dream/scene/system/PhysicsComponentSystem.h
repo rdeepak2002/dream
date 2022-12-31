@@ -40,6 +40,8 @@ namespace Dream {
 
         void removeRigidBodyFromWorld(btRigidBody* body);
 
+        void clearWorld();
+
     private:
         btDefaultCollisionConfiguration *collisionConfiguration;
         btCollisionDispatcher *dispatcher;

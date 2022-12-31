@@ -33,6 +33,16 @@ namespace Dream {
     }
 
     PhysicsComponentSystem::~PhysicsComponentSystem() {
+        clearWorld();
+        delete dynamicsWorld;
+        delete solver;
+        delete overlappingPairCache;
+        delete dispatcher;
+        delete collisionConfiguration;
+//        delete openGlPhysicsDebugDrawer;
+    }
+
+    void PhysicsComponentSystem::clearWorld() {
         if (dynamicsWorld) {
             // delete rigid bodies
             for (int i=dynamicsWorld->getNumCollisionObjects()-1; i>=0 ;i--) {
@@ -44,6 +54,12 @@ namespace Dream {
                 dynamicsWorld->removeCollisionObject(obj);
                 delete obj;
             }
+            // reference nullptr for rigid body entities
+            auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
+            for (auto entityHandle: rigidBodyEntities) {
+                Entity entity = {entityHandle, Project::getScene()};
+                entity.getComponent<Component::RigidBodyComponent>().rigidBody = nullptr;
+            }
             // delete collision shapes
             auto collisionEntities = Project::getScene()->getEntitiesWithComponents<Component::CollisionComponent>();
             for (auto entityHandle: collisionEntities) {
@@ -52,12 +68,6 @@ namespace Dream {
                 entity.getComponent<Component::CollisionComponent>().colliderCompoundShape = nullptr;
             }
         }
-        delete dynamicsWorld;
-        delete solver;
-        delete overlappingPairCache;
-        delete dispatcher;
-        delete collisionConfiguration;
-//        delete openGlPhysicsDebugDrawer;
     }
 
     void PhysicsComponentSystem::removeRigidBodyFromWorld(btRigidBody* rb) {
