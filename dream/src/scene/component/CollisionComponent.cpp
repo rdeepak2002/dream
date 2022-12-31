@@ -22,11 +22,12 @@
 
 namespace Dream::Component {
     CollisionComponent::~CollisionComponent() {
+//        Logger::info("Deleting collider shape");
         delete colliderCompoundShape;
     }
 
     void CollisionComponent::updateColliderCompoundShape() {
-        delete colliderCompoundShape;
+//        delete colliderCompoundShape;
         colliderCompoundShape = new btCompoundShape();
         for (const auto &collider: colliders) {
             btTransform t;

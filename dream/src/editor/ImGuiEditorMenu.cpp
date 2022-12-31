@@ -51,6 +51,14 @@ namespace Dream {
                 }
                 ImGui::EndMenu();
             }
+            if (ImGui::BeginMenu("Debug")) {
+                if (ImGui::MenuItem("Enable Physics Debugger")) {
+                    // TODO: use bitmap flags in Project class to see which debug settings are enabled
+                }
+                if (ImGui::MenuItem("Disable Physics Debugger")) {
+                    // TODO: use bitmap flags in Project class to see which debug settings are enabled
+                }
+            }
             ImGui::EndMainMenuBar();
         }
     }

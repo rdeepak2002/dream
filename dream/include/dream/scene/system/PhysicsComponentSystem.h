@@ -38,6 +38,8 @@ namespace Dream {
 
         void debugDrawWorld();
 
+        void removeRigidBodyFromWorld(btRigidBody* body);
+
     private:
         btDefaultCollisionConfiguration *collisionConfiguration;
         btCollisionDispatcher *dispatcher;

@@ -12,16 +12,22 @@ namespace Dream {
         points[0] = -1 * from.x();
         points[1] = -1 * from.y();
         points[2] = from.z();
-        points[3] = color.x();
-        points[4] = color.y();
-        points[5] = color.z();
+//        points[3] = color.x();
+//        points[4] = color.y();
+//        points[5] = color.z();
+        points[3] = 0;
+        points[4] = 1.0;
+        points[5] = 0;
 
         points[6] = -1 * to.x();
         points[7] = -1 * to.y();
         points[8] = to.z();
-        points[9] = color.x();
-        points[10] = color.y();
-        points[11] = color.z();
+//        points[9] = color.x();
+//        points[10] = color.y();
+//        points[11] = color.z();
+        points[9] = 0;
+        points[10] = 1.0;
+        points[11] = 0;
 
         glDeleteBuffers(1, &VBO);
         glDeleteVertexArrays(1, &VAO);

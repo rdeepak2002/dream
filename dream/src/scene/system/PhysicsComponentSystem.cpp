@@ -60,6 +60,22 @@ namespace Dream {
 //        delete openGlPhysicsDebugDrawer;
     }
 
+    void PhysicsComponentSystem::removeRigidBodyFromWorld(btRigidBody* rb) {
+        if (dynamicsWorld) {
+            // delete rigid bodies
+            int i = rb->getWorldArrayIndex();
+            btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
+            btRigidBody* body = btRigidBody::upcast(obj);
+            if (body && body->getMotionState()) {
+                delete body->getMotionState();
+            }
+            dynamicsWorld->removeCollisionObject(obj);
+            delete obj;
+        } else {
+            Logger::fatal("Dynamics world not initialized");
+        }
+    }
+
     void PhysicsComponentSystem::update(float dt) {
         // update all entities with rigid bodies
         auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();

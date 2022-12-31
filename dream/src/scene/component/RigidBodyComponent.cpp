@@ -19,9 +19,14 @@
 #include "dream/scene/component/Component.h"
 
 #include "dream/util/YAMLUtils.h"
+#include "dream/project/Project.h"
 
 namespace Dream::Component {
     RigidBodyComponent::~RigidBodyComponent() {
+//        if (rigidBody) {
+//            Logger::info("Deleting rigid body");
+//            Project::getScene()->getPhysicsComponentSystem()->removeRigidBodyFromWorld(rigidBody);
+//        }
         if (rigidBody && rigidBody->isInWorld()) {
             delete rigidBody;
         }
@@ -72,7 +77,8 @@ namespace Dream::Component {
     }
 
     void RigidBodyComponent::updateRigidBody(Entity &entity) {
-        delete rigidBody;
+        // TODO: remove rigid body from world, then delete
+//        delete rigidBody;
 
         const auto &transformComponent = entity.getComponent<TransformComponent>();
         const auto &translation = transformComponent.translation;
@@ -148,6 +154,7 @@ namespace Dream::Component {
             rigidBody->setAngularFactor(btVector3(angularFactor.x, angularFactor.y, angularFactor.z));
             rigidBody->activate();
             rigidBody->setActivationState(DISABLE_DEACTIVATION);
+//            rigidBody->setCustomDebugColor(btVector3(1.0, 0.0, 0.0));
         } else {
             Logger::fatal("Unknown rigid body type " + std::to_string(static_cast<int>(type)));
         }
