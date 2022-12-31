@@ -19,20 +19,21 @@
 #include "dream/scene/component/Component.h"
 
 #include "dream/util/YAMLUtils.h"
+#include "dream/project/Project.h"
 
 namespace Dream::Component {
     CollisionComponent::~CollisionComponent() {
 //        Logger::info("Deleting collider shape");
-        delete colliderCompoundShape;
+//        delete colliderCompoundShape;
     }
 
     void CollisionComponent::updateColliderCompoundShape() {
-//        delete colliderCompoundShape;
-        if (colliderCompoundShape) {
-            Logger::fatal("Previous collider compound shape not deleted");
-        } else {
-            colliderCompoundShape = new btCompoundShape();
+        if (colliderShapeIndex != -1) {
+            Logger::fatal("Collider shape index is not -1");
         }
+
+//        delete colliderCompoundShape;
+        auto *colliderCompoundShape = new btCompoundShape();
         for (const auto &collider: colliders) {
             btTransform t;
             t.setIdentity();
@@ -92,6 +93,7 @@ namespace Dream::Component {
                 Logger::fatal("Unknown collider type " + std::to_string(static_cast<int>(collider.type)));
             }
         }
+        colliderShapeIndex = Project::getScene()->getPhysicsComponentSystem()->addColliderShape(colliderCompoundShape);
     }
 
     void CollisionComponent::serialize(YAML::Emitter &out, Dream::Entity &entity) {

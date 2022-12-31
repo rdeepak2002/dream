@@ -421,7 +421,7 @@ namespace Dream::Component {
         std::vector<Collider> colliders;
 
         // runtime created collider shape
-        btCompoundShape *colliderCompoundShape = nullptr;
+        int colliderShapeIndex = -1;
 
         ~CollisionComponent();
 
@@ -464,7 +464,7 @@ namespace Dream::Component {
         float restitution = 0.5f;
 
         // runtime created rigid body
-        btRigidBody *rigidBody = nullptr;
+        int rigidBodyIndex = -1;
 
         bool shouldBeAddedToWorld = true;
 

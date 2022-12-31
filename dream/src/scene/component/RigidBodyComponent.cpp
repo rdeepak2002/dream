@@ -23,9 +23,9 @@
 
 namespace Dream::Component {
     RigidBodyComponent::~RigidBodyComponent() {
-        if (rigidBody && rigidBody->isInWorld()) {
-            delete rigidBody;
-        }
+//        if (rigidBody && rigidBody->isInWorld()) {
+//            delete rigidBody;
+//        }
     }
 
     void RigidBodyComponent::serialize(YAML::Emitter &out, Dream::Entity &entity) {
@@ -76,40 +76,42 @@ namespace Dream::Component {
         // TODO: remove rigid body from world, then delete
 //        delete rigidBody;
 
+        if (rigidBodyIndex != -1) {
+            Logger::fatal("Rigid body index is not -1");
+        }
+
         const auto &transformComponent = entity.getComponent<TransformComponent>();
         const auto &translation = transformComponent.translation;
         const auto &rotation = transformComponent.rotation;
 
         btVector3 localInertia(0, 0, 0);
         if (entity.hasComponent<CollisionComponent>()) {
-            if (!entity.getComponent<CollisionComponent>().colliderCompoundShape) {
+            if (entity.getComponent<CollisionComponent>().colliderShapeIndex == -1) {
                 entity.getComponent<CollisionComponent>().updateColliderCompoundShape();
             }
-            if (!entity.getComponent<CollisionComponent>().colliderCompoundShape) {
+            if (entity.getComponent<CollisionComponent>().colliderShapeIndex == -1) {
                 Logger::fatal("Unable to initialize compound collider shape");
             }
-            entity.getComponent<CollisionComponent>().colliderCompoundShape->calculateLocalInertia(mass, localInertia);
+            btCompoundShape* shape = Project::getScene()->getPhysicsComponentSystem()->getColliderShape(entity.getComponent<CollisionComponent>().colliderShapeIndex);
+            shape->calculateLocalInertia(mass, localInertia);
         } else {
             Logger::fatal("Rigid body cannot be initialized because entity " + entity.getComponent<TagComponent>().tag +
                           " does not have collision component");
         }
 
+        btCompoundShape* colliderShape = Project::getScene()->getPhysicsComponentSystem()->getColliderShape(entity.getComponent<CollisionComponent>().colliderShapeIndex);
+        btRigidBody *rigidBody = nullptr;
+
         if (type == RigidBodyComponent::DYNAMIC) {
             auto *motionState = new btDefaultMotionState(
                     btTransform(btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
                                 btVector3(translation.x, translation.y, translation.z)));
-            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(mass, motionState,
-                                                                 entity.getComponent<CollisionComponent>().colliderCompoundShape,
-                                                                 localInertia);
-            if (rigidBody) {
-                Logger::fatal("Previous rigid body not deleted");
-            } else {
-                rigidBody = new btRigidBody(rigidBodyCI);
-            }
+            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(mass, motionState, colliderShape, localInertia);
+            rigidBody = new btRigidBody(rigidBodyCI);
 
             rigidBody->setFriction(friction);
             rigidBody->setAnisotropicFriction(
-                    entity.getComponent<CollisionComponent>().colliderCompoundShape->getAnisotropicRollingFrictionDirection(),
+                    colliderShape->getAnisotropicRollingFrictionDirection(),
                     btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
             rigidBody->setDamping(linearDamping, angularDamping);
             rigidBody->setRestitution(restitution);
@@ -122,13 +124,13 @@ namespace Dream::Component {
                     btTransform(btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
                                 btVector3(translation.x, translation.y, translation.z)));
             btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(0, motionState,
-                                                                 entity.getComponent<CollisionComponent>().colliderCompoundShape,
+                                                                 colliderShape,
                                                                  localInertia);
             rigidBody = new btRigidBody(rigidBodyCI);
             rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
             rigidBody->setFriction(friction);
             rigidBody->setAnisotropicFriction(
-                    entity.getComponent<CollisionComponent>().colliderCompoundShape->getAnisotropicRollingFrictionDirection(),
+                    colliderShape->getAnisotropicRollingFrictionDirection(),
                     btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
             rigidBody->setDamping(linearDamping, angularDamping);
             rigidBody->setRestitution(restitution);
@@ -141,13 +143,13 @@ namespace Dream::Component {
                     btTransform(btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
                                 btVector3(translation.x, translation.y, translation.z)));
             btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(0, motionState,
-                                                                 entity.getComponent<CollisionComponent>().colliderCompoundShape,
+                                                                 colliderShape,
                                                                  localInertia);
             rigidBody = new btRigidBody(rigidBodyCI);
             rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
             rigidBody->setFriction(friction);
             rigidBody->setAnisotropicFriction(
-                    entity.getComponent<CollisionComponent>().colliderCompoundShape->getAnisotropicRollingFrictionDirection(),
+                    colliderShape->getAnisotropicRollingFrictionDirection(),
                     btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
             rigidBody->setDamping(linearDamping, angularDamping);
             rigidBody->setRestitution(restitution);
@@ -159,75 +161,77 @@ namespace Dream::Component {
         } else {
             Logger::fatal("Unknown rigid body type " + std::to_string(static_cast<int>(type)));
         }
+
+        rigidBodyIndex = Project::getScene()->getPhysicsComponentSystem()->addRigidBody(rigidBody);
     }
 
     void RigidBodyComponent::setLinearVelocity(glm::vec3 newLinearVelocity) {
-        if (rigidBody) {
-            rigidBody->setLinearVelocity(btVector3(newLinearVelocity.x, newLinearVelocity.y, newLinearVelocity.z));
-        } else {
+        if (rigidBodyIndex == -1) {
             Logger::warn("Rigid body not initialized");
+        } else {
+            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setLinearVelocity(btVector3(newLinearVelocity.x, newLinearVelocity.y, newLinearVelocity.z));
         }
     }
 
     glm::vec3 RigidBodyComponent::getLinearVelocity() {
-        if (rigidBody) {
-            btVector3 linVel = rigidBody->getLinearVelocity();
-            return {linVel.getX(), linVel.getY(), linVel.getZ()};
-        } else {
+        if (rigidBodyIndex == -1) {
             Logger::warn("Rigid body not initialized");
             return {0, 0, 0};
+        } else {
+            btVector3 linVel = Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->getLinearVelocity();
+            return {linVel.getX(), linVel.getY(), linVel.getZ()};
         }
     }
 
     void RigidBodyComponent::setAngularVelocity(glm::vec3 newAngularVelocity) {
-        if (rigidBody) {
-            rigidBody->setAngularVelocity(btVector3(newAngularVelocity.x, newAngularVelocity.y, newAngularVelocity.z));
-        } else {
+        if (rigidBodyIndex == -1) {
             Logger::warn("Rigid body not initialized");
+        } else {
+            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setAngularVelocity(btVector3(newAngularVelocity.x, newAngularVelocity.y, newAngularVelocity.z));
         }
     }
 
     glm::vec3 RigidBodyComponent::getAngularVelocity() {
-        if (rigidBody) {
-            btVector3 linVel = rigidBody->getAngularVelocity();
-            return {linVel.getX(), linVel.getY(), linVel.getZ()};
-        } else {
+        if (rigidBodyIndex == -1) {
             Logger::warn("Rigid body not initialized");
             return {0, 0, 0};
+        } else {
+            btVector3 angVel = Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->getAngularVelocity();
+            return {angVel.getX(), angVel.getY(), angVel.getZ()};
         }
     }
 
     void RigidBodyComponent::setRotation(glm::quat rot) {
-        if (rigidBody) {
-            rigidBody->getWorldTransform().setRotation(btQuaternion(rot.x, rot.y, rot.z, rot.w));
-        } else {
+        if (rigidBodyIndex == -1) {
             Logger::warn("Rigid body not initialized");
+        } else {
+            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->getWorldTransform().setRotation(btQuaternion(rot.x, rot.y, rot.z, rot.w));
         }
     }
 
     glm::quat RigidBodyComponent::getRotation() {
-        if (rigidBody) {
-            auto btQuat = rigidBody->getWorldTransform().getRotation();
-            return {btQuat.getW(), btQuat.getX(), btQuat.getY(), btQuat.getZ()};
-        } else {
+        if (rigidBodyIndex == -1) {
             Logger::warn("Rigid body not initialized");
             return {1, 0, 0, 0};
+        } else {
+            auto btQuat = Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->getWorldTransform().getRotation();
+            return {btQuat.getW(), btQuat.getX(), btQuat.getY(), btQuat.getZ()};
         }
     }
 
     void RigidBodyComponent::applyCentralImpulse(glm::vec3 impulseDirection) {
-        if (rigidBody) {
-            rigidBody->applyCentralImpulse(btVector3(impulseDirection.x, impulseDirection.y, impulseDirection.z));
-        } else {
+        if (rigidBodyIndex == -1) {
             Logger::warn("Rigid body not initialized");
+        } else {
+            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->applyCentralImpulse(btVector3(impulseDirection.x, impulseDirection.y, impulseDirection.z));
         }
     }
 
     void RigidBodyComponent::applyCentralForce(glm::vec3 forceDirection) {
-        if (rigidBody) {
-            rigidBody->applyCentralForce(btVector3(forceDirection.x, forceDirection.y, forceDirection.z));
-        } else {
+        if (rigidBodyIndex == -1) {
             Logger::warn("Rigid body not initialized");
+        } else {
+            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->applyCentralForce(btVector3(forceDirection.x, forceDirection.y, forceDirection.z));
         }
     }
 }

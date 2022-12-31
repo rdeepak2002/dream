@@ -43,31 +43,31 @@ namespace Dream {
     }
 
     void PhysicsComponentSystem::clearWorld() {
-        if (dynamicsWorld) {
-            // delete rigid bodies
-            for (int i=dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
-                btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
-                btRigidBody* body = btRigidBody::upcast(obj);
-                if (body && body->getMotionState()) {
-                    delete body->getMotionState();
-                }
-                dynamicsWorld->removeCollisionObject(obj);
-                delete obj;
-            }
-            // reference nullptr for rigid body entities
-            auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
-            for (auto entityHandle: rigidBodyEntities) {
-                Entity entity = {entityHandle, Project::getScene()};
-                entity.getComponent<Component::RigidBodyComponent>().rigidBody = nullptr;
-            }
-            // delete collision shapes
-            auto collisionEntities = Project::getScene()->getEntitiesWithComponents<Component::CollisionComponent>();
-            for (auto entityHandle: collisionEntities) {
-                Entity entity = {entityHandle, Project::getScene()};
-                delete entity.getComponent<Component::CollisionComponent>().colliderCompoundShape;
-                entity.getComponent<Component::CollisionComponent>().colliderCompoundShape = nullptr;
-            }
-        }
+//        if (dynamicsWorld) {
+//            // delete rigid bodies
+//            for (int i=dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
+//                btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
+//                btRigidBody* body = btRigidBody::upcast(obj);
+//                if (body && body->getMotionState()) {
+//                    delete body->getMotionState();
+//                }
+//                dynamicsWorld->removeCollisionObject(obj);
+//                delete obj;
+//            }
+//            // reference nullptr for rigid body entities
+//            auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
+//            for (auto entityHandle: rigidBodyEntities) {
+//                Entity entity = {entityHandle, Project::getScene()};
+//                entity.getComponent<Component::RigidBodyComponent>().rigidBody = nullptr;
+//            }
+//            // delete collision shapes
+//            auto collisionEntities = Project::getScene()->getEntitiesWithComponents<Component::CollisionComponent>();
+//            for (auto entityHandle: collisionEntities) {
+//                Entity entity = {entityHandle, Project::getScene()};
+//                delete entity.getComponent<Component::CollisionComponent>().colliderCompoundShape;
+//                entity.getComponent<Component::CollisionComponent>().colliderCompoundShape = nullptr;
+//            }
+//        }
     }
 
     void PhysicsComponentSystem::removeRigidBodyFromWorld(btRigidBody* rb) {
@@ -89,20 +89,21 @@ namespace Dream {
         auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
         for (auto entityHandle: rigidBodyEntities) {
             Entity entity = {entityHandle, Project::getScene()};
-            if (!entity.getComponent<Component::RigidBodyComponent>().rigidBody) {
+            if (entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex == -1) {
                 // initialize rigid body if necessary
                 entity.getComponent<Component::RigidBodyComponent>().updateRigidBody(entity);
             }
-            if (entity.getComponent<Component::RigidBodyComponent>().rigidBody) {
+            if (entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex != -1) {
+                int idx = entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex;
+                auto *rigidBody = rigidBodies.at(idx);
                 if (entity.getComponent<Component::RigidBodyComponent>().shouldBeAddedToWorld) {
                     // add rigid body to world if necessary
-                    dynamicsWorld->addRigidBody(entity.getComponent<Component::RigidBodyComponent>().rigidBody);
+                    dynamicsWorld->addRigidBody(rigidBody);
                     entity.getComponent<Component::RigidBodyComponent>().shouldBeAddedToWorld = false;
                 }
                 // update transform and rotation components of entity
                 btTransform trans;
-                entity.getComponent<Component::RigidBodyComponent>().rigidBody->getMotionState()->getWorldTransform(
-                        trans);
+                rigidBody->getMotionState()->getWorldTransform(trans);
                 auto &transformComponent = entity.getComponent<Component::TransformComponent>();
                 transformComponent.translation = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(),
                                                            trans.getOrigin().getZ());
@@ -141,5 +142,23 @@ namespace Dream {
         if (dynamicsWorld) {
             dynamicsWorld->debugDrawWorld();
         }
+    }
+
+    int PhysicsComponentSystem::addColliderShape(btCompoundShape* colliderShape) {
+        colliderShapes.push_back(colliderShape);
+        return (int) colliderShapes.size() - 1;
+    }
+
+    btCompoundShape* PhysicsComponentSystem::getColliderShape(int index) {
+        return colliderShapes.at(index);
+    }
+
+    int PhysicsComponentSystem::addRigidBody(btRigidBody* rigidBody) {
+        rigidBodies.push_back(rigidBody);
+        return (int) rigidBodies.size() - 1;
+    }
+
+    btRigidBody* PhysicsComponentSystem::getRigidBody(int index) {
+        return rigidBodies.at(index);
     }
 }

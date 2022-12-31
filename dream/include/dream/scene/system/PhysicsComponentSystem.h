@@ -21,6 +21,7 @@
 
 #include <btBulletDynamicsCommon.h>
 #include <glm/glm.hpp>
+#include <vector>
 #include "dream/renderer/OpenGLPhysicsDebugDrawer.h"
 
 namespace Dream {
@@ -42,6 +43,14 @@ namespace Dream {
 
         void clearWorld();
 
+        int addColliderShape(btCompoundShape* colliderShape);
+
+        btCompoundShape* getColliderShape(int index);
+
+        int addRigidBody(btRigidBody* rigidBody);
+
+        btRigidBody* getRigidBody(int index);
+
     private:
         btDefaultCollisionConfiguration *collisionConfiguration;
         btCollisionDispatcher *dispatcher;
@@ -49,6 +58,8 @@ namespace Dream {
         btSequentialImpulseConstraintSolver *solver;
         btDiscreteDynamicsWorld *dynamicsWorld;
         OpenGLPhysicsDebugDrawer openGlPhysicsDebugDrawer;
+        std::vector<btCompoundShape*> colliderShapes;
+        std::vector<btRigidBody*> rigidBodies;
     };
 }
 
