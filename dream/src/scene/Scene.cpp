@@ -66,7 +66,9 @@ namespace Dream {
             luaScriptComponentSystem->init();
             shouldInitComponentSystems = false;
         }
-        animatorComponentSystem->update(dt);
+        if (Project::isPlaying()) {
+            animatorComponentSystem->update(dt);
+        }
     }
 
     void Scene::resetComponentSystems() {
@@ -88,11 +90,10 @@ namespace Dream {
 
     void Scene::fixedUpdate(float dt) {
         if (Project::isPlaying() && !shouldInitComponentSystems) {
-            physicsComponentSystem->update(dt);
             audioComponentSystem->update(dt);
             luaScriptComponentSystem->update(dt);
-        }
-        if (!Project::isPlaying()) {
+            physicsComponentSystem->update(dt);
+        } else if (!Project::isPlaying()) {
             physicsComponentSystem->update(0.0);
         }
         if (Project::isPlaying()) {

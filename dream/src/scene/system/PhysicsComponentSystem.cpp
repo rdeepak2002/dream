@@ -97,6 +97,10 @@ namespace Dream {
     }
 
     void PhysicsComponentSystem::update(float dt) {
+        // update dynamic world
+        float timeStep = dt;
+        dynamicsWorld->stepSimulation(timeStep);
+
         // update all entities with rigid bodies
         auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
         for (auto entityHandle: rigidBodyEntities) {
@@ -105,33 +109,26 @@ namespace Dream {
                 // initialize rigid body if necessary
                 entity.getComponent<Component::RigidBodyComponent>().updateRigidBody(entity);
             }
-            if (entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex != -1) {
-                int idx = entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex;
-                auto *rigidBody = rigidBodies.at(idx);
-                if (entity.getComponent<Component::RigidBodyComponent>().shouldBeAddedToWorld) {
-                    // add rigid body to world if necessary
-                    dynamicsWorld->addRigidBody(rigidBody);
-                    entity.getComponent<Component::RigidBodyComponent>().shouldBeAddedToWorld = false;
-                }
-                // update transform and rotation components of entity
-                btTransform trans;
-                rigidBody->getMotionState()->getWorldTransform(trans);
-                auto &transformComponent = entity.getComponent<Component::TransformComponent>();
-                transformComponent.translation = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(),
-                                                           trans.getOrigin().getZ());
-                transformComponent.rotation = glm::quat(trans.getRotation().getW(), trans.getRotation().getX(),
-                                                        trans.getRotation().getY(), trans.getRotation().getZ());
-            } else {
-                Logger::warn(
-                        "Rigid body not initialized for entity " + entity.getComponent<Component::TagComponent>().tag);
+            if (entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex == -1) {
+                Logger::warn("Rigid body not initialized for entity " + entity.getComponent<Component::TagComponent>().tag);
+                continue;
             }
+            int idx = entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex;
+            auto *rigidBody = rigidBodies.at(idx);
+            if (entity.getComponent<Component::RigidBodyComponent>().shouldBeAddedToWorld) {
+                // add rigid body to world if necessary
+                dynamicsWorld->addRigidBody(rigidBody);
+                entity.getComponent<Component::RigidBodyComponent>().shouldBeAddedToWorld = false;
+            }
+            // update transform and rotation components of entity
+            btTransform trans;
+            rigidBody->getMotionState()->getWorldTransform(trans);
+            auto &transformComponent = entity.getComponent<Component::TransformComponent>();
+            transformComponent.translation = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(),
+                                                       trans.getOrigin().getZ());
+            transformComponent.rotation = glm::quat(trans.getRotation().getW(), trans.getRotation().getX(),
+                                                    trans.getRotation().getY(), trans.getRotation().getZ());
         }
-        // update dynamic world
-        float timeStep = 0.0f;
-        if (Project::isPlaying()) {
-            timeStep = dt;
-        }
-        dynamicsWorld->stepSimulation(timeStep, 10);
     }
 
     void PhysicsComponentSystem::init() {
