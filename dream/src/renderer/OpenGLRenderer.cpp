@@ -111,8 +111,10 @@ namespace Dream {
             }
 
             // draw physics debug
-            if (Project::getConfig().physicsConfig.physicsDebugger) {
-                if (Project::getConfig().physicsConfig.disableDepthTest) {
+            if (Project::getConfig().physicsConfig.physicsDebugger && (!Project::isPlaying() || (Project::isPlaying() && Project::getConfig().physicsConfig.physicsDebuggerWhilePlaying))) {
+                if (Project::getConfig().physicsConfig.depthTest) {
+                    glEnable(GL_DEPTH_TEST);
+                } else {
                     glDisable(GL_DEPTH_TEST);
                 }
                 physicsDebugShader->use();
@@ -121,7 +123,7 @@ namespace Dream {
                 if (Project::getScene()->getPhysicsComponentSystem()) {
                     Project::getScene()->getPhysicsComponentSystem()->debugDrawWorld();
                 }
-                if (Project::getConfig().physicsConfig.disableDepthTest) {
+                if (!Project::getConfig().physicsConfig.depthTest) {
                     glEnable(GL_DEPTH_TEST);
                 }
             }
