@@ -36,6 +36,9 @@ namespace Dream::Component {
             colliderShapeIndex = Project::getScene()->getPhysicsComponentSystem()->addColliderShape(colliderCompoundShape);
         }
 
+        // remove current collision shapes in compound shape
+
+
         for (const auto &collider: colliders) {
             btTransform t;
             t.setIdentity();

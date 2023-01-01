@@ -849,7 +849,7 @@ namespace Dream {
                 if (ImGui::Button("Sync Changes", ImVec2(treeNodeWidth, 0))) {
                     component.updateColliderShape();
                     if (selectedEntity.hasComponent<Component::RigidBodyComponent>()) {
-//                        selectedEntity.getComponent<Component::RigidBodyComponent>().updateRigidBody(selectedEntity);
+                        selectedEntity.getComponent<Component::RigidBodyComponent>().updateRigidBody(selectedEntity);
                     }
                 }
                 // add collider btn
@@ -984,7 +984,7 @@ namespace Dream {
                     component.restitution = fmax(component.restitution, 0.0f);
                 }
                 if (ImGui::Button("Sync Changes", ImVec2(treeNodeWidth, 0))) {
-//                    component.updateRigidBody(selectedEntity);
+                    component.updateRigidBody(selectedEntity);
                 }
                 ImGui::TreePop();
             }
