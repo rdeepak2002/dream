@@ -21,6 +21,7 @@ namespace Dream {
         virtual void draw3dText(const btVector3 &, const char *);
         virtual void setDebugMode(int p);
         int getDebugMode(void) const;
+        [[nodiscard]] btIDebugDraw::DefaultColors getDefaultColors() const;
         int m;
     };
 }
