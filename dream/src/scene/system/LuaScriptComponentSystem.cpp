@@ -38,6 +38,15 @@ namespace Dream {
         }
     }
 
+    glm::vec3 raycastGetFirstHit(glm::vec3 from, glm::vec3 to) {
+        if (!Project::getScene()->getPhysicsComponentSystem()) {
+            Logger::error("Physics component system not initialized");
+            return {0, 0, 0};
+        } else {
+            return Project::getScene()->getPhysicsComponentSystem()->raycastGetFirstHit(from, to);
+        }
+    }
+
     LuaScriptComponentSystem::LuaScriptComponentSystem() {
         // open libraries with lua
         lua.open_libraries(sol::lib::base, sol::lib::math, sol::lib::string, sol::lib::io);
@@ -212,6 +221,8 @@ namespace Dream {
                                  "getRigidBody", &Dream::Entity::getComponent<Dream::Component::RigidBodyComponent>
         );
 
+        // TODO: when removing rigid body and collision component, we have to explicitly remove these from the physics world (look at what inspector is doing when removing these)
+
         lua.new_usertype<Component::TransformComponent>("TransformComponent",
                                                         "translation", &Component::TransformComponent::translation,
                                                         "rotation", &Component::TransformComponent::rotation,
@@ -262,7 +273,8 @@ namespace Dream {
                                     "magnitudeVec3", sol::as_function(&MathUtils::magnitudeVec3),
                                     "quatMix", sol::as_function(&MathUtils::quatMix),
                                     "quatSlerp", sol::as_function(&MathUtils::quatSlerp),
-                                    "vec3Lerp", sol::as_function(&MathUtils::vec3Lerp)
+                                    "vec3Lerp", sol::as_function(&MathUtils::vec3Lerp),
+                                    "distance", sol::as_function(&MathUtils::distance)
         );
 
         lua.new_usertype<Scene>("Scene",
@@ -270,7 +282,8 @@ namespace Dream {
         );
 
         lua.new_usertype<PhysicsComponentSystem>("PhysicsComponentSystem",
-                                                 "checkRaycast", sol::as_function(&checkRaycast)
+                                                 "checkRaycast", sol::as_function(&checkRaycast),
+                                                 "raycastGetFirstHit", sol::as_function(&raycastGetFirstHit)
         );
 
         lua.end();

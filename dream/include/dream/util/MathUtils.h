@@ -36,6 +36,7 @@ namespace Dream {
         static glm::quat quatMix(glm::quat q1, glm::quat q2, float blend);
         static glm::quat quatSlerp(glm::quat q1, glm::quat q2, float blend);
         static glm::vec3 vec3Lerp(glm::vec3 x, glm::vec3 y, float t);
+        static float distance(glm::vec3 p1, glm::vec3 p2);
     };
 }
 

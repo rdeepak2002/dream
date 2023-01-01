@@ -103,4 +103,8 @@ namespace Dream {
     glm::vec3 MathUtils::vec3Lerp(glm::vec3 x, glm::vec3 y, float t) {
         return x * (1.f - t) + y * t;
     }
+
+    float MathUtils::distance(glm::vec3 p1, glm::vec3 p2) {
+        return glm::distance(p1, p2);
+    }
 }

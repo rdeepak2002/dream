@@ -37,11 +37,9 @@ namespace Dream {
 
         bool checkRaycast(glm::vec3 rayFromWorld, glm::vec3 rayToWorld);
 
+        glm::vec3 raycastGetFirstHit(glm::vec3 rayFromWorld, glm::vec3 rayToWorld);
+
         void debugDrawWorld();
-
-        void removeRigidBodyFromWorld(btRigidBody* body);
-
-        void clearWorld();
 
         int addColliderShape(btCompoundShape* colliderShape);
 

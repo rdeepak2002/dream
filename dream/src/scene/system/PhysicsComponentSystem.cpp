@@ -40,62 +40,6 @@ namespace Dream {
         delete collisionConfiguration;
     }
 
-    void PhysicsComponentSystem::clearWorld() {
-        if (dynamicsWorld) {
-            // delete rigid bodies
-//            for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
-//                btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
-//                btRigidBody* body = btRigidBody::upcast(obj);
-//                if (body && body->getMotionState()) {
-//                    delete body->getMotionState();
-//                }
-//                dynamicsWorld->removeCollisionObject(obj);
-//                delete obj;
-//            }
-            // delete rigid bodies
-            for (int i = (int) rigidBodies.size() - 1; i >= 0; i--) {
-                dynamicsWorld->removeRigidBody(rigidBodies.at(i));
-                delete rigidBodies.at(i)->getMotionState();
-                delete rigidBodies.at(i);
-                rigidBodies.erase(rigidBodies.begin() + i);
-            }
-            // delete collision shapes
-            for (int i = (int) colliderShapes.size() - 1; i >= 0; i--) {
-                delete colliderShapes.at(i);
-                colliderShapes.erase(colliderShapes.begin() + i);
-            }
-            // reference -1 for rigid body entities
-            auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
-            for (auto entityHandle: rigidBodyEntities) {
-                Entity entity = {entityHandle, Project::getScene()};
-                entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex = -1;
-            }
-            // reference -1 for collision entities
-            auto collisionEntities = Project::getScene()->getEntitiesWithComponents<Component::CollisionComponent>();
-            for (auto entityHandle: collisionEntities) {
-                Entity entity = {entityHandle, Project::getScene()};
-                entity.getComponent<Component::CollisionComponent>().colliderShapeIndex = -1;
-            }
-            // clear vectors
-            colliderShapes.clear();
-            rigidBodies.clear();
-        }
-    }
-
-    void PhysicsComponentSystem::removeRigidBodyFromWorld(btRigidBody* rb) {
-        if (dynamicsWorld) {
-            // delete rigid bodies
-            if (rb && rb->isInWorld()) {
-                delete rb->getMotionState();
-                delete rb->getCollisionShape();
-                dynamicsWorld->removeRigidBody(rb);
-                delete rb;
-            }
-        } else {
-            Logger::fatal("Dynamics world not initialized");
-        }
-    }
-
     void PhysicsComponentSystem::update(float dt) {
         // update dynamic world
         float timeStep = dt;
@@ -150,6 +94,20 @@ namespace Dream {
             return true;
         } else {
             return false;
+        }
+    }
+
+    glm::vec3 PhysicsComponentSystem::raycastGetFirstHit(glm::vec3 rayFromWorld, glm::vec3 rayToWorld) {
+        auto rfw = btVector3(rayFromWorld.x, rayFromWorld.y, rayFromWorld.z);
+        auto rtw = btVector3(rayToWorld.x, rayToWorld.y, rayToWorld.z);
+        btCollisionWorld::ClosestRayResultCallback raycastResult(rfw, rtw);
+        dynamicsWorld->rayTest(rfw, rtw, raycastResult);
+        if (raycastResult.hasHit()) {
+            btVector3 hitPoint = raycastResult.m_hitPointWorld;
+            return {hitPoint.getX(), hitPoint.getY(), hitPoint.getZ()};
+        } else {
+            Logger::warn("No raycast hit result for raycastGetFirstHit()");
+            return {0, 0, 0};
         }
     }
 
