@@ -845,6 +845,12 @@ namespace Dream {
                         component.colliders.erase(component.colliders.begin() + i);
                     }
                 }
+                // sync collider btn
+                if (ImGui::Button("Sync Changes", ImVec2(treeNodeWidth, 0))) {
+                    Logger::fatal("TODO: sync / update collider");
+//                    selectedEntity.getComponent<Component::CollisionComponent>().colliderShapeIndex = -1;
+//                    Project::getScene()->getPhysicsComponentSystem()->deleteCollisionShape();
+                }
                 // add collider btn
                 if (ImGui::Button("Add Collider", ImVec2(treeNodeWidth, 0))) {
                     component.colliders.emplace_back();
