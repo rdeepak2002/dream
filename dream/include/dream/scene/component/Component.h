@@ -425,7 +425,7 @@ namespace Dream::Component {
 
         ~CollisionComponent();
 
-        void updateColliderCompoundShape();
+        void updateColliderShape();
 
         static void deserialize(YAML::Node node, Entity &entity);
 

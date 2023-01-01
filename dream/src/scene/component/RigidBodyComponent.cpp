@@ -76,7 +76,9 @@ namespace Dream::Component {
 //        delete rigidBody;
 
         if (rigidBodyIndex != -1) {
-            Logger::fatal("Rigid body index is not -1");
+            Logger::fatal("TODO: allow updating of rigid body");
+//            Project::getScene()->getPhysicsComponentSystem()->removeRigidBody(rigidBodyIndex);
+//            rigidBodyIndex = -1;
         }
 
         const auto &transformComponent = entity.getComponent<TransformComponent>();
@@ -86,13 +88,13 @@ namespace Dream::Component {
         btVector3 localInertia(0, 0, 0);
         if (entity.hasComponent<CollisionComponent>()) {
             if (entity.getComponent<CollisionComponent>().colliderShapeIndex == -1) {
-                entity.getComponent<CollisionComponent>().updateColliderCompoundShape();
+                entity.getComponent<CollisionComponent>().updateColliderShape();
             }
             if (entity.getComponent<CollisionComponent>().colliderShapeIndex == -1) {
                 Logger::fatal("Unable to initialize compound collider shape");
             }
-            btCompoundShape* shape = Project::getScene()->getPhysicsComponentSystem()->getColliderShape(entity.getComponent<CollisionComponent>().colliderShapeIndex);
-            shape->calculateLocalInertia(mass, localInertia);
+            btCompoundShape* colliderShape = Project::getScene()->getPhysicsComponentSystem()->getColliderShape(entity.getComponent<CollisionComponent>().colliderShapeIndex);
+            colliderShape->calculateLocalInertia(mass, localInertia);
         } else {
             Logger::fatal("Rigid body cannot be initialized because entity " + entity.getComponent<TagComponent>().tag +
                           " does not have collision component");

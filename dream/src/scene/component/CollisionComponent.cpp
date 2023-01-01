@@ -26,13 +26,16 @@ namespace Dream::Component {
 
     }
 
-    void CollisionComponent::updateColliderCompoundShape() {
-        if (colliderShapeIndex != -1) {
-            Logger::fatal("Collider shape index is not -1");
+    void CollisionComponent::updateColliderShape() {
+//        if (colliderShapeIndex != -1) {
+//            Logger::fatal("Collider shape index is not -1");
+//        }
+
+        if (colliderShapeIndex == -1) {
+            auto *colliderCompoundShape = new btCompoundShape();
+            colliderShapeIndex = Project::getScene()->getPhysicsComponentSystem()->addColliderShape(colliderCompoundShape);
         }
 
-//        delete colliderCompoundShape;
-        auto *colliderCompoundShape = new btCompoundShape();
         for (const auto &collider: colliders) {
             btTransform t;
             t.setIdentity();
@@ -40,7 +43,7 @@ namespace Dream::Component {
             if (collider.type == BOX) {
                 auto shape = new btBoxShape(
                         btVector3(collider.halfExtents.x, collider.halfExtents.y, collider.halfExtents.z));
-                colliderCompoundShape->addChildShape(t, shape);
+                Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->addChildShape(t, shape);
             } else if (collider.type == CAPSULE) {
                 btCapsuleShape *shape = nullptr;
                 if (collider.axis == Y) {
@@ -52,7 +55,7 @@ namespace Dream::Component {
                 } else {
                     Logger::fatal("Unknown capsule axis " + std::to_string(collider.axis));
                 }
-                colliderCompoundShape->addChildShape(t, shape);
+                Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->addChildShape(t, shape);
             } else if (collider.type == CONE) {
                 btConeShape *shape = nullptr;
                 if (collider.axis == Y) {
@@ -64,7 +67,7 @@ namespace Dream::Component {
                 } else {
                     Logger::fatal("Unknown cone axis " + std::to_string(collider.axis));
                 }
-                colliderCompoundShape->addChildShape(t, shape);
+                Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->addChildShape(t, shape);
             } else if (collider.type == CYLINDER) {
                 btCylinderShape *shape = nullptr;
                 if (collider.axis == Y) {
@@ -79,7 +82,7 @@ namespace Dream::Component {
                 } else {
                     Logger::fatal("Unknown cylinder axis " + std::to_string(collider.axis));
                 }
-                colliderCompoundShape->addChildShape(t, shape);
+                Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->addChildShape(t, shape);
             } else if (collider.type == MESH) {
 //                auto *shape = btTriangleMeshShape();
 //                colliderCompoundShape->addChildShape(t, shape);
@@ -87,12 +90,11 @@ namespace Dream::Component {
                 Logger::fatal("TODO: support mesh shape loading in CollisionComponent");
             } else if (collider.type == SPHERE) {
                 auto *shape = new btSphereShape(collider.radius);
-                colliderCompoundShape->addChildShape(t, shape);
+                Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->addChildShape(t, shape);
             } else {
                 Logger::fatal("Unknown collider type " + std::to_string(static_cast<int>(collider.type)));
             }
         }
-        colliderShapeIndex = Project::getScene()->getPhysicsComponentSystem()->addColliderShape(colliderCompoundShape);
     }
 
     void CollisionComponent::serialize(YAML::Emitter &out, Dream::Entity &entity) {

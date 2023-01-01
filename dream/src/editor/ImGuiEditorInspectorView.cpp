@@ -847,9 +847,10 @@ namespace Dream {
                 }
                 // sync collider btn
                 if (ImGui::Button("Sync Changes", ImVec2(treeNodeWidth, 0))) {
-                    Logger::fatal("TODO: sync / update collider");
-//                    selectedEntity.getComponent<Component::CollisionComponent>().colliderShapeIndex = -1;
-//                    Project::getScene()->getPhysicsComponentSystem()->deleteCollisionShape();
+                    component.updateColliderShape();
+                    if (selectedEntity.hasComponent<Component::RigidBodyComponent>()) {
+//                        selectedEntity.getComponent<Component::RigidBodyComponent>().updateRigidBody(selectedEntity);
+                    }
                 }
                 // add collider btn
                 if (ImGui::Button("Add Collider", ImVec2(treeNodeWidth, 0))) {
@@ -981,6 +982,9 @@ namespace Dream {
                     ImGui::DragFloat("##RigidBodyRestitution", &component.restitution, 0.1f, 0.0f, 1.0f, "%.3f");
                     component.restitution = fmin(component.restitution, 1.0f);
                     component.restitution = fmax(component.restitution, 0.0f);
+                }
+                if (ImGui::Button("Sync Changes", ImVec2(treeNodeWidth, 0))) {
+//                    component.updateRigidBody(selectedEntity);
                 }
                 ImGui::TreePop();
             }
