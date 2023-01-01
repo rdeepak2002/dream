@@ -34,11 +34,26 @@ function update(entity, dt)
 	end
 
 	-- set position of camera based off spherical coordinate values
-	local targetTranslation = targetEntity:getTransform().translation
+	self.radius = 3.3
+	local lookAtOffset = vec3:new(0, 1, 0)
+	local targetTranslation = targetEntity:getTransform().translation + lookAtOffset
+
 	local xPos = targetTranslation.x - self.radius * math.sin(self.theta) * math.cos(self.phi)
 	local yPos = targetTranslation.y - self.radius * math.cos(self.theta)
 	local zPos = targetTranslation.z + self.radius * math.sin(self.theta) * math.sin(self.phi)
+
 	entity:getTransform().translation = vec3:new(xPos, yPos, zPos);
+
+	if PhysicsComponentSystem.checkRaycast(targetTranslation, entity:getTransform().translation) then
+		local hit = PhysicsComponentSystem.raycastGetFirstHit(targetTranslation, entity:getTransform().translation)
+		self.radius = MathUtils.distance(hit, targetTranslation) - 0.001
+
+		xPos = targetTranslation.x - self.radius * math.sin(self.theta) * math.cos(self.phi)
+		yPos = targetTranslation.y - self.radius * math.cos(self.theta)
+		zPos = targetTranslation.z + self.radius * math.sin(self.theta) * math.sin(self.phi)
+
+		entity:getTransform().translation = vec3:new(xPos, yPos, zPos);
+	end
 
 	-- rotate around object using mouse input when pointer locked
 	if Input.pointerLockActivated() then
@@ -56,9 +71,14 @@ function update(entity, dt)
 
 	-- make camera look at target (player)
 	lookAt = vec3:new(-1 * targetTranslation.x, -1 * targetTranslation.y, targetTranslation.z)
-	local lookAtOffset = vec3:new(0, -1, 0)
-	entity:getCamera().lookAt = lookAt + lookAtOffset
+	entity:getCamera().lookAt = lookAt
 end
+
+
+
+
+
+
 
 
 
