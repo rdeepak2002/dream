@@ -700,6 +700,10 @@ namespace Dream {
                 ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
                 ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
                 if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                    int idx = selectedEntity.getComponent<Component::CollisionComponent>().colliderShapeIndex;
+                    if (idx != -1) {
+                        Project::getScene()->getPhysicsComponentSystem()->deleteCollisionShape(idx);
+                    }
                     selectedEntity.removeComponent<Component::CollisionComponent>();
                 }
                 ImGui::PopStyleVar();
@@ -899,6 +903,10 @@ namespace Dream {
             ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
             ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
             if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                int idx = selectedEntity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex;
+                if (idx != -1) {
+                    Project::getScene()->getPhysicsComponentSystem()->removeRigidBody(idx);
+                }
                 selectedEntity.removeComponent<Component::RigidBodyComponent>();
             }
             ImGui::PopStyleVar();
