@@ -121,8 +121,7 @@ namespace Dream {
                 entity.getComponent<Component::RigidBodyComponent>().shouldBeAddedToWorld = false;
             }
             // update transform and rotation components of entity
-            btTransform trans;
-            rigidBody->getMotionState()->getWorldTransform(trans);
+            btTransform trans = rigidBody->getWorldTransform();
             auto &transformComponent = entity.getComponent<Component::TransformComponent>();
             transformComponent.translation = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(),
                                                        trans.getOrigin().getZ());
