@@ -67,14 +67,10 @@ namespace Dream::Component {
             entity.getComponent<RigidBodyComponent>().friction = friction;
             entity.getComponent<RigidBodyComponent>().restitution = restitution;
             entity.getComponent<RigidBodyComponent>().rigidBodyIndex = -1;
-//            entity.getComponent<RigidBodyComponent>().updateRigidBody(entity);
         }
     }
 
     void RigidBodyComponent::updateRigidBody(Entity &entity) {
-        // TODO: remove rigid body from world, then delete
-//        delete rigidBody;
-
         const auto &transformComponent = entity.getComponent<TransformComponent>();
         const auto &translation = transformComponent.translation;
         const auto &rotation = transformComponent.rotation;
@@ -106,11 +102,6 @@ namespace Dream::Component {
         }
 
         if (type == RigidBodyComponent::DYNAMIC) {
-//            auto *motionState = new btDefaultMotionState(
-//                    btTransform(btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
-//                                btVector3(translation.x, translation.y, translation.z)));
-//            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(mass, motionState, colliderShape, localInertia);
-//            rigidBody = new btRigidBody(rigidBodyCI);
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setMassProps(mass, localInertia);
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setFriction(friction);
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setAnisotropicFriction(
@@ -123,13 +114,6 @@ namespace Dream::Component {
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->activate();
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setActivationState(DISABLE_DEACTIVATION);
         } else if (type == RigidBodyComponent::KINEMATIC) {
-//            auto *motionState = new btDefaultMotionState(
-//                    btTransform(btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
-//                                btVector3(translation.x, translation.y, translation.z)));
-//            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(0, motionState,
-//                                                                 colliderShape,
-//                                                                 localInertia);
-//            rigidBody = new btRigidBody(rigidBodyCI);
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setMassProps(0, localInertia);
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setCollisionFlags(Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setFriction(friction);
@@ -143,13 +127,6 @@ namespace Dream::Component {
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->activate();
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setActivationState(DISABLE_DEACTIVATION);
         } else if (type == RigidBodyComponent::STATIC) {
-//            auto *motionState = new btDefaultMotionState(
-//                    btTransform(btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
-//                                btVector3(translation.x, translation.y, translation.z)));
-//            btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(0, motionState,
-//                                                                 colliderShape,
-//                                                                 localInertia);
-//            rigidBody = new btRigidBody(rigidBodyCI);
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setMassProps(0, localInertia);
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setCollisionFlags(Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setFriction(friction);
@@ -162,12 +139,9 @@ namespace Dream::Component {
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setAngularFactor(btVector3(angularFactor.x, angularFactor.y, angularFactor.z));
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->activate();
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setActivationState(DISABLE_DEACTIVATION);
-//            rigidBody->setCustomDebugColor(btVector3(1.0, 0.0, 0.0));
         } else {
             Logger::fatal("Unknown rigid body type " + std::to_string(static_cast<int>(type)));
         }
-
-//        rigidBodyIndex = Project::getScene()->getPhysicsComponentSystem()->addRigidBody(rigidBody);
     }
 
     void RigidBodyComponent::setLinearVelocity(glm::vec3 newLinearVelocity) {

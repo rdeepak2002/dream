@@ -27,17 +27,15 @@ namespace Dream::Component {
     }
 
     void CollisionComponent::updateColliderShape() {
-//        if (colliderShapeIndex != -1) {
-//            Logger::fatal("Collider shape index is not -1");
-//        }
-
         if (colliderShapeIndex == -1) {
             auto *colliderCompoundShape = new btCompoundShape();
             colliderShapeIndex = Project::getScene()->getPhysicsComponentSystem()->addColliderShape(colliderCompoundShape);
         }
 
         // remove current collision shapes in compound shape
-
+        for (int i = Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->getNumChildShapes() - 1; i >= 0; i--) {
+            Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->removeChildShapeByIndex(i);
+        }
 
         for (const auto &collider: colliders) {
             btTransform t;
