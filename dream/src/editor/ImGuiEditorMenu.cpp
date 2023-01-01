@@ -43,6 +43,7 @@ namespace Dream {
             }
             if (ImGui::BeginMenu("Debug")) {
                 ImGui::Checkbox("Physics debugger", &(Project::getConfig().physicsConfig.physicsDebugger));
+                ImGui::Checkbox("Physics debugger depth test", &(Project::getConfig().physicsConfig.disableDepthTest));
                 ImGui::Checkbox("Play animation in editor", &(Project::getConfig().animationConfig.playInEditor));
                 ImGui::EndMenu();
             }

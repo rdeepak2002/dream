@@ -317,8 +317,11 @@ namespace Dream {
             ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
             ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
             if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
-                SceneUtils::removeMeshReference(selectedEntity,
-                                                selectedEntity.getComponent<Component::MeshComponent>().guid, true);
+                if (selectedEntity.getComponent<Component::MeshComponent>().meshType == Component::MeshComponent::MeshType::FROM_FILE) {
+                    SceneUtils::removeMeshReference(selectedEntity, selectedEntity.getComponent<Component::MeshComponent>().guid, true);
+                } else {
+                    selectedEntity.removeComponent<Component::MeshComponent>();
+                }
             }
             ImGui::PopStyleVar();
             ImGui::PopStyleColor();

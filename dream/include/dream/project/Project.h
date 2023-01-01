@@ -30,6 +30,7 @@ namespace Dream {
     struct Config {
         struct PhysicsConfig {
             bool physicsDebugger = false;
+            bool disableDepthTest = false;
         };
         struct AnimationConfig {
             bool playInEditor = true;

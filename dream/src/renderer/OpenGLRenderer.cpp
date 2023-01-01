@@ -112,14 +112,18 @@ namespace Dream {
 
             // draw physics debug
             if (Project::getConfig().physicsConfig.physicsDebugger) {
-//                glDisable(GL_DEPTH_TEST);
+                if (Project::getConfig().physicsConfig.disableDepthTest) {
+                    glDisable(GL_DEPTH_TEST);
+                }
                 physicsDebugShader->use();
                 physicsDebugShader->setMat4("projection", projection);
                 physicsDebugShader->setMat4("view", view);
                 if (Project::getScene()->getPhysicsComponentSystem()) {
                     Project::getScene()->getPhysicsComponentSystem()->debugDrawWorld();
                 }
-//                glEnable(GL_DEPTH_TEST);
+                if (Project::getConfig().physicsConfig.disableDepthTest) {
+                    glEnable(GL_DEPTH_TEST);
+                }
             }
         } else {
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
