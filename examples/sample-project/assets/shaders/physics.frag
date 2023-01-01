@@ -1,3 +1,4 @@
+precision highp float;
 in vec3 fColor;
 out vec4 color;
 
