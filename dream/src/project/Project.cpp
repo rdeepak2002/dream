@@ -182,4 +182,8 @@ namespace Dream {
     void Project::setIsEditorFullscreen(bool editorFullscreen) {
         getInstance().editorFullscreen = editorFullscreen;
     }
+
+    Config &Project::getConfig() {
+        return getInstance().config;
+    }
 }

@@ -111,7 +111,7 @@ namespace Dream {
             }
 
             // draw physics debug
-            {
+            if (Project::getConfig().physicsConfig.physicsDebugger) {
 //                glDisable(GL_DEPTH_TEST);
                 physicsDebugShader->use();
                 physicsDebugShader->setMat4("projection", projection);

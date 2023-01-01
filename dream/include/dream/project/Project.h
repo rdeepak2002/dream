@@ -27,6 +27,17 @@
 #include "dream/project/ResourceManager.h"
 
 namespace Dream {
+    struct Config {
+        struct PhysicsConfig {
+            bool physicsDebugger = false;
+        };
+        struct AnimationConfig {
+            bool playInEditor = true;
+        };
+        PhysicsConfig physicsConfig;
+        AnimationConfig animationConfig;
+    };
+
     class Project {
     private:
         static Project &getInstance() {
@@ -73,6 +84,8 @@ namespace Dream {
 
         static void setIsEditorFullscreen(bool editorFullscreen);
 
+        static Config& getConfig();
+
     private:
         Project();
 
@@ -97,6 +110,7 @@ namespace Dream {
         Dream::AssetLoader *assetLoader;
         Dream::ResourceManager *resourceManager;
         Dream::AssetImporter *assetImporter;
+        Config config;
         bool playing;
         bool fullscreen;
         bool editorFullscreen;

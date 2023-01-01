@@ -3,6 +3,7 @@
 //
 
 #include "dream/renderer/OpenGLPhysicsDebugDrawer.h"
+#include <iostream>
 
 namespace Dream {
     void OpenGLPhysicsDebugDrawer::drawLine(const btVector3 &from, const btVector3 &to, const btVector3 &color) {
@@ -29,6 +30,7 @@ namespace Dream {
         points[10] = 1.0;
         points[11] = 0;
 
+        glLineWidth(1.0);
         glDeleteBuffers(1, &VBO);
         glDeleteVertexArrays(1, &VAO);
         glGenBuffers(1, &VBO);

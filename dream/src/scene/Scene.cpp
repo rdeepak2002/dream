@@ -66,7 +66,7 @@ namespace Dream {
             luaScriptComponentSystem->init();
             shouldInitComponentSystems = false;
         }
-        if (Project::isPlaying()) {
+        if (Project::isPlaying() || Project::getConfig().animationConfig.playInEditor) {
             animatorComponentSystem->update(dt);
         }
     }
