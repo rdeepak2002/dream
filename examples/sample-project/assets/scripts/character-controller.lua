@@ -75,7 +75,7 @@ function update(entity, dt)
 
 
 	if Input.getButtonDown(Key.Space) then
-		if isGrounded then
+		if isGrounded and entity:getAnimator():getCurrentStateName() ~= "Idle Jump" then
 			shouldJump = true
 			-- entity:getRigidBody():applyCentralImpulse(vec3:new(0, 20.0 * dt, 0))
 		else
@@ -116,11 +116,14 @@ function update(entity, dt)
 
 	-- set slashing for animator
 	local slash = 0
-	if Input.getButtonDown(Key.LeftMouse) then
+	if Input.getButtonDown(Key.LeftMouse) and isGrounded then
 		slash = 1
 	end
 	entity:getAnimator():setVariable("slash", slash)
 end
+
+
+
 
 
 

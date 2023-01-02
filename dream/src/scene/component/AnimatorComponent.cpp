@@ -171,7 +171,8 @@ namespace Dream::Component {
         for (const YAML::Node &animationNode: animationsNode) {
             states.push_back(State{
                     .Guid=animationNode["Guid"].as<std::string>(),
-                    .PlayOnce=animationNode["PlayOnce"].as<bool>()
+                    .PlayOnce=animationNode["PlayOnce"].as<bool>(),
+                    .Name=animationNode["Name"].as<std::string>()
             });
         }
         // deserialize transitions
@@ -358,5 +359,12 @@ namespace Dream::Component {
         calculateBlendedBoneTransform(pBaseAnimation, &pBaseAnimation->getRootNode(), pLayeredAnimation,
                                       &pLayeredAnimation->getRootNode(), currentTimeBase, currentTimeLayered,
                                       glm::mat4(1.0f), blendFactor);
+    }
+
+    std::string AnimatorComponent::getCurrentStateName() {
+        if (currentState == -1) {
+            return "";
+        }
+        return states.at(currentState).Name;
     }
 }

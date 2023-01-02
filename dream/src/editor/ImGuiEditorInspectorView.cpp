@@ -632,11 +632,22 @@ namespace Dream {
             }
             ImGui::PopStyleVar();
             ImGui::PopStyleColor();
+            auto cursorPosX1 = ImGui::GetCursorPosX();
 
             if (treeNodeOpen) {
-                ImGui::Text("Fov");
-                ImGui::SameLine();
-                ImGui::Text("%s", std::to_string(component.fov).c_str());
+                auto cursorPosX2 = ImGui::GetCursorPosX();
+                auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
+                // fov input
+                {
+                    auto cursorPosX3 = ImGui::GetCursorPosX();
+                    ImGui::Text("Fov");
+                    ImGui::SameLine();
+                    float floatInputWidth = 100.0f;
+                    ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                    ImGui::SetNextItemWidth(floatInputWidth);
+                    ImGui::DragFloat("##SceneCameraComponentFov", &component.fov, 0.1f, 0.0f, 360.0f,
+                                     "%.3f");
+                }
                 ImGui::TreePop();
             }
         }
@@ -659,11 +670,22 @@ namespace Dream {
             }
             ImGui::PopStyleVar();
             ImGui::PopStyleColor();
+            auto cursorPosX1 = ImGui::GetCursorPosX();
 
             if (treeNodeOpen) {
-                ImGui::Text("Fov");
-                ImGui::SameLine();
-                ImGui::Text("%s", std::to_string(component.fov).c_str());
+                auto cursorPosX2 = ImGui::GetCursorPosX();
+                auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
+                // fov input
+                {
+                    auto cursorPosX3 = ImGui::GetCursorPosX();
+                    ImGui::Text("Fov");
+                    ImGui::SameLine();
+                    float floatInputWidth = 100.0f;
+                    ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                    ImGui::SetNextItemWidth(floatInputWidth);
+                    ImGui::DragFloat("##CameraComponentFov", &component.fov, 0.1f, 0.0f, 360.0f,
+                                     "%.3f");
+                }
                 ImGui::TreePop();
             }
         }

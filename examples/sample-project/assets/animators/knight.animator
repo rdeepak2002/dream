@@ -1,20 +1,25 @@
 States:
   - Guid: 5B8EA87D-1669-445B-8E8F-479E8D47288B
     PlayOnce: false
+    Name: Idle Offensive
   - Guid: AF4551EB-7479-42AC-A340-BF956B6D039F
     PlayOnce: false
+    Name: Walk Forward
   - Guid: EDBC6EA0-AADC-4C2F-AA2E-D1FA27417AAF
     PlayOnce: true
+    Name: Idle Slash 1
   - Guid: B6CFBDF7-5540-4E82-ABC8-6802785127EB
     PlayOnce: true
+    Name: Idle Slash 2
   - Guid: 74C3646B-2217-4551-B2D1-8958F9CC8DE0
     PlayOnce: true
-  - Guid: C318B52A-AD70-4509-B77A-21B70D266B1C
-    PlayOnce: false
+    Name: Walk Slash 1
   - Guid: 7D2A3BA7-3B44-4F96-9B46-AE114BF220CC
     PlayOnce: false
+    Name: Run Forward
   - Guid: FAB6F64D-B9C3-4C32-99DD-2D08D0EC4590
     PlayOnce: true
+    Name: Idle Jump
 Transitions:
   - To: 1
     From: 0
@@ -100,7 +105,7 @@ Transitions:
         Variable1: 0
         Operator: ==
         Variable2Idx: -1
-        Variable2: -1
+        Variable2: 2
     Blend: true
   - To: 0
     From: 5
@@ -110,26 +115,13 @@ Transitions:
         Operator: ==
         Variable2Idx: -1
         Variable2: 0
-    Blend: true
-  - To: 6
-    From: 0
-    Conditions:
-      - Variable1Idx: 0
+      - Variable1Idx: 2
         Variable1: 0
         Operator: ==
         Variable2Idx: -1
-        Variable2: 2
+        Variable2: 1
     Blend: true
-  - To: 0
-    From: 6
-    Conditions:
-      - Variable1Idx: 0
-        Variable1: 0
-        Operator: ==
-        Variable2Idx: -1
-        Variable2: 0
-    Blend: true
-  - To: 6
+  - To: 5
     From: 1
     Conditions:
       - Variable1Idx: 0
@@ -139,7 +131,7 @@ Transitions:
         Variable2: 2
     Blend: true
   - To: 1
-    From: 6
+    From: 5
     Conditions:
       - Variable1Idx: 0
         Variable1: 0
@@ -164,6 +156,11 @@ Transitions:
         Operator: ==
         Variable2Idx: -1
         Variable2: 0
+      - Variable1Idx: 2
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 1
     Blend: true
   - To: 2
     From: 0
@@ -231,7 +228,7 @@ Transitions:
         Variable1: 0
         Operator: ==
         Variable2Idx: -1
-        Variable2: -1
+        Variable2: 2
     Blend: true
   - To: 0
     From: 5
@@ -242,25 +239,7 @@ Transitions:
         Variable2Idx: -1
         Variable2: 0
     Blend: true
-  - To: 6
-    From: 0
-    Conditions:
-      - Variable1Idx: 0
-        Variable1: 0
-        Operator: ==
-        Variable2Idx: -1
-        Variable2: 2
-    Blend: true
-  - To: 0
-    From: 6
-    Conditions:
-      - Variable1Idx: 0
-        Variable1: 0
-        Operator: ==
-        Variable2Idx: -1
-        Variable2: 0
-    Blend: true
-  - To: 6
+  - To: 5
     From: 1
     Conditions:
       - Variable1Idx: 0
@@ -268,17 +247,27 @@ Transitions:
         Operator: ==
         Variable2Idx: -1
         Variable2: 2
+      - Variable1Idx: 2
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 1
     Blend: true
   - To: 1
-    From: 6
+    From: 5
     Conditions:
       - Variable1Idx: 0
         Variable1: 0
         Operator: ==
         Variable2Idx: -1
         Variable2: 1
+      - Variable1Idx: 2
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 1
     Blend: true
-  - To: 7
+  - To: 6
     From: 0
     Conditions:
       - Variable1Idx: 2
@@ -288,7 +277,7 @@ Transitions:
         Variable2: 0
     Blend: false
   - To: 0
-    From: 7
+    From: 6
     Conditions:
       - Variable1Idx: 2
         Variable1: 0
@@ -302,4 +291,4 @@ Variables:
   - Name: slash
     Value: 0
   - Name: grounded
-    Value: 0
+    Value: 1

@@ -236,12 +236,15 @@ namespace Dream {
         );
 
         lua.new_usertype<Component::CameraComponent>("CameraComponent",
-                                                     "lookAt", &Component::CameraComponent::lookAt
+                                                     "lookAt", &Component::CameraComponent::lookAt,
+                                                     "front", &Component::CameraComponent::front
         );
 
         lua.new_usertype<Component::AnimatorComponent>("AnimatorComponent",
                                                        "setVariable",
-                                                       sol::as_function(&Component::AnimatorComponent::setVariable)
+                                                       sol::as_function(&Component::AnimatorComponent::setVariable),
+                                                       "getCurrentStateName",
+                                                       sol::as_function(&Component::AnimatorComponent::getCurrentStateName)
         );
 
         lua.new_usertype<Component::RigidBodyComponent>("RigidBodyComponent",

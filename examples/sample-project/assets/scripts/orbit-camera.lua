@@ -44,9 +44,11 @@ function update(entity, dt)
 
 	entity:getTransform().translation = vec3:new(xPos, yPos, zPos);
 
-	if PhysicsComponentSystem.checkRaycast(targetTranslation, entity:getTransform().translation) then
-		local hit = PhysicsComponentSystem.raycastGetFirstHit(targetTranslation, entity:getTransform().translation)
-		self.radius = MathUtils.distance(hit, targetTranslation) - 0.2
+	local frontVec = 0.1 * MathUtils.normalizeVec3(entity:getTransform().translation - targetTranslation)
+
+	if PhysicsComponentSystem.checkRaycast(targetTranslation, entity:getTransform().translation + frontVec) then
+		local hit = PhysicsComponentSystem.raycastGetFirstHit(targetTranslation, entity:getTransform().translation + frontVec)
+		self.radius = MathUtils.distance(hit, targetTranslation) - 0.1
 
 		xPos = targetTranslation.x - self.radius * math.sin(self.theta) * math.cos(self.phi)
 		yPos = targetTranslation.y - self.radius * math.cos(self.theta)
@@ -73,6 +75,9 @@ function update(entity, dt)
 	lookAt = vec3:new(-1 * targetTranslation.x, -1 * targetTranslation.y, targetTranslation.z)
 	entity:getCamera().lookAt = lookAt
 end
+
+
+
 
 
 

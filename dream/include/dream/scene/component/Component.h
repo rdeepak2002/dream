@@ -229,6 +229,7 @@ namespace Dream::Component {
         struct State {
             std::string Guid = "";
             bool PlayOnce = true;
+            std::string Name = "";
         };
         struct Condition {
             int Variable1Idx = -1;
@@ -271,6 +272,7 @@ namespace Dream::Component {
         std::vector<int> variableValues;
         float currentTimeLayered = 0.0f;
         float currentTimeBase = 0.0f;
+        std::string getCurrentStateName();
 
         explicit AnimatorComponent();
 
