@@ -54,9 +54,20 @@ function update(entity, dt)
 	end
 
 	local shouldJump = false
+	local s = knightTranslation + vec3:new(0, 0.1, 0)
+	local e = knightTranslation - vec3:new(0, 0.01, 0)
+	local isGrounded = PhysicsComponentSystem.checkRaycast(s, e)
+	--local hit = PhysicsComponentSystem.raycastGetFirstHit(s, e)
+	--Logger.debug(tostring(isGrounded))
+	--if isGrounded then
+		--Logger.info("-----")
+		--Logger.debug(tostring(s))
+		--Logger.debug(tostring(e))
+		--Logger.debug(tostring(hit))
+	--end
+
 
 	if Input.getButtonDown(Key.Space) then
-		local isGrounded = PhysicsComponentSystem.checkRaycast(knightTranslation + vec3:new(0, 0.011, 0), knightTranslation)
 		if isGrounded then
 			shouldJump = true
 			-- entity:getRigidBody():applyCentralImpulse(vec3:new(0, 20.0 * dt, 0))
@@ -103,6 +114,8 @@ function update(entity, dt)
 	end
 	entity:getAnimator():setVariable("slash", slash)
 end
+
+
 
 
 
