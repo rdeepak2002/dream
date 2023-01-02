@@ -30,33 +30,34 @@ function update(entity, dt)
 	local pCameraTranslation = vec3:new(cameraTranslation.x, 0, cameraTranslation.z)
 
 	-- calculate ground linear velocity based off inputs
-	local linearVelocity = vec3:new(0, 0, 0)
-	local speed = 2.0
-
-	if Input.getButtonDown(Key.LeftShift) then
-		speed = 4.0
-	end
-	
-	if Input.getButtonDown(Key.w) then
-		linearVelocity = linearVelocity + cameraForwardVector
-	end
-
-	if Input.getButtonDown(Key.s) then
-		linearVelocity = linearVelocity - cameraForwardVector
-	end
-
-	if Input.getButtonDown(Key.a) then
-		linearVelocity = linearVelocity + cameraRightVector
-	end
-
-	if Input.getButtonDown(Key.d) then
-		linearVelocity = linearVelocity - cameraRightVector
-	end
-
 	local shouldJump = false
 	local s = knightTranslation + vec3:new(0, 0.1, 0)
 	local e = knightTranslation - vec3:new(0, 0.01, 0)
 	local isGrounded = PhysicsComponentSystem.checkRaycast(s, e)
+
+	local linearVelocity = vec3:new(0, 0, 0)
+	local speed = 2.0
+
+	if Input.getButtonDown(Key.LeftShift) and isGrounded then
+		speed = 4.0
+	end
+	
+	if Input.getButtonDown(Key.w) and isGrounded then
+		linearVelocity = linearVelocity + cameraForwardVector
+	end
+
+	if Input.getButtonDown(Key.s) and isGrounded then
+		linearVelocity = linearVelocity - cameraForwardVector
+	end
+
+	if Input.getButtonDown(Key.a) and isGrounded then
+		linearVelocity = linearVelocity + cameraRightVector
+	end
+
+	if Input.getButtonDown(Key.d) and isGrounded then
+		linearVelocity = linearVelocity - cameraRightVector
+	end
+
 	--local hit = PhysicsComponentSystem.raycastGetFirstHit(s, e)
 	--Logger.debug(tostring(isGrounded))
 	--if isGrounded then
@@ -114,6 +115,7 @@ function update(entity, dt)
 	end
 	entity:getAnimator():setVariable("slash", slash)
 end
+
 
 
 
