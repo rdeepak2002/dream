@@ -32,6 +32,10 @@ function update(entity, dt)
 	-- calculate ground linear velocity based off inputs
 	local linearVelocity = vec3:new(0, 0, 0)
 	local speed = 2.0
+
+	if Input.getButtonDown(Key.LeftShift) then
+		speed = 4.0
+	end
 	
 	if Input.getButtonDown(Key.w) then
 		linearVelocity = linearVelocity + cameraForwardVector
@@ -73,7 +77,11 @@ function update(entity, dt)
 		entity:getRigidBody():setRotation(newQuat)
 
 		-- set velocity for animator
-		entity:getAnimator():setVariable("velocity", 1)
+		if speed == 4 then
+			entity:getAnimator():setVariable("velocity", 2)
+		else
+			entity:getAnimator():setVariable("velocity", 1)
+		end
 	else
 		-- set velocity for animator
 		entity:getAnimator():setVariable("velocity", 0)
@@ -86,6 +94,7 @@ function update(entity, dt)
 	end
 	entity:getAnimator():setVariable("slash", slash)
 end
+
 
 
 

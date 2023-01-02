@@ -11,6 +11,8 @@ States:
     PlayOnce: true
   - Guid: C318B52A-AD70-4509-B77A-21B70D266B1C
     PlayOnce: false
+  - Guid: 7D2A3BA7-3B44-4F96-9B46-AE114BF220CC
+    PlayOnce: false
 Transitions:
   - To: 1
     From: 0
@@ -106,6 +108,42 @@ Transitions:
         Operator: ==
         Variable2Idx: -1
         Variable2: 0
+    Blend: true
+  - To: 6
+    From: 0
+    Conditions:
+      - Variable1Idx: 0
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 2
+    Blend: true
+  - To: 0
+    From: 6
+    Conditions:
+      - Variable1Idx: 0
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 0
+    Blend: true
+  - To: 6
+    From: 1
+    Conditions:
+      - Variable1Idx: 0
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 2
+    Blend: true
+  - To: 1
+    From: 6
+    Conditions:
+      - Variable1Idx: 0
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 1
     Blend: true
 Variables:
   - Name: velocity
