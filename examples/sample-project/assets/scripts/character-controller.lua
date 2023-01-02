@@ -53,13 +53,22 @@ function update(entity, dt)
 		linearVelocity = linearVelocity - cameraRightVector
 	end
 
+	local shouldJump = false
+
 	if Input.getButtonDown(Key.Space) then
-		local isGrounded = PhysicsComponentSystem.checkRaycast(knightTranslation - vec3:new(0, -0.1, 0), knightTranslation - vec3:new(0, 1.0, 0))
+		local isGrounded = PhysicsComponentSystem.checkRaycast(knightTranslation + vec3:new(0, 0.011, 0), knightTranslation)
 		if isGrounded then
-			entity:getRigidBody():applyCentralImpulse(vec3:new(0, 20.0 * dt, 0))
+			shouldJump = true
+			-- entity:getRigidBody():applyCentralImpulse(vec3:new(0, 20.0 * dt, 0))
 		else
 			-- Logger.debug("in air")
 		end
+	end
+
+	local currentLinVel = entity:getRigidBody():getLinearVelocity()
+	if shouldJump then
+		currentLinVel.y = 5.0
+		entity:getRigidBody():setLinearVelocity(currentLinVel)
 	end
 
 	if MathUtils.magnitudeVec3(linearVelocity) > 0 then
@@ -94,6 +103,7 @@ function update(entity, dt)
 	end
 	entity:getAnimator():setVariable("slash", slash)
 end
+
 
 
 
