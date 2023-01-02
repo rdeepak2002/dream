@@ -35,6 +35,12 @@ function update(entity, dt)
 	local e = knightTranslation - vec3:new(0, 0.01, 0)
 	local isGrounded = PhysicsComponentSystem.checkRaycast(s, e)
 
+	if isGrounded then
+		entity:getAnimator():setVariable("grounded", 1)
+	else
+		entity:getAnimator():setVariable("grounded", 0)
+	end
+
 	local linearVelocity = vec3:new(0, 0, 0)
 	local speed = 2.0
 
@@ -79,7 +85,7 @@ function update(entity, dt)
 
 	local currentLinVel = entity:getRigidBody():getLinearVelocity()
 	if shouldJump then
-		currentLinVel.y = 5.0
+		currentLinVel.y = 4.0
 		entity:getRigidBody():setLinearVelocity(currentLinVel)
 	end
 
@@ -115,6 +121,7 @@ function update(entity, dt)
 	end
 	entity:getAnimator():setVariable("slash", slash)
 end
+
 
 
 
