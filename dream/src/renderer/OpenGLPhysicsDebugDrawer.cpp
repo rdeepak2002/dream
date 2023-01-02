@@ -63,6 +63,7 @@ namespace Dream {
 
     }
 
+    #ifndef EMSCRIPTEN
     btIDebugDraw::DefaultColors OpenGLPhysicsDebugDrawer::getDefaultColors() const {
         btIDebugDraw::DefaultColors defaultColors;
         defaultColors.m_wantsDeactivationObject = btVector3(0.0, 1.0, 0.0);
@@ -74,4 +75,5 @@ namespace Dream {
         defaultColors.m_aabb = btVector3(0.0, 1.0, 0.0);
         return defaultColors;
     }
+    #endif
 }
