@@ -72,7 +72,7 @@ namespace Dream {
     }
 
     void ImGuiEditorInspectorView::update() {
-        if (selectedEntity) {
+        if (selectedEntity && selectedEntity.isValid() && selectedEntity.hasComponent<Component::TagComponent>()) {
             ImGuiWindowClass inspector_window_class;
             inspector_window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoWindowMenuButton;
             ImGui::SetNextWindowClass(&inspector_window_class);
