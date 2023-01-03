@@ -19,14 +19,12 @@
 #include "dream/renderer/OpenGLRenderer.h"
 #include <iostream>
 #include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include <glad/glad.h>
 #include "dream/project/Project.h"
 #include "dream/scene/Entity.h"
 #include "dream/scene/component/Component.h"
 #include "dream/renderer/OpenGLMesh.h"
 #include "dream/util/Logger.h"
-#include "dream/util/MathUtils.h"
 #include "dream/window/Input.h"
 
 namespace Dream {
@@ -42,12 +40,13 @@ namespace Dream {
                                   Project::getPath().append("assets").append("shaders").append(
                                           "physics.frag").c_str(), nullptr);
 
-        texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("missing.png"));
+        skyboxShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("skybox.vert").c_str(),
+                                              Project::getPath().append("assets").append("shaders").append(
+                                                      "skybox.frag").c_str(), nullptr);
 
-        // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
-        shader->use();
-        shader->setInt("texture_diffuse1", 0);
-        shader->setVec4("diffuse_color", glm::vec4(1, 1, 1, 1));
+        skybox = new OpenGLSkybox();
+
+        texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("missing.png"));
 
         frameBuffer = new OpenGLFrameBuffer();
     }
@@ -126,6 +125,24 @@ namespace Dream {
                 if (!Project::getConfig().physicsConfig.depthTest) {
                     glEnable(GL_DEPTH_TEST);
                 }
+            }
+
+            // draw skybox
+            {
+                // draw skybox as last
+                glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
+                skyboxShader->use();
+                view = glm::mat4(glm::mat3(view));
+                skyboxShader->setMat4("view", view);
+                skyboxShader->setMat4("projection", projection);
+                skyboxShader->setInt("skybox", 0);
+                // skybox cube
+                glBindVertexArray(skybox->getVAO());
+                glActiveTexture(GL_TEXTURE0);
+                glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->getTexture());
+                glDrawArrays(GL_TRIANGLES, 0, 36);
+                glBindVertexArray(0);
+                glDepthFunc(GL_LESS); // set depth function back to default
             }
         } else {
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

@@ -27,6 +27,7 @@
 #include "dream/renderer/OpenGLSphereMesh.h"
 #include "dream/renderer/Mesh.h"
 #include "dream/scene/Entity.h"
+#include "dream/renderer/OpenGLSkybox.h"
 
 namespace Dream {
     class OpenGLRenderer : public Renderer {
@@ -42,8 +43,10 @@ namespace Dream {
     private:
         OpenGLShader *shader;
         OpenGLShader *physicsDebugShader;
+        OpenGLShader *skyboxShader;
         OpenGLFrameBuffer *frameBuffer;
         OpenGLTexture *texture;
+        OpenGLSkybox *skybox;
 
         void resizeFrameBuffer();
 
