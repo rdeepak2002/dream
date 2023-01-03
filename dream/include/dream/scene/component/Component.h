@@ -181,20 +181,18 @@ namespace Dream::Component {
 
     struct MaterialComponent : public Component {
         inline static std::string componentName = "MaterialComponent";
-//        Texture *diffuseTexture = nullptr;
-        inline static std::string k_guid = "guid";
-        std::string guid;
         inline static std::string k_isEmbedded = "isEmbedded";
-        bool isEmbedded;
+        bool isEmbedded = false;
+        inline static std::string k_diffuseTextureGuid = "diffuseTextureGuid";
+        std::string diffuseTextureGuid = "";
         inline static std::string k_diffuseColor = "diffuseColor";
         glm::vec4 diffuseColor = {1, 1, 1, 1};
 
         // runtime variable to determine if texture loading should be called
-        bool shouldLoadTextures = false;
+        bool shouldLoadTextures = true;
 
 //        glm::vec4 specularColor = {1, 1, 1, 1}; // TODO: implement and serialize this
 //        glm::vec4 ambientColor = {1, 1, 1, 1}; // TODO: implement and serialize this
-        explicit MaterialComponent(std::string guid, bool isEmbedded);
 
         void loadTextures();
 

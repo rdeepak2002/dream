@@ -102,7 +102,7 @@ namespace Dream {
                 std::string guid;
                 selectedEntity.addComponent<Component::MeshComponent>(guid);
             } else if (componentID == Component::MaterialComponent::componentName) {
-                selectedEntity.addComponent<Component::MaterialComponent>("", false);
+                selectedEntity.addComponent<Component::MaterialComponent>();
             } else if (componentID == Component::LuaScriptComponent::componentName) {
                 selectedEntity.addComponent<Component::LuaScriptComponent>("");
             } else if (componentID == Component::AnimatorComponent::componentName) {
@@ -424,7 +424,7 @@ namespace Dream {
             if (treeNodeOpen) {
                 float cursorPosX2 = ImGui::GetCursorPosX();
                 std::string diffuseTexturePath = StringUtils::getFilePathRelativeToProjectFolder(
-                        Project::getResourceManager()->getFilePathFromGUID(component.guid));
+                        Project::getResourceManager()->getFilePathFromGUID(component.diffuseTextureGuid));
                 ImGui::Text("Diffuse Texture");
                 float cursorPosX3 = ImGui::GetCursorPosX();
                 ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 18);

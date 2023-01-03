@@ -25,17 +25,12 @@
 #include "dream/util/YAMLUtils.h"
 
 namespace Dream::Component {
-    MaterialComponent::MaterialComponent(std::string guid, bool isEmbedded) {
-        this->guid = std::move(guid);
-        this->isEmbedded = isEmbedded;
-    }
-
     void MaterialComponent::loadTextures() {
         if (shouldLoadTextures) {
-            if (!this->guid.empty()) {
-                if (!Project::getResourceManager()->hasTextureData(this->guid)) {
-                    std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
-                    Project::getResourceManager()->storeTextureData(new OpenGLTexture(path), this->guid);
+            if (!this->diffuseTextureGuid.empty()) {
+                if (!Project::getResourceManager()->hasTextureData(this->diffuseTextureGuid)) {
+                    std::string path = Project::getResourceManager()->getFilePathFromGUID(this->diffuseTextureGuid);
+                    Project::getResourceManager()->storeTextureData(new OpenGLTexture(path), this->diffuseTextureGuid);
                 }
             }
             shouldLoadTextures = false;
@@ -46,8 +41,9 @@ namespace Dream::Component {
         if (entity.hasComponent<MaterialComponent>()) {
             out << YAML::Key << componentName;
             out << YAML::BeginMap;
-            out << YAML::Key << k_guid << YAML::Value << entity.getComponent<MaterialComponent>().guid;
             out << YAML::Key << k_isEmbedded << YAML::Value << entity.getComponent<MaterialComponent>().isEmbedded;
+            out << YAML::Key << k_diffuseTextureGuid << YAML::Value
+                << entity.getComponent<MaterialComponent>().diffuseTextureGuid;
             out << YAML::Key << k_diffuseColor << YAML::Value
                 << YAML::convert<glm::vec4>().encode(entity.getComponent<MaterialComponent>().diffuseColor);
             out << YAML::EndMap;
@@ -56,19 +52,21 @@ namespace Dream::Component {
 
     void MaterialComponent::deserialize(YAML::Node node, Entity &entity) {
         if (node[componentName]) {
-            std::string guid = "";
-            if (node[componentName][k_guid]) {
-                guid = node[componentName][k_guid].as<std::string>();
-            }
             auto isEmbedded = false;
             if (node[componentName][k_isEmbedded]) {
                 isEmbedded = node[componentName][k_isEmbedded].as<bool>();
+            }
+            std::string diffuseTextureGuid = "";
+            if (node[componentName][k_diffuseTextureGuid]) {
+                diffuseTextureGuid = node[componentName][k_diffuseTextureGuid].as<std::string>();
             }
             glm::vec4 diffuseColor = {1, 1, 1, 1};
             if (node[componentName][k_diffuseColor]) {
                 YAML::convert<glm::vec4>().decode(node[componentName][k_diffuseColor], diffuseColor);
             }
-            entity.addComponent<MaterialComponent>(guid, isEmbedded);
+            entity.addComponent<MaterialComponent>();
+            entity.getComponent<MaterialComponent>().isEmbedded = isEmbedded;
+            entity.getComponent<MaterialComponent>().diffuseTextureGuid = diffuseTextureGuid;
             entity.getComponent<MaterialComponent>().diffuseColor = diffuseColor;
         }
     }

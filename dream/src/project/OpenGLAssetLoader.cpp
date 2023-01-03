@@ -235,7 +235,9 @@ namespace Dream {
                     auto *dreamTexture = new OpenGLTexture(buffer, len);
                     Project::getResourceManager()->storeTextureData(dreamTexture, textureFileGUID);
                     if (createEntities) {
-                        entity.addComponent<Component::MaterialComponent>(textureFileGUID, true);
+                        entity.addComponent<Component::MaterialComponent>();
+                        entity.getComponent<Component::MaterialComponent>().isEmbedded = true;
+                        entity.getComponent<Component::MaterialComponent>().diffuseTextureGuid = textureFileGUID;
                     }
                 }
             } else if (!textureEmbeddedInModel) {
@@ -247,7 +249,9 @@ namespace Dream {
                     }
                 }
                 if (createEntities) {
-                    entity.addComponent<Component::MaterialComponent>(textureFileGUID, false);
+                    entity.addComponent<Component::MaterialComponent>();
+                    entity.getComponent<Component::MaterialComponent>().isEmbedded = false;
+                    entity.getComponent<Component::MaterialComponent>().diffuseTextureGuid = textureFileGUID;
                 }
             } else {
                 Logger::fatal("Invalid state while processing mesh");
@@ -255,7 +259,9 @@ namespace Dream {
         }
         if (createEntities) {
             if (!entity.hasComponent<Component::MaterialComponent>()) {
-                entity.addComponent<Component::MaterialComponent>("", false);
+                entity.addComponent<Component::MaterialComponent>();
+                entity.getComponent<Component::MaterialComponent>().isEmbedded = false;
+                entity.getComponent<Component::MaterialComponent>().diffuseTextureGuid = "";
             }
             entity.getComponent<Component::MaterialComponent>().diffuseColor = diffuseColor;
         }
