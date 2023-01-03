@@ -178,26 +178,32 @@ namespace Dream {
 
             // load material of entity
             if (entity.hasComponent<Component::MaterialComponent>()) {
-                if (!entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
-                    entity.getComponent<Component::MaterialComponent>().loadTexture();
-                }
                 shader->setVec4("diffuse_color", entity.getComponent<Component::MaterialComponent>().diffuseColor);
             } else {
                 shader->setVec4("diffuse_color", glm::vec4(1.0, 1.0, 1.0, 1.0));
             }
 
-            if (entity.hasComponent<Component::MaterialComponent>() &&
-                !entity.getComponent<Component::MaterialComponent>().guid.empty()) {
-                if (entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
-                    auto *openGLTexture = dynamic_cast<OpenGLTexture *>(entity.getComponent<Component::MaterialComponent>().diffuseTexture);
-                    if (openGLTexture) {
+            if (entity.hasComponent<Component::MaterialComponent>()) {
+                // set diffuse texture of shader
+                {
+                    if (entity.getComponent<Component::MaterialComponent>().guid.empty()) {
+                        // default diffuse texture
                         shader->setInt("texture_diffuse1", 0);
-                        openGLTexture->bind(0);
+                        texture->bind(0);
+                    } else {
+                        // diffuse texture
+                        entity.getComponent<Component::MaterialComponent>().loadTextures();
+                        auto diffuseTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().guid);
+                        if (auto openGLDiffuseTexture = std::dynamic_pointer_cast<OpenGLTexture>(diffuseTexture)) {
+                            shader->setInt("texture_diffuse1", 0);
+                            openGLDiffuseTexture->bind(0);
+                        } else {
+                            Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
+                        }
                     }
-                } else {
-                    Logger::warn("No texture loaded");
                 }
             } else {
+                // default diffuse texture
                 shader->setInt("texture_diffuse1", 0);
                 texture->bind(0);
             }

@@ -4,10 +4,9 @@
 
 #include "dream/renderer/OpenGLSkybox.h"
 #include "dream/project/Project.h"
-#include "dream/renderer/OpenGLShader.h"
+#include "dream/renderer/OpenGLTexture.h"
 #include <glad/glad.h>
 #include <iostream>
-#include <stb_image.h>
 
 namespace Dream {
     OpenGLSkybox::OpenGLSkybox() {

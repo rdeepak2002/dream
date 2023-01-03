@@ -22,6 +22,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <map>
+#include "dream/renderer/Texture.h"
 
 namespace Dream {
     class ResourceManager {
@@ -38,6 +39,12 @@ namespace Dream {
          * Value: data
          */
         std::map<std::pair<std::string, std::string>, void *> fileIDMap;
+        /**
+         * Map to get texture data
+         * Key: <guid, fileID>
+         * Value: texture data
+         */
+        std::map<std::pair<std::string, std::string>, std::shared_ptr<Texture>> textureDataMap;
     public:
         /**
          * Get the path of a file given a GUID
@@ -82,6 +89,12 @@ namespace Dream {
         bool hasData(const std::string &guid);
 
         bool hasData(const std::string &guid, const std::string &fileID);
+
+        std::shared_ptr<Texture> getTextureData(const std::string &guid, const std::string &fileID = "");
+
+        void storeTextureData(Texture *texture, const std::string &guid, const std::string &fileID = "");
+
+        bool hasTextureData(const std::string &guid, const std::string &fileID = "");
     };
 }
 

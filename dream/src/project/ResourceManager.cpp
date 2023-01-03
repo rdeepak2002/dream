@@ -19,39 +19,54 @@
 #include "dream/project/ResourceManager.h"
 #include "dream/util/Logger.h"
 
-std::string Dream::ResourceManager::getFilePathFromGUID(const std::string &guid) {
-    return guidMap[guid];
-}
-
-void Dream::ResourceManager::setFilePathFromGUID(const std::string &guid, const std::string &filepath) {
-    guidMap[guid] = filepath;
-}
-
-void *Dream::ResourceManager::getData(const std::string &guid, const std::string &fileID) {
-    return fileIDMap[std::make_pair(guid, fileID)];
-}
-
-void Dream::ResourceManager::storeData(const std::string &guid, const std::string &fileID, void *data) {
-    if (guid.empty()) {
-        Logger::fatal("GUID cannot be empty");
+namespace Dream {
+    std::string ResourceManager::getFilePathFromGUID(const std::string &guid) {
+        return guidMap[guid];
     }
-    if (fileID.empty()) {
-        Logger::fatal("FileID cannot be empty");
+
+    void ResourceManager::setFilePathFromGUID(const std::string &guid, const std::string &filepath) {
+        guidMap[guid] = filepath;
     }
-    fileIDMap[std::make_pair(guid, fileID)] = data;
-}
 
-void Dream::ResourceManager::storeData(const std::string &guid, void *data) {
-    if (guid.empty()) {
-        Logger::fatal("GUID cannot be empty");
+    void *ResourceManager::getData(const std::string &guid, const std::string &fileID) {
+        return fileIDMap[std::make_pair(guid, fileID)];
     }
-    fileIDMap[std::make_pair(guid, "")] = data;
-}
 
-bool Dream::ResourceManager::hasData(const std::string &guid, const std::string &fileID) {
-    return fileIDMap.count(std::make_pair(guid, fileID)) > 0;
-}
+    void ResourceManager::storeData(const std::string &guid, const std::string &fileID, void *data) {
+        if (guid.empty()) {
+            Logger::fatal("GUID cannot be empty");
+        }
+        if (fileID.empty()) {
+            Logger::fatal("FileID cannot be empty");
+        }
+        fileIDMap[std::make_pair(guid, fileID)] = data;
+    }
 
-bool Dream::ResourceManager::hasData(const std::string &guid) {
-    return fileIDMap.count(std::make_pair(guid, "")) > 0;
+    void ResourceManager::storeData(const std::string &guid, void *data) {
+        if (guid.empty()) {
+            Logger::fatal("GUID cannot be empty");
+        }
+        fileIDMap[std::make_pair(guid, "")] = data;
+    }
+
+    bool ResourceManager::hasData(const std::string &guid, const std::string &fileID) {
+        return fileIDMap.count(std::make_pair(guid, fileID)) > 0;
+    }
+
+    bool ResourceManager::hasData(const std::string &guid) {
+        return fileIDMap.count(std::make_pair(guid, "")) > 0;
+    }
+
+    std::shared_ptr<Texture> ResourceManager::getTextureData(const std::string &guid, const std::string &fileID) {
+        return textureDataMap[std::make_pair(guid, fileID)];
+    }
+
+    void ResourceManager::storeTextureData(Texture *texture, const std::string &guid, const std::string &fileID) {
+        std::shared_ptr<Texture> ptr(texture);
+        textureDataMap[std::make_pair(guid, fileID)] = ptr;
+    }
+
+    bool ResourceManager::hasTextureData(const std::string &guid, const std::string &fileID) {
+        return textureDataMap.count(std::make_pair(guid, fileID)) > 0;
+    }
 }

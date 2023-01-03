@@ -233,7 +233,7 @@ namespace Dream {
                         assimpTexture->mWidth * assimpTexture->mHeight);
                 if (createMeshObjects) {
                     auto *dreamTexture = new OpenGLTexture(buffer, len);
-                    Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
+                    Project::getResourceManager()->storeTextureData(dreamTexture, textureFileGUID);
                     if (createEntities) {
                         entity.addComponent<Component::MaterialComponent>(textureFileGUID, true);
                     }
@@ -243,7 +243,7 @@ namespace Dream {
                 if (!Project::getResourceManager()->hasData(textureFileGUID)) {
                     if (createMeshObjects) {
                         auto *dreamTexture = new OpenGLTexture(texturePath);
-                        Project::getResourceManager()->storeData(textureFileGUID, dreamTexture);
+                        Project::getResourceManager()->storeTextureData(dreamTexture, textureFileGUID);
                     }
                 }
                 if (createEntities) {

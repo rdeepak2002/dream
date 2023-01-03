@@ -30,21 +30,16 @@ namespace Dream::Component {
         this->isEmbedded = isEmbedded;
     }
 
-    void MaterialComponent::loadTexture() {
-        if (!this->guid.empty()) {
-            if (!Project::getResourceManager()->hasData(this->guid)) {
-                std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
-                Project::getResourceManager()->storeData(this->guid, new OpenGLTexture(path));
+    void MaterialComponent::loadTextures() {
+        if (shouldLoadTextures) {
+            if (!this->guid.empty()) {
+                if (!Project::getResourceManager()->hasTextureData(this->guid)) {
+                    std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
+                    Project::getResourceManager()->storeTextureData(new OpenGLTexture(path), this->guid);
+                }
             }
-            this->diffuseTexture = (OpenGLTexture *) Project::getResourceManager()->getData(this->guid);
+            shouldLoadTextures = false;
         }
-    }
-
-    Texture *MaterialComponent::getTexture() {
-        if (!this->diffuseTexture) {
-            Logger::fatal("Texture is null");
-        }
-        return this->diffuseTexture;
     }
 
     void MaterialComponent::serialize(YAML::Emitter &out, Entity &entity) {
