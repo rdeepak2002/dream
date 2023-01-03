@@ -182,6 +182,8 @@ namespace Dream {
                     entity.getComponent<Component::MaterialComponent>().loadTexture();
                 }
                 shader->setVec4("diffuse_color", entity.getComponent<Component::MaterialComponent>().diffuseColor);
+            } else {
+                shader->setVec4("diffuse_color", glm::vec4(1.0, 1.0, 1.0, 1.0));
             }
 
             if (entity.hasComponent<Component::MaterialComponent>() &&
