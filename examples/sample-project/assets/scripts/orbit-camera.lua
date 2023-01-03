@@ -34,11 +34,28 @@ function update(entity, dt)
 	end
 
 	-- set position of camera based off spherical coordinate values
-	local targetTranslation = targetEntity:getTransform().translation
+	self.radius = 3.6
+	local lookAtOffset = vec3:new(0, 1.2, 0)
+	local targetTranslation = targetEntity:getTransform().translation + lookAtOffset
+
 	local xPos = targetTranslation.x - self.radius * math.sin(self.theta) * math.cos(self.phi)
 	local yPos = targetTranslation.y - self.radius * math.cos(self.theta)
 	local zPos = targetTranslation.z + self.radius * math.sin(self.theta) * math.sin(self.phi)
+
 	entity:getTransform().translation = vec3:new(xPos, yPos, zPos);
+
+	local frontVec = 0.1 * MathUtils.normalizeVec3(entity:getTransform().translation - targetTranslation)
+
+	if PhysicsComponentSystem.checkRaycast(targetTranslation, entity:getTransform().translation + frontVec) then
+		local hit = PhysicsComponentSystem.raycastGetFirstHit(targetTranslation, entity:getTransform().translation + frontVec)
+		self.radius = MathUtils.distance(hit, targetTranslation) - 0.1
+
+		xPos = targetTranslation.x - self.radius * math.sin(self.theta) * math.cos(self.phi)
+		yPos = targetTranslation.y - self.radius * math.cos(self.theta)
+		zPos = targetTranslation.z + self.radius * math.sin(self.theta) * math.sin(self.phi)
+
+		entity:getTransform().translation = vec3:new(xPos, yPos, zPos);
+	end
 
 	-- rotate around object using mouse input when pointer locked
 	if Input.pointerLockActivated() then
@@ -49,16 +66,26 @@ function update(entity, dt)
 
 	-- bound phi and theta
 	self.theta = math.min(self.theta, 2.41)
-	self.theta = math.max(self.theta, 1.59)
+	self.theta = math.max(self.theta, 1.1)
 	while self.phi > 2 * math.pi do
 		self.phi = self.phi - 2 * math.pi
 	end
 
 	-- make camera look at target (player)
 	lookAt = vec3:new(-1 * targetTranslation.x, -1 * targetTranslation.y, targetTranslation.z)
-	local lookAtOffset = vec3:new(0, -1, 0)
-	entity:getCamera().lookAt = lookAt + lookAtOffset
+	entity:getCamera().lookAt = lookAt
 end
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -19,6 +19,11 @@
 #ifndef DREAM_PHYSICSCOMPONENTSYSTEM_H
 #define DREAM_PHYSICSCOMPONENTSYSTEM_H
 
+#include <btBulletDynamicsCommon.h>
+#include <glm/glm.hpp>
+#include <vector>
+#include "dream/renderer/OpenGLPhysicsDebugDrawer.h"
+
 namespace Dream {
     class PhysicsComponentSystem {
     public:
@@ -29,6 +34,34 @@ namespace Dream {
         void init();
 
         void update(float dt);
+
+        bool checkRaycast(glm::vec3 rayFromWorld, glm::vec3 rayToWorld);
+
+        glm::vec3 raycastGetFirstHit(glm::vec3 rayFromWorld, glm::vec3 rayToWorld);
+
+        void debugDrawWorld();
+
+        int addColliderShape(btCompoundShape* colliderShape);
+
+        btCompoundShape* getColliderShape(int index);
+
+        int addRigidBody(btRigidBody* rigidBody);
+
+        btRigidBody* getRigidBody(int index);
+
+        void removeRigidBody(int index);
+
+        void deleteCollisionShape(int index);
+
+    private:
+        btDefaultCollisionConfiguration *collisionConfiguration;
+        btCollisionDispatcher *dispatcher;
+        btBroadphaseInterface *overlappingPairCache;
+        btSequentialImpulseConstraintSolver *solver;
+        btDiscreteDynamicsWorld *dynamicsWorld;
+        OpenGLPhysicsDebugDrawer openGlPhysicsDebugDrawer;
+        std::vector<btCompoundShape*> colliderShapes;
+        std::vector<btRigidBody*> rigidBodies;
     };
 }
 

@@ -29,12 +29,6 @@ namespace Dream {
         audioComponentSystem = new AudioComponentSystem();
         animatorComponentSystem = new AnimatorComponentSystem();
         luaScriptComponentSystem = new LuaScriptComponentSystem();
-        collisionConfiguration = new btDefaultCollisionConfiguration();
-        dispatcher = new btCollisionDispatcher(collisionConfiguration);
-        overlappingPairCache = new btDbvtBroadphase();
-        solver = new btSequentialImpulseConstraintSolver;
-        dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-        dynamicsWorld->setGravity(btVector3(0, -10, 0));
     }
 
     Scene::~Scene() {
@@ -42,11 +36,6 @@ namespace Dream {
         delete audioComponentSystem;
         delete animatorComponentSystem;
         delete luaScriptComponentSystem;
-        delete dynamicsWorld;
-        delete solver;
-        delete overlappingPairCache;
-        delete dispatcher;
-        delete collisionConfiguration;
     }
 
     Entity Dream::Scene::createEntity(const std::string &name, bool rootEntity, bool addChildStart) {
@@ -77,14 +66,35 @@ namespace Dream {
             luaScriptComponentSystem->init();
             shouldInitComponentSystems = false;
         }
-        animatorComponentSystem->update(dt);
+        if (Project::isPlaying() || Project::getConfig().animationConfig.playInEditor) {
+            animatorComponentSystem->update(dt);
+        }
+    }
+
+    void Scene::resetComponentSystems() {
+        delete physicsComponentSystem;
+        physicsComponentSystem = nullptr;
+        delete animatorComponentSystem;
+        animatorComponentSystem = nullptr;
+        delete audioComponentSystem;
+        audioComponentSystem = nullptr;
+        delete luaScriptComponentSystem;
+        luaScriptComponentSystem = nullptr;
+
+        physicsComponentSystem = new PhysicsComponentSystem();
+        audioComponentSystem = new AudioComponentSystem();
+        animatorComponentSystem = new AnimatorComponentSystem();
+        luaScriptComponentSystem = new LuaScriptComponentSystem();
+        shouldInitComponentSystems = true;
     }
 
     void Scene::fixedUpdate(float dt) {
         if (Project::isPlaying() && !shouldInitComponentSystems) {
-            physicsComponentSystem->update(dt);
             audioComponentSystem->update(dt);
             luaScriptComponentSystem->update(dt);
+            physicsComponentSystem->update(dt);
+        } else if (!Project::isPlaying()) {
+            physicsComponentSystem->update(0.0);
         }
         if (Project::isPlaying()) {
             // TODO: move to component system
@@ -120,15 +130,26 @@ namespace Dream {
 
     void Scene::removeEntity(Entity &entity) {
         Entity child = entity.getComponent<Component::HierarchyComponent>().first;
+
         while (child) {
             Entity nextChild = child.getComponent<Component::HierarchyComponent>().next;
             removeEntity(child);
             child = nextChild;
         }
+
         if (!entity.hasComponent<Component::RootComponent>()) {
             entity.getComponent<Component::HierarchyComponent>().parent.getComponent<Component::HierarchyComponent>().removeChild(
                     entity);
         }
+
+        if (entity.hasComponent<Component::RigidBodyComponent>()) {
+            Project::getScene()->getPhysicsComponentSystem()->removeRigidBody(entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex);
+        }
+
+        if (entity.hasComponent<Component::CollisionComponent>()) {
+            Project::getScene()->getPhysicsComponentSystem()->deleteCollisionShape(entity.getComponent<Component::CollisionComponent>().colliderShapeIndex);
+        }
+
         entityRegistry.destroy(entity.entityHandle);
     }
 
@@ -190,5 +211,18 @@ namespace Dream {
             return entity;
         }
         return {};
+    }
+
+    void Scene::clear() {
+        Entity rootEntity = getRootEntity();
+        if (rootEntity) {
+            removeEntity(rootEntity);
+        } else {
+            Logger::debug("Scene already cleared");
+        }
+    }
+
+    PhysicsComponentSystem* Scene::getPhysicsComponentSystem() {
+        return physicsComponentSystem;
     }
 }

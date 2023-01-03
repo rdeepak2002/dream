@@ -33,22 +33,19 @@ namespace Dream {
                 ImGui::EndMenu();
             }
             if (ImGui::BeginMenu("Assets")) {
-                if (ImGui::MenuItem("Import Folder")) {
+                if (ImGui::MenuItem("Import folder")) {
                     this->fileBrowser->selectDirectory();
-//                    delete fileImporterBrowser;
-//                    fileImporterBrowser = new ImGui::FileBrowser(ImGuiFileBrowserFlags_SelectDirectory);
-//                    fileImporterBrowser->SetTitle("import folder");
-//                    fileImporterBrowser->SetPwd(Project::getPath());
-//                    fileImporterBrowser->Open();
                 }
-                if (ImGui::MenuItem("Import File")) {
+                if (ImGui::MenuItem("Import file")) {
                     this->fileBrowser->selectFile();
-//                    delete fileImporterBrowser;
-//                    fileImporterBrowser = new ImGui::FileBrowser();
-//                    fileImporterBrowser->SetTitle("import file");
-//                    fileImporterBrowser->SetPwd(Project::getPath());
-//                    fileImporterBrowser->Open();
                 }
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("Debug")) {
+                ImGui::Checkbox("Physics debugger", &(Project::getConfig().physicsConfig.physicsDebugger));
+                ImGui::Checkbox("Physics debugger depth test", &(Project::getConfig().physicsConfig.depthTest));
+                ImGui::Checkbox("Physics debugger while playing", &(Project::getConfig().physicsConfig.physicsDebuggerWhilePlaying));
+                ImGui::Checkbox("Play animation in editor", &(Project::getConfig().animationConfig.playInEditor));
                 ImGui::EndMenu();
             }
             ImGui::EndMainMenuBar();

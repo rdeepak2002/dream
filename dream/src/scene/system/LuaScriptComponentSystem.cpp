@@ -22,10 +22,29 @@
 #include "dream/util/Logger.h"
 #include "dream/window/Input.h"
 #include "dream/window/KeyCodes.h"
+#include "dream/util/MathUtils.h"
 
 namespace Dream {
     Entity getEntityByTag(const std::string &tag) {
         return Project::getScene()->getEntityByTag(tag);
+    }
+
+    bool checkRaycast(glm::vec3 from, glm::vec3 to) {
+        if (!Project::getScene()->getPhysicsComponentSystem()) {
+            Logger::error("Physics component system not initialized");
+            return false;
+        } else {
+            return Project::getScene()->getPhysicsComponentSystem()->checkRaycast(from, to);
+        }
+    }
+
+    glm::vec3 raycastGetFirstHit(glm::vec3 from, glm::vec3 to) {
+        if (!Project::getScene()->getPhysicsComponentSystem()) {
+            Logger::error("Physics component system not initialized");
+            return {0, 0, 0};
+        } else {
+            return Project::getScene()->getPhysicsComponentSystem()->raycastGetFirstHit(from, to);
+        }
     }
 
     LuaScriptComponentSystem::LuaScriptComponentSystem() {
@@ -198,33 +217,90 @@ namespace Dream {
                                  "isValid", &Dream::Entity::isValid,
                                  "getTransform", &Dream::Entity::getComponent<Dream::Component::TransformComponent>,
                                  "getCamera", &Dream::Entity::getComponent<Dream::Component::CameraComponent>,
-                                 "getAnimator", &Dream::Entity::getComponent<Dream::Component::AnimatorComponent>
+                                 "getAnimator", &Dream::Entity::getComponent<Dream::Component::AnimatorComponent>,
+                                 "getRigidBody", &Dream::Entity::getComponent<Dream::Component::RigidBodyComponent>
         );
+
+        // TODO: when removing rigid body and collision component, we have to explicitly remove these from the physics world (look at what inspector is doing when removing these)
 
         lua.new_usertype<Component::TransformComponent>("TransformComponent",
                                                         "translation", &Component::TransformComponent::translation,
                                                         "rotation", &Component::TransformComponent::rotation,
-                                                        "scale", &Component::TransformComponent::scale
+                                                        "scale", &Component::TransformComponent::scale,
+                                                        "getFront",
+                                                        sol::as_function(&Component::TransformComponent::getFront),
+                                                        "getLeft",
+                                                        sol::as_function(&Component::TransformComponent::getLeft),
+                                                        "getUp",
+                                                        sol::as_function(&Component::TransformComponent::getUp)
         );
 
         lua.new_usertype<Component::CameraComponent>("CameraComponent",
-                                                     "lookAt", &Component::CameraComponent::lookAt
+                                                     "lookAt", &Component::CameraComponent::lookAt,
+                                                     "front", &Component::CameraComponent::front
         );
 
         lua.new_usertype<Component::AnimatorComponent>("AnimatorComponent",
                                                        "setVariable",
-                                                       sol::as_function(&Component::AnimatorComponent::setVariable)
+                                                       sol::as_function(&Component::AnimatorComponent::setVariable),
+                                                       "getCurrentStateName",
+                                                       sol::as_function(&Component::AnimatorComponent::getCurrentStateName)
+        );
+
+        lua.new_usertype<Component::RigidBodyComponent>("RigidBodyComponent",
+                                                        "setLinearVelocity",
+                                                        sol::as_function(&Component::RigidBodyComponent::setLinearVelocity),
+                                                        "getLinearVelocity",
+                                                        sol::as_function(&Component::RigidBodyComponent::getLinearVelocity),
+                                                        "setAngularVelocity",
+                                                        sol::as_function(&Component::RigidBodyComponent::setAngularVelocity),
+                                                        "getAngularVelocity",
+                                                        sol::as_function(&Component::RigidBodyComponent::getAngularVelocity),
+                                                        "setRotation",
+                                                        sol::as_function(&Component::RigidBodyComponent::setRotation),
+                                                        "getRotation",
+                                                        sol::as_function(&Component::RigidBodyComponent::getRotation),
+                                                        "applyCentralImpulse",
+                                                        sol::as_function(&Component::RigidBodyComponent::applyCentralImpulse),
+                                                        "applyCentralForce",
+                                                        sol::as_function(&Component::RigidBodyComponent::applyCentralForce)
+        );
+
+        lua.new_usertype<MathUtils>("MathUtils",
+                                    "eulerAngles", sol::as_function(&MathUtils::eulerAngles),
+                                    "normalizeVec3", sol::as_function(&MathUtils::normalizeVec3),
+                                    "normalizeVec2", sol::as_function(&MathUtils::normalizeVec2),
+                                    "angle", sol::as_function(&MathUtils::angle),
+                                    "safeQuatLookAt", sol::as_function(&MathUtils::safeQuatLookAt),
+                                    "crossProductVec3", sol::as_function(&MathUtils::crossProductVec3),
+                                    "magnitudeVec3", sol::as_function(&MathUtils::magnitudeVec3),
+                                    "quatMix", sol::as_function(&MathUtils::quatMix),
+                                    "quatSlerp", sol::as_function(&MathUtils::quatSlerp),
+                                    "vec3Lerp", sol::as_function(&MathUtils::vec3Lerp),
+                                    "distance", sol::as_function(&MathUtils::distance)
         );
 
         lua.new_usertype<Scene>("Scene",
                                 "getEntityByTag", sol::as_function(&getEntityByTag)
         );
 
+        lua.new_usertype<PhysicsComponentSystem>("PhysicsComponentSystem",
+                                                 "checkRaycast", sol::as_function(&checkRaycast),
+                                                 "raycastGetFirstHit", sol::as_function(&raycastGetFirstHit)
+        );
+
         lua.end();
     }
 
     LuaScriptComponentSystem::~LuaScriptComponentSystem() {
-
+        auto luaScriptEntities = Project::getScene()->getEntitiesWithComponents<Component::LuaScriptComponent>();
+        for (auto entityHandle: luaScriptEntities) {
+            Entity entity = {entityHandle, Project::getScene()};
+            auto &luaScriptComponent = entity.getComponent<Component::LuaScriptComponent>();
+            if (luaScriptComponent.table.valid()) {
+                luaScriptComponent.table.abandon();
+            }
+        }
     }
 
     void LuaScriptComponentSystem::update(float dt) {

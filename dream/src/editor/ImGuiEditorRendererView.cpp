@@ -70,10 +70,12 @@ namespace Dream {
         if (Project::isPlaying()) {
             if (ImGui::ImageButton("StopBtn", (void *) (intptr_t) stopIcon, ImVec2(btnWidth, btnWidth))) {
                 Project::setIsPlaying(false);
+                Project::reloadScene();
             }
         } else {
             if (ImGui::ImageButton("PlayBtn", (void *) (intptr_t) playIcon, ImVec2(btnWidth, btnWidth))) {
                 Project::setIsPlaying(true);
+                Project::saveScene(true);
             }
         }
         ImGui::SameLine();

@@ -27,6 +27,19 @@
 #include "dream/project/ResourceManager.h"
 
 namespace Dream {
+    struct Config {
+        struct PhysicsConfig {
+            bool physicsDebugger = true;
+            bool physicsDebuggerWhilePlaying = false;
+            bool depthTest = true;
+        };
+        struct AnimationConfig {
+            bool playInEditor = true;
+        };
+        PhysicsConfig physicsConfig;
+        AnimationConfig animationConfig;
+    };
+
     class Project {
     private:
         static Project &getInstance() {
@@ -57,7 +70,9 @@ namespace Dream {
 
         static void recognizeResources();
 
-        static void saveScene();
+        static void saveScene(bool temporary=false);
+
+        static void reloadScene();
 
         static bool isPlaying();
 
@@ -71,6 +86,8 @@ namespace Dream {
 
         static void setIsEditorFullscreen(bool editorFullscreen);
 
+        static Config& getConfig();
+
     private:
         Project();
 
@@ -78,7 +95,7 @@ namespace Dream {
 
         void openHelper(std::filesystem::path filepath);
 
-        void loadScene();
+        void loadScene(bool temporary=false);
 
         Dream::AssetLoader *getAssetLoaderHelper();
 
@@ -95,6 +112,7 @@ namespace Dream {
         Dream::AssetLoader *assetLoader;
         Dream::ResourceManager *resourceManager;
         Dream::AssetImporter *assetImporter;
+        Config config;
         bool playing;
         bool fullscreen;
         bool editorFullscreen;

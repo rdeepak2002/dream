@@ -26,6 +26,17 @@ namespace Dream {
     class MathUtils {
     public:
         static void decomposeMatrix(const glm::mat4 &m, glm::vec3 &pos, glm::quat &rot, glm::vec3 &scale);
+        static glm::vec3 eulerAngles(glm::quat rot);
+        static glm::vec3 normalizeVec3(glm::vec3 vec);
+        static glm::vec2 normalizeVec2(glm::vec2 vec);
+        static float angle(glm::vec2 vec1, glm::vec2 vec2);
+        static glm::quat safeQuatLookAt(glm::vec3 const& lookFrom,glm::vec3 const& lookTo,glm::vec3 const& up, glm::vec3 const& alternativeUp);
+        static glm::vec3 crossProductVec3(glm::vec3 a, glm::vec3 b);
+        static float magnitudeVec3(glm::vec3 v);
+        static glm::quat quatMix(glm::quat q1, glm::quat q2, float blend);
+        static glm::quat quatSlerp(glm::quat q1, glm::quat q2, float blend);
+        static glm::vec3 vec3Lerp(glm::vec3 x, glm::vec3 y, float t);
+        static float distance(glm::vec3 p1, glm::vec3 p2);
     };
 }
 

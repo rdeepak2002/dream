@@ -112,6 +112,12 @@ namespace Dream::Component {
 
         glm::mat4 getTransform(Entity &curEntity);
 
+        glm::vec3 getFront();
+
+        glm::vec3 getLeft();
+
+        glm::vec3 getUp();
+
         explicit TransformComponent();
 
         TransformComponent(glm::vec3 translation, glm::quat rotation, glm::vec3 scale);
@@ -223,6 +229,7 @@ namespace Dream::Component {
         struct State {
             std::string Guid = "";
             bool PlayOnce = true;
+            std::string Name = "";
         };
         struct Condition {
             int Variable1Idx = -1;
@@ -235,6 +242,7 @@ namespace Dream::Component {
             int InputStateID;
             int OutputStateID;
             std::vector<Condition> Conditions;
+            bool Blend;
         };
         inline static std::string componentName = "AnimatorComponent";
         inline static std::string k_guid = "guid";          // guid of the animator file
@@ -262,6 +270,9 @@ namespace Dream::Component {
         inline static std::string k_variable_value = "Value";
         std::vector<std::string> variableNames;
         std::vector<int> variableValues;
+        float currentTimeLayered = 0.0f;
+        float currentTimeBase = 0.0f;
+        std::string getCurrentStateName();
 
         explicit AnimatorComponent();
 
@@ -376,6 +387,112 @@ namespace Dream::Component {
         void updateCameraVectors();
 
         void lookAt(Entity sceneCamera, glm::vec3 lookAtPos);
+    };
+
+    struct CollisionComponent : public Component {
+        inline static std::string componentName = "CollisionComponent";
+        enum Axis {
+            X, Y, Z
+        };
+        enum ColliderType {
+            BOX, CAPSULE, CONE, CYLINDER, MESH, SPHERE
+        };
+        struct Collider {
+            // type of collision primitive
+            inline static std::string k_type = "type";
+            ColliderType type = ColliderType::BOX;
+            // offset
+            inline static std::string k_offset = "offset";
+            glm::vec3 offset = {0, 0, 0};
+            // (box only) half-extents of the collision box: a 3-dimensional vector: local space half-width, half-height, and half-depth
+            inline static std::string k_halfExtents = "halfExtents";
+            glm::vec3 halfExtents = {1, 1, 1};
+            // (capsule only) aligns the capsule with the local-space X, Y or Z axis of the entity
+            inline static std::string k_axis = "axis";
+            Axis axis = Axis::Y;
+            // (capsule only) tip-to-tip height of the capsule
+            inline static std::string k_height = "height";
+            float height = 1.0f;
+            // (sphere and capsule only) radius of the sphere or capsule body
+            inline static std::string k_radius = "radius";
+            float radius = 1.0f;
+            // (mesh only) model asset that will be used as a source for the triangle-based collision mesh
+            inline static std::string k_assetGUID = "assetGUID";
+            std::string assetGUID = "";
+        };
+        std::vector<Collider> colliders;
+
+        // runtime created collider shape
+        int colliderShapeIndex = -1;
+
+        ~CollisionComponent();
+
+        void updateColliderShape();
+
+        static void deserialize(YAML::Node node, Entity &entity);
+
+        static void serialize(YAML::Emitter &out, Entity &entity);
+    };
+
+    struct RigidBodyComponent : public Component {
+        inline static std::string componentName = "RigidBodyComponent";
+        enum RigidBodyType {
+            STATIC, DYNAMIC, KINEMATIC
+        };
+        // type of rigid body primitive
+        inline static std::string k_type = "type";
+        RigidBodyType type = RigidBodyType::DYNAMIC;
+        // mass of the body in kg
+        inline static std::string k_mass = "mass";
+        float mass = 1.0f;
+        // proportion of linear velocity that is lost by the body every second
+        inline static std::string k_linearDamping = "linearDamping";
+        float linearDamping = 0.0f;
+        // proportion of angular velocity that is lost by the body every second
+        inline static std::string k_angularDamping = "angularDamping";
+        float angularDamping = 0.0f;
+        // multiplier for a body's linear movement in each world axis (can set x or z to 0 to create 2D game)
+        inline static std::string k_linearFactor = "linearFactor";
+        glm::vec3 linearFactor = {1, 1, 1};
+        // multiplier for a body's angular (rotational) movement about each world axis
+        inline static std::string k_angularFactor = "angularFactor";
+        glm::vec3 angularFactor = {1, 1, 1};
+        // controls how quickly a body loses velocity when in contact with other bodies
+        inline static std::string k_friction = "friction";
+        float friction = 0.5f;
+        // a measure of the bounciness of a body between 0 and 1
+        // setting to 1 means a moving body will never come to a stop (unless colliding with other bodies with restitutions below 1, or unless a stop is scripted)
+        inline static std::string k_restitution = "restitution";
+        float restitution = 0.5f;
+
+        // runtime created rigid body
+        int rigidBodyIndex = -1;
+
+        bool shouldBeAddedToWorld = true;
+
+        ~RigidBodyComponent();
+
+        void updateRigidBody(Entity &entity);
+
+        void setLinearVelocity(glm::vec3 newLinearVelocity);
+
+        glm::vec3 getLinearVelocity();
+
+        void setAngularVelocity(glm::vec3 newAngularVelocity);
+
+        glm::vec3 getAngularVelocity();
+
+        void setRotation(glm::quat rot);
+
+        glm::quat getRotation();
+
+        void applyCentralImpulse(glm::vec3 impulseDirection);
+
+        void applyCentralForce(glm::vec3 forceDirection);
+
+        static void deserialize(YAML::Node node, Entity &entity);
+
+        static void serialize(YAML::Emitter &out, Entity &entity);
     };
 }
 

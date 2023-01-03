@@ -75,4 +75,25 @@ namespace Dream::Component {
             entity.addComponent<TransformComponent>(translation, rotation, scale);
         }
     }
+
+    glm::vec3 TransformComponent::getFront() {
+        float x = 2 * (rotation.x * rotation.z + rotation.w * rotation.y);
+        float y = 2 * (rotation.y * rotation.z - rotation.w * rotation.x);
+        float z = 1 - 2 * (rotation.x * rotation.x + rotation.y * rotation.y);
+        return {x, y, z};
+    }
+
+    glm::vec3 TransformComponent::getLeft() {
+        float x = 1 - 2 * (rotation.y * rotation.y + rotation.z * rotation.z);
+        float y = 2 * (rotation.x * rotation.y + rotation.w * rotation.z);
+        float z = 2 * (rotation.x * rotation.z - rotation.w * rotation.y);
+        return {x, y, z};
+    }
+
+    glm::vec3 TransformComponent::getUp() {
+        float x = 2 * (rotation.x * rotation.y - rotation.w * rotation.z);
+        float y = 1 - 2 * (rotation.x * rotation.x + rotation.z * rotation.z);
+        float z = 2 * (rotation.y * rotation.z + rotation.w * rotation.x);
+        return {x, y, z};
+    }
 }

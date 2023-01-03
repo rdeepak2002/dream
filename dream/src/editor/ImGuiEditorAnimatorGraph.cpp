@@ -111,9 +111,13 @@ namespace Dream {
                 if (animationSelectorBrowser->HasSelected()) {
                     std::filesystem::path selectedFilePath = animationSelectorBrowser->GetSelected();
                     std::string newAnimationGUID = IDUtils::getGUIDForFile(selectedFilePath);
+                    std::string animationFilePath = Project::getResourceManager()->getFilePathFromGUID(newAnimationGUID);
+                    std::string shortenedAnimationFilePath = StringUtils::getFilePathRelativeToProjectFolder(
+                            animationFilePath);
                     states.push_back(Component::AnimatorComponent::State{
                             .Guid=newAnimationGUID,
-                            .PlayOnce=true
+                            .PlayOnce=true,
+                            .Name=shortenedAnimationFilePath
                     });
                     animationSelectorBrowser->ClearSelected();
                 }
@@ -132,10 +136,11 @@ namespace Dream {
                 auto outputPinID = std::get<2>(nodeAndPinIDs);
                 // example node
                 ax::NodeEditor::BeginNode(nodeID);
-                std::string animationFilePath = Project::getResourceManager()->getFilePathFromGUID(state.Guid);
-                std::string shortenedAnimationFilePath = StringUtils::getFilePathRelativeToProjectFolder(
-                        animationFilePath);
-                ImGui::Text("%s", shortenedAnimationFilePath.c_str());
+//                std::string animationFilePath = Project::getResourceManager()->getFilePathFromGUID(state.Guid);
+//                std::string shortenedAnimationFilePath = StringUtils::getFilePathRelativeToProjectFolder(
+//                        animationFilePath);
+//                ImGui::Text("%s", shortenedAnimationFilePath.c_str());
+                ImGui::Text("%s", state.Name.c_str());
                 ax::NodeEditor::BeginPin(inputPinID, ax::NodeEditor::PinKind::Input);
                 ImGui::Text("-> To");   // In
                 ax::NodeEditor::EndPin();
@@ -170,7 +175,8 @@ namespace Dream {
                                 Component::AnimatorComponent::Transition newTransition = {
                                         .InputStateID=state1,
                                         .OutputStateID=state2,
-                                        .Conditions=newConditions
+                                        .Conditions=newConditions,
+                                        .Blend=false
                                 };
                                 transitions.push_back(newTransition);
                             }
@@ -255,7 +261,8 @@ namespace Dream {
         for (const YAML::Node &animationNode: statesNode) {
             states.push_back(Component::AnimatorComponent::State{
                     .Guid=animationNode["Guid"].as<std::string>(),
-                    .PlayOnce=animationNode["PlayOnce"].as<bool>()
+                    .PlayOnce=animationNode["PlayOnce"].as<bool>(),
+                    .Name=animationNode["Name"].as<std::string>()
             });
         }
         // deserialize transitions
@@ -275,10 +282,12 @@ namespace Dream {
             }
             auto inputNodeID = transitionNode[Component::AnimatorComponent::k_transition_InputStateID].as<int>();
             auto outputNodeID = transitionNode[Component::AnimatorComponent::k_transition_OutputStateID].as<int>();
+            auto blend = transitionNode["Blend"].as<bool>();
             Component::AnimatorComponent::Transition transition = {
                     .InputStateID=inputNodeID,
                     .OutputStateID=outputNodeID,
-                    .Conditions=conditions
+                    .Conditions=conditions,
+                    .Blend=blend
             };
             transitions.push_back(transition);
         }
@@ -307,6 +316,7 @@ namespace Dream {
             YAML::Node stateNode = YAML::Node(YAML::NodeType::Map);
             stateNode["Guid"] = state.Guid;
             stateNode["PlayOnce"] = state.PlayOnce;
+            stateNode["Name"] = state.Name;
             statesNode.push_back(stateNode);
         }
         out << YAML::Value << statesNode;
@@ -328,6 +338,7 @@ namespace Dream {
                 conditionsNode.push_back(conditionNode);
             }
             transitionNode[Component::AnimatorComponent::k_transition_Conditions] = conditionsNode;
+            transitionNode["Blend"] = transition.Blend;
             transitionsNode.push_back(transitionNode);
         }
         out << YAML::Value << transitionsNode;
@@ -451,8 +462,13 @@ namespace Dream {
                 auto label = "state " + std::to_string(i);
                 if (ImGui::TreeNodeEx(label.c_str(),
                                       ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth)) {
+                    auto cursorPosX3 = ImGui::GetCursorPosX();
+                    auto innerTreeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1) -
+                                              (cursorPosX3 - cursorPosX2);
                     ImGui::Text("Path: %s", StringUtils::getFilePathRelativeToProjectFolder(
                             Project::getResourceManager()->getFilePathFromGUID(states[i].Guid)).c_str());
+                    ImGui::SetNextItemWidth(innerTreeNodeWidth);
+                    ImGui::InputText(("##AnimationName /" + std::to_string(i)).c_str(), &states[i].Name);
                     ImGui::Checkbox(("Play at least once ##PlayOnceCheckBox" + std::to_string(i)).c_str(),
                                     &states[i].PlayOnce);
                     ImGui::TreePop();
@@ -511,6 +527,10 @@ namespace Dream {
                             }
                             ImGui::EndCombo();
                         }
+                    }
+                    {
+                        // enable or disable blending
+                        ImGui::Checkbox(("Blend ##BlendCheckBox" + std::to_string(i)).c_str(), &transition.Blend);
                     }
                     for (int j = 0; j < transition.Conditions.size(); ++j) {
                         Component::AnimatorComponent::Condition &condition = transition.Conditions.at(j);
@@ -590,7 +610,7 @@ namespace Dream {
                     }
                     auto innerTreeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1) -
                                               (cursorPosX3 - cursorPosX2);
-                    if (ImGui::Button("Add", ImVec2(innerTreeNodeWidth, 0))) {
+                    if (ImGui::Button(("Add ##Condition/" + std::to_string(i)).c_str(), ImVec2(innerTreeNodeWidth, 0))) {
                         transition.Conditions.push_back(Component::AnimatorComponent::Condition{
                                 .Variable1Idx = -1,
                                 .Variable1 = 0,
@@ -608,7 +628,8 @@ namespace Dream {
                     transitions.push_back(Component::AnimatorComponent::Transition{
                             .InputStateID=0,
                             .OutputStateID=1,
-                            .Conditions=conditions
+                            .Conditions=conditions,
+                            .Blend=false
                     });
                 }
             }

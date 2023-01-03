@@ -22,7 +22,6 @@
 #include <iostream>
 #include <entt/entt.hpp>
 #include <yaml-cpp/yaml.h>
-#include <btBulletDynamicsCommon.h>
 #include "dream/scene/system/LuaScriptComponentSystem.h"
 #include "dream/scene/system/AnimatorComponentSystem.h"
 #include "dream/scene/system/AudioComponentSystem.h"
@@ -43,6 +42,8 @@ namespace Dream {
 
         void fixedUpdate(float dt);
 
+        void resetComponentSystems();
+
         template<typename... Components>
         auto getEntitiesWithComponents() {
             return entityRegistry.view<Components ...>();
@@ -62,7 +63,11 @@ namespace Dream {
 
         void removeEntity(Entity &entity);
 
+        void clear();
+
         void serialize(YAML::Emitter &out);
+
+        PhysicsComponentSystem* getPhysicsComponentSystem();
 
     private:
         entt::registry entityRegistry;
@@ -73,11 +78,6 @@ namespace Dream {
         AudioComponentSystem *audioComponentSystem;
         AnimatorComponentSystem *animatorComponentSystem;
         LuaScriptComponentSystem *luaScriptComponentSystem;
-        btDefaultCollisionConfiguration *collisionConfiguration;
-        btCollisionDispatcher *dispatcher;
-        btBroadphaseInterface *overlappingPairCache;
-        btSequentialImpulseConstraintSolver *solver;
-        btDiscreteDynamicsWorld *dynamicsWorld;
         bool shouldInitComponentSystems;
     };
 }

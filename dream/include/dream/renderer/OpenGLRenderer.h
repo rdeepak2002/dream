@@ -41,6 +41,7 @@ namespace Dream {
 
     private:
         OpenGLShader *shader;
+        OpenGLShader *physicsDebugShader;
         OpenGLFrameBuffer *frameBuffer;
         OpenGLTexture *texture;
 

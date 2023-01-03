@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.23)
 project(dream)
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_BUILD_TYPE Release)
+#set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+#set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 # use FindLibraries.cmake file to link libraries and include header files for project
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)

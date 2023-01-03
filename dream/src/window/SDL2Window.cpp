@@ -137,6 +137,12 @@ namespace Dream {
                     case SDLK_SPACE:
                         Input::setButtonDown(Key::Space, state);
                         break;
+                    case SDLK_LSHIFT:
+                        Input::setButtonDown(Key::LeftShift, state);
+                        break;
+                    case SDLK_RSHIFT:
+                        Input::setButtonDown(Key::RightShift, state);
+                        break;
                     case SDLK_ESCAPE:
                         Input::setButtonDown(Key::Escape, state);
                         Input::activatePointerLock(false);
@@ -163,6 +169,12 @@ namespace Dream {
                         break;
                     case SDLK_SPACE:
                         Input::setButtonDown(Key::Space, state);
+                        break;
+                    case SDLK_LSHIFT:
+                        Input::setButtonDown(Key::LeftShift, state);
+                        break;
+                    case SDLK_RSHIFT:
+                        Input::setButtonDown(Key::RightShift, state);
                         break;
                     case SDLK_ESCAPE:
                         if (Project::isFullscreen()) {

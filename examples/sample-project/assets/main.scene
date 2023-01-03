@@ -8,20 +8,138 @@ Entities:
     TagComponent:
       tag: root
     HierarchyComponent:
-      first: 5708908D-C74C-4D21-8C02-BD2FB83E51C5
+      first: F363D184-32BB-4241-9FCF-F52B45747EA0
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [7.54979013e-08, 0, 0, 1]
       scale: [1, 1, 1]
+  - Entity: F363D184-32BB-4241-9FCF-F52B45747EA0
+    IDComponent:
+      id: F363D184-32BB-4241-9FCF-F52B45747EA0
+    TagComponent:
+      tag: sponza
+    HierarchyComponent:
+      first: 72B2232B-1508-46F4-9C37-470720A94CC5
+      next: 409BA0FB-F011-4855-A523-9D10840A8536
+      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 72B2232B-1508-46F4-9C37-470720A94CC5
+    IDComponent:
+      id: 72B2232B-1508-46F4-9C37-470720A94CC5
+    TagComponent:
+      tag: colliders
+    HierarchyComponent:
+      first: DE425F54-5DBB-4574-94B0-A147214FE82A
+      next: 5708908D-C74C-4D21-8C02-BD2FB83E51C5
+      parent: F363D184-32BB-4241-9FCF-F52B45747EA0
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: DE425F54-5DBB-4574-94B0-A147214FE82A
+    IDComponent:
+      id: DE425F54-5DBB-4574-94B0-A147214FE82A
+    TagComponent:
+      tag: curtains left
+    HierarchyComponent:
+      next: 8CC04F2E-41C5-446A-9FC1-0BBFF265C44E
+      parent: 72B2232B-1508-46F4-9C37-470720A94CC5
+    TransformComponent:
+      translation: [-0.699999988, 0, 2.29999995]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    CollisionComponent:
+      - type: 0
+        offset: [0, 0, 0]
+        halfExtents: [11.8000002, 3.29999995, 0.600000024]
+        axis: 1
+        height: 1
+        radius: 1
+        assetGUID: ""
+    RigidBodyComponent:
+      type: 0
+      mass: 1
+      linearDamping: 0
+      angularDamping: 0
+      linearFactor: [1, 1, 1]
+      angularFactor: [1, 1, 1]
+      friction: 0.5
+      restitution: 0.5
+  - Entity: 8CC04F2E-41C5-446A-9FC1-0BBFF265C44E
+    IDComponent:
+      id: 8CC04F2E-41C5-446A-9FC1-0BBFF265C44E
+    TagComponent:
+      tag: curtains right
+    HierarchyComponent:
+      prev: DE425F54-5DBB-4574-94B0-A147214FE82A
+      next: CDA1E64C-3FE5-4422-83C2-114B33C8B3A1
+      parent: 72B2232B-1508-46F4-9C37-470720A94CC5
+    TransformComponent:
+      translation: [-0.699999988, 0, -3.20000005]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    CollisionComponent:
+      - type: 0
+        offset: [0, 0, 0]
+        halfExtents: [11.8000002, 3.29999995, 0.600000024]
+        axis: 1
+        height: 1
+        radius: 1
+        assetGUID: ""
+    RigidBodyComponent:
+      type: 0
+      mass: 1
+      linearDamping: 0
+      angularDamping: 0
+      linearFactor: [1, 1, 1]
+      angularFactor: [1, 1, 1]
+      friction: 0.5
+      restitution: 0.5
+  - Entity: CDA1E64C-3FE5-4422-83C2-114B33C8B3A1
+    IDComponent:
+      id: CDA1E64C-3FE5-4422-83C2-114B33C8B3A1
+    TagComponent:
+      tag: floor
+    HierarchyComponent:
+      prev: 8CC04F2E-41C5-446A-9FC1-0BBFF265C44E
+      parent: 72B2232B-1508-46F4-9C37-470720A94CC5
+    TransformComponent:
+      translation: [0, -1.03999996, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [38, 2, 15]
+    MeshComponent:
+      meshType: 1
+      guid: ""
+      fileId: ""
+    CollisionComponent:
+      - type: 0
+        offset: [0, 0, 0]
+        halfExtents: [19, 1, 7.5]
+        axis: 1
+        height: 1
+        radius: 1
+        assetGUID: ""
+    RigidBodyComponent:
+      type: 0
+      mass: 0
+      linearDamping: 0
+      angularDamping: 0
+      linearFactor: [1, 1, 1]
+      angularFactor: [1, 1, 1]
+      friction: 0.5
+      restitution: 0.5
   - Entity: 5708908D-C74C-4D21-8C02-BD2FB83E51C5
     IDComponent:
       id: 5708908D-C74C-4D21-8C02-BD2FB83E51C5
     TagComponent:
-      tag: sponza
+      tag: mesh
     HierarchyComponent:
       first: 4EAB2ABD-E72A-4AA6-9947-67C85AC76779
-      next: A4CB98FE-C1E7-4283-BD89-8383D6CCAACF
-      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
+      prev: 72B2232B-1508-46F4-9C37-470720A94CC5
+      parent: F363D184-32BB-4241-9FCF-F52B45747EA0
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
@@ -3463,464 +3581,566 @@ Entities:
       guid: C97A058C-6B47-43C1-B15A-D8A574029A76
       isEmbedded: false
       diffuseColor: [0.588, 0.588, 0.588, 1]
-  - Entity: A4CB98FE-C1E7-4283-BD89-8383D6CCAACF
+  - Entity: 409BA0FB-F011-4855-A523-9D10840A8536
     IDComponent:
-      id: A4CB98FE-C1E7-4283-BD89-8383D6CCAACF
+      id: 409BA0FB-F011-4855-A523-9D10840A8536
     TagComponent:
-      tag: camera
+      tag: cube
     HierarchyComponent:
-      prev: 5708908D-C74C-4D21-8C02-BD2FB83E51C5
-      next: 76054F4D-FA3A-434B-9C99-317289B4CA70
+      prev: F363D184-32BB-4241-9FCF-F52B45747EA0
+      next: 4E822489-5C04-46F3-B231-E9B3EC2BB11C
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [0.753137648, 1.50198424, -2.84021592]
-      rotation: [-0.0837924033, -0.988066792, -0.0109208683, 0.128777146]
+      translation: [0.39749828, 0.459999979, -0.490999997]
+      rotation: [0.901293516, 1.6674603e-08, -0.433209002, 3.89360508e-08]
       scale: [1, 1, 1]
-    LuaScriptComponent:
-      guid: D2D845B2-2043-44FB-AA8C-9B2CBFE8AD85
-    CameraComponent:
-      fov: 45
-      zNear: 0.100000001
-      zFar: 100
-      lookAt: [0, -1, 0]
-      front: [0.252650648, 0.168397695, 0.952790558]
-      up: [0.0431621857, -0.985719204, 0.162772268]
-      right: [0.966594338, 0, -0.256310999]
-  - Entity: 76054F4D-FA3A-434B-9C99-317289B4CA70
+    MeshComponent:
+      meshType: 1
+      guid: ""
+      fileId: ""
+    CollisionComponent:
+      - type: 0
+        offset: [0, 0, 0]
+        halfExtents: [0.5, 0.5, 0.5]
+        axis: 1
+        height: 1
+        radius: 1
+        assetGUID: ""
+    RigidBodyComponent:
+      type: 1
+      mass: 1
+      linearDamping: 0
+      angularDamping: 0
+      linearFactor: [1, 1, 1]
+      angularFactor: [1, 1, 1]
+      friction: 0.5
+      restitution: 0.5
+  - Entity: 4E822489-5C04-46F3-B231-E9B3EC2BB11C
     IDComponent:
-      id: 76054F4D-FA3A-434B-9C99-317289B4CA70
+      id: 4E822489-5C04-46F3-B231-E9B3EC2BB11C
+    TagComponent:
+      tag: sphere
+    HierarchyComponent:
+      prev: 409BA0FB-F011-4855-A523-9D10840A8536
+      next: 6ECAC6C4-B137-4E8E-8B12-C33BD82E6DF4
+      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
+    TransformComponent:
+      translation: [0.809000015, 1.86000001, 0.195999995]
+      rotation: [-0.23366648, -0.243780583, 0.797689915, -0.499661595]
+      scale: [0.5, 0.5, 0.5]
+    MeshComponent:
+      meshType: 0
+      guid: ""
+      fileId: ""
+    CollisionComponent:
+      - type: 5
+        offset: [0, 0, 0]
+        halfExtents: [1, 1, 1]
+        axis: 1
+        height: 1
+        radius: 0.5
+        assetGUID: ""
+    RigidBodyComponent:
+      type: 1
+      mass: 1
+      linearDamping: 0
+      angularDamping: 0
+      linearFactor: [1, 1, 1]
+      angularFactor: [1, 1, 1]
+      friction: 0.5
+      restitution: 0.5
+  - Entity: 6ECAC6C4-B137-4E8E-8B12-C33BD82E6DF4
+    IDComponent:
+      id: 6ECAC6C4-B137-4E8E-8B12-C33BD82E6DF4
     TagComponent:
       tag: knight
     HierarchyComponent:
-      first: 99C14584-5EA3-4A41-AFF5-2D8B05515704
-      prev: A4CB98FE-C1E7-4283-BD89-8383D6CCAACF
-      next: 79EAEF8C-93C0-40F5-BCE7-6CFF909B408F
+      first: A79C85FE-B6E4-4726-853F-75546576D28B
+      prev: 4E822489-5C04-46F3-B231-E9B3EC2BB11C
+      next: A4CB98FE-C1E7-4283-BD89-8383D6CCAACF
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [0.939372718, 0, -0.342897803, 0]
+      translation: [6.94999743, -0.0400000624, -0.407252163]
+      rotation: [0.746818602, 3.77013835e-17, 0.665027797, 3.77015424e-17]
       scale: [0.00999999978, 0.00999999978, 0.00999999978]
     MeshComponent:
       meshType: 2
-      guid: F5D080D2-8FF5-4C33-BFA4-B640FEEAD5CA
+      guid: BC7E1C50-1C54-42B7-8746-FF1545BDFF32
       fileId: ""
     LuaScriptComponent:
       guid: 1549C8E8-BAB9-43AE-B427-FBE23B4C715B
     AnimatorComponent:
       guid: EA342F2C-8329-4A68-B8A9-A77B9984E71A
-  - Entity: 99C14584-5EA3-4A41-AFF5-2D8B05515704
+    CollisionComponent:
+      - type: 1
+        offset: [0, 0.75, 0]
+        halfExtents: [1, 1, 1]
+        axis: 1
+        height: 0.899999976
+        radius: 0.300000012
+        assetGUID: ""
+    RigidBodyComponent:
+      type: 1
+      mass: 1
+      linearDamping: 0
+      angularDamping: 0
+      linearFactor: [1, 1, 1]
+      angularFactor: [0, 0, 0]
+      friction: 1
+      restitution: 0
+  - Entity: A79C85FE-B6E4-4726-853F-75546576D28B
     IDComponent:
-      id: 99C14584-5EA3-4A41-AFF5-2D8B05515704
-    TagComponent:
-      tag: helmet
-    HierarchyComponent:
-      first: 47E0CDB6-47FD-42CE-9AC2-4CAD679F7147
-      next: 98D21BF1-02E3-43A3-9D93-2776CC820CEE
-      parent: 76054F4D-FA3A-434B-9C99-317289B4CA70
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-  - Entity: 47E0CDB6-47FD-42CE-9AC2-4CAD679F7147
-    IDComponent:
-      id: 47E0CDB6-47FD-42CE-9AC2-4CAD679F7147
-    TagComponent:
-      tag: Paladin_J_Nordstrom-lib
-    HierarchyComponent:
-      parent: 99C14584-5EA3-4A41-AFF5-2D8B05515704
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: F5D080D2-8FF5-4C33-BFA4-B640FEEAD5CA
-      fileId: 98f13708210194c475687be6106a3b84
-    MaterialComponent:
-      guid: 68334E81-55B3-40BE-83AC-D785356C342D
-      isEmbedded: false
-      diffuseColor: [1, 1, 1, 1]
-  - Entity: 98D21BF1-02E3-43A3-9D93-2776CC820CEE
-    IDComponent:
-      id: 98D21BF1-02E3-43A3-9D93-2776CC820CEE
+      id: A79C85FE-B6E4-4726-853F-75546576D28B
     TagComponent:
       tag: body
     HierarchyComponent:
-      first: E33F5648-9A50-424A-B822-101A7BEB240B
-      prev: 99C14584-5EA3-4A41-AFF5-2D8B05515704
-      next: 8C1F72C4-B456-4BA8-B9DA-A09CE84BAAF1
-      parent: 76054F4D-FA3A-434B-9C99-317289B4CA70
+      first: 14743274-55D6-4B5C-9B3D-006FACF8664A
+      next: 111265F2-37A1-49E7-ACCC-9C7DB7D0A210
+      parent: 6ECAC6C4-B137-4E8E-8B12-C33BD82E6DF4
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: E33F5648-9A50-424A-B822-101A7BEB240B
+  - Entity: 14743274-55D6-4B5C-9B3D-006FACF8664A
     IDComponent:
-      id: E33F5648-9A50-424A-B822-101A7BEB240B
+      id: 14743274-55D6-4B5C-9B3D-006FACF8664A
     TagComponent:
-      tag: Paladin_J_Nordstrom_Helmet-lib
+      tag: mesh
     HierarchyComponent:
-      parent: 98D21BF1-02E3-43A3-9D93-2776CC820CEE
+      parent: A79C85FE-B6E4-4726-853F-75546576D28B
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
     MeshComponent:
       meshType: 2
-      guid: F5D080D2-8FF5-4C33-BFA4-B640FEEAD5CA
+      guid: BC7E1C50-1C54-42B7-8746-FF1545BDFF32
+      fileId: 98f13708210194c475687be6106a3b84
+    MaterialComponent:
+      guid: 4665b3faab069107e67cf5d5eaffc3c1
+      isEmbedded: true
+      diffuseColor: [1, 1, 1, 1]
+  - Entity: 111265F2-37A1-49E7-ACCC-9C7DB7D0A210
+    IDComponent:
+      id: 111265F2-37A1-49E7-ACCC-9C7DB7D0A210
+    TagComponent:
+      tag: helmet
+    HierarchyComponent:
+      first: BDE88A68-D98F-4FB5-9AF0-25516DED448D
+      prev: A79C85FE-B6E4-4726-853F-75546576D28B
+      next: 1DA8A2F4-B34C-488D-B7F5-157E29B1DE0D
+      parent: 6ECAC6C4-B137-4E8E-8B12-C33BD82E6DF4
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: BDE88A68-D98F-4FB5-9AF0-25516DED448D
+    IDComponent:
+      id: BDE88A68-D98F-4FB5-9AF0-25516DED448D
+    TagComponent:
+      tag: mesh
+    HierarchyComponent:
+      parent: 111265F2-37A1-49E7-ACCC-9C7DB7D0A210
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: BC7E1C50-1C54-42B7-8746-FF1545BDFF32
       fileId: d3d9446802a44259755d38e6d163e820
     MaterialComponent:
-      guid: 68334E81-55B3-40BE-83AC-D785356C342D
-      isEmbedded: false
+      guid: 4665b3faab069107e67cf5d5eaffc3c1
+      isEmbedded: true
       diffuseColor: [1, 1, 1, 1]
-  - Entity: 8C1F72C4-B456-4BA8-B9DA-A09CE84BAAF1
+  - Entity: 1DA8A2F4-B34C-488D-B7F5-157E29B1DE0D
     IDComponent:
-      id: 8C1F72C4-B456-4BA8-B9DA-A09CE84BAAF1
+      id: 1DA8A2F4-B34C-488D-B7F5-157E29B1DE0D
     TagComponent:
-      tag: hips
+      tag: armature
     HierarchyComponent:
-      first: 36909559-A16B-4AF4-B54D-EC4A9D63A922
-      prev: 98D21BF1-02E3-43A3-9D93-2776CC820CEE
-      parent: 76054F4D-FA3A-434B-9C99-317289B4CA70
+      first: CDB91771-AC13-46E4-B150-0C4D4CDF4825
+      prev: 111265F2-37A1-49E7-ACCC-9C7DB7D0A210
+      parent: 6ECAC6C4-B137-4E8E-8B12-C33BD82E6DF4
     TransformComponent:
-      translation: [0.180974528, 94.6592941, 0.42176196]
-      rotation: [0.997939408, -0.0320963375, -0.0483940169, -0.0272891894]
-      scale: [1, 1, 0.99999994]
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: CDB91771-AC13-46E4-B150-0C4D4CDF4825
+    IDComponent:
+      id: CDB91771-AC13-46E4-B150-0C4D4CDF4825
+    TagComponent:
+      tag: mixamorig:Hips
+    HierarchyComponent:
+      first: 5DC0C3B1-31C8-45BF-BE46-4333D5CB487F
+      parent: 1DA8A2F4-B34C-488D-B7F5-157E29B1DE0D
+    TransformComponent:
+      translation: [0.0200461317, 80.6511993, -0.0346193649]
+      rotation: [0.886595547, 0.0741503611, -0.455574095, 0.0300399289]
+      scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 0
-  - Entity: 36909559-A16B-4AF4-B54D-EC4A9D63A922
+  - Entity: 5DC0C3B1-31C8-45BF-BE46-4333D5CB487F
     IDComponent:
-      id: 36909559-A16B-4AF4-B54D-EC4A9D63A922
+      id: 5DC0C3B1-31C8-45BF-BE46-4333D5CB487F
     TagComponent:
-      tag: right let
+      tag: mixamorig:RightUpLeg
     HierarchyComponent:
-      first: 75EBCC23-2700-4B73-A595-5EBC55B48BE9
-      next: 180DC7FB-CA2A-4C44-8A57-2320FFC3CFC6
-      parent: 8C1F72C4-B456-4BA8-B9DA-A09CE84BAAF1
+      first: E817067C-933B-4DA1-BCCD-7D7618D10AD1
+      next: 63C29501-327E-45AD-8CC1-38B74D8A0987
+      parent: CDB91771-AC13-46E4-B150-0C4D4CDF4825
     TransformComponent:
-      translation: [-9.85770035, -5.87589979, -0.583700001]
-      rotation: [-0.0246550143, -0.0911718607, -0.00757130608, 0.995501101]
-      scale: [1.00000024, 1.00000012, 1]
+      translation: [-9.85770035, -5.8758955, -0.583700657]
+      rotation: [0.244301647, -0.247200862, 0.219754025, 0.91154629]
+      scale: [0.999999762, 0.999999702, 0.99999994]
     BoneComponent:
-      boneID: 50
-  - Entity: 75EBCC23-2700-4B73-A595-5EBC55B48BE9
+      boneID: 62
+  - Entity: E817067C-933B-4DA1-BCCD-7D7618D10AD1
     IDComponent:
-      id: 75EBCC23-2700-4B73-A595-5EBC55B48BE9
+      id: E817067C-933B-4DA1-BCCD-7D7618D10AD1
     TagComponent:
-      tag: mixamorig_RightLeg
+      tag: mixamorig:RightLeg
     HierarchyComponent:
-      first: 4272EF37-6FE9-4C66-ACD0-EB9EF3AB3200
-      parent: 36909559-A16B-4AF4-B54D-EC4A9D63A922
+      first: 7FCC4966-B054-48F4-A806-6186C0EB8063
+      parent: 5DC0C3B1-31C8-45BF-BE46-4333D5CB487F
     TransformComponent:
-      translation: [0, 41.7019997, 0]
-      rotation: [0.990364611, -0.105857477, 0.0839537084, -0.030396834]
-      scale: [1, 0.99999994, 0.99999994]
+      translation: [1.84146256e-06, 41.7019997, 1.19020179e-07]
+      rotation: [0.921483397, -0.38566491, -0.00807823334, -0.0454488844]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
-      boneID: 51
-  - Entity: 4272EF37-6FE9-4C66-ACD0-EB9EF3AB3200
+      boneID: 63
+  - Entity: 7FCC4966-B054-48F4-A806-6186C0EB8063
     IDComponent:
-      id: 4272EF37-6FE9-4C66-ACD0-EB9EF3AB3200
+      id: 7FCC4966-B054-48F4-A806-6186C0EB8063
     TagComponent:
-      tag: mixamorig_RightFoot
+      tag: mixamorig:RightFoot
     HierarchyComponent:
-      first: 7C17B757-5749-4A9B-8942-94F5AFD9D856
-      parent: 75EBCC23-2700-4B73-A595-5EBC55B48BE9
+      first: F0A6B0B5-7DB5-481E-9DB6-0C52B9B9FB29
+      parent: E817067C-933B-4DA1-BCCD-7D7618D10AD1
     TransformComponent:
-      translation: [0, 36.980999, 0]
-      rotation: [0.877872705, 0.476171046, -0.00108826079, 0.0509857461]
-      scale: [1, 0.999999821, 0.999999821]
-    BoneComponent:
-      boneID: 52
-  - Entity: 7C17B757-5749-4A9B-8942-94F5AFD9D856
-    IDComponent:
-      id: 7C17B757-5749-4A9B-8942-94F5AFD9D856
-    TagComponent:
-      tag: mixamorig_RightToeBase
-    HierarchyComponent:
-      first: CD53CB64-D2B2-453D-8EFB-3246E7B0208B
-      parent: 4272EF37-6FE9-4C66-ACD0-EB9EF3AB3200
-    TransformComponent:
-      translation: [0, 16.7000008, 0]
-      rotation: [0.910418391, 0.413123816, -0.0208339598, -0.00575173972]
+      translation: [-3.2739099e-06, 36.9810028, -1.87409967e-07]
+      rotation: [0.798382819, 0.530569434, 0.0878868476, 0.270844698]
       scale: [1, 1, 1]
     BoneComponent:
-      boneID: 53
-  - Entity: CD53CB64-D2B2-453D-8EFB-3246E7B0208B
+      boneID: 64
+  - Entity: F0A6B0B5-7DB5-481E-9DB6-0C52B9B9FB29
     IDComponent:
-      id: CD53CB64-D2B2-453D-8EFB-3246E7B0208B
+      id: F0A6B0B5-7DB5-481E-9DB6-0C52B9B9FB29
     TagComponent:
-      tag: mixamorig_RightToe_End
+      tag: mixamorig:RightToeBase
     HierarchyComponent:
-      parent: 7C17B757-5749-4A9B-8942-94F5AFD9D856
+      first: A7CBE5E5-B0D4-4D46-9EE9-2ADF15608C3D
+      parent: 7FCC4966-B054-48F4-A806-6186C0EB8063
+    TransformComponent:
+      translation: [-2.30696998e-07, 16.7000046, -1.5406406e-06]
+      rotation: [0.929919541, 0.366714031, -0.0275110733, -0.00369490613]
+      scale: [1, 0.99999994, 0.99999994]
+    BoneComponent:
+      boneID: 65
+  - Entity: A7CBE5E5-B0D4-4D46-9EE9-2ADF15608C3D
+    IDComponent:
+      id: A7CBE5E5-B0D4-4D46-9EE9-2ADF15608C3D
+    TagComponent:
+      tag: mixamorig:RightToe_End
+    HierarchyComponent:
+      first: 64CD781A-0AB6-44A7-821A-37D70610B12A
+      parent: F0A6B0B5-7DB5-481E-9DB6-0C52B9B9FB29
+    TransformComponent:
+      translation: [2.50551966e-06, 7.11999798, -4.25071534e-09]
+      rotation: [1, 3.35757799e-09, -3.31360539e-08, 3.5286007e-08]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 66
+  - Entity: 64CD781A-0AB6-44A7-821A-37D70610B12A
+    IDComponent:
+      id: 64CD781A-0AB6-44A7-821A-37D70610B12A
+    TagComponent:
+      tag: mixamorig:RightToe_End_end
+    HierarchyComponent:
+      parent: A7CBE5E5-B0D4-4D46-9EE9-2ADF15608C3D
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: 180DC7FB-CA2A-4C44-8A57-2320FFC3CFC6
+  - Entity: 63C29501-327E-45AD-8CC1-38B74D8A0987
     IDComponent:
-      id: 180DC7FB-CA2A-4C44-8A57-2320FFC3CFC6
+      id: 63C29501-327E-45AD-8CC1-38B74D8A0987
     TagComponent:
-      tag: left leg
+      tag: mixamorig:LeftUpLeg
     HierarchyComponent:
-      first: 77D68FB3-F912-4897-8904-D03815216B8D
-      prev: 36909559-A16B-4AF4-B54D-EC4A9D63A922
-      next: DC82E754-DA18-4D27-98BB-F45182CC2CA5
-      parent: 8C1F72C4-B456-4BA8-B9DA-A09CE84BAAF1
+      first: D0DAAD92-97ED-47B1-A032-4E6CA4BA2525
+      prev: 5DC0C3B1-31C8-45BF-BE46-4333D5CB487F
+      next: 072672C9-C771-4D91-9C5D-1BD9147308A0
+      parent: CDB91771-AC13-46E4-B150-0C4D4CDF4825
     TransformComponent:
-      translation: [9.78909969, -5.87589979, -0.583700001]
-      rotation: [-0.0777524859, 0.135320336, 0.0827280432, 0.984275877]
-      scale: [1.00000036, 1.00000048, 1]
-    BoneComponent:
-      boneID: 46
-  - Entity: 77D68FB3-F912-4897-8904-D03815216B8D
-    IDComponent:
-      id: 77D68FB3-F912-4897-8904-D03815216B8D
-    TagComponent:
-      tag: mixamorig_LeftLeg
-    HierarchyComponent:
-      first: 80DB8D9D-E013-4589-87FD-4B9FA8AFA6B8
-      parent: 180DC7FB-CA2A-4C44-8A57-2320FFC3CFC6
-    TransformComponent:
-      translation: [0, 41.7019997, 0]
-      rotation: [0.986673594, -0.157371446, -0.0160719939, 0.038094759]
-      scale: [1, 0.99999994, 0.99999994]
-    BoneComponent:
-      boneID: 47
-  - Entity: 80DB8D9D-E013-4589-87FD-4B9FA8AFA6B8
-    IDComponent:
-      id: 80DB8D9D-E013-4589-87FD-4B9FA8AFA6B8
-    TagComponent:
-      tag: mixamorig_LeftFoot
-    HierarchyComponent:
-      first: 7228EBD6-CA59-4288-BC42-E798FF70036B
-      parent: 77D68FB3-F912-4897-8904-D03815216B8D
-    TransformComponent:
-      translation: [0, 36.980999, 0]
-      rotation: [0.893348157, 0.440608442, -0.00797839928, -0.0879185274]
-      scale: [0.99999994, 0.999999881, 0.999999821]
-    BoneComponent:
-      boneID: 48
-  - Entity: 7228EBD6-CA59-4288-BC42-E798FF70036B
-    IDComponent:
-      id: 7228EBD6-CA59-4288-BC42-E798FF70036B
-    TagComponent:
-      tag: mixamorig_LeftToeBase
-    HierarchyComponent:
-      first: 22A86534-617C-41C1-8A98-F096F98ED528
-      parent: 80DB8D9D-E013-4589-87FD-4B9FA8AFA6B8
-    TransformComponent:
-      translation: [0, 16.7000008, 0]
-      rotation: [0.918192983, 0.395607144, 0.0196145102, 0.00564615708]
+      translation: [9.78909969, -5.87589836, -0.583699763]
+      rotation: [-0.185279474, 0.369089305, 0.427906007, 0.803953409]
       scale: [1, 1, 1]
     BoneComponent:
-      boneID: 49
-  - Entity: 22A86534-617C-41C1-8A98-F096F98ED528
+      boneID: 57
+  - Entity: D0DAAD92-97ED-47B1-A032-4E6CA4BA2525
     IDComponent:
-      id: 22A86534-617C-41C1-8A98-F096F98ED528
+      id: D0DAAD92-97ED-47B1-A032-4E6CA4BA2525
     TagComponent:
-      tag: mixamorig_LeftToe_End
+      tag: mixamorig:LeftLeg
     HierarchyComponent:
-      parent: 7228EBD6-CA59-4288-BC42-E798FF70036B
+      first: C08B7346-9ABC-4E6C-9102-F7DD9324E883
+      parent: 63C29501-327E-45AD-8CC1-38B74D8A0987
     TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-  - Entity: DC82E754-DA18-4D27-98BB-F45182CC2CA5
-    IDComponent:
-      id: DC82E754-DA18-4D27-98BB-F45182CC2CA5
-    TagComponent:
-      tag: spine
-    HierarchyComponent:
-      first: 89397638-49A8-4C6A-9240-AD82E5CD969F
-      prev: 180DC7FB-CA2A-4C44-8A57-2320FFC3CFC6
-      parent: 8C1F72C4-B456-4BA8-B9DA-A09CE84BAAF1
-    TransformComponent:
-      translation: [0.0172999986, 10.5748005, -1.11720002]
-      rotation: [0.999427438, -0.0210532397, 0.012436986, 0.0233856272]
+      translation: [2.55043062e-08, 41.7020035, 5.04750517e-07]
+      rotation: [0.902153015, -0.410200983, 0.13325344, -0.00992788281]
       scale: [0.99999994, 1, 1]
     BoneComponent:
-      boneID: 1
-  - Entity: 89397638-49A8-4C6A-9240-AD82E5CD969F
+      boneID: 58
+  - Entity: C08B7346-9ABC-4E6C-9102-F7DD9324E883
     IDComponent:
-      id: 89397638-49A8-4C6A-9240-AD82E5CD969F
+      id: C08B7346-9ABC-4E6C-9102-F7DD9324E883
     TagComponent:
-      tag: spine segment 1
+      tag: mixamorig:LeftFoot
     HierarchyComponent:
-      first: 44E17DD6-B0F9-4F7A-A245-C55C55B925D7
-      parent: DC82E754-DA18-4D27-98BB-F45182CC2CA5
+      first: 50DE9679-9CF6-4AD8-A299-C9F37D034224
+      parent: D0DAAD92-97ED-47B1-A032-4E6CA4BA2525
     TransformComponent:
-      translation: [0, 12.4059992, 0]
-      rotation: [0.999836743, 0.0108484551, 0.00173666107, 0.0143447435]
-      scale: [1, 0.99999994, 1]
+      translation: [-4.68335713e-07, 36.9810028, -2.13112617e-06]
+      rotation: [0.899186313, 0.423056275, -0.0159521699, -0.110602349]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 59
+  - Entity: 50DE9679-9CF6-4AD8-A299-C9F37D034224
+    IDComponent:
+      id: 50DE9679-9CF6-4AD8-A299-C9F37D034224
+    TagComponent:
+      tag: mixamorig:LeftToeBase
+    HierarchyComponent:
+      first: 2E943DA5-46AA-4E78-BAE8-E638A490305A
+      parent: C08B7346-9ABC-4E6C-9102-F7DD9324E883
+    TransformComponent:
+      translation: [7.35469996e-07, 16.7000008, 3.30968624e-06]
+      rotation: [0.924188793, 0.376714855, 0.0617138743, -0.0123459073]
+      scale: [0.99999994, 0.99999994, 1]
+    BoneComponent:
+      boneID: 60
+  - Entity: 2E943DA5-46AA-4E78-BAE8-E638A490305A
+    IDComponent:
+      id: 2E943DA5-46AA-4E78-BAE8-E638A490305A
+    TagComponent:
+      tag: mixamorig:LeftToe_End
+    HierarchyComponent:
+      first: 48015B28-BD9F-4790-AE4A-2AB541830094
+      parent: 50DE9679-9CF6-4AD8-A299-C9F37D034224
+    TransformComponent:
+      translation: [-1.37775987e-06, 7.12000322, -4.10856444e-07]
+      rotation: [1, -3.25962901e-09, -3.59245522e-09, 1.54697268e-08]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 61
+  - Entity: 48015B28-BD9F-4790-AE4A-2AB541830094
+    IDComponent:
+      id: 48015B28-BD9F-4790-AE4A-2AB541830094
+    TagComponent:
+      tag: mixamorig:LeftToe_End_end
+    HierarchyComponent:
+      parent: 2E943DA5-46AA-4E78-BAE8-E638A490305A
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 072672C9-C771-4D91-9C5D-1BD9147308A0
+    IDComponent:
+      id: 072672C9-C771-4D91-9C5D-1BD9147308A0
+    TagComponent:
+      tag: mixamorig:Spine
+    HierarchyComponent:
+      first: 6931612F-485F-424E-8A08-F0B8B1A06CB4
+      prev: 63C29501-327E-45AD-8CC1-38B74D8A0987
+      parent: CDB91771-AC13-46E4-B150-0C4D4CDF4825
+    TransformComponent:
+      translation: [0.0173001476, 10.5748024, -1.11720037]
+      rotation: [0.999037266, 0.0116728777, 0.0344784297, -0.0244840868]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 1
+  - Entity: 6931612F-485F-424E-8A08-F0B8B1A06CB4
+    IDComponent:
+      id: 6931612F-485F-424E-8A08-F0B8B1A06CB4
+    TagComponent:
+      tag: mixamorig:Spine1
+    HierarchyComponent:
+      first: D8D0A6BA-1BF9-4B77-951F-F83260CD075B
+      parent: 072672C9-C771-4D91-9C5D-1BD9147308A0
+    TransformComponent:
+      translation: [-6.3874279e-07, 12.4060059, -2.34167857e-07]
+      rotation: [0.999685287, 0.00844481029, 0.0100168427, 0.0213946924]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 2
-  - Entity: 44E17DD6-B0F9-4F7A-A245-C55C55B925D7
+  - Entity: D8D0A6BA-1BF9-4B77-951F-F83260CD075B
     IDComponent:
-      id: 44E17DD6-B0F9-4F7A-A245-C55C55B925D7
+      id: D8D0A6BA-1BF9-4B77-951F-F83260CD075B
     TagComponent:
-      tag: spine segment 2
+      tag: mixamorig:Spine2
     HierarchyComponent:
-      first: BA73E54D-5707-4AAF-9316-BCF69D1AE206
-      parent: 89397638-49A8-4C6A-9240-AD82E5CD969F
+      first: 3D23A510-F9A0-40C3-8E84-DBF43CF6190D
+      parent: 6931612F-485F-424E-8A08-F0B8B1A06CB4
     TransformComponent:
-      translation: [0, 14.1782999, 0]
-      rotation: [0.997883379, 0.0632082745, 0.00273436005, 0.0150320446]
-      scale: [1, 0.99999994, 1]
+      translation: [1.0468716e-06, 14.1783037, 2.4525757e-06]
+      rotation: [0.998525321, 0.0521791577, 0.0108500225, 0.0103322798]
+      scale: [1, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 3
-  - Entity: BA73E54D-5707-4AAF-9316-BCF69D1AE206
+  - Entity: 3D23A510-F9A0-40C3-8E84-DBF43CF6190D
     IDComponent:
-      id: BA73E54D-5707-4AAF-9316-BCF69D1AE206
+      id: 3D23A510-F9A0-40C3-8E84-DBF43CF6190D
     TagComponent:
-      tag: right shoulder
+      tag: mixamorig:RightShoulder
     HierarchyComponent:
-      first: 01999FE5-7D32-4865-BF17-1C4BE1D48158
-      next: 3A6399AB-A1B9-4CCE-8944-19B255CEE40C
-      parent: 44E17DD6-B0F9-4F7A-A245-C55C55B925D7
+      first: C645FB1F-7B35-44B7-A20C-64D844C5C324
+      next: 9079CBB4-4500-4F96-BC99-7D1599D25FE9
+      parent: D8D0A6BA-1BF9-4B77-951F-F83260CD075B
     TransformComponent:
-      translation: [-5.93499994, 13.6705999, -1.66260004]
-      rotation: [0.448834479, 0.659137249, -0.349336714, 0.491985321]
-      scale: [1.00000012, 1.00000036, 1.00000024]
+      translation: [-5.93499804, 13.6705847, -1.66259336]
+      rotation: [0.400009692, 0.417109191, -0.490639895, 0.652138591]
+      scale: [0.999999762, 0.999999821, 0.999999821]
     BoneComponent:
-      boneID: 27
-  - Entity: 01999FE5-7D32-4865-BF17-1C4BE1D48158
+      boneID: 33
+  - Entity: C645FB1F-7B35-44B7-A20C-64D844C5C324
     IDComponent:
-      id: 01999FE5-7D32-4865-BF17-1C4BE1D48158
+      id: C645FB1F-7B35-44B7-A20C-64D844C5C324
     TagComponent:
-      tag: right arm
+      tag: mixamorig:RightArm
     HierarchyComponent:
-      first: 0A9C98E4-6248-4031-8A17-EEDE27DC3E34
-      parent: BA73E54D-5707-4AAF-9316-BCF69D1AE206
+      first: 3255E204-A74C-4282-8355-53BD759E5874
+      parent: 3D23A510-F9A0-40C3-8E84-DBF43CF6190D
     TransformComponent:
-      translation: [0, 12.6078997, 0]
-      rotation: [0.884371221, 0.387751192, -0.207172036, -0.156895891]
+      translation: [9.96181484e-07, 12.6078987, 8.22185712e-07]
+      rotation: [0.918813467, 0.393545866, -0.0271898061, -0.0128131891]
+      scale: [1, 0.99999994, 0.99999994]
+    BoneComponent:
+      boneID: 34
+  - Entity: 3255E204-A74C-4282-8355-53BD759E5874
+    IDComponent:
+      id: 3255E204-A74C-4282-8355-53BD759E5874
+    TagComponent:
+      tag: mixamorig:RightForeArm
+    HierarchyComponent:
+      first: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
+      parent: C645FB1F-7B35-44B7-A20C-64D844C5C324
+    TransformComponent:
+      translation: [-3.4005744e-08, 25.5743065, 6.18263675e-06]
+      rotation: [0.801579893, 0.0289510265, 0.0230665747, -0.596740723]
       scale: [1, 1, 1]
     BoneComponent:
-      boneID: 28
-  - Entity: 0A9C98E4-6248-4031-8A17-EEDE27DC3E34
+      boneID: 35
+  - Entity: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
     IDComponent:
-      id: 0A9C98E4-6248-4031-8A17-EEDE27DC3E34
+      id: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
     TagComponent:
-      tag: right forearm
+      tag: mixamorig:RightHand
     HierarchyComponent:
-      first: 2226F877-71B2-4ACE-8B0D-A8AD83D4C880
-      parent: 01999FE5-7D32-4865-BF17-1C4BE1D48158
+      first: 74FE14A2-B539-4DD7-83E4-E4F19F454564
+      parent: 3255E204-A74C-4282-8355-53BD759E5874
     TransformComponent:
-      translation: [0, 25.5743008, 0]
-      rotation: [0.998345196, 1.10777876e-08, 0.00899599679, -0.0567977205]
-      scale: [1, 1, 1]
+      translation: [-1.09000002e-05, 21.6034088, -9.23069092e-06]
+      rotation: [0.967897713, 0.0962051079, 0.00122403819, -0.232200474]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
-      boneID: 29
-  - Entity: 2226F877-71B2-4ACE-8B0D-A8AD83D4C880
+      boneID: 36
+  - Entity: 74FE14A2-B539-4DD7-83E4-E4F19F454564
     IDComponent:
-      id: 2226F877-71B2-4ACE-8B0D-A8AD83D4C880
-    TagComponent:
-      tag: right hand
-    HierarchyComponent:
-      first: AC752B1B-0EC6-43DB-9E47-FCE66E00F897
-      parent: 0A9C98E4-6248-4031-8A17-EEDE27DC3E34
-    TransformComponent:
-      translation: [0, 21.6033993, 0]
-      rotation: [0.983608663, 0.0535696186, 0.17146185, 0.0156568512]
-      scale: [0.99999994, 0.99999994, 0.99999994]
-    BoneComponent:
-      boneID: 30
-  - Entity: AC752B1B-0EC6-43DB-9E47-FCE66E00F897
-    IDComponent:
-      id: AC752B1B-0EC6-43DB-9E47-FCE66E00F897
+      id: 74FE14A2-B539-4DD7-83E4-E4F19F454564
     TagComponent:
       tag: grip
     HierarchyComponent:
-      first: 4E6E9866-D036-4B23-8151-2F9D2604C79C
-      next: EC1CC53E-69CC-499D-B77C-08D5501D8676
-      parent: 2226F877-71B2-4ACE-8B0D-A8AD83D4C880
+      first: 70DA71AC-2931-4B2D-8866-4446B3B072D4
+      next: 3FDE3B02-AD4B-4361-89D9-DB5463AB69A0
+      parent: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
     TransformComponent:
-      translation: [0, 10, 1]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-  - Entity: 4E6E9866-D036-4B23-8151-2F9D2604C79C
+      translation: [8.30000019, 4.69999981, 1.70000005]
+      rotation: [0.015904801, -0.764676809, 0.644078374, -0.0133964233]
+      scale: [5, 5, 5]
+  - Entity: 70DA71AC-2931-4B2D-8866-4446B3B072D4
     IDComponent:
-      id: 4E6E9866-D036-4B23-8151-2F9D2604C79C
+      id: 70DA71AC-2931-4B2D-8866-4446B3B072D4
     TagComponent:
       tag: sword
     HierarchyComponent:
-      first: 70DE3EB4-9D13-4797-8B96-4C9969A4B77F
-      parent: AC752B1B-0EC6-43DB-9E47-FCE66E00F897
+      first: 1EF8F4AB-3DE2-45C3-8B6D-26D38D1CD448
+      parent: 74FE14A2-B539-4DD7-83E4-E4F19F454564
     TransformComponent:
-      translation: [7, 5, 1]
-      rotation: [0.702778995, 0, 0, 0.711408257]
-      scale: [0.400000006, 0.400000006, 0.400000006]
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [0.100000001, 0.100000001, 0.100000001]
     MeshComponent:
       meshType: 2
       guid: 9671BFF7-E12F-47B3-8189-E585C663F212
       fileId: ""
-  - Entity: 70DE3EB4-9D13-4797-8B96-4C9969A4B77F
+  - Entity: 1EF8F4AB-3DE2-45C3-8B6D-26D38D1CD448
     IDComponent:
-      id: 70DE3EB4-9D13-4797-8B96-4C9969A4B77F
+      id: 1EF8F4AB-3DE2-45C3-8B6D-26D38D1CD448
     TagComponent:
-      tag: sword mesh
+      tag: mesh
     HierarchyComponent:
-      first: 18C6B8B6-E8D0-4A0D-A793-95C601B1A8B3
-      parent: 4E6E9866-D036-4B23-8151-2F9D2604C79C
+      first: F7DE8600-3DC6-41A4-ACE3-7588ADFF1F5E
+      parent: 70DA71AC-2931-4B2D-8866-4446B3B072D4
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: 18C6B8B6-E8D0-4A0D-A793-95C601B1A8B3
+  - Entity: F7DE8600-3DC6-41A4-ACE3-7588ADFF1F5E
     IDComponent:
-      id: 18C6B8B6-E8D0-4A0D-A793-95C601B1A8B3
+      id: F7DE8600-3DC6-41A4-ACE3-7588ADFF1F5E
     TagComponent:
       tag: RootNode
     HierarchyComponent:
-      first: 82055E78-65B8-43CB-A524-CEDEBBDDA6C4
-      parent: 70DE3EB4-9D13-4797-8B96-4C9969A4B77F
+      first: 547C75EA-588A-4523-AC39-0A9B5EE3CBB6
+      parent: 1EF8F4AB-3DE2-45C3-8B6D-26D38D1CD448
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: 82055E78-65B8-43CB-A524-CEDEBBDDA6C4
+  - Entity: 547C75EA-588A-4523-AC39-0A9B5EE3CBB6
     IDComponent:
-      id: 82055E78-65B8-43CB-A524-CEDEBBDDA6C4
+      id: 547C75EA-588A-4523-AC39-0A9B5EE3CBB6
     TagComponent:
       tag: Plane003
     HierarchyComponent:
-      first: 2545F76B-7497-432D-A44A-AADB43D27B07
-      parent: 18C6B8B6-E8D0-4A0D-A793-95C601B1A8B3
+      first: 93DE3256-2DD0-4D15-AB2C-77AEC85A276A
+      parent: F7DE8600-3DC6-41A4-ACE3-7588ADFF1F5E
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: 2545F76B-7497-432D-A44A-AADB43D27B07
+  - Entity: 93DE3256-2DD0-4D15-AB2C-77AEC85A276A
     IDComponent:
-      id: 2545F76B-7497-432D-A44A-AADB43D27B07
+      id: 93DE3256-2DD0-4D15-AB2C-77AEC85A276A
     TagComponent:
       tag: Object_4
     HierarchyComponent:
-      first: AF0C358B-9FE5-4B33-8497-A72D1021D8CF
-      parent: 82055E78-65B8-43CB-A524-CEDEBBDDA6C4
+      first: FB41AD8E-9AA4-429B-B8CD-3A994B3036DA
+      parent: 547C75EA-588A-4523-AC39-0A9B5EE3CBB6
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: AF0C358B-9FE5-4B33-8497-A72D1021D8CF
+  - Entity: FB41AD8E-9AA4-429B-B8CD-3A994B3036DA
     IDComponent:
-      id: AF0C358B-9FE5-4B33-8497-A72D1021D8CF
+      id: FB41AD8E-9AA4-429B-B8CD-3A994B3036DA
     TagComponent:
       tag: Plane003__0
     HierarchyComponent:
-      first: D4EE6B51-F259-478A-BC6F-D204747587FC
-      parent: 2545F76B-7497-432D-A44A-AADB43D27B07
+      first: 0898569F-6359-4DC9-8A9F-8189C1673CED
+      parent: 93DE3256-2DD0-4D15-AB2C-77AEC85A276A
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: D4EE6B51-F259-478A-BC6F-D204747587FC
+  - Entity: 0898569F-6359-4DC9-8A9F-8189C1673CED
     IDComponent:
-      id: D4EE6B51-F259-478A-BC6F-D204747587FC
+      id: 0898569F-6359-4DC9-8A9F-8189C1673CED
     TagComponent:
       tag: Plane003__0
     HierarchyComponent:
-      parent: AF0C358B-9FE5-4B33-8497-A72D1021D8CF
+      parent: FB41AD8E-9AA4-429B-B8CD-3A994B3036DA
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
@@ -3933,700 +4153,901 @@ Entities:
       guid: 137EB397-CF44-4714-978A-2CA98156202A
       isEmbedded: false
       diffuseColor: [1, 1, 1, 1]
-  - Entity: EC1CC53E-69CC-499D-B77C-08D5501D8676
+  - Entity: 3FDE3B02-AD4B-4361-89D9-DB5463AB69A0
     IDComponent:
-      id: EC1CC53E-69CC-499D-B77C-08D5501D8676
+      id: 3FDE3B02-AD4B-4361-89D9-DB5463AB69A0
     TagComponent:
-      tag: right hand pinky
+      tag: mixamorig:RightHandPinky1
     HierarchyComponent:
-      first: C50F4BA9-F4BD-4027-8AF3-77544CB6508C
-      prev: AC752B1B-0EC6-43DB-9E47-FCE66E00F897
-      next: 9C007C4D-6A0A-409D-8A00-6DBDA7C9D69C
-      parent: 2226F877-71B2-4ACE-8B0D-A8AD83D4C880
+      first: 64B7B911-706A-4DE6-8198-DB862F8F120B
+      prev: 74FE14A2-B539-4DD7-83E4-E4F19F454564
+      next: 04E763A3-F163-49F3-81E7-FF4FEE13E2F9
+      parent: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
     TransformComponent:
-      translation: [-4.71269989, 8.98550034, -0.220999986]
-      rotation: [0.972593427, 0.228536636, 0.00264987373, 0.042731382]
+      translation: [-4.71269035, 8.98550987, -0.221013784]
+      rotation: [0.726218939, 0.686585128, 0.0245919582, -0.0245404206]
       scale: [1, 1, 1]
     BoneComponent:
-      boneID: 43
-  - Entity: C50F4BA9-F4BD-4027-8AF3-77544CB6508C
+      boneID: 53
+  - Entity: 64B7B911-706A-4DE6-8198-DB862F8F120B
     IDComponent:
-      id: C50F4BA9-F4BD-4027-8AF3-77544CB6508C
+      id: 64B7B911-706A-4DE6-8198-DB862F8F120B
     TagComponent:
-      tag: mixamorig_RightHandPinky2
+      tag: mixamorig:RightHandPinky2
     HierarchyComponent:
-      first: 5F240BA6-9350-4A57-AF68-51337FD64DBB
-      parent: EC1CC53E-69CC-499D-B77C-08D5501D8676
+      first: 52D61379-7B75-4894-9759-6AC606DCF758
+      parent: 3FDE3B02-AD4B-4361-89D9-DB5463AB69A0
     TransformComponent:
-      translation: [0, 3.5625, 0]
-      rotation: [0.988372803, 0.151552096, -5.88924118e-11, 0.0122964513]
+      translation: [1.19777241e-07, 3.5625062, 3.4005744e-08]
+      rotation: [0.889352798, 0.457221001, 1.41576993e-05, -0.000759151881]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 54
+  - Entity: 52D61379-7B75-4894-9759-6AC606DCF758
+    IDComponent:
+      id: 52D61379-7B75-4894-9759-6AC606DCF758
+    TagComponent:
+      tag: mixamorig:RightHandPinky3
+    HierarchyComponent:
+      first: F7283A1B-ADD6-4DAC-9E7B-6629C917A714
+      parent: 64B7B911-706A-4DE6-8198-DB862F8F120B
+    TransformComponent:
+      translation: [-3.93447453e-06, 2.33520722, -3.8586154e-06]
+      rotation: [0.974489033, 0.224435076, -2.31787526e-05, -0.000324455497]
       scale: [0.99999994, 1, 1]
     BoneComponent:
-      boneID: 44
-  - Entity: 5F240BA6-9350-4A57-AF68-51337FD64DBB
+      boneID: 55
+  - Entity: F7283A1B-ADD6-4DAC-9E7B-6629C917A714
     IDComponent:
-      id: 5F240BA6-9350-4A57-AF68-51337FD64DBB
+      id: F7283A1B-ADD6-4DAC-9E7B-6629C917A714
     TagComponent:
-      tag: mixamorig_RightHandPinky3
+      tag: mixamorig:RightHandPinky4
     HierarchyComponent:
-      first: BCF6E0FD-EE01-4204-B795-74A5736AC3DB
-      parent: C50F4BA9-F4BD-4027-8AF3-77544CB6508C
+      first: 55DAED5C-1F33-4FB6-A1D6-D26362BC3694
+      parent: 52D61379-7B75-4894-9759-6AC606DCF758
     TransformComponent:
-      translation: [0, 2.33520007, 0]
-      rotation: [0.989541411, 0.143776715, -2.52526547e-07, 0.0116655072]
-      scale: [1, 0.99999994, 0.99999994]
+      translation: [1.08319891e-05, 2.03729749, 9.33270894e-06]
+      rotation: [1, -5.77132298e-09, 5.32226574e-09, 3.27446295e-17]
+      scale: [1, 1, 1]
     BoneComponent:
-      boneID: 45
-  - Entity: BCF6E0FD-EE01-4204-B795-74A5736AC3DB
+      boneID: 56
+  - Entity: 55DAED5C-1F33-4FB6-A1D6-D26362BC3694
     IDComponent:
-      id: BCF6E0FD-EE01-4204-B795-74A5736AC3DB
+      id: 55DAED5C-1F33-4FB6-A1D6-D26362BC3694
     TagComponent:
-      tag: mixamorig_RightHandPinky4
+      tag: mixamorig:RightHandPinky4_end
     HierarchyComponent:
-      parent: 5F240BA6-9350-4A57-AF68-51337FD64DBB
+      parent: F7283A1B-ADD6-4DAC-9E7B-6629C917A714
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: 9C007C4D-6A0A-409D-8A00-6DBDA7C9D69C
+  - Entity: 04E763A3-F163-49F3-81E7-FF4FEE13E2F9
     IDComponent:
-      id: 9C007C4D-6A0A-409D-8A00-6DBDA7C9D69C
+      id: 04E763A3-F163-49F3-81E7-FF4FEE13E2F9
     TagComponent:
-      tag: right hand ring
+      tag: mixamorig:RightHandRing1
     HierarchyComponent:
-      first: F2A18397-ECDB-4D9B-9104-C669884FBD11
-      prev: EC1CC53E-69CC-499D-B77C-08D5501D8676
-      next: 031051E9-F25B-491F-B3B5-C8FE81D92867
-      parent: 2226F877-71B2-4ACE-8B0D-A8AD83D4C880
+      first: 62AF0E87-6624-479C-9A39-FAD09AFC2E70
+      prev: 3FDE3B02-AD4B-4361-89D9-DB5463AB69A0
+      next: 52246ACA-AA1B-48C8-B1D0-188EEBA365A2
+      parent: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
     TransformComponent:
-      translation: [-2.24169993, 9.30840015, -0.143000007]
-      rotation: [0.983757794, 0.17741181, 0.00568000646, 0.0267100818]
+      translation: [-2.24169445, 9.30841351, -0.143005103]
+      rotation: [0.770092309, 0.636630714, 0.0195730794, 0.035722103]
       scale: [1, 1, 1]
     BoneComponent:
-      boneID: 40
-  - Entity: F2A18397-ECDB-4D9B-9104-C669884FBD11
+      boneID: 49
+  - Entity: 62AF0E87-6624-479C-9A39-FAD09AFC2E70
     IDComponent:
-      id: F2A18397-ECDB-4D9B-9104-C669884FBD11
+      id: 62AF0E87-6624-479C-9A39-FAD09AFC2E70
     TagComponent:
-      tag: mixamorig_RightHandRing2
+      tag: mixamorig:RightHandRing2
     HierarchyComponent:
-      first: 011C8F94-6B44-4A11-88C5-3E9294B9F7F2
-      parent: 9C007C4D-6A0A-409D-8A00-6DBDA7C9D69C
+      first: 9A3B31BD-845F-46D8-9254-827B0E102682
+      parent: 04E763A3-F163-49F3-81E7-FF4FEE13E2F9
     TransformComponent:
-      translation: [0, 4.01940012, 0]
-      rotation: [0.983236015, 0.181740195, 0, 0.0147456964]
+      translation: [1.12445957e-06, 4.01939774, 4.59834297e-07]
+      rotation: [0.80251646, 0.596510768, -0.000936927274, -0.0118897809]
+      scale: [1, 0.99999994, 0.999999881]
+    BoneComponent:
+      boneID: 50
+  - Entity: 9A3B31BD-845F-46D8-9254-827B0E102682
+    IDComponent:
+      id: 9A3B31BD-845F-46D8-9254-827B0E102682
+    TagComponent:
+      tag: mixamorig:RightHandRing3
+    HierarchyComponent:
+      first: 887F2594-ED44-46A4-ABAA-2E897D0B7A20
+      parent: 62AF0E87-6624-479C-9A39-FAD09AFC2E70
+    TransformComponent:
+      translation: [-1.29781338e-05, 2.79080772, -6.88051159e-06]
+      rotation: [0.942166388, 0.33498466, 0.00403801305, 0.00956325326]
+      scale: [1, 0.99999994, 1]
+    BoneComponent:
+      boneID: 51
+  - Entity: 887F2594-ED44-46A4-ABAA-2E897D0B7A20
+    IDComponent:
+      id: 887F2594-ED44-46A4-ABAA-2E897D0B7A20
+    TagComponent:
+      tag: mixamorig:RightHandRing4
+    HierarchyComponent:
+      first: 04BE5F1D-15F0-41DB-9E18-CCDA2833FEDF
+      parent: 9A3B31BD-845F-46D8-9254-827B0E102682
+    TransformComponent:
+      translation: [-6.67647737e-06, 2.54069352, -5.7220459e-06]
+      rotation: [1, -5.52151747e-09, -1.06445306e-08, 3.65887298e-09]
       scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 52
+  - Entity: 04BE5F1D-15F0-41DB-9E18-CCDA2833FEDF
+    IDComponent:
+      id: 04BE5F1D-15F0-41DB-9E18-CCDA2833FEDF
+    TagComponent:
+      tag: mixamorig:RightHandRing4_end
+    HierarchyComponent:
+      parent: 887F2594-ED44-46A4-ABAA-2E897D0B7A20
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 52246ACA-AA1B-48C8-B1D0-188EEBA365A2
+    IDComponent:
+      id: 52246ACA-AA1B-48C8-B1D0-188EEBA365A2
+    TagComponent:
+      tag: mixamorig:RightHandMiddle1
+    HierarchyComponent:
+      first: 3276B7C5-F4D1-44FF-A7E2-26C889FE8794
+      prev: 04E763A3-F163-49F3-81E7-FF4FEE13E2F9
+      next: 5EAF5AE2-C224-4684-BBCC-E83C30C2AD4B
+      parent: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
+    TransformComponent:
+      translation: [6.30165687e-06, 9.70070744, -8.34502862e-06]
+      rotation: [0.82768172, 0.561092556, 0.00947215036, -0.00532691367]
+      scale: [0.99999994, 1, 1]
+    BoneComponent:
+      boneID: 45
+  - Entity: 3276B7C5-F4D1-44FF-A7E2-26C889FE8794
+    IDComponent:
+      id: 3276B7C5-F4D1-44FF-A7E2-26C889FE8794
+    TagComponent:
+      tag: mixamorig:RightHandMiddle2
+    HierarchyComponent:
+      first: E99B6D69-1ACF-4D3B-AE8E-458373C961A3
+      parent: 52246ACA-AA1B-48C8-B1D0-188EEBA365A2
+    TransformComponent:
+      translation: [7.73216834e-06, 4.0146904, -6.64247125e-07]
+      rotation: [0.739547729, 0.671733558, -0.0281968508, -0.0323754139]
+      scale: [0.99999994, 1, 1]
+    BoneComponent:
+      boneID: 46
+  - Entity: E99B6D69-1ACF-4D3B-AE8E-458373C961A3
+    IDComponent:
+      id: E99B6D69-1ACF-4D3B-AE8E-458373C961A3
+    TagComponent:
+      tag: mixamorig:RightHandMiddle3
+    HierarchyComponent:
+      first: 10E96079-296F-4C56-9871-E967653C2A20
+      parent: 3276B7C5-F4D1-44FF-A7E2-26C889FE8794
+    TransformComponent:
+      translation: [8.50143849e-08, 2.99671197, 8.17651369e-07]
+      rotation: [0.959453285, 0.281514972, -0.00441421149, 0.0133884065]
+      scale: [1, 1, 0.99999994]
+    BoneComponent:
+      boneID: 47
+  - Entity: 10E96079-296F-4C56-9871-E967653C2A20
+    IDComponent:
+      id: 10E96079-296F-4C56-9871-E967653C2A20
+    TagComponent:
+      tag: mixamorig:RightHandMiddle4
+    HierarchyComponent:
+      first: 2DDFA48D-245F-43F4-B061-91300836D542
+      parent: E99B6D69-1ACF-4D3B-AE8E-458373C961A3
+    TransformComponent:
+      translation: [5.27921429e-06, 2.82500076, -1.83933719e-06]
+      rotation: [1, -1.38702134e-08, 3.45962126e-09, 3.26036864e-09]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 48
+  - Entity: 2DDFA48D-245F-43F4-B061-91300836D542
+    IDComponent:
+      id: 2DDFA48D-245F-43F4-B061-91300836D542
+    TagComponent:
+      tag: mixamorig:RightHandMiddle4_end
+    HierarchyComponent:
+      parent: 10E96079-296F-4C56-9871-E967653C2A20
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 5EAF5AE2-C224-4684-BBCC-E83C30C2AD4B
+    IDComponent:
+      id: 5EAF5AE2-C224-4684-BBCC-E83C30C2AD4B
+    TagComponent:
+      tag: mixamorig:RightHandIndex1
+    HierarchyComponent:
+      first: CCC8EC0B-1D39-4F6B-9B72-332F1CF35BAD
+      prev: 52246ACA-AA1B-48C8-B1D0-188EEBA365A2
+      next: 41CADA3A-0BB1-4392-A86E-D7854554BE4F
+      parent: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
+    TransformComponent:
+      translation: [2.34190392, 9.90970898, -0.291004866]
+      rotation: [0.860625029, 0.50857085, 0.0141870147, 0.0218862891]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 41
-  - Entity: 011C8F94-6B44-4A11-88C5-3E9294B9F7F2
+  - Entity: CCC8EC0B-1D39-4F6B-9B72-332F1CF35BAD
     IDComponent:
-      id: 011C8F94-6B44-4A11-88C5-3E9294B9F7F2
+      id: CCC8EC0B-1D39-4F6B-9B72-332F1CF35BAD
     TagComponent:
-      tag: mixamorig_RightHandRing3
+      tag: mixamorig:RightHandIndex2
     HierarchyComponent:
-      first: D43FB479-812B-4332-8832-C4088002175B
-      parent: F2A18397-ECDB-4D9B-9104-C669884FBD11
+      first: F9127706-4A17-4C76-B7D0-3E01C2890702
+      parent: 5EAF5AE2-C224-4684-BBCC-E83C30C2AD4B
     TransformComponent:
-      translation: [0, 2.79080009, 0]
-      rotation: [0.987752974, 0.155514613, 2.30767412e-07, 0.0126180314]
+      translation: [-6.1308715e-06, 3.77679324, 2.08625715e-06]
+      rotation: [0.835314095, 0.548426926, -0.0211176611, -0.0321295895]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 42
-  - Entity: D43FB479-812B-4332-8832-C4088002175B
+  - Entity: F9127706-4A17-4C76-B7D0-3E01C2890702
     IDComponent:
-      id: D43FB479-812B-4332-8832-C4088002175B
+      id: F9127706-4A17-4C76-B7D0-3E01C2890702
     TagComponent:
-      tag: mixamorig_RightHandRing4
+      tag: mixamorig:RightHandIndex3
     HierarchyComponent:
-      parent: 011C8F94-6B44-4A11-88C5-3E9294B9F7F2
+      first: 57444235-7F7C-4BAB-9F02-9CA2B833B69A
+      parent: CCC8EC0B-1D39-4F6B-9B72-332F1CF35BAD
+    TransformComponent:
+      translation: [1.73731985e-06, 2.54301238, -6.8011488e-08]
+      rotation: [0.868289888, 0.495764166, -0.0126946671, 0.0113744875]
+      scale: [0.99999994, 1, 1]
+    BoneComponent:
+      boneID: 43
+  - Entity: 57444235-7F7C-4BAB-9F02-9CA2B833B69A
+    IDComponent:
+      id: 57444235-7F7C-4BAB-9F02-9CA2B833B69A
+    TagComponent:
+      tag: mixamorig:RightHandIndex4
+    HierarchyComponent:
+      first: 08091019-C090-4DFE-A72C-62585F62131B
+      parent: F9127706-4A17-4C76-B7D0-3E01C2890702
+    TransformComponent:
+      translation: [-2.36718279e-06, 2.5290103, -6.46865772e-07]
+      rotation: [1, -1.25735937e-08, 3.65887276e-09, -3.06111603e-09]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 44
+  - Entity: 08091019-C090-4DFE-A72C-62585F62131B
+    IDComponent:
+      id: 08091019-C090-4DFE-A72C-62585F62131B
+    TagComponent:
+      tag: mixamorig:RightHandIndex4_end
+    HierarchyComponent:
+      parent: 57444235-7F7C-4BAB-9F02-9CA2B833B69A
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: 031051E9-F25B-491F-B3B5-C8FE81D92867
+  - Entity: 41CADA3A-0BB1-4392-A86E-D7854554BE4F
     IDComponent:
-      id: 031051E9-F25B-491F-B3B5-C8FE81D92867
+      id: 41CADA3A-0BB1-4392-A86E-D7854554BE4F
     TagComponent:
-      tag: right hand middle
+      tag: mixamorig:RightHandThumb1
     HierarchyComponent:
-      first: 08196623-5612-4E1E-94B3-6C4524127293
-      prev: 9C007C4D-6A0A-409D-8A00-6DBDA7C9D69C
-      next: 970F5986-BCC3-4B8F-9AFC-D6D4BCE35704
-      parent: 2226F877-71B2-4ACE-8B0D-A8AD83D4C880
+      first: C18809F4-E93C-4693-837B-1FFF647B3593
+      prev: 5EAF5AE2-C224-4684-BBCC-E83C30C2AD4B
+      parent: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
     TransformComponent:
-      translation: [0, 9.70069981, 0]
-      rotation: [0.991252184, 0.130454972, 0.00546531007, 0.0192554463]
+      translation: [2.3704145, 3.54560709, 1.9089942]
+      rotation: [0.880806148, 0.461029291, -0.107829601, -0.00231397385]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 37
-  - Entity: 08196623-5612-4E1E-94B3-6C4524127293
+  - Entity: C18809F4-E93C-4693-837B-1FFF647B3593
     IDComponent:
-      id: 08196623-5612-4E1E-94B3-6C4524127293
+      id: C18809F4-E93C-4693-837B-1FFF647B3593
     TagComponent:
-      tag: mixamorig_RightHandMiddle2
+      tag: mixamorig:RightHandThumb2
     HierarchyComponent:
-      first: 50BD0856-74EE-4A86-9804-A71E6434AA87
-      parent: 031051E9-F25B-491F-B3B5-C8FE81D92867
+      first: 7812BDD5-AB01-4CDE-9C7A-09FEF294E7DA
+      parent: 41CADA3A-0BB1-4392-A86E-D7854554BE4F
     TransformComponent:
-      translation: [0, 4.01469994, 0]
-      rotation: [0.98837328, 0.151549011, 0, 0.0122959651]
+      translation: [-9.50198046e-06, 2.80800223, 5.50100867e-06]
+      rotation: [0.982943594, -0.0969369933, -0.15572457, -0.0132304542]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 38
-  - Entity: 50BD0856-74EE-4A86-9804-A71E6434AA87
+  - Entity: 7812BDD5-AB01-4CDE-9C7A-09FEF294E7DA
     IDComponent:
-      id: 50BD0856-74EE-4A86-9804-A71E6434AA87
+      id: 7812BDD5-AB01-4CDE-9C7A-09FEF294E7DA
     TagComponent:
-      tag: mixamorig_RightHandMiddle3
+      tag: mixamorig:RightHandThumb3
     HierarchyComponent:
-      first: 9F728961-DDF2-4E82-A903-1F6306D2E431
-      parent: 08196623-5612-4E1E-94B3-6C4524127293
+      first: CD6048B9-FE42-4669-9F42-8BCF8CF9B45A
+      parent: C18809F4-E93C-4693-837B-1FFF647B3593
     TransformComponent:
-      translation: [0, 2.99670005, 0]
-      rotation: [0.986991823, 0.160243988, -2.42032655e-07, 0.0130016282]
-      scale: [1, 1, 1]
-    BoneComponent:
-      boneID: 39
-  - Entity: 9F728961-DDF2-4E82-A903-1F6306D2E431
-    IDComponent:
-      id: 9F728961-DDF2-4E82-A903-1F6306D2E431
-    TagComponent:
-      tag: mixamorig_RightHandMiddle4
-    HierarchyComponent:
-      parent: 50BD0856-74EE-4A86-9804-A71E6434AA87
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-  - Entity: 970F5986-BCC3-4B8F-9AFC-D6D4BCE35704
-    IDComponent:
-      id: 970F5986-BCC3-4B8F-9AFC-D6D4BCE35704
-    TagComponent:
-      tag: right hand index
-    HierarchyComponent:
-      first: D8DFF7FA-A65E-4205-9C34-2BC59091BE57
-      prev: 031051E9-F25B-491F-B3B5-C8FE81D92867
-      next: 4CD2712A-6D33-4B29-B615-E71345BC2110
-      parent: 2226F877-71B2-4ACE-8B0D-A8AD83D4C880
-    TransformComponent:
-      translation: [2.34189987, 9.90970039, -0.291000009]
-      rotation: [0.998165786, 0.0593847074, 0.0045986753, -0.0108323712]
-      scale: [0.99999994, 1, 1]
-    BoneComponent:
-      boneID: 34
-  - Entity: D8DFF7FA-A65E-4205-9C34-2BC59091BE57
-    IDComponent:
-      id: D8DFF7FA-A65E-4205-9C34-2BC59091BE57
-    TagComponent:
-      tag: mixamorig_RightHandIndex2
-    HierarchyComponent:
-      first: A9CF190D-507A-465E-9210-C65EA99185FE
-      parent: 970F5986-BCC3-4B8F-9AFC-D6D4BCE35704
-    TransformComponent:
-      translation: [0, 3.77679992, 0]
-      rotation: [0.988412976, 0.151291534, -1.11302132e-08, 0.012275232]
+      translation: [4.05349465e-06, 2.37901473, -2.21415712e-06]
+      rotation: [0.973173141, -0.128395066, 0.135643497, 0.134348765]
       scale: [1, 1, 0.99999994]
     BoneComponent:
-      boneID: 35
-  - Entity: A9CF190D-507A-465E-9210-C65EA99185FE
+      boneID: 39
+  - Entity: CD6048B9-FE42-4669-9F42-8BCF8CF9B45A
     IDComponent:
-      id: A9CF190D-507A-465E-9210-C65EA99185FE
+      id: CD6048B9-FE42-4669-9F42-8BCF8CF9B45A
     TagComponent:
-      tag: mixamorig_RightHandIndex3
+      tag: mixamorig:RightHandThumb4
     HierarchyComponent:
-      first: 98EF8402-A830-4503-9FA4-AF71B18F0873
-      parent: D8DFF7FA-A65E-4205-9C34-2BC59091BE57
+      first: 271FD995-2CF4-4E00-BB21-B3B2B62713E5
+      parent: 7812BDD5-AB01-4CDE-9C7A-09FEF294E7DA
     TransformComponent:
-      translation: [0, 2.54299998, 0]
-      rotation: [0.99751538, 0.0702184737, 0, 0.00569715537]
-      scale: [1, 0.99999994, 1]
+      translation: [1.00468287e-06, 2.44529629, 3.4740724e-06]
+      rotation: [1, 1.1776585e-08, 1.60996301e-08, 3.72529008e-09]
+      scale: [1, 1, 1]
     BoneComponent:
-      boneID: 36
-  - Entity: 98EF8402-A830-4503-9FA4-AF71B18F0873
+      boneID: 40
+  - Entity: 271FD995-2CF4-4E00-BB21-B3B2B62713E5
     IDComponent:
-      id: 98EF8402-A830-4503-9FA4-AF71B18F0873
+      id: 271FD995-2CF4-4E00-BB21-B3B2B62713E5
     TagComponent:
-      tag: mixamorig_RightHandIndex4
+      tag: mixamorig:RightHandThumb4_end
     HierarchyComponent:
-      parent: A9CF190D-507A-465E-9210-C65EA99185FE
+      parent: CD6048B9-FE42-4669-9F42-8BCF8CF9B45A
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: 4CD2712A-6D33-4B29-B615-E71345BC2110
+  - Entity: 9079CBB4-4500-4F96-BC99-7D1599D25FE9
     IDComponent:
-      id: 4CD2712A-6D33-4B29-B615-E71345BC2110
+      id: 9079CBB4-4500-4F96-BC99-7D1599D25FE9
     TagComponent:
-      tag: right hand thumb
+      tag: mixamorig:LeftShoulder
     HierarchyComponent:
-      first: 7A547F1E-949A-45C5-942D-1BECE1714F89
-      prev: 970F5986-BCC3-4B8F-9AFC-D6D4BCE35704
-      parent: 2226F877-71B2-4ACE-8B0D-A8AD83D4C880
+      first: A9DD1BC4-652F-442F-AF65-CDE3CD324E94
+      prev: 3D23A510-F9A0-40C3-8E84-DBF43CF6190D
+      next: AC54F59C-D534-43C1-9C18-1A09205E5D69
+      parent: D8D0A6BA-1BF9-4B77-951F-F83260CD075B
     TransformComponent:
-      translation: [2.37039995, 3.5455997, 1.90899992]
-      rotation: [0.94512552, 0.185316131, -0.0749773383, -0.258406937]
-      scale: [0.99999994, 0.99999994, 1]
+      translation: [5.93500233, 13.6701975, -1.6625967]
+      rotation: [0.498615265, 0.580948532, 0.398120582, -0.505353034]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 9
+  - Entity: A9DD1BC4-652F-442F-AF65-CDE3CD324E94
+    IDComponent:
+      id: A9DD1BC4-652F-442F-AF65-CDE3CD324E94
+    TagComponent:
+      tag: mixamorig:LeftArm
+    HierarchyComponent:
+      first: 2D1CB6CA-494B-433E-8F56-19B053AEA676
+      parent: 9079CBB4-4500-4F96-BC99-7D1599D25FE9
+    TransformComponent:
+      translation: [-8.50143635e-08, 12.6078978, -5.75928482e-07]
+      rotation: [0.931882083, 0.335068256, 0.0253572967, 0.136682004]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 10
+  - Entity: 2D1CB6CA-494B-433E-8F56-19B053AEA676
+    IDComponent:
+      id: 2D1CB6CA-494B-433E-8F56-19B053AEA676
+    TagComponent:
+      tag: mixamorig:LeftForeArm
+    HierarchyComponent:
+      first: F4792F8B-FAD6-42FD-92FC-96974F60E69B
+      parent: A9DD1BC4-652F-442F-AF65-CDE3CD324E94
+    TransformComponent:
+      translation: [-3.74668571e-06, 25.574295, -8.65183756e-06]
+      rotation: [0.667785287, 0.177575007, -0.204152942, 0.693434596]
+      scale: [1.00000012, 1.00000012, 1]
+    BoneComponent:
+      boneID: 11
+  - Entity: F4792F8B-FAD6-42FD-92FC-96974F60E69B
+    IDComponent:
+      id: F4792F8B-FAD6-42FD-92FC-96974F60E69B
+    TagComponent:
+      tag: mixamorig:LeftHand
+    HierarchyComponent:
+      first: 70A5FE41-9033-4A4E-8F1E-020A0D6BD660
+      parent: 2D1CB6CA-494B-433E-8F56-19B053AEA676
+    TransformComponent:
+      translation: [-1.99245756e-06, 21.6034012, 2.2910483e-06]
+      rotation: [0.999472022, 0.0304556862, 0.000500946073, 0.0113077788]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 12
+  - Entity: 70A5FE41-9033-4A4E-8F1E-020A0D6BD660
+    IDComponent:
+      id: 70A5FE41-9033-4A4E-8F1E-020A0D6BD660
+    TagComponent:
+      tag: mixamorig:LeftHandPinky1
+    HierarchyComponent:
+      first: 5D9EAB96-25EF-4BB8-8E68-A9ACB83025B0
+      next: B5DB98E1-6222-4B89-B482-0501413FFA4C
+      parent: F4792F8B-FAD6-42FD-92FC-96974F60E69B
+    TransformComponent:
+      translation: [4.7127037, 8.98551178, -0.221597657]
+      rotation: [0.725182414, 0.680454433, -0.105319671, 7.03774322e-06]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 29
+  - Entity: 5D9EAB96-25EF-4BB8-8E68-A9ACB83025B0
+    IDComponent:
+      id: 5D9EAB96-25EF-4BB8-8E68-A9ACB83025B0
+    TagComponent:
+      tag: mixamorig:LeftHandPinky2
+    HierarchyComponent:
+      first: A1A31232-8651-4FA1-879F-8E006C8201A0
+      parent: 70A5FE41-9033-4A4E-8F1E-020A0D6BD660
+    TransformComponent:
+      translation: [1.31056559e-05, 3.56249666, -1.1920929e-06]
+      rotation: [0.797858417, 0.602844238, -1.60285508e-05, 0.000906854519]
+      scale: [0.99999994, 1, 0.99999994]
+    BoneComponent:
+      boneID: 30
+  - Entity: A1A31232-8651-4FA1-879F-8E006C8201A0
+    IDComponent:
+      id: A1A31232-8651-4FA1-879F-8E006C8201A0
+    TagComponent:
+      tag: mixamorig:LeftHandPinky3
+    HierarchyComponent:
+      first: 1AF2FB17-27A5-4521-B727-955BF8CBA9FB
+      parent: 5D9EAB96-25EF-4BB8-8E68-A9ACB83025B0
+    TransformComponent:
+      translation: [-8.60158593e-07, 2.33520341, -3.22734149e-06]
+      rotation: [0.911511838, 0.41127345, 6.07283218e-05, 0.0005433638]
+      scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 31
-  - Entity: 7A547F1E-949A-45C5-942D-1BECE1714F89
+  - Entity: 1AF2FB17-27A5-4521-B727-955BF8CBA9FB
     IDComponent:
-      id: 7A547F1E-949A-45C5-942D-1BECE1714F89
+      id: 1AF2FB17-27A5-4521-B727-955BF8CBA9FB
     TagComponent:
-      tag: mixamorig_RightHandThumb2
+      tag: mixamorig:LeftHandPinky4
     HierarchyComponent:
-      first: A9D9A43B-F5FD-4155-8D19-6A2C4F1AFD11
-      parent: 4CD2712A-6D33-4B29-B615-E71345BC2110
+      first: 860D65D6-73C1-4377-A48E-690ACC78E028
+      parent: A1A31232-8651-4FA1-879F-8E006C8201A0
     TransformComponent:
-      translation: [0, 2.80800009, 0]
-      rotation: [0.947547495, -0.0511852913, -0.0971112177, 0.300172061]
+      translation: [-1.95797861e-06, 2.03730011, -6.17375736e-06]
+      rotation: [1, -9.71320802e-09, -8.01660693e-09, 1.32834771e-10]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 32
-  - Entity: A9D9A43B-F5FD-4155-8D19-6A2C4F1AFD11
+  - Entity: 860D65D6-73C1-4377-A48E-690ACC78E028
     IDComponent:
-      id: A9D9A43B-F5FD-4155-8D19-6A2C4F1AFD11
+      id: 860D65D6-73C1-4377-A48E-690ACC78E028
     TagComponent:
-      tag: mixamorig_RightHandThumb3
+      tag: mixamorig:LeftHandPinky4_end
     HierarchyComponent:
-      first: 307EF980-8FF7-48BA-9A00-EE0E90133B6A
-      parent: 7A547F1E-949A-45C5-942D-1BECE1714F89
-    TransformComponent:
-      translation: [0, 2.37899995, 0]
-      rotation: [0.983696759, -0.157940224, 0.080676049, 0.0297810286]
-      scale: [0.99999994, 0.99999994, 1]
-    BoneComponent:
-      boneID: 33
-  - Entity: 307EF980-8FF7-48BA-9A00-EE0E90133B6A
-    IDComponent:
-      id: 307EF980-8FF7-48BA-9A00-EE0E90133B6A
-    TagComponent:
-      tag: mixamorig_RightHandThumb4
-    HierarchyComponent:
-      parent: A9D9A43B-F5FD-4155-8D19-6A2C4F1AFD11
+      parent: 1AF2FB17-27A5-4521-B727-955BF8CBA9FB
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: 3A6399AB-A1B9-4CCE-8944-19B255CEE40C
+  - Entity: B5DB98E1-6222-4B89-B482-0501413FFA4C
     IDComponent:
-      id: 3A6399AB-A1B9-4CCE-8944-19B255CEE40C
+      id: B5DB98E1-6222-4B89-B482-0501413FFA4C
     TagComponent:
-      tag: left shoulder
+      tag: mixamorig:LeftHandRing1
     HierarchyComponent:
-      first: 05E16E3C-453F-40BD-AE39-C94AD4A4AA9E
-      prev: BA73E54D-5707-4AAF-9316-BCF69D1AE206
-      next: AB39D803-E033-4190-AC22-BAFF2B14FBAC
-      parent: 44E17DD6-B0F9-4F7A-A245-C55C55B925D7
+      first: C461880A-42C2-4AB4-B7A3-A618DA5D79FA
+      prev: 70A5FE41-9033-4A4E-8F1E-020A0D6BD660
+      next: 0F758830-6DF9-463E-A033-A077E4CFB09B
+      parent: F4792F8B-FAD6-42FD-92FC-96974F60E69B
     TransformComponent:
-      translation: [5.93499994, 13.6702003, -1.66260004]
-      rotation: [0.46953389, 0.656552851, 0.352070183, -0.473838359]
-      scale: [1.00000012, 1.00000048, 1.00000036]
-    BoneComponent:
-      boneID: 8
-  - Entity: 05E16E3C-453F-40BD-AE39-C94AD4A4AA9E
-    IDComponent:
-      id: 05E16E3C-453F-40BD-AE39-C94AD4A4AA9E
-    TagComponent:
-      tag: mixamorig_LeftArm
-    HierarchyComponent:
-      first: FD690819-CF52-468C-9367-3EE7C65CDC0B
-      parent: 3A6399AB-A1B9-4CCE-8944-19B255CEE40C
-    TransformComponent:
-      translation: [0, 12.6078997, 0]
-      rotation: [0.868817687, 0.462880999, 0.121112451, 0.127392292]
-      scale: [1, 1.00000012, 1.00000012]
-    BoneComponent:
-      boneID: 9
-  - Entity: FD690819-CF52-468C-9367-3EE7C65CDC0B
-    IDComponent:
-      id: FD690819-CF52-468C-9367-3EE7C65CDC0B
-    TagComponent:
-      tag: mixamorig_LeftForeArm
-    HierarchyComponent:
-      first: 6DB28CC0-3442-49A7-B598-121DC4C0CD5F
-      parent: 05E16E3C-453F-40BD-AE39-C94AD4A4AA9E
-    TransformComponent:
-      translation: [0, 25.5743008, 0]
-      rotation: [0.999910831, -2.28004282e-07, -0.00208950997, 0.0131915556]
-      scale: [0.99999994, 1, 0.99999994]
-    BoneComponent:
-      boneID: 10
-  - Entity: 6DB28CC0-3442-49A7-B598-121DC4C0CD5F
-    IDComponent:
-      id: 6DB28CC0-3442-49A7-B598-121DC4C0CD5F
-    TagComponent:
-      tag: mixamorig_LeftHand
-    HierarchyComponent:
-      first: C1A5B383-CA10-4B87-A414-C66B52C1BDA5
-      parent: FD690819-CF52-468C-9367-3EE7C65CDC0B
-    TransformComponent:
-      translation: [0, 21.6033993, 0]
-      rotation: [0.957424819, 0.0465888679, -0.284768939, -0.00859412085]
-      scale: [1, 1, 1]
-    BoneComponent:
-      boneID: 11
-  - Entity: C1A5B383-CA10-4B87-A414-C66B52C1BDA5
-    IDComponent:
-      id: C1A5B383-CA10-4B87-A414-C66B52C1BDA5
-    TagComponent:
-      tag: mixamorig_LeftHandPinky1
-    HierarchyComponent:
-      first: 766B85B8-456D-4DFE-AC42-A80A86E367FE
-      next: 107FBE19-1298-448E-96C1-3850FCFF0A8B
-      parent: 6DB28CC0-3442-49A7-B598-121DC4C0CD5F
-    TransformComponent:
-      translation: [4.71269989, 8.98550034, -0.221599981]
-      rotation: [0.97102958, 0.233914405, -0.00275377836, -0.048765514]
-      scale: [1, 1, 1]
-    BoneComponent:
-      boneID: 24
-  - Entity: 766B85B8-456D-4DFE-AC42-A80A86E367FE
-    IDComponent:
-      id: 766B85B8-456D-4DFE-AC42-A80A86E367FE
-    TagComponent:
-      tag: mixamorig_LeftHandPinky2
-    HierarchyComponent:
-      first: 07E7A747-25F4-41F9-8235-720B78419736
-      parent: C1A5B383-CA10-4B87-A414-C66B52C1BDA5
-    TransformComponent:
-      translation: [0, 3.5625, 0]
-      rotation: [0.988372803, 0.151262209, 0, -0.015459246]
-      scale: [1, 1, 1]
+      translation: [2.24170971, 9.30841255, -0.143494666]
+      rotation: [0.703287601, 0.709004998, -0.0517930873, 0.00399943907]
+      scale: [1, 0.999999881, 0.99999994]
     BoneComponent:
       boneID: 25
-  - Entity: 07E7A747-25F4-41F9-8235-720B78419736
+  - Entity: C461880A-42C2-4AB4-B7A3-A618DA5D79FA
     IDComponent:
-      id: 07E7A747-25F4-41F9-8235-720B78419736
+      id: C461880A-42C2-4AB4-B7A3-A618DA5D79FA
     TagComponent:
-      tag: mixamorig_LeftHandPinky3
+      tag: mixamorig:LeftHandRing2
     HierarchyComponent:
-      first: C6CA4F9D-5372-4EC0-AE90-BA87A1182F9A
-      parent: 766B85B8-456D-4DFE-AC42-A80A86E367FE
+      first: 43C016EF-8510-4E88-B71C-166D973629A0
+      parent: B5DB98E1-6222-4B89-B482-0501413FFA4C
     TransformComponent:
-      translation: [0, 2.33520007, 0]
-      rotation: [0.989541411, 0.143501356, 0, -0.0146658877]
+      translation: [-5.39011126e-06, 4.01939344, 3.40057298e-08]
+      rotation: [0.85593003, 0.516965926, -0.0051619173, 0.0101677803]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 26
-  - Entity: C6CA4F9D-5372-4EC0-AE90-BA87A1182F9A
+  - Entity: 43C016EF-8510-4E88-B71C-166D973629A0
     IDComponent:
-      id: C6CA4F9D-5372-4EC0-AE90-BA87A1182F9A
+      id: 43C016EF-8510-4E88-B71C-166D973629A0
     TagComponent:
-      tag: mixamorig_LeftHandPinky4
+      tag: mixamorig:LeftHandRing3
     HierarchyComponent:
-      parent: 07E7A747-25F4-41F9-8235-720B78419736
+      first: ED77D901-EDD9-4018-B071-FE92E2735FC4
+      parent: C461880A-42C2-4AB4-B7A3-A618DA5D79FA
+    TransformComponent:
+      translation: [-2.33355559e-06, 2.79080963, 1.8223343e-06]
+      rotation: [0.806502998, 0.591139853, -0.00689801713, -0.00768027548]
+      scale: [1, 1.00000012, 1]
+    BoneComponent:
+      boneID: 27
+  - Entity: ED77D901-EDD9-4018-B071-FE92E2735FC4
+    IDComponent:
+      id: ED77D901-EDD9-4018-B071-FE92E2735FC4
+    TagComponent:
+      tag: mixamorig:LeftHandRing4
+    HierarchyComponent:
+      first: 71DF0829-6435-4697-9F25-29C88E58B3BA
+      parent: 43C016EF-8510-4E88-B71C-166D973629A0
+    TransformComponent:
+      translation: [8.01271653e-06, 2.5406971, 2.6739915e-06]
+      rotation: [1, 1.17660663e-08, -1.9925224e-10, 3.59245589e-09]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 28
+  - Entity: 71DF0829-6435-4697-9F25-29C88E58B3BA
+    IDComponent:
+      id: 71DF0829-6435-4697-9F25-29C88E58B3BA
+    TagComponent:
+      tag: mixamorig:LeftHandRing4_end
+    HierarchyComponent:
+      parent: ED77D901-EDD9-4018-B071-FE92E2735FC4
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: 107FBE19-1298-448E-96C1-3850FCFF0A8B
+  - Entity: 0F758830-6DF9-463E-A033-A077E4CFB09B
     IDComponent:
-      id: 107FBE19-1298-448E-96C1-3850FCFF0A8B
+      id: 0F758830-6DF9-463E-A033-A077E4CFB09B
     TagComponent:
-      tag: mixamorig_LeftHandRing1
+      tag: mixamorig:LeftHandMiddle1
     HierarchyComponent:
-      first: 838D5009-F8B5-4EEC-B4E7-2D8EF6D9DE27
-      prev: C1A5B383-CA10-4B87-A414-C66B52C1BDA5
-      next: 27343F88-B164-4235-B0A7-434BFB7BEEC0
-      parent: 6DB28CC0-3442-49A7-B598-121DC4C0CD5F
+      first: 71B8AE87-DE79-447F-A116-98F1B2DCB44B
+      prev: B5DB98E1-6222-4B89-B482-0501413FFA4C
+      next: 8D81AE7E-6479-4714-BE0B-8D424D15DF29
+      parent: F4792F8B-FAD6-42FD-92FC-96974F60E69B
     TransformComponent:
-      translation: [2.24169993, 9.30840015, -0.1435]
-      rotation: [0.982545912, 0.183203161, -0.00582949817, -0.0317206644]
-      scale: [0.99999994, 1, 1]
+      translation: [7.06367064e-06, 9.70080566, 2.6569885e-06]
+      rotation: [0.72578162, 0.685943246, -0.0491357371, 0.01756653]
+      scale: [1, 0.99999994, 0.999999881]
     BoneComponent:
       boneID: 21
-  - Entity: 838D5009-F8B5-4EEC-B4E7-2D8EF6D9DE27
+  - Entity: 71B8AE87-DE79-447F-A116-98F1B2DCB44B
     IDComponent:
-      id: 838D5009-F8B5-4EEC-B4E7-2D8EF6D9DE27
+      id: 71B8AE87-DE79-447F-A116-98F1B2DCB44B
     TagComponent:
-      tag: mixamorig_LeftHandRing2
+      tag: mixamorig:LeftHandMiddle2
     HierarchyComponent:
-      first: 4626D52D-95AE-4E75-98E1-903825F95601
-      parent: 107FBE19-1298-448E-96C1-3850FCFF0A8B
+      first: 20CC53F0-CD09-4110-B46F-9E623A11CBAC
+      parent: 0F758830-6DF9-463E-A033-A077E4CFB09B
     TransformComponent:
-      translation: [0, 4.01940012, 0]
-      rotation: [0.983236074, 0.181392342, -2.31945947e-07, -0.0185385384]
+      translation: [-2.11213978e-06, 4.01460266, 1.94135441e-06]
+      rotation: [0.784249485, 0.618964493, 0.0260019936, 0.0340524949]
       scale: [1, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 22
-  - Entity: 4626D52D-95AE-4E75-98E1-903825F95601
+  - Entity: 20CC53F0-CD09-4110-B46F-9E623A11CBAC
     IDComponent:
-      id: 4626D52D-95AE-4E75-98E1-903825F95601
+      id: 20CC53F0-CD09-4110-B46F-9E623A11CBAC
     TagComponent:
-      tag: mixamorig_LeftHandRing3
+      tag: mixamorig:LeftHandMiddle3
     HierarchyComponent:
-      first: 83059E73-7D85-4D21-8D6A-6E4F8AB8ABD2
-      parent: 838D5009-F8B5-4EEC-B4E7-2D8EF6D9DE27
+      first: AE32BFEE-DB89-4DF7-8B4E-1A1874D1FFD1
+      parent: 71B8AE87-DE79-447F-A116-98F1B2DCB44B
     TransformComponent:
-      translation: [0, 2.79080009, 0]
-      rotation: [0.987752974, 0.155217439, 2.41963988e-07, -0.0158635173]
-      scale: [1, 0.99999994, 0.99999994]
+      translation: [1.84339865e-06, 2.99670219, -6.8011488e-08]
+      rotation: [0.832740664, 0.553488672, 0.00839592051, -0.0110860076]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 23
-  - Entity: 83059E73-7D85-4D21-8D6A-6E4F8AB8ABD2
+  - Entity: AE32BFEE-DB89-4DF7-8B4E-1A1874D1FFD1
     IDComponent:
-      id: 83059E73-7D85-4D21-8D6A-6E4F8AB8ABD2
+      id: AE32BFEE-DB89-4DF7-8B4E-1A1874D1FFD1
     TagComponent:
-      tag: mixamorig_LeftHandRing4
+      tag: mixamorig:LeftHandMiddle4
     HierarchyComponent:
-      parent: 4626D52D-95AE-4E75-98E1-903825F95601
+      first: 84173A83-C452-4EAE-945C-DACA074C77B8
+      parent: 20CC53F0-CD09-4110-B46F-9E623A11CBAC
+    TransformComponent:
+      translation: [5.39030088e-06, 2.82498717, -9.19668594e-07]
+      rotation: [1, 1.04394662e-08, 4.86125509e-17, 4.65661243e-09]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 24
+  - Entity: 84173A83-C452-4EAE-945C-DACA074C77B8
+    IDComponent:
+      id: 84173A83-C452-4EAE-945C-DACA074C77B8
+    TagComponent:
+      tag: mixamorig:LeftHandMiddle4_end
+    HierarchyComponent:
+      parent: AE32BFEE-DB89-4DF7-8B4E-1A1874D1FFD1
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: 27343F88-B164-4235-B0A7-434BFB7BEEC0
+  - Entity: 8D81AE7E-6479-4714-BE0B-8D424D15DF29
     IDComponent:
-      id: 27343F88-B164-4235-B0A7-434BFB7BEEC0
+      id: 8D81AE7E-6479-4714-BE0B-8D424D15DF29
     TagComponent:
-      tag: mixamorig_LeftHandMiddle1
+      tag: mixamorig:LeftHandIndex1
     HierarchyComponent:
-      first: 903FAA48-0720-441F-B80D-EF9DFD3472F3
-      prev: 107FBE19-1298-448E-96C1-3850FCFF0A8B
-      next: 70C632AA-8038-4074-822B-ED864F9F0AC3
-      parent: 6DB28CC0-3442-49A7-B598-121DC4C0CD5F
+      first: 6A0B3B92-EE48-4E37-B41E-FF0F27095732
+      prev: 0F758830-6DF9-463E-A033-A077E4CFB09B
+      next: 4B6B8FB0-D65D-4466-B32E-84A9565131A8
+      parent: F4792F8B-FAD6-42FD-92FC-96974F60E69B
     TransformComponent:
-      translation: [0, 9.70079994, 0]
-      rotation: [0.990355432, 0.136461347, -0.00560908532, -0.0233007241]
+      translation: [-2.34189606, 9.90970802, -0.291392267]
+      rotation: [0.758338809, 0.64752239, 0.0206489693, 0.0721848086]
+      scale: [1, 0.99999994, 0.99999994]
+    BoneComponent:
+      boneID: 17
+  - Entity: 6A0B3B92-EE48-4E37-B41E-FF0F27095732
+    IDComponent:
+      id: 6A0B3B92-EE48-4E37-B41E-FF0F27095732
+    TagComponent:
+      tag: mixamorig:LeftHandIndex2
+    HierarchyComponent:
+      first: E93EE617-49AD-4D39-BA5D-10C199DDEEF4
+      parent: 8D81AE7E-6479-4714-BE0B-8D424D15DF29
+    TransformComponent:
+      translation: [-3.22973733e-06, 3.77670574, 1.72031719e-06]
+      rotation: [0.831120551, 0.554763794, 0.0213207547, 0.0319562741]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 18
-  - Entity: 903FAA48-0720-441F-B80D-EF9DFD3472F3
+  - Entity: E93EE617-49AD-4D39-BA5D-10C199DDEEF4
     IDComponent:
-      id: 903FAA48-0720-441F-B80D-EF9DFD3472F3
+      id: E93EE617-49AD-4D39-BA5D-10C199DDEEF4
     TagComponent:
-      tag: mixamorig_LeftHandMiddle2
+      tag: mixamorig:LeftHandIndex3
     HierarchyComponent:
-      first: 2CAFD942-2E1F-47F1-B3F2-6AA72B568829
-      parent: 27343F88-B164-4235-B0A7-434BFB7BEEC0
+      first: 59238CAA-D344-429D-99B1-A25189B61571
+      parent: 6A0B3B92-EE48-4E37-B41E-FF0F27095732
     TransformComponent:
-      translation: [0, 4.0145998, 0]
-      rotation: [0.988373339, 0.151258618, 1.17784768e-10, -0.0154587328]
-      scale: [0.99999994, 1, 1]
+      translation: [4.44937859e-06, 2.54299521, 6.64247125e-07]
+      rotation: [0.821186483, 0.570407391, 0.00990668684, -0.0137846516]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 19
-  - Entity: 2CAFD942-2E1F-47F1-B3F2-6AA72B568829
+  - Entity: 59238CAA-D344-429D-99B1-A25189B61571
     IDComponent:
-      id: 2CAFD942-2E1F-47F1-B3F2-6AA72B568829
+      id: 59238CAA-D344-429D-99B1-A25189B61571
     TagComponent:
-      tag: mixamorig_LeftHandMiddle3
+      tag: mixamorig:LeftHandIndex4
     HierarchyComponent:
-      first: B218B1B5-CD14-41FF-BEF7-A3A3A62E7E14
-      parent: 903FAA48-0720-441F-B80D-EF9DFD3472F3
+      first: 14F9FBB1-A33F-4A46-86C1-D91773D0E5C2
+      parent: E93EE617-49AD-4D39-BA5D-10C199DDEEF4
     TransformComponent:
-      translation: [0, 2.99670005, 0]
-      rotation: [0.986991882, 0.159936994, -2.42032627e-07, -0.0163456239]
+      translation: [5.44168779e-06, 2.52910042, 4.0704972e-06]
+      rotation: [1, 8.91850327e-09, -1.79622783e-09, -1.32834826e-10]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 20
-  - Entity: B218B1B5-CD14-41FF-BEF7-A3A3A62E7E14
+  - Entity: 14F9FBB1-A33F-4A46-86C1-D91773D0E5C2
     IDComponent:
-      id: B218B1B5-CD14-41FF-BEF7-A3A3A62E7E14
+      id: 14F9FBB1-A33F-4A46-86C1-D91773D0E5C2
     TagComponent:
-      tag: mixamorig_LeftHandMiddle4
+      tag: mixamorig:LeftHandIndex4_end
     HierarchyComponent:
-      parent: 2CAFD942-2E1F-47F1-B3F2-6AA72B568829
+      parent: 59238CAA-D344-429D-99B1-A25189B61571
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: 70C632AA-8038-4074-822B-ED864F9F0AC3
+  - Entity: 4B6B8FB0-D65D-4466-B32E-84A9565131A8
     IDComponent:
-      id: 70C632AA-8038-4074-822B-ED864F9F0AC3
+      id: 4B6B8FB0-D65D-4466-B32E-84A9565131A8
     TagComponent:
-      tag: mixamorig_LeftHandIndex1
+      tag: mixamorig:LeftHandThumb1
     HierarchyComponent:
-      first: 8CEB8C92-9CC2-4919-9D25-240CA671F63E
-      prev: 27343F88-B164-4235-B0A7-434BFB7BEEC0
-      next: 7A917B49-918C-41E4-ABE4-97124D8E17E4
-      parent: 6DB28CC0-3442-49A7-B598-121DC4C0CD5F
+      first: FD9A2F61-3FD4-48D4-8FF3-CA3FA5EA485C
+      prev: 8D81AE7E-6479-4714-BE0B-8D424D15DF29
+      parent: F4792F8B-FAD6-42FD-92FC-96974F60E69B
     TransformComponent:
-      translation: [-2.34189987, 9.90970039, -0.291399986]
-      rotation: [0.997768462, 0.0660789609, -0.00485557411, 0.0082526654]
-      scale: [1, 1, 1]
-    BoneComponent:
-      boneID: 15
-  - Entity: 8CEB8C92-9CC2-4919-9D25-240CA671F63E
-    IDComponent:
-      id: 8CEB8C92-9CC2-4919-9D25-240CA671F63E
-    TagComponent:
-      tag: mixamorig_LeftHandIndex2
-    HierarchyComponent:
-      first: A45E418C-4A63-4FAC-A423-2AC9EAD93B46
-      parent: 70C632AA-8038-4074-822B-ED864F9F0AC3
-    TransformComponent:
-      translation: [0, 3.77669978, 0]
-      rotation: [0.988412976, 0.151002169, 2.41566852e-07, -0.0154328179]
-      scale: [1, 1, 0.99999994]
-    BoneComponent:
-      boneID: 16
-  - Entity: A45E418C-4A63-4FAC-A423-2AC9EAD93B46
-    IDComponent:
-      id: A45E418C-4A63-4FAC-A423-2AC9EAD93B46
-    TagComponent:
-      tag: mixamorig_LeftHandIndex3
-    HierarchyComponent:
-      first: B6EEF2E6-78C5-4608-B53E-5E20B860F5B5
-      parent: 8CEB8C92-9CC2-4919-9D25-240CA671F63E
-    TransformComponent:
-      translation: [0, 2.54299998, 0]
-      rotation: [0.99751538, 0.0700841174, 2.91763211e-11, -0.00716279726]
-      scale: [0.99999994, 0.99999994, 1]
-    BoneComponent:
-      boneID: 17
-  - Entity: B6EEF2E6-78C5-4608-B53E-5E20B860F5B5
-    IDComponent:
-      id: B6EEF2E6-78C5-4608-B53E-5E20B860F5B5
-    TagComponent:
-      tag: mixamorig_LeftHandIndex4
-    HierarchyComponent:
-      parent: A45E418C-4A63-4FAC-A423-2AC9EAD93B46
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-  - Entity: 7A917B49-918C-41E4-ABE4-97124D8E17E4
-    IDComponent:
-      id: 7A917B49-918C-41E4-ABE4-97124D8E17E4
-    TagComponent:
-      tag: mixamorig_LeftHandThumb1
-    HierarchyComponent:
-      first: E437228E-3388-4D16-8561-15F395808F21
-      prev: 70C632AA-8038-4074-822B-ED864F9F0AC3
-      parent: 6DB28CC0-3442-49A7-B598-121DC4C0CD5F
-    TransformComponent:
-      translation: [-2.37039995, 3.5455997, 1.90820003]
-      rotation: [0.949457645, 0.183096126, 0.084281303, 0.240629733]
-      scale: [0.99999994, 0.99999994, 0.99999994]
-    BoneComponent:
-      boneID: 12
-  - Entity: E437228E-3388-4D16-8561-15F395808F21
-    IDComponent:
-      id: E437228E-3388-4D16-8561-15F395808F21
-    TagComponent:
-      tag: mixamorig_LeftHandThumb2
-    HierarchyComponent:
-      first: 979BCA5E-A69F-42AC-8F3B-BBAC6CF04557
-      parent: 7A917B49-918C-41E4-ABE4-97124D8E17E4
-    TransformComponent:
-      translation: [0, 2.80839992, 0]
-      rotation: [0.956759155, -0.0600856468, 0.105092302, -0.264494479]
+      translation: [-2.37040305, 3.545609, 1.908198]
+      rotation: [0.899777114, 0.345468044, 0.079099305, 0.254551083]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 13
-  - Entity: 979BCA5E-A69F-42AC-8F3B-BBAC6CF04557
+  - Entity: FD9A2F61-3FD4-48D4-8FF3-CA3FA5EA485C
     IDComponent:
-      id: 979BCA5E-A69F-42AC-8F3B-BBAC6CF04557
+      id: FD9A2F61-3FD4-48D4-8FF3-CA3FA5EA485C
     TagComponent:
-      tag: mixamorig_LeftHandThumb3
+      tag: mixamorig:LeftHandThumb2
     HierarchyComponent:
-      first: 42CD12D6-56A2-43FF-B190-1440580E2974
-      parent: E437228E-3388-4D16-8561-15F395808F21
+      first: C9D3FC3A-3F86-47ED-AF0D-295B88B76FE6
+      parent: 4B6B8FB0-D65D-4466-B32E-84A9565131A8
     TransformComponent:
-      translation: [0, 2.37899995, 0]
-      rotation: [0.989549935, -0.121847317, -0.0743749663, -0.0203102417]
-      scale: [1, 1, 1]
+      translation: [-3.59290289e-06, 2.80839467, 3.69567715e-06]
+      rotation: [0.98045373, -0.00234070839, 0.108121246, -0.164361745]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 14
-  - Entity: 42CD12D6-56A2-43FF-B190-1440580E2974
+  - Entity: C9D3FC3A-3F86-47ED-AF0D-295B88B76FE6
     IDComponent:
-      id: 42CD12D6-56A2-43FF-B190-1440580E2974
+      id: C9D3FC3A-3F86-47ED-AF0D-295B88B76FE6
     TagComponent:
-      tag: mixamorig_LeftHandThumb4
+      tag: mixamorig:LeftHandThumb3
     HierarchyComponent:
-      parent: 979BCA5E-A69F-42AC-8F3B-BBAC6CF04557
+      first: 8D466DE4-45EC-441E-891E-6DA68D145AA6
+      parent: FD9A2F61-3FD4-48D4-8FF3-CA3FA5EA485C
+    TransformComponent:
+      translation: [2.28216868e-06, 2.37899876, -1.04054034e-05]
+      rotation: [0.850280166, 0.268357158, 0.436396807, -0.120689608]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 15
+  - Entity: 8D466DE4-45EC-441E-891E-6DA68D145AA6
+    IDComponent:
+      id: 8D466DE4-45EC-441E-891E-6DA68D145AA6
+    TagComponent:
+      tag: mixamorig:LeftHandThumb4
+    HierarchyComponent:
+      first: 2D13BA2A-1658-422A-BF7E-6C5C66E08227
+      parent: C9D3FC3A-3F86-47ED-AF0D-295B88B76FE6
+    TransformComponent:
+      translation: [-3.25284577e-06, 2.44500351, 7.68116024e-06]
+      rotation: [1, -6.28679686e-09, 7.4505806e-09, -1.4735118e-08]
+      scale: [1, 1, 1]
+    BoneComponent:
+      boneID: 16
+  - Entity: 2D13BA2A-1658-422A-BF7E-6C5C66E08227
+    IDComponent:
+      id: 2D13BA2A-1658-422A-BF7E-6C5C66E08227
+    TagComponent:
+      tag: mixamorig:LeftHandThumb4_end
+    HierarchyComponent:
+      parent: 8D466DE4-45EC-441E-891E-6DA68D145AA6
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: AB39D803-E033-4190-AC22-BAFF2B14FBAC
+  - Entity: AC54F59C-D534-43C1-9C18-1A09205E5D69
     IDComponent:
-      id: AB39D803-E033-4190-AC22-BAFF2B14FBAC
+      id: AC54F59C-D534-43C1-9C18-1A09205E5D69
     TagComponent:
-      tag: neck
+      tag: mixamorig:Neck
     HierarchyComponent:
-      first: F7CCAE8F-F022-4ABC-A2F9-DADE25F00DAF
-      prev: 3A6399AB-A1B9-4CCE-8944-19B255CEE40C
-      parent: 44E17DD6-B0F9-4F7A-A245-C55C55B925D7
+      first: 8792222A-137A-43E7-BF21-BCC3CF0D2516
+      prev: 9079CBB4-4500-4F96-BC99-7D1599D25FE9
+      parent: D8D0A6BA-1BF9-4B77-951F-F83260CD075B
     TransformComponent:
-      translation: [0.0243999995, 15.8622999, -1.67580009]
-      rotation: [0.998771787, 0.0493010059, -0.00144680205, 0.00470942073]
+      translation: [0.0244025327, 15.8622932, -1.67579842]
+      rotation: [0.996084213, -0.0181451961, 0.0851829275, -0.0151938144]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 4
-  - Entity: F7CCAE8F-F022-4ABC-A2F9-DADE25F00DAF
+  - Entity: 8792222A-137A-43E7-BF21-BCC3CF0D2516
     IDComponent:
-      id: F7CCAE8F-F022-4ABC-A2F9-DADE25F00DAF
+      id: 8792222A-137A-43E7-BF21-BCC3CF0D2516
     TagComponent:
-      tag: mixamorig_Head
+      tag: mixamorig:Head
     HierarchyComponent:
-      first: EDAB3EF0-D734-44DD-A096-43EF8859F029
-      parent: AB39D803-E033-4190-AC22-BAFF2B14FBAC
+      first: 2699ECFF-0441-4139-AAFC-D78F7B29F74F
+      parent: AC54F59C-D534-43C1-9C18-1A09205E5D69
     TransformComponent:
-      translation: [0, 5.56400013, 0.988099933]
-      rotation: [0.997532666, -0.0693889484, 0.0106280232, -0.000896802929]
-      scale: [1, 0.99999994, 1]
+      translation: [1.2604828e-06, 5.56399679, 0.988102317]
+      rotation: [0.976782382, -0.0468030088, 0.203673378, -0.0471466966]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 5
-  - Entity: EDAB3EF0-D734-44DD-A096-43EF8859F029
+  - Entity: 2699ECFF-0441-4139-AAFC-D78F7B29F74F
     IDComponent:
-      id: EDAB3EF0-D734-44DD-A096-43EF8859F029
+      id: 2699ECFF-0441-4139-AAFC-D78F7B29F74F
     TagComponent:
-      tag: mixamorig_RightEye
+      tag: mixamorig:RightEye
     HierarchyComponent:
-      next: 38CB4AC1-D416-45C3-BF2B-352A222125D2
-      parent: F7CCAE8F-F022-4ABC-A2F9-DADE25F00DAF
+      first: DD5FE3F3-ECF2-428C-9681-19A14DB04731
+      next: 89508C82-1440-4E54-85D5-D2F97F03E926
+      parent: 8792222A-137A-43E7-BF21-BCC3CF0D2516
+    TransformComponent:
+      translation: [-2.37750053, 7.93570089, 7.06370258]
+      rotation: [0.499999821, 0.500000238, -0.499999732, 0.499999881]
+      scale: [1.00000048, 1.00000048, 1.00000048]
+    BoneComponent:
+      boneID: 8
+  - Entity: DD5FE3F3-ECF2-428C-9681-19A14DB04731
+    IDComponent:
+      id: DD5FE3F3-ECF2-428C-9681-19A14DB04731
+    TagComponent:
+      tag: mixamorig:RightEye_end
+    HierarchyComponent:
+      parent: 2699ECFF-0441-4139-AAFC-D78F7B29F74F
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 89508C82-1440-4E54-85D5-D2F97F03E926
+    IDComponent:
+      id: 89508C82-1440-4E54-85D5-D2F97F03E926
+    TagComponent:
+      tag: mixamorig:LeftEye
+    HierarchyComponent:
+      first: F90BF3B2-F7A3-47C1-B628-7E517B3DEC9E
+      prev: 2699ECFF-0441-4139-AAFC-D78F7B29F74F
+      next: 508E5A6E-9E1E-44E2-9E0B-7AE1B6716325
+      parent: 8792222A-137A-43E7-BF21-BCC3CF0D2516
+    TransformComponent:
+      translation: [2.28440022, 7.93570709, 7.06370354]
+      rotation: [0.5, 0.500000119, 0.499999821, -0.50000006]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 7
-  - Entity: 38CB4AC1-D416-45C3-BF2B-352A222125D2
+  - Entity: F90BF3B2-F7A3-47C1-B628-7E517B3DEC9E
     IDComponent:
-      id: 38CB4AC1-D416-45C3-BF2B-352A222125D2
+      id: F90BF3B2-F7A3-47C1-B628-7E517B3DEC9E
     TagComponent:
-      tag: mixamorig_LeftEye
+      tag: mixamorig:LeftEye_end
     HierarchyComponent:
-      prev: EDAB3EF0-D734-44DD-A096-43EF8859F029
-      next: 48FDCE35-9689-44D6-90EC-D693E24E3E84
-      parent: F7CCAE8F-F022-4ABC-A2F9-DADE25F00DAF
+      parent: 89508C82-1440-4E54-85D5-D2F97F03E926
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 508E5A6E-9E1E-44E2-9E0B-7AE1B6716325
+    IDComponent:
+      id: 508E5A6E-9E1E-44E2-9E0B-7AE1B6716325
+    TagComponent:
+      tag: mixamorig:HeadTop_End
+    HierarchyComponent:
+      first: 86F65765-3AD4-4F8C-9A62-0FDE48D498B9
+      prev: 89508C82-1440-4E54-85D5-D2F97F03E926
+      parent: 8792222A-137A-43E7-BF21-BCC3CF0D2516
+    TransformComponent:
+      translation: [-9.49518267e-07, 18.3118992, 3.08690405]
+      rotation: [1, -4.80605156e-09, -5.7128382e-09, -6.64174549e-11]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 6
-  - Entity: 48FDCE35-9689-44D6-90EC-D693E24E3E84
+  - Entity: 86F65765-3AD4-4F8C-9A62-0FDE48D498B9
     IDComponent:
-      id: 48FDCE35-9689-44D6-90EC-D693E24E3E84
+      id: 86F65765-3AD4-4F8C-9A62-0FDE48D498B9
     TagComponent:
-      tag: mixamorig_HeadTop_End
+      tag: mixamorig:HeadTop_End_end
     HierarchyComponent:
-      prev: 38CB4AC1-D416-45C3-BF2B-352A222125D2
-      parent: F7CCAE8F-F022-4ABC-A2F9-DADE25F00DAF
+      parent: 508E5A6E-9E1E-44E2-9E0B-7AE1B6716325
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
+  - Entity: A4CB98FE-C1E7-4283-BD89-8383D6CCAACF
+    IDComponent:
+      id: A4CB98FE-C1E7-4283-BD89-8383D6CCAACF
+    TagComponent:
+      tag: camera
+    HierarchyComponent:
+      prev: 6ECAC6C4-B137-4E8E-8B12-C33BD82E6DF4
+      next: 79EAEF8C-93C0-40F5-BCE7-6CFF909B408F
+      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
+    TransformComponent:
+      translation: [10.4431858, 1.93111145, -0.00349462009]
+      rotation: [-0.0716671199, -0.661403179, -0.0804278255, 0.742254019]
+      scale: [1, 1, 1]
+    LuaScriptComponent:
+      guid: D2D845B2-2043-44FB-AA8C-9B2CBFE8AD85
+    CameraComponent:
+      fov: 45
+      zNear: 0.100000001
+      zFar: 100
+      lookAt: [-6.94999743, -1.15999997, -0.407254219]
+      front: [0.970330179, 0.214197651, -0.112155452]
+      up: [0.212781027, -0.976790428, -0.0245942604]
+      right: [-0.114820383, -0, -0.993386209]
   - Entity: 79EAEF8C-93C0-40F5-BCE7-6CFF909B408F
     IDComponent:
       id: 79EAEF8C-93C0-40F5-BCE7-6CFF909B408F
     TagComponent:
       tag: scene camera
     HierarchyComponent:
-      prev: 76054F4D-FA3A-434B-9C99-317289B4CA70
+      prev: A4CB98FE-C1E7-4283-BD89-8383D6CCAACF
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [3.54957461, -1.76727641, 0.934817314]
-      rotation: [-0.603479743, -0.433517128, 0.543528736, -0.390450597]
+      translation: [-10.0256176, -1.72627008, -1.56989646]
+      rotation: [-0.370866776, -0.919146597, 0.0496789329, -0.123122975]
       scale: [1, 1, 1]
     SceneCameraComponent:
       fov: 45
       zNear: 0.100000001
       zFar: 100
-      front: [-0.961250424, 0.192522228, -0.197314337]
-      up: [-0.18859008, -0.981292665, -0.0387115851]
-      right: [-0.201075926, 0, 0.979575634]
+      front: [0.935347676, 0.213031217, 0.282387197]
+      up: [0.203939587, -0.977045417, 0.0615706109]
+      right: [0.289021581, 0, -0.957322657]
       worldUp: [0, -1, 0]
-      yaw: -168.400116
-      pitch: 11.1000137
+      yaw: -343.200623
+      pitch: 12.3000488

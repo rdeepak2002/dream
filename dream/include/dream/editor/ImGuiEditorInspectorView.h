@@ -71,8 +71,8 @@ namespace Dream {
 
         void renderAddComponent();
 
-        void renderVec3Control(const std::string &label, glm::vec3 &values, float contentWidth, float resetValue,
-                               float vSpeed, std::pair<float, float> vMinMax1 = {0, 0},
+        bool renderVec3Control(const std::string &label, glm::vec3 &values, float contentWidth, float resetValue,
+                               float vSpeed, int id = 0, std::pair<float, float> vMinMax1 = {0, 0},
                                std::pair<float, float> vMinMax2 = {0, 0}, std::pair<float, float> vMinMax3 = {0, 0});
 
         void renderTagComponent();
@@ -93,11 +93,20 @@ namespace Dream {
 
         void renderCameraComponent();
 
+        void renderCollisionComponent();
+
+        void renderRigidBodyComponent();
+
+        void updateColliderAndRigidBody();
+
         // TODO: move mesh component render method to new class
         // mesh component renderer variables
-        ImGui::FileBrowser *meshSelectorBrowser;
         std::string oldMeshGUID;
+        ImGui::FileBrowser *meshSelectorBrowser;
         ImGui::FileBrowser *luaScriptSelectorBrowser;
+        ImGui::FileBrowser *animatorSelectorBrowser;
+        ImGui::FileBrowser *collisionMeshSelectorBrowser;
+        int colliderIndex;
         ImGuiTextEditor *imGuiTextEditor;
         ImGuiEditorAnimatorGraph *animatorGraphEditor;
     };
