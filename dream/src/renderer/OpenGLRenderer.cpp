@@ -189,16 +189,14 @@ namespace Dream {
                 if (entity.getComponent<Component::MaterialComponent>().diffuseTexture) {
                     auto *openGLTexture = dynamic_cast<OpenGLTexture *>(entity.getComponent<Component::MaterialComponent>().diffuseTexture);
                     if (openGLTexture) {
-                        shader->use();
                         shader->setInt("texture_diffuse1", 0);
                         openGLTexture->bind(0);
-                        shader->use();
-                        shader->setInt("texture_diffuse1", 0);
                     }
                 } else {
                     Logger::warn("No texture loaded");
                 }
             } else {
+                shader->setInt("texture_diffuse1", 0);
                 texture->bind(0);
             }
 
