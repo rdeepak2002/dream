@@ -44,47 +44,48 @@ function update(entity, dt)
 	local linearVelocity = vec3:new(0, 0, 0)
 	local speed = 2.0
 
-	if Input.getButtonDown(Key.LeftShift) and isGrounded then
+	local slash1Anim = entity:getAnimator():getCurrentStateName() == "Idle Slash 1"
+	local slash2Anim = entity:getAnimator():getCurrentStateName() == "Idle Slash 2"
+	local walkSlashAnim = entity:getAnimator():getCurrentStateName() == "Walk Slash 1"
+	local isSlashingAnim = slash1Anim or slash2Anim or walkSlashAnim
+
+	if Input.getButtonDown(Key.LeftShift) and isGrounded and not isSlashingAnim then
 		speed = 4.0
 	end
 	
-	if Input.getButtonDown(Key.w) and isGrounded then
+	if Input.getButtonDown(Key.w) and isGrounded and not isSlashingAnim then
 		linearVelocity = linearVelocity + cameraForwardVector
 	end
 
-	if Input.getButtonDown(Key.s) and isGrounded then
+	if Input.getButtonDown(Key.s) and isGrounded and not isSlashingAnim then
 		linearVelocity = linearVelocity - cameraForwardVector
 	end
 
-	if Input.getButtonDown(Key.a) and isGrounded then
+	if Input.getButtonDown(Key.a) and isGrounded and not isSlashingAnim then
 		linearVelocity = linearVelocity + cameraRightVector
 	end
 
-	if Input.getButtonDown(Key.d) and isGrounded then
+	if Input.getButtonDown(Key.d) and isGrounded and not isSlashingAnim then
 		linearVelocity = linearVelocity - cameraRightVector
 	end
 
-	--local hit = PhysicsComponentSystem.raycastGetFirstHit(s, e)
-	--Logger.debug(tostring(isGrounded))
-	--if isGrounded then
-		--Logger.info("-----")
-		--Logger.debug(tostring(s))
-		--Logger.debug(tostring(e))
-		--Logger.debug(tostring(hit))
-	--end
-
-
-	if Input.getButtonDown(Key.Space) then
-		if isGrounded and entity:getAnimator():getCurrentStateName() ~= "Idle Jump" then
+	if Input.getButtonDown(Key.Space) and not isSlashingAnim then
+		if isGrounded and entity:getAnimator():getCurrentStateName() ~= "Idle Jump" and entity:getAnimator():getCurrentStateName() ~= "Run Jump" then
 			shouldJump = true
-			-- entity:getRigidBody():applyCentralImpulse(vec3:new(0, 20.0 * dt, 0))
-		else
-			-- Logger.debug("in air")
 		end
 	end
 
 	local currentLinVel = entity:getRigidBody():getLinearVelocity()
-	if shouldJump then
+
+	local currentTranslationalVelocity = MathUtils.magnitudeVec3(vec3:new(currentLinVel.x, 0, currentLinVel.z))
+
+	if currentTranslationalVelocity > 1.0 and not isGrounded then
+		entity:getAnimator():setVariable("moving in air", 1)
+	else
+		entity:getAnimator():setVariable("moving in air", 0)
+	end
+
+	if shouldJump and not isSlashingAnim then
 		currentLinVel.y = 4.0
 		entity:getRigidBody():setLinearVelocity(currentLinVel)
 	end
@@ -121,6 +122,12 @@ function update(entity, dt)
 	end
 	entity:getAnimator():setVariable("slash", slash)
 end
+
+
+
+
+
+
 
 
 

@@ -20,6 +20,9 @@ States:
   - Guid: FAB6F64D-B9C3-4C32-99DD-2D08D0EC4590
     PlayOnce: true
     Name: Idle Jump
+  - Guid: 8BF53628-A4C4-4355-8607-2244F108C59B
+    PlayOnce: true
+    Name: Run Jump
 Transitions:
   - To: 1
     From: 0
@@ -275,9 +278,32 @@ Transitions:
         Operator: ==
         Variable2Idx: -1
         Variable2: 0
+      - Variable1Idx: 3
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 0
     Blend: false
   - To: 0
     From: 6
+    Conditions:
+      - Variable1Idx: 2
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 1
+    Blend: false
+  - To: 7
+    From: 0
+    Conditions:
+      - Variable1Idx: 3
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 1
+    Blend: false
+  - To: 5
+    From: 7
     Conditions:
       - Variable1Idx: 2
         Variable1: 0
@@ -292,3 +318,5 @@ Variables:
     Value: 0
   - Name: grounded
     Value: 1
+  - Name: moving in air
+    Value: 0
