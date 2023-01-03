@@ -240,7 +240,7 @@ namespace Dream {
                 }
             } else if (!textureEmbeddedInModel) {
                 // add texture stored in an external image file
-                if (!Project::getResourceManager()->hasData(textureFileGUID)) {
+                if (!Project::getResourceManager()->hasTextureData(textureFileGUID)) {
                     if (createMeshObjects) {
                         auto *dreamTexture = new OpenGLTexture(texturePath);
                         Project::getResourceManager()->storeTextureData(dreamTexture, textureFileGUID);
