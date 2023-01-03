@@ -54,11 +54,11 @@ namespace Dream::Component {
     void MeshComponent::loadMesh() {
         if (meshType == MeshType::FROM_FILE) {
             if (!this->fileId.empty()) {
-                if (!Project::getResourceManager()->hasData(this->guid, this->fileId)) {
+                if (!Project::getResourceManager()->hasMeshData(this->guid, this->fileId)) {
                     std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
                     Project::getAssetLoader()->loadMesh(this->guid);
                 }
-                this->mesh = (OpenGLMesh *) Project::getResourceManager()->getData(this->guid, this->fileId);
+                this->mesh = (OpenGLMesh *) Project::getResourceManager()->getMeshData(this->guid, this->fileId).get();
             } else {
                 if (!this->guid.empty()) {
                     if (needsToLoadBones) {
@@ -72,9 +72,15 @@ namespace Dream::Component {
             }
         } else {
             if (meshType == PRIMITIVE_CUBE) {
-                this->mesh = new OpenGLCubeMesh();
+                if (!Project::getResourceManager()->hasMeshData("cube")) {
+                    Project::getResourceManager()->storeMeshData(new OpenGLCubeMesh(), "cube");
+                }
+                this->mesh = (OpenGLMesh *) Project::getResourceManager()->getMeshData("cube").get();
             } else if (meshType == PRIMITIVE_SPHERE) {
-                this->mesh = new OpenGLSphereMesh();
+                if (!Project::getResourceManager()->hasMeshData("sphere")) {
+                    Project::getResourceManager()->storeMeshData(new OpenGLSphereMesh(), "sphere");
+                }
+                this->mesh = (OpenGLMesh *) Project::getResourceManager()->getMeshData("sphere").get();
             } else {
                 Logger::fatal("Unknown primitive mesh type");
             }

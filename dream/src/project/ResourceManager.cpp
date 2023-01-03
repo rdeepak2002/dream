@@ -28,35 +28,6 @@ namespace Dream {
         guidMap[guid] = filepath;
     }
 
-    void *ResourceManager::getData(const std::string &guid, const std::string &fileID) {
-        return fileIDMap[std::make_pair(guid, fileID)];
-    }
-
-    void ResourceManager::storeData(const std::string &guid, const std::string &fileID, void *data) {
-        if (guid.empty()) {
-            Logger::fatal("GUID cannot be empty");
-        }
-        if (fileID.empty()) {
-            Logger::fatal("FileID cannot be empty");
-        }
-        fileIDMap[std::make_pair(guid, fileID)] = data;
-    }
-
-    void ResourceManager::storeData(const std::string &guid, void *data) {
-        if (guid.empty()) {
-            Logger::fatal("GUID cannot be empty");
-        }
-        fileIDMap[std::make_pair(guid, "")] = data;
-    }
-
-    bool ResourceManager::hasData(const std::string &guid, const std::string &fileID) {
-        return fileIDMap.count(std::make_pair(guid, fileID)) > 0;
-    }
-
-    bool ResourceManager::hasData(const std::string &guid) {
-        return fileIDMap.count(std::make_pair(guid, "")) > 0;
-    }
-
     std::shared_ptr<Texture> ResourceManager::getTextureData(const std::string &guid, const std::string &fileID) {
         return textureDataMap[std::make_pair(guid, fileID)];
     }
@@ -68,5 +39,18 @@ namespace Dream {
 
     bool ResourceManager::hasTextureData(const std::string &guid, const std::string &fileID) {
         return textureDataMap.count(std::make_pair(guid, fileID)) > 0;
+    }
+
+    std::shared_ptr<Mesh> ResourceManager::getMeshData(const std::string &guid, const std::string &fileID) {
+        return meshDataMap[std::make_pair(guid, fileID)];
+    }
+
+    void ResourceManager::storeMeshData(Mesh *mesh, const std::string &guid, const std::string &fileID) {
+        std::shared_ptr<Mesh> ptr(mesh);
+        meshDataMap[std::make_pair(guid, fileID)] = ptr;
+    }
+
+    bool ResourceManager::hasMeshData(const std::string &guid, const std::string &fileID) {
+        return meshDataMap.count(std::make_pair(guid, fileID)) > 0;
     }
 }

@@ -215,12 +215,18 @@ namespace Dream {
         // add mesh component
         std::string meshFileGUID = std::move(guid);
         std::string subMeshFileID = IDUtils::newFileID(std::string(std::to_string(meshID) + "0"));
-        if (!Project::getResourceManager()->hasData(meshFileGUID)) {
+        if (!Project::getResourceManager()->hasMeshData(meshFileGUID)) {
             if (createMeshObjects) {
                 auto *dreamMesh = new OpenGLMesh(vertices, indices);
-                Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
+                Project::getResourceManager()->storeMeshData(dreamMesh, meshFileGUID, subMeshFileID);
             }
         }
+//        if (!Project::getResourceManager()->hasData(meshFileGUID)) {
+//            if (createMeshObjects) {
+//                auto *dreamMesh = new OpenGLMesh(vertices, indices);
+//                Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
+//            }
+//        }
         if (createEntities) {
             entity.addComponent<Component::MeshComponent>(meshFileGUID, subMeshFileID);
         }
