@@ -221,12 +221,6 @@ namespace Dream {
                 Project::getResourceManager()->storeMeshData(dreamMesh, meshFileGUID, subMeshFileID);
             }
         }
-//        if (!Project::getResourceManager()->hasData(meshFileGUID)) {
-//            if (createMeshObjects) {
-//                auto *dreamMesh = new OpenGLMesh(vertices, indices);
-//                Project::getResourceManager()->storeData(meshFileGUID, subMeshFileID, dreamMesh);
-//            }
-//        }
         if (createEntities) {
             entity.addComponent<Component::MeshComponent>(meshFileGUID, subMeshFileID);
         }
