@@ -237,7 +237,7 @@ namespace Dream {
                     if (createEntities) {
                         entity.addComponent<Component::MaterialComponent>();
                         entity.getComponent<Component::MaterialComponent>().isEmbedded = true;
-                        entity.getComponent<Component::MaterialComponent>().diffuseTextureGuid = textureFileGUID;
+                        entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
                     }
                 }
             } else if (!textureEmbeddedInModel) {
@@ -251,7 +251,8 @@ namespace Dream {
                 if (createEntities) {
                     entity.addComponent<Component::MaterialComponent>();
                     entity.getComponent<Component::MaterialComponent>().isEmbedded = false;
-                    entity.getComponent<Component::MaterialComponent>().diffuseTextureGuid = textureFileGUID;
+                    entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
+//                    entity.getComponent<Component::MaterialComponent>().diffuseTextureGuid = textureFileGUID;
                 }
             } else {
                 Logger::fatal("Invalid state while processing mesh");
@@ -261,7 +262,7 @@ namespace Dream {
             if (!entity.hasComponent<Component::MaterialComponent>()) {
                 entity.addComponent<Component::MaterialComponent>();
                 entity.getComponent<Component::MaterialComponent>().isEmbedded = false;
-                entity.getComponent<Component::MaterialComponent>().diffuseTextureGuid = "";
+//                entity.getComponent<Component::MaterialComponent>().diffuseTextureGuid = "";
             }
             entity.getComponent<Component::MaterialComponent>().diffuseColor = diffuseColor;
         }

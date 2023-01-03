@@ -183,8 +183,8 @@ namespace Dream::Component {
         inline static std::string componentName = "MaterialComponent";
         inline static std::string k_isEmbedded = "isEmbedded";
         bool isEmbedded = false;
-        inline static std::string k_diffuseTextureGuid = "diffuseTextureGuid";
-        std::string diffuseTextureGuid = "";
+        inline static std::string k_diffuseTextureGuids = "diffuseTextureGuids";
+        std::vector<std::string> diffuseTextureGuids;
         inline static std::string k_diffuseColor = "diffuseColor";
         glm::vec4 diffuseColor = {1, 1, 1, 1};
 

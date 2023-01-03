@@ -213,9 +213,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: e515df0d202ae52fcebb14295743063b
     MaterialComponent:
-      guid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       isEmbedded: false
-      diffuseTextureGuid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
+      diffuseTextureGuids:
+        - AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 703DCEC3-A9AB-409C-B693-F3EBD962BD1E
     IDComponent:
@@ -247,9 +247,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 65cc2c8205a05d7379fa3a6386f710e1
     MaterialComponent:
-      guid: 2FFD4A1F-CC22-4958-AE70-66A1B2FF11D8
       isEmbedded: false
-      diffuseTextureGuid: 2FFD4A1F-CC22-4958-AE70-66A1B2FF11D8
+      diffuseTextureGuids:
+        - 2FFD4A1F-CC22-4958-AE70-66A1B2FF11D8
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: CB7E57BB-C67F-48CF-9F31-B295036542AC
     IDComponent:
@@ -281,9 +281,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 1e48c4420b7073bc11916c6c1de226bb
     MaterialComponent:
-      guid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       isEmbedded: false
-      diffuseTextureGuid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
+      diffuseTextureGuids:
+        - AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: B59281B4-5184-4614-8BFB-9A7B72268A79
     IDComponent:
@@ -315,9 +315,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: a9b7ba70783b617e9998dc4dd82eb3c5
     MaterialComponent:
-      guid: 68551BA4-B60C-4377-98B7-CAE228AE0A47
       isEmbedded: false
-      diffuseTextureGuid: 68551BA4-B60C-4377-98B7-CAE228AE0A47
+      diffuseTextureGuids:
+        - 68551BA4-B60C-4377-98B7-CAE228AE0A47
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: DECDAD29-5EFF-4353-8D8C-E31DB42788A6
     IDComponent:
@@ -349,9 +349,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 4fac9ba115140ac4f1c22da82aa0bc7f
     MaterialComponent:
-      guid: 782A9DFA-1F6C-4462-93BC-D6404EB8F926
       isEmbedded: false
-      diffuseTextureGuid: 782A9DFA-1F6C-4462-93BC-D6404EB8F926
+      diffuseTextureGuids:
+        - 782A9DFA-1F6C-4462-93BC-D6404EB8F926
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 6FC57179-F815-420D-95E0-A2A4C4EE9C91
     IDComponent:
@@ -383,9 +383,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: d79aac075930c83c2f1e369a511148fe
     MaterialComponent:
-      guid: 68551BA4-B60C-4377-98B7-CAE228AE0A47
       isEmbedded: false
-      diffuseTextureGuid: 68551BA4-B60C-4377-98B7-CAE228AE0A47
+      diffuseTextureGuids:
+        - 68551BA4-B60C-4377-98B7-CAE228AE0A47
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: C2E2C94F-CF5D-405B-9447-FF524E5BF3EB
     IDComponent:
@@ -417,9 +417,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 89fcd07f20b6785b92134bd6c1d0fa42
     MaterialComponent:
-      guid: 782A9DFA-1F6C-4462-93BC-D6404EB8F926
       isEmbedded: false
-      diffuseTextureGuid: 782A9DFA-1F6C-4462-93BC-D6404EB8F926
+      diffuseTextureGuids:
+        - 782A9DFA-1F6C-4462-93BC-D6404EB8F926
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 40B5540B-A2B2-444F-9034-7F9D647DA6F5
     IDComponent:
@@ -451,9 +451,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 437d7d1d97917cd627a34a6a0fb41136
     MaterialComponent:
-      guid: 5AE85A51-B48C-4234-8A8F-B315F76E380F
       isEmbedded: false
-      diffuseTextureGuid: 5AE85A51-B48C-4234-8A8F-B315F76E380F
+      diffuseTextureGuids:
+        - 5AE85A51-B48C-4234-8A8F-B315F76E380F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 2C4C9AF0-7DE3-4A4A-8671-B143BF17B1D5
     IDComponent:
@@ -485,9 +485,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: a3d68b461bd9d3533ee1dd3ce4628ed4
     MaterialComponent:
-      guid: B43C8EBB-EDF1-49B3-9624-68581F24601E
       isEmbedded: false
-      diffuseTextureGuid: B43C8EBB-EDF1-49B3-9624-68581F24601E
+      diffuseTextureGuids:
+        - B43C8EBB-EDF1-49B3-9624-68581F24601E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 2AF8D7B5-96B2-48D2-930F-6A6C5E1D6DFD
     IDComponent:
@@ -519,9 +519,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 8d6dc35e506fc23349dd10ee68dabb64
     MaterialComponent:
-      guid: 4E846535-E520-4575-A771-8B86D9DCDC72
       isEmbedded: false
-      diffuseTextureGuid: 4E846535-E520-4575-A771-8B86D9DCDC72
+      diffuseTextureGuids:
+        - 4E846535-E520-4575-A771-8B86D9DCDC72
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: B0990C7E-2618-45DC-883D-12819B2D8B67
     IDComponent:
@@ -553,9 +553,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 1cc3633c579a90cfdd895e64021e2163
     MaterialComponent:
-      guid: B43C8EBB-EDF1-49B3-9624-68581F24601E
       isEmbedded: false
-      diffuseTextureGuid: B43C8EBB-EDF1-49B3-9624-68581F24601E
+      diffuseTextureGuids:
+        - B43C8EBB-EDF1-49B3-9624-68581F24601E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: CB798050-B695-4CF3-A79E-125FEA6404AD
     IDComponent:
@@ -587,9 +587,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 6d0f846348a856321729a2f36734d1a7
     MaterialComponent:
-      guid: 4E846535-E520-4575-A771-8B86D9DCDC72
       isEmbedded: false
-      diffuseTextureGuid: 4E846535-E520-4575-A771-8B86D9DCDC72
+      diffuseTextureGuids:
+        - 4E846535-E520-4575-A771-8B86D9DCDC72
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: D18DF561-049F-4787-9733-5E40BA1AE54E
     IDComponent:
@@ -621,9 +621,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: e205ee2a5de471a70c1fd1b46033a75f
     MaterialComponent:
-      guid: B43C8EBB-EDF1-49B3-9624-68581F24601E
       isEmbedded: false
-      diffuseTextureGuid: B43C8EBB-EDF1-49B3-9624-68581F24601E
+      diffuseTextureGuids:
+        - B43C8EBB-EDF1-49B3-9624-68581F24601E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 31BAD6DA-C525-46CE-BCDE-F833F6587E35
     IDComponent:
@@ -655,9 +655,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: acf4b89d3d503d8252c9c4ba75ddbf6d
     MaterialComponent:
-      guid: 4E846535-E520-4575-A771-8B86D9DCDC72
       isEmbedded: false
-      diffuseTextureGuid: 4E846535-E520-4575-A771-8B86D9DCDC72
+      diffuseTextureGuids:
+        - 4E846535-E520-4575-A771-8B86D9DCDC72
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 752B7522-8135-4880-A2F3-478270F05459
     IDComponent:
@@ -689,9 +689,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 024d7f84fff11dd7e8d9c510137a2381
     MaterialComponent:
-      guid: B43C8EBB-EDF1-49B3-9624-68581F24601E
       isEmbedded: false
-      diffuseTextureGuid: B43C8EBB-EDF1-49B3-9624-68581F24601E
+      diffuseTextureGuids:
+        - B43C8EBB-EDF1-49B3-9624-68581F24601E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 25863DDB-5802-4B59-B41B-BF18981FF6E2
     IDComponent:
@@ -723,9 +723,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 1f50893f80d6830d62765ffad7721742
     MaterialComponent:
-      guid: 4E846535-E520-4575-A771-8B86D9DCDC72
       isEmbedded: false
-      diffuseTextureGuid: 4E846535-E520-4575-A771-8B86D9DCDC72
+      diffuseTextureGuids:
+        - 4E846535-E520-4575-A771-8B86D9DCDC72
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 30752C2D-BCDF-4C6D-9780-246F3E414C86
     IDComponent:
@@ -757,9 +757,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 22fb0cee7e1f3bde58293de743871417
     MaterialComponent:
-      guid: B43C8EBB-EDF1-49B3-9624-68581F24601E
       isEmbedded: false
-      diffuseTextureGuid: B43C8EBB-EDF1-49B3-9624-68581F24601E
+      diffuseTextureGuids:
+        - B43C8EBB-EDF1-49B3-9624-68581F24601E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 2795F76B-EC8E-46E3-8FFA-0B80F2D355F0
     IDComponent:
@@ -791,9 +791,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: fc49306d97602c8ed1be1dfbf0835ead
     MaterialComponent:
-      guid: 4E846535-E520-4575-A771-8B86D9DCDC72
       isEmbedded: false
-      diffuseTextureGuid: 4E846535-E520-4575-A771-8B86D9DCDC72
+      diffuseTextureGuids:
+        - 4E846535-E520-4575-A771-8B86D9DCDC72
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 076410B2-9489-435F-A63F-9EA835E7DF1E
     IDComponent:
@@ -825,9 +825,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 1efa39bcaec6f3900149160693694536
     MaterialComponent:
-      guid: B43C8EBB-EDF1-49B3-9624-68581F24601E
       isEmbedded: false
-      diffuseTextureGuid: B43C8EBB-EDF1-49B3-9624-68581F24601E
+      diffuseTextureGuids:
+        - B43C8EBB-EDF1-49B3-9624-68581F24601E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 4F727602-5766-41BF-972A-C501AE1F74A2
     IDComponent:
@@ -859,9 +859,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: fa83a11a198d5a7f0bf77a1987bcd006
     MaterialComponent:
-      guid: 4E846535-E520-4575-A771-8B86D9DCDC72
       isEmbedded: false
-      diffuseTextureGuid: 4E846535-E520-4575-A771-8B86D9DCDC72
+      diffuseTextureGuids:
+        - 4E846535-E520-4575-A771-8B86D9DCDC72
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 5B550BBB-0A98-4B20-9B38-8FB21E3253B3
     IDComponent:
@@ -893,9 +893,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 8e82ab7243b7c66d768f1b8ce1c967eb
     MaterialComponent:
-      guid: B43C8EBB-EDF1-49B3-9624-68581F24601E
       isEmbedded: false
-      diffuseTextureGuid: B43C8EBB-EDF1-49B3-9624-68581F24601E
+      diffuseTextureGuids:
+        - B43C8EBB-EDF1-49B3-9624-68581F24601E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: DF7E1B77-F83D-4D2B-922B-26FEEDCB6850
     IDComponent:
@@ -927,9 +927,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: e2a2dcc36a08a345332c751b2f2e476c
     MaterialComponent:
-      guid: 4E846535-E520-4575-A771-8B86D9DCDC72
       isEmbedded: false
-      diffuseTextureGuid: 4E846535-E520-4575-A771-8B86D9DCDC72
+      diffuseTextureGuids:
+        - 4E846535-E520-4575-A771-8B86D9DCDC72
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 0A0B7FFA-346E-4E8F-A301-E44263D937F6
     IDComponent:
@@ -961,9 +961,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: b6edc1cd1f36e45daf6d7824d7bb2283
     MaterialComponent:
-      guid: 58C5E77A-77F4-453C-BDDA-6672FB60D2DF
       isEmbedded: false
-      diffuseTextureGuid: 58C5E77A-77F4-453C-BDDA-6672FB60D2DF
+      diffuseTextureGuids:
+        - 58C5E77A-77F4-453C-BDDA-6672FB60D2DF
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: B3EC500F-254F-42AB-9559-BDD725D4E918
     IDComponent:
@@ -995,9 +995,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 7a53928fa4dd31e82c6ef826f341daec
     MaterialComponent:
-      guid: 4D17D151-243F-473F-B972-97A9E4708AD9
       isEmbedded: false
-      diffuseTextureGuid: 4D17D151-243F-473F-B972-97A9E4708AD9
+      diffuseTextureGuids:
+        - 4D17D151-243F-473F-B972-97A9E4708AD9
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: DBD0DE5F-6AD3-4485-84EF-40F6B4456F91
     IDComponent:
@@ -1029,9 +1029,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 2dace78f80bc92e6d7493423d729448e
     MaterialComponent:
-      guid: 58C5E77A-77F4-453C-BDDA-6672FB60D2DF
       isEmbedded: false
-      diffuseTextureGuid: 58C5E77A-77F4-453C-BDDA-6672FB60D2DF
+      diffuseTextureGuids:
+        - 58C5E77A-77F4-453C-BDDA-6672FB60D2DF
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 75120E48-9F83-40B7-8A8B-030C0B9E3360
     IDComponent:
@@ -1063,9 +1063,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: a8e864d04c95572d1aece099af852d0a
     MaterialComponent:
-      guid: 4D17D151-243F-473F-B972-97A9E4708AD9
       isEmbedded: false
-      diffuseTextureGuid: 4D17D151-243F-473F-B972-97A9E4708AD9
+      diffuseTextureGuids:
+        - 4D17D151-243F-473F-B972-97A9E4708AD9
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 28F81FE4-FDEF-4101-A91A-1CFC3B50CE6E
     IDComponent:
@@ -1097,9 +1097,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 4ea06fbc83cdd0a06020c35d50e1e89a
     MaterialComponent:
-      guid: 58C5E77A-77F4-453C-BDDA-6672FB60D2DF
       isEmbedded: false
-      diffuseTextureGuid: 58C5E77A-77F4-453C-BDDA-6672FB60D2DF
+      diffuseTextureGuids:
+        - 58C5E77A-77F4-453C-BDDA-6672FB60D2DF
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 0FBB06E8-606D-4F54-A827-F9AA88C7F084
     IDComponent:
@@ -1131,9 +1131,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 2ca65f58e35d9ad45bf7f3ae5cfd08f1
     MaterialComponent:
-      guid: 4D17D151-243F-473F-B972-97A9E4708AD9
       isEmbedded: false
-      diffuseTextureGuid: 4D17D151-243F-473F-B972-97A9E4708AD9
+      diffuseTextureGuids:
+        - 4D17D151-243F-473F-B972-97A9E4708AD9
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 87831040-5746-47EE-A564-6782B80B14C2
     IDComponent:
@@ -1165,9 +1165,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: b137fdd1f79d56c7edf3365fea7520f2
     MaterialComponent:
-      guid: 58C5E77A-77F4-453C-BDDA-6672FB60D2DF
       isEmbedded: false
-      diffuseTextureGuid: 58C5E77A-77F4-453C-BDDA-6672FB60D2DF
+      diffuseTextureGuids:
+        - 58C5E77A-77F4-453C-BDDA-6672FB60D2DF
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: CA33FF56-8A76-442F-A095-7BE81BB607C0
     IDComponent:
@@ -1199,9 +1199,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: edfbe1afcf9246bb0d40eb4d8027d90f
     MaterialComponent:
-      guid: 4D17D151-243F-473F-B972-97A9E4708AD9
       isEmbedded: false
-      diffuseTextureGuid: 4D17D151-243F-473F-B972-97A9E4708AD9
+      diffuseTextureGuids:
+        - 4D17D151-243F-473F-B972-97A9E4708AD9
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: A77E816F-7C24-4074-8819-590A47FD8CE7
     IDComponent:
@@ -1233,9 +1233,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: d5cfead94f5350c12c322b5b664544c1
     MaterialComponent:
-      guid: 7989D79E-A6BA-48DA-97EA-133B6CCFB5CF
       isEmbedded: false
-      diffuseTextureGuid: 7989D79E-A6BA-48DA-97EA-133B6CCFB5CF
+      diffuseTextureGuids:
+        - 7989D79E-A6BA-48DA-97EA-133B6CCFB5CF
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 0D0E5743-E219-4047-8223-9F8403F70A6F
     IDComponent:
@@ -1267,9 +1267,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 5f2c22cb4a5380af7ca75622a6426917
     MaterialComponent:
-      guid: E7ABFCF5-B69E-4BEA-9C8D-5399C4C1441E
       isEmbedded: false
-      diffuseTextureGuid: E7ABFCF5-B69E-4BEA-9C8D-5399C4C1441E
+      diffuseTextureGuids:
+        - E7ABFCF5-B69E-4BEA-9C8D-5399C4C1441E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: BF846B68-0076-41EA-952E-B2C76861A79D
     IDComponent:
@@ -1301,9 +1301,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: e70611883d2760c8bbafb4acb29e3446
     MaterialComponent:
-      guid: A4217C85-5E47-4529-8801-936A2A0429E0
       isEmbedded: false
-      diffuseTextureGuid: A4217C85-5E47-4529-8801-936A2A0429E0
+      diffuseTextureGuids:
+        - A4217C85-5E47-4529-8801-936A2A0429E0
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 0D00CC66-A4C6-4250-AD2C-AECF7B3B6946
     IDComponent:
@@ -1335,9 +1335,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: e5841df2166dd424a57127423d276bbe
     MaterialComponent:
-      guid: 7989D79E-A6BA-48DA-97EA-133B6CCFB5CF
       isEmbedded: false
-      diffuseTextureGuid: 7989D79E-A6BA-48DA-97EA-133B6CCFB5CF
+      diffuseTextureGuids:
+        - 7989D79E-A6BA-48DA-97EA-133B6CCFB5CF
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: C8AAE538-FA83-45D2-8ABE-321D9A2E311B
     IDComponent:
@@ -1369,9 +1369,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: c06d06da9666a219db15cf575aff2824
     MaterialComponent:
-      guid: E7ABFCF5-B69E-4BEA-9C8D-5399C4C1441E
       isEmbedded: false
-      diffuseTextureGuid: E7ABFCF5-B69E-4BEA-9C8D-5399C4C1441E
+      diffuseTextureGuids:
+        - E7ABFCF5-B69E-4BEA-9C8D-5399C4C1441E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 462AC090-A348-4222-B380-338445ACE38A
     IDComponent:
@@ -1403,9 +1403,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: fccb3cdc9acc14a6e70a12f74560c026
     MaterialComponent:
-      guid: A4217C85-5E47-4529-8801-936A2A0429E0
       isEmbedded: false
-      diffuseTextureGuid: A4217C85-5E47-4529-8801-936A2A0429E0
+      diffuseTextureGuids:
+        - A4217C85-5E47-4529-8801-936A2A0429E0
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: C5383709-DEFF-4287-A34E-E47D9B022E42
     IDComponent:
@@ -1437,9 +1437,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 17c276c8e723eb46aef576537e9d56d0
     MaterialComponent:
-      guid: E7ABFCF5-B69E-4BEA-9C8D-5399C4C1441E
       isEmbedded: false
-      diffuseTextureGuid: E7ABFCF5-B69E-4BEA-9C8D-5399C4C1441E
+      diffuseTextureGuids:
+        - E7ABFCF5-B69E-4BEA-9C8D-5399C4C1441E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: E847E2BF-903B-43F5-98B8-1850F3C29B21
     IDComponent:
@@ -1471,9 +1471,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 68264bdb65b97eeae6788aa3348e553c
     MaterialComponent:
-      guid: A4217C85-5E47-4529-8801-936A2A0429E0
       isEmbedded: false
-      diffuseTextureGuid: A4217C85-5E47-4529-8801-936A2A0429E0
+      diffuseTextureGuids:
+        - A4217C85-5E47-4529-8801-936A2A0429E0
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: A08CD8F4-7471-4463-9AC6-05A615B17248
     IDComponent:
@@ -1505,9 +1505,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 884d247c6f65a96a7da4d1105d584ddd
     MaterialComponent:
-      guid: E7ABFCF5-B69E-4BEA-9C8D-5399C4C1441E
       isEmbedded: false
-      diffuseTextureGuid: E7ABFCF5-B69E-4BEA-9C8D-5399C4C1441E
+      diffuseTextureGuids:
+        - E7ABFCF5-B69E-4BEA-9C8D-5399C4C1441E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 42EEB729-286C-4F3C-B03B-3DABE0CAB556
     IDComponent:
@@ -1539,9 +1539,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 4ffce04d92a4d6cb21c1494cdfcd6dc1
     MaterialComponent:
-      guid: 7989D79E-A6BA-48DA-97EA-133B6CCFB5CF
       isEmbedded: false
-      diffuseTextureGuid: 7989D79E-A6BA-48DA-97EA-133B6CCFB5CF
+      diffuseTextureGuids:
+        - 7989D79E-A6BA-48DA-97EA-133B6CCFB5CF
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 32ABCA0D-A348-4D16-9B98-7F9AE9BD3B04
     IDComponent:
@@ -1573,9 +1573,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 9cc138f8dc04cbf16240daa92d8d50e2
     MaterialComponent:
-      guid: 431740A0-C6A9-4029-8B54-E95A34FB5FF5
       isEmbedded: false
-      diffuseTextureGuid: 431740A0-C6A9-4029-8B54-E95A34FB5FF5
+      diffuseTextureGuids:
+        - 431740A0-C6A9-4029-8B54-E95A34FB5FF5
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 57C4C85B-AC0D-475B-A997-379A9287C07B
     IDComponent:
@@ -1607,9 +1607,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: b73dfe25b4b8714c029b37a6ad3006fa
     MaterialComponent:
-      guid: D19423C0-1272-45BF-A4A3-DEBAFE81039E
       isEmbedded: false
-      diffuseTextureGuid: D19423C0-1272-45BF-A4A3-DEBAFE81039E
+      diffuseTextureGuids:
+        - D19423C0-1272-45BF-A4A3-DEBAFE81039E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 708476AB-FB11-4270-B263-F75C6CC39251
     IDComponent:
@@ -1641,9 +1641,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 00ac8ed3b4327bdd4ebbebcb2ba10a00
     MaterialComponent:
-      guid: 47FDD6C5-D7AC-46DF-AC17-9E4CBDC9AE26
       isEmbedded: false
-      diffuseTextureGuid: 47FDD6C5-D7AC-46DF-AC17-9E4CBDC9AE26
+      diffuseTextureGuids:
+        - 47FDD6C5-D7AC-46DF-AC17-9E4CBDC9AE26
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: DF85BFA5-59C2-43E8-A7AA-81B0B85BFCA9
     IDComponent:
@@ -1675,9 +1675,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: d490d7b4576290fa60eb31b5fc917ad1
     MaterialComponent:
-      guid: 659840F5-0F77-49A2-B9EF-BF8C5BA7D2EE
       isEmbedded: false
-      diffuseTextureGuid: 659840F5-0F77-49A2-B9EF-BF8C5BA7D2EE
+      diffuseTextureGuids:
+        - 659840F5-0F77-49A2-B9EF-BF8C5BA7D2EE
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 57671727-BA7C-495D-8A69-2F270E6E9B99
     IDComponent:
@@ -1709,9 +1709,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 08b255a5d42b89b0585260b6f2360bdd
     MaterialComponent:
-      guid: D19423C0-1272-45BF-A4A3-DEBAFE81039E
       isEmbedded: false
-      diffuseTextureGuid: D19423C0-1272-45BF-A4A3-DEBAFE81039E
+      diffuseTextureGuids:
+        - D19423C0-1272-45BF-A4A3-DEBAFE81039E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 4C4D4D97-5FD6-4EED-B55D-A72B4B705E84
     IDComponent:
@@ -1743,9 +1743,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 069d3bb002acd8d7dd095917f9efe4cb
     MaterialComponent:
-      guid: 659840F5-0F77-49A2-B9EF-BF8C5BA7D2EE
       isEmbedded: false
-      diffuseTextureGuid: 659840F5-0F77-49A2-B9EF-BF8C5BA7D2EE
+      diffuseTextureGuids:
+        - 659840F5-0F77-49A2-B9EF-BF8C5BA7D2EE
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 51BE6EB3-49F5-4E23-8A86-1C4B0F516974
     IDComponent:
@@ -1777,9 +1777,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: a86c450b76fb8c371afead6410d55534
     MaterialComponent:
-      guid: 47FDD6C5-D7AC-46DF-AC17-9E4CBDC9AE26
       isEmbedded: false
-      diffuseTextureGuid: 47FDD6C5-D7AC-46DF-AC17-9E4CBDC9AE26
+      diffuseTextureGuids:
+        - 47FDD6C5-D7AC-46DF-AC17-9E4CBDC9AE26
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 6051D7C9-C1DD-4BAE-8092-BEE0E87516B6
     IDComponent:
@@ -1811,9 +1811,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: a9a6653e48976138166de32772b1bf40
     MaterialComponent:
-      guid: D19423C0-1272-45BF-A4A3-DEBAFE81039E
       isEmbedded: false
-      diffuseTextureGuid: D19423C0-1272-45BF-A4A3-DEBAFE81039E
+      diffuseTextureGuids:
+        - D19423C0-1272-45BF-A4A3-DEBAFE81039E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 567BAA45-8F16-4A40-9774-908291E7D351
     IDComponent:
@@ -1845,9 +1845,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 01f78be6f7cad02658508fe4616098a9
     MaterialComponent:
-      guid: 659840F5-0F77-49A2-B9EF-BF8C5BA7D2EE
       isEmbedded: false
-      diffuseTextureGuid: 659840F5-0F77-49A2-B9EF-BF8C5BA7D2EE
+      diffuseTextureGuids:
+        - 659840F5-0F77-49A2-B9EF-BF8C5BA7D2EE
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 6F950F02-3B1E-43DF-A0DA-B24FE2CB7659
     IDComponent:
@@ -1879,9 +1879,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 9b72e31dac81715466cd580a448cf823
     MaterialComponent:
-      guid: C97A058C-6B47-43C1-B15A-D8A574029A76
       isEmbedded: false
-      diffuseTextureGuid: C97A058C-6B47-43C1-B15A-D8A574029A76
+      diffuseTextureGuids:
+        - C97A058C-6B47-43C1-B15A-D8A574029A76
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: C3686B7D-3A16-4AEB-8CCC-F5FE7F3B0545
     IDComponent:
@@ -1913,9 +1913,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: d64a340bcb633f536d56e51874281454
     MaterialComponent:
-      guid: 431740A0-C6A9-4029-8B54-E95A34FB5FF5
       isEmbedded: false
-      diffuseTextureGuid: 431740A0-C6A9-4029-8B54-E95A34FB5FF5
+      diffuseTextureGuids:
+        - 431740A0-C6A9-4029-8B54-E95A34FB5FF5
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: DA5E9D5C-9B5B-4A3E-9602-E976DA41CF6A
     IDComponent:
@@ -1947,9 +1947,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: cf67355a3333e6e143439161adc2d82e
     MaterialComponent:
-      guid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       isEmbedded: false
-      diffuseTextureGuid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
+      diffuseTextureGuids:
+        - AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 3CA582AD-15FC-4523-A2E0-FD9DDE9EDEE3
     IDComponent:
@@ -1981,9 +1981,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 087408522c31eeb1f982bc0eaf81d35f
     MaterialComponent:
-      guid: AC6DF66B-E68B-487F-AD3D-5867FB9FEA98
       isEmbedded: false
-      diffuseTextureGuid: AC6DF66B-E68B-487F-AD3D-5867FB9FEA98
+      diffuseTextureGuids:
+        - AC6DF66B-E68B-487F-AD3D-5867FB9FEA98
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 73BFBCAD-1584-4B45-8DAD-1BC70733B75F
     IDComponent:
@@ -2015,9 +2015,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: cee631121c2ec9232f3a2f028ad5c89b
     MaterialComponent:
-      guid: 5A5FE104-FE22-4C6D-8287-FD53ABB1F57F
       isEmbedded: false
-      diffuseTextureGuid: 5A5FE104-FE22-4C6D-8287-FD53ABB1F57F
+      diffuseTextureGuids:
+        - 5A5FE104-FE22-4C6D-8287-FD53ABB1F57F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: FD3CC760-92EF-4368-ABB3-EFCE95A7F369
     IDComponent:
@@ -2049,9 +2049,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: c410003ef13d451727aeff9082c29a5c
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: C1C277F8-7100-42DF-9445-060E946CBEA8
     IDComponent:
@@ -2083,9 +2083,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 6ea2ef7311b482724a9b7b0bc0dd85c6
     MaterialComponent:
-      guid: 12817668-1F92-4DB2-92D3-0BDA91FB6F09
       isEmbedded: false
-      diffuseTextureGuid: 12817668-1F92-4DB2-92D3-0BDA91FB6F09
+      diffuseTextureGuids:
+        - 12817668-1F92-4DB2-92D3-0BDA91FB6F09
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 1A4C3ED7-81A0-4E01-9EDE-A9C03EA2004A
     IDComponent:
@@ -2117,9 +2117,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 26337353b7962f533d78c762373b3318
     MaterialComponent:
-      guid: 168D424E-BC75-4F77-99E8-290036F664D3
       isEmbedded: false
-      diffuseTextureGuid: 168D424E-BC75-4F77-99E8-290036F664D3
+      diffuseTextureGuids:
+        - 168D424E-BC75-4F77-99E8-290036F664D3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: E5768FFD-DC90-4C7B-A8B1-2CA28E4BB802
     IDComponent:
@@ -2151,9 +2151,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 98b297950041a42470269d56260243a1
     MaterialComponent:
-      guid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       isEmbedded: false
-      diffuseTextureGuid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
+      diffuseTextureGuids:
+        - AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 4EF1482F-E006-48AA-B292-54480B8D08FA
     IDComponent:
@@ -2185,9 +2185,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: f5f8590cd58a54e94377e6ae2eded4d9
     MaterialComponent:
-      guid: 001686F8-E407-4B25-887D-717A663BAB9F
       isEmbedded: false
-      diffuseTextureGuid: 001686F8-E407-4B25-887D-717A663BAB9F
+      diffuseTextureGuids:
+        - 001686F8-E407-4B25-887D-717A663BAB9F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 5C372DFA-A3EE-43B0-A5E6-7CA9F2620047
     IDComponent:
@@ -2219,9 +2219,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: a8abb4bb284b5b27aa7cb790dc20f80b
     MaterialComponent:
-      guid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       isEmbedded: false
-      diffuseTextureGuid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
+      diffuseTextureGuids:
+        - AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 2BB721CC-83BB-4146-B0C8-DD127938B1EC
     IDComponent:
@@ -2253,9 +2253,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: f74909ace68e51891440e4da0b65a70c
     MaterialComponent:
-      guid: A76C88D7-5149-4C2D-8AC4-9938D763C6A7
       isEmbedded: false
-      diffuseTextureGuid: A76C88D7-5149-4C2D-8AC4-9938D763C6A7
+      diffuseTextureGuids:
+        - A76C88D7-5149-4C2D-8AC4-9938D763C6A7
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 453E6C97-BD34-404A-8E65-992CBB5E70D2
     IDComponent:
@@ -2287,9 +2287,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: b6f0479ae87d244975439c6124592772
     MaterialComponent:
-      guid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       isEmbedded: false
-      diffuseTextureGuid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
+      diffuseTextureGuids:
+        - AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: A1A2DE35-4912-4D2C-B1CF-E8B5790A6F11
     IDComponent:
@@ -2321,9 +2321,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 1068c6e4c8051cfd4e9ea8072e3189e2
     MaterialComponent:
-      guid: A76C88D7-5149-4C2D-8AC4-9938D763C6A7
       isEmbedded: false
-      diffuseTextureGuid: A76C88D7-5149-4C2D-8AC4-9938D763C6A7
+      diffuseTextureGuids:
+        - A76C88D7-5149-4C2D-8AC4-9938D763C6A7
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: F0AA9C7D-FD5C-4BF7-83AA-192DD880B794
     IDComponent:
@@ -2355,9 +2355,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 18d8042386b79e2c279fd162df0205c8
     MaterialComponent:
-      guid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       isEmbedded: false
-      diffuseTextureGuid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
+      diffuseTextureGuids:
+        - AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: A6CD4250-79DD-4EEE-965A-D6F388DCDA0B
     IDComponent:
@@ -2389,9 +2389,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: a01a0380ca3c61428c26a231f0e49a09
     MaterialComponent:
-      guid: A76C88D7-5149-4C2D-8AC4-9938D763C6A7
       isEmbedded: false
-      diffuseTextureGuid: A76C88D7-5149-4C2D-8AC4-9938D763C6A7
+      diffuseTextureGuids:
+        - A76C88D7-5149-4C2D-8AC4-9938D763C6A7
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: F5C63B9A-3DAB-4E10-8847-58C57CB453C2
     IDComponent:
@@ -2423,9 +2423,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: bca82e41ee7b0833588399b1fcd177c7
     MaterialComponent:
-      guid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       isEmbedded: false
-      diffuseTextureGuid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
+      diffuseTextureGuids:
+        - AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 397A42E1-BB4C-467A-9738-12CBE58A4E9E
     IDComponent:
@@ -2457,9 +2457,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: d709f38ef758b5066ef31b18039b8ce5
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 17DCE31A-4BC7-4932-BD86-39939EB89455
     IDComponent:
@@ -2491,9 +2491,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: e7b24b112a44fdd9ee93bdf998c6ca0e
     MaterialComponent:
-      guid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       isEmbedded: false
-      diffuseTextureGuid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
+      diffuseTextureGuids:
+        - AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: F264B207-A3B0-4606-B841-F5B4CEF940D9
     IDComponent:
@@ -2525,9 +2525,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 9de6d14fff9806d4bcd1ef555be766cd
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 8890975F-092E-4516-9862-4BD94CF52D4A
     IDComponent:
@@ -2559,9 +2559,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 40008b9a5380fcacce3976bf7c08af5b
     MaterialComponent:
-      guid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       isEmbedded: false
-      diffuseTextureGuid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
+      diffuseTextureGuids:
+        - EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 2A629E87-B5A6-4295-831D-0316B20BF118
     IDComponent:
@@ -2593,9 +2593,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: fe73f687e5bc5280214e0486b273a5f9
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 2669D827-E990-4CA2-B581-0696CF9F4C75
     IDComponent:
@@ -2627,9 +2627,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 320722549d1751cf3f247855f937b982
     MaterialComponent:
-      guid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       isEmbedded: false
-      diffuseTextureGuid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
+      diffuseTextureGuids:
+        - EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 5A87B6C8-742F-4011-947D-A6B083271155
     IDComponent:
@@ -2661,9 +2661,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 06eb61b839a0cefee4967c67ccb099dc
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: DC0E14DB-4DE4-4E66-A0FC-91FCE7C871BB
     IDComponent:
@@ -2695,9 +2695,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 94f6d7e04a4d452035300f18b984988c
     MaterialComponent:
-      guid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       isEmbedded: false
-      diffuseTextureGuid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
+      diffuseTextureGuids:
+        - EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: F56E9C8D-6808-44D7-89BB-6F5D17350224
     IDComponent:
@@ -2729,9 +2729,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: f90f2aca5c640289d0a29417bcb63a37
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: CE165E2B-7325-4CFC-BAAA-6553B3EB1456
     IDComponent:
@@ -2763,9 +2763,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 92c8c96e4c37100777c7190b76d28233
     MaterialComponent:
-      guid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       isEmbedded: false
-      diffuseTextureGuid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
+      diffuseTextureGuids:
+        - EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 2C7C55EB-E833-4FBC-9608-CA87CB0B8F1F
     IDComponent:
@@ -2797,9 +2797,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 39059724f73a9969845dfe4146c5660e
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: B9732432-8F7D-41E6-865D-78727C14843B
     IDComponent:
@@ -2831,9 +2831,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: a4f23670e1833f3fdb077ca70bbd5d66
     MaterialComponent:
-      guid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       isEmbedded: false
-      diffuseTextureGuid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
+      diffuseTextureGuids:
+        - EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: C6223193-2226-4E2D-8D9C-B87D73D59517
     IDComponent:
@@ -2865,9 +2865,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 6c9882bbac1c7093bd25041881277658
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 9669624F-7A6D-48F3-A8F8-006619A14FD8
     IDComponent:
@@ -2899,9 +2899,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 335f5352088d7d9bf74191e006d8e24c
     MaterialComponent:
-      guid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       isEmbedded: false
-      diffuseTextureGuid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
+      diffuseTextureGuids:
+        - EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: B0335E61-09D0-4775-9FEB-DBBE3819443C
     IDComponent:
@@ -2933,9 +2933,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 6da9003b743b65f4c0ccd295cc484e57
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: F8C1DF07-95A8-46F6-899F-63B6F77537DB
     IDComponent:
@@ -2967,9 +2967,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: ec8ce6abb3e952a85b8551ba726a1227
     MaterialComponent:
-      guid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       isEmbedded: false
-      diffuseTextureGuid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
+      diffuseTextureGuids:
+        - EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 32444EB2-F1B1-4967-ACB7-EA7F60CF6D6F
     IDComponent:
@@ -3001,9 +3001,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 6f3ef77ac0e3619e98159e9b6febf557
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 8C3A042D-DE35-415C-9823-78F55FE78CEE
     IDComponent:
@@ -3035,9 +3035,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 3644a684f98ea8fe223c713b77189a77
     MaterialComponent:
-      guid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       isEmbedded: false
-      diffuseTextureGuid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
+      diffuseTextureGuids:
+        - EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: B82D9BA9-76F4-45E0-A44E-486334F5EF67
     IDComponent:
@@ -3069,9 +3069,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: cfecdb276f634854f3ef915e2e980c31
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 2B766088-4C65-4CF7-A1EC-7969AD48AFE0
     IDComponent:
@@ -3103,9 +3103,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 045117b0e0a11a242b9765e79cbf113f
     MaterialComponent:
-      guid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       isEmbedded: false
-      diffuseTextureGuid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
+      diffuseTextureGuids:
+        - EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 180E5C95-4D0B-4A07-B0D5-840A3D223F1C
     IDComponent:
@@ -3137,9 +3137,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 149e9677a5989fd342ae44213df68868
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 9CA16615-2C65-4D5B-87F7-A0F679F6A8EC
     IDComponent:
@@ -3171,9 +3171,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: b73ce398c39f506af761d2277d853a92
     MaterialComponent:
-      guid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       isEmbedded: false
-      diffuseTextureGuid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
+      diffuseTextureGuids:
+        - AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 2AEDA45E-8B84-4DB3-AD22-F0D723BD9058
     IDComponent:
@@ -3205,9 +3205,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 7ef605fc8dba5425d6965fbd4c8fbe1f
     MaterialComponent:
-      guid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       isEmbedded: false
-      diffuseTextureGuid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
+      diffuseTextureGuids:
+        - EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 521AF722-22E1-449E-80BE-915C97DDA3DA
     IDComponent:
@@ -3239,9 +3239,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 1385974ed5904a438616ff7bdb3f7439
     MaterialComponent:
-      guid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       isEmbedded: false
-      diffuseTextureGuid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
+      diffuseTextureGuids:
+        - AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 0A383AFF-BC7C-4125-8853-4C3ABAB74693
     IDComponent:
@@ -3273,9 +3273,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 9b8619251a19057cff70779273e95aa6
     MaterialComponent:
-      guid: 001686F8-E407-4B25-887D-717A663BAB9F
       isEmbedded: false
-      diffuseTextureGuid: 001686F8-E407-4B25-887D-717A663BAB9F
+      diffuseTextureGuids:
+        - 001686F8-E407-4B25-887D-717A663BAB9F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 5F1E3C8B-469B-4B60-932A-4144ACC9E6A4
     IDComponent:
@@ -3307,9 +3307,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: da4fb5c6e93e74d3df8527599fa62642
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 1EF44877-3A9C-4036-AFE0-758C0D63D18A
     IDComponent:
@@ -3341,9 +3341,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 5f93f983524def3dca464469d2cf9f3e
     MaterialComponent:
-      guid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       isEmbedded: false
-      diffuseTextureGuid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
+      diffuseTextureGuids:
+        - EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 05E3C88F-ADBA-4226-9E33-1F5F3F934B96
     IDComponent:
@@ -3375,9 +3375,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: f899139df5e1059396431415e770c6dd
     MaterialComponent:
-      guid: 168D424E-BC75-4F77-99E8-290036F664D3
       isEmbedded: false
-      diffuseTextureGuid: 168D424E-BC75-4F77-99E8-290036F664D3
+      diffuseTextureGuids:
+        - 168D424E-BC75-4F77-99E8-290036F664D3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 1C63A82A-9D7A-4A96-AA0F-E8DEE3C013DE
     IDComponent:
@@ -3409,9 +3409,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 8613985ec49eb8f757ae6439e879bb2a
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 6F9BB219-8085-4523-AD14-161945225FCB
     IDComponent:
@@ -3443,9 +3443,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: f033ab37c30201f73f142449d037028d
     MaterialComponent:
-      guid: 12817668-1F92-4DB2-92D3-0BDA91FB6F09
       isEmbedded: false
-      diffuseTextureGuid: 12817668-1F92-4DB2-92D3-0BDA91FB6F09
+      diffuseTextureGuids:
+        - 12817668-1F92-4DB2-92D3-0BDA91FB6F09
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 2CC0C4AD-54A9-401E-AE41-CA0B44F9BD97
     IDComponent:
@@ -3477,9 +3477,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 7cbbc409ec990f19c78c75bd1e06f215
     MaterialComponent:
-      guid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       isEmbedded: false
-      diffuseTextureGuid: EF3C34E2-CC23-4F89-A392-2A82D22AA09F
+      diffuseTextureGuids:
+        - EF3C34E2-CC23-4F89-A392-2A82D22AA09F
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: B8014F72-F396-4AE3-A1BA-F719AA59DA9A
     IDComponent:
@@ -3511,9 +3511,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 072b030ba126b2f4b2374f342be9ed44
     MaterialComponent:
-      guid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       isEmbedded: false
-      diffuseTextureGuid: 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
+      diffuseTextureGuids:
+        - 1065CF25-B7D6-4B9D-9855-E1C6EBFF424C
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 3339160A-F991-4BF0-AA6C-698452A9ACC5
     IDComponent:
@@ -3545,9 +3545,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: c0c7c76d30bd3dcaefc96f40275bdc0a
     MaterialComponent:
-      guid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       isEmbedded: false
-      diffuseTextureGuid: AE11C0ED-190F-4FDE-8B9D-F732D78399A3
+      diffuseTextureGuids:
+        - AE11C0ED-190F-4FDE-8B9D-F732D78399A3
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 3FBB57AC-C966-4A41-8590-2719AE20C20D
     IDComponent:
@@ -3579,9 +3579,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: d645920e395fedad7bbbed0eca3fe2e0
     MaterialComponent:
-      guid: 68551BA4-B60C-4377-98B7-CAE228AE0A47
       isEmbedded: false
-      diffuseTextureGuid: 68551BA4-B60C-4377-98B7-CAE228AE0A47
+      diffuseTextureGuids:
+        - 68551BA4-B60C-4377-98B7-CAE228AE0A47
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 4CA756FE-35B1-4A7B-8EFD-391D9CB4FA42
     IDComponent:
@@ -3613,9 +3613,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 34173cb38f07f89ddbebc2ac9128303f
     MaterialComponent:
-      guid: B43C8EBB-EDF1-49B3-9624-68581F24601E
       isEmbedded: false
-      diffuseTextureGuid: B43C8EBB-EDF1-49B3-9624-68581F24601E
+      diffuseTextureGuids:
+        - B43C8EBB-EDF1-49B3-9624-68581F24601E
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: BDD4F604-17BC-413F-8D80-7D35CC5A63BA
     IDComponent:
@@ -3647,9 +3647,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: 98f13708210194c475687be6106a3b84
     MaterialComponent:
-      guid: 4E846535-E520-4575-A771-8B86D9DCDC72
       isEmbedded: false
-      diffuseTextureGuid: 4E846535-E520-4575-A771-8B86D9DCDC72
+      diffuseTextureGuids:
+        - 4E846535-E520-4575-A771-8B86D9DCDC72
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 0C0DA50B-6CC7-43F4-8AFC-F42EE71A70BB
     IDComponent:
@@ -3680,9 +3680,9 @@ Entities:
       guid: 2577AE6F-AC99-4475-8BCB-923FC3014EE3
       fileId: d3d9446802a44259755d38e6d163e820
     MaterialComponent:
-      guid: C97A058C-6B47-43C1-B15A-D8A574029A76
       isEmbedded: false
-      diffuseTextureGuid: C97A058C-6B47-43C1-B15A-D8A574029A76
+      diffuseTextureGuids:
+        - C97A058C-6B47-43C1-B15A-D8A574029A76
       diffuseColor: [0.588, 0.588, 0.588, 1]
   - Entity: 409BA0FB-F011-4855-A523-9D10840A8536
     IDComponent:
@@ -3820,9 +3820,9 @@ Entities:
       guid: BC7E1C50-1C54-42B7-8746-FF1545BDFF32
       fileId: 98f13708210194c475687be6106a3b84
     MaterialComponent:
-      guid: 4665b3faab069107e67cf5d5eaffc3c1
       isEmbedded: true
-      diffuseTextureGuid: 4665b3faab069107e67cf5d5eaffc3c1
+      diffuseTextureGuids:
+        - 4665b3faab069107e67cf5d5eaffc3c1
       diffuseColor: [1, 1, 1, 1]
   - Entity: 111265F2-37A1-49E7-ACCC-9C7DB7D0A210
     IDComponent:
@@ -3854,9 +3854,9 @@ Entities:
       guid: BC7E1C50-1C54-42B7-8746-FF1545BDFF32
       fileId: d3d9446802a44259755d38e6d163e820
     MaterialComponent:
-      guid: 4665b3faab069107e67cf5d5eaffc3c1
       isEmbedded: true
-      diffuseTextureGuid: 4665b3faab069107e67cf5d5eaffc3c1
+      diffuseTextureGuids:
+        - 4665b3faab069107e67cf5d5eaffc3c1
       diffuseColor: [1, 1, 1, 1]
   - Entity: 1DA8A2F4-B34C-488D-B7F5-157E29B1DE0D
     IDComponent:
@@ -3880,9 +3880,9 @@ Entities:
       first: 5DC0C3B1-31C8-45BF-BE46-4333D5CB487F
       parent: 1DA8A2F4-B34C-488D-B7F5-157E29B1DE0D
     TransformComponent:
-      translation: [0.0358040705, 80.8641205, 0.160440981]
-      rotation: [0.885033727, 0.0737777948, -0.458702594, 0.0293956473]
-      scale: [1, 0.99999994, 1]
+      translation: [0.152111754, 80.8824539, 0.00437911972]
+      rotation: [0.886673808, 0.0757379085, -0.455208182, 0.0293063447]
+      scale: [0.99999994, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 0
   - Entity: 5DC0C3B1-31C8-45BF-BE46-4333D5CB487F
@@ -3895,9 +3895,9 @@ Entities:
       next: 63C29501-327E-45AD-8CC1-38B74D8A0987
       parent: CDB91771-AC13-46E4-B150-0C4D4CDF4825
     TransformComponent:
-      translation: [-9.85770035, -5.87591505, -0.583700001]
-      rotation: [0.242624223, -0.247274786, 0.216396302, 0.912776709]
-      scale: [0.99999994, 1, 1]
+      translation: [-9.85770035, -5.87589741, -0.583700597]
+      rotation: [0.241700143, -0.247988641, 0.217543721, 0.912555456]
+      scale: [0.999999642, 0.999999583, 0.99999994]
     BoneComponent:
       boneID: 62
   - Entity: E817067C-933B-4DA1-BCCD-7D7618D10AD1
@@ -3909,9 +3909,9 @@ Entities:
       first: 7FCC4966-B054-48F4-A806-6186C0EB8063
       parent: 5DC0C3B1-31C8-45BF-BE46-4333D5CB487F
     TransformComponent:
-      translation: [2.15448111e-07, 41.7020035, 3.05633648e-06]
-      rotation: [0.92510289, -0.376978338, -0.00918354746, -0.0445830673]
-      scale: [1, 1, 0.99999994]
+      translation: [1.72257455e-06, 41.7019997, 3.33785607e-07]
+      rotation: [0.924779415, -0.377745032, -0.00627460191, -0.0453025624]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 63
   - Entity: 7FCC4966-B054-48F4-A806-6186C0EB8063
@@ -3923,9 +3923,9 @@ Entities:
       first: F0A6B0B5-7DB5-481E-9DB6-0C52B9B9FB29
       parent: E817067C-933B-4DA1-BCCD-7D7618D10AD1
     TransformComponent:
-      translation: [-4.63766446e-06, 36.9810028, 1.0714399e-06]
-      rotation: [0.801599145, 0.526149035, 0.0876497254, 0.270043612]
-      scale: [1, 1, 1]
+      translation: [-3.3736228e-06, 36.9810028, -9.53676249e-08]
+      rotation: [0.801541865, 0.525963306, 0.0877888426, 0.270529807]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 64
   - Entity: F0A6B0B5-7DB5-481E-9DB6-0C52B9B9FB29
@@ -3937,9 +3937,9 @@ Entities:
       first: A7CBE5E5-B0D4-4D46-9EE9-2ADF15608C3D
       parent: 7FCC4966-B054-48F4-A806-6186C0EB8063
     TransformComponent:
-      translation: [-1.85589192e-06, 16.7000046, -2.05204833e-06]
-      rotation: [0.930247009, 0.365780354, -0.0289116316, -0.00306258001]
-      scale: [1, 1, 0.99999994]
+      translation: [-3.49525124e-07, 16.7000046, -1.57803288e-06]
+      rotation: [0.92985338, 0.366903394, -0.0272021182, -0.00381933921]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 65
   - Entity: A7CBE5E5-B0D4-4D46-9EE9-2ADF15608C3D
@@ -3951,8 +3951,8 @@ Entities:
       first: 64CD781A-0AB6-44A7-821A-37D70610B12A
       parent: F0A6B0B5-7DB5-481E-9DB6-0C52B9B9FB29
     TransformComponent:
-      translation: [2.56944554e-06, 7.12000084, -1.09154868e-07]
-      rotation: [1, 3.62009378e-09, -3.24509486e-08, 3.59455044e-08]
+      translation: [2.51019378e-06, 7.11999846, -1.19209176e-08]
+      rotation: [1, 3.37677197e-09, -3.30859606e-08, 3.53342315e-08]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 66
@@ -3978,9 +3978,9 @@ Entities:
       next: 072672C9-C771-4D91-9C5D-1BD9147308A0
       parent: CDB91771-AC13-46E4-B150-0C4D4CDF4825
     TransformComponent:
-      translation: [9.78910065, -5.87591362, -0.583700597]
-      rotation: [-0.186091647, 0.369685411, 0.423480332, 0.805833101]
-      scale: [1.00000036, 1.00000024, 1.00000012]
+      translation: [9.78909969, -5.87589931, -0.583699822]
+      rotation: [-0.184051424, 0.369751096, 0.426875621, 0.804479003]
+      scale: [1, 1.00000012, 1]
     BoneComponent:
       boneID: 57
   - Entity: D0DAAD92-97ED-47B1-A032-4E6CA4BA2525
@@ -3992,9 +3992,9 @@ Entities:
       first: C08B7346-9ABC-4E6C-9102-F7DD9324E883
       parent: 63C29501-327E-45AD-8CC1-38B74D8A0987
     TransformComponent:
-      translation: [6.54929238e-07, 41.701992, -3.21934704e-06]
-      rotation: [0.903364956, -0.408260375, 0.131034568, -0.00922768656]
-      scale: [0.99999994, 1, 1]
+      translation: [7.15254771e-08, 41.7020035, 2.32458547e-07]
+      rotation: [0.904347897, -0.405433238, 0.1329889, -0.00962714758]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 58
   - Entity: C08B7346-9ABC-4E6C-9102-F7DD9324E883
@@ -4006,9 +4006,9 @@ Entities:
       first: 50DE9679-9CF6-4AD8-A299-C9F37D034224
       parent: D0DAAD92-97ED-47B1-A032-4E6CA4BA2525
     TransformComponent:
-      translation: [-2.58527393e-07, 36.9810028, 1.90768378e-06]
-      rotation: [0.898675799, 0.424038768, -0.0164529774, -0.110915966]
-      scale: [0.99999994, 0.99999994, 1]
+      translation: [-4.52995323e-07, 36.9810028, -1.8358237e-06]
+      rotation: [0.900200486, 0.421073228, -0.0157399233, -0.109948397]
+      scale: [0.99999994, 1, 0.99999994]
     BoneComponent:
       boneID: 59
   - Entity: 50DE9679-9CF6-4AD8-A299-C9F37D034224
@@ -4020,8 +4020,8 @@ Entities:
       first: 2E943DA5-46AA-4E78-BAE8-E638A490305A
       parent: C08B7346-9ABC-4E6C-9102-F7DD9324E883
     TransformComponent:
-      translation: [1.93679671e-06, 16.7000027, -2.81642059e-07]
-      rotation: [0.924191356, 0.376750469, 0.0614583828, -0.0123401443]
+      translation: [8.23306436e-07, 16.7000008, 3.0471017e-06]
+      rotation: [0.924182296, 0.376708686, 0.061849203, -0.0123412721]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 60
@@ -4034,8 +4034,8 @@ Entities:
       first: 48015B28-BD9F-4790-AE4A-2AB541830094
       parent: 50DE9679-9CF6-4AD8-A299-C9F37D034224
     TransformComponent:
-      translation: [7.0557104e-07, 7.11999655, -2.5350019e-07]
-      rotation: [1, -3.25962879e-09, -3.14200527e-10, -6.6543504e-10]
+      translation: [-1.2254344e-06, 7.12000275, -3.99351137e-07]
+      rotation: [1, -3.25962901e-09, -3.3527614e-09, 1.42899834e-08]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 61
@@ -4060,8 +4060,8 @@ Entities:
       prev: 63C29501-327E-45AD-8CC1-38B74D8A0987
       parent: CDB91771-AC13-46E4-B150-0C4D4CDF4825
     TransformComponent:
-      translation: [0.0172998458, 10.574791, -1.11720085]
-      rotation: [0.999060571, 0.0111320941, 0.0334810875, -0.025162125]
+      translation: [0.0173001252, 10.5748024, -1.11720037]
+      rotation: [0.999028921, 0.0119636096, 0.0344515778, -0.0247222763]
       scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 1
@@ -4074,9 +4074,9 @@ Entities:
       first: D8D0A6BA-1BF9-4B77-951F-F83260CD075B
       parent: 072672C9-C771-4D91-9C5D-1BD9147308A0
     TransformComponent:
-      translation: [1.24953192e-06, 12.4060001, -1.29263697e-07]
-      rotation: [0.999560058, 0.0177555904, 0.00984277204, 0.0216216426]
-      scale: [1, 1, 1]
+      translation: [-5.00679278e-07, 12.4060049, -2.26497662e-07]
+      rotation: [0.999711215, 0.00408054143, 0.0101095298, 0.0214164369]
+      scale: [0.99999994, 0.99999994, 1]
     BoneComponent:
       boneID: 2
   - Entity: D8D0A6BA-1BF9-4B77-951F-F83260CD075B
@@ -4088,9 +4088,9 @@ Entities:
       first: 3D23A510-F9A0-40C3-8E84-DBF43CF6190D
       parent: 6931612F-485F-424E-8A08-F0B8B1A06CB4
     TransformComponent:
-      translation: [3.71691229e-08, 14.1783161, -1.74359047e-06]
-      rotation: [0.997996151, 0.0614829808, 0.0105908727, 0.0105533171]
-      scale: [0.99999994, 1, 1]
+      translation: [9.73045985e-07, 14.1783047, 2.14576767e-06]
+      rotation: [0.998743176, 0.0478237197, 0.0108781233, 0.0103251012]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 3
   - Entity: 3D23A510-F9A0-40C3-8E84-DBF43CF6190D
@@ -4103,9 +4103,9 @@ Entities:
       next: 9079CBB4-4500-4F96-BC99-7D1599D25FE9
       parent: D8D0A6BA-1BF9-4B77-951F-F83260CD075B
     TransformComponent:
-      translation: [-5.93500042, 13.6706104, -1.66259944]
-      rotation: [0.398278952, 0.422490716, -0.472074389, 0.663340986]
-      scale: [0.99999994, 0.99999994, 0.999999881]
+      translation: [-5.93499851, 13.6705866, -1.66259384]
+      rotation: [0.401557058, 0.41272974, -0.506612539, 0.641677439]
+      scale: [0.999999821, 0.999999821, 0.999999821]
     BoneComponent:
       boneID: 33
   - Entity: C645FB1F-7B35-44B7-A20C-64D844C5C324
@@ -4117,9 +4117,9 @@ Entities:
       first: 3255E204-A74C-4282-8355-53BD759E5874
       parent: 3D23A510-F9A0-40C3-8E84-DBF43CF6190D
     TransformComponent:
-      translation: [2.04522303e-06, 12.6078987, -6.83581766e-06]
-      rotation: [0.924496353, 0.380568951, -0.0215328429, -0.0031786724]
-      scale: [1, 1, 0.99999994]
+      translation: [1.07288349e-06, 12.6078987, 2.62261295e-07]
+      rotation: [0.904118121, 0.426125705, -0.0118946675, -0.0290833507]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 34
   - Entity: 3255E204-A74C-4282-8355-53BD759E5874
@@ -4131,8 +4131,8 @@ Entities:
       first: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
       parent: C645FB1F-7B35-44B7-A20C-64D844C5C324
     TransformComponent:
-      translation: [-8.73239003e-07, 25.5743179, -5.98624501e-06]
-      rotation: [0.806969285, 0.0224391595, 0.0171991717, -0.589916348]
+      translation: [-9.53673265e-08, 25.5743084, 5.292894e-06]
+      rotation: [0.81800735, 0.0216388926, 0.0173831601, -0.574537694]
       scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 35
@@ -4145,9 +4145,9 @@ Entities:
       first: 74FE14A2-B539-4DD7-83E4-E4F19F454564
       parent: 3255E204-A74C-4282-8355-53BD759E5874
     TransformComponent:
-      translation: [2.52773179e-06, 21.603405, -1.67759231e-06]
-      rotation: [0.962904811, 0.0820384473, 0.00139364391, -0.257064372]
-      scale: [1, 1, 1]
+      translation: [-9.91821435e-06, 21.6034088, -8.67843755e-06]
+      rotation: [0.965999901, 0.118144482, 0.00157366635, -0.229964271]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 36
   - Entity: 74FE14A2-B539-4DD7-83E4-E4F19F454564
@@ -4255,9 +4255,9 @@ Entities:
       guid: 9671BFF7-E12F-47B3-8189-E585C663F212
       fileId: d3d9446802a44259755d38e6d163e820
     MaterialComponent:
-      guid: 137EB397-CF44-4714-978A-2CA98156202A
       isEmbedded: false
-      diffuseTextureGuid: 137EB397-CF44-4714-978A-2CA98156202A
+      diffuseTextureGuids:
+        - 137EB397-CF44-4714-978A-2CA98156202A
       diffuseColor: [1, 1, 1, 1]
   - Entity: 3FDE3B02-AD4B-4361-89D9-DB5463AB69A0
     IDComponent:
@@ -4270,8 +4270,8 @@ Entities:
       next: 04E763A3-F163-49F3-81E7-FF4FEE13E2F9
       parent: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
     TransformComponent:
-      translation: [-4.71270275, 8.98551083, -0.221007898]
-      rotation: [0.726234138, 0.68657124, 0.0245026443, -0.0245667752]
+      translation: [-4.71269131, 8.98550987, -0.221013367]
+      rotation: [0.725960374, 0.686858833, 0.0245551951, -0.024567727]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 53
@@ -4284,9 +4284,9 @@ Entities:
       first: 52D61379-7B75-4894-9759-6AC606DCF758
       parent: 3FDE3B02-AD4B-4361-89D9-DB5463AB69A0
     TransformComponent:
-      translation: [-8.69217274e-06, 3.56249714, 8.73238946e-07]
-      rotation: [0.8893556, 0.457215726, -3.73551643e-07, -0.00068606541]
-      scale: [1, 0.99999994, 1]
+      translation: [-5.24519862e-07, 3.56250572, 9.53673265e-08]
+      rotation: [0.889352977, 0.457220703, 2.58193795e-05, -0.000695326249]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 54
   - Entity: 52D61379-7B75-4894-9759-6AC606DCF758
@@ -4298,9 +4298,9 @@ Entities:
       first: F7283A1B-ADD6-4DAC-9E7B-6629C917A714
       parent: 64B7B911-706A-4DE6-8198-DB862F8F120B
     TransformComponent:
-      translation: [4.87747502e-06, 2.33520055, -3.6553638e-06]
-      rotation: [0.974895239, 0.222663715, 2.14051361e-05, -0.000329945848]
-      scale: [1, 1, 0.99999994]
+      translation: [-3.29017735e-06, 2.33520675, -3.84375471e-06]
+      rotation: [0.974398017, 0.224829942, -4.26684273e-05, -0.000316604826]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 55
   - Entity: F7283A1B-ADD6-4DAC-9E7B-6629C917A714
@@ -4312,8 +4312,8 @@ Entities:
       first: 55DAED5C-1F33-4FB6-A1D6-D26362BC3694
       parent: 52D61379-7B75-4894-9759-6AC606DCF758
     TransformComponent:
-      translation: [-4.27420946e-06, 2.0372963, 4.29730926e-06]
-      rotation: [1, 1.19496879e-09, -1.23424404e-09, 6.02988983e-18]
+      translation: [9.72747966e-06, 2.03729749, 8.96453912e-06]
+      rotation: [1, -5.26197397e-09, 4.8428781e-09, 3.07913483e-17]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 56
@@ -4339,9 +4339,9 @@ Entities:
       next: 52246ACA-AA1B-48C8-B1D0-188EEBA365A2
       parent: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
     TransformComponent:
-      translation: [-2.24170232, 9.3084116, -0.142998382]
-      rotation: [0.770092845, 0.636616766, 0.0196160804, 0.0359361954]
-      scale: [1, 0.999999821, 0.999999881]
+      translation: [-2.24169493, 9.30841351, -0.143004611]
+      rotation: [0.770104349, 0.636620283, 0.0198571011, 0.0354910791]
+      scale: [1, 1.00000012, 1.00000012]
     BoneComponent:
       boneID: 49
   - Entity: 62AF0E87-6624-479C-9A39-FAD09AFC2E70
@@ -4353,9 +4353,9 @@ Entities:
       first: 9A3B31BD-845F-46D8-9254-827B0E102682
       parent: 04E763A3-F163-49F3-81E7-FF4FEE13E2F9
     TransformComponent:
-      translation: [-6.42863915e-06, 4.01939678, 4.0217671e-08]
-      rotation: [0.802510023, 0.596519887, -0.000905102002, -0.0118701216]
-      scale: [1, 0.999999881, 1]
+      translation: [5.72205863e-07, 4.01939774, 4.29153488e-07]
+      rotation: [0.802516997, 0.596511245, -0.00100230007, -0.0118229622]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 50
   - Entity: 9A3B31BD-845F-46D8-9254-827B0E102682
@@ -4367,9 +4367,9 @@ Entities:
       first: 887F2594-ED44-46A4-ABAA-2E897D0B7A20
       parent: 62AF0E87-6624-479C-9A39-FAD09AFC2E70
     TransformComponent:
-      translation: [8.00269663e-06, 2.79081082, -1.66645549e-07]
-      rotation: [0.942166567, 0.334984511, 0.00404176675, 0.00955484342]
-      scale: [1, 1, 0.99999994]
+      translation: [-1.14440954e-05, 2.79080772, -6.38961865e-06]
+      rotation: [0.942166388, 0.33498463, 0.00404210854, 0.0095635131]
+      scale: [1, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 51
   - Entity: 887F2594-ED44-46A4-ABAA-2E897D0B7A20
@@ -4381,8 +4381,8 @@ Entities:
       first: 04BE5F1D-15F0-41DB-9E18-CCDA2833FEDF
       parent: 9A3B31BD-845F-46D8-9254-827B0E102682
     TransformComponent:
-      translation: [5.0727881e-06, 2.54069948, -5.72204544e-06]
-      rotation: [1, -3.88239041e-09, 2.46848764e-09, 2.01974526e-09]
+      translation: [-5.8174146e-06, 2.540694, -5.7220459e-06]
+      rotation: [1, -5.40167022e-09, -9.68575531e-09, 3.53902618e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 52
@@ -4408,9 +4408,9 @@ Entities:
       next: 5EAF5AE2-C224-4684-BBCC-E83C30C2AD4B
       parent: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
     TransformComponent:
-      translation: [-2.92990853e-06, 9.70070934, -2.47039588e-06]
-      rotation: [0.827798545, 0.560922265, 0.00939454976, -0.00525040179]
-      scale: [1, 1, 1]
+      translation: [5.62667947e-06, 9.70070744, -7.91549792e-06]
+      rotation: [0.827753305, 0.560980976, 0.00967437029, -0.00558936503]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 45
   - Entity: 3276B7C5-F4D1-44FF-A7E2-26C889FE8794
@@ -4422,9 +4422,9 @@ Entities:
       first: E99B6D69-1ACF-4D3B-AE8E-458373C961A3
       parent: 52246ACA-AA1B-48C8-B1D0-188EEBA365A2
     TransformComponent:
-      translation: [-1.49939706e-06, 4.01468945, 5.94602739e-07]
-      rotation: [0.739549637, 0.67173183, -0.0282611828, -0.0323116183]
-      scale: [1, 1, 0.99999994]
+      translation: [7.05719094e-06, 4.0146904, -5.72204783e-07]
+      rotation: [0.739545822, 0.671734035, -0.0281918198, -0.0324139409]
+      scale: [1, 1.00000012, 1.00000024]
     BoneComponent:
       boneID: 46
   - Entity: E99B6D69-1ACF-4D3B-AE8E-458373C961A3
@@ -4436,9 +4436,9 @@ Entities:
       first: 10E96079-296F-4C56-9871-E967653C2A20
       parent: 3276B7C5-F4D1-44FF-A7E2-26C889FE8794
     TransformComponent:
-      translation: [2.18309742e-06, 2.99671531, -2.5392817e-06]
-      rotation: [0.959464014, 0.281480104, -0.00441778591, 0.0133509664]
-      scale: [1, 1, 1]
+      translation: [2.38418323e-07, 2.99671221, 5.72204954e-07]
+      rotation: [0.959454715, 0.281512201, -0.00441105524, 0.0133450823]
+      scale: [0.99999994, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 47
   - Entity: 10E96079-296F-4C56-9871-E967653C2A20
@@ -4450,8 +4450,8 @@ Entities:
       first: 2DDFA48D-245F-43F4-B061-91300836D542
       parent: E99B6D69-1ACF-4D3B-AE8E-458373C961A3
     TransformComponent:
-      translation: [6.11844735e-06, 2.82500386, -1.60870684e-07]
-      rotation: [1, -1.14115197e-08, -3.09688875e-09, -8.21352319e-09]
+      translation: [5.34057654e-06, 2.82500124, -1.71661395e-06]
+      rotation: [1, -1.36904426e-08, 2.98023362e-09, 2.42144016e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 48
@@ -4477,9 +4477,9 @@ Entities:
       next: 41CADA3A-0BB1-4392-A86E-D7854554BE4F
       parent: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
     TransformComponent:
-      translation: [2.34189939, 9.90970707, -0.290998161]
-      rotation: [0.860743999, 0.508380771, 0.0143699739, 0.0215001237]
-      scale: [0.99999994, 1, 1]
+      translation: [2.34190369, 9.90970898, -0.29100436]
+      rotation: [0.862185001, 0.505933821, 0.0148683023, 0.0211410448]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 41
   - Entity: CCC8EC0B-1D39-4F6B-9B72-332F1CF35BAD
@@ -4491,9 +4491,9 @@ Entities:
       first: F9127706-4A17-4C76-B7D0-3E01C2890702
       parent: 5EAF5AE2-C224-4684-BBCC-E83C30C2AD4B
     TransformComponent:
-      translation: [-4.45240494e-06, 3.77679062, 6.17598971e-07]
-      rotation: [0.835932553, 0.547480524, -0.0210733302, -0.0322135054]
-      scale: [0.99999994, 0.999999881, 0.99999994]
+      translation: [-6.00814838e-06, 3.776793, 1.97887448e-06]
+      rotation: [0.835075021, 0.548790276, -0.0210867003, -0.032161437]
+      scale: [1, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 42
   - Entity: F9127706-4A17-4C76-B7D0-3E01C2890702
@@ -4505,9 +4505,9 @@ Entities:
       first: 57444235-7F7C-4BAB-9F02-9CA2B833B69A
       parent: CCC8EC0B-1D39-4F6B-9B72-332F1CF35BAD
     TransformComponent:
-      translation: [-2.45884621e-06, 2.54300952, -1.74647801e-06]
-      rotation: [0.868288994, 0.495764524, -0.012701855, 0.0114177279]
-      scale: [1, 1.00000012, 1.00000012]
+      translation: [1.43051204e-06, 2.54301238, -1.90734653e-07]
+      rotation: [0.868289828, 0.495764375, -0.0126811387, 0.0113868248]
+      scale: [1, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 43
   - Entity: 57444235-7F7C-4BAB-9F02-9CA2B833B69A
@@ -4519,8 +4519,8 @@ Entities:
       first: 08091019-C090-4DFE-A72C-62585F62131B
       parent: F9127706-4A17-4C76-B7D0-3E01C2890702
     TransformComponent:
-      translation: [-1.94756626e-06, 2.52900743, -4.843032e-06]
-      rotation: [1, -1.09970189e-09, 2.01974526e-09, 1.33301583e-08]
+      translation: [-2.33650212e-06, 2.5290103, -9.53673862e-07]
+      rotation: [1, -1.17346657e-08, 3.53902596e-09, -1.86264693e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 44
@@ -4545,9 +4545,9 @@ Entities:
       prev: 5EAF5AE2-C224-4684-BBCC-E83C30C2AD4B
       parent: 03A3620A-9F06-422B-9BA1-B8D10B3D8EA0
     TransformComponent:
-      translation: [2.37039542, 3.54560852, 1.90900326]
-      rotation: [0.880806148, 0.461029291, -0.107829623, -0.00231398642]
-      scale: [0.99999994, 0.99999994, 0.99999994]
+      translation: [2.37041306, 3.54560733, 1.90899479]
+      rotation: [0.880806148, 0.461029291, -0.107829601, -0.00231397385]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 37
   - Entity: C18809F4-E93C-4693-837B-1FFF647B3593
@@ -4559,8 +4559,8 @@ Entities:
       first: 7812BDD5-AB01-4CDE-9C7A-09FEF294E7DA
       parent: 41CADA3A-0BB1-4392-A86E-D7854554BE4F
     TransformComponent:
-      translation: [-2.04120115e-05, 2.80799651, 4.59925786e-08]
-      rotation: [0.982943535, -0.0969370306, -0.15572466, -0.0132304793]
+      translation: [-1.02996819e-05, 2.808002, 5.10215796e-06]
+      rotation: [0.982943594, -0.0969369933, -0.15572457, -0.0132304551]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 38
@@ -4573,8 +4573,8 @@ Entities:
       first: CD6048B9-FE42-4669-9F42-8BCF8CF9B45A
       parent: C18809F4-E93C-4693-837B-1FFF647B3593
     TransformComponent:
-      translation: [-1.82113831e-06, 2.37901664, 1.98200905e-06]
-      rotation: [0.973173141, -0.128395051, 0.135643482, 0.134348765]
+      translation: [3.62396281e-06, 2.37901473, -1.90734909e-06]
+      rotation: [0.973173141, -0.128395066, 0.135643497, 0.134348765]
       scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 39
@@ -4587,8 +4587,8 @@ Entities:
       first: 271FD995-2CF4-4E00-BB21-B3B2B62713E5
       parent: 7812BDD5-AB01-4CDE-9C7A-09FEF294E7DA
     TransformComponent:
-      translation: [2.26353268e-06, 2.4452889, 3.8936887e-06]
-      rotation: [1, -1.93668335e-08, -2.91642488e-10, 3.72529008e-09]
+      translation: [1.09672533e-06, 2.44529581, 3.50475307e-06]
+      rotation: [1, 9.49949275e-09, 1.49011612e-08, 3.72529008e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 40
@@ -4614,9 +4614,9 @@ Entities:
       next: AC54F59C-D534-43C1-9C18-1A09205E5D69
       parent: D8D0A6BA-1BF9-4B77-951F-F83260CD075B
     TransformComponent:
-      translation: [5.9350009, 13.6702156, -1.66260147]
-      rotation: [0.49192664, 0.590127826, 0.38788113, -0.509220541]
-      scale: [1, 1, 1]
+      translation: [5.93500233, 13.6701984, -1.66259706]
+      rotation: [0.503134072, 0.57593137, 0.403399885, -0.502421856]
+      scale: [1, 1.00000012, 1]
     BoneComponent:
       boneID: 9
   - Entity: A9DD1BC4-652F-442F-AF65-CDE3CD324E94
@@ -4628,9 +4628,9 @@ Entities:
       first: 2D1CB6CA-494B-433E-8F56-19B053AEA676
       parent: 9079CBB4-4500-4F96-BC99-7D1599D25FE9
     TransformComponent:
-      translation: [-2.18309742e-06, 12.6078949, 1.75724908e-05]
-      rotation: [0.939040482, 0.317467123, 0.021733202, 0.130173996]
-      scale: [0.99999994, 0.99999994, 0.99999994]
+      translation: [-2.38418295e-07, 12.6078978, 7.51015648e-07]
+      rotation: [0.926060259, 0.348235279, 0.0296599399, 0.142354652]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 10
   - Entity: 2D1CB6CA-494B-433E-8F56-19B053AEA676
@@ -4642,9 +4642,9 @@ Entities:
       first: F4792F8B-FAD6-42FD-92FC-96974F60E69B
       parent: A9DD1BC4-652F-442F-AF65-CDE3CD324E94
     TransformComponent:
-      translation: [-2.06821915e-06, 25.5743027, 1.4189618e-06]
-      rotation: [0.660240412, 0.178627774, -0.200158507, 0.701506436]
-      scale: [1, 0.99999994, 0.99999994]
+      translation: [-3.62396258e-06, 25.574295, -7.91549792e-06]
+      rotation: [0.681280792, 0.169437021, -0.203524247, 0.682440817]
+      scale: [1.00000024, 1.00000012, 1]
     BoneComponent:
       boneID: 11
   - Entity: F4792F8B-FAD6-42FD-92FC-96974F60E69B
@@ -4656,9 +4656,9 @@ Entities:
       first: 70A5FE41-9033-4A4E-8F1E-020A0D6BD660
       parent: 2D1CB6CA-494B-433E-8F56-19B053AEA676
     TransformComponent:
-      translation: [-2.62188246e-06, 21.6034012, -5.89147567e-06]
-      rotation: [0.999256253, 0.0337276161, 0.000517618551, 0.0186829548]
-      scale: [1, 1, 1]
+      translation: [-2.03847867e-06, 21.6034012, 1.69277303e-06]
+      rotation: [0.999010801, 0.0346753635, 0.000506725803, 0.0278363209]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 12
   - Entity: 70A5FE41-9033-4A4E-8F1E-020A0D6BD660
@@ -4671,9 +4671,9 @@ Entities:
       next: B5DB98E1-6222-4B89-B482-0501413FFA4C
       parent: F4792F8B-FAD6-42FD-92FC-96974F60E69B
     TransformComponent:
-      translation: [4.71270037, 8.98551178, -0.221602887]
-      rotation: [0.726952493, 0.678549111, -0.105409339, 0.00032701678]
-      scale: [1, 1, 1]
+      translation: [4.71270323, 8.98551178, -0.221598029]
+      rotation: [0.725572348, 0.680033207, -0.105354711, 5.13581872e-05]
+      scale: [1, 1.00000012, 1.00000012]
     BoneComponent:
       boneID: 29
   - Entity: 5D9EAB96-25EF-4BB8-8E68-A9ACB83025B0
@@ -4685,9 +4685,9 @@ Entities:
       first: A1A31232-8651-4FA1-879F-8E006C8201A0
       parent: 70A5FE41-9033-4A4E-8F1E-020A0D6BD660
     TransformComponent:
-      translation: [-4.72805095e-06, 3.56249475, -1.1920929e-06]
-      rotation: [0.800508201, 0.599321187, 3.01409709e-05, 0.00088117877]
-      scale: [1, 0.999999881, 0.999999881]
+      translation: [1.18017215e-05, 3.56249642, -1.1920929e-06]
+      rotation: [0.798728943, 0.601690412, 4.84564152e-05, 0.00086968689]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 30
   - Entity: A1A31232-8651-4FA1-879F-8E006C8201A0
@@ -4699,9 +4699,9 @@ Entities:
       first: 1AF2FB17-27A5-4521-B727-955BF8CBA9FB
       parent: 5D9EAB96-25EF-4BB8-8E68-A9ACB83025B0
     TransformComponent:
-      translation: [1.44773287e-06, 2.33520842, -4.99833391e-07]
-      rotation: [0.912101686, 0.409963667, 4.52311979e-05, 0.000613620796]
-      scale: [0.99999994, 0.99999994, 1]
+      translation: [-6.9141413e-07, 2.33520389, -3.02791614e-06]
+      rotation: [0.911384702, 0.411555082, 3.54221338e-05, 0.000574048376]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 31
   - Entity: 1AF2FB17-27A5-4521-B727-955BF8CBA9FB
@@ -4713,8 +4713,8 @@ Entities:
       first: 860D65D6-73C1-4377-A48E-690ACC78E028
       parent: A1A31232-8651-4FA1-879F-8E006C8201A0
     TransformComponent:
-      translation: [-9.09146092e-06, 2.03730273, 3.30300395e-07]
-      rotation: [1, 3.39981066e-09, 9.98593652e-10, 3.41108963e-09]
+      translation: [-2.47955245e-06, 2.03730035, -5.69820486e-06]
+      rotation: [1, -8.75443362e-09, -7.35744887e-09, 3.72528619e-10]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 32
@@ -4740,9 +4740,9 @@ Entities:
       next: 0F758830-6DF9-463E-A033-A077E4CFB09B
       parent: F4792F8B-FAD6-42FD-92FC-96974F60E69B
     TransformComponent:
-      translation: [2.24169493, 9.30841064, -0.143495917]
-      rotation: [0.705418408, 0.706883788, -0.0518049411, 0.00405469676]
-      scale: [1, 0.99999994, 0.999999881]
+      translation: [2.24170876, 9.30841255, -0.143494755]
+      rotation: [0.703657806, 0.708638489, -0.0517797954, 0.00400486635]
+      scale: [0.99999994, 1.00000012, 1]
     BoneComponent:
       boneID: 25
   - Entity: C461880A-42C2-4AB4-B7A3-A618DA5D79FA
@@ -4754,8 +4754,8 @@ Entities:
       first: 43C016EF-8510-4E88-B71C-166D973629A0
       parent: B5DB98E1-6222-4B89-B482-0501413FFA4C
     TransformComponent:
-      translation: [-3.08222025e-06, 4.01939392, 8.73239003e-07]
-      rotation: [0.859073818, 0.511722267, -0.00522945262, 0.0102563025]
+      translation: [-5.22136725e-06, 4.01939344, 9.53673265e-08]
+      rotation: [0.856514752, 0.515996814, -0.00515677594, 0.0101560205]
       scale: [1, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 26
@@ -4768,9 +4768,9 @@ Entities:
       first: ED77D901-EDD9-4018-B071-FE92E2735FC4
       parent: C461880A-42C2-4AB4-B7A3-A618DA5D79FA
     TransformComponent:
-      translation: [4.79992696e-06, 2.79080701, -2.75748789e-07]
-      rotation: [0.807051718, 0.590391219, -0.00686890958, -0.00765258819]
-      scale: [1, 0.99999994, 0.99999994]
+      translation: [-1.8119822e-06, 2.79080939, 1.66893028e-06]
+      rotation: [0.806737483, 0.590820312, -0.00687384792, -0.00766682299]
+      scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 27
   - Entity: ED77D901-EDD9-4018-B071-FE92E2735FC4
@@ -4782,8 +4782,8 @@ Entities:
       first: 71DF0829-6435-4697-9F25-29C88E58B3BA
       parent: 43C016EF-8510-4E88-B71C-166D973629A0
     TransformComponent:
-      translation: [5.70482416e-06, 2.54069519, -1.94179142e-06]
-      rotation: [1, 1.48394284e-08, -5.11663378e-09, 3.14200638e-10]
+      translation: [7.84397162e-06, 2.54069686, 2.33650258e-06]
+      rotation: [1, 1.1990779e-08, -5.58792901e-10, 3.35276207e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 28
@@ -4809,9 +4809,9 @@ Entities:
       next: 8D81AE7E-6479-4714-BE0B-8D424D15DF29
       parent: F4792F8B-FAD6-42FD-92FC-96974F60E69B
     TransformComponent:
-      translation: [-1.01394926e-06, 9.70080566, -2.37841095e-06]
-      rotation: [0.726560175, 0.685101867, -0.049351234, 0.0176130757]
-      scale: [1, 1.00000012, 1]
+      translation: [6.4730657e-06, 9.70080566, 2.28881913e-06]
+      rotation: [0.725805759, 0.685921669, -0.0490517169, 0.017648533]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 21
   - Entity: 71B8AE87-DE79-447F-A116-98F1B2DCB44B
@@ -4823,9 +4823,9 @@ Entities:
       first: 20CC53F0-CD09-4110-B46F-9E623A11CBAC
       parent: 0F758830-6DF9-463E-A033-A077E4CFB09B
     TransformComponent:
-      translation: [4.60172578e-06, 4.01460361, 2.78058769e-06]
-      rotation: [0.786536813, 0.616055012, 0.0258745998, 0.0341544636]
-      scale: [0.99999994, 0.999999881, 0.999999881]
+      translation: [-1.62124718e-06, 4.01460266, 2.00271597e-06]
+      rotation: [0.785269201, 0.617670238, 0.0259438958, 0.0340971909]
+      scale: [1, 0.99999994, 0.999999881]
     BoneComponent:
       boneID: 22
   - Entity: 20CC53F0-CD09-4110-B46F-9E623A11CBAC
@@ -4837,9 +4837,9 @@ Entities:
       first: AE32BFEE-DB89-4DF7-8B4E-1A1874D1FFD1
       parent: 71B8AE87-DE79-447F-A116-98F1B2DCB44B
     TransformComponent:
-      translation: [3.20715276e-06, 2.99669957, -1.74647801e-06]
-      rotation: [0.833614886, 0.552171052, 0.00841708202, -0.0110706808]
-      scale: [1, 1, 1]
+      translation: [1.94311133e-06, 2.99670219, -1.90734653e-07]
+      rotation: [0.832888067, 0.553267598, 0.00839511026, -0.0110434862]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 23
   - Entity: AE32BFEE-DB89-4DF7-8B4E-1A1874D1FFD1
@@ -4851,8 +4851,8 @@ Entities:
       first: 84173A83-C452-4EAE-945C-DACA074C77B8
       parent: 20CC53F0-CD09-4110-B46F-9E623A11CBAC
     TransformComponent:
-      translation: [1.45093054e-07, 2.82498479, -8.04353419e-08]
-      rotation: [1, 1.81228721e-08, 8.4391216e-17, 4.65661243e-09]
+      translation: [5.00679062e-06, 2.82498717, -8.58306976e-07]
+      rotation: [1, 1.10012479e-08, 5.12285526e-17, 4.65661243e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 24
@@ -4878,9 +4878,9 @@ Entities:
       next: 4B6B8FB0-D65D-4466-B32E-84A9565131A8
       parent: F4792F8B-FAD6-42FD-92FC-96974F60E69B
     TransformComponent:
-      translation: [-2.34190607, 9.90970612, -0.291402757]
-      rotation: [0.757330775, 0.648666322, 0.0203021728, 0.0725943223]
-      scale: [1, 1.00000012, 1.00000012]
+      translation: [-2.34189677, 9.90970802, -0.291393042]
+      rotation: [0.758552909, 0.647276819, 0.0207693689, 0.0721037313]
+      scale: [0.99999994, 0.999999821, 0.999999881]
     BoneComponent:
       boneID: 17
   - Entity: 6A0B3B92-EE48-4E37-B41E-FF0F27095732
@@ -4892,9 +4892,9 @@ Entities:
       first: E93EE617-49AD-4D39-BA5D-10C199DDEEF4
       parent: 8D81AE7E-6479-4714-BE0B-8D424D15DF29
     TransformComponent:
-      translation: [-1.28809188e-05, 3.77670336, -2.89546574e-06]
-      rotation: [0.833508313, 0.551169932, 0.0211367682, 0.0320756696]
-      scale: [1, 1, 1.00000012]
+      translation: [-3.9353954e-06, 3.77670574, 1.38282826e-06]
+      rotation: [0.831864655, 0.553647399, 0.0212363359, 0.032012295]
+      scale: [0.99999994, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 18
   - Entity: E93EE617-49AD-4D39-BA5D-10C199DDEEF4
@@ -4906,8 +4906,8 @@ Entities:
       first: 59238CAA-D344-429D-99B1-A25189B61571
       parent: 6A0B3B92-EE48-4E37-B41E-FF0F27095732
     TransformComponent:
-      translation: [-4.81116672e-07, 2.54299736, -5.94602739e-07]
-      rotation: [0.822148323, 0.569015384, 0.00995096564, -0.0139509654]
+      translation: [4.088879e-06, 2.54299545, 5.72204783e-07]
+      rotation: [0.821254432, 0.57030946, 0.00984028634, -0.0138364043]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 19
@@ -4920,8 +4920,8 @@ Entities:
       first: 14F9FBB1-A33F-4A46-86C1-D91773D0E5C2
       parent: E93EE617-49AD-4D39-BA5D-10C199DDEEF4
     TransformComponent:
-      translation: [-4.41930251e-06, 2.52909756, -1.38451878e-06]
-      rotation: [1, 4.92312946e-09, -1.57100291e-10, -3.41108963e-09]
+      translation: [4.72068905e-06, 2.52909994, 3.67164648e-06]
+      rotation: [1, 8.62637428e-09, -1.67638092e-09, -3.72528619e-10]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 20
@@ -4946,7 +4946,7 @@ Entities:
       prev: 8D81AE7E-6479-4714-BE0B-8D424D15DF29
       parent: F4792F8B-FAD6-42FD-92FC-96974F60E69B
     TransformComponent:
-      translation: [-2.37040639, 3.54560804, 1.90819108]
+      translation: [-2.37040329, 3.54560876, 1.90819764]
       rotation: [0.899777114, 0.345468044, 0.079099305, 0.254551083]
       scale: [1, 1, 1]
     BoneComponent:
@@ -4960,9 +4960,9 @@ Entities:
       first: C9D3FC3A-3F86-47ED-AF0D-295B88B76FE6
       parent: 4B6B8FB0-D65D-4466-B32E-84A9565131A8
     TransformComponent:
-      translation: [-9.88715237e-06, 2.80839872, 7.58360841e-07]
-      rotation: [0.98045373, -0.00234071747, 0.108121209, -0.164361686]
-      scale: [1, 1, 1]
+      translation: [-4.05311494e-06, 2.80839491, 3.48091157e-06]
+      rotation: [0.98045373, -0.00234070979, 0.108121246, -0.164361745]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 14
   - Entity: C9D3FC3A-3F86-47ED-AF0D-295B88B76FE6
@@ -4974,8 +4974,8 @@ Entities:
       first: 8D466DE4-45EC-441E-891E-6DA68D145AA6
       parent: FD9A2F61-3FD4-48D4-8FF3-CA3FA5EA485C
     TransformComponent:
-      translation: [-2.35531147e-07, 2.37899995, -8.30732006e-06]
-      rotation: [0.850446284, 0.266139209, 0.43741098, -0.120758988]
+      translation: [2.09808377e-06, 2.37899876, -1.02519989e-05]
+      rotation: [0.850509524, 0.26747489, 0.436497658, -0.12066704]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 15
@@ -4988,8 +4988,8 @@ Entities:
       first: 2D13BA2A-1658-422A-BF7E-6C5C66E08227
       parent: C9D3FC3A-3F86-47ED-AF0D-295B88B76FE6
     TransformComponent:
-      translation: [-1.15476269e-06, 2.44500422, -2.80925542e-06]
-      rotation: [1, -5.49850887e-10, 7.45058015e-09, -1.0637299e-08]
+      translation: [-3.09944176e-06, 2.44500351, 6.9141397e-06]
+      rotation: [1, -5.86733284e-09, 7.4505806e-09, -1.44354999e-08]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 16
@@ -5014,9 +5014,9 @@ Entities:
       prev: 9079CBB4-4500-4F96-BC99-7D1599D25FE9
       parent: D8D0A6BA-1BF9-4B77-951F-F83260CD075B
     TransformComponent:
-      translation: [0.0244004354, 15.8623104, -1.6758002]
-      rotation: [0.996095002, -0.0179205257, 0.0853396803, -0.0138102602]
-      scale: [0.99999994, 1, 1]
+      translation: [0.02440238, 15.8622932, -1.67579865]
+      rotation: [0.995953858, -0.0186248682, 0.0862878412, -0.0168368034]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 4
   - Entity: 8792222A-137A-43E7-BF21-BCC3CF0D2516
@@ -5028,9 +5028,9 @@ Entities:
       first: 2699ECFF-0441-4139-AAFC-D78F7B29F74F
       parent: AC54F59C-D534-43C1-9C18-1A09205E5D69
     TransformComponent:
-      translation: [-2.93568337e-06, 5.56400156, 0.988098919]
-      rotation: [0.976685822, -0.0375125371, 0.204916894, -0.0518330634]
-      scale: [1, 1, 1]
+      translation: [9.53674885e-07, 5.56399727, 0.988102078]
+      rotation: [0.975977957, -0.0553920753, 0.205969006, -0.0444470793]
+      scale: [0.99999994, 0.99999994, 1]
     BoneComponent:
       boneID: 5
   - Entity: 2699ECFF-0441-4139-AAFC-D78F7B29F74F
@@ -5043,9 +5043,9 @@ Entities:
       next: 89508C82-1440-4E54-85D5-D2F97F03E926
       parent: 8792222A-137A-43E7-BF21-BCC3CF0D2516
     TransformComponent:
-      translation: [-2.37750053, 7.93569326, 7.06370306]
-      rotation: [0.49999994, 0.500000179, -0.499999881, 0.5]
-      scale: [1, 1, 1]
+      translation: [-2.37750053, 7.93570042, 7.06370306]
+      rotation: [0.49999994, 0.500000179, -0.499999821, 0.5]
+      scale: [1.00000012, 1.00000012, 1.00000012]
     BoneComponent:
       boneID: 8
   - Entity: DD5FE3F3-ECF2-428C-9681-19A14DB04731
@@ -5070,9 +5070,9 @@ Entities:
       next: 508E5A6E-9E1E-44E2-9E0B-7AE1B6716325
       parent: 8792222A-137A-43E7-BF21-BCC3CF0D2516
     TransformComponent:
-      translation: [2.28439975, 7.93569374, 7.06370401]
-      rotation: [0.5, 0.500000119, 0.499999881, -0.50000006]
-      scale: [0.999999881, 0.999999881, 0.999999881]
+      translation: [2.28440022, 7.93570614, 7.06370354]
+      rotation: [0.5, 0.500000119, 0.499999821, -0.50000006]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 7
   - Entity: F90BF3B2-F7A3-47C1-B628-7E517B3DEC9E
@@ -5096,8 +5096,8 @@ Entities:
       prev: 89508C82-1440-4E54-85D5-D2F97F03E926
       parent: 8792222A-137A-43E7-BF21-BCC3CF0D2516
     TransformComponent:
-      translation: [6.24044105e-07, 18.3118916, 3.08690524]
-      rotation: [1, -8.49408721e-09, -3.04925551e-09, -1.70554471e-09]
+      translation: [-8.34465141e-07, 18.3118992, 3.08690429]
+      rotation: [1, -5.07570697e-09, -5.51808643e-09, -1.86264365e-10]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 6

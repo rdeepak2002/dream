@@ -424,7 +424,7 @@ namespace Dream {
             if (treeNodeOpen) {
                 float cursorPosX2 = ImGui::GetCursorPosX();
                 std::string diffuseTexturePath = StringUtils::getFilePathRelativeToProjectFolder(
-                        Project::getResourceManager()->getFilePathFromGUID(component.diffuseTextureGuid));
+                        Project::getResourceManager()->getFilePathFromGUID(component.diffuseTextureGuids.empty() ? "" : component.diffuseTextureGuids.at(0)));
                 ImGui::Text("Diffuse Texture");
                 float cursorPosX3 = ImGui::GetCursorPosX();
                 ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 18);

@@ -186,14 +186,14 @@ namespace Dream {
             if (entity.hasComponent<Component::MaterialComponent>()) {
                 // set diffuse texture of shader
                 {
-                    if (entity.getComponent<Component::MaterialComponent>().diffuseTextureGuid.empty()) {
+                    if (entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.empty()) {
                         // default diffuse texture
                         shader->setInt("texture_diffuse1", 0);
                         texture->bind(0);
                     } else {
                         // diffuse texture
                         entity.getComponent<Component::MaterialComponent>().loadTextures();
-                        auto diffuseTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().diffuseTextureGuid);
+                        auto diffuseTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.at(0));
                         if (auto openGLDiffuseTexture = std::dynamic_pointer_cast<OpenGLTexture>(diffuseTexture)) {
                             shader->setInt("texture_diffuse1", 0);
                             openGLDiffuseTexture->bind(0);
