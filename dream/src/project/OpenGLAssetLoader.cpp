@@ -209,13 +209,13 @@ namespace Dream {
         }
         glm::vec4 diffuseColor = {col.r, col.g, col.b, col.a};
         for (unsigned int i = 0; i < material->GetTextureCount(textureType); i++) {
-            aiString str;
-            material->GetTexture(textureType, i, &str);
-            if (auto texture = scene->GetEmbeddedTexture(str.C_Str())) {
+            aiString aiTexturePath;
+            material->GetTexture(textureType, i, &aiTexturePath);
+            if (auto texture = scene->GetEmbeddedTexture(aiTexturePath.C_Str())) {
                 // texture embedded in model
                 assimpTexture = texture;
-                std::string texturePath = str.C_Str();
-                std::string textureFileGUID = IDUtils::newFileID(str.C_Str());
+                std::string texturePath = aiTexturePath.C_Str();
+                std::string textureFileGUID = IDUtils::newFileID(texturePath);
                 Project::getResourceManager()->setFilePathFromGUID(textureFileGUID, texturePath);
 
                 // add texture embedded into model file
@@ -235,7 +235,7 @@ namespace Dream {
                 }
             } else {
                 // regular texture file
-                std::string texturePath = std::filesystem::path(path).parent_path().append(str.C_Str());
+                std::string texturePath = std::filesystem::path(path).parent_path().append(aiTexturePath.C_Str());
                 std::string textureFileGUID = IDUtils::getGUIDForFile(texturePath);
 
                 // add texture stored in an external image file
