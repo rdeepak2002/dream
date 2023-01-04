@@ -199,18 +199,48 @@ namespace Dream {
 
         // add material component
         // process materials
-        std::vector<std::tuple<aiTextureType, const char*, int, int>> materialTypes;    // texture type : color type
-        materialTypes.emplace_back(aiTextureType_DIFFUSE, AI_MATKEY_COLOR_DIFFUSE);
-        for (const auto &materialType : materialTypes) {
+        std::vector<aiTextureType> textureTypes;    // texture type : color type
+        textureTypes.emplace_back(aiTextureType_DIFFUSE);
+        textureTypes.emplace_back(aiTextureType_SPECULAR);
+        textureTypes.emplace_back(aiTextureType_AMBIENT);
+        textureTypes.emplace_back(aiTextureType_EMISSIVE);
+        textureTypes.emplace_back(aiTextureType_HEIGHT);
+        textureTypes.emplace_back(aiTextureType_NORMALS);
+        textureTypes.emplace_back(aiTextureType_SHININESS);
+        for (const auto &textureType : textureTypes) {
             aiMaterial *materials = scene->mMaterials[mesh->mMaterialIndex];
             const aiTexture *assimpTexture = nullptr;
-            auto textureType = std::get<0>(materialType);
-            aiColor4D aiDiffuseColor;
-            if (materials->Get(std::get<1>(materialType), std::get<2>(materialType), std::get<3>(materialType), aiDiffuseColor) != aiReturn_SUCCESS) {
-                aiDiffuseColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
-                Logger::error("Error getting color for material of type " + std::to_string(std::get<0>(materialType)));
+            aiColor4D aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
+            if (textureType == aiTextureType_DIFFUSE) {
+                if (materials->Get(AI_MATKEY_COLOR_DIFFUSE, aiColor) != aiReturn_SUCCESS) {
+                    aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
+                    Logger::error("Error getting color for material of type " + std::to_string(textureType));
+                }
+            } else if (textureType == aiTextureType_SPECULAR) {
+                if (materials->Get(AI_MATKEY_COLOR_SPECULAR, aiColor) != aiReturn_SUCCESS) {
+                    aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
+                    // Logger::error("Error getting color for material of type " + std::to_string(textureType));
+                }
+            } else if (textureType == aiTextureType_AMBIENT) {
+                if (materials->Get(AI_MATKEY_COLOR_AMBIENT, aiColor) != aiReturn_SUCCESS) {
+                    aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
+                    // Logger::error("Error getting color for material of type " + std::to_string(textureType));
+                }
+            } else if (textureType == aiTextureType_EMISSIVE) {
+                if (materials->Get(AI_MATKEY_COLOR_EMISSIVE, aiColor) != aiReturn_SUCCESS) {
+                    aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
+                    Logger::error("Error getting color for material of type " + std::to_string(textureType));
+                }
+            } else if (textureType == aiTextureType_HEIGHT) {
+                aiColor = aiColor4D(0.0, 0.0, 0.0, 0.0);
+            } else if (textureType == aiTextureType_NORMALS) {
+                aiColor = aiColor4D(0.0, 0.0, 0.0, 0.0);
+            } else if (textureType == aiTextureType_SHININESS) {
+                aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
+            } else {
+                Logger::warn("Unable to extract color from texture type " + std::to_string(textureType));
             }
-            glm::vec4 diffuseColor = {aiDiffuseColor.r, aiDiffuseColor.g, aiDiffuseColor.b, aiDiffuseColor.a};
+            glm::vec4 color = {aiColor.r, aiColor.g, aiColor.b, aiColor.a};
             for (unsigned int i = 0; i < materials->GetTextureCount(textureType); i++) {
                 aiString aiTexturePath;
                 materials->GetTexture(textureType, i, &aiTexturePath);
@@ -233,7 +263,11 @@ namespace Dream {
                                 entity.addComponent<Component::MaterialComponent>();
                             }
                             entity.getComponent<Component::MaterialComponent>().isEmbedded = true;
-                            entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
+                            if (textureType == aiTextureType_DIFFUSE) {
+                                entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
+                            } else {
+                                Logger::error("yo 1");
+                            }
                         }
                     }
                 } else {
@@ -253,7 +287,11 @@ namespace Dream {
                             entity.addComponent<Component::MaterialComponent>();
                         }
                         entity.getComponent<Component::MaterialComponent>().isEmbedded = false;
-                        entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
+                        if (textureType == aiTextureType_DIFFUSE) {
+                            entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
+                        } else {
+                            Logger::error("yo 2");
+                        }
                     }
                 }
             }
@@ -263,7 +301,12 @@ namespace Dream {
                     entity.addComponent<Component::MaterialComponent>();
                     entity.getComponent<Component::MaterialComponent>().isEmbedded = false;
                 }
-                entity.getComponent<Component::MaterialComponent>().diffuseColor = diffuseColor;
+
+                if (textureType == aiTextureType_DIFFUSE) {
+                    entity.getComponent<Component::MaterialComponent>().diffuseColor = color;
+                } else {
+                    Logger::error("yo 3");
+                }
             }
         }
         return entity;
