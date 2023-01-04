@@ -42,12 +42,18 @@ namespace Dream::Component {
             out << YAML::Key << componentName;
             out << YAML::BeginMap;
             out << YAML::Key << k_isEmbedded << YAML::Value << entity.getComponent<MaterialComponent>().isEmbedded;
-//            out << YAML::Key << k_diffuseTextureGuid << YAML::Value
-//                << entity.getComponent<MaterialComponent>().diffuseTextureGuid;
             out << YAML::Key << k_diffuseTextureGuids << YAML::Value
                 << entity.getComponent<MaterialComponent>().diffuseTextureGuids;
             out << YAML::Key << k_diffuseColor << YAML::Value
                 << YAML::convert<glm::vec4>().encode(entity.getComponent<MaterialComponent>().diffuseColor);
+            out << YAML::Key << k_specularTextureGuid << YAML::Value
+                << entity.getComponent<MaterialComponent>().specularTextureGuid;
+            out << YAML::Key << k_specularColor << YAML::Value
+                << YAML::convert<glm::vec4>().encode(entity.getComponent<MaterialComponent>().specularColor);
+            out << YAML::Key << k_heightTextureGuid << YAML::Value
+                << entity.getComponent<MaterialComponent>().heightTextureGuid;
+            out << YAML::Key << k_normalTextureGuid << YAML::Value
+                << entity.getComponent<MaterialComponent>().normalTextureGuid;
             out << YAML::EndMap;
         }
     }
@@ -58,6 +64,7 @@ namespace Dream::Component {
             if (node[componentName][k_isEmbedded]) {
                 isEmbedded = node[componentName][k_isEmbedded].as<bool>();
             }
+            // diffuse color and texture
             std::vector<std::string> diffuseTextureGuids;
             if (node[componentName][k_diffuseTextureGuids]) {
                 diffuseTextureGuids = node[componentName][k_diffuseTextureGuids].as<std::vector<std::string>>();
@@ -66,10 +73,33 @@ namespace Dream::Component {
             if (node[componentName][k_diffuseColor]) {
                 YAML::convert<glm::vec4>().decode(node[componentName][k_diffuseColor], diffuseColor);
             }
+            // specular color and texture
+            std::string specularTextureGuid;
+            if (node[componentName][k_specularTextureGuid]) {
+                specularTextureGuid = node[componentName][k_specularTextureGuid].as<std::string>();
+            }
+            glm::vec4 specularColor = {1, 1, 1, 1};
+            if (node[componentName][k_specularColor]) {
+                YAML::convert<glm::vec4>().decode(node[componentName][k_specularColor], specularColor);
+            }
+            // height texture
+            std::string heightTextureGuid;
+            if (node[componentName][k_heightTextureGuid]) {
+                heightTextureGuid = node[componentName][k_heightTextureGuid].as<std::string>();
+            }
+            // normal texture
+            std::string normalTextureGuid;
+            if (node[componentName][k_normalTextureGuid]) {
+                normalTextureGuid = node[componentName][k_normalTextureGuid].as<std::string>();
+            }
             entity.addComponent<MaterialComponent>();
             entity.getComponent<MaterialComponent>().isEmbedded = isEmbedded;
             entity.getComponent<MaterialComponent>().diffuseTextureGuids = std::move(diffuseTextureGuids);
             entity.getComponent<MaterialComponent>().diffuseColor = diffuseColor;
+            entity.getComponent<MaterialComponent>().specularTextureGuid = specularTextureGuid;
+            entity.getComponent<MaterialComponent>().specularColor = specularColor;
+            entity.getComponent<MaterialComponent>().heightTextureGuid = heightTextureGuid;
+            entity.getComponent<MaterialComponent>().normalTextureGuid = normalTextureGuid;
         }
     }
 }

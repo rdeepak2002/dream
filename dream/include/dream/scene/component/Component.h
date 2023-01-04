@@ -182,10 +182,22 @@ namespace Dream::Component {
         inline static std::string componentName = "MaterialComponent";
         inline static std::string k_isEmbedded = "isEmbedded";
         bool isEmbedded = false;
+        // diffuse color and textures
         inline static std::string k_diffuseTextureGuids = "diffuseTextureGuids";
         std::vector<std::string> diffuseTextureGuids;
         inline static std::string k_diffuseColor = "diffuseColor";
         glm::vec4 diffuseColor = {1, 1, 1, 1};
+        // specular color and textures
+        inline static std::string k_specularTextureGuid = "specularTextureGuid";
+        std::string specularTextureGuid = "";
+        inline static std::string k_specularColor = "specularColor";
+        glm::vec4 specularColor = {1, 1, 1, 1};
+        // height texture
+        inline static std::string k_heightTextureGuid = "heightTextureGuid";
+        std::string heightTextureGuid = "";
+        // normal texture
+        inline static std::string k_normalTextureGuid = "normalTextureGuid";
+        std::string normalTextureGuid = "";
 
         // runtime variable to determine if texture loading should be called
         bool shouldLoadTextures = true;
