@@ -202,11 +202,11 @@ namespace Dream {
         std::vector<aiTextureType> textureTypes;    // texture type : color type
         textureTypes.emplace_back(aiTextureType_DIFFUSE);
         textureTypes.emplace_back(aiTextureType_SPECULAR);
-        textureTypes.emplace_back(aiTextureType_AMBIENT);
-        textureTypes.emplace_back(aiTextureType_EMISSIVE);
+//        textureTypes.emplace_back(aiTextureType_AMBIENT);
+//        textureTypes.emplace_back(aiTextureType_EMISSIVE);
         textureTypes.emplace_back(aiTextureType_HEIGHT);
         textureTypes.emplace_back(aiTextureType_NORMALS);
-        textureTypes.emplace_back(aiTextureType_SHININESS);
+//        textureTypes.emplace_back(aiTextureType_SHININESS);
         for (const auto &textureType : textureTypes) {
             aiMaterial *materials = scene->mMaterials[mesh->mMaterialIndex];
             const aiTexture *assimpTexture = nullptr;
@@ -221,23 +221,27 @@ namespace Dream {
                     aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
                     // Logger::error("Error getting color for material of type " + std::to_string(textureType));
                 }
-            } else if (textureType == aiTextureType_AMBIENT) {
-                if (materials->Get(AI_MATKEY_COLOR_AMBIENT, aiColor) != aiReturn_SUCCESS) {
-                    aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
-                    // Logger::error("Error getting color for material of type " + std::to_string(textureType));
-                }
-            } else if (textureType == aiTextureType_EMISSIVE) {
-                if (materials->Get(AI_MATKEY_COLOR_EMISSIVE, aiColor) != aiReturn_SUCCESS) {
-                    aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
-                    Logger::error("Error getting color for material of type " + std::to_string(textureType));
-                }
-            } else if (textureType == aiTextureType_HEIGHT) {
+            }
+//            else if (textureType == aiTextureType_AMBIENT) {
+//                if (materials->Get(AI_MATKEY_COLOR_AMBIENT, aiColor) != aiReturn_SUCCESS) {
+//                    aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
+//                    // Logger::error("Error getting color for material of type " + std::to_string(textureType));
+//                }
+//            } else if (textureType == aiTextureType_EMISSIVE) {
+//                if (materials->Get(AI_MATKEY_COLOR_EMISSIVE, aiColor) != aiReturn_SUCCESS) {
+//                    aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
+//                    Logger::error("Error getting color for material of type " + std::to_string(textureType));
+//                }
+//            }
+            else if (textureType == aiTextureType_HEIGHT) {
                 aiColor = aiColor4D(0.0, 0.0, 0.0, 0.0);
             } else if (textureType == aiTextureType_NORMALS) {
                 aiColor = aiColor4D(0.0, 0.0, 0.0, 0.0);
-            } else if (textureType == aiTextureType_SHININESS) {
-                aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
-            } else {
+            }
+//            else if (textureType == aiTextureType_SHININESS) {
+//                aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
+//            }
+            else {
                 Logger::warn("Unable to extract color from texture type " + std::to_string(textureType));
             }
             glm::vec4 color = {aiColor.r, aiColor.g, aiColor.b, aiColor.a};
@@ -265,8 +269,17 @@ namespace Dream {
                             entity.getComponent<Component::MaterialComponent>().isEmbedded = true;
                             if (textureType == aiTextureType_DIFFUSE) {
                                 entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
+                            } else if (textureType == aiTextureType_SPECULAR) {
+                                // TODO
+                                Logger::error("todo 1");
+                            } else if (textureType == aiTextureType_HEIGHT) {
+                                // TODO
+                                Logger::error("todo 1");
+                            } else if (textureType == aiTextureType_NORMALS) {
+                                // TODO
+                                Logger::error("todo 1");
                             } else {
-                                Logger::error("yo 1");
+                                Logger::fatal("Unable to handle getting embedded texture of this type");
                             }
                         }
                     }
@@ -289,8 +302,17 @@ namespace Dream {
                         entity.getComponent<Component::MaterialComponent>().isEmbedded = false;
                         if (textureType == aiTextureType_DIFFUSE) {
                             entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
+                        } else if (textureType == aiTextureType_SPECULAR) {
+                            // TODO
+                            Logger::error("todo 2");
+                        } else if (textureType == aiTextureType_HEIGHT) {
+                            // TODO
+                            Logger::error("todo 2");
+                        } else if (textureType == aiTextureType_NORMALS) {
+                            // TODO
+                            Logger::error("todo 2");
                         } else {
-                            Logger::error("yo 2");
+                            Logger::fatal("Unable to handle getting texture of this type");
                         }
                     }
                 }
@@ -304,8 +326,15 @@ namespace Dream {
 
                 if (textureType == aiTextureType_DIFFUSE) {
                     entity.getComponent<Component::MaterialComponent>().diffuseColor = color;
-                } else {
+                } else if (textureType == aiTextureType_SPECULAR) {
+                    // TODO: set specular color
                     Logger::error("yo 3");
+                } else if (textureType == aiTextureType_HEIGHT) {
+                    // don't do anything
+                } else if (textureType == aiTextureType_NORMALS) {
+                    // don't do anything
+                } else {
+                    Logger::fatal("Unable to handle base color of this texture type");
                 }
             }
         }
