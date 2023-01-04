@@ -175,40 +175,6 @@ namespace Dream {
                 indices.push_back(face.mIndices[j]);
         }
 
-        // process materials
-        aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
-        bool textureEmbeddedInModel = false;
-        const aiTexture *assimpTexture = nullptr;
-        auto textureType = aiTextureType_DIFFUSE;
-        std::vector<std::string> diffuseTexturePaths;
-        std::vector<bool> diffuseTextureEmbeddedInModel;
-        std::vector<std::string> diffuseTextureGuids;
-//        std::string textureFileGUID;
-        aiColor4D aiDiffuseColor;
-        material->Get(AI_MATKEY_COLOR_DIFFUSE, aiDiffuseColor);
-        glm::vec4 diffuseColor = {aiDiffuseColor.r, aiDiffuseColor.g, aiDiffuseColor.b, aiDiffuseColor.a};
-        for (unsigned int i = 0; i < material->GetTextureCount(textureType); i++) {
-            aiString str;
-            material->GetTexture(textureType, i, &str);
-            if (auto texture = scene->GetEmbeddedTexture(str.C_Str())) {
-                // texture embedded in model
-                textureEmbeddedInModel = true;
-                assimpTexture = texture;
-                std::string texturePath = str.C_Str();
-                std::string textureFileGUID = IDUtils::newFileID(str.C_Str());
-                Project::getResourceManager()->setFilePathFromGUID(textureFileGUID, texturePath);
-                diffuseTexturePaths.push_back(texturePath);
-                diffuseTextureGuids.push_back(textureFileGUID);
-            } else {
-                // regular texture file
-                textureEmbeddedInModel = false;
-                std::string texturePath = std::filesystem::path(path).parent_path().append(str.C_Str());
-                std::string textureFileGUID = IDUtils::getGUIDForFile(texturePath);
-                diffuseTexturePaths.push_back(texturePath);
-                diffuseTextureGuids.push_back(textureFileGUID);
-            }
-        }
-
         // create entity for this mesh
         Entity entity;
         if (createEntities) {
@@ -230,45 +196,69 @@ namespace Dream {
         if (createEntities) {
             entity.addComponent<Component::MeshComponent>(meshFileGUID, subMeshFileID);
         }
+
         // add material component
-        if (!diffuseTexturePaths.empty()) {
-            if (textureEmbeddedInModel && assimpTexture) {
+        // process materials
+        aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+        const aiTexture *assimpTexture = nullptr;
+        auto textureType = aiTextureType_DIFFUSE;
+        aiColor4D col;
+        if (material->Get(AI_MATKEY_COLOR_DIFFUSE, col) != aiReturn_SUCCESS) {
+            col = aiColor4D(1.0, 1.0, 1.0, 1.0);
+            Logger::error("Error getting diffuse color for material");
+        }
+        glm::vec4 diffuseColor = {col.r, col.g, col.b, col.a};
+        for (unsigned int i = 0; i < material->GetTextureCount(textureType); i++) {
+            aiString str;
+            material->GetTexture(textureType, i, &str);
+            if (auto texture = scene->GetEmbeddedTexture(str.C_Str())) {
+                // texture embedded in model
+                assimpTexture = texture;
+                std::string texturePath = str.C_Str();
+                std::string textureFileGUID = IDUtils::newFileID(str.C_Str());
+                Project::getResourceManager()->setFilePathFromGUID(textureFileGUID, texturePath);
+
                 // add texture embedded into model file
                 auto buffer = reinterpret_cast<unsigned char *>(assimpTexture->pcData);
                 int len = assimpTexture->mHeight == 0 ? static_cast<int>(assimpTexture->mWidth) : static_cast<int>(
                         assimpTexture->mWidth * assimpTexture->mHeight);
                 if (createMeshObjects) {
                     auto *dreamTexture = new OpenGLTexture(buffer, len);
-                    Project::getResourceManager()->storeTextureData(dreamTexture, diffuseTextureGuids.at(0));
+                    Project::getResourceManager()->storeTextureData(dreamTexture, textureFileGUID);
                     if (createEntities) {
-                        entity.addComponent<Component::MaterialComponent>();
+                        if (!entity.hasComponent<Component::MaterialComponent>()) {
+                            entity.addComponent<Component::MaterialComponent>();
+                        }
                         entity.getComponent<Component::MaterialComponent>().isEmbedded = true;
-                        entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(diffuseTextureGuids.at(0));
+                        entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
                     }
                 }
-            } else if (!textureEmbeddedInModel) {
+            } else {
+                // regular texture file
+                std::string texturePath = std::filesystem::path(path).parent_path().append(str.C_Str());
+                std::string textureFileGUID = IDUtils::getGUIDForFile(texturePath);
+
                 // add texture stored in an external image file
-                if (!Project::getResourceManager()->hasTextureData(diffuseTextureGuids.at(0))) {
+                if (!Project::getResourceManager()->hasTextureData(textureFileGUID)) {
                     if (createMeshObjects) {
-                        auto *dreamTexture = new OpenGLTexture(diffuseTexturePaths.at(0));
-                        Project::getResourceManager()->storeTextureData(dreamTexture, diffuseTextureGuids.at(0));
+                        auto *dreamTexture = new OpenGLTexture(texturePath);
+                        Project::getResourceManager()->storeTextureData(dreamTexture, textureFileGUID);
                     }
                 }
                 if (createEntities) {
-                    entity.addComponent<Component::MaterialComponent>();
+                    if (!entity.hasComponent<Component::MaterialComponent>()) {
+                        entity.addComponent<Component::MaterialComponent>();
+                    }
                     entity.getComponent<Component::MaterialComponent>().isEmbedded = false;
-                    entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(diffuseTextureGuids.at(0));
-//                    entity.getComponent<Component::MaterialComponent>().diffuseTextureGuid = textureFileGUID;
+                    entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
                 }
-            } else {
-                Logger::fatal("Invalid state while processing mesh");
             }
         }
+
         if (createEntities) {
             if (!entity.hasComponent<Component::MaterialComponent>()) {
                 entity.addComponent<Component::MaterialComponent>();
                 entity.getComponent<Component::MaterialComponent>().isEmbedded = false;
-//                entity.getComponent<Component::MaterialComponent>().diffuseTextureGuid = "";
             }
             entity.getComponent<Component::MaterialComponent>().diffuseColor = diffuseColor;
         }
