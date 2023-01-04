@@ -239,113 +239,124 @@ namespace Dream {
                     }
                 }
 
-            // load normal texture of entity
-            {
-                if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().normalTextureGuid.empty()) {
-                    entity.getComponent<Component::MaterialComponent>().loadTextures();
-                    auto normalTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().normalTextureGuid);
-                    if (auto openGLTexture = std::dynamic_pointer_cast<OpenGLTexture>(normalTexture)) {
+                // load normal texture of entity
+                {
+                    if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().normalTextureGuid.empty()) {
+                        entity.getComponent<Component::MaterialComponent>().loadTextures();
+                        auto normalTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().normalTextureGuid);
+                        if (auto openGLTexture = std::dynamic_pointer_cast<OpenGLTexture>(normalTexture)) {
+                            shader->setInt("texture_normal", 2);
+                            openGLTexture->bind(2);
+                        } else {
+                            Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
+                        }
+                    } else {
+                        // default diffuse texture
                         shader->setInt("texture_normal", 2);
-                        openGLTexture->bind(2);
-                    } else {
-                        Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
+                        blackTexture->bind(2);
                     }
-                } else {
-                    // default diffuse texture
-                    shader->setInt("texture_normal", 2);
-                    blackTexture->bind(2);
                 }
-            }
 
-            // load height texture of entity
-            {
-                if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().heightTextureGuid.empty()) {
-                    entity.getComponent<Component::MaterialComponent>().loadTextures();
-                    auto heightTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().heightTextureGuid);
-                    if (auto openGLTexture = std::dynamic_pointer_cast<OpenGLTexture>(heightTexture)) {
-                        shader->setInt("texture_height", 3);
-                        openGLTexture->bind(3);
+                // load height texture of entity
+                {
+                    if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().heightTextureGuid.empty()) {
+                        entity.getComponent<Component::MaterialComponent>().loadTextures();
+                        auto heightTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().heightTextureGuid);
+                        if (auto openGLTexture = std::dynamic_pointer_cast<OpenGLTexture>(heightTexture)) {
+                            shader->setInt("texture_height", 3);
+                            openGLTexture->bind(3);
+                        } else {
+                            Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
+                        }
                     } else {
-                        Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
+                        // default diffuse texture
+                        shader->setInt("texture_height", 3);
+                        blackTexture->bind(3);
                     }
-                } else {
-                    // default diffuse texture
-                    // TODO: use black texture as default
-                    shader->setInt("texture_height", 3);
-                    blackTexture->bind(3);
                 }
-            }
             } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::DIFFUSE) {
                 // TODO
-                Logger::debug("TODO: debug diffuse rendering");
+                Logger::debug("TODO");
             } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::SPECULAR) {
-                // TODO
-                Logger::debug("TODO: debug specular rendering");
-//                // load diffuse color + texture of entity
-//                {
-//                    if (entity.hasComponent<Component::MaterialComponent>()) {
-//                        shader->setVec4("diffuse_color", entity.getComponent<Component::MaterialComponent>().diffuseColor);
-//                    } else {
-//                        shader->setVec4("diffuse_color", glm::vec4(1.0, 1.0, 1.0, 1.0));
-//                    }
-//
-//                    if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.empty()) {
-//                        // diffuse texture
-//                        // TODO: iterate through vector and do not just get first diffuse texture
-//                        entity.getComponent<Component::MaterialComponent>().loadTextures();
-//                        // debug by rendering normals and specular
-//                        std::shared_ptr<Texture> diffuseTexture;
-//                        if (!entity.getComponent<Component::MaterialComponent>().specularTextureGuid.empty()) {
-//                            diffuseTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().specularTextureGuid);
-//                        } else {
-//                            diffuseTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.at(0));
-//                        }
-//                        if (auto openGLDiffuseTexture = std::dynamic_pointer_cast<OpenGLTexture>(diffuseTexture)) {
-//                            shader->setInt("texture_diffuse1", 0);
-//                            openGLDiffuseTexture->bind(0);
-//                        } else {
-//                            Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
-//                        }
-//                    } else {
-//                        // default diffuse texture
-//                        shader->setInt("texture_diffuse1", 0);
-//                        texture->bind(0);
-//                    }
-//                }
+                // load diffuse color + texture of entity
+                {
+                    if (entity.hasComponent<Component::MaterialComponent>()) {
+                        shader->setVec4("diffuse_color", entity.getComponent<Component::MaterialComponent>().diffuseColor);
+                    } else {
+                        shader->setVec4("diffuse_color", glm::vec4(1.0, 1.0, 1.0, 1.0));
+                    }
+
+                    if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.empty()) {
+                        // diffuse texture
+                        entity.getComponent<Component::MaterialComponent>().loadTextures();
+                        // debug by rendering normals and specular
+                        if (!entity.getComponent<Component::MaterialComponent>().specularTextureGuid.empty()) {
+                            auto specularTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().specularTextureGuid);
+                            if (auto openGLSpecularTexture = std::dynamic_pointer_cast<OpenGLTexture>(specularTexture)) {
+                                shader->setInt("texture_diffuse1", 0);
+                                openGLSpecularTexture->bind(0);
+                            } else {
+                                Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
+                            }
+                        } else {
+                            shader->setInt("texture_diffuse1", 0);
+                            blackTexture->bind(0);
+                        }
+                    } else {
+                        // default diffuse texture
+                        shader->setInt("texture_diffuse1", 0);
+                        blackTexture->bind(0);
+                    }
+                }
+
+                shader->setInt("texture_specular", 1);
+                blackTexture->bind(1);
+
+                shader->setInt("texture_normal", 2);
+                blackTexture->bind(2);
+
+                shader->setInt("texture_height", 3);
+                blackTexture->bind(3);
             } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::NORMAL) {
-                // TODO
-                Logger::debug("TODO: debug normal rendering");
-//                // load diffuse color + texture of entity
-//                {
-//                    if (entity.hasComponent<Component::MaterialComponent>()) {
-//                        shader->setVec4("diffuse_color", entity.getComponent<Component::MaterialComponent>().diffuseColor);
-//                    } else {
-//                        shader->setVec4("diffuse_color", glm::vec4(1.0, 1.0, 1.0, 1.0));
-//                    }
-//
-//                    if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.empty()) {
-//                        // diffuse texture
-//                        // TODO: iterate through vector and do not just get first diffuse texture
-//                        entity.getComponent<Component::MaterialComponent>().loadTextures();
-//                        // debug by rendering normals and specular
-//                        std::shared_ptr<Texture> diffuseTexture;
-//                        if (!entity.getComponent<Component::MaterialComponent>().normalTextureGuid.empty()) {
-//                            diffuseTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().normalTextureGuid);
-//                        } else {
-//                            diffuseTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.at(0));
-//                        }
-//                        if (auto openGLDiffuseTexture = std::dynamic_pointer_cast<OpenGLTexture>(diffuseTexture)) {
-//                            shader->setInt("texture_diffuse1", 0);
-//                            openGLDiffuseTexture->bind(0);
-//                        } else {
-//                            Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
-//                        }
-//                    } else {
-//                        // default diffuse texture
-//                        shader->setInt("texture_diffuse1", 0);
-//                        texture->bind(0);
-//                    }
-//                }
+                // load diffuse color + texture of entity
+                {
+                    if (entity.hasComponent<Component::MaterialComponent>()) {
+                        shader->setVec4("diffuse_color", entity.getComponent<Component::MaterialComponent>().diffuseColor);
+                    } else {
+                        shader->setVec4("diffuse_color", glm::vec4(1.0, 1.0, 1.0, 1.0));
+                    }
+
+                    if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.empty()) {
+                        // diffuse texture
+                        entity.getComponent<Component::MaterialComponent>().loadTextures();
+                        // debug by rendering normals and specular
+                        if (!entity.getComponent<Component::MaterialComponent>().normalTextureGuid.empty()) {
+                            auto normalTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().normalTextureGuid);
+                            if (auto openGLNormalTexture = std::dynamic_pointer_cast<OpenGLTexture>(normalTexture)) {
+                                shader->setInt("texture_diffuse1", 0);
+                                openGLNormalTexture->bind(0);
+                            } else {
+                                Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
+                            }
+                        } else {
+                            shader->setInt("texture_diffuse1", 0);
+                            blackTexture->bind(0);
+                        }
+                    } else {
+                        // default diffuse texture
+                        shader->setInt("texture_diffuse1", 0);
+                        blackTexture->bind(0);
+                    }
+                }
+
+                shader->setInt("texture_specular", 1);
+                blackTexture->bind(1);
+
+                shader->setInt("texture_normal", 2);
+                blackTexture->bind(2);
+
+                shader->setInt("texture_height", 3);
+                blackTexture->bind(3);
             } else {
                 Logger::fatal("Unknown rendering type");
             }

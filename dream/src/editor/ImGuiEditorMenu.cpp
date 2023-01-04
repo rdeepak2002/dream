@@ -48,6 +48,35 @@ namespace Dream {
                 ImGui::Checkbox("Play animation in editor", &(Project::getConfig().animationConfig.playInEditor));
                 // TODO: drop-down to switch between FINAL, DIFFUSE, SPECULAR, and NORMAL rendering modes to allow for rendering debugging
                 ImGui::Text("TODO: drop-down to allow for switching rendering type to allow for debugging");
+                {
+                    std::string dropdownPreview = "";
+                    if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
+                        dropdownPreview = "Final";
+                    } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::DIFFUSE) {
+                        dropdownPreview = "Diffuse";
+                    } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::SPECULAR) {
+                        dropdownPreview = "Specular";
+                    } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::NORMAL) {
+                        dropdownPreview = "Normal";
+                    } else {
+                        Logger::fatal("Unknown rendering config type " + std::to_string(static_cast<int>(Project::getConfig().renderingConfig.renderingType)));
+                    }
+                    if (ImGui::BeginCombo("##Change Rendering Type", dropdownPreview.c_str())) {
+                        if (ImGui::Selectable("Final")) {
+                            Project::getConfig().renderingConfig.renderingType = Config::RenderingConfig::FINAL;
+                        }
+                        if (ImGui::Selectable("Diffuse")) {
+                            Project::getConfig().renderingConfig.renderingType = Config::RenderingConfig::DIFFUSE;
+                        }
+                        if (ImGui::Selectable("Specular")) {
+                            Project::getConfig().renderingConfig.renderingType = Config::RenderingConfig::SPECULAR;
+                        }
+                        if (ImGui::Selectable("Normal")) {
+                            Project::getConfig().renderingConfig.renderingType = Config::RenderingConfig::NORMAL;
+                        }
+                        ImGui::EndCombo();
+                    }
+                }
                 ImGui::EndMenu();
             }
             ImGui::EndMainMenuBar();
