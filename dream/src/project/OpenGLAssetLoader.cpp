@@ -270,14 +270,11 @@ namespace Dream {
                             if (textureType == aiTextureType_DIFFUSE) {
                                 entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
                             } else if (textureType == aiTextureType_SPECULAR) {
-                                // TODO
-                                Logger::error("todo 1");
+                                entity.getComponent<Component::MaterialComponent>().specularTextureGuid = textureFileGUID;
                             } else if (textureType == aiTextureType_HEIGHT) {
-                                // TODO
-                                Logger::error("todo 1");
+                                entity.getComponent<Component::MaterialComponent>().heightTextureGuid = textureFileGUID;
                             } else if (textureType == aiTextureType_NORMALS) {
-                                // TODO
-                                Logger::error("todo 1");
+                                entity.getComponent<Component::MaterialComponent>().normalTextureGuid = textureFileGUID;
                             } else {
                                 Logger::fatal("Unable to handle getting embedded texture of this type");
                             }
@@ -303,14 +300,11 @@ namespace Dream {
                         if (textureType == aiTextureType_DIFFUSE) {
                             entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
                         } else if (textureType == aiTextureType_SPECULAR) {
-                            // TODO
-                            Logger::error("todo 2");
+                            entity.getComponent<Component::MaterialComponent>().specularTextureGuid = textureFileGUID;
                         } else if (textureType == aiTextureType_HEIGHT) {
-                            // TODO
-                            Logger::error("todo 2");
+                            entity.getComponent<Component::MaterialComponent>().heightTextureGuid = textureFileGUID;
                         } else if (textureType == aiTextureType_NORMALS) {
-                            // TODO
-                            Logger::error("todo 2");
+                            entity.getComponent<Component::MaterialComponent>().normalTextureGuid = textureFileGUID;
                         } else {
                             Logger::fatal("Unable to handle getting texture of this type");
                         }
@@ -327,8 +321,7 @@ namespace Dream {
                 if (textureType == aiTextureType_DIFFUSE) {
                     entity.getComponent<Component::MaterialComponent>().diffuseColor = color;
                 } else if (textureType == aiTextureType_SPECULAR) {
-                    // TODO: set specular color
-                    Logger::error("yo 3");
+                    entity.getComponent<Component::MaterialComponent>().specularColor = color;
                 } else if (textureType == aiTextureType_HEIGHT) {
                     // don't do anything
                 } else if (textureType == aiTextureType_NORMALS) {
