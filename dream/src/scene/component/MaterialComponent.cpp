@@ -42,6 +42,7 @@ namespace Dream::Component {
             out << YAML::Key << componentName;
             out << YAML::BeginMap;
             out << YAML::Key << k_isEmbedded << YAML::Value << entity.getComponent<MaterialComponent>().isEmbedded;
+            out << YAML::Key << k_shininess << YAML::Value << entity.getComponent<MaterialComponent>().shininess;
             out << YAML::Key << k_diffuseTextureGuids << YAML::Value
                 << entity.getComponent<MaterialComponent>().diffuseTextureGuids;
             out << YAML::Key << k_diffuseColor << YAML::Value
@@ -60,9 +61,15 @@ namespace Dream::Component {
 
     void MaterialComponent::deserialize(YAML::Node node, Entity &entity) {
         if (node[componentName]) {
+            // whether or not textures are embedded in the 3D model
             auto isEmbedded = false;
             if (node[componentName][k_isEmbedded]) {
                 isEmbedded = node[componentName][k_isEmbedded].as<bool>();
+            }
+            // shininess
+            auto shininess = 20.0f;
+            if (node[componentName][k_shininess]) {
+                shininess = node[componentName][k_shininess].as<float>();
             }
             // diffuse color and texture
             std::vector<std::string> diffuseTextureGuids;
@@ -94,6 +101,7 @@ namespace Dream::Component {
             }
             entity.addComponent<MaterialComponent>();
             entity.getComponent<MaterialComponent>().isEmbedded = isEmbedded;
+            entity.getComponent<MaterialComponent>().shininess = shininess;
             entity.getComponent<MaterialComponent>().diffuseTextureGuids = std::move(diffuseTextureGuids);
             entity.getComponent<MaterialComponent>().diffuseColor = diffuseColor;
             entity.getComponent<MaterialComponent>().specularTextureGuid = specularTextureGuid;

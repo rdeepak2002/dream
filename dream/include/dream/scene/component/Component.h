@@ -182,6 +182,8 @@ namespace Dream::Component {
         inline static std::string componentName = "MaterialComponent";
         inline static std::string k_isEmbedded = "isEmbedded";
         bool isEmbedded = false;
+        inline static std::string k_shininess = "shininess";
+        float shininess = 20.0f;
         // diffuse color and textures
         inline static std::string k_diffuseTextureGuids = "diffuseTextureGuids";
         std::vector<std::string> diffuseTextureGuids;

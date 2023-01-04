@@ -211,6 +211,10 @@ namespace Dream {
 //        textureTypes.emplace_back(aiTextureType_DIFFUSE_ROUGHNESS);
         for (const auto &textureType : textureTypes) {
             aiMaterial *materials = scene->mMaterials[mesh->mMaterialIndex];
+            float shininess = 20.f;
+            if(AI_SUCCESS != aiGetMaterialFloat(materials, AI_MATKEY_SHININESS, &shininess)) {
+                shininess = 20.f;
+            }
             const aiTexture *assimpTexture = nullptr;
             aiColor4D aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
             if (textureType == aiTextureType_DIFFUSE) {
@@ -275,6 +279,7 @@ namespace Dream {
                                 entity.addComponent<Component::MaterialComponent>();
                             }
                             entity.getComponent<Component::MaterialComponent>().isEmbedded = true;
+                            entity.getComponent<Component::MaterialComponent>().shininess = shininess;
                             if (textureType == aiTextureType_DIFFUSE) {
                                 entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
                             } else if (textureType == aiTextureType_SPECULAR) {
@@ -305,6 +310,7 @@ namespace Dream {
                             entity.addComponent<Component::MaterialComponent>();
                         }
                         entity.getComponent<Component::MaterialComponent>().isEmbedded = false;
+                        entity.getComponent<Component::MaterialComponent>().shininess = shininess;
                         if (textureType == aiTextureType_DIFFUSE) {
                             entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.push_back(textureFileGUID);
                         } else if (textureType == aiTextureType_SPECULAR) {
@@ -324,6 +330,7 @@ namespace Dream {
                 if (!entity.hasComponent<Component::MaterialComponent>()) {
                     entity.addComponent<Component::MaterialComponent>();
                     entity.getComponent<Component::MaterialComponent>().isEmbedded = false;
+                    entity.getComponent<Component::MaterialComponent>().shininess = shininess;
                 }
 
                 if (textureType == aiTextureType_DIFFUSE) {
