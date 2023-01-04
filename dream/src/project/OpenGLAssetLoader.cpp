@@ -34,7 +34,7 @@ namespace Dream {
     OpenGLAssetLoader::loadMesh(std::string guid, bool createEntities, Entity rootEntity) {
         std::string path = Project::getResourceManager()->getFilePathFromGUID(guid);
         if (!std::filesystem::exists(path)) {
-            Logger::fatal("Mesh file at " + path + " does not exist");
+            Logger::fatal("Mesh file at path '" + path + "' with guid '" + guid + "' does not exist");
         }
         // use assimp to get scene of model
         Assimp::Importer importer;

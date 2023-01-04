@@ -58,7 +58,6 @@ namespace Dream::Component {
                     std::string path = Project::getResourceManager()->getFilePathFromGUID(this->guid);
                     Project::getAssetLoader()->loadMesh(this->guid);
                 }
-                this->mesh = (OpenGLMesh *) Project::getResourceManager()->getMeshData(this->guid, this->fileId).get();
             } else {
                 if (!this->guid.empty()) {
                     if (needsToLoadBones) {
@@ -72,15 +71,11 @@ namespace Dream::Component {
             }
         } else {
             if (meshType == PRIMITIVE_CUBE) {
-                if (!Project::getResourceManager()->hasMeshData("cube")) {
-                    Project::getResourceManager()->storeMeshData(new OpenGLCubeMesh(), "cube");
-                }
-                this->mesh = (OpenGLMesh *) Project::getResourceManager()->getMeshData("cube").get();
+                this->guid = "";
+                this->fileId = "";
             } else if (meshType == PRIMITIVE_SPHERE) {
-                if (!Project::getResourceManager()->hasMeshData("sphere")) {
-                    Project::getResourceManager()->storeMeshData(new OpenGLSphereMesh(), "sphere");
-                }
-                this->mesh = (OpenGLMesh *) Project::getResourceManager()->getMeshData("sphere").get();
+                this->guid = "";
+                this->fileId = "";
             } else {
                 Logger::fatal("Unknown primitive mesh type");
             }
@@ -134,16 +129,15 @@ namespace Dream::Component {
 
         // change mesh
         if (newMeshType == PRIMITIVE_CUBE) {
-            this->mesh = new OpenGLCubeMesh();
+//            this->guid = "cube";
             this->guid = "";
             this->fileId = "";
         } else if (newMeshType == PRIMITIVE_SPHERE) {
-            this->mesh = new OpenGLSphereMesh();
+//            this->guid = "sphere";
             this->guid = "";
             this->fileId = "";
         } else if (newMeshType == FROM_FILE) {
             // TODO: handle freeing of memory (but note other meshes share this memory)
-            this->mesh = nullptr;
             this->guid = "";
             this->fileId = "";
         } else {

@@ -26,6 +26,7 @@
 #include "dream/renderer/OpenGLMesh.h"
 #include "dream/util/Logger.h"
 #include "dream/window/Input.h"
+#include "dream/renderer/OpenGLCubeMesh.h"
 
 namespace Dream {
     OpenGLRenderer::OpenGLRenderer() : Renderer() {
@@ -49,6 +50,15 @@ namespace Dream {
         texture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("missing.png"));
 
         frameBuffer = new OpenGLFrameBuffer();
+
+        // load primitive shapes
+        if (!Project::getResourceManager()->hasMeshData("sphere")) {
+            Project::getResourceManager()->storeMeshData(new OpenGLSphereMesh(), "sphere");
+        }
+
+        if (!Project::getResourceManager()->hasMeshData("cube")) {
+            Project::getResourceManager()->storeMeshData(new OpenGLCubeMesh(), "cube");
+        }
     }
 
     OpenGLRenderer::~OpenGLRenderer() {
@@ -172,9 +182,10 @@ namespace Dream {
         // draw mesh of entity
         if (entity.hasComponent<Component::MeshComponent>()) {
             // load mesh of entity
-            if (!entity.getComponent<Component::MeshComponent>().mesh) {
-                entity.getComponent<Component::MeshComponent>().loadMesh();
-            }
+//            if (!entity.getComponent<Component::MeshComponent>().mesh) {
+//                entity.getComponent<Component::MeshComponent>().loadMesh();
+//            }
+            entity.getComponent<Component::MeshComponent>().loadMesh();
 
             // load material of entity
             if (entity.hasComponent<Component::MaterialComponent>()) {
@@ -218,9 +229,25 @@ namespace Dream {
             }
 
             // draw mesh of entity
-            if (entity.getComponent<Component::MeshComponent>().mesh) {
-                auto *openGLMesh = dynamic_cast<OpenGLMesh *>(entity.getComponent<Component::MeshComponent>().mesh);
-                if (openGLMesh) {
+            if (!entity.getComponent<Component::MeshComponent>().fileId.empty() || entity.getComponent<Component::MeshComponent>().meshType != Component::MeshComponent::FROM_FILE) {
+                auto guid = entity.getComponent<Component::MeshComponent>().guid;
+                auto fileId = entity.getComponent<Component::MeshComponent>().fileId;
+
+                // TODO: make handling of primitives cleaner - maybe store their mesh data somewhere else like in constructor of this class
+                if (entity.getComponent<Component::MeshComponent>().meshType != Component::MeshComponent::FROM_FILE) {
+                    if (entity.getComponent<Component::MeshComponent>().meshType == Component::MeshComponent::PRIMITIVE_CUBE) {
+                        guid = "cube";
+                        fileId = "";
+                    } else if (entity.getComponent<Component::MeshComponent>().meshType == Component::MeshComponent::PRIMITIVE_SPHERE) {
+                        guid = "sphere";
+                        fileId = "";
+                    } else {
+                        Logger::fatal("Unknown primitive type to find GUID for");
+                    }
+                }
+
+                auto mesh = Project::getResourceManager()->getMeshData(guid, fileId);
+                if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
                     if (!openGLMesh->getIndices().empty()) {
                         // case where vertices are indexed
                         auto numIndices = openGLMesh->getIndices().size();
@@ -236,11 +263,8 @@ namespace Dream {
                         Logger::fatal("Unable to render mesh");
                     }
                 } else {
-                    Logger::fatal("Mesh cannot be rendered in OpenGL");
+                    Logger::fatal("Unable to dynamic cast Mesh to type OpenGLMesh for entity " + entity.getComponent<Component::IDComponent>().id);
                 }
-            } else if (entity.getComponent<Component::MeshComponent>().mesh &&
-                       !entity.getComponent<Component::MeshComponent>().fileId.empty()) {
-                Logger::warn("No mesh loaded");
             }
         }
 

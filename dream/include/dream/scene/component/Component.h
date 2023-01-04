@@ -143,7 +143,6 @@ namespace Dream::Component {
         std::map<std::string, BoneInfo> m_BoneInfoMap;
         int m_BoneCount = 0;
         // cache mesh in memory for quick usage during runtime
-        Mesh *mesh = nullptr;
         bool needsToLoadBones = true;
 
         /**
