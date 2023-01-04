@@ -45,7 +45,8 @@ namespace Dream {
         OpenGLShader *physicsDebugShader;
         OpenGLShader *skyboxShader;
         OpenGLFrameBuffer *frameBuffer;
-        OpenGLTexture *texture;
+        OpenGLTexture *whiteTexture;
+        OpenGLTexture *blackTexture;
         OpenGLSkybox *skybox;
 
         void resizeFrameBuffer();
