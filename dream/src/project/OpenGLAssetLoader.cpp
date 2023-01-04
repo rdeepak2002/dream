@@ -207,6 +207,8 @@ namespace Dream {
         textureTypes.emplace_back(aiTextureType_HEIGHT);
         textureTypes.emplace_back(aiTextureType_NORMALS);
 //        textureTypes.emplace_back(aiTextureType_SHININESS);
+//        textureTypes.emplace_back(aiTextureType_METALNESS);
+//        textureTypes.emplace_back(aiTextureType_DIFFUSE_ROUGHNESS);
         for (const auto &textureType : textureTypes) {
             aiMaterial *materials = scene->mMaterials[mesh->mMaterialIndex];
             const aiTexture *assimpTexture = nullptr;
@@ -240,6 +242,12 @@ namespace Dream {
             }
 //            else if (textureType == aiTextureType_SHININESS) {
 //                aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
+//            }
+//            else if (textureType == aiTextureType_METALNESS) {
+//
+//            }
+//            else if (textureType == aiTextureType_DIFFUSE_ROUGHNESS) {
+//
 //            }
             else {
                 Logger::warn("Unable to extract color from texture type " + std::to_string(textureType));
