@@ -196,6 +196,18 @@ namespace Dream {
                     // diffuse texture
                     // TODO: iterate through vector and do not just get first diffuse texture
                     entity.getComponent<Component::MaterialComponent>().loadTextures();
+                    // debug by rendering normals and specular
+//                    std::shared_ptr<Texture> diffuseTexture;
+//                    if (!entity.getComponent<Component::MaterialComponent>().specularTextureGuid.empty()) {
+//                        diffuseTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().specularTextureGuid);
+//                    } else {
+//                        diffuseTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.at(0));
+//                    }
+//                    if (!entity.getComponent<Component::MaterialComponent>().normalTextureGuid.empty()) {
+//                        diffuseTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().normalTextureGuid);
+//                    } else {
+//                        diffuseTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.at(0));
+//                    }
                     auto diffuseTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.at(0));
                     if (auto openGLDiffuseTexture = std::dynamic_pointer_cast<OpenGLTexture>(diffuseTexture)) {
                         shader->setInt("texture_diffuse1", 0);
