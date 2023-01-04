@@ -506,6 +506,45 @@ namespace Dream::Component {
 
         static void serialize(YAML::Emitter &out, Entity &entity);
     };
+
+    struct LightComponent : public Component {
+        inline static std::string componentName = "LightComponent";
+
+        enum LightType {
+            DIRECTIONAL, POINT, SPOTLIGHT
+        };
+
+        // type of light
+        inline static std::string k_type = "type";
+        LightType type = LightType::DIRECTIONAL;
+
+        // spotlight cutoff
+        inline static std::string k_cutOff = "cutOff";
+        float cutOff = glm::cos(glm::radians(12.5f));
+
+        // spotlight outer cutoff
+        inline static std::string k_outerCutOff = "outerCutOff";
+        float outerCutOff = glm::cos(glm::radians(17.5f));
+
+        // variables for calculating light attenuation
+        // recommended values: https://wiki.ogre3d.org/tiki-index.php?page=-Point+Light+Attenuation
+        inline static std::string k_constant = "constant";
+        float constant = 1.0f;
+
+        inline static std::string k_linear = "linear";
+        float linear = 0.7f;
+
+        inline static std::string k_quadratic = "quadratic";
+        float quadratic = 1.8f;
+
+        // color of light (multiplied by material's ambient, diffuse, specular, etc. to compute final color)
+        inline static std::string k_color = "color";
+        glm::vec3 color = {1, 1, 1};
+
+        static void deserialize(YAML::Node node, Entity &entity);
+
+        static void serialize(YAML::Emitter &out, Entity &entity);
+    };
 }
 
 #endif //DREAM_COMPONENT_H

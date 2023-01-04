@@ -89,6 +89,7 @@ namespace Dream {
                 renderCameraComponent();
                 renderCollisionComponent();
                 renderRigidBodyComponent();
+                renderLightComponent();
                 renderAddComponent();
                 renderRemoveComponent();
             }
@@ -119,6 +120,8 @@ namespace Dream {
                     selectedEntity.addComponent<Component::CollisionComponent>();
                 }
                 selectedEntity.addComponent<Component::RigidBodyComponent>();
+            } else if (componentID == Component::LightComponent::componentName) {
+                selectedEntity.addComponent<Component::LightComponent>();
             } else {
                 Logger::fatal("Unknown component to add " + componentID);
             }
@@ -165,6 +168,10 @@ namespace Dream {
 
         if (!selectedEntity.hasComponent<Component::RigidBodyComponent>()) {
             components.insert(std::make_pair("Rigid Body", Component::RigidBodyComponent::componentName));
+        }
+
+        if (!selectedEntity.hasComponent<Component::LightComponent>()) {
+            components.insert(std::make_pair("Light", Component::LightComponent::componentName));
         }
 
         if (!selectedEntity.hasComponent<Component::RootComponent>() && !components.empty()) {
@@ -1061,6 +1068,123 @@ namespace Dream {
                     }
                     component.restitution = fmin(component.restitution, 1.0f);
                     component.restitution = fmax(component.restitution, 0.0f);
+                }
+                ImGui::TreePop();
+            }
+        }
+    }
+
+    void ImGuiEditorInspectorView::renderLightComponent() {
+        if (selectedEntity.hasComponent<Component::LightComponent>()) {
+            auto cursorPosX1 = ImGui::GetCursorPosX();
+            auto &component = selectedEntity.getComponent<Component::LightComponent>();
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Light",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+            ImGui::SameLine();
+            ImGui::Text("Light");
+            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                selectedEntity.removeComponent<Component::LightComponent>();
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+
+            if (treeNodeOpen) {
+                auto cursorPosX2 = ImGui::GetCursorPosX();
+                auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
+                // type selector
+                {
+                    std::string dropdownPreview = "";
+                    if (component.type == Component::LightComponent::DIRECTIONAL) {
+                        dropdownPreview = "Directional";
+                    } else if (component.type == Component::LightComponent::POINT) {
+                        dropdownPreview = "Point";
+                    } else if (component.type == Component::LightComponent::SPOTLIGHT) {
+                        dropdownPreview = "Spotlight";
+                    } else {
+                        Logger::fatal("Unknown light type " + std::to_string(static_cast<int>(component.type)));
+                    }
+                    ImGui::SetNextItemWidth(treeNodeWidth);
+                    if (ImGui::BeginCombo("##Change Light Type", dropdownPreview.c_str())) {
+                        if (ImGui::Selectable("Directional")) {
+                            component.type = Component::LightComponent::DIRECTIONAL;
+                        }
+                        if (ImGui::Selectable("Point")) {
+                            component.type = Component::LightComponent::POINT;
+                        }
+                        if (ImGui::Selectable("Spotlight")) {
+                            component.type = Component::LightComponent::SPOTLIGHT;
+                        }
+                        ImGui::EndCombo();
+                    }
+                }
+                // cut off input
+                {
+                    if (component.type == Component::LightComponent::SPOTLIGHT) {
+                        auto cursorPosX3 = ImGui::GetCursorPosX();
+                        ImGui::Text("Cut Off");
+                        ImGui::SameLine();
+                        float floatInputWidth = 100.0f;
+                        ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                        ImGui::SetNextItemWidth(floatInputWidth);
+                        ImGui::DragFloat("##SpotLightCutOff", &component.cutOff, 0.1f, 0.0f, 0.0f, "%.3f");
+                    }
+                }
+                // outer cut off input
+                {
+                    if (component.type == Component::LightComponent::SPOTLIGHT) {
+                        auto cursorPosX3 = ImGui::GetCursorPosX();
+                        ImGui::Text("Outer Cut Off");
+                        ImGui::SameLine();
+                        float floatInputWidth = 100.0f;
+                        ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                        ImGui::SetNextItemWidth(floatInputWidth);
+                        ImGui::DragFloat("##OuterCutOff", &component.outerCutOff, 0.1f, 0.0f, 0.0f, "%.3f");
+                    }
+                }
+                // constant input
+                {
+                    if (component.type == Component::LightComponent::SPOTLIGHT || component.type == Component::LightComponent::POINT) {
+                        auto cursorPosX3 = ImGui::GetCursorPosX();
+                        ImGui::Text("Constant");
+                        ImGui::SameLine();
+                        float floatInputWidth = 100.0f;
+                        ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                        ImGui::SetNextItemWidth(floatInputWidth);
+                        ImGui::DragFloat("##Constant", &component.constant, 0.1f, 0.0f, 0.0f, "%.3f");
+                    }
+                }
+                // linear input
+                {
+                    if (component.type == Component::LightComponent::SPOTLIGHT || component.type == Component::LightComponent::POINT) {
+                        auto cursorPosX3 = ImGui::GetCursorPosX();
+                        ImGui::Text("Linear");
+                        ImGui::SameLine();
+                        float floatInputWidth = 100.0f;
+                        ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                        ImGui::SetNextItemWidth(floatInputWidth);
+                        ImGui::DragFloat("##Linear", &component.linear, 0.1f, 0.0f, 0.0f, "%.3f");
+                    }
+                }
+                // quadratic input
+                {
+                    if (component.type == Component::LightComponent::SPOTLIGHT || component.type == Component::LightComponent::POINT) {
+                        auto cursorPosX3 = ImGui::GetCursorPosX();
+                        ImGui::Text("Quadratic");
+                        ImGui::SameLine();
+                        float floatInputWidth = 100.0f;
+                        ImGui::SetCursorPosX(cursorPosX3 + treeNodeWidth - floatInputWidth);
+                        ImGui::SetNextItemWidth(floatInputWidth);
+                        ImGui::DragFloat("##Quadratic", &component.quadratic, 0.1f, 0.0f, 0.0f, "%.3f");
+                    }
+                }
+                // color input
+                {
+                    renderVec3Control("Color", component.color, treeNodeWidth + 20, 1.0, 0.1, 3);
                 }
                 ImGui::TreePop();
             }

@@ -202,6 +202,7 @@ namespace Dream {
         std::vector<aiTextureType> textureTypes;    // texture type : color type
         textureTypes.emplace_back(aiTextureType_DIFFUSE);
         textureTypes.emplace_back(aiTextureType_SPECULAR);
+        // TODO: add ambient texture loading
 //        textureTypes.emplace_back(aiTextureType_AMBIENT);
 //        textureTypes.emplace_back(aiTextureType_EMISSIVE);
         textureTypes.emplace_back(aiTextureType_HEIGHT);
