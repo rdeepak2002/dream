@@ -36,8 +36,18 @@ namespace Dream {
         struct AnimationConfig {
             bool playInEditor = true;
         };
+        struct RenderingConfig {
+            enum RenderingType {
+                FINAL,
+                DIFFUSE,
+                SPECULAR,
+                NORMAL
+            };
+            RenderingType renderingType = RenderingType::FINAL;
+        };
         PhysicsConfig physicsConfig;
         AnimationConfig animationConfig;
+        RenderingConfig renderingConfig;
     };
 
     class Project {

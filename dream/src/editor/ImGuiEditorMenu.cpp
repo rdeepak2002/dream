@@ -46,6 +46,8 @@ namespace Dream {
                 ImGui::Checkbox("Physics debugger depth test", &(Project::getConfig().physicsConfig.depthTest));
                 ImGui::Checkbox("Physics debugger while playing", &(Project::getConfig().physicsConfig.physicsDebuggerWhilePlaying));
                 ImGui::Checkbox("Play animation in editor", &(Project::getConfig().animationConfig.playInEditor));
+                // TODO: drop-down to switch between FINAL, DIFFUSE, SPECULAR, and NORMAL rendering modes to allow for rendering debugging
+                ImGui::Text("TODO: drop-down to allow for switching rendering type to allow for debugging");
                 ImGui::EndMenu();
             }
             ImGui::EndMainMenuBar();
