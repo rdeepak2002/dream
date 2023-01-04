@@ -14,6 +14,8 @@ uniform sampler2D texture_normal;
 
 uniform sampler2D texture_height;
 
+float shininess;
+
 void main()
 {
     vec4 texColor = texture(texture_diffuse1, TexCoord) * diffuse_color;

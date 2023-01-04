@@ -41,7 +41,8 @@ namespace Dream {
         unsigned int getOutputRenderTexture() override;
 
     private:
-        OpenGLShader *shader;
+        OpenGLShader *lightingShader;
+        OpenGLShader *singleTextureShader;
         OpenGLShader *physicsDebugShader;
         OpenGLShader *skyboxShader;
         OpenGLFrameBuffer *frameBuffer;
