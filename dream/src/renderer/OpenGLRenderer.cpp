@@ -27,6 +27,7 @@
 #include "dream/util/Logger.h"
 #include "dream/window/Input.h"
 #include "dream/renderer/OpenGLCubeMesh.h"
+#include "dream/util/MathUtils.h"
 
 namespace Dream {
     OpenGLRenderer::OpenGLRenderer() : Renderer() {
@@ -124,6 +125,27 @@ namespace Dream {
                     lightingShader->use();
                     lightingShader->setMat4("projection", projection);
                     lightingShader->setMat4("view", view);
+//                    auto trans = glm::mat4(1.0);
+//                    if (mainCamera) {
+//                        trans = mainCamera.getComponent<Component::TransformComponent>().getTransform(mainCamera);
+//                    } else if (sceneCamera) {
+//                        trans = mainCamera.getComponent<Component::TransformComponent>().getTransform(sceneCamera);
+//                    } else {
+//                        Logger::fatal("Unable to compute transformation for camera");
+//                    }
+//                    glm::vec3 cameraPos;
+//                    glm::quat cameraRot;
+//                    glm::vec3 cameraScale;
+//                    MathUtils::decomposeMatrix(trans, cameraPos, cameraRot, cameraScale);
+//                    lightingShader->setVec3("viewPos", cameraPos);
+                    if (mainCamera) {
+                        lightingShader->setVec3("viewPos", mainCamera.getComponent<Component::TransformComponent>().translation);
+                    } else if (sceneCamera) {
+                        lightingShader->setVec3("viewPos", sceneCamera.getComponent<Component::TransformComponent>().translation);
+                    } else {
+                        Logger::fatal("Unable to set view pos due to missing camera");
+                    }
+                    applyLighting();
                 } else {
                     singleTextureShader->use();
                     singleTextureShader->setMat4("projection", projection);
@@ -270,7 +292,7 @@ namespace Dream {
                     } else {
                         // default diffuse texture
                         lightingShader->setInt("texture_normal", 2);
-                        blackTexture->bind(2);
+                        whiteTexture->bind(2);
                     }
                 }
 
@@ -345,11 +367,19 @@ namespace Dream {
 
             // get transform of entity
             glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
-            singleTextureShader->setMat4("model", model);
+            if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
+                lightingShader->setMat4("model", model);
+            } else {
+                singleTextureShader->setMat4("model", model);
+            }
 
             // set bones for animation
             for (int i = 0; i < finalBoneMatrices.size(); i++) {
-                singleTextureShader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", finalBoneMatrices[i]);
+                if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
+                    lightingShader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", finalBoneMatrices[i]);
+                } else {
+                    singleTextureShader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", finalBoneMatrices[i]);
+                }
             }
 
             // draw mesh of entity
@@ -445,5 +475,70 @@ namespace Dream {
 
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
         return this->frameBuffer->getTexture();
+    }
+
+    void OpenGLRenderer::applyLighting() {
+        std::vector<Entity> directionalLights;
+        std::vector<Entity> pointLights;
+        std::vector<Entity> spotLights;
+        for (auto lightEntityHandle : Project::getScene()->getEntitiesWithComponents<Component::LightComponent>()) {
+            Entity lightEntity = {lightEntityHandle, Project::getScene()};
+            if (lightEntity.getComponent<Component::LightComponent>().type == Component::LightComponent::DIRECTIONAL) {
+                directionalLights.push_back(lightEntity);
+            } else if (lightEntity.getComponent<Component::LightComponent>().type == Component::LightComponent::POINT) {
+                pointLights.push_back(lightEntity);
+            } else if (lightEntity.getComponent<Component::LightComponent>().type == Component::LightComponent::SPOTLIGHT) {
+                spotLights.push_back(lightEntity);
+            } else {
+                Logger::fatal("Unknown light type");
+            }
+        }
+
+        // define current number of point lights
+        lightingShader->setInt("numberOfDirLights", (int) directionalLights.size());
+        lightingShader->setInt("numberOfPointLights", (int) pointLights.size());
+        lightingShader->setInt("numberOfSpotLights", (int) spotLights.size());
+
+        for (int i = 0; i < directionalLights.size(); i++) {
+            auto &lightEntity = directionalLights.at(i);
+            const auto &lightComponent = lightEntity.getComponent<Component::LightComponent>();
+            std::string prefix = "dirLights[" + std::to_string(i) + "]";
+
+            lightingShader->setVec3(prefix + ".direction", lightEntity.getComponent<Component::TransformComponent>().getFront());
+            lightingShader->setVec3(prefix + ".ambient", lightComponent.color);
+            lightingShader->setVec3(prefix + ".diffuse", lightComponent.color);
+            lightingShader->setVec3(prefix + ".specular", lightComponent.color);
+        }
+
+        for (int i = 0; i < pointLights.size(); i++) {
+            auto &lightEntity = pointLights.at(i);
+            const auto &lightComponent = lightEntity.getComponent<Component::LightComponent>();
+            std::string prefix = "pointLights[" + std::to_string(i) + "]";
+            // TODO: get global translation
+            lightingShader->setVec3(prefix + ".position", lightEntity.getComponent<Component::TransformComponent>().translation);
+            lightingShader->setVec3(prefix + ".ambient", lightComponent.color);
+            lightingShader->setVec3(prefix + ".diffuse", lightComponent.color);
+            lightingShader->setVec3(prefix + ".specular", lightComponent.color);
+            lightingShader->setFloat(prefix + ".constant", lightComponent.constant);
+            lightingShader->setFloat(prefix + ".linear", lightComponent.linear);
+            lightingShader->setFloat(prefix + ".quadratic", lightComponent.quadratic);
+        }
+
+        for (int i = 0; i < spotLights.size(); i++) {
+            auto &lightEntity = spotLights.at(i);
+            const auto &lightComponent = lightEntity.getComponent<Component::LightComponent>();
+            std::string prefix = "spotLights[" + std::to_string(i) + "]";
+            // TODO: get global translation
+            lightingShader->setVec3(prefix + ".position", lightEntity.getComponent<Component::TransformComponent>().translation);
+            lightingShader->setVec3(prefix + ".direction", lightEntity.getComponent<Component::TransformComponent>().getFront());
+            lightingShader->setVec3(prefix + ".ambient", lightComponent.color);
+            lightingShader->setVec3(prefix + ".diffuse", lightComponent.color);
+            lightingShader->setVec3(prefix + ".specular", lightComponent.color);
+            lightingShader->setFloat(prefix + ".constant", lightComponent.constant);
+            lightingShader->setFloat(prefix + ".linear", lightComponent.linear);
+            lightingShader->setFloat(prefix + ".quadratic", lightComponent.quadratic);
+            lightingShader->setFloat(prefix + ".cutOff", glm::cos(glm::radians(lightComponent.cutOff)));
+            lightingShader->setFloat(prefix + ".outerCutOff", glm::cos(glm::radians(lightComponent.outerCutOff)));
+        }
     }
 }

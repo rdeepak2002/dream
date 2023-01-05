@@ -6,6 +6,9 @@ layout (location = 4) in vec3 aBitangent;
 layout (location = 5) in ivec4 boneIds;
 layout (location = 6) in vec4 weights;
 
+// variables to send to fragment shader
+out vec3 FragPos;
+out vec3 Normal;
 out vec2 TexCoord;
 
 uniform mat4 model;
@@ -40,6 +43,9 @@ void main()
         }
     }
 
-    gl_Position = projection * view * model * totalPosition;
+    FragPos = vec3(model * totalPosition);
+    Normal = mat3(transpose(inverse(model))) * aNormal;
     TexCoord = vec2(aTexCoord.x, aTexCoord.y);
+
+    gl_Position = projection * view * model * totalPosition;
 }

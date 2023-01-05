@@ -62,6 +62,8 @@ namespace Dream {
 
         void renderEntityAndChildren(Entity entity);
 
+        void applyLighting();
+
         std::pair<int, int> getViewportDimensions();
     };
 }
