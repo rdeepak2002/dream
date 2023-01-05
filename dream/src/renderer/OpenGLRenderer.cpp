@@ -138,13 +138,16 @@ namespace Dream {
 //                    glm::vec3 cameraScale;
 //                    MathUtils::decomposeMatrix(trans, cameraPos, cameraRot, cameraScale);
 //                    lightingShader->setVec3("viewPos", cameraPos);
+                    glm::vec3 viewPos = {1, 1, 1};
                     if (mainCamera) {
-                        lightingShader->setVec3("viewPos", mainCamera.getComponent<Component::TransformComponent>().translation);
+                        viewPos = mainCamera.getComponent<Component::TransformComponent>().translation;
                     } else if (sceneCamera) {
-                        lightingShader->setVec3("viewPos", sceneCamera.getComponent<Component::TransformComponent>().translation);
+                        viewPos = sceneCamera.getComponent<Component::TransformComponent>().translation;
                     } else {
                         Logger::fatal("Unable to set view pos due to missing camera");
                     }
+//                    viewPos.x *= -1;
+                    lightingShader->setVec3("viewPos", viewPos);
                     applyLighting();
                 } else {
                     singleTextureShader->use();
@@ -515,7 +518,10 @@ namespace Dream {
             const auto &lightComponent = lightEntity.getComponent<Component::LightComponent>();
             std::string prefix = "pointLights[" + std::to_string(i) + "]";
             // TODO: get global translation
-            lightingShader->setVec3(prefix + ".position", lightEntity.getComponent<Component::TransformComponent>().translation);
+            auto lightPos = lightEntity.getComponent<Component::TransformComponent>().translation;
+            lightPos.x *= -1;
+            lightPos.y *= -1;
+            lightingShader->setVec3(prefix + ".position", lightPos);
             lightingShader->setVec3(prefix + ".ambient", lightComponent.color);
             lightingShader->setVec3(prefix + ".diffuse", lightComponent.color);
             lightingShader->setVec3(prefix + ".specular", lightComponent.color);
