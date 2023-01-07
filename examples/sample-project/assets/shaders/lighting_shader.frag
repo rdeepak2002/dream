@@ -129,20 +129,9 @@ void main()
 
         vec3 viewDir = normalize(viewPos - FragPos);
         vec3 reflectDir = reflect(-lightDir, norm);
-//        float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 20.0f);
+        float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
         vec3 specular = vec3(0.0, 0.0, 0.0);
-//        spec = 0.4f;
         specular = light.specular * spec * texture(texture_specular, TexCoord).rgb;
-//        if (specular.x < 0) {
-//            specular.x = 0;
-//        }
-//        if (specular.y < 0) {
-//            specular.y = 0;
-//        }
-//        if (specular.z < 0) {
-//            specular.z = 0;
-//        }
 
         // attenuation
         float distance    = length(light.position - FragPos);
@@ -153,8 +142,6 @@ void main()
         specular *= attenuation;
 
         result = result + ambient + diffuse + specular;
-        //        PointLight light = pointLights[i];
-//        result += 1.0 / length(light.position - FragPos);
     }
 
     FragColor = vec4(result, 1.0);

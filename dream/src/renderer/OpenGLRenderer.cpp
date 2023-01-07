@@ -227,7 +227,8 @@ namespace Dream {
                 // final rendering (combine all variables to compute final color)
                 // set shininess
                 if (entity.hasComponent<Component::MaterialComponent>()) {
-                    lightingShader->setFloat("shininess", entity.getComponent<Component::MaterialComponent>().shininess);
+                    lightingShader->setFloat("shininess", 20.0f);
+//                    lightingShader->setFloat("shininess", entity.getComponent<Component::MaterialComponent>().shininess);
                 } else {
                     lightingShader->setFloat("shininess", 20.0f);
                 }
