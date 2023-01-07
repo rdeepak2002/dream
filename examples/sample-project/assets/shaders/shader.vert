@@ -44,6 +44,7 @@ void main()
     }
 
     FragPos = vec3(model * totalPosition);
+    // FragPos = vec3(projection * view * model * totalPosition);
     Normal = mat3(transpose(inverse(model))) * aNormal;
     TexCoord = vec2(aTexCoord.x, aTexCoord.y);
 

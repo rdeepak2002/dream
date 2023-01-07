@@ -200,6 +200,11 @@ namespace Dream::Component {
         // normal texture
         inline static std::string k_normalTextureGuid = "normalTextureGuid";
         std::string normalTextureGuid = "";
+        // ambient texture
+        inline static std::string k_ambientTextureGuid = "ambientTextureGuid";
+        std::string ambientTextureGuid = "";
+        inline static std::string k_ambientColor = "ambientColor";
+        glm::vec4 ambientColor = {1, 1, 1, 1};
 
         // runtime variable to determine if texture loading should be called
         bool shouldLoadTextures = true;

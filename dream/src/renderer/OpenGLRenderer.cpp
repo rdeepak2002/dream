@@ -316,6 +316,31 @@ namespace Dream {
                         blackTexture->bind(3);
                     }
                 }
+
+                // load ambient color + texture of entity
+                {
+                    if (entity.hasComponent<Component::MaterialComponent>()) {
+                        lightingShader->setVec4("ambient_color", entity.getComponent<Component::MaterialComponent>().ambientColor);
+                    } else {
+                        lightingShader->setVec4("ambient_color", glm::vec4(1.0, 1.0, 1.0, 1.0));
+                    }
+
+                    if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().ambientTextureGuid.empty()) {
+                        // specular texture
+                        entity.getComponent<Component::MaterialComponent>().loadTextures();
+                        auto ambientTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().ambientTextureGuid);
+                        if (auto openGLTexture = std::dynamic_pointer_cast<OpenGLTexture>(ambientTexture)) {
+                            lightingShader->setInt("texture_ambient", 4);
+                            openGLTexture->bind(4);
+                        } else {
+                            Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
+                        }
+                    } else {
+                        // default specular texture
+                        lightingShader->setInt("texture_ambient", 4);
+                        whiteTexture->bind(4);
+                    }
+                }
             } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::DIFFUSE) {
                 // debug diffuse
                 singleTextureShader->setVec4("color", {1, 1, 1, 1});

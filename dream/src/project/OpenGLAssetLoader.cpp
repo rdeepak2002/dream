@@ -203,7 +203,7 @@ namespace Dream {
         textureTypes.emplace_back(aiTextureType_DIFFUSE);
         textureTypes.emplace_back(aiTextureType_SPECULAR);
         // TODO: add ambient texture loading
-//        textureTypes.emplace_back(aiTextureType_AMBIENT);
+        textureTypes.emplace_back(aiTextureType_AMBIENT);
 //        textureTypes.emplace_back(aiTextureType_EMISSIVE);
         textureTypes.emplace_back(aiTextureType_HEIGHT);
         textureTypes.emplace_back(aiTextureType_NORMALS);
@@ -229,12 +229,13 @@ namespace Dream {
                     // Logger::error("Error getting color for material of type " + std::to_string(textureType));
                 }
             }
-//            else if (textureType == aiTextureType_AMBIENT) {
-//                if (materials->Get(AI_MATKEY_COLOR_AMBIENT, aiColor) != aiReturn_SUCCESS) {
-//                    aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
-//                    // Logger::error("Error getting color for material of type " + std::to_string(textureType));
-//                }
-//            } else if (textureType == aiTextureType_EMISSIVE) {
+            else if (textureType == aiTextureType_AMBIENT) {
+                if (materials->Get(AI_MATKEY_COLOR_AMBIENT, aiColor) != aiReturn_SUCCESS) {
+                    aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
+                    // Logger::error("Error getting color for material of type " + std::to_string(textureType));
+                }
+            }
+//           else if (textureType == aiTextureType_EMISSIVE) {
 //                if (materials->Get(AI_MATKEY_COLOR_EMISSIVE, aiColor) != aiReturn_SUCCESS) {
 //                    aiColor = aiColor4D(1.0, 1.0, 1.0, 1.0);
 //                    Logger::error("Error getting color for material of type " + std::to_string(textureType));
@@ -289,6 +290,8 @@ namespace Dream {
                                 entity.getComponent<Component::MaterialComponent>().heightTextureGuid = textureFileGUID;
                             } else if (textureType == aiTextureType_NORMALS) {
                                 entity.getComponent<Component::MaterialComponent>().normalTextureGuid = textureFileGUID;
+                            } else if (textureType == aiTextureType_AMBIENT) {
+                                entity.getComponent<Component::MaterialComponent>().ambientTextureGuid = textureFileGUID;
                             } else {
                                 Logger::fatal("Unable to handle getting embedded texture of this type");
                             }
@@ -320,6 +323,8 @@ namespace Dream {
                             entity.getComponent<Component::MaterialComponent>().heightTextureGuid = textureFileGUID;
                         } else if (textureType == aiTextureType_NORMALS) {
                             entity.getComponent<Component::MaterialComponent>().normalTextureGuid = textureFileGUID;
+                        } else if (textureType == aiTextureType_AMBIENT) {
+                            entity.getComponent<Component::MaterialComponent>().ambientTextureGuid = textureFileGUID;
                         } else {
                             Logger::fatal("Unable to handle getting texture of this type");
                         }
@@ -342,6 +347,8 @@ namespace Dream {
                     // don't do anything
                 } else if (textureType == aiTextureType_NORMALS) {
                     // don't do anything
+                } else if (textureType == aiTextureType_AMBIENT) {
+                    entity.getComponent<Component::MaterialComponent>().ambientColor = color;
                 } else {
                     Logger::fatal("Unable to handle base color of this texture type");
                 }

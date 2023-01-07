@@ -55,6 +55,10 @@ namespace Dream::Component {
                 << entity.getComponent<MaterialComponent>().heightTextureGuid;
             out << YAML::Key << k_normalTextureGuid << YAML::Value
                 << entity.getComponent<MaterialComponent>().normalTextureGuid;
+            out << YAML::Key << k_ambientTextureGuid << YAML::Value
+                << entity.getComponent<MaterialComponent>().ambientTextureGuid;
+            out << YAML::Key << k_ambientColor << YAML::Value
+                << YAML::convert<glm::vec4>().encode(entity.getComponent<MaterialComponent>().ambientColor);
             out << YAML::EndMap;
         }
     }
@@ -99,6 +103,15 @@ namespace Dream::Component {
             if (node[componentName][k_normalTextureGuid]) {
                 normalTextureGuid = node[componentName][k_normalTextureGuid].as<std::string>();
             }
+            // ambient color and texture
+            std::string ambientTextureGuid;
+            if (node[componentName][k_ambientTextureGuid]) {
+                ambientTextureGuid = node[componentName][k_ambientTextureGuid].as<std::string>();
+            }
+            glm::vec4 ambientColor = {1, 1, 1, 1};
+            if (node[componentName][k_ambientColor]) {
+                YAML::convert<glm::vec4>().decode(node[componentName][k_ambientColor], ambientColor);
+            }
             entity.addComponent<MaterialComponent>();
             entity.getComponent<MaterialComponent>().isEmbedded = isEmbedded;
             entity.getComponent<MaterialComponent>().shininess = shininess;
@@ -108,6 +121,8 @@ namespace Dream::Component {
             entity.getComponent<MaterialComponent>().specularColor = specularColor;
             entity.getComponent<MaterialComponent>().heightTextureGuid = heightTextureGuid;
             entity.getComponent<MaterialComponent>().normalTextureGuid = normalTextureGuid;
+            entity.getComponent<MaterialComponent>().ambientTextureGuid = ambientTextureGuid;
+            entity.getComponent<MaterialComponent>().ambientColor = ambientColor;
         }
     }
 }
