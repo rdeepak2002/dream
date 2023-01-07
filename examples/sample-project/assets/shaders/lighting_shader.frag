@@ -81,10 +81,9 @@ void main()
 //        discard;
 //    FragColor = texColor;
 
+//    vec3 norm = normalize(Normal);
+//    vec3 viewDir = normalize(viewPos - FragPos);
     // properties
-    vec3 norm = normalize(Normal);
-    vec3 viewDir = normalize(viewPos - FragPos);
-
     // =======================================================
     // Our lighting is set up in 3 phases: directional, point lights and an optional flashlight
     // For each phase, a calculate function is defined that calculates the corresponding color
@@ -104,7 +103,41 @@ void main()
 
     vec3 result = vec3(0.0, 0.0, 0.0);
 
+    vec3 norm = normalize(Normal);
+    vec3 viewDir = normalize(viewPos - FragPos);
 
+    for(int i = 0; i < numberOfPointLights; i++) {
+        PointLight light = pointLights[i];
+
+        // ambient
+        vec3 ambient = light.ambient * texture(texture_diffuse1, TexCoord).rgb;
+
+        // diffuse
+        vec3 norm = normalize(Normal);
+        vec3 lightDir = normalize(light.position - FragPos);
+        float diff = max(dot(norm, lightDir), 0.0);
+        vec3 diffuse = vec3(0.0, 0.0, 0.0);
+        diffuse = light.diffuse * diff * texture(texture_diffuse1, TexCoord).rgb;
+
+        // specular
+//        vec3 viewDir = normalize(viewPos - FragPos);
+//        vec3 reflectDir = reflect(-lightDir, norm);
+//        float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+        vec3 specular = vec3(0.0, 0.0, 0.0);
+//        specular = light.specular * spec * texture(texture_specular, TexCoord).rgb;
+
+        // attenuation
+        float distance    = length(light.position - FragPos);
+        float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
+
+        ambient  *= attenuation;
+        diffuse  *= attenuation;
+        specular *= attenuation;
+
+        result = result + ambient + diffuse + specular;
+        //        PointLight light = pointLights[i];
+//        result += 1.0 / length(light.position - FragPos);
+    }
 
     FragColor = vec4(result, 1.0);
 }
