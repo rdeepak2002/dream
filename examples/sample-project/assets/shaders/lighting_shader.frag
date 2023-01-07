@@ -81,8 +81,8 @@ void main()
 //        discard;
 //    FragColor = texColor;
 
-//    vec3 norm = normalize(Normal);
-//    vec3 viewDir = normalize(viewPos - FragPos);
+    vec3 norm = normalize(Normal);
+    vec3 viewDir = normalize(viewPos - FragPos);
     // properties
     // =======================================================
     // Our lighting is set up in 3 phases: directional, point lights and an optional flashlight
@@ -90,59 +90,55 @@ void main()
     // per lamp. In the main() function we take all the calculated colors and sum them up for
     // this fragment's final color.
     // =======================================================
-//    vec3 result = vec3(0.0, 0.0, 0.0);
-    // phase 1: directional lighting
-    // for(int i = 0; i < numberOfDirLights; i++)
-    // result += CalcDirLight(dirLights[i], norm, viewDir);
-    // phase 2: point lights
-//    for(int i = 0; i < numberOfPointLights; i++)
-//    result += CalcPointLight(pointLights[i], norm, FragPos, viewDir);
-    // phase 3: spot light
-    // for(int i = 0; i < numberOfSpotLights; i++)
-    // result += CalcSpotLight(spotLights[i], norm, FragPos, viewDir);
-
     vec3 result = vec3(0.0, 0.0, 0.0);
+    // phase 1: directional lighting
+     for(int i = 0; i < numberOfDirLights; i++)
+     result += CalcDirLight(dirLights[i], norm, viewDir);
+    // phase 2: point lights
+    for(int i = 0; i < numberOfPointLights; i++)
+    result += CalcPointLight(pointLights[i], norm, FragPos, viewDir);
+    // phase 3: spot light
+    for(int i = 0; i < numberOfSpotLights; i++)
+    result += CalcSpotLight(spotLights[i], norm, FragPos, viewDir);
 
-    vec3 norm = normalize(Normal);
-    vec3 viewDir = normalize(viewPos - FragPos);
+    // result += vec3(1.0, 1.0, 1.0) * 0.1;
 
-    for(int i = 0; i < numberOfPointLights; i++) {
-        PointLight light = pointLights[i];
+//    vec3 result = vec3(0.0, 0.0, 0.0);
+//
+//    vec3 norm = normalize(Normal);
+//    vec3 viewDir = normalize(viewPos - FragPos);
 
-        // ambient
-        vec3 ambient = vec3(0.0, 0.0, 0.0);
-        ambient = light.ambient * texture(texture_diffuse1, TexCoord).rgb;
-
-        // diffuse
-        vec3 norm = normalize(Normal);
-        vec3 lightDir = normalize(light.position - FragPos);
-        float diff = max(dot(norm, lightDir), 0.0);
-        vec3 diffuse = vec3(0.0, 0.0, 0.0);
-        diffuse = light.diffuse * diff * texture(texture_diffuse1, TexCoord).rgb;
-
-        // specular
+//    for(int i = 0; i < numberOfPointLights; i++) {
+//        PointLight light = pointLights[i];
+//
+//        // ambient
+//        vec3 ambient = vec3(0.0, 0.0, 0.0);
+//        ambient = light.ambient * texture(texture_diffuse1, TexCoord).rgb;
+//
+//        // diffuse
+//        vec3 norm = normalize(Normal);
+//        vec3 lightDir = normalize(light.position - FragPos);
+//        float diff = max(dot(norm, lightDir), 0.0);
+//        vec3 diffuse = vec3(0.0, 0.0, 0.0);
+//        diffuse = light.diffuse * diff * texture(texture_diffuse1, TexCoord).rgb;
+//
+//        // specular
 //        vec3 viewDir = normalize(viewPos - FragPos);
-//        vec3 reflectDir = reflect(lightDir, norm);
+//        vec3 reflectDir = -reflect(-lightDir, norm);
 //        float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
 //        vec3 specular = vec3(0.0, 0.0, 0.0);
 //        specular = light.specular * spec * texture(texture_specular, TexCoord).rgb;
-
-        vec3 viewDir = normalize(viewPos - FragPos);
-        vec3 reflectDir = -reflect(-lightDir, norm);
-        float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-        vec3 specular = vec3(0.0, 0.0, 0.0);
-        specular = light.specular * spec * texture(texture_specular, TexCoord).rgb;
-
-        // attenuation
-        float distance    = length(light.position - FragPos);
-        float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
-
-        ambient  *= attenuation;
-        diffuse  *= attenuation;
-        specular *= attenuation;
-
-        result = result + ambient + diffuse + specular;
-    }
+//
+//        // attenuation
+//        float distance    = length(light.position - FragPos);
+//        float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
+//
+//        ambient  *= attenuation;
+//        diffuse  *= attenuation;
+//        specular *= attenuation;
+//
+//        result = result + ambient + diffuse + specular;
+//    }
 
     FragColor = vec4(result, 1.0);
 }
@@ -168,6 +164,8 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
 // calculates the color when using a point light.
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {
+    // TODO: multiply by material's diffuse and specular color
+
     vec3 lightDir = normalize(light.position - fragPos);
     // diffuse shading
     float diff = max(dot(normal, lightDir), 0.0);
@@ -185,25 +183,6 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     diffuse *= attenuation;
     specular *= attenuation;
     return (ambient + diffuse + specular);
-    // TODO: multiply by material's diffuse and specular color
-
-//    vec3 lightDir = normalize(light.position - fragPos);
-//    // diffuse shading
-//    float diff = max(dot(normal, lightDir), 0.0);
-//    // specular shading
-//    vec3 reflectDir = reflect(-lightDir, normal);
-//    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-//    // attenuation
-//    float distance = length(light.position - fragPos);
-//    float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
-//    // combine results
-//    vec3 ambient = light.ambient * vec3(texture(texture_diffuse1, TexCoord));                   // TODO: use ambient texture
-//    vec3 diffuse = light.diffuse * diff * vec3(texture(texture_diffuse1, TexCoord));
-//    vec3 specular = light.specular * spec * vec3(texture(texture_specular, TexCoord));
-//    ambient *= attenuation;
-//    diffuse *= attenuation;
-//    specular *= attenuation;
-//    return (ambient + diffuse + specular);
 }
 
 // calculates the color when using a spot light.
