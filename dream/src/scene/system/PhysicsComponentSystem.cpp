@@ -28,11 +28,11 @@ namespace Dream {
         solver = new btSequentialImpulseConstraintSolver;
         dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
         dynamicsWorld->setGravity(btVector3(0, -10, 0));
+        openGlPhysicsDebugDrawer.setDebugMode(btIDebugDraw::DBG_DrawWireframe);
         dynamicsWorld->setDebugDrawer(&openGlPhysicsDebugDrawer);
     }
 
     PhysicsComponentSystem::~PhysicsComponentSystem() {
-//        clearWorld();
         delete dynamicsWorld;
         delete solver;
         delete overlappingPairCache;
