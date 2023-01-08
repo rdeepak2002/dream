@@ -1,0 +1,108 @@
+States:
+  - Guid: 2FA757AA-84D5-4A64-A4F8-D315982D4FAF
+    PlayOnce: false
+    Name: Idle Offensive
+  - Guid: 76634385-74A9-497C-B34B-B36B2CEB0B46
+    PlayOnce: false
+    Name: Run Forward
+  - Guid: 37055844-0F20-4CB2-B98C-5D897F216DB3
+    PlayOnce: true
+    Name: Idle Slash 1
+  - Guid: 590503B4-BCEF-46FB-A1D1-705D7059478E
+    PlayOnce: true
+    Name: Idle Slash 2
+  - Guid: ADDEEA3B-5D7E-4DC1-9BEC-C2CC3D0E1D5F
+    PlayOnce: true
+    Name: Idle Jump
+  - Guid: 014F6320-A92A-409D-B5E9-BD5809E0AACA
+    PlayOnce: false
+    Name: walk forward
+Transitions:
+  - To: 5
+    From: 0
+    Conditions:
+      - Variable1Idx: 1
+        Variable1: 0
+        Operator: ">"
+        Variable2Idx: -1
+        Variable2: 0
+    Blend: true
+  - To: 1
+    From: 5
+    Conditions:
+      - Variable1Idx: 1
+        Variable1: 0
+        Operator: ">"
+        Variable2Idx: -1
+        Variable2: 2
+    Blend: true
+  - To: 5
+    From: 1
+    Conditions:
+      - Variable1Idx: 1
+        Variable1: 0
+        Operator: <
+        Variable2Idx: -1
+        Variable2: 4
+    Blend: true
+  - To: 0
+    From: 5
+    Conditions:
+      - Variable1Idx: 1
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 0
+    Blend: true
+  - To: 2
+    From: 0
+    Conditions:
+      - Variable1Idx: 0
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 1
+    Blend: false
+  - To: 3
+    From: 2
+    Conditions:
+      - Variable1Idx: 0
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 1
+    Blend: false
+  - To: 0
+    From: 3
+    Conditions:
+      - Variable1Idx: 0
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 0
+    Blend: false
+  - To: 0
+    From: 2
+    Conditions:
+      - Variable1Idx: 0
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 0
+    Blend: false
+  - To: 2
+    From: 3
+    Conditions:
+      - Variable1Idx: 0
+        Variable1: 0
+        Operator: ==
+        Variable2Idx: -1
+        Variable2: 1
+    Blend: false
+Variables:
+  - Name: slashing
+    Value: 0
+  - Name: speed
+    Value: 0
+  - Name: jumping
+    Value: 0
