@@ -101,6 +101,9 @@ void main()
     for(int i = 0; i < numberOfSpotLights; i++)
     result += CalcSpotLight(spotLights[i], norm, FragPos, viewDir);
 
+    float gamma = 2.2;
+    result.rgb = pow(result.rgb, vec3(1.0 / gamma));
+
     FragColor = vec4(result, 1.0);
 }
 
