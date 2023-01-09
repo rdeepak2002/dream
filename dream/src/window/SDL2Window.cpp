@@ -57,7 +57,7 @@ namespace Dream {
 #endif
 #ifndef EMSCRIPTEN
         // window when program launches to indicate loading
-        this->launchWindow = SDL_CreateWindow("Dream", 0, 0, 300, 300,
+        this->launchWindow = SDL_CreateWindow("Dream", 0, 0, 1248 / 2, 778 / 2,
                                               SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_BORDERLESS);
         SDL_SetWindowPosition(this->launchWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         SDL_ShowWindow(this->launchWindow);
@@ -89,12 +89,12 @@ namespace Dream {
         if (!launchWindowRenderer) {
             launchWindowRenderer = SDL_CreateRenderer(launchWindow, -1, SDL_RENDERER_ACCELERATED);
             std::string launchWindowImagePath = Application::getResourcesRoot().append(
-                    "assets").append("logo").append("logo-original.png");
+                    "assets").append("logo").append("startup-logo.png");
             launchWindowImage = IMG_LoadTexture(launchWindowRenderer, launchWindowImagePath.c_str());
         }
         SDL_RenderClear(launchWindowRenderer);
         SDL_SetRenderDrawColor(launchWindowRenderer, 255, 255, 255, 0);
-        SDL_Rect textureBounds = {0, 0, 300 * 2, 300 * 2};
+        SDL_Rect textureBounds = {0, 0, 1248, 778};
         SDL_RenderCopy(launchWindowRenderer, launchWindowImage, nullptr, &textureBounds);
         SDL_RenderPresent(launchWindowRenderer);
 
