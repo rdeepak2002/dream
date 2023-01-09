@@ -143,7 +143,6 @@ namespace Dream::Component {
         std::map<std::string, BoneInfo> m_BoneInfoMap;
         int m_BoneCount = 0;
         // cache mesh in memory for quick usage during runtime
-        Mesh *mesh = nullptr;
         bool needsToLoadBones = true;
 
         /**
@@ -181,21 +180,39 @@ namespace Dream::Component {
 
     struct MaterialComponent : public Component {
         inline static std::string componentName = "MaterialComponent";
-        Texture *diffuseTexture = nullptr;
-        inline static std::string k_guid = "guid";
-        std::string guid;
         inline static std::string k_isEmbedded = "isEmbedded";
-        bool isEmbedded;
+        bool isEmbedded = false;
+        inline static std::string k_shininess = "shininess";
+        float shininess = 20.0f;
+        // diffuse color and textures
+        inline static std::string k_diffuseTextureGuids = "diffuseTextureGuids";
+        std::vector<std::string> diffuseTextureGuids;
         inline static std::string k_diffuseColor = "diffuseColor";
         glm::vec4 diffuseColor = {1, 1, 1, 1};
+        // specular color and textures
+        inline static std::string k_specularTextureGuid = "specularTextureGuid";
+        std::string specularTextureGuid = "";
+        inline static std::string k_specularColor = "specularColor";
+        glm::vec4 specularColor = {1, 1, 1, 1};
+        // height texture
+        inline static std::string k_heightTextureGuid = "heightTextureGuid";
+        std::string heightTextureGuid = "";
+        // normal texture
+        inline static std::string k_normalTextureGuid = "normalTextureGuid";
+        std::string normalTextureGuid = "";
+        // ambient texture
+        inline static std::string k_ambientTextureGuid = "ambientTextureGuid";
+        std::string ambientTextureGuid = "";
+        inline static std::string k_ambientColor = "ambientColor";
+        glm::vec4 ambientColor = {1, 1, 1, 1};
+
+        // runtime variable to determine if texture loading should be called
+        bool shouldLoadTextures = true;
 
 //        glm::vec4 specularColor = {1, 1, 1, 1}; // TODO: implement and serialize this
 //        glm::vec4 ambientColor = {1, 1, 1, 1}; // TODO: implement and serialize this
-        explicit MaterialComponent(std::string guid, bool isEmbedded);
 
-        Texture *getTexture();
-
-        void loadTexture();
+        void loadTextures();
 
         static void deserialize(YAML::Node node, Entity &entity);
 
@@ -489,6 +506,45 @@ namespace Dream::Component {
         void applyCentralImpulse(glm::vec3 impulseDirection);
 
         void applyCentralForce(glm::vec3 forceDirection);
+
+        static void deserialize(YAML::Node node, Entity &entity);
+
+        static void serialize(YAML::Emitter &out, Entity &entity);
+    };
+
+    struct LightComponent : public Component {
+        inline static std::string componentName = "LightComponent";
+
+        enum LightType {
+            DIRECTIONAL, POINT, SPOTLIGHT
+        };
+
+        // type of light
+        inline static std::string k_type = "type";
+        LightType type = LightType::DIRECTIONAL;
+
+        // spotlight cutoff
+        inline static std::string k_cutOff = "cutOff";
+        float cutOff = glm::cos(glm::radians(12.5f));
+
+        // spotlight outer cutoff
+        inline static std::string k_outerCutOff = "outerCutOff";
+        float outerCutOff = glm::cos(glm::radians(17.5f));
+
+        // variables for calculating light attenuation
+        // recommended values: https://wiki.ogre3d.org/tiki-index.php?page=-Point+Light+Attenuation
+        inline static std::string k_constant = "constant";
+        float constant = 1.0f;
+
+        inline static std::string k_linear = "linear";
+        float linear = 0.7f;
+
+        inline static std::string k_quadratic = "quadratic";
+        float quadratic = 1.8f;
+
+        // color of light (multiplied by material's ambient, diffuse, specular, etc. to compute final color)
+        inline static std::string k_color = "color";
+        glm::vec3 color = {1, 1, 1};
 
         static void deserialize(YAML::Node node, Entity &entity);
 

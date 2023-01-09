@@ -48,7 +48,7 @@ namespace Dream {
     }
 
     int OpenGLPhysicsDebugDrawer::getDebugMode(void) const {
-        return 3;
+        return m;
     }
 
     void OpenGLPhysicsDebugDrawer::drawContactPoint(const btVector3 &, const btVector3 &, btScalar, int, const btVector3 &) {

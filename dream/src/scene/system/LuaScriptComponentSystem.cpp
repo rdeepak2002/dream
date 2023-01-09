@@ -274,6 +274,7 @@ namespace Dream {
                                     "safeQuatLookAt", sol::as_function(&MathUtils::safeQuatLookAt),
                                     "crossProductVec3", sol::as_function(&MathUtils::crossProductVec3),
                                     "magnitudeVec3", sol::as_function(&MathUtils::magnitudeVec3),
+                                    "magnitudeVec2", sol::as_function(&MathUtils::magnitudeVec2),
                                     "quatMix", sol::as_function(&MathUtils::quatMix),
                                     "quatSlerp", sol::as_function(&MathUtils::quatSlerp),
                                     "vec3Lerp", sol::as_function(&MathUtils::vec3Lerp),

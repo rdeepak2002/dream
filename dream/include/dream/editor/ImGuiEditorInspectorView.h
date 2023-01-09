@@ -97,6 +97,8 @@ namespace Dream {
 
         void renderRigidBodyComponent();
 
+        void renderLightComponent();
+
         void updateColliderAndRigidBody();
 
         // TODO: move mesh component render method to new class

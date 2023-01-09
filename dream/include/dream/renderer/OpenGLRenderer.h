@@ -27,6 +27,7 @@
 #include "dream/renderer/OpenGLSphereMesh.h"
 #include "dream/renderer/Mesh.h"
 #include "dream/scene/Entity.h"
+#include "dream/renderer/OpenGLSkybox.h"
 
 namespace Dream {
     class OpenGLRenderer : public Renderer {
@@ -40,10 +41,14 @@ namespace Dream {
         unsigned int getOutputRenderTexture() override;
 
     private:
-        OpenGLShader *shader;
+        OpenGLShader *lightingShader;
+        OpenGLShader *singleTextureShader;
         OpenGLShader *physicsDebugShader;
+        OpenGLShader *skyboxShader;
         OpenGLFrameBuffer *frameBuffer;
-        OpenGLTexture *texture;
+        OpenGLTexture *whiteTexture;
+        OpenGLTexture *blackTexture;
+        OpenGLSkybox *skybox;
 
         void resizeFrameBuffer();
 
@@ -56,6 +61,8 @@ namespace Dream {
         void postRender(bool fullscreen);
 
         void renderEntityAndChildren(Entity entity);
+
+        void applyLighting();
 
         std::pair<int, int> getViewportDimensions();
     };

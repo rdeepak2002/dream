@@ -68,7 +68,20 @@ void Dream::OpenGLFrameBuffer::resize(int fbWidth, int fbHeight) {
     this->height = fbHeight;
 
     glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->width, this->height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+//#ifdef EMSCRIPTEN
+//    glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB8, this->width, this->height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+//#else
+//    glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB, this->width, this->height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+//#endif
+
+#ifdef EMSCRIPTEN
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, this->width, this->height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+#else
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->width, this->height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+#endif
+
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
