@@ -475,8 +475,11 @@ namespace Dream {
         this->frameBuffer->clear();
 
         if (fullscreen) {
+            glEnable(GL_FRAMEBUFFER_SRGB);
             this->frameBuffer->renderScreenQuad();
         }
+
+        glDisable(GL_FRAMEBUFFER_SRGB);
     }
 
     void OpenGLRenderer::resizeFrameBuffer() {
