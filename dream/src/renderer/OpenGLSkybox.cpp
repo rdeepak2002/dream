@@ -62,7 +62,8 @@ namespace Dream {
         glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-        Logger::warn("Load skybox from engine resources rather than project unless specified otherwise");
+        // TODO: Load skybox from engine resources rather than project unless specified otherwise
+//        Logger::warn("Load skybox from engine resources rather than project unless specified otherwise");
         std::vector<std::string> faces {
             Project::getPath().append("assets").append("environments").append("skybox").append("default").append("px.png"),
             Project::getPath().append("assets").append("environments").append("skybox").append("default").append("nx.png"),
