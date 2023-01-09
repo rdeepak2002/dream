@@ -430,20 +430,23 @@ namespace Dream {
 
             if (treeNodeOpen) {
                 float cursorPosX2 = ImGui::GetCursorPosX();
-                std::string diffuseTexturePath = StringUtils::getFilePathRelativeToProjectFolder(
-                        Project::getResourceManager()->getFilePathFromGUID(component.diffuseTextureGuids.empty() ? "" : component.diffuseTextureGuids.at(0)));
-                ImGui::Text("Diffuse Texture");
-                float cursorPosX3 = ImGui::GetCursorPosX();
-                ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 18);
-                ImGui::InputText("##DiffuseTexturePath", &diffuseTexturePath, ImGuiInputTextFlags_ReadOnly);
-                ImGui::SameLine();
-                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-                ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-                if (ImGui::ImageButton("##Select Material", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
-                    Logger::debug("TODO: allow selection of diffuse texture"); // TODO
+                // diffuse texture input
+                {
+                    std::string diffuseTexturePath = StringUtils::getFilePathRelativeToProjectFolder(
+                            Project::getResourceManager()->getFilePathFromGUID(component.diffuseTextureGuids.empty() ? "" : component.diffuseTextureGuids.at(0)));
+                    ImGui::Text("Diffuse Texture");
+                    float cursorPosX3 = ImGui::GetCursorPosX();
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 18);
+                    ImGui::InputText("##DiffuseTexturePath", &diffuseTexturePath, ImGuiInputTextFlags_ReadOnly);
+                    ImGui::SameLine();
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                    if (ImGui::ImageButton("##Select Material", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
+                        Logger::debug("TODO: allow selection of diffuse texture"); // TODO
+                    }
+                    ImGui::PopStyleVar();
+                    ImGui::PopStyleColor();
                 }
-                ImGui::PopStyleVar();
-                ImGui::PopStyleColor();
                 ImGui::TreePop();
             }
         }

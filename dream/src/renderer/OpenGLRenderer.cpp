@@ -89,6 +89,7 @@ namespace Dream {
 
         glEnable(GL_BLEND);
         glEnable(GL_DEPTH_TEST);
+        glEnable(GL_CULL_FACE);
 
         auto sceneCamera = Project::getScene()->getSceneCamera();
         auto mainCamera = Project::getScene()->getMainCamera();
