@@ -43,7 +43,7 @@ namespace Dream {
     void PhysicsComponentSystem::update(float dt) {
         // update dynamic world
         float timeStep = dt;
-        dynamicsWorld->stepSimulation(timeStep);
+        dynamicsWorld->stepSimulation(timeStep, 10, 1 / 120.0);
 
         // update all entities with rigid bodies
         auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
