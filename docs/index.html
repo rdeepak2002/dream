@@ -116,7 +116,7 @@
         },
         locateFile: function(path, prefix) {
             console.log(path, prefix);
-            return 'https://dream-web-demo.s3.amazonaws.com/dream/' + path;
+            return 'https://d35lsekltq0ycz.cloudfront.net/dream/' + path;
             // return prefix + path;
         }
     };
@@ -172,9 +172,9 @@
         });
     }
 
-    var dataDownload = download('https://dream-web-demo.s3.amazonaws.com/dream/dream.data', 'Assets').then(function(data) {
+    var dataDownload = download('https://d35lsekltq0ycz.cloudfront.net/dream/dream.data', 'Assets').then(function(data) {
         Module['downloadedData'] = data;
-        var jsDownload = download('https://dream-web-demo.s3.amazonaws.com/dream/dream.js', 'Dream Engine JS').then(function(data) {
+        var jsDownload = download('https://d35lsekltq0ycz.cloudfront.net/dream/dream.js', 'Dream Engine JS').then(function(data) {
             Module['mainScriptUrlOrBlob'] = new Blob([data]);
             addScriptToDom(data);
         });
