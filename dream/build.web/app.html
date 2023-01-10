@@ -129,7 +129,7 @@
             xhr.onprogress = function(evt) {
                 if (evt.lengthComputable) {
                     const percentComplete = (evt.loaded / evt.total) * 100;
-                    outputElement.innerText = `Downloading ${url} (${Math.floor(percentComplete)}%)`;
+                    outputElement.innerText = `Downloading ${name} (${Math.floor(percentComplete)}%)`;
                 }
             };
             xhr.onerror = function(e) {
