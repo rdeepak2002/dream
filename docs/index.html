@@ -88,8 +88,9 @@
             console.error(text);
         },
         getPreloadedPackage: function(remotePackageName, remotePackageSize) {
-            // console.log("remote package name", remotePackageName);
-            // console.log("remote pacakge size", remotePackageSize);
+            console.log("remote package name", remotePackageName);
+            console.log("remote package size", remotePackageSize);
+            return Module['downloadedData'];
         },
         canvas: document.getElementById('canvas'),
         onRuntimeInitialized: function() {
@@ -114,7 +115,7 @@
             }
         },
         locateFile: function(path, prefix) {
-            // console.log(path, prefix);
+            console.log(path, prefix);
             return 'https://dream-web-demo.s3.amazonaws.com/dream/' + path;
             // return prefix + path;
         }
@@ -146,7 +147,7 @@
     }
 
     function addScriptToDom(scriptCode) {
-        outputElement.innerText = "Loading engine JS";
+        outputElement.innerText = "Loading Engine JS";
 
         return new Promise(function(resolve, reject) {
             let script = document.createElement('script');
@@ -154,7 +155,7 @@
             let objectUrl = URL.createObjectURL(blob);
             script.src = objectUrl;
             script.onload = function() {
-                outputElement.innerText = "Loaded engine JS";
+                outputElement.innerText = "Loaded Engine JS";
                 script.onload = script.onerror = null; // Remove these onload and onerror handlers, because these capture the inputs to the Promise and the input function, which would leak a lot of memory!
                 URL.revokeObjectURL(objectUrl); // Free up the blob. Note that for debugging purposes, this can be useful to comment out to be able to read the sources in debugger.
                 resolve();

@@ -88,8 +88,9 @@
             console.error(text);
         },
         getPreloadedPackage: function(remotePackageName, remotePackageSize) {
-            // console.log("remote package name", remotePackageName);
-            // console.log("remote pacakge size", remotePackageSize);
+            console.log("remote package name", remotePackageName);
+            console.log("remote package size", remotePackageSize);
+            return Module['downloadedData'];
         },
         canvas: document.getElementById('canvas'),
         onRuntimeInitialized: function() {
@@ -171,9 +172,9 @@
         });
     }
 
-    var dataDownload = download('/dream.data', 'Assets').then(function(data) {
+    var dataDownload = download('dream.data', 'Assets').then(function(data) {
         Module['downloadedData'] = data;
-        var jsDownload = download('/dream.js', 'Dream Engine JS').then(function(data) {
+        var jsDownload = download('dream.js', 'Dream Engine JS').then(function(data) {
             Module['mainScriptUrlOrBlob'] = new Blob([data]);
             addScriptToDom(data);
         });
