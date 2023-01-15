@@ -33,6 +33,8 @@ namespace Dream {
 
         void init();
 
+        void preUpdate(float dt);
+
         void update(float dt);
 
         bool checkRaycast(glm::vec3 rayFromWorld, glm::vec3 rayToWorld);

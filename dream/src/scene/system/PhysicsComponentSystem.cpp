@@ -40,12 +40,8 @@ namespace Dream {
         delete collisionConfiguration;
     }
 
-    void PhysicsComponentSystem::update(float dt) {
-        // update dynamic world
-        float timeStep = dt;
-        dynamicsWorld->stepSimulation(timeStep, 10, 1 / 120.0);
-
-        // update all entities with rigid bodies
+    void PhysicsComponentSystem::preUpdate(float dt) {
+        // update positions of all entities with rigid bodies
         auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
         for (auto entityHandle: rigidBodyEntities) {
             Entity entity = {entityHandle, Project::getScene()};
@@ -64,6 +60,26 @@ namespace Dream {
                 dynamicsWorld->addRigidBody(rigidBody);
                 entity.getComponent<Component::RigidBodyComponent>().shouldBeAddedToWorld = false;
             }
+            btTransform trans = rigidBody->getWorldTransform();
+            auto &transformComponent = entity.getComponent<Component::TransformComponent>();
+            auto entityTrans = transformComponent.translation;
+            auto entityRot = transformComponent.rotation;
+            rigidBody->getWorldTransform().setOrigin(btVector3(entityTrans.x, entityTrans.y, entityTrans.z));
+            rigidBody->getWorldTransform().setRotation(btQuaternion(entityRot.x, entityRot.y, entityRot.z, entityRot.w));
+        }
+    }
+
+    void PhysicsComponentSystem::update(float dt) {
+        // update dynamic world
+        float timeStep = dt;
+        dynamicsWorld->stepSimulation(timeStep, 10);
+
+        // update all entities with rigid bodies
+        auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();
+        for (auto entityHandle: rigidBodyEntities) {
+            Entity entity = {entityHandle, Project::getScene()};
+            int idx = entity.getComponent<Component::RigidBodyComponent>().rigidBodyIndex;
+            auto *rigidBody = rigidBodies.at(idx);
             // update transform and rotation components of entity
             btTransform trans = rigidBody->getWorldTransform();
             auto &transformComponent = entity.getComponent<Component::TransformComponent>();
