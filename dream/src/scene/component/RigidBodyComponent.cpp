@@ -112,8 +112,7 @@ namespace Dream::Component {
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setLinearFactor(btVector3(linearFactor.x, linearFactor.y, linearFactor.z));
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setAngularFactor(btVector3(angularFactor.x, angularFactor.y, angularFactor.z));
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->activate();
-//            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setActivationState(DISABLE_DEACTIVATION);
-            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setActivationState(WANTS_DEACTIVATION);
+            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setActivationState(DISABLE_DEACTIVATION);
         } else if (type == RigidBodyComponent::KINEMATIC) {
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setMassProps(0, localInertia);
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setCollisionFlags(Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);

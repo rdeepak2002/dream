@@ -91,11 +91,9 @@ namespace Dream {
     void Scene::fixedUpdate(float dt) {
         if (Project::isPlaying() && !shouldInitComponentSystems) {
             audioComponentSystem->update(dt);
-            physicsComponentSystem->preUpdate(dt);
             luaScriptComponentSystem->update(dt);
             physicsComponentSystem->update(dt);
         } else if (!Project::isPlaying()) {
-            physicsComponentSystem->preUpdate(0.0);
             physicsComponentSystem->update(0.0);
         }
         if (Project::isPlaying()) {
