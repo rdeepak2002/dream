@@ -968,9 +968,9 @@ namespace Dream {
                     ImGui::SetNextItemWidth(treeNodeWidth);
                     if (ImGui::BeginCombo("##Change Rigid Body Type", dropdownPreview.c_str())) {
                         Component::RigidBodyComponent::RigidBodyType oldType = component.type;
-                        if (ImGui::Selectable("Static")) {
-                            component.type = Component::RigidBodyComponent::STATIC;
-                        }
+//                        if (ImGui::Selectable("Static")) {
+//                            component.type = Component::RigidBodyComponent::STATIC;
+//                        }
                         if (ImGui::Selectable("Dynamic")) {
                             component.type = Component::RigidBodyComponent::DYNAMIC;
                         }
