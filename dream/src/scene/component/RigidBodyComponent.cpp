@@ -127,18 +127,29 @@ namespace Dream::Component {
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->activate();
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setActivationState(DISABLE_DEACTIVATION);
         } else if (type == RigidBodyComponent::STATIC) {
-            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setMassProps(0, localInertia);
-            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setCollisionFlags(Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setMassProps(mass, localInertia);
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setFriction(friction);
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setAnisotropicFriction(
                     colliderShape->getAnisotropicRollingFrictionDirection(),
                     btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
-            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setDamping(linearDamping, angularDamping);
+            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setDamping(0, 0);
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setRestitution(restitution);
-            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setLinearFactor(btVector3(linearFactor.x, linearFactor.y, linearFactor.z));
-            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setAngularFactor(btVector3(angularFactor.x, angularFactor.y, angularFactor.z));
+            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setLinearFactor(btVector3(0, 0, 0));
+            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setAngularFactor(btVector3(0, 0, 0));
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->activate();
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setActivationState(DISABLE_DEACTIVATION);
+//            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setMassProps(0, localInertia);
+//            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setCollisionFlags(Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+//            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setFriction(friction);
+//            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setAnisotropicFriction(
+//                    colliderShape->getAnisotropicRollingFrictionDirection(),
+//                    btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
+//            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setDamping(linearDamping, angularDamping);
+//            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setRestitution(restitution);
+//            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setLinearFactor(btVector3(linearFactor.x, linearFactor.y, linearFactor.z));
+//            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setAngularFactor(btVector3(angularFactor.x, angularFactor.y, angularFactor.z));
+//            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->activate();
+//            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->setActivationState(DISABLE_DEACTIVATION);
         } else {
             Logger::fatal("Unknown rigid body type " + std::to_string(static_cast<int>(type)));
         }
