@@ -50,6 +50,10 @@ namespace Dream {
                                               Project::getPath().append("assets").append("shaders").append(
                                                       "skybox.frag").c_str(), nullptr);
 
+        simpleDepthShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shadow_mapping_depth.vert").c_str(),
+                                        Project::getPath().append("assets").append("shaders").append(
+                                                "shadow_mapping_depth.frag").c_str(), nullptr);
+
         skybox = new OpenGLSkybox();
 
         whiteTexture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("white.png"));
@@ -57,6 +61,24 @@ namespace Dream {
         blackTexture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("black.png"));
 
         frameBuffer = new OpenGLFrameBuffer();
+
+        glGenFramebuffers(1, &depthMapFBO);
+        // create depth texture
+        glGenTextures(1, &depthMap);
+        glBindTexture(GL_TEXTURE_2D, depthMap);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+        float borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
+        glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+        // attach depth texture as FBO's depth buffer
+        glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+        glDrawBuffer(GL_NONE);
+        glReadBuffer(GL_NONE);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
         // load primitive shapes
         if (!Project::getResourceManager()->hasMeshData("sphere")) {
@@ -72,33 +94,32 @@ namespace Dream {
         delete this->lightingShader;
         delete this->singleTextureShader;
         delete this->physicsDebugShader;
+        delete this->simpleDepthShader;
         delete this->frameBuffer;
         delete this->whiteTexture;
         delete this->blackTexture;
     }
 
     void OpenGLRenderer::preRender(int viewportWidth, int viewportHeight, bool fullscreen) {
-        this->frameBuffer->bindFrameBuffer();
-        this->resizeFrameBuffer();
-        this->updateViewportSize(viewportWidth, viewportHeight, fullscreen);
+//        this->frameBuffer->bindFrameBuffer();
+//        this->resizeFrameBuffer();
+//        this->updateViewportSize(viewportWidth, viewportHeight, fullscreen);
     }
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
-        Input::setPlayWindowActive(true);
-        this->preRender(viewportWidth, viewportHeight, fullscreen);
-
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
         glEnable(GL_DEPTH_TEST);
 //        glEnable(GL_CULL_FACE);
 
+        Input::setPlayWindowActive(true);
+//        this->preRender(viewportWidth, viewportHeight, fullscreen);
+
+
         auto sceneCamera = Project::getScene()->getSceneCamera();
         auto mainCamera = Project::getScene()->getMainCamera();
 
         if ((Project::isPlaying() && mainCamera) || (!Project::isPlaying() && sceneCamera)) {
-            glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
             // calculate projection and view using current camera
             glm::mat4 projection;
             if (Project::isPlaying()) {
@@ -121,25 +142,25 @@ namespace Dream {
                 view = sceneCamera.getComponent<Component::SceneCameraComponent>().getViewMatrix(sceneCamera);
             }
 
+            {
+                // TODO: shadow stuff
+            }
+
+            {
+                // bind frame buffer for drawing to output render texture
+                this->frameBuffer->bindFrameBuffer();
+                this->resizeFrameBuffer();
+                this->updateViewportSize(viewportWidth, viewportHeight, fullscreen);
+                glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            }
+
             // draw meshes
             {
                 if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
                     lightingShader->use();
                     lightingShader->setMat4("projection", projection);
                     lightingShader->setMat4("view", view);
-//                    auto trans = glm::mat4(1.0);
-//                    if (mainCamera) {
-//                        trans = mainCamera.getComponent<Component::TransformComponent>().getTransform(mainCamera);
-//                    } else if (sceneCamera) {
-//                        trans = mainCamera.getComponent<Component::TransformComponent>().getTransform(sceneCamera);
-//                    } else {
-//                        Logger::fatal("Unable to compute transformation for camera");
-//                    }
-//                    glm::vec3 cameraPos;
-//                    glm::quat cameraRot;
-//                    glm::vec3 cameraScale;
-//                    MathUtils::decomposeMatrix(trans, cameraPos, cameraRot, cameraScale);
-//                    lightingShader->setVec3("viewPos", cameraPos);
                     glm::vec3 viewPos = {1, 1, 1};
                     if (mainCamera) {
                         viewPos = mainCamera.getComponent<Component::TransformComponent>().translation;
@@ -148,7 +169,6 @@ namespace Dream {
                     } else {
                         Logger::fatal("Unable to set view pos due to missing camera");
                     }
-//                    viewPos.x *= -1;
                     lightingShader->setVec3("viewPos", viewPos);
                     applyLighting();
                 } else {

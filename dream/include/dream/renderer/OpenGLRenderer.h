@@ -45,10 +45,16 @@ namespace Dream {
         OpenGLShader *singleTextureShader;
         OpenGLShader *physicsDebugShader;
         OpenGLShader *skyboxShader;
+        OpenGLShader *simpleDepthShader;
         OpenGLFrameBuffer *frameBuffer;
         OpenGLTexture *whiteTexture;
         OpenGLTexture *blackTexture;
         OpenGLSkybox *skybox;
+
+        // TODO: move to separate code
+        const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+        unsigned int depthMapFBO;
+        unsigned int depthMap;
 
         void resizeFrameBuffer();
 
