@@ -792,7 +792,10 @@ namespace Dream {
                     }
                     // offset
                     {
-                        renderVec3Control("Offset", collider.offset, treeNodeWidth + 20, 1.0, 0.1, i);
+                        bool modified = renderVec3Control("Offset", collider.offset, treeNodeWidth + 20, 1.0, 0.1, i);
+                        if (modified) {
+                            updateColliderAndRigidBody();
+                        }
                     }
                     // half extents
                     {
