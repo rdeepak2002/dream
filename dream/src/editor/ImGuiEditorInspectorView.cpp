@@ -784,6 +784,9 @@ namespace Dream {
                             if (ImGui::Selectable("Sphere")) {
                                 collider.type = Component::CollisionComponent::SPHERE;
                             }
+                            if (ImGui::Selectable("Cylinder")) {
+                                collider.type = Component::CollisionComponent::CYLINDER;
+                            }
                             if (collider.type != oldColliderType) {
                                 updateColliderAndRigidBody();
                             }
