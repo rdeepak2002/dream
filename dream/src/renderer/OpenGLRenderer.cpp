@@ -267,13 +267,11 @@ namespace Dream {
             glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
             glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
             glClear(GL_DEPTH_BUFFER_BIT);
-//            glActiveTexture(GL_TEXTURE0);
-//            glBindTexture(GL_TEXTURE_2D, whiteTexture->ID());
             renderScene(simpleDepthShader);
             glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
             // reset viewport
-            glViewport(0, 0, viewportWidth, viewportHeight);
+            glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             // render Depth map to quad for visual debugging
@@ -332,6 +330,7 @@ namespace Dream {
 
             {
                 // bind frame buffer for drawing to output render texture
+                glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
                 this->frameBuffer->bindFrameBuffer();
                 this->resizeFrameBuffer();
                 this->updateViewportSize(viewportWidth, viewportHeight, fullscreen);
