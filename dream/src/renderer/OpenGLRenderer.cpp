@@ -248,9 +248,16 @@ namespace Dream {
             glm::mat4 lightProjection, lightView;
             glm::mat4 lightSpaceMatrix;
             float near_plane = 1.0f, far_plane = 7.5f;
-            //lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene
+//            lightProjection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov),
+//                                               (float) SHADOW_WIDTH / (float) SHADOW_HEIGHT,
+//                                               mainCamera.getComponent<Component::CameraComponent>().zNear,
+//                                               mainCamera.getComponent<Component::CameraComponent>().zFar);
+//            lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene
             lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+//            glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
             glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
+            lightPos.x *= -1;
+            lightPos.y *= -1;
             lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
             lightSpaceMatrix = lightProjection * lightView;
             // render scene from light's point of view
@@ -300,17 +307,20 @@ namespace Dream {
             // calculate projection and view using current camera
             glm::mat4 projection;
             if (Project::isPlaying()) {
-                projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov),
-                                              (float) viewportWidth / (float) viewportHeight,
-                                              mainCamera.getComponent<Component::CameraComponent>().zNear,
-                                              mainCamera.getComponent<Component::CameraComponent>().zFar);
+                projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov), (float)viewportWidth / (float)viewportHeight, 0.1f, 100.0f);
+//                projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov),
+//                                              (float) viewportWidth / (float) viewportHeight,
+//                                              mainCamera.getComponent<Component::CameraComponent>().zNear,
+//                                              mainCamera.getComponent<Component::CameraComponent>().zFar);
             } else {
-                projection = glm::perspective(
-                        glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov),
-                        (float) viewportWidth / (float) viewportHeight,
-                        sceneCamera.getComponent<Component::SceneCameraComponent>().zNear,
-                        sceneCamera.getComponent<Component::SceneCameraComponent>().zFar);
+                projection = glm::perspective(glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov), (float)viewportWidth / (float)viewportHeight, 0.1f, 100.0f);
+//                projection = glm::perspective(
+//                        glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov),
+//                        (float) viewportWidth / (float) viewportHeight,
+//                        sceneCamera.getComponent<Component::SceneCameraComponent>().zNear,
+//                        sceneCamera.getComponent<Component::SceneCameraComponent>().zFar);
             }
+//            projection = lightProjection;
 
             glm::mat4 view;
             if (Project::isPlaying()) {
@@ -318,6 +328,7 @@ namespace Dream {
             } else {
                 view = sceneCamera.getComponent<Component::SceneCameraComponent>().getViewMatrix(sceneCamera);
             }
+//            view = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, -1.0, 0.0));
 
             {
                 // bind frame buffer for drawing to output render texture
@@ -344,6 +355,9 @@ namespace Dream {
                     }
                     lightingShader->setVec3("viewPos", viewPos);
                     applyLighting();
+
+                    lightingShader->setVec3("lightPos", lightPos);
+                    lightingShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
                 } else {
                     singleTextureShader->use();
                     singleTextureShader->setMat4("projection", projection);
@@ -543,6 +557,11 @@ namespace Dream {
                         whiteTexture->bind(4);
                     }
                 }
+
+                // load shadow map
+                lightingShader->setInt("shadowMap", 5);
+                glActiveTexture(GL_TEXTURE5);
+                glBindTexture(GL_TEXTURE_2D, depthMap);
             } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::DIFFUSE) {
                 // debug diffuse
                 singleTextureShader->setVec4("color", {1, 1, 1, 1});
