@@ -137,9 +137,9 @@ namespace Dream {
     }
 
     void OpenGLRenderer::preRender(int viewportWidth, int viewportHeight, bool fullscreen) {
-//        this->frameBuffer->bindFrameBuffer();
-//        this->resizeFrameBuffer();
-//        this->updateViewportSize(viewportWidth, viewportHeight, fullscreen);
+        this->frameBuffer->bindFrameBuffer();
+        this->resizeFrameBuffer();
+        this->updateViewportSize(viewportWidth, viewportHeight, fullscreen);
     }
 
     void OpenGLRenderer::renderScene(Dream::OpenGLShader *shader) {
@@ -269,6 +269,17 @@ namespace Dream {
             glViewport(0, 0, viewportWidth, viewportHeight);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+            // render Depth map to quad for visual debugging
+            // ---------------------------------------------
+            debugDepthQuad->use();
+            debugDepthQuad->setFloat("near_plane", near_plane);
+            debugDepthQuad->setFloat("far_plane", far_plane);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, depthMap);
+            renderQuad();
+
+//            this->preRender(viewportWidth, viewportHeight, fullscreen);
+
             // 2. render scene as normal using the generated depth/shadow map
             // --------------------------------------------------------------
 //            shader.use();
@@ -285,15 +296,6 @@ namespace Dream {
 //            glActiveTexture(GL_TEXTURE1);
 //            glBindTexture(GL_TEXTURE_2D, depthMap);
 //            renderScene(shader);
-
-            // render Depth map to quad for visual debugging
-            // ---------------------------------------------
-            debugDepthQuad->use();
-            debugDepthQuad->setFloat("near_plane", near_plane);
-            debugDepthQuad->setFloat("far_plane", far_plane);
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, depthMap);
-            renderQuad();
 
 
 //            // calculate projection and view using current camera
