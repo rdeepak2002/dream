@@ -271,14 +271,12 @@ namespace Dream {
 
             // render Depth map to quad for visual debugging
             // ---------------------------------------------
-            debugDepthQuad->use();
-            debugDepthQuad->setFloat("near_plane", near_plane);
-            debugDepthQuad->setFloat("far_plane", far_plane);
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, depthMap);
-            renderQuad();
-
-//            this->preRender(viewportWidth, viewportHeight, fullscreen);
+//            debugDepthQuad->use();
+//            debugDepthQuad->setFloat("near_plane", near_plane);
+//            debugDepthQuad->setFloat("far_plane", far_plane);
+//            glActiveTexture(GL_TEXTURE0);
+//            glBindTexture(GL_TEXTURE_2D, depthMap);
+//            renderQuad();
 
             // 2. render scene as normal using the generated depth/shadow map
             // --------------------------------------------------------------
@@ -297,101 +295,98 @@ namespace Dream {
 //            glBindTexture(GL_TEXTURE_2D, depthMap);
 //            renderScene(shader);
 
+//            this->preRender(viewportWidth, viewportHeight, fullscreen);
 
-//            // calculate projection and view using current camera
-//            glm::mat4 projection;
-//            if (Project::isPlaying()) {
-//                projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov),
-//                                              (float) viewportWidth / (float) viewportHeight,
-//                                              mainCamera.getComponent<Component::CameraComponent>().zNear,
-//                                              mainCamera.getComponent<Component::CameraComponent>().zFar);
-//            } else {
-//                projection = glm::perspective(
-//                        glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov),
-//                        (float) viewportWidth / (float) viewportHeight,
-//                        sceneCamera.getComponent<Component::SceneCameraComponent>().zNear,
-//                        sceneCamera.getComponent<Component::SceneCameraComponent>().zFar);
-//            }
-//
-//            glm::mat4 view;
-//            if (Project::isPlaying()) {
-//                view = mainCamera.getComponent<Component::CameraComponent>().getViewMatrix(mainCamera);
-//            } else {
-//                view = sceneCamera.getComponent<Component::SceneCameraComponent>().getViewMatrix(sceneCamera);
-//            }
-//
-//            {
-//                // TODO: shadow stuff
-//            }
-//
-//            {
-//                // bind frame buffer for drawing to output render texture
-//                this->frameBuffer->bindFrameBuffer();
-//                this->resizeFrameBuffer();
-//                this->updateViewportSize(viewportWidth, viewportHeight, fullscreen);
-//                glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-//                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//            }
-//
-//            // draw meshes
-//            {
-//                if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
-//                    lightingShader->use();
-//                    lightingShader->setMat4("projection", projection);
-//                    lightingShader->setMat4("view", view);
-//                    glm::vec3 viewPos = {1, 1, 1};
-//                    if (mainCamera) {
-//                        viewPos = mainCamera.getComponent<Component::TransformComponent>().translation;
-//                    } else if (sceneCamera) {
-//                        viewPos = sceneCamera.getComponent<Component::TransformComponent>().translation;
-//                    } else {
-//                        Logger::fatal("Unable to set view pos due to missing camera");
-//                    }
-//                    lightingShader->setVec3("viewPos", viewPos);
-//                    applyLighting();
-//                } else {
-//                    singleTextureShader->use();
-//                    singleTextureShader->setMat4("projection", projection);
-//                    singleTextureShader->setMat4("view", view);
-//                }
-//                renderEntityAndChildren(Project::getScene()->getRootEntity());
-//            }
-//
-//            // draw physics debug
-//            if (Project::getConfig().physicsConfig.physicsDebugger && (!Project::isPlaying() || (Project::isPlaying() && Project::getConfig().physicsConfig.physicsDebuggerWhilePlaying))) {
-//                if (Project::getConfig().physicsConfig.depthTest) {
-//                    glEnable(GL_DEPTH_TEST);
-//                } else {
-//                    glDisable(GL_DEPTH_TEST);
-//                }
-//                physicsDebugShader->use();
-//                physicsDebugShader->setMat4("projection", projection);
-//                physicsDebugShader->setMat4("view", view);
-//                if (Project::getScene()->getPhysicsComponentSystem()) {
-//                    Project::getScene()->getPhysicsComponentSystem()->debugDrawWorld();
-//                }
-//                if (!Project::getConfig().physicsConfig.depthTest) {
-//                    glEnable(GL_DEPTH_TEST);
-//                }
-//            }
-//
-//            // draw skybox
-//            {
-//                // draw skybox as last
-//                glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
-//                skyboxShader->use();
-//                view = glm::mat4(glm::mat3(view));
-//                skyboxShader->setMat4("view", view);
-//                skyboxShader->setMat4("projection", projection);
-//                skyboxShader->setInt("skybox", 0);
-//                // skybox cube
-//                glBindVertexArray(skybox->getVAO());
-//                glActiveTexture(GL_TEXTURE0);
-//                glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->getTexture());
-//                glDrawArrays(GL_TRIANGLES, 0, 36);
-//                glBindVertexArray(0);
-//                glDepthFunc(GL_LESS); // set depth function back to default
-//            }
+            // calculate projection and view using current camera
+            glm::mat4 projection;
+            if (Project::isPlaying()) {
+                projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov),
+                                              (float) viewportWidth / (float) viewportHeight,
+                                              mainCamera.getComponent<Component::CameraComponent>().zNear,
+                                              mainCamera.getComponent<Component::CameraComponent>().zFar);
+            } else {
+                projection = glm::perspective(
+                        glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov),
+                        (float) viewportWidth / (float) viewportHeight,
+                        sceneCamera.getComponent<Component::SceneCameraComponent>().zNear,
+                        sceneCamera.getComponent<Component::SceneCameraComponent>().zFar);
+            }
+
+            glm::mat4 view;
+            if (Project::isPlaying()) {
+                view = mainCamera.getComponent<Component::CameraComponent>().getViewMatrix(mainCamera);
+            } else {
+                view = sceneCamera.getComponent<Component::SceneCameraComponent>().getViewMatrix(sceneCamera);
+            }
+
+            {
+                // bind frame buffer for drawing to output render texture
+                this->frameBuffer->bindFrameBuffer();
+                this->resizeFrameBuffer();
+                this->updateViewportSize(viewportWidth, viewportHeight, fullscreen);
+                glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            }
+
+            // draw meshes
+            {
+                if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
+                    lightingShader->use();
+                    lightingShader->setMat4("projection", projection);
+                    lightingShader->setMat4("view", view);
+                    glm::vec3 viewPos = {1, 1, 1};
+                    if (mainCamera) {
+                        viewPos = mainCamera.getComponent<Component::TransformComponent>().translation;
+                    } else if (sceneCamera) {
+                        viewPos = sceneCamera.getComponent<Component::TransformComponent>().translation;
+                    } else {
+                        Logger::fatal("Unable to set view pos due to missing camera");
+                    }
+                    lightingShader->setVec3("viewPos", viewPos);
+                    applyLighting();
+                } else {
+                    singleTextureShader->use();
+                    singleTextureShader->setMat4("projection", projection);
+                    singleTextureShader->setMat4("view", view);
+                }
+                renderEntityAndChildren(Project::getScene()->getRootEntity());
+            }
+
+            // draw physics debug
+            if (Project::getConfig().physicsConfig.physicsDebugger && (!Project::isPlaying() || (Project::isPlaying() && Project::getConfig().physicsConfig.physicsDebuggerWhilePlaying))) {
+                if (Project::getConfig().physicsConfig.depthTest) {
+                    glEnable(GL_DEPTH_TEST);
+                } else {
+                    glDisable(GL_DEPTH_TEST);
+                }
+                physicsDebugShader->use();
+                physicsDebugShader->setMat4("projection", projection);
+                physicsDebugShader->setMat4("view", view);
+                if (Project::getScene()->getPhysicsComponentSystem()) {
+                    Project::getScene()->getPhysicsComponentSystem()->debugDrawWorld();
+                }
+                if (!Project::getConfig().physicsConfig.depthTest) {
+                    glEnable(GL_DEPTH_TEST);
+                }
+            }
+
+            // draw skybox
+            {
+                // draw skybox as last
+                glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
+                skyboxShader->use();
+                view = glm::mat4(glm::mat3(view));
+                skyboxShader->setMat4("view", view);
+                skyboxShader->setMat4("projection", projection);
+                skyboxShader->setInt("skybox", 0);
+                // skybox cube
+                glBindVertexArray(skybox->getVAO());
+                glActiveTexture(GL_TEXTURE0);
+                glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->getTexture());
+                glDrawArrays(GL_TRIANGLES, 0, 36);
+                glBindVertexArray(0);
+                glDepthFunc(GL_LESS); // set depth function back to default
+            }
         } else {
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -709,8 +704,8 @@ namespace Dream {
     }
 
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
-//        return this->frameBuffer->getTexture();
-        return this->depthMap;
+        return this->frameBuffer->getTexture();
+//        return this->depthMap;
     }
 
     void OpenGLRenderer::applyLighting() {
