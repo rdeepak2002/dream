@@ -46,6 +46,7 @@ namespace Dream {
         OpenGLShader *physicsDebugShader;
         OpenGLShader *skyboxShader;
         OpenGLShader *simpleDepthShader;
+        OpenGLShader *debugDepthQuad;
         OpenGLFrameBuffer *frameBuffer;
         OpenGLTexture *whiteTexture;
         OpenGLTexture *blackTexture;
@@ -69,6 +70,10 @@ namespace Dream {
         void renderEntityAndChildren(Entity entity);
 
         void applyLighting();
+
+        void renderScene(OpenGLShader* shader);
+
+        void renderSceneHelper(Entity entity, OpenGLShader* shader);
 
         std::pair<int, int> getViewportDimensions();
     };
