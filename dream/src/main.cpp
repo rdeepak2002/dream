@@ -20,79 +20,64 @@
 #include <iostream>
 #include <quickjs.h>
 #include <quickjs-libc.h>
+#include <quickjspp/quickjspp.hpp>
 
-static JSValue js_print(JSContext *ctx, JSValueConst this_val,
-                        int argc, JSValueConst *argv)
+class MyClass
 {
-    int i;
-    const char *str;
+public:
+    MyClass() {}
+    MyClass(std::vector<int>) {}
 
-    for(i = 0; i < argc; i++) {
-        if (i != 0)
-            putchar(' ');
-        str = JS_ToCString(ctx, argv[i]);
-        if (!str)
-            return JS_EXCEPTION;
-        fputs(str, stdout);
-        JS_FreeCString(ctx, str);
-    }
-    putchar('\n');
-    return JS_UNDEFINED;
+    double member_variable = 5.5;
+    std::string member_function(const std::string& s) { return "Hello, " + s; }
+};
+
+void println(qjs::rest<std::string> args) {
+    for (auto const & arg : args) std::cout << arg << " ";
+    std::cout << "\n";
 }
 
-void test_quickjs() {
-    JSRuntime* rt; JSContext* ctx;
+int test_quickjs() {
+    qjs::Runtime runtime;
+    qjs::Context context(runtime);
+    try
+    {
+        // export classes as a module
+        auto& module = context.addModule("MyModule");
+        module.function<&println>("println");
+        module.class_<MyClass>("MyClass")
+                .constructor<>()
+                .constructor<std::vector<int>>("MyClassA")
+                .fun<&MyClass::member_variable>("member_variable")
+                .fun<&MyClass::member_function>("member_function");
+        // import module
+        context.eval(R"xxx(
+            import * as my from 'MyModule';
+            globalThis.my = my;
+        )xxx", "<import>", JS_EVAL_TYPE_MODULE);
+        // evaluate js code
+        context.eval(R"xxx(
+            let v1 = new my.MyClass();
+            v1.member_variable = 1;
+            let v2 = new my.MyClassA([1,2,3]);
+            function my_callback(str) {
+              my.println("at callback:", v2.member_function(str));
+            }
+        )xxx");
 
-    rt = JS_NewRuntime();
-    ctx = JS_NewContextRaw(rt);
-
-    JS_AddIntrinsicBaseObjects(ctx);
-    JS_AddIntrinsicEval(ctx);
-
-    JSValue global_obj, console;
-
-    global_obj = JS_GetGlobalObject(ctx);
-
-    console = JS_NewObject(ctx);
-    JS_SetPropertyStr(ctx, console, "log",
-                      JS_NewCFunction(ctx, js_print, "log", 1));
-    JS_SetPropertyStr(ctx, global_obj, "console", console);
-
-    JS_FreeValue(ctx, global_obj);
-
-//    const char source[] = "console.log(Math.pow(12, 2));100";
-    auto source = "console.log(Math.pow(12, 2));";
-    size_t len = sizeof(source);
-
-    printf("Evaluate: %s length: %i\n", source, len);
-
-    JSValue ret = JS_Eval(ctx,
-                          source,
-                          len,
-                          "<evalScript>",
-                          JS_EVAL_TYPE_GLOBAL);
-
-    if (JS_IsException(ret)) {
-        js_std_dump_error(ctx);
-        JS_ResetUncatchableError(ctx);
+        // callback
+        auto cb = (std::function<void(const std::string&)>) context.eval("my_callback");
+        cb("world");
     }
-
-    JSValue d_JS = __JS_NewFloat64(ctx, 12.5);
-
-    int x = JS_VALUE_GET_INT(ret);
-
-    printf("Int: %i \n", x);
-    printf("Double: %f \n", JS_VALUE_GET_FLOAT64(d_JS));
-
-    JSValue i_JS = JS_NewInt32(ctx, 1);
-    JS_ToInt32(ctx, &x, i_JS);
-
-    printf("1 Int: %i \n", x);
-
-    JS_FreeContext(ctx);
-    JS_FreeRuntime(rt);
-
-    printf("Hello, C!\n");
+    catch(qjs::exception)
+    {
+        auto exc = context.getException();
+        std::cerr << (std::string) exc << std::endl;
+        if((bool) exc["stack"])
+            std::cerr << (std::string) exc["stack"] << std::endl;
+        return 1;
+    }
+    return 0;
 }
 
 #ifndef EMSCRIPTEN
@@ -133,14 +118,13 @@ void startUpdateLoop() {
 }
 
 int main(int ArgCount, char **Args) {
-    test_quickjs();
-
     if (ArgCount >= 2 && std::string(Args[1]) == "test") {
 #ifndef EMSCRIPTEN
         ::testing::InitGoogleTest(&ArgCount, Args);
         return RUN_ALL_TESTS();
 #endif
     } else {
+        test_quickjs();
         application = new Dream::Application();
         startUpdateLoop();
         delete application;
