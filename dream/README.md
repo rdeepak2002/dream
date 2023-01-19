@@ -37,3 +37,7 @@ Preferences > Build, Execution, Deployment > CMake > CMake options:
 ```shell
 -DCMAKE_TOOLCHAIN_FILE=/path/to/vcpkg/scripts/buildsystems/vcpkg.cmake
 ```
+
+## Notes
+
+- Using build of QuickJS from [quickjspp](https://github.com/ftk/quickjspp)
