@@ -80,3 +80,4 @@ fabric.properties
 /emsdk/
 !/vendor/
 /vcpkg_installed/
+/build.web/quickjs/
