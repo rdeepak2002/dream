@@ -82,11 +82,13 @@ macro(DREAM_INCLUDE_HEADERS)
     include_directories(include)
     include_directories(include/imgui)
     include_directories(include/imgui-node-editor)
+    include_directories(include/duktape)
 endmacro()
 
 macro(DREAM_GLOB_SOURCE_CODE)
     # find source files for engine code
     FILE(GLOB ENGINE_SOURCE_FILES
+            include/duktape/*.c
             include/imgui/*.cpp
             include/imgui/misc/cpp/*.cpp
             include/imgui/backends/imgui_impl_sdl.cpp

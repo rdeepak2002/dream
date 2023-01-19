@@ -265,7 +265,17 @@ namespace Dream {
 //            lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene
             lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
 //            glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
-            glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
+//            glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
+            glm::vec3 lightPos(0, 0, 0);
+            // find directional light's position
+            auto lightEntities = Project::getScene()->getEntitiesWithComponents<Component::LightComponent>();
+            for (const auto &lightEntity : lightEntities) {
+                Entity entity = {lightEntity, Project::getScene()};
+                if (entity.getComponent<Component::LightComponent>().type == Component::LightComponent::LightType::DIRECTIONAL) {
+                    // TODO: get global translation
+                    lightPos = entity.getComponent<Component::TransformComponent>().translation;
+                }
+            }
             lightPos.x *= -1;
             lightPos.y *= -1;
             lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
@@ -802,5 +812,30 @@ namespace Dream {
             lightingShader->setFloat(prefix + ".cutOff", glm::cos(glm::radians(lightComponent.cutOff)));
             lightingShader->setFloat(prefix + ".outerCutOff", glm::cos(glm::radians(lightComponent.outerCutOff)));
         }
+    }
+
+    std::vector<glm::vec4> OpenGLRenderer::getFrustumCornersWorldSpace(const glm::mat4& proj, const glm::mat4& view)
+    {
+        const auto inv = glm::inverse(proj * view);
+
+        std::vector<glm::vec4> frustumCorners;
+        for (unsigned int x = 0; x < 2; ++x)
+        {
+            for (unsigned int y = 0; y < 2; ++y)
+            {
+                for (unsigned int z = 0; z < 2; ++z)
+                {
+                    const glm::vec4 pt =
+                            inv * glm::vec4(
+                                    2.0f * x - 1.0f,
+                                    2.0f * y - 1.0f,
+                                    2.0f * z - 1.0f,
+                                    1.0f);
+                    frustumCorners.push_back(pt / pt.w);
+                }
+            }
+        }
+
+        return frustumCorners;
     }
 }

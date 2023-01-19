@@ -75,6 +75,8 @@ namespace Dream {
 
         void renderSceneHelper(Entity entity, OpenGLShader* shader);
 
+        std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4& proj, const glm::mat4& view);
+
         std::pair<int, int> getViewportDimensions();
     };
 }

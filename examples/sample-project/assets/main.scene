@@ -8,34 +8,17 @@ Entities:
     TagComponent:
       tag: root
     HierarchyComponent:
-      first: 4BE18D54-C4E6-4504-A077-005039D84455
+      first: 9EB028F6-5F8B-43D7-996B-4AA442CC6DCA
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [7.54979013e-08, 0, 0, 1]
       scale: [1, 1, 1]
-  - Entity: 4BE18D54-C4E6-4504-A077-005039D84455
-    IDComponent:
-      id: 4BE18D54-C4E6-4504-A077-005039D84455
-    TagComponent:
-      tag: sphere
-    HierarchyComponent:
-      next: 9EB028F6-5F8B-43D7-996B-4AA442CC6DCA
-      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
-    TransformComponent:
-      translation: [-2, 4, -1]
-      rotation: [1, 0, 0, 0]
-      scale: [0.100000001, 0.100000001, 0.100000001]
-    MeshComponent:
-      meshType: 0
-      guid: ""
-      fileId: ""
   - Entity: 9EB028F6-5F8B-43D7-996B-4AA442CC6DCA
     IDComponent:
       id: 9EB028F6-5F8B-43D7-996B-4AA442CC6DCA
     TagComponent:
       tag: floor
     HierarchyComponent:
-      prev: 4BE18D54-C4E6-4504-A077-005039D84455
       next: 8C61B5C7-8F7A-47E9-AEB3-EE7E766384E2
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
@@ -111,8 +94,8 @@ Entities:
       next: B8EF7071-0941-4723-86AA-784580C4E737
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [-0.619274676, 0.340592861, 0.620256066, 0.3402614]
+      translation: [-2, 4, -1]
+      rotation: [-0.619286597, 0.340591729, 0.620240211, 0.340269655]
       scale: [1, 1, 1]
     LightComponent:
       type: 0
@@ -148,16 +131,16 @@ Entities:
       prev: B8EF7071-0941-4723-86AA-784580C4E737
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [1.68072557, -3.76522589, -1.21533597]
-      rotation: [-0.137385949, 0.00778590282, 0.988900244, 0.0560427085]
+      translation: [2.1849885, -0.532521486, -1.51473904]
+      rotation: [0.615859926, -0.675886393, 0.272667289, 0.29924354]
       scale: [1, 1, 1]
     SceneCameraComponent:
       fov: 45
       zNear: 0.100000001
       zFar: 100000
-      front: [-0.550368845, 0.736096859, 0.394024909]
-      up: [-0.598521173, -0.676876307, 0.428498536]
-      right: [0.582122505, 0, 0.813101113]
+      front: [-0.543969929, 0.231747478, 0.806467533]
+      up: [-0.129591674, -0.972776055, 0.192127302]
+      right: [0.829037189, 0, 0.559193373]
       worldUp: [0, -1, 0]
-      yaw: 144.40004
-      pitch: 47.3999786
+      yaw: 124.000038
+      pitch: 13.3999748
