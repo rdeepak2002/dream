@@ -83,6 +83,11 @@ namespace Dream {
                                         Project::getPath().append("assets").append("shaders").append(
                                                 "shadow_mapping_depth.frag").c_str(), nullptr);
 
+//        simpleDepthShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("csm_shadow_mapping_depth.vert").c_str(),
+//                                             Project::getPath().append("assets").append("shaders").append(
+//                                                     "csm_shadow_mapping_depth.frag").c_str(), Project::getPath().append("assets").append("shaders").append(
+//                        "csm_shadow_mapping_depth.geom").c_str());
+
         debugDepthQuad = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("debug_quad.vert").c_str(),
                                              Project::getPath().append("assets").append("shaders").append(
                                                      "debug_quad_depth.frag").c_str(), nullptr);
@@ -248,7 +253,6 @@ namespace Dream {
         Input::setPlayWindowActive(true);
 //        this->preRender(viewportWidth, viewportHeight, fullscreen);
 
-
         auto sceneCamera = Project::getScene()->getSceneCamera();
         auto mainCamera = Project::getScene()->getMainCamera();
 
@@ -264,8 +268,6 @@ namespace Dream {
 //                                               mainCamera.getComponent<Component::CameraComponent>().zFar);
 //            lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene
             lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-//            glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
-//            glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
             glm::vec3 lightPos(0, 0, 0);
             // find directional light's position
             auto lightEntities = Project::getScene()->getEntitiesWithComponents<Component::LightComponent>();
@@ -294,51 +296,24 @@ namespace Dream {
             glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            // render Depth map to quad for visual debugging
-            // ---------------------------------------------
-//            debugDepthQuad->use();
-//            debugDepthQuad->setFloat("near_plane", near_plane);
-//            debugDepthQuad->setFloat("far_plane", far_plane);
-//            glActiveTexture(GL_TEXTURE0);
-//            glBindTexture(GL_TEXTURE_2D, depthMap);
-//            renderQuad();
-
-            // 2. render scene as normal using the generated depth/shadow map
-            // --------------------------------------------------------------
-//            shader.use();
-//            glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-//            glm::mat4 view = camera.GetViewMatrix();
-//            shader.setMat4("projection", projection);
-//            shader.setMat4("view", view);
-//            // set light uniforms
-//            shader.setVec3("viewPos", camera.Position);
-//            shader.setVec3("lightPos", lightPos);
-//            shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-//            glActiveTexture(GL_TEXTURE0);
-//            glBindTexture(GL_TEXTURE_2D, woodTexture);
-//            glActiveTexture(GL_TEXTURE1);
-//            glBindTexture(GL_TEXTURE_2D, depthMap);
-//            renderScene(shader);
-
 //            this->preRender(viewportWidth, viewportHeight, fullscreen);
 
             // calculate projection and view using current camera
             glm::mat4 projection;
             if (Project::isPlaying()) {
-                projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov), (float)viewportWidth / (float)viewportHeight, 0.1f, 100.0f);
-//                projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov),
-//                                              (float) viewportWidth / (float) viewportHeight,
-//                                              mainCamera.getComponent<Component::CameraComponent>().zNear,
-//                                              mainCamera.getComponent<Component::CameraComponent>().zFar);
+//                projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov), (float)viewportWidth / (float)viewportHeight, 0.1f, 100.0f);
+                projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov),
+                                              (float) viewportWidth / (float) viewportHeight,
+                                              mainCamera.getComponent<Component::CameraComponent>().zNear,
+                                              mainCamera.getComponent<Component::CameraComponent>().zFar);
             } else {
-                projection = glm::perspective(glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov), (float)viewportWidth / (float)viewportHeight, 0.1f, 100.0f);
-//                projection = glm::perspective(
-//                        glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov),
-//                        (float) viewportWidth / (float) viewportHeight,
-//                        sceneCamera.getComponent<Component::SceneCameraComponent>().zNear,
-//                        sceneCamera.getComponent<Component::SceneCameraComponent>().zFar);
+//                projection = glm::perspective(glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov), (float)viewportWidth / (float)viewportHeight, 0.1f, 100.0f);
+                projection = glm::perspective(
+                        glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov),
+                        (float) viewportWidth / (float) viewportHeight,
+                        sceneCamera.getComponent<Component::SceneCameraComponent>().zNear,
+                        sceneCamera.getComponent<Component::SceneCameraComponent>().zFar);
             }
-//            projection = lightProjection;
 
             glm::mat4 view;
             if (Project::isPlaying()) {
@@ -346,7 +321,6 @@ namespace Dream {
             } else {
                 view = sceneCamera.getComponent<Component::SceneCameraComponent>().getViewMatrix(sceneCamera);
             }
-//            view = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, -1.0, 0.0));
 
             {
                 // bind frame buffer for drawing to output render texture
