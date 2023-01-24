@@ -40,7 +40,9 @@ namespace Dream {
 
         unsigned int getOutputRenderTexture() override;
     private:
-        OpenGLFrameBuffer *frameBuffer;
+        void renderScene(int viewportWidth, int viewportHeight, OpenGLShader* shader);
+
+        OpenGLFrameBuffer *outputFrameBuffer;
         OpenGLShader* simpleLightingShader;
         OpenGLMesh* openGLMesh;
     };

@@ -40,19 +40,18 @@ namespace Dream {
                                                 Project::getPath().append("assets").append("shaders").append("simpleLightingShader.frag").c_str(),
                                                 nullptr);
 
-        frameBuffer = new OpenGLFrameBuffer();
-
+        outputFrameBuffer = new OpenGLFrameBuffer();
         openGLMesh = new OpenGLCubeMesh();
     }
 
     OpenGLRenderer::~OpenGLRenderer() {
         delete simpleLightingShader;
-        delete frameBuffer;
+        delete outputFrameBuffer;
         delete openGLMesh;
     }
 
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
-        return this->frameBuffer->getTexture();
+        return this->outputFrameBuffer->getTexture();
     }
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
@@ -61,24 +60,42 @@ namespace Dream {
         glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
 
         // bind and resize frame buffer
-        this->frameBuffer->bindFrameBuffer();
-        frameBuffer->resize(viewportWidth * 2, viewportHeight * 2);
+        this->outputFrameBuffer->bindFrameBuffer();
+        outputFrameBuffer->resize(viewportWidth * 2, viewportHeight * 2);
 
-        // start drawing
-        simpleLightingShader->use();
+        // draw scene using a shader
+        renderScene(viewportWidth, viewportHeight, simpleLightingShader);
 
+        // clear framebuffer and return its texture
+        this->outputFrameBuffer->unbindFrameBuffer();
+
+        // clear to color of editor
+        glClearColor(0.1f, 0.105f, 0.11f, 1.0f); // set clear color to editor background
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        // render the frame buffer as a quad when in full screen mode
+        if (fullscreen) {
+            this->outputFrameBuffer->renderScreenQuad();
+        }
+    }
+
+    void OpenGLRenderer::renderScene(int viewportWidth, int viewportHeight, OpenGLShader *shader) {
+        shader->use();
+
+        // clear screen
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        // set model, view, and projection matrices
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
         glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f),glm::vec3(0.0f, 0.0f, 0.0f),glm::vec3(0.0f, 1.0f, 0.0f));
         glm::mat4 model = glm::mat4(1.0);
         model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        shader->setMat4("projection", projection);
+        shader->setMat4("view", view);
+        shader->setMat4("model", model);
 
-        simpleLightingShader->setMat4("projection", projection);
-        simpleLightingShader->setMat4("view", view);
-        simpleLightingShader->setMat4("model", model);
-
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
+        // draw mesh
         if (!openGLMesh->getIndices().empty()) {
             // case where vertices are indexed
             auto numIndices = openGLMesh->getIndices().size();
@@ -92,18 +109,6 @@ namespace Dream {
             glBindVertexArray(0);
         } else {
             Logger::fatal("Unable to render mesh");
-        }
-
-        // clear framebuffer and return its texture
-        this->frameBuffer->unbindFrameBuffer();
-
-        // clear to color of editor
-        glClearColor(0.1f, 0.105f, 0.11f, 1.0f); // set clear color to editor background
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        // render the frame buffer as a quad when in full screen mode
-        if (fullscreen) {
-            this->frameBuffer->renderScreenQuad();
         }
     }
 }
