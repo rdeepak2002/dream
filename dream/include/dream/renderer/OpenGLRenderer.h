@@ -39,45 +39,10 @@ namespace Dream {
         void render(int viewportWidth, int viewportHeight, bool fullscreen) override;
 
         unsigned int getOutputRenderTexture() override;
-
     private:
-        OpenGLShader *lightingShader;
-        OpenGLShader *singleTextureShader;
-        OpenGLShader *physicsDebugShader;
-        OpenGLShader *skyboxShader;
-        OpenGLShader *simpleDepthShader;
-        OpenGLShader *debugDepthQuad;
         OpenGLFrameBuffer *frameBuffer;
-        OpenGLTexture *whiteTexture;
-        OpenGLTexture *blackTexture;
-        OpenGLSkybox *skybox;
-
-        // TODO: move to separate code
-        const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
-        unsigned int depthMapFBO;
-        unsigned int depthMap;
-
-        void resizeFrameBuffer();
-
-        void printGLVersion();
-
-        void updateViewportSize(int viewportWidth, int viewportHeight, bool fullscreen);
-
-        void preRender(int viewportWidth, int viewportHeight, bool fullscreen);
-
-        void postRender(bool fullscreen);
-
-        void renderEntityAndChildren(Entity entity);
-
-        void applyLighting();
-
-        void renderScene(OpenGLShader* shader);
-
-        void renderSceneHelper(Entity entity, OpenGLShader* shader);
-
-        std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4& proj, const glm::mat4& view);
-
-        std::pair<int, int> getViewportDimensions();
+        OpenGLShader* simpleLightingShader;
+        OpenGLMesh* openGLMesh;
     };
 }
 
