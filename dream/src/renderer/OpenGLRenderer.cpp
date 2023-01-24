@@ -64,7 +64,7 @@ namespace Dream {
         outputFrameBuffer->resize(viewportWidth * 2, viewportHeight * 2);
 
         // draw scene using a shader
-        renderScene(viewportWidth, viewportHeight, simpleLightingShader);
+        drawScene(viewportWidth, viewportHeight, simpleLightingShader);
 
         // clear framebuffer and return its texture
         this->outputFrameBuffer->unbindFrameBuffer();
@@ -79,7 +79,7 @@ namespace Dream {
         }
     }
 
-    void OpenGLRenderer::renderScene(int viewportWidth, int viewportHeight, OpenGLShader *shader) {
+    void OpenGLRenderer::drawScene(int viewportWidth, int viewportHeight, OpenGLShader *shader) {
         shader->use();
 
         // clear screen
