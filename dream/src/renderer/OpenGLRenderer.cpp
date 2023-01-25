@@ -70,7 +70,9 @@ namespace Dream {
         Renderer::render(viewportWidth, viewportHeight, fullscreen);
         // resize viewport
         glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+        // clear screen
+        glClearColor(0.1f, 0.105f, 0.11f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // draw scene to shadow map
@@ -87,7 +89,7 @@ namespace Dream {
 
         // clear frame buffer to color of editor
         glClearColor(0.1f, 0.105f, 0.11f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // render the frame buffer as a quad over the entire screen when in full screen mode
         if (fullscreen) {
