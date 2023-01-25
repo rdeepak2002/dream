@@ -78,13 +78,13 @@ namespace Dream {
         // draw scene to shadow map
         shadowMapFbo->bindForWriting();
         // TODO: allow resizing of shadowMapFbo (preferably to viewportWidth * 2, viewportHeight * 2)
-        drawScene(viewportWidth, viewportHeight, simpleDepthShader, FLAG_SHADOW_MAP);
+        drawScene(viewportWidth, viewportHeight, simpleDepthShader, RENDER_FLAG_SHADOW);
         shadowMapFbo->unbind();
 
         // draw final, lighted scene
         outputFrameBuffer->bindFrameBuffer();
         outputFrameBuffer->resize(viewportWidth * 2, viewportHeight * 2);
-        drawScene(viewportWidth, viewportHeight, simpleLightingShader);
+        drawScene(viewportWidth, viewportHeight, simpleLightingShader, RENDER_FLAG_FINAL);
         outputFrameBuffer->unbindFrameBuffer();
 
         // clear frame buffer to color of editor
@@ -110,14 +110,18 @@ namespace Dream {
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
         glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f),glm::vec3(0.0f, 0.0f, 0.0f),glm::vec3(0.0f, 1.0f, 0.0f));
 
-        if (flags & FLAG_SHADOW_MAP) {
+        // rendering to shadow map
+        if (flags & RENDER_FLAG_SHADOW) {
             glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
             float near_plane = 1.0f, far_plane = 7.5f;
             glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
             glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
             glm::mat4 lightSpaceMatrix = lightProjection * lightView;
             shader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
-        } else {
+        }
+
+        // rendering final, lit scene
+        if (flags & RENDER_FLAG_FINAL) {
             shader->setMat4("projection", projection);
             shader->setMat4("view", view);
         }

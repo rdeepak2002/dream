@@ -41,8 +41,9 @@ namespace Dream {
 
         unsigned int getOutputRenderTexture() override;
     private:
-        const int FLAG_SHADOW_MAP = 1;
-        void drawScene(int viewportWidth, int viewportHeight, OpenGLShader* shader, int flags = 0);
+        const int RENDER_FLAG_SHADOW = 1;
+        const int RENDER_FLAG_FINAL = 2;
+        void drawScene(int viewportWidth, int viewportHeight, OpenGLShader* shader, int flags);
         void drawMesh(OpenGLMesh* openGLMesh);
 
         OpenGLFrameBuffer *outputFrameBuffer;
