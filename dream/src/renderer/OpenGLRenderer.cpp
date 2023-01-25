@@ -75,14 +75,15 @@ namespace Dream {
 
         // draw scene to shadow map
         shadowMapFbo->bindForWriting();
+        // TODO: allow resizing of shadowMapFbo (preferably to viewportWidth * 2, viewportHeight * 2)
         drawScene(viewportWidth, viewportHeight, simpleDepthShader, FLAG_SHADOW_MAP);
         shadowMapFbo->unbind();
 
         // draw final, lighted scene
-        this->outputFrameBuffer->bindFrameBuffer();
+        outputFrameBuffer->bindFrameBuffer();
         outputFrameBuffer->resize(viewportWidth * 2, viewportHeight * 2);
         drawScene(viewportWidth, viewportHeight, simpleLightingShader);
-        this->outputFrameBuffer->unbindFrameBuffer();
+        outputFrameBuffer->unbindFrameBuffer();
 
         // clear frame buffer to color of editor
         glClearColor(0.1f, 0.105f, 0.11f, 1.0f);
