@@ -102,6 +102,7 @@ int Dream::OpenGLFrameBuffer::getTexture() {
 }
 
 void Dream::OpenGLFrameBuffer::bindFrameBuffer() {
+    glDisable(GL_DEPTH_TEST);
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 }
 

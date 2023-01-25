@@ -28,6 +28,7 @@
 #include "dream/renderer/Mesh.h"
 #include "dream/scene/Entity.h"
 #include "dream/renderer/OpenGLSkybox.h"
+#include "dream/renderer/OpenGLShadowMapFBO.h"
 
 namespace Dream {
     class OpenGLRenderer : public Renderer {
@@ -40,11 +41,15 @@ namespace Dream {
 
         unsigned int getOutputRenderTexture() override;
     private:
-        void drawScene(int viewportWidth, int viewportHeight, OpenGLShader* shader);
+        const int FLAG_SHADOW_MAP = 1;
+        void drawScene(int viewportWidth, int viewportHeight, OpenGLShader* shader, int flags = 0);
+        void drawMesh(OpenGLMesh* openGLMesh);
 
         OpenGLFrameBuffer *outputFrameBuffer;
+        OpenGLShadowMapFBO* shadowMapFbo;
         OpenGLShader* simpleLightingShader;
-        OpenGLMesh* openGLMesh;
+        OpenGLShader* simpleDepthShader;
+        OpenGLMesh* cubeMesh;
     };
 }
 

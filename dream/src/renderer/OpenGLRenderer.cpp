@@ -19,6 +19,7 @@
 #include "dream/renderer/OpenGLRenderer.h"
 #include <iostream>
 #include <glm/glm.hpp>
+#include <glm/gtx/string_cast.hpp>
 #include <glad/glad.h>
 #include "dream/project/Project.h"
 #include "dream/scene/Entity.h"
@@ -36,66 +37,115 @@ namespace Dream {
         Logger::info("GL Renderer: " + std::string((const char *) glGetString(GL_RENDERER)));
         Logger::info("GL Version: " + std::string((const char *) glGetString(GL_VERSION)));
 
+        // shader for rendering final lighting
         simpleLightingShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("simpleVertexShader.vert").c_str(),
                                                 Project::getPath().append("assets").append("shaders").append("simpleLightingShader.frag").c_str(),
                                                 nullptr);
 
+        // shader for writing to depth buffer for shadow calculation
+        simpleDepthShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("simpleDepthShader.vert").c_str(),
+                                                Project::getPath().append("assets").append("shaders").append("simpleDepthShader.frag").c_str(),
+                                                nullptr);
+
+        // output render texture to allow for post-processing and embedding of scene in editor
         outputFrameBuffer = new OpenGLFrameBuffer();
-        openGLMesh = new OpenGLCubeMesh();
+        // frame buffer to write shadow depth
+        shadowMapFbo = new OpenGLShadowMapFBO(1024, 1024);
+        // TODO: remove this test cube
+        cubeMesh = new OpenGLCubeMesh();
     }
 
     OpenGLRenderer::~OpenGLRenderer() {
         delete simpleLightingShader;
         delete outputFrameBuffer;
-        delete openGLMesh;
+        delete cubeMesh;
     }
 
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
-        return this->outputFrameBuffer->getTexture();
+//        return this->outputFrameBuffer->getTexture();
+        return this->shadowMapFbo->getShadowMap();
     }
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
         Renderer::render(viewportWidth, viewportHeight, fullscreen);
         // resize viewport
         glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // bind and resize frame buffer
+        // draw scene to shadow map
+        shadowMapFbo->bindForWriting();
+        drawScene(viewportWidth, viewportHeight, simpleDepthShader, FLAG_SHADOW_MAP);
+        shadowMapFbo->unbind();
+
+        // draw final, lighted scene
         this->outputFrameBuffer->bindFrameBuffer();
         outputFrameBuffer->resize(viewportWidth * 2, viewportHeight * 2);
-
-        // draw scene using a shader
         drawScene(viewportWidth, viewportHeight, simpleLightingShader);
-
-        // clear framebuffer and return its texture
         this->outputFrameBuffer->unbindFrameBuffer();
 
-        // clear to color of editor
-        glClearColor(0.1f, 0.105f, 0.11f, 1.0f); // set clear color to editor background
+        // clear frame buffer to color of editor
+        glClearColor(0.1f, 0.105f, 0.11f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // render the frame buffer as a quad when in full screen mode
+        // render the frame buffer as a quad over the entire screen when in full screen mode
         if (fullscreen) {
             this->outputFrameBuffer->renderScreenQuad();
         }
     }
 
-    void OpenGLRenderer::drawScene(int viewportWidth, int viewportHeight, OpenGLShader *shader) {
+    // TODO: pass flags (add diffuse texture, add normal maps to texture, add specular texture, add shadow map, etc.)
+    void OpenGLRenderer::drawScene(int viewportWidth, int viewportHeight, OpenGLShader *shader, int flags) {
+        // use the shader
         shader->use();
 
-        // clear screen
+        // clear frame buffer
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         // set model, view, and projection matrices
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
         glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f),glm::vec3(0.0f, 0.0f, 0.0f),glm::vec3(0.0f, 1.0f, 0.0f));
-        glm::mat4 model = glm::mat4(1.0);
-        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        shader->setMat4("projection", projection);
-        shader->setMat4("view", view);
-        shader->setMat4("model", model);
 
-        // draw mesh
+        if (flags & FLAG_SHADOW_MAP) {
+            glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
+            float near_plane = 1.0f, far_plane = 7.5f;
+            glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+            glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+            glm::mat4 lightSpaceMatrix = lightProjection * lightView;
+            shader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
+        } else {
+            shader->setMat4("projection", projection);
+            shader->setMat4("view", view);
+        }
+
+        // floor
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -2, 0.0));
+        model = glm::scale(model, glm::vec3(100, 1, 100));
+        shader->setMat4("model", model);
+        drawMesh(cubeMesh);
+        // cubes
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 1.5f, 0.0));
+        model = glm::scale(model, glm::vec3(0.5f));
+        shader->setMat4("model", model);
+        drawMesh(cubeMesh);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(2.0f, 0.0f, 1.0));
+        model = glm::scale(model, glm::vec3(0.5f));
+        shader->setMat4("model", model);
+        drawMesh(cubeMesh);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-1.0f, 0.0f, 2.0));
+        model = glm::rotate(model, glm::radians(60.0f), glm::normalize(glm::vec3(1.0, 0.0, 1.0)));
+        model = glm::scale(model, glm::vec3(0.25));
+        shader->setMat4("model", model);
+        drawMesh(cubeMesh);
+    }
+
+    void OpenGLRenderer::drawMesh(OpenGLMesh* openGLMesh) {
         if (!openGLMesh->getIndices().empty()) {
             // case where vertices are indexed
             auto numIndices = openGLMesh->getIndices().size();
