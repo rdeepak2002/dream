@@ -17,7 +17,7 @@ namespace Dream {
         // Create the depth buffer
         glGenTextures(1, &shadowMap);
         glBindTexture(GL_TEXTURE_2D, shadowMap);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -27,7 +27,9 @@ namespace Dream {
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowMap, 0);
 
         // Disable writes to the color buffer
+        #ifndef EMSCRIPTEN
         glDrawBuffer(GL_NONE);
+        #endif
         glReadBuffer(GL_NONE);
 
         GLenum Status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
