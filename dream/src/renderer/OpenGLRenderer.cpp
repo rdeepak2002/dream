@@ -50,7 +50,7 @@ namespace Dream {
         // output render texture to allow for post-processing and embedding of scene in editor
         outputFrameBuffer = new OpenGLFrameBuffer();
         // frame buffer to write shadow depth
-        shadowMapFbo = new OpenGLShadowMapFBO(1024, 1024);
+        shadowMapFbo = new OpenGLShadowMapFBO(SHADOW_WIDTH, SHADOW_HEIGHT);
         // TODO: remove this test cube
         cubeMesh = new OpenGLCubeMesh();
     }
@@ -68,20 +68,20 @@ namespace Dream {
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
         Renderer::render(viewportWidth, viewportHeight, fullscreen);
-        // resize viewport
-        glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
 
         // clear screen
         glClearColor(0.1f, 0.105f, 0.11f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // draw scene to shadow map
+        glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
         shadowMapFbo->bindForWriting();
         // TODO: allow resizing of shadowMapFbo (preferably to viewportWidth * 2, viewportHeight * 2)
         drawScene(viewportWidth, viewportHeight, simpleDepthShader, RENDER_FLAG_SHADOW);
         shadowMapFbo->unbind();
 
         // draw final, lighted scene
+        glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
         outputFrameBuffer->bindFrameBuffer();
         outputFrameBuffer->resize(viewportWidth * 2, viewportHeight * 2);
         drawScene(viewportWidth, viewportHeight, simpleLightingShader, RENDER_FLAG_FINAL);

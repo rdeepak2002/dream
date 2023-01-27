@@ -43,6 +43,8 @@ namespace Dream {
     private:
         const int RENDER_FLAG_SHADOW = 1;
         const int RENDER_FLAG_FINAL = 2;
+        int SHADOW_WIDTH = 1024;
+        int SHADOW_HEIGHT = 1024;
         void drawScene(int viewportWidth, int viewportHeight, OpenGLShader* shader, int flags);
         void drawMesh(OpenGLMesh* openGLMesh);
 
