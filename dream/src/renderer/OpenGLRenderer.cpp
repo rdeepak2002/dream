@@ -71,14 +71,13 @@ namespace Dream {
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
         Renderer::render(viewportWidth, viewportHeight, fullscreen);
 
-        // clear screen
-        glClearColor(0.1f, 0.105f, 0.11f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_BLEND);
+        glEnable(GL_DEPTH_TEST);
 
         // draw scene to shadow map
         glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
         shadowMapFbo->bindForWriting();
-        // TODO: allow resizing of shadowMapFbo (preferably to viewportWidth * 2, viewportHeight * 2)
         drawScene(viewportWidth, viewportHeight, simpleDepthShader, RENDER_FLAG_SHADOW);
         shadowMapFbo->unbind();
 

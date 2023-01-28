@@ -54,7 +54,7 @@ namespace Dream {
 
     void OpenGLShadowMapFBO::bindForWriting() {
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
-        glEnable(GL_DEPTH_TEST);
+        glClear(GL_DEPTH_BUFFER_BIT);
     }
 
     void OpenGLShadowMapFBO::bindForReading(int unit) {
