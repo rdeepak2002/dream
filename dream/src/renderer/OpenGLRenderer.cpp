@@ -30,6 +30,8 @@
 #include "dream/renderer/OpenGLCubeMesh.h"
 #include "dream/util/MathUtils.h"
 
+#define SHADOW_MAP_TEXTURE_UNIT 0
+
 namespace Dream {
     OpenGLRenderer::OpenGLRenderer() : Renderer() {
         // print GL version
@@ -47,46 +49,49 @@ namespace Dream {
                                                 Project::getPath().append("assets").append("shaders").append("simpleDepthShader.frag").c_str(),
                                                 nullptr);
 
-        // output render texture to allow for post-processing and embedding of scene in editor
-        outputFrameBuffer = new OpenGLFrameBuffer();
+        // output render texture to allow for post-processing and embedding of scene in editor (draw final scene to a texture basically)
+        outputRenderTextureFbo = new OpenGLFrameBuffer();
 
-        // frame buffer to write shadow depth
+        // frame buffer to write shadow depth (create a depth map from perspective of directional light)
         shadowMapFbo = new OpenGLShadowMapFBO(SHADOW_WIDTH, SHADOW_HEIGHT);
 
-        // cube primitive mesh
+        // cube mesh primitive
         cubeMesh = new OpenGLCubeMesh();
     }
 
     OpenGLRenderer::~OpenGLRenderer() {
         delete simpleLightingShader;
-        delete outputFrameBuffer;
+        delete outputRenderTextureFbo;
+        delete shadowMapFbo;
         delete cubeMesh;
     }
 
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
-        return this->outputFrameBuffer->getTexture();
+        return this->outputRenderTextureFbo->getTexture();
 //        return this->shadowMapFbo->getShadowMap();
     }
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
         Renderer::render(viewportWidth, viewportHeight, fullscreen);
 
+        // OpenGL options (enable blending and depth testing)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
         glEnable(GL_DEPTH_TEST);
 
-        // draw scene to shadow map
+        // draw scene to directional light shadow map
         glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
         shadowMapFbo->bindForWriting();
         drawScene(viewportWidth, viewportHeight, simpleDepthShader, RENDER_FLAG_SHADOW);
         shadowMapFbo->unbind();
 
-        // draw final, lighted scene
+        // draw final, lighted scene to output render texture
         glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
-        outputFrameBuffer->bindFrameBuffer();
-        outputFrameBuffer->resize(viewportWidth * 2, viewportHeight * 2);
+        outputRenderTextureFbo->bindFrameBuffer(0.2f, 0.3f, 0.3f);
+        // TODO: only resize when necessary
+        outputRenderTextureFbo->resize(viewportWidth * 2, viewportHeight * 2);
         drawScene(viewportWidth, viewportHeight, simpleLightingShader, RENDER_FLAG_FINAL);
-        outputFrameBuffer->unbindFrameBuffer();
+        outputRenderTextureFbo->unbindFrameBuffer();
 
         // clear frame buffer to color of editor
         glClearColor(0.1f, 0.105f, 0.11f, 1.0f);
@@ -94,7 +99,7 @@ namespace Dream {
 
         // render the frame buffer as a quad over the entire screen when in full screen mode
         if (fullscreen) {
-            this->outputFrameBuffer->renderScreenQuad();
+            this->outputRenderTextureFbo->renderScreenQuad();
         }
     }
 
@@ -105,33 +110,29 @@ namespace Dream {
         // light position for shadow
         glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
 
-        // bind textures for final render
-        if (flags & RENDER_FLAG_FINAL) {
-            shader->setInt("shadowMap", 0);
-            shadowMapFbo->bindForReading(0);
-            shader->setVec3("lightPos", lightPos);
-        }
-
-        // clear frame buffer
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        // projection * view matrix of directional light that casts shadows
+        // set variables for directional light for shadow computations
         if ((flags & RENDER_FLAG_SHADOW) || (flags & RENDER_FLAG_FINAL)) {
             float near_plane = 1.0f, far_plane = 7.5f;
             glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
             glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
             glm::mat4 lightSpaceMatrix = lightProjection * lightView;
             shader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
+            shader->setVec3("lightPos", lightPos);
         }
 
-        // setting view and projection matrices for final rendering
+        // set view and projection matrices for final rendering from camera perspective
         if (flags & RENDER_FLAG_FINAL) {
-            // set model, view, and projection matrices
             glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
             glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 8.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
             shader->setMat4("projection", projection);
             shader->setMat4("view", view);
+        }
+
+        // bind textures for final render
+        if (flags & RENDER_FLAG_FINAL) {
+            // bind shadow map
+            shader->setInt("shadowMap", SHADOW_MAP_TEXTURE_UNIT);
+            shadowMapFbo->bindForReading(SHADOW_MAP_TEXTURE_UNIT);
         }
 
         // draw floor mesh

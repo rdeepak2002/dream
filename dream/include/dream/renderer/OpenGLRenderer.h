@@ -48,7 +48,7 @@ namespace Dream {
         void drawScene(int viewportWidth, int viewportHeight, OpenGLShader* shader, int flags);
         void drawMesh(OpenGLMesh* openGLMesh);
 
-        OpenGLFrameBuffer *outputFrameBuffer;
+        OpenGLFrameBuffer *outputRenderTextureFbo;
         OpenGLShadowMapFBO* shadowMapFbo;
         OpenGLShader* simpleLightingShader;
         OpenGLShader* simpleDepthShader;

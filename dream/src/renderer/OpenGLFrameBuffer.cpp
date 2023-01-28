@@ -104,9 +104,9 @@ int Dream::OpenGLFrameBuffer::getTexture() {
     return this->textureColorbuffer;
 }
 
-void Dream::OpenGLFrameBuffer::bindFrameBuffer() {
+void Dream::OpenGLFrameBuffer::bindFrameBuffer(float r, float g, float b) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClearColor(r, g, b, 1.0f);
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 }
 

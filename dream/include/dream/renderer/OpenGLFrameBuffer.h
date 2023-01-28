@@ -32,7 +32,7 @@ namespace Dream {
 
         void bindTexture();
 
-        void bindFrameBuffer();
+        void bindFrameBuffer(float r = 0.2f, float g = 0.3f, float b = 0.3f);
 
         void unbindFrameBuffer();
 
