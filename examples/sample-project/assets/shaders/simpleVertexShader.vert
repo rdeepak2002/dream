@@ -7,10 +7,12 @@ layout (location = 5) in ivec4 boneIds;
 layout (location = 6) in vec4 weights;
 
 // variables to send to fragment shader
-out vec3 FragPos;
-out vec3 Normal;
-out vec2 TexCoord;
-out vec4 FragPosLightSpace;
+out VS_OUT {
+    vec3 FragPos;
+    vec3 Normal;
+    vec2 TexCoord;
+    vec4 FragPosLightSpace;
+} vs_out;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -48,10 +50,10 @@ void main()
         }
     }
 
-    FragPos = vec3(model * totalPosition);
-    Normal = normalize(mat3(transpose(inverse(model))) * totalNormal);
-    TexCoord = vec2(aTexCoord.x, aTexCoord.y);
-    FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0);
+    vs_out.FragPos = vec3(model * totalPosition);
+    vs_out.Normal = normalize(mat3(transpose(inverse(model))) * totalNormal);
+    vs_out.TexCoord = vec2(aTexCoord.x, aTexCoord.y);
+    vs_out.FragPosLightSpace = lightSpaceMatrix * vec4(vs_out.FragPos, 1.0);
 
     gl_Position = projection * view * model * totalPosition;
 }

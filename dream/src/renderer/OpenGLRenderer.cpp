@@ -49,9 +49,11 @@ namespace Dream {
 
         // output render texture to allow for post-processing and embedding of scene in editor
         outputFrameBuffer = new OpenGLFrameBuffer();
+
         // frame buffer to write shadow depth
         shadowMapFbo = new OpenGLShadowMapFBO(SHADOW_WIDTH, SHADOW_HEIGHT);
-        // TODO: remove this test cube
+
+        // cube primitive mesh
         cubeMesh = new OpenGLCubeMesh();
     }
 
@@ -62,8 +64,8 @@ namespace Dream {
     }
 
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
-//        return this->outputFrameBuffer->getTexture();
-        return this->shadowMapFbo->getShadowMap();
+        return this->outputFrameBuffer->getTexture();
+//        return this->shadowMapFbo->getShadowMap();
     }
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
@@ -102,17 +104,22 @@ namespace Dream {
         // use the shader
         shader->use();
 
+        // light position for shadow
+        glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
+
+        // bind textures for final render
+        if (flags & RENDER_FLAG_FINAL) {
+            shader->setInt("shadowMap", 0);
+            shadowMapFbo->bindForReading(0);
+            shader->setVec3("lightPos", lightPos);
+        }
+
         // clear frame buffer
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // set model, view, and projection matrices
-        glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
-        glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f),glm::vec3(0.0f, 0.0f, 0.0f),glm::vec3(0.0f, 1.0f, 0.0f));
-
-        // rendering to shadow map
-        if (flags & RENDER_FLAG_SHADOW) {
-            glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
+        // projection * view matrix of directional light that casts shadows
+        if ((flags & RENDER_FLAG_SHADOW) || (flags & RENDER_FLAG_FINAL)) {
             float near_plane = 1.0f, far_plane = 7.5f;
             glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
             glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
@@ -120,30 +127,36 @@ namespace Dream {
             shader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
         }
 
-        // rendering final, lit scene
+        // setting view and projection matrices for final rendering
         if (flags & RENDER_FLAG_FINAL) {
+            // set model, view, and projection matrices
+            glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
+            glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 8.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
             shader->setMat4("projection", projection);
             shader->setMat4("view", view);
         }
 
-        // floor
+        // draw floor mesh
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -2, 0.0));
         model = glm::scale(model, glm::vec3(100, 1, 100));
         shader->setMat4("model", model);
         drawMesh(cubeMesh);
-        // cubes
+
+        // draw cube meshes
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 1.5f, 0.0));
         model = glm::scale(model, glm::vec3(0.5f));
         shader->setMat4("model", model);
         drawMesh(cubeMesh);
+
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(2.0f, 0.0f, 1.0));
         model = glm::scale(model, glm::vec3(0.5f));
         shader->setMat4("model", model);
         drawMesh(cubeMesh);
+
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(-1.0f, 0.0f, 2.0));
         model = glm::rotate(model, glm::radians(60.0f), glm::normalize(glm::vec3(1.0, 0.0, 1.0)));
