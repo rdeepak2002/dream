@@ -69,6 +69,19 @@ namespace Dream {
     }
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
+
+        // TODO: maybe depth test not being done properly?
+
+        // TODO: refer to this commit https://github.com/rdeepak2002/dream/blob/e36d00a602cf93e5b8f3f3b75725284b7a117110/dream/src/renderer/OpenGLRenderer.cpp
+        // TODO: how to fix -> refer to dream engine and where we clear, set depth buffer, set color, etc. (remove this code from buffer classes)
+        // TODO: how to fix -> refer to dream engine and where we clear, set depth buffer, set color, etc. (remove this code from buffer classes)
+        // TODO: how to fix -> refer to dream engine and where we clear, set depth buffer, set color, etc. (remove this code from buffer classes)
+        // TODO: how to fix -> refer to drema engine and where we clear, set depth buffer, set color, etc. (remove this code from buffer classes)
+        // TODO: how to fix -> refer to dream engine and where we clear, set depth buffer, set color, etc. (remove this code from buffer classes)
+        // TODO: how to fix -> refer to dream engine and where we clear, set depth buffer, set color, etc. (remove this code from buffer classes)
+        // TODO: how to fix -> refer to dream engine and where we clear, set depth buffer, set color, etc. (remove this code from buffer classes)
+        // TODO: how to fix -> refer to dream engine and where we clear, set depth buffer, set color, etc. (remove this code from buffer classes)
+
         Renderer::render(viewportWidth, viewportHeight, fullscreen);
 
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
