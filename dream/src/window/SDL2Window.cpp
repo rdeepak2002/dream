@@ -85,6 +85,16 @@ namespace Dream {
 
     void SDL2Window::update(float dt) {
 #ifndef EMSCRIPTEN
+        float diagDPI = -1;
+        float horiDPI = -1;
+        float vertDPI = -1;
+        int dpiReturn = SDL_GetDisplayDPI (0, &diagDPI, &horiDPI, &vertDPI);
+        bool highDpi = true;
+
+        #ifdef APPLE
+        highDpi = (diagDPI > 100);
+        #endif
+
         // draw Dream logo in launch screen
         if (!launchWindowRenderer) {
             launchWindowRenderer = SDL_CreateRenderer(launchWindow, -1, SDL_RENDERER_ACCELERATED);
@@ -94,7 +104,7 @@ namespace Dream {
         }
         SDL_RenderClear(launchWindowRenderer);
         SDL_SetRenderDrawColor(launchWindowRenderer, 255, 255, 255, 0);
-        SDL_Rect textureBounds = {0, 0, 1248, 778};
+        SDL_Rect textureBounds = {0, 0, 1248 / (highDpi ? 1 : 2), 778 / (highDpi ? 1 : 2)};
         SDL_RenderCopy(launchWindowRenderer, launchWindowImage, nullptr, &textureBounds);
         SDL_RenderPresent(launchWindowRenderer);
 
