@@ -11,10 +11,10 @@ namespace Dream {
         this->viewportWidth = viewportWidth;
         this->viewportHeight = viewportHeight;
         this->fov = fov;
-        position = position;
-        worldUp = up;
-        yaw = yaw;
-        pitch = pitch;
+        this->position = position;
+        this->worldUp = up;
+        this->yaw = yaw;
+        this->pitch = pitch;
         updateCameraVectors();
     }
 
@@ -23,11 +23,11 @@ namespace Dream {
     }
 
     void Camera::updateCameraVectors() {
-        glm::vec3 front;
-        front.x = cos(yaw) * cos(pitch);
-        front.y = sin(pitch);
-        front.z = sin(yaw) * cos(pitch);
-        front = glm::normalize(front);
+        glm::vec3 newFront;
+        newFront.x = cos(yaw) * cos(pitch);
+        newFront.y = sin(pitch);
+        newFront.z = sin(yaw) * cos(pitch);
+        front = glm::normalize(newFront);
 
         right = glm::normalize(glm::cross(front, worldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
         up    = glm::normalize(glm::cross(right, front));

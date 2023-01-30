@@ -75,12 +75,13 @@ namespace Dream {
         Renderer::render(viewportWidth, viewportHeight, fullscreen);
 
         // define camera
-        Camera camera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};
+        std::optional<Camera> camera;
 
         // update renderer camera using scene camera entity
         auto sceneCameraEntity = Project::getScene()->getSceneCamera();
         if (sceneCameraEntity) {
-            sceneCameraEntity.getComponent<Component::SceneCameraComponent>().updateRendererCamera(camera, sceneCameraEntity);
+            camera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};
+            sceneCameraEntity.getComponent<Component::SceneCameraComponent>().updateRendererCamera(*camera, sceneCameraEntity);
         }
 
         // OpenGL options (enable blending and depth testing)
@@ -113,7 +114,17 @@ namespace Dream {
         }
     }
 
-    void OpenGLRenderer::drawScene(Camera camera, OpenGLShader *shader, int flags) {
+    void OpenGLRenderer::drawScene(std::optional<Camera> maybeCamera, OpenGLShader *shader, int flags) {
+        // if no camera is set (main or scene) then clear screen and show nothing
+        if (!maybeCamera) {
+            glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            return;
+        }
+
+        // unwrap optional
+        Camera camera = *maybeCamera;
+
         // use the shader
         shader->use();
 

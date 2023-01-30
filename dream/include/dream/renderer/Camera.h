@@ -36,7 +36,7 @@ namespace Dream {
 
             Camera (float viewportWidth, float viewportHeight, float zNear = 0.1f, float zFar = 100.0f, float fov = 45.0f,
                     glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
-                    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = -M_PI_2, float pitch = 0);
+                    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = -M_PI_2, float pitch = 0.0f);
 
             // returns the view matrix calculated using Euler Angles and the LookAt Matrix
             glm::mat4 getViewMatrix();

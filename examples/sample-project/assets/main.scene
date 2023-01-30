@@ -138,5 +138,5 @@ Entities:
       fov: 45
       zNear: 0.100000001
       zFar: 100
-      yaw: -1.57
+      yaw: -1.5707963268
       pitch: 0.0

@@ -52,6 +52,7 @@ namespace Dream::Component {
             auto pitch = node[componentName][k_pitch].as<float>();
 
             entity.addComponent<SceneCameraComponent>(fov);
+            entity.getComponent<SceneCameraComponent>().fov = fov;
             entity.getComponent<SceneCameraComponent>().zNear = zNear;
             entity.getComponent<SceneCameraComponent>().zFar = zFar;
             entity.getComponent<SceneCameraComponent>().yaw = yaw;
@@ -84,12 +85,12 @@ namespace Dream::Component {
             yaw -= mouseMovement.x * padding;
             pitch += mouseMovement.y * padding;
         }
-        if (pitch > 2.89) {
-            pitch = 2.89;
-        }
-        if (pitch < -2.89) {
-            pitch = -2.89;
-        }
+//        if (pitch > 2.89) {
+//            pitch = 2.89;
+//        }
+//        if (pitch < -2.89) {
+//            pitch = -2.89;
+//        }
         sceneCamera.getComponent<TransformComponent>().rotation = glm::quat(glm::vec3(yaw, pitch, 0));
         updateCameraVectors();
     }
@@ -106,11 +107,12 @@ namespace Dream::Component {
 
     void SceneCameraComponent::updateRendererCamera(Dream::Camera &camera, Entity &sceneCameraEntity) {
         auto transformComponent = sceneCameraEntity.getComponent<TransformComponent>();
-        auto sceneCameraComponent = sceneCameraEntity.getComponent<SceneCameraComponent>();
-        camera.yaw = sceneCameraComponent.yaw;
-        camera.pitch = sceneCameraComponent.pitch;
-        camera.fov = sceneCameraComponent.fov;
+        std::cout << "Scene Camera Component yaw: " << yaw << ", pitch: " << pitch << std::endl;
+        camera.yaw = yaw;
+        camera.pitch = pitch;
+        camera.fov = fov;
         camera.position = transformComponent.translation;
+        camera.up = up;
         camera.updateCameraVectors();
     }
 
@@ -123,7 +125,7 @@ namespace Dream::Component {
                 )
         ));
         glm::vec3 eulerAngles = glm::eulerAngles(q);
-        yaw = glm::degrees(eulerAngles.y) + 90;
-        pitch = glm::degrees(eulerAngles.x);
+        yaw = eulerAngles.y + (float) M_PI_2;
+        pitch = eulerAngles.x;
     }
 }

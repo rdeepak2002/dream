@@ -44,9 +44,9 @@ namespace Dream {
     private:
         const int RENDER_FLAG_SHADOW = 1;
         const int RENDER_FLAG_FINAL = 2;
-        int SHADOW_WIDTH = 1024;
-        int SHADOW_HEIGHT = 1024;
-        void drawScene(Camera camera, OpenGLShader* shader, int flags);
+        int SHADOW_WIDTH = 1024 * 8;
+        int SHADOW_HEIGHT = 1024 * 8;
+        void drawScene(std::optional<Camera> maybeCamera, OpenGLShader* shader, int flags);
         void drawMesh(OpenGLMesh* openGLMesh);
 
         OpenGLFrameBuffer *outputRenderTextureFbo;
