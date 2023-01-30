@@ -29,6 +29,7 @@
 #include "dream/scene/Entity.h"
 #include "dream/renderer/OpenGLSkybox.h"
 #include "dream/renderer/OpenGLShadowMapFBO.h"
+#include "dream/renderer/Camera.h"
 
 namespace Dream {
     class OpenGLRenderer : public Renderer {
@@ -45,7 +46,7 @@ namespace Dream {
         const int RENDER_FLAG_FINAL = 2;
         int SHADOW_WIDTH = 1024;
         int SHADOW_HEIGHT = 1024;
-        void drawScene(int viewportWidth, int viewportHeight, OpenGLShader* shader, int flags);
+        void drawScene(Camera camera, OpenGLShader* shader, int flags);
         void drawMesh(OpenGLMesh* openGLMesh);
 
         OpenGLFrameBuffer *outputRenderTextureFbo;

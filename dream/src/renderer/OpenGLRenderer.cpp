@@ -74,6 +74,11 @@ namespace Dream {
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
         Renderer::render(viewportWidth, viewportHeight, fullscreen);
 
+        // define camera
+        Camera camera = {(float) viewportWidth, (float) viewportHeight};
+        camera.Position = {0, 0, 8};
+        camera.updateCameraVectors();
+
         // OpenGL options (enable blending and depth testing)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
@@ -82,7 +87,7 @@ namespace Dream {
         // draw scene to directional light shadow map
         glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
         shadowMapFbo->bindForWriting();
-        drawScene(viewportWidth, viewportHeight, simpleDepthShader, RENDER_FLAG_SHADOW);
+        drawScene(camera, simpleDepthShader, RENDER_FLAG_SHADOW);
         shadowMapFbo->unbind();
 
         // draw final, lighted scene to output render texture
@@ -90,7 +95,7 @@ namespace Dream {
         outputRenderTextureFbo->bindFrameBuffer(0.2f, 0.3f, 0.3f);
         // TODO: only resize when necessary
         outputRenderTextureFbo->resize(viewportWidth * 2, viewportHeight * 2);
-        drawScene(viewportWidth, viewportHeight, simpleLightingShader, RENDER_FLAG_FINAL);
+        drawScene(camera, simpleLightingShader, RENDER_FLAG_FINAL);
         outputRenderTextureFbo->unbindFrameBuffer();
 
         // clear frame buffer to color of editor
@@ -103,7 +108,7 @@ namespace Dream {
         }
     }
 
-    void OpenGLRenderer::drawScene(int viewportWidth, int viewportHeight, OpenGLShader *shader, int flags) {
+    void OpenGLRenderer::drawScene(Camera camera, OpenGLShader *shader, int flags) {
         // use the shader
         shader->use();
 
@@ -122,10 +127,8 @@ namespace Dream {
 
         // set view and projection matrices for final rendering from camera perspective
         if (flags & RENDER_FLAG_FINAL) {
-            glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float) viewportWidth / (float) viewportHeight, 0.1f, 100.0f);
-            glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 8.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-            shader->setMat4("projection", projection);
-            shader->setMat4("view", view);
+            shader->setMat4("projection", camera.getProjectionMatrix());
+            shader->setMat4("view", camera.getViewMatrix());
         }
 
         // bind textures for final render
