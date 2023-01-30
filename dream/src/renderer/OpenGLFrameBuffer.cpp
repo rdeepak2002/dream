@@ -91,9 +91,6 @@ void Dream::OpenGLFrameBuffer::resize(int fbWidth, int fbHeight) {
                           this->height); // use a single renderbuffer object for both a depth AND stencil buffer.
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER,
                               rbo); // now actually attach it
-
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Dream::OpenGLFrameBuffer::bindTexture() {
@@ -104,12 +101,8 @@ int Dream::OpenGLFrameBuffer::getTexture() {
     return this->textureColorbuffer;
 }
 
-void Dream::OpenGLFrameBuffer::bindFrameBuffer(float r, float g, float b) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(r, g, b, 1.0f);
+void Dream::OpenGLFrameBuffer::bindFrameBuffer() {
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(r, g, b, 1.0f);
 }
 
 int Dream::OpenGLFrameBuffer::getHeight() {

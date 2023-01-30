@@ -54,9 +54,6 @@ namespace Dream {
 
     void OpenGLShadowMapFBO::bindForWriting() {
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
-        glClear(GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
     }
 
     void OpenGLShadowMapFBO::bindForReading(int unit) {
@@ -67,8 +64,6 @@ namespace Dream {
     }
 
     void OpenGLShadowMapFBO::unbind() {
-        glCullFace(GL_BACK);
-        glDisable(GL_CULL_FACE);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 

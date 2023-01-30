@@ -85,14 +85,25 @@ namespace Dream {
         // draw scene to directional light shadow map
         glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
         shadowMapFbo->bindForWriting();
+        glClear(GL_DEPTH_BUFFER_BIT);
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
         drawScene(camera, simpleDepthShader, RENDER_FLAG_SHADOW);
+        glCullFace(GL_BACK);
+        glDisable(GL_CULL_FACE);
         shadowMapFbo->unbind();
 
         // draw final, lighted scene to output render texture
         glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
-        outputRenderTextureFbo->bindFrameBuffer(0.2f, 0.3f, 0.3f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        outputRenderTextureFbo->bindFrameBuffer();
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         if (outputRenderTextureFbo->getWidth() != viewportWidth * 2 || outputRenderTextureFbo->getHeight() != viewportHeight * 2) {
             outputRenderTextureFbo->resize(viewportWidth * 2, viewportHeight * 2);
+            glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         }
         drawScene(camera, simpleLightingShader, RENDER_FLAG_FINAL);
         outputRenderTextureFbo->unbindFrameBuffer();
