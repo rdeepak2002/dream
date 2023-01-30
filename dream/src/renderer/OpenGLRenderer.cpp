@@ -75,8 +75,8 @@ namespace Dream {
         Renderer::render(viewportWidth, viewportHeight, fullscreen);
 
         // define camera
-        Camera camera = {(float) viewportWidth, (float) viewportHeight};
-        camera.Position = {0, 0, 8};
+        Camera camera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};
+        camera.position = {0, 0, 8};
         camera.updateCameraVectors();
 
         // OpenGL options (enable blending and depth testing)
@@ -93,8 +93,9 @@ namespace Dream {
         // draw final, lighted scene to output render texture
         glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
         outputRenderTextureFbo->bindFrameBuffer(0.2f, 0.3f, 0.3f);
-        // TODO: only resize when necessary
-        outputRenderTextureFbo->resize(viewportWidth * 2, viewportHeight * 2);
+        if (outputRenderTextureFbo->getWidth() != viewportWidth * 2 || outputRenderTextureFbo->getHeight() != viewportHeight * 2) {
+            outputRenderTextureFbo->resize(viewportWidth * 2, viewportHeight * 2);
+        }
         drawScene(camera, simpleLightingShader, RENDER_FLAG_FINAL);
         outputRenderTextureFbo->unbindFrameBuffer();
 
@@ -127,8 +128,10 @@ namespace Dream {
 
         // set view and projection matrices for final rendering from camera perspective
         if (flags & RENDER_FLAG_FINAL) {
-            shader->setMat4("projection", camera.getProjectionMatrix());
-            shader->setMat4("view", camera.getViewMatrix());
+            auto projection = camera.getProjectionMatrix();
+            auto view = camera.getViewMatrix();
+            shader->setMat4("projection", projection);
+            shader->setMat4("view", view);
         }
 
         // bind textures for final render
