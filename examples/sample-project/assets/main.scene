@@ -22,7 +22,7 @@ Entities:
       next: 8C61B5C7-8F7A-47E9-AEB3-EE7E766384E2
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [0, -1, 0]
+      translation: [0, 2, 0]
       rotation: [1, 0, 0, 0]
       scale: [50, 1, 50]
     MeshComponent:
@@ -131,12 +131,12 @@ Entities:
       prev: B8EF7071-0941-4723-86AA-784580C4E737
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [0, 0, 8]
-      rotation: [0, 0, 0, 1]
+      translation: [-0.739999831, -0.289999932, 8]
+      rotation: [0.707106769, -0.707106769, 0, 0]
       scale: [1, 1, 1]
     SceneCameraComponent:
       fov: 45
       zNear: 0.100000001
       zFar: 100
-      yaw: -1.5707963268
-      pitch: 0.0
+      yaw: -1.57079637
+      pitch: 0

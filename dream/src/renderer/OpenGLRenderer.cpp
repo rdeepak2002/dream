@@ -74,15 +74,8 @@ namespace Dream {
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
         Renderer::render(viewportWidth, viewportHeight, fullscreen);
 
-        // define camera
-        std::optional<Camera> camera;
-
-        // update renderer camera using scene camera entity
-        auto sceneCameraEntity = Project::getScene()->getSceneCamera();
-        if (sceneCameraEntity) {
-            camera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};
-            sceneCameraEntity.getComponent<Component::SceneCameraComponent>().updateRendererCamera(*camera, sceneCameraEntity);
-        }
+        // renderer camera
+        std::optional<Camera> camera = getMainCamera(viewportWidth, viewportHeight);
 
         // OpenGL options (enable blending and depth testing)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -128,11 +121,9 @@ namespace Dream {
         // use the shader
         shader->use();
 
-        // light position for shadow
-        glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
-
         // set variables for directional light for shadow computations
         if ((flags & RENDER_FLAG_SHADOW) || (flags & RENDER_FLAG_FINAL)) {
+            glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
             float near_plane = 1.0f, far_plane = 7.5f;
             glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
             glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
@@ -154,33 +145,28 @@ namespace Dream {
             shadowMapFbo->bindForReading(SHADOW_MAP_TEXTURE_UNIT);
         }
 
-        // draw floor mesh
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, -2, 0.0));
-        model = glm::scale(model, glm::vec3(100, 1, 100));
-        shader->setMat4("model", model);
-        drawMesh(cubeMesh);
+        // draw root entity and its children
+        drawEntity(Project::getScene()->getRootEntity(), shader);
+    }
 
-        // draw cube meshes
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 1.5f, 0.0));
-        model = glm::scale(model, glm::vec3(0.5f));
-        shader->setMat4("model", model);
-        drawMesh(cubeMesh);
+    void OpenGLRenderer::drawEntity(Dream::Entity entity, OpenGLShader* shader) {
+        // draw children
+        Entity child = entity.getComponent<Component::HierarchyComponent>().first;
+        while (child) {
+            drawEntity(child, shader);
+            child = child.getComponent<Component::HierarchyComponent>().next;
+        }
 
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(2.0f, 0.0f, 1.0));
-        model = glm::scale(model, glm::vec3(0.5f));
-        shader->setMat4("model", model);
-        drawMesh(cubeMesh);
-
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-1.0f, 0.0f, 2.0));
-        model = glm::rotate(model, glm::radians(60.0f), glm::normalize(glm::vec3(1.0, 0.0, 1.0)));
-        model = glm::scale(model, glm::vec3(0.25));
-        shader->setMat4("model", model);
-        drawMesh(cubeMesh);
+        if (entity.hasComponent<Component::MeshComponent>()) {
+            // set model matrix
+            auto modelMatrix = entity.getComponent<Component::TransformComponent>().getTransform(entity);
+            shader->setMat4("model", modelMatrix);
+            // draw mesh of entity
+            auto &meshComponent = entity.getComponent<Component::MeshComponent>();
+            if (meshComponent.meshType == Component::MeshComponent::PRIMITIVE_CUBE) {
+                drawMesh(cubeMesh);
+            }
+        }
     }
 
     void OpenGLRenderer::drawMesh(OpenGLMesh* openGLMesh) {
@@ -198,5 +184,19 @@ namespace Dream {
         } else {
             Logger::fatal("Unable to render mesh");
         }
+    }
+
+    std::optional<Camera> OpenGLRenderer::getMainCamera(int viewportWidth, int viewportHeight) {
+        // renderer camera
+        std::optional<Camera> camera;
+
+        // update renderer camera using scene camera entity's position and camera attributes like yaw, pitch, and fov
+        auto sceneCameraEntity = Project::getScene()->getSceneCamera();
+        if (sceneCameraEntity) {
+            camera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};
+            sceneCameraEntity.getComponent<Component::SceneCameraComponent>().updateRendererCamera(*camera, sceneCameraEntity);
+        }
+
+        return camera;
     }
 }

@@ -47,7 +47,9 @@ namespace Dream {
         int SHADOW_WIDTH = 1024 * 8;
         int SHADOW_HEIGHT = 1024 * 8;
         void drawScene(std::optional<Camera> maybeCamera, OpenGLShader* shader, int flags);
+        void drawEntity(Entity entity, OpenGLShader* shader);
         void drawMesh(OpenGLMesh* openGLMesh);
+        std::optional<Camera> getMainCamera(int viewportWidth, int viewportHeight);
 
         OpenGLFrameBuffer *outputRenderTextureFbo;
         OpenGLShadowMapFBO* shadowMapFbo;
