@@ -28,8 +28,7 @@ namespace Dream {
         newFront.y = sin(pitch);
         newFront.z = sin(yaw) * cos(pitch);
         front = glm::normalize(newFront);
-
-        right = glm::normalize(glm::cross(front, worldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+        right = glm::normalize(glm::cross(front, worldUp));
         up    = glm::normalize(glm::cross(right, front));
     }
 

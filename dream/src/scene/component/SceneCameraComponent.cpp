@@ -43,7 +43,21 @@ namespace Dream::Component {
                 Logger::fatal("No fov variable for scene camera component");
             }
 
-            // TODO: check other variables are defined too, not just fov
+            if (!node[componentName][k_zNear]) {
+                Logger::fatal("No near variable for scene camera component");
+            }
+
+            if (!node[componentName][k_zFar]) {
+                Logger::fatal("No far variable for scene camera component");
+            }
+
+            if (!node[componentName][k_yaw]) {
+                Logger::fatal("No yaw variable for scene camera component");
+            }
+
+            if (!node[componentName][k_pitch]) {
+                Logger::fatal("No pitch variable for scene camera component");
+            }
 
             auto fov = node[componentName][k_fov].as<float>();
             auto zNear = node[componentName][k_zNear].as<float>();
@@ -85,12 +99,12 @@ namespace Dream::Component {
             yaw -= mouseMovement.x * padding;
             pitch += mouseMovement.y * padding;
         }
-//        if (pitch > 2.89) {
-//            pitch = 2.89;
-//        }
-//        if (pitch < -2.89) {
-//            pitch = -2.89;
-//        }
+        if (pitch > 1.56) {
+            pitch = 1.56;
+        }
+        if (pitch < -1.56) {
+            pitch = -1.56;
+        }
         sceneCamera.getComponent<TransformComponent>().rotation = glm::quat(glm::vec3(yaw, pitch, 0));
         updateCameraVectors();
     }
@@ -102,17 +116,15 @@ namespace Dream::Component {
         newFront.z = sin(yaw) * cos(pitch);
         front = glm::normalize(newFront);
         right = glm::normalize(glm::cross(front, worldUp));
-        up = glm::normalize(glm::cross(right, front));
+        up    = glm::normalize(glm::cross(right, front));
     }
 
     void SceneCameraComponent::updateRendererCamera(Dream::Camera &camera, Entity &sceneCameraEntity) {
         auto transformComponent = sceneCameraEntity.getComponent<TransformComponent>();
-        std::cout << "Scene Camera Component yaw: " << yaw << ", pitch: " << pitch << std::endl;
         camera.yaw = yaw;
         camera.pitch = pitch;
         camera.fov = fov;
         camera.position = transformComponent.translation;
-        camera.up = up;
         camera.updateCameraVectors();
     }
 
