@@ -76,8 +76,12 @@ namespace Dream {
 
         // define camera
         Camera camera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};
-        camera.position = {0, 0, 8};
-        camera.updateCameraVectors();
+
+        // update renderer camera using scene camera entity
+        auto sceneCameraEntity = Project::getScene()->getSceneCamera();
+        if (sceneCameraEntity) {
+            sceneCameraEntity.getComponent<Component::SceneCameraComponent>().updateRendererCamera(camera, sceneCameraEntity);
+        }
 
         // OpenGL options (enable blending and depth testing)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -128,10 +132,8 @@ namespace Dream {
 
         // set view and projection matrices for final rendering from camera perspective
         if (flags & RENDER_FLAG_FINAL) {
-            auto projection = camera.getProjectionMatrix();
-            auto view = camera.getViewMatrix();
-            shader->setMat4("projection", projection);
-            shader->setMat4("view", view);
+            shader->setMat4("projection", camera.getProjectionMatrix());
+            shader->setMat4("view", camera.getViewMatrix());
         }
 
         // bind textures for final render

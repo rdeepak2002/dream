@@ -29,6 +29,7 @@
 #include "dream/renderer/Texture.h"
 #include "dream/renderer/AnimationData.h"
 #include "dream/renderer/AssimpNodeData.h"
+#include "dream/renderer/Camera.h"
 
 namespace Dream::Component {
     struct Component {
@@ -378,18 +379,16 @@ namespace Dream::Component {
         float zNear = 0.1f;
         inline static std::string k_zFar = "zFar";
         float zFar = 100.0f;
-        inline static std::string k_front = "front";
-        glm::vec3 front;
-        inline static std::string k_up = "up";
-        glm::vec3 up;
-        inline static std::string k_right = "right";
-        glm::vec3 right;
-        inline static std::string k_worldUp = "worldUp";
-        glm::vec3 worldUp;
         inline static std::string k_yaw = "yaw";
         float yaw;
         inline static std::string k_pitch = "pitch";
         float pitch;
+
+        // computed during runtime
+        glm::vec3 front;
+        glm::vec3 up;
+        glm::vec3 right;
+        glm::vec3 worldUp;
 
         explicit SceneCameraComponent(float fov);
 
@@ -397,11 +396,11 @@ namespace Dream::Component {
 
         static void serialize(YAML::Emitter &out, Entity &entity);
 
-        glm::mat4 getViewMatrix(Entity sceneCamera);
-
         void processInput(Entity sceneCamera, float dt);
 
         void updateCameraVectors();
+
+        void updateRendererCamera(Camera &camera, Entity &sceneCameraEntity);
 
         void lookAt(Entity sceneCamera, glm::vec3 lookAtPos);
     };

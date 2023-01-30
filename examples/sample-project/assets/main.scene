@@ -131,16 +131,12 @@ Entities:
       prev: B8EF7071-0941-4723-86AA-784580C4E737
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [2.1849885, -0.532521486, -1.51473904]
-      rotation: [0.615859926, -0.675886393, 0.272667289, 0.29924354]
+      translation: [0, 0, 8]
+      rotation: [0, 0, 0, 1]
       scale: [1, 1, 1]
     SceneCameraComponent:
       fov: 45
       zNear: 0.100000001
-      zFar: 100000
-      front: [-0.543969929, 0.231747478, 0.806467533]
-      up: [-0.129591674, -0.972776055, 0.192127302]
-      right: [0.829037189, 0, 0.559193373]
-      worldUp: [0, -1, 0]
-      yaw: 124.000038
-      pitch: 13.3999748
+      zFar: 100
+      yaw: -1.57
+      pitch: 0.0
