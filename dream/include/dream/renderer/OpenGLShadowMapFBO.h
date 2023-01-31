@@ -15,8 +15,8 @@ namespace Dream {
         void unbind();
         unsigned int getShadowMap();
     private:
-        unsigned int fbo = 0;
-        unsigned int shadowMap = 0;
+        unsigned int fbo;
+        unsigned int shadowMap;
     };
 }
 

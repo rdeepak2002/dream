@@ -86,31 +86,26 @@ namespace Dream {
         glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
         shadowMapFbo->bindForWriting();
         glClear(GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
         drawScene(camera, simpleDepthShader, RENDER_FLAG_SHADOW);
-        glCullFace(GL_BACK);
-        glDisable(GL_CULL_FACE);
         shadowMapFbo->unbind();
 
-        // draw final, lighted scene to output render texture
+        // reset viewport
         glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        // draw final, lighted scene to output render texture
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         outputRenderTextureFbo->bindFrameBuffer();
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         if (outputRenderTextureFbo->getWidth() != viewportWidth * 2 || outputRenderTextureFbo->getHeight() != viewportHeight * 2) {
             outputRenderTextureFbo->resize(viewportWidth * 2, viewportHeight * 2);
-            glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         }
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         drawScene(camera, simpleLightingShader, RENDER_FLAG_FINAL);
         outputRenderTextureFbo->unbindFrameBuffer();
-
-        // clear frame buffer to color of editor
-        glClearColor(0.1f, 0.105f, 0.11f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glDisable(GL_DEPTH_TEST);
+        glClearColor(0.1f, 0.105f, 0.11f, 1.0f); // set clear color to editor background
+        glClear(GL_COLOR_BUFFER_BIT);
 
         // render the frame buffer as a quad over the entire screen when in full screen mode
         if (fullscreen) {
@@ -132,21 +127,22 @@ namespace Dream {
         // use the shader
         shader->use();
 
+        glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
+
         // set variables for directional light for shadow computations
         if ((flags & RENDER_FLAG_SHADOW) || (flags & RENDER_FLAG_FINAL)) {
-            glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
-            float near_plane = 1.0f, far_plane = 7.5f;
+            float near_plane = 1.0f, far_plane = 20.0f;
             glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
             glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
             glm::mat4 lightSpaceMatrix = lightProjection * lightView;
             shader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
-            shader->setVec3("lightPos", lightPos);
         }
 
         // set view and projection matrices for final rendering from camera perspective
         if (flags & RENDER_FLAG_FINAL) {
             shader->setMat4("projection", camera.getProjectionMatrix());
             shader->setMat4("view", camera.getViewMatrix());
+            shader->setVec3("lightPos", lightPos);
         }
 
         // bind textures for final render
