@@ -1,12 +1,10 @@
 precision highp float;
 out vec4 FragColor;
 
-in VS_OUT {
-    vec3 FragPos;
-    vec3 Normal;
-    vec2 TexCoord;
-    vec4 FragPosLightSpace;
-} fs_in;
+in vec3 FragPos;
+in vec3 Normal;
+in vec2 TexCoord;
+in vec4 FragPosLightSpace;
 
 uniform sampler2D shadowMap;
 uniform vec3 lightPos;
@@ -22,8 +20,8 @@ float ShadowCalculation(vec4 fragPosLightSpace)
     // get depth of current fragment from light's perspective
     float currentDepth = projCoords.z;
     // calculate bias (based on depth map resolution and slope)
-    vec3 normal = normalize(fs_in.Normal);
-    vec3 lightDir = normalize(lightPos - fs_in.FragPos);
+    vec3 normal = normalize(Normal);
+    vec3 lightDir = normalize(lightPos - FragPos);
     float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
     // check whether current frag pos is in shadow
     // float shadow = currentDepth - bias > closestDepth  ? 1.0 : 0.0;
@@ -49,7 +47,7 @@ float ShadowCalculation(vec4 fragPosLightSpace)
 
 void main()
 {
-    float shadow = ShadowCalculation(fs_in.FragPosLightSpace);
+    float shadow = ShadowCalculation(FragPosLightSpace);
     vec3 ambient = vec3(0.3, 0.3, 0.3);
     vec3 diffuse = vec3(0.8, 0.8, 0.8);
     vec3 specular = vec3(0.0, 0.0, 0.0);
