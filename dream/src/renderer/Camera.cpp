@@ -3,11 +3,12 @@
 //
 
 #include "dream/renderer/Camera.h"
+#include <iostream>
 
 namespace Dream {
     Camera::Camera(float viewportWidth, float viewportHeight, float zNear, float zFar, float fov, glm::vec3 position,
                    glm::vec3 up, float yaw, float pitch)
-                   : zNear(zNear), zFar(zFar), fov(fov), front(glm::vec3(0.0f, 0.0f, -1.0f)) {
+            : zNear(zNear), zFar(zFar), fov(fov), front(glm::vec3(0.0f, 0.0f, -1.0f)) {
         this->viewportWidth = viewportWidth;
         this->viewportHeight = viewportHeight;
         this->fov = fov;
@@ -35,5 +36,9 @@ namespace Dream {
     glm::mat4 Camera::getProjectionMatrix() {
         glm::mat4 projection = glm::perspective(glm::radians(fov), (float) viewportWidth / (float) viewportHeight, zNear, zFar);
         return projection;
+    }
+
+    float Camera::getAspect() {
+        return (float) viewportWidth / (float) viewportHeight;
     }
 }

@@ -34,9 +34,11 @@ namespace Dream {
 
         void bindFrameBuffer();
 
-        void unbindFrameBuffer();
+        void bindDefaultFrameBuffer();
 
         void renderScreenQuad();
+
+        void clear();
 
         int getTexture();
 

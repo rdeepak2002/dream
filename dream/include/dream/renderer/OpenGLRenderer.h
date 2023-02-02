@@ -22,14 +22,14 @@
 #include "dream/renderer/Renderer.h"
 #include "dream/renderer/OpenGLShader.h"
 #include "dream/renderer/OpenGLFrameBuffer.h"
+#include "dream/renderer/OpenGLShadowMapFBO.h"
 #include "dream/renderer/OpenGLTexture.h"
 #include "dream/renderer/OpenGLMesh.h"
 #include "dream/renderer/OpenGLSphereMesh.h"
 #include "dream/renderer/Mesh.h"
 #include "dream/scene/Entity.h"
 #include "dream/renderer/OpenGLSkybox.h"
-#include "dream/renderer/OpenGLShadowMapFBO.h"
-#include "dream/renderer/Camera.h"
+#include "Camera.h"
 
 namespace Dream {
     class OpenGLRenderer : public Renderer {
@@ -41,21 +41,46 @@ namespace Dream {
         void render(int viewportWidth, int viewportHeight, bool fullscreen) override;
 
         unsigned int getOutputRenderTexture() override;
-    private:
-        const int RENDER_FLAG_SHADOW = 1;
-        const int RENDER_FLAG_FINAL = 2;
-        int SHADOW_WIDTH = 1024 * 8;
-        int SHADOW_HEIGHT = 1024 * 8;
-        void drawScene(std::optional<Camera> maybeCamera, OpenGLShader* shader, int flags);
-        void drawEntity(Entity entity, OpenGLShader* shader);
-        void drawMesh(OpenGLMesh* openGLMesh);
-        std::optional<Camera> getMainCamera(int viewportWidth, int viewportHeight);
 
-        OpenGLFrameBuffer *outputRenderTextureFbo;
-        OpenGLShadowMapFBO* shadowMapFbo;
-        OpenGLShader* simpleLightingShader;
-        OpenGLShader* simpleDepthShader;
-        OpenGLMesh* cubeMesh;
+    private:
+        OpenGLShader *lightingShader;
+        OpenGLShader *singleTextureShader;
+        OpenGLShader *physicsDebugShader;
+        OpenGLShader *skyboxShader;
+        OpenGLShader *simpleDepthShader;
+        OpenGLFrameBuffer *frameBuffer;
+        std::vector<OpenGLShadowMapFBO *> shadowMapFbos;
+        OpenGLTexture *whiteTexture;
+        OpenGLTexture *blackTexture;
+        OpenGLSkybox *skybox;
+
+        const unsigned int SHADOW_WIDTH = 1024 * 8, SHADOW_HEIGHT = 1024 * 8, NUM_CASCADES = 4;
+
+        void resizeFrameBuffer();
+
+        void printGLVersion();
+
+        void renderEntityAndChildren(Entity entity);
+
+        void applyLighting();
+
+        void renderScene(OpenGLShader* shader);
+
+        void renderSceneHelper(Entity entity, OpenGLShader* shader);
+
+        std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4& projview);
+
+        std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4& proj, const glm::mat4& view);
+
+        glm::mat4 getLightSpaceMatrix(Camera camera, glm::vec3 lightDir, const float nearPlane, const float farPlane);
+
+        std::vector<glm::mat4> getLightSpaceMatrices(Camera camera, glm::vec3 lightDir);
+
+        std::pair<int, int> getViewportDimensions();
+
+        glm::vec3 getDirectionalLightDirection();
+
+        std::vector<float> getShadowCascadeLevels(Camera camera);
     };
 }
 

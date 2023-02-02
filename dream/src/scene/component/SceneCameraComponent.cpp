@@ -125,6 +125,8 @@ namespace Dream::Component {
         camera.pitch = pitch;
         camera.fov = fov;
         camera.position = transformComponent.translation;
+        camera.zFar = zFar;
+        camera.zNear = zNear;
         camera.updateCameraVectors();
     }
 

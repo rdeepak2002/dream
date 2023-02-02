@@ -197,9 +197,9 @@ namespace Dream {
             Entity sceneCamera = Project::getScene()->getSceneCamera();
             if (sceneCamera) {
                 auto selectedTrans = selectedEntity.getComponent<Component::TransformComponent>().translation;
-                glm::vec3 offset = {2, -2, 0};
-                glm::vec3 newPos = glm::vec3(-1 * selectedTrans.x, -1 * selectedTrans.y, selectedTrans.z) + offset;
-                glm::vec3 lookAtPos = glm::vec3(-1 * selectedTrans.x, -1 * selectedTrans.y, selectedTrans.z);
+                glm::vec3 offset = {2, 2, 0};
+                glm::vec3 newPos = glm::vec3(1 * selectedTrans.x, 1 * selectedTrans.y, selectedTrans.z) + offset;
+                glm::vec3 lookAtPos = glm::vec3(1 * selectedTrans.x, 1 * selectedTrans.y, selectedTrans.z);
                 sceneCamera.getComponent<Component::TransformComponent>().translation = newPos;
                 sceneCamera.getComponent<Component::SceneCameraComponent>().lookAt(sceneCamera, lookAtPos);
             }

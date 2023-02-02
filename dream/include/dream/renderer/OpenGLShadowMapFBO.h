@@ -1,5 +1,5 @@
 //
-// Created by Deepak Ramalingam on 1/24/23.
+// Created by Deepak Ramalingam on 2/1/23.
 //
 
 #ifndef DREAM_OPENGLSHADOWMAPFBO_H
@@ -8,15 +8,15 @@
 namespace Dream {
     class OpenGLShadowMapFBO {
     public:
-        OpenGLShadowMapFBO(unsigned int width, unsigned int height);
+        OpenGLShadowMapFBO(int width, int height);
         ~OpenGLShadowMapFBO();
-        void bindForWriting();
-        void bindForReading(int unit);
+        void bind();
         void unbind();
-        unsigned int getShadowMap();
+        void bindForReading(int unit);
+        unsigned int getTexture();
     private:
-        unsigned int fbo;
-        unsigned int shadowMap;
+        unsigned int depthMapFBO;
+        unsigned int depthMap;
     };
 }
 

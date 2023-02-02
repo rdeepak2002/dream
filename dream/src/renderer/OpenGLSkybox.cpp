@@ -67,8 +67,8 @@ namespace Dream {
         std::vector<std::string> faces {
             Project::getPath().append("assets").append("environments").append("skybox").append("default").append("px.png"),
             Project::getPath().append("assets").append("environments").append("skybox").append("default").append("nx.png"),
-            Project::getPath().append("assets").append("environments").append("skybox").append("default").append("ny.png"),
             Project::getPath().append("assets").append("environments").append("skybox").append("default").append("py.png"),
+            Project::getPath().append("assets").append("environments").append("skybox").append("default").append("ny.png"),
             Project::getPath().append("assets").append("environments").append("skybox").append("default").append("pz.png"),
             Project::getPath().append("assets").append("environments").append("skybox").append("default").append("nz.png")
         };
@@ -81,7 +81,7 @@ namespace Dream {
     }
 
     unsigned int OpenGLSkybox::loadCubemap(std::vector<std::string> faces) {
-        stbi_set_flip_vertically_on_load(true);
+        stbi_set_flip_vertically_on_load(false);
         unsigned int textureID;
         glGenTextures(1, &textureID);
         glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
