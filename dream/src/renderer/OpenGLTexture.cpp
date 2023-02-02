@@ -105,8 +105,14 @@ namespace Dream {
 #else
                 glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
 #endif
-            } else {
-                Logger::fatal("Unable to parse texture with " + std::to_string(nrChannels) + " channels");
+            }
+            // TODO: figure this out...
+//            else if (nrChannels == 2) {
+//                format = GL_RG;
+//                glTexImage2D(GL_TEXTURE_2D, 0, GL_RG8, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+//            }
+            else {
+                Logger::fatal("Unable to parse texture with " + std::to_string(nrChannels) + " channels for " + texturePath);
             }
 
             // set the texture wrapping parameters
