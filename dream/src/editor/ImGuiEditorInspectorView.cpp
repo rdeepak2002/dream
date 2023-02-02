@@ -197,9 +197,9 @@ namespace Dream {
             Entity sceneCamera = Project::getScene()->getSceneCamera();
             if (sceneCamera) {
                 auto selectedTrans = selectedEntity.getComponent<Component::TransformComponent>().translation;
-                glm::vec3 offset = {2, -2, 0};
-                glm::vec3 newPos = glm::vec3(-1 * selectedTrans.x, -1 * selectedTrans.y, selectedTrans.z) + offset;
-                glm::vec3 lookAtPos = glm::vec3(-1 * selectedTrans.x, -1 * selectedTrans.y, selectedTrans.z);
+                glm::vec3 offset = {2, 2, 0};
+                glm::vec3 newPos = glm::vec3(1 * selectedTrans.x, 1 * selectedTrans.y, selectedTrans.z) + offset;
+                glm::vec3 lookAtPos = glm::vec3(1 * selectedTrans.x, 1 * selectedTrans.y, selectedTrans.z);
                 sceneCamera.getComponent<Component::TransformComponent>().translation = newPos;
                 sceneCamera.getComponent<Component::SceneCameraComponent>().lookAt(sceneCamera, lookAtPos);
             }
@@ -784,6 +784,9 @@ namespace Dream {
                             if (ImGui::Selectable("Sphere")) {
                                 collider.type = Component::CollisionComponent::SPHERE;
                             }
+                            if (ImGui::Selectable("Cylinder")) {
+                                collider.type = Component::CollisionComponent::CYLINDER;
+                            }
                             if (collider.type != oldColliderType) {
                                 updateColliderAndRigidBody();
                             }
@@ -792,7 +795,10 @@ namespace Dream {
                     }
                     // offset
                     {
-                        renderVec3Control("Offset", collider.offset, treeNodeWidth + 20, 1.0, 0.1, i);
+                        bool modified = renderVec3Control("Offset", collider.offset, treeNodeWidth + 20, 1.0, 0.1, i);
+                        if (modified) {
+                            updateColliderAndRigidBody();
+                        }
                     }
                     // half extents
                     {

@@ -39,6 +39,9 @@ struct SpotLight {
 #define MAX_NR_DIR_LIGHTS 32
 #define MAX_NR_POINT_LIGHTS 32
 #define MAX_NR_SPOT_LIGHTS 32
+#define NUM_CASCADES 4
+
+uniform vec3 ambientColor;
 
 // information from vertex shader
 in vec3 FragPos;
@@ -56,9 +59,15 @@ uniform sampler2D texture_ambient;
 uniform vec4 ambient_color;
 uniform sampler2D texture_normal;
 uniform sampler2D texture_height;
+uniform sampler2D shadowMaps[NUM_CASCADES];
+//uniform mat4 lightSpaceMatrix;
+uniform mat4 lightSpaceMatrices[NUM_CASCADES];
+uniform float cascadePlaneDistances[16];
 
 // light information
+uniform vec3 lightDir;
 uniform vec3 viewPos;
+uniform float farPlane;
 uniform DirLight dirLights[MAX_NR_DIR_LIGHTS];
 uniform PointLight pointLights[MAX_NR_POINT_LIGHTS];
 uniform SpotLight spotLights[MAX_NR_SPOT_LIGHTS];
@@ -66,9 +75,12 @@ uniform int numberOfDirLights;
 uniform int numberOfPointLights;
 uniform int numberOfSpotLights;
 
+uniform mat4 view;
+
 float gamma = 2.2;
 
 // light function prototypes
+float ShadowCalculation(vec4 fragPosLightSpace);
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
@@ -103,9 +115,121 @@ void main()
     for(int i = 0; i < numberOfSpotLights; i++)
     result += CalcSpotLight(spotLights[i], norm, FragPos, viewDir);
 
+    // calculate shadow
+//    result = result * (1.0 - shadow);
+//    result = vec3(shadow, shadow, shadow);
+//    vec3 lighting = (ambient + (1.0 - shadow) * (diffuse + specular)) * color;
+
     result.rgb = pow(result.rgb, vec3(1.0 / gamma));
 
     FragColor = vec4(result, 1.0);
+}
+
+float ShadowCalculation(int cascadeIndex, vec4 fragPosLightSpace)
+{
+//    // perform perspective divide
+//    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+//    // transform to [0,1] range
+//    projCoords = projCoords * 0.5 + 0.5;
+//    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+//    float closestDepth = texture(shadowMap, projCoords.xy).r;
+//    // get depth of current fragment from light's perspective
+//    float currentDepth = projCoords.z;
+//    // check whether current frag pos is in shadow
+//    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
+//
+//    return shadow;
+
+    // perform perspective divide
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    // transform to [0,1] range
+    projCoords = projCoords * 0.5 + 0.5;
+
+    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+    float a;
+    if (cascadeIndex == 0) {
+        a = float(texture(shadowMaps[0], projCoords.xy).r);
+    } else if (cascadeIndex == 1) {
+        a = float(texture(shadowMaps[1], projCoords.xy).r);
+    } else if (cascadeIndex == 2) {
+        a = float(texture(shadowMaps[2], projCoords.xy).r);
+    } else if (cascadeIndex == 3) {
+        a = float(texture(shadowMaps[3], projCoords.xy).r);
+    }
+    float closestDepth = a;
+    // get depth of current fragment from light's perspective
+    float currentDepth = projCoords.z;
+    // calculate bias (based on depth map resolution and slope)
+    vec3 normal = normalize(Normal);
+//    vec3 lightDir = normalize(lightPos - FragPos);
+    float bias = max(0.05f * (1.0 - dot(normal, normalize(lightDir))), 0.005);
+    if (cascadeIndex == 3)
+    {
+        bias = 0.00003f;
+    }
+    else if (cascadeIndex == 2) {
+        bias = 0.0003f;
+    }
+    else if (cascadeIndex == 1) {
+        bias = 0.0003f;
+    }
+    else if (cascadeIndex == 0) {
+        bias = 0.0003f;
+    }
+//    bias = 0.0f;
+    // check whether current frag pos is in shadow
+    // float shadow = currentDepth - bias > closestDepth  ? 1.0 : 0.0;
+    // PCF
+    float shadow = 0.0;
+//    vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+
+    float b;
+    float c;
+
+    if (cascadeIndex == 0) {
+        b = float(textureSize(shadowMaps[0], 0).x);
+        c = float(textureSize(shadowMaps[0], 0).y);
+    } else if (cascadeIndex == 1) {
+        b = float(textureSize(shadowMaps[1], 0).x);
+        c = float(textureSize(shadowMaps[1], 0).y);
+    } else if (cascadeIndex == 2) {
+        b = float(textureSize(shadowMaps[2], 0).x);
+        c = float(textureSize(shadowMaps[2], 0).y);
+    } else if (cascadeIndex == 3) {
+        b = float(textureSize(shadowMaps[3], 0).x);
+        c = float(textureSize(shadowMaps[3], 0).y);
+    }
+
+    vec2 texelSize = vec2(float(1.0) / float(b), float(1.0) / float(c));
+
+
+    for(int x = -1; x <= 1; ++x)
+    {
+        for(int y = -1; y <= 1; ++y)
+        {
+            float d;
+
+            if (cascadeIndex == 0) {
+                d = float(texture(shadowMaps[0], projCoords.xy + vec2(x, y) * texelSize).r);
+            } else if (cascadeIndex == 1) {
+                d = float(texture(shadowMaps[1], projCoords.xy + vec2(x, y) * texelSize).r);
+            } else if (cascadeIndex == 2) {
+                d = float(texture(shadowMaps[2], projCoords.xy + vec2(x, y) * texelSize).r);
+            } else if (cascadeIndex == 3) {
+                d = float(texture(shadowMaps[3], projCoords.xy + vec2(x, y) * texelSize).r);
+            }
+
+            float pcfDepth = d;
+            shadow += currentDepth - bias > pcfDepth  ? 1.0 : 0.0;
+        }
+    }
+    shadow /= 9.0;
+
+    // keep the shadow at 0.0 when outside the far_plane region of the light's frustum.
+    if(projCoords.z > 1.0)
+    shadow = 0.0;
+
+    return shadow;
 }
 
 // calculates the color when using a directional light.
@@ -128,7 +252,56 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
     vec3 diffuse = light.diffuse * diff * vec3(diffuse_color) * vec3(pow(texture(texture_diffuse1, TexCoord).rgb, vec3(gamma)));
 //    vec3 diffuse = light.diffuse * diff * vec3(diffuse_color) * vec3(texture(texture_diffuse1, TexCoord));
     vec3 specular = light.specular * spec * vec3(specular_color) * vec3(texture(texture_specular, TexCoord));
-    return (ambient + diffuse + specular);
+//    return (ambient + diffuse + specular);
+
+    // TODO: iterate through light space matrices
+    float shadow = 0.0f;
+
+    // select cascade layer
+    vec4 fragPosViewSpace = view * vec4(FragPos, 1.0);
+    float depthValue = abs(fragPosViewSpace.z);
+
+    int layer = -1;
+
+    vec3 shadowCascadeDebugColor = vec3(0, 0, 0);
+
+    for (int i = 0; i < NUM_CASCADES; ++i)
+    {
+        if (depthValue < cascadePlaneDistances[i])
+        {
+            if (i == 0) {
+//                shadowCascadeDebugColor = vec3(1.0, 0.0, 0.0);
+            }
+            if (i == 1) {
+//                shadowCascadeDebugColor = vec3(0.0, 1.0, 0.0);
+            }
+            if (i == 2) {
+//                shadowCascadeDebugColor = vec3(0.0, 0.0, 1.0);
+            }
+            if (i == 3) {
+//                shadowCascadeDebugColor = vec3(1.0, 1.0, 0.0);
+            }
+            layer = i;
+            break;
+        }
+    }
+    if (layer == -1)
+    {
+        layer = NUM_CASCADES - 1;
+    }
+
+    int cascadeIndex = layer;
+    vec4 FragPosLightSpace = lightSpaceMatrices[cascadeIndex] * vec4(FragPos, 1.0);
+    float shadowFactor = ShadowCalculation(cascadeIndex, FragPosLightSpace);
+    shadow += shadowFactor;
+
+//    for (int cascadeIndex = 0; cascadeIndex < NUM_CASCADES; cascadeIndex++) {
+//        vec4 FragPosLightSpace = lightSpaceMatrices[cascadeIndex] * vec4(FragPos, 1.0);
+//        float shadowFactor = ShadowCalculation(cascadeIndex, FragPosLightSpace);
+//        shadow += shadowFactor;
+//    }
+    vec3 lighting = ambientColor * ambient + ((1.0 - shadow) * (diffuse + specular)) * vec3(diffuse_color) + shadowCascadeDebugColor;
+    return lighting;
 }
 
 // calculates the color when using a point light.

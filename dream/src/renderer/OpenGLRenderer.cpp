@@ -19,6 +19,7 @@
 #include "dream/renderer/OpenGLRenderer.h"
 #include <iostream>
 #include <glm/glm.hpp>
+#include <glm/gtx/string_cast.hpp>
 #include <glad/glad.h>
 #include "dream/project/Project.h"
 #include "dream/scene/Entity.h"
@@ -50,6 +51,10 @@ namespace Dream {
                                               Project::getPath().append("assets").append("shaders").append(
                                                       "skybox.frag").c_str(), nullptr);
 
+        simpleDepthShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shadow_mapping_depth.vert").c_str(),
+                                        Project::getPath().append("assets").append("shaders").append(
+                                                "shadow_mapping_depth.frag").c_str(), nullptr);
+
         skybox = new OpenGLSkybox();
 
         whiteTexture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("white.png"));
@@ -57,6 +62,11 @@ namespace Dream {
         blackTexture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("black.png"));
 
         frameBuffer = new OpenGLFrameBuffer();
+
+        for (int i = 0; i < NUM_CASCADES; ++i) {
+            auto shadowMapFbo = new OpenGLShadowMapFBO((int) SHADOW_WIDTH, (int) SHADOW_HEIGHT);
+            shadowMapFbos.push_back(shadowMapFbo);
+        }
 
         // load primitive shapes
         if (!Project::getResourceManager()->hasMeshData("sphere")) {
@@ -72,108 +82,115 @@ namespace Dream {
         delete this->lightingShader;
         delete this->singleTextureShader;
         delete this->physicsDebugShader;
+        delete this->simpleDepthShader;
         delete this->frameBuffer;
+        for (int i = 0; i < NUM_CASCADES; ++i) {
+            delete shadowMapFbos.at(i);
+        }
         delete this->whiteTexture;
         delete this->blackTexture;
     }
 
-    void OpenGLRenderer::preRender(int viewportWidth, int viewportHeight, bool fullscreen) {
-        this->frameBuffer->bindFrameBuffer();
-        this->resizeFrameBuffer();
-        this->updateViewportSize(viewportWidth, viewportHeight, fullscreen);
-    }
-
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
-        Input::setPlayWindowActive(true);
-        this->preRender(viewportWidth, viewportHeight, fullscreen);
-
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
         glEnable(GL_DEPTH_TEST);
-        glEnable(GL_CULL_FACE);
 
-        auto sceneCamera = Project::getScene()->getSceneCamera();
-        auto mainCamera = Project::getScene()->getMainCamera();
+        Input::setPlayWindowActive(true);
 
-        if ((Project::isPlaying() && mainCamera) || (!Project::isPlaying() && sceneCamera)) {
-            glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // renderer camera
+        std::optional<Camera> maybeCamera;
 
-            // calculate projection and view using current camera
-            glm::mat4 projection;
-            if (Project::isPlaying()) {
-                projection = glm::perspective(glm::radians(mainCamera.getComponent<Component::CameraComponent>().fov),
-                                              (float) viewportWidth / (float) viewportHeight,
-                                              mainCamera.getComponent<Component::CameraComponent>().zNear,
-                                              mainCamera.getComponent<Component::CameraComponent>().zFar);
-            } else {
-                projection = glm::perspective(
-                        glm::radians(sceneCamera.getComponent<Component::SceneCameraComponent>().fov),
-                        (float) viewportWidth / (float) viewportHeight,
-                        sceneCamera.getComponent<Component::SceneCameraComponent>().zNear,
-                        sceneCamera.getComponent<Component::SceneCameraComponent>().zFar);
-            }
+        // TODO: get main camera instead when game is playing
+        // update renderer camera using scene camera entity's position and camera attributes like yaw, pitch, and fov
+        auto sceneCameraEntity = Project::getScene()->getSceneCamera();
+        if (sceneCameraEntity) {
+            maybeCamera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};
+            sceneCameraEntity.getComponent<Component::SceneCameraComponent>().updateRendererCamera(*maybeCamera, sceneCameraEntity);
+        }
 
-            glm::mat4 view;
-            if (Project::isPlaying()) {
-                view = mainCamera.getComponent<Component::CameraComponent>().getViewMatrix(mainCamera);
-            } else {
-                view = sceneCamera.getComponent<Component::SceneCameraComponent>().getViewMatrix(sceneCamera);
-            }
+        if (maybeCamera) {
+            auto camera = *maybeCamera;
 
-            // draw meshes
+            // TODO: store multiple light space matrices and pass them into shader
+            auto lightSpaceMatrices = getLightSpaceMatrices(camera, getDirectionalLightDirection());
+
+            // render scene from light's point of view
             {
+                glEnable(GL_DEPTH_CLAMP);
+                for (int i = 0; i < NUM_CASCADES; ++i) {
+                    glm::mat4 lightSpaceMatrix = lightSpaceMatrices.at(i);
+                    simpleDepthShader->use();
+                    // TODO: iterate through cascades and set each one for each shadow map fbo object
+                    simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
+                    glViewport(0, 0, (int) SHADOW_WIDTH, (int) SHADOW_HEIGHT);
+                    shadowMapFbos.at(i)->bind();
+                    glClear(GL_DEPTH_BUFFER_BIT);
+                    renderScene(simpleDepthShader);
+                    shadowMapFbos.at(i)->unbind();
+                    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+                }
+                glDisable(GL_DEPTH_CLAMP);
+            }
+
+            {
+                // bind frame buffer for drawing to output render texture
+                glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+                this->frameBuffer->bindFrameBuffer();
+                this->resizeFrameBuffer();
+                glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            }
+
+            {
+                // draw meshes
                 if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
                     lightingShader->use();
-                    lightingShader->setMat4("projection", projection);
-                    lightingShader->setMat4("view", view);
-//                    auto trans = glm::mat4(1.0);
-//                    if (mainCamera) {
-//                        trans = mainCamera.getComponent<Component::TransformComponent>().getTransform(mainCamera);
-//                    } else if (sceneCamera) {
-//                        trans = mainCamera.getComponent<Component::TransformComponent>().getTransform(sceneCamera);
-//                    } else {
-//                        Logger::fatal("Unable to compute transformation for camera");
-//                    }
-//                    glm::vec3 cameraPos;
-//                    glm::quat cameraRot;
-//                    glm::vec3 cameraScale;
-//                    MathUtils::decomposeMatrix(trans, cameraPos, cameraRot, cameraScale);
-//                    lightingShader->setVec3("viewPos", cameraPos);
-                    glm::vec3 viewPos = {1, 1, 1};
-                    if (mainCamera) {
-                        viewPos = mainCamera.getComponent<Component::TransformComponent>().translation;
-                    } else if (sceneCamera) {
-                        viewPos = sceneCamera.getComponent<Component::TransformComponent>().translation;
-                    } else {
-                        Logger::fatal("Unable to set view pos due to missing camera");
-                    }
-//                    viewPos.x *= -1;
+                    lightingShader->setMat4("projection", camera.getProjectionMatrix());
+                    lightingShader->setMat4("view", camera.getViewMatrix());
+                    lightingShader->setFloat("farPlane", camera.zFar);
+                    // TODO: use global position
+                    glm::vec3 viewPos = camera.position;
                     lightingShader->setVec3("viewPos", viewPos);
                     applyLighting();
+                    lightingShader->setVec3("lightDir", getDirectionalLightDirection());
+//                    lightingShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
+                    for (int i = 0; i < NUM_CASCADES; ++i) {
+                        lightingShader->setMat4("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices.at(i));
+                    }
+
+                    auto shadowCascadeLevels = getShadowCascadeLevels(camera);
+                    for (int i = 0; i < shadowCascadeLevels.size(); ++i) {
+                        lightingShader->setFloat("cascadePlaneDistances[" + std::to_string(i) + "]", shadowCascadeLevels.at(i));
+                    }
                 } else {
                     singleTextureShader->use();
-                    singleTextureShader->setMat4("projection", projection);
-                    singleTextureShader->setMat4("view", view);
+                    singleTextureShader->setMat4("projection", camera.getProjectionMatrix());
+                    singleTextureShader->setMat4("view", camera.getViewMatrix());
                 }
                 renderEntityAndChildren(Project::getScene()->getRootEntity());
             }
 
-            // draw physics debug
-            if (Project::getConfig().physicsConfig.physicsDebugger && (!Project::isPlaying() || (Project::isPlaying() && Project::getConfig().physicsConfig.physicsDebuggerWhilePlaying))) {
-                if (Project::getConfig().physicsConfig.depthTest) {
-                    glEnable(GL_DEPTH_TEST);
-                } else {
-                    glDisable(GL_DEPTH_TEST);
-                }
-                physicsDebugShader->use();
-                physicsDebugShader->setMat4("projection", projection);
-                physicsDebugShader->setMat4("view", view);
-                if (Project::getScene()->getPhysicsComponentSystem()) {
-                    Project::getScene()->getPhysicsComponentSystem()->debugDrawWorld();
-                }
-                if (!Project::getConfig().physicsConfig.depthTest) {
-                    glEnable(GL_DEPTH_TEST);
+            {
+                // draw physics debug
+                if (Project::getConfig().physicsConfig.physicsDebugger && (!Project::isPlaying() || (Project::isPlaying() && Project::getConfig().physicsConfig.physicsDebuggerWhilePlaying))) {
+                    if (Project::getConfig().physicsConfig.depthTest) {
+                        glEnable(GL_DEPTH_TEST);
+                    } else {
+                        glDisable(GL_DEPTH_TEST);
+                    }
+                    physicsDebugShader->use();
+                    physicsDebugShader->setMat4("projection", camera.getProjectionMatrix());
+                    physicsDebugShader->setMat4("view", camera.getViewMatrix());
+                    if (Project::getScene()->getPhysicsComponentSystem()) {
+                        Project::getScene()->getPhysicsComponentSystem()->debugDrawWorld();
+                    }
+                    if (!Project::getConfig().physicsConfig.depthTest) {
+                        glEnable(GL_DEPTH_TEST);
+                    }
                 }
             }
 
@@ -182,9 +199,9 @@ namespace Dream {
                 // draw skybox as last
                 glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
                 skyboxShader->use();
-                view = glm::mat4(glm::mat3(view));
-                skyboxShader->setMat4("view", view);
-                skyboxShader->setMat4("projection", projection);
+                auto skyboxView = glm::mat4(glm::mat3(camera.getViewMatrix()));
+                skyboxShader->setMat4("view", skyboxView);
+                skyboxShader->setMat4("projection", camera.getProjectionMatrix());
                 skyboxShader->setInt("skybox", 0);
                 // skybox cube
                 glBindVertexArray(skybox->getVAO());
@@ -199,7 +216,100 @@ namespace Dream {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         }
 
-        this->postRender(fullscreen);
+        // bind the default screen frame buffer
+        this->frameBuffer->bindDefaultFrameBuffer();
+
+        // clear framebuffer and return its texture
+        this->frameBuffer->clear();
+
+        if (fullscreen) {
+            this->frameBuffer->renderScreenQuad();
+        }
+    }
+
+    void OpenGLRenderer::renderScene(Dream::OpenGLShader *shader) {
+        shader->use();
+        renderSceneHelper(Project::getScene()->getRootEntity(), shader);
+    }
+
+    void OpenGLRenderer::renderSceneHelper(Dream::Entity entity, Dream::OpenGLShader *shader) {
+        if (entity.hasComponent<Component::MeshComponent>()) {
+            // load mesh of entity
+            // TODO: only load when necessary (add a flag internally - and reset it when fields are modified)
+            entity.getComponent<Component::MeshComponent>().loadMesh();
+
+            // get transform of entity
+            glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
+            if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
+                shader->setMat4("model", model);
+            }
+
+            // part 1
+            // initialize bones for animated meshes
+            std::vector<glm::mat4> finalBoneMatrices;
+            if (entity.hasComponent<Component::AnimatorComponent>()) {
+                if (entity.hasComponent<Component::MeshComponent>()) {
+                    entity.getComponent<Component::MeshComponent>().loadMesh();
+                } else {
+                    Logger::fatal("No mesh component for entity with animator so bones cannot be loaded");
+                }
+                if (entity.getComponent<Component::AnimatorComponent>().needsToLoadAnimations) {
+                    entity.getComponent<Component::AnimatorComponent>().loadStateMachine(entity);
+                }
+                finalBoneMatrices = entity.getComponent<Component::AnimatorComponent>().m_FinalBoneMatrices;
+            }
+
+            // set bones for animation
+            for (int i = 0; i < finalBoneMatrices.size(); i++) {
+                simpleDepthShader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", finalBoneMatrices[i]);
+            }
+
+            // draw mesh of entity
+            if (!entity.getComponent<Component::MeshComponent>().fileId.empty() || entity.getComponent<Component::MeshComponent>().meshType != Component::MeshComponent::FROM_FILE) {
+                auto guid = entity.getComponent<Component::MeshComponent>().guid;
+                auto fileId = entity.getComponent<Component::MeshComponent>().fileId;
+
+                // TODO: make handling of primitives cleaner - maybe store their mesh data somewhere else like in constructor of this class
+                if (entity.getComponent<Component::MeshComponent>().meshType != Component::MeshComponent::FROM_FILE) {
+                    if (entity.getComponent<Component::MeshComponent>().meshType == Component::MeshComponent::PRIMITIVE_CUBE) {
+                        guid = "cube";
+                        fileId = "";
+                    } else if (entity.getComponent<Component::MeshComponent>().meshType == Component::MeshComponent::PRIMITIVE_SPHERE) {
+                        guid = "sphere";
+                        fileId = "";
+                    } else {
+                        Logger::fatal("Unknown primitive type to find GUID for");
+                    }
+                }
+
+                auto mesh = Project::getResourceManager()->getMeshData(guid, fileId);
+                if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
+                    if (!openGLMesh->getIndices().empty()) {
+                        // case where vertices are indexed
+                        auto numIndices = openGLMesh->getIndices().size();
+                        glBindVertexArray(openGLMesh->getVAO());
+                        glDrawElements(GL_TRIANGLES, (int) numIndices, GL_UNSIGNED_INT, nullptr);
+                        glBindVertexArray(0);
+                    } else if (!openGLMesh->getVertices().empty()) {
+                        // case where vertices are not indexed
+                        glBindVertexArray(openGLMesh->getVAO());
+                        glDrawArrays(GL_TRIANGLES, 0, (int) openGLMesh->getVertices().size());
+                        glBindVertexArray(0);
+                    } else {
+                        Logger::fatal("Unable to render mesh");
+                    }
+                } else {
+                    Logger::fatal("Unable to dynamic cast Mesh to type OpenGLMesh for entity " + entity.getComponent<Component::IDComponent>().id);
+                }
+            }
+        }
+
+        // repeat process for children
+        Entity child = entity.getComponent<Component::HierarchyComponent>().first;
+        while (child) {
+            renderSceneHelper(child, shader);
+            child = child.getComponent<Component::HierarchyComponent>().next;
+        }
     }
 
     void OpenGLRenderer::renderEntityAndChildren(Entity entity) {
@@ -350,6 +460,14 @@ namespace Dream {
                         whiteTexture->bind(4);
                     }
                 }
+
+                // load shadow map
+                int shadowMapTexturesStart = 5;
+                for (int i = 0; i < NUM_CASCADES; ++i) {
+                    int textureIndex = shadowMapTexturesStart + i;
+                    lightingShader->setInt("shadowMaps[" + std::to_string(i) + "]", textureIndex);
+                    shadowMapFbos.at(i)->bindForReading(textureIndex);
+                }
             } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::DIFFUSE) {
                 // debug diffuse
                 singleTextureShader->setVec4("color", {1, 1, 1, 1});
@@ -468,18 +586,6 @@ namespace Dream {
         }
     }
 
-    void OpenGLRenderer::postRender(bool fullscreen) {
-        // bind the default screen frame buffer
-        this->frameBuffer->bindDefaultFrameBuffer();
-
-        // clear framebuffer and return its texture
-        this->frameBuffer->clear();
-
-        if (fullscreen) {
-            this->frameBuffer->renderScreenQuad();
-        }
-    }
-
     void OpenGLRenderer::resizeFrameBuffer() {
         // resize framebuffer whenever there is a new viewport size
         GLint viewportWidth = this->getViewportDimensions().first;
@@ -501,17 +607,9 @@ namespace Dream {
         return std::make_pair(dims[2], dims[3]);
     }
 
-    void OpenGLRenderer::updateViewportSize(int viewportWidth, int viewportHeight, bool fullscreen) {
-#ifdef EMSCRIPTEN
-        if (fullscreen) {
-            auto dpiScale = 2;
-            glViewport(0, 0, viewportWidth * dpiScale, viewportHeight * dpiScale);
-        }
-#endif
-    }
-
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
         return this->frameBuffer->getTexture();
+//        return this->shadowMapFbo->getTexture();
     }
 
     void OpenGLRenderer::applyLighting() {
@@ -530,6 +628,8 @@ namespace Dream {
                 Logger::fatal("Unknown light type");
             }
         }
+
+        lightingShader->setVec3("ambientColor", glm::vec3(0.15, 0.15, 0.15));
 
         // define current number of point lights
         lightingShader->setInt("numberOfDirLights", (int) directionalLights.size());
@@ -553,8 +653,6 @@ namespace Dream {
             std::string prefix = "pointLights[" + std::to_string(i) + "]";
             // TODO: get global translation
             auto lightPos = lightEntity.getComponent<Component::TransformComponent>().translation;
-            lightPos.x *= -1;
-            lightPos.y *= -1;
             lightingShader->setVec3(prefix + ".position", lightPos);
             lightingShader->setVec3(prefix + ".ambient", lightComponent.color);
             lightingShader->setVec3(prefix + ".diffuse", lightComponent.color);
@@ -580,5 +678,131 @@ namespace Dream {
             lightingShader->setFloat(prefix + ".cutOff", glm::cos(glm::radians(lightComponent.cutOff)));
             lightingShader->setFloat(prefix + ".outerCutOff", glm::cos(glm::radians(lightComponent.outerCutOff)));
         }
+    }
+
+    std::vector<glm::vec4> OpenGLRenderer::getFrustumCornersWorldSpace(const glm::mat4& projview)
+    {
+        const auto inv = glm::inverse(projview);
+
+        std::vector<glm::vec4> frustumCorners;
+        for (unsigned int x = 0; x < 2; ++x)
+        {
+            for (unsigned int y = 0; y < 2; ++y)
+            {
+                for (unsigned int z = 0; z < 2; ++z)
+                {
+                    const glm::vec4 pt = inv * glm::vec4(2.0f * x - 1.0f, 2.0f * y - 1.0f, 2.0f * z - 1.0f, 1.0f);
+                    frustumCorners.push_back(pt / pt.w);
+                }
+            }
+        }
+
+        return frustumCorners;
+    }
+
+    std::vector<glm::vec4> OpenGLRenderer::getFrustumCornersWorldSpace(const glm::mat4& proj, const glm::mat4& view)
+    {
+        return getFrustumCornersWorldSpace(proj * view);
+    }
+
+    glm::mat4 OpenGLRenderer::getLightSpaceMatrix(Camera camera, glm::vec3 lightDir, const float nearPlane, const float farPlane)
+    {
+        const auto proj = glm::perspective(glm::radians(camera.fov), camera.getAspect(), nearPlane,farPlane);
+        const auto corners = getFrustumCornersWorldSpace(proj, camera.getViewMatrix());
+
+        glm::vec3 center = glm::vec3(0, 0, 0);
+        for (const auto& v : corners)
+        {
+            center += glm::vec3(v);
+        }
+        center /= corners.size();
+
+        const auto lightView = glm::lookAt(center + lightDir, center, glm::vec3(0.0f, 1.0f, 0.0f));
+
+        float minX = std::numeric_limits<float>::max();
+        float maxX = std::numeric_limits<float>::lowest();
+        float minY = std::numeric_limits<float>::max();
+        float maxY = std::numeric_limits<float>::lowest();
+        float minZ = std::numeric_limits<float>::max();
+        float maxZ = std::numeric_limits<float>::lowest();
+        for (const auto& v : corners)
+        {
+            const auto trf = lightView * v;
+            minX = std::min(minX, trf.x);
+            maxX = std::max(maxX, trf.x);
+            minY = std::min(minY, trf.y);
+            maxY = std::max(maxY, trf.y);
+            minZ = std::min(minZ, trf.z);
+            maxZ = std::max(maxZ, trf.z);
+        }
+
+        // Tune this parameter according to the scene
+        // TODO: figure out why this parameter needs to be tuned
+        constexpr float zMult = 10.0f;
+        if (minZ < 0)
+        {
+            minZ *= zMult;
+        }
+        else
+        {
+            minZ /= zMult;
+        }
+        if (maxZ < 0)
+        {
+            maxZ /= zMult;
+        }
+        else
+        {
+            maxZ *= zMult;
+        }
+
+        const glm::mat4 lightProjection = glm::ortho(minX, maxX, minY, maxY, -maxZ, -minZ);
+
+        return lightProjection * lightView;
+    }
+
+    std::vector<glm::mat4> OpenGLRenderer::getLightSpaceMatrices(Camera camera, glm::vec3 lightDir)
+    {
+        auto shadowCascadeLevels = getShadowCascadeLevels(camera);
+        std::vector<glm::mat4> ret;
+        for (size_t i = 0; i < shadowCascadeLevels.size() + 1; ++i)
+        {
+            if (i == 0)
+            {
+                ret.push_back(getLightSpaceMatrix(camera, lightDir, camera.zNear, shadowCascadeLevels[i]));
+            }
+            else if (i < shadowCascadeLevels.size())
+            {
+                ret.push_back(getLightSpaceMatrix(camera, lightDir, shadowCascadeLevels[i - 1], shadowCascadeLevels[i]));
+            }
+            else
+            {
+                ret.push_back(getLightSpaceMatrix(camera, lightDir, shadowCascadeLevels[i - 1], camera.zNear));
+            }
+        }
+        return ret;
+    }
+
+    glm::vec3 OpenGLRenderer::getDirectionalLightDirection() {
+        glm::vec3 lightDir(1, 0, 0);
+        auto lightEntities = Project::getScene()->getEntitiesWithComponents<Component::LightComponent>();
+        for (const auto &lightEntity : lightEntities) {
+            Entity entity = {lightEntity, Project::getScene()};
+            if (entity.getComponent<Component::LightComponent>().type == Component::LightComponent::LightType::DIRECTIONAL) {
+                // TODO: get global translation
+                lightDir = glm::normalize(entity.getComponent<Component::TransformComponent>().getFront());
+                lightDir *= -1;
+            }
+        }
+        return lightDir;
+    }
+
+    std::vector<float> OpenGLRenderer::getShadowCascadeLevels(Camera camera) {
+        float cameraFarPlane = camera.zFar;
+        std::vector<float> shadowCascadeLevels{ 8.0f * 2, 34.0f * 2, 72.0f * 2, 500.0f * 2 };
+//        std::vector<float> shadowCascadeLevels{ cameraFarPlane / 26.0f, cameraFarPlane / 15.0f, cameraFarPlane / 7.0f, cameraFarPlane - 0.001f };
+//        std::vector<float> shadowCascadeLevels{ cameraFarPlane / 26.0f, cameraFarPlane / 15.0f, cameraFarPlane / 7.0f, cameraFarPlane / 2.0f };
+        assert(NUM_CASCADES == shadowCascadeLevels.size());
+        return shadowCascadeLevels;
     }
 }

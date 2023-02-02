@@ -33,6 +33,7 @@ namespace Dream {
     }
 
     PhysicsComponentSystem::~PhysicsComponentSystem() {
+//        clearWorld();
         delete dynamicsWorld;
         delete solver;
         delete overlappingPairCache;
@@ -43,7 +44,7 @@ namespace Dream {
     void PhysicsComponentSystem::update(float dt) {
         // update dynamic world
         float timeStep = dt;
-        dynamicsWorld->stepSimulation(timeStep, 10, 1 / 120.0);
+        dynamicsWorld->stepSimulation(timeStep);
 
         // update all entities with rigid bodies
         auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::RigidBodyComponent>();

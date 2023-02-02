@@ -54,22 +54,29 @@
             height: 0;
         }
         #output {
-            background-color: hsla(240,10%,10%,0.0);
-            color: black;
-            border: none;
-            padding: 0 1em;
             position: absolute;
-            right: 0; width: 50%;
-            bottom: 0;
+
+            /*background-color: hsla(240,10%,10%,0.0);*/
+            /*color: black;*/
+            /*border: none;*/
+            /*padding: 0 1em;*/
+            /*position: absolute;*/
+            /*right: 0; width: 50%;*/
+            /*bottom: 0;*/
         }
     </style>
 </head>
 <body>
-<div id="status">Downloading...</div>
+
+<div>
+    <p style="color: white;" id="output">Test</p>
+</div>
 
 <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
 
 <script type='text/javascript'>
+    const outputElement = document.getElementById('output');
+
     var Module = {
         print: (function(text) {
             return function(text) {
@@ -82,10 +89,12 @@
         },
         getPreloadedPackage: function(remotePackageName, remotePackageSize) {
             console.log("remote package name", remotePackageName);
-            console.log("remote pacakge size", remotePackageSize);
+            console.log("remote package size", remotePackageSize);
+            return Module['downloadedData'];
         },
         canvas: document.getElementById('canvas'),
         onRuntimeInitialized: function() {
+            outputElement.remove();
             let disablePointerLock = Module.cwrap('disablePointerLock', null, []);
             document.addEventListener('pointerlockchange', lockChangeAlert, false);
             function lockChangeAlert() {
@@ -97,13 +106,79 @@
         totalDependencies: 0,
         monitorRunDependencies: function(left) {
             this.totalDependencies = Math.max(this.totalDependencies, left);
-            let dependencyDownloadStatus = left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.';
-            // if (element) element.value += dependencyDownloadStatus + "\n";
-            // if (element) element.scrollTop = element.scrollHeight; // focus on bottom
-            console.log(dependencyDownloadStatus);
+            const frac = (this.totalDependencies - left) / this.totalDependencies;
+            const percent = Math.floor(frac * 100);
+            if (percent === 99) {
+                outputElement.innerText = `Loading Project`;
+            } else {
+                outputElement.innerText = `Initializing (${percent}%)`;
+            }
+        },
+        locateFile: function(path, prefix) {
+            // console.log(path, prefix);
+            // return 'https://dream-web-demo.s3.amazonaws.com/dream/' + path;
+            return prefix + path;
         }
     };
+
+    function download(url, name) {
+        outputElement.innerText = `Downloading ${name}`;
+
+        return new Promise(function(resolve, reject) {
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function() {
+                resolve(xhr.response);
+                outputElement.innerText = "Downloaded " + url;
+            };
+            xhr.onprogress = function(evt) {
+                if (evt.lengthComputable) {
+                    const percentComplete = (evt.loaded / evt.total) * 100;
+                    outputElement.innerText = `Downloading ${name} (${Math.floor(percentComplete)}%)`;
+                }
+            };
+            xhr.onerror = function(e) {
+                reject(e);
+                outputElement.innerText = "Failed to download " + url;
+            };
+            xhr.send(null);
+        });
+    }
+
+    function addScriptToDom(scriptCode) {
+        outputElement.innerText = "Loading Engine JS";
+
+        return new Promise(function(resolve, reject) {
+            let script = document.createElement('script');
+            let blob = new Blob([scriptCode], { type: 'application/javascript' });
+            let objectUrl = URL.createObjectURL(blob);
+            script.src = objectUrl;
+            script.onload = function() {
+                outputElement.innerText = "Loaded Engine JS";
+                script.onload = script.onerror = null; // Remove these onload and onerror handlers, because these capture the inputs to the Promise and the input function, which would leak a lot of memory!
+                URL.revokeObjectURL(objectUrl); // Free up the blob. Note that for debugging purposes, this can be useful to comment out to be able to read the sources in debugger.
+                resolve();
+            }
+            script.onerror = function(e) {
+                outputElement.innerText = "Failed to load engine JS";
+                script.onload = script.onerror = null; // Remove these onload and onerror handlers, because these capture the inputs to the Promise and the input function, which would leak a lot of memory!
+                URL.revokeObjectURL(objectUrl);
+                console.error('script failed to add to dom: ' + e);
+                reject(e.message || "(out of memory?)");
+                alert("Error loading script. Dom might have run out of memory.");
+            }
+            document.body.appendChild(script);
+        });
+    }
+
+    var dataDownload = download('dream.data', 'Assets').then(function(data) {
+        Module['downloadedData'] = data;
+        var jsDownload = download('dream.js', 'Dream Engine JS').then(function(data) {
+            Module['mainScriptUrlOrBlob'] = new Blob([data]);
+            addScriptToDom(data);
+        });
+    });
 </script>
-<script async type="text/javascript" src="dream.js"></script>
 </body>
 </html>

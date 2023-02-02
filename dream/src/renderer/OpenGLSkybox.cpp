@@ -62,12 +62,13 @@ namespace Dream {
         glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-        Logger::warn("Load skybox from engine resources rather than project unless specified otherwise");
+        // TODO: Load skybox from engine resources rather than project unless specified otherwise
+//        Logger::warn("Load skybox from engine resources rather than project unless specified otherwise");
         std::vector<std::string> faces {
             Project::getPath().append("assets").append("environments").append("skybox").append("default").append("px.png"),
             Project::getPath().append("assets").append("environments").append("skybox").append("default").append("nx.png"),
-            Project::getPath().append("assets").append("environments").append("skybox").append("default").append("ny.png"),
             Project::getPath().append("assets").append("environments").append("skybox").append("default").append("py.png"),
+            Project::getPath().append("assets").append("environments").append("skybox").append("default").append("ny.png"),
             Project::getPath().append("assets").append("environments").append("skybox").append("default").append("pz.png"),
             Project::getPath().append("assets").append("environments").append("skybox").append("default").append("nz.png")
         };
@@ -80,7 +81,7 @@ namespace Dream {
     }
 
     unsigned int OpenGLSkybox::loadCubemap(std::vector<std::string> faces) {
-        stbi_set_flip_vertically_on_load(true);
+        stbi_set_flip_vertically_on_load(false);
         unsigned int textureID;
         glGenTextures(1, &textureID);
         glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);

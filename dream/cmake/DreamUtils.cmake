@@ -1,5 +1,9 @@
 macro(DREAM_FIND_AND_LINK_LIBRARIES)
     if (EMSCRIPTEN)
+        # Link QuickJS
+        add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/external/quickjs")
+        include_directories(include/quickjs)
+
         # Link assimp library
         link_libraries("${CMAKE_CURRENT_SOURCE_DIR}/build.web/assimp-5.2.5/lib/libassimp.a")
         include_directories("${CMAKE_CURRENT_SOURCE_DIR}/build.web/assimp-5.2.5/include")
@@ -10,6 +14,10 @@ macro(DREAM_FIND_AND_LINK_LIBRARIES)
         # Lin lua library
         link_libraries("${CMAKE_CURRENT_SOURCE_DIR}/build.web/lua-5.4.4/src/liblua.a")
     else()
+        # Link QuickJS
+        add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/external/quickjs")
+        include_directories(include/quickjs)
+
         # Link OpenGL library
         find_package(OpenGL REQUIRED)
         if(NOT OPENGL_FOUND)
@@ -62,6 +70,9 @@ macro(DREAM_FIND_AND_LINK_LIBRARIES)
 endmacro()
 
 macro(DREAM_FIND_AND_LINK_LIBRARIES_PART_2)
+    # Link QuickJS
+    target_link_libraries(${PROJECT_NAME} quickjs)
+
     if (EMSCRIPTEN)
         # Link lua library
         set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "... -L${CMAKE_CURRENT_SOURCE_DIR}/build.web/lua-5.4.4/src -s ...")
