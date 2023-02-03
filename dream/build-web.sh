@@ -112,10 +112,16 @@ make
 RESULT=$?
 
 if [ $RESULT -eq 0 ]; then
+  if [[ $OSTYPE == 'darwin'* ]]; then
+    say "Build succeeded"
+  fi
   cd ..
   cd build.web
   http-server -o app
 else
+  if [[ $OSTYPE == 'darwin'* ]]; then
+    say "Build failed"
+  fi
   echo "Build failed"
   exit 1
 fi
