@@ -54,8 +54,6 @@ namespace Dream {
         std::vector<OpenGLShadowMapFBO *> shadowMapFbos;
         LightingTech *lightingTech;
         DirectionalLightShadowTech *directionalLightShadowTech;
-        OpenGLTexture *whiteTexture;
-        OpenGLTexture *blackTexture;
         OpenGLSkybox *skybox;
 
         void resizeFrameBuffer();
