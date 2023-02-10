@@ -227,18 +227,24 @@ namespace Dream {
     }
 
     void OpenGLRenderer::drawEntities(Entity entity, OpenGLShader* shader) {
-        // initialize bones for animated meshes
-        std::vector<glm::mat4> finalBoneMatrices;
-        if (entity.hasComponent<Component::AnimatorComponent>()) {
-            if (entity.hasComponent<Component::MeshComponent>()) {
-                entity.getComponent<Component::MeshComponent>().loadMesh();
-            } else {
-                Logger::fatal("No mesh component for entity with animator so bones cannot be loaded");
+        // set bones for animated meshes
+        {
+            std::vector<glm::mat4> finalBoneMatrices;
+            if (entity.hasComponent<Component::AnimatorComponent>()) {
+                if (entity.hasComponent<Component::MeshComponent>()) {
+                    entity.getComponent<Component::MeshComponent>().loadMesh();
+                } else {
+                    Logger::fatal("No mesh component for entity with animator so bones cannot be loaded");
+                }
+                if (entity.getComponent<Component::AnimatorComponent>().needsToLoadAnimations) {
+                    entity.getComponent<Component::AnimatorComponent>().loadStateMachine(entity);
+                }
+                finalBoneMatrices = entity.getComponent<Component::AnimatorComponent>().m_FinalBoneMatrices;
             }
-            if (entity.getComponent<Component::AnimatorComponent>().needsToLoadAnimations) {
-                entity.getComponent<Component::AnimatorComponent>().loadStateMachine(entity);
+
+            for (int i = 0; i < finalBoneMatrices.size(); i++) {
+                shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", finalBoneMatrices[i]);
             }
-            finalBoneMatrices = entity.getComponent<Component::AnimatorComponent>().m_FinalBoneMatrices;
         }
 
         // draw mesh of entity
@@ -434,11 +440,6 @@ namespace Dream {
             glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
             shader->setMat4("model", model);
 
-            // set bones for animation
-            for (int i = 0; i < finalBoneMatrices.size(); i++) {
-                shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", finalBoneMatrices[i]);
-            }
-
             // draw mesh of entity
             if (!entity.getComponent<Component::MeshComponent>().fileId.empty() || entity.getComponent<Component::MeshComponent>().meshType != Component::MeshComponent::FROM_FILE) {
                 auto guid = entity.getComponent<Component::MeshComponent>().getMeshGuid();
@@ -452,7 +453,7 @@ namespace Dream {
             }
         }
 
-        // repeat process for children
+        // draw child entities
         Entity child = entity.getComponent<Component::HierarchyComponent>().first;
         while (child) {
             drawEntities(child, shader);
