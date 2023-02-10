@@ -61,7 +61,10 @@ namespace Dream {
 
         frameBuffer = new OpenGLFrameBuffer();
 
-        for (int i = 0; i < NUM_CASCADES; ++i) {
+        directionalLightShadowTech = new DirectionalLightShadowTech();
+
+        // TODO: maybe encapsulate this in directional light shadow tech?
+        for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
             const unsigned int SHADOW_WIDTH = 1024 * 8, SHADOW_HEIGHT = 1024 * 8;
             auto shadowMapFbo = new OpenGLShadowMapFBO((int) SHADOW_WIDTH, (int) SHADOW_HEIGHT);
             shadowMapFbos.push_back(shadowMapFbo);
@@ -83,7 +86,7 @@ namespace Dream {
         delete this->physicsDebugShader;
         delete this->simpleDepthShader;
         delete this->frameBuffer;
-        for (int i = 0; i < NUM_CASCADES; ++i) {
+        for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
             delete shadowMapFbos.at(i);
         }
         delete this->whiteTexture;
@@ -111,12 +114,12 @@ namespace Dream {
             auto camera = *maybeCamera;
 
             // light spaces matrices for shadow cascades
-            auto lightSpaceMatrices = getLightSpaceMatrices(camera, getDirectionalLightDirection());
+            auto lightSpaceMatrices = directionalLightShadowTech->getLightSpaceMatrices(camera, directionalLightShadowTech->getDirectionalLightDirection());
 
             // render scene from light's point of view
             {
                 glEnable(GL_DEPTH_CLAMP);
-                for (int i = 0; i < NUM_CASCADES; ++i) {
+                for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
                     simpleDepthShader->use();
                     simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrices.at(i));
                     glViewport(0, 0, (int) shadowMapFbos.at(i)->getWidth(), (int) shadowMapFbos.at(i)->getHeight());
@@ -152,12 +155,12 @@ namespace Dream {
                     glm::vec3 viewPos = camera.position;
                     lightingShader->setVec3("viewPos", viewPos);
                     applyLighting(lightingShader);
-                    lightingShader->setVec3("lightDir", getDirectionalLightDirection());
-                    for (int i = 0; i < NUM_CASCADES; ++i) {
+                    lightingShader->setVec3("lightDir", directionalLightShadowTech->getDirectionalLightDirection());
+                    for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
                         lightingShader->setMat4("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices.at(i));
                     }
 
-                    auto shadowCascadeLevels = getShadowCascadeLevels(camera);
+                    auto shadowCascadeLevels = directionalLightShadowTech->getShadowCascadeLevels(camera);
                     for (int i = 0; i < shadowCascadeLevels.size(); ++i) {
                         lightingShader->setFloat("cascadePlaneDistances[" + std::to_string(i) + "]", shadowCascadeLevels.at(i));
                     }
@@ -370,7 +373,7 @@ namespace Dream {
 
                 // pass in shadow maps
                 int shadowMapTexturesStart = 5;
-                for (int i = 0; i < NUM_CASCADES; ++i) {
+                for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
                     int textureIndex = shadowMapTexturesStart + i;
                     shader->setInt("shadowMaps[" + std::to_string(i) + "]", textureIndex);
                     shadowMapFbos.at(i)->bindForReading(textureIndex);
@@ -565,112 +568,5 @@ namespace Dream {
             shader->setFloat(prefix + ".cutOff", glm::cos(glm::radians(lightComponent.cutOff)));
             shader->setFloat(prefix + ".outerCutOff", glm::cos(glm::radians(lightComponent.outerCutOff)));
         }
-    }
-
-    std::vector<glm::vec4> OpenGLRenderer::getFrustumCornersWorldSpace(const glm::mat4& projview) {
-        const auto inv = glm::inverse(projview);
-
-        std::vector<glm::vec4> frustumCorners;
-        for (unsigned int x = 0; x < 2; ++x) {
-            for (unsigned int y = 0; y < 2; ++y) {
-                for (unsigned int z = 0; z < 2; ++z) {
-                    const glm::vec4 pt = inv * glm::vec4(2.0f * x - 1.0f, 2.0f * y - 1.0f, 2.0f * z - 1.0f, 1.0f);
-                    frustumCorners.push_back(pt / pt.w);
-                }
-            }
-        }
-
-        return frustumCorners;
-    }
-
-    std::vector<glm::vec4> OpenGLRenderer::getFrustumCornersWorldSpace(const glm::mat4& proj, const glm::mat4& view) {
-        return getFrustumCornersWorldSpace(proj * view);
-    }
-
-    glm::mat4 OpenGLRenderer::getLightSpaceMatrix(Camera camera, glm::vec3 lightDir, const float nearPlane, const float farPlane) {
-        const auto proj = glm::perspective(glm::radians(camera.fov), camera.getAspect(), nearPlane,farPlane);
-        const auto corners = getFrustumCornersWorldSpace(proj, camera.getViewMatrix());
-
-        glm::vec3 center = glm::vec3(0, 0, 0);
-        for (const auto& v : corners) {
-            center += glm::vec3(v);
-        }
-        center /= corners.size();
-
-        const auto lightView = glm::lookAt(center + lightDir, center, glm::vec3(0.0f, 1.0f, 0.0f));
-        float minX = std::numeric_limits<float>::max();
-        float maxX = std::numeric_limits<float>::lowest();
-        float minY = std::numeric_limits<float>::max();
-        float maxY = std::numeric_limits<float>::lowest();
-        float minZ = std::numeric_limits<float>::max();
-        float maxZ = std::numeric_limits<float>::lowest();
-        for (const auto& v : corners) {
-            const auto trf = lightView * v;
-            minX = std::min(minX, trf.x);
-            maxX = std::max(maxX, trf.x);
-            minY = std::min(minY, trf.y);
-            maxY = std::max(maxY, trf.y);
-            minZ = std::min(minZ, trf.z);
-            maxZ = std::max(maxZ, trf.z);
-        }
-
-        // tune this parameter according to the scene
-        constexpr float zMult = 10.0f;
-        if (minZ < 0) {
-            minZ *= zMult;
-        }
-        else {
-            minZ /= zMult;
-        }
-
-        if (maxZ < 0) {
-            maxZ /= zMult;
-        }
-        else {
-            maxZ *= zMult;
-        }
-
-        const glm::mat4 lightProjection = glm::ortho(minX, maxX, minY, maxY, -maxZ, -minZ);
-
-        return lightProjection * lightView;
-    }
-
-    std::vector<glm::mat4> OpenGLRenderer::getLightSpaceMatrices(Camera camera, glm::vec3 lightDir) {
-        auto shadowCascadeLevels = getShadowCascadeLevels(camera);
-        std::vector<glm::mat4> ret;
-        for (size_t i = 0; i < shadowCascadeLevels.size() + 1; ++i) {
-            if (i == 0) {
-                ret.push_back(getLightSpaceMatrix(camera, lightDir, camera.zNear, shadowCascadeLevels[i]));
-            }
-            else if (i < shadowCascadeLevels.size()) {
-                ret.push_back(getLightSpaceMatrix(camera, lightDir, shadowCascadeLevels[i - 1], shadowCascadeLevels[i]));
-            }
-            else {
-                ret.push_back(getLightSpaceMatrix(camera, lightDir, shadowCascadeLevels[i - 1], camera.zNear));
-            }
-        }
-        return ret;
-    }
-
-    glm::vec3 OpenGLRenderer::getDirectionalLightDirection() {
-        glm::vec3 lightDir(1, 0, 0);
-        auto lightEntities = Project::getScene()->getEntitiesWithComponents<Component::LightComponent>();
-        for (const auto &lightEntity : lightEntities) {
-            Entity entity = {lightEntity, Project::getScene()};
-            if (entity.getComponent<Component::LightComponent>().type == Component::LightComponent::LightType::DIRECTIONAL) {
-                lightDir = glm::normalize(entity.getComponent<Component::TransformComponent>().getFront());
-                lightDir *= -1;
-            }
-        }
-        return lightDir;
-    }
-
-    std::vector<float> OpenGLRenderer::getShadowCascadeLevels(Camera camera) {
-        float cameraFarPlane = camera.zFar;
-        std::vector<float> shadowCascadeLevels{ 8.0f, 10.0f * 2, 36.0f * 2, 500.0f * 2 };
-//        std::vector<float> shadowCascadeLevels{ cameraFarPlane / 26.0f, cameraFarPlane / 15.0f, cameraFarPlane / 7.0f, cameraFarPlane - 0.001f };
-//        std::vector<float> shadowCascadeLevels{ cameraFarPlane / 26.0f, cameraFarPlane / 15.0f, cameraFarPlane / 7.0f, cameraFarPlane / 2.0f };
-        assert(NUM_CASCADES == shadowCascadeLevels.size());
-        return shadowCascadeLevels;
     }
 }

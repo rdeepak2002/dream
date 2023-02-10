@@ -29,6 +29,7 @@
 #include "dream/renderer/Mesh.h"
 #include "dream/scene/Entity.h"
 #include "dream/renderer/OpenGLSkybox.h"
+#include "dream/renderer/DirectionalLightShadowTech.h"
 #include "Camera.h"
 
 namespace Dream {
@@ -50,35 +51,23 @@ namespace Dream {
         OpenGLShader *simpleDepthShader;
         OpenGLFrameBuffer *frameBuffer;
         std::vector<OpenGLShadowMapFBO *> shadowMapFbos;
+        DirectionalLightShadowTech *directionalLightShadowTech;
         OpenGLTexture *whiteTexture;
         OpenGLTexture *blackTexture;
         OpenGLSkybox *skybox;
-
-        const unsigned int NUM_CASCADES = 4;
 
         void resizeFrameBuffer();
 
         void printGLVersion();
 
-        void drawEntities(Entity entity, OpenGLShader* shader);
+        void drawEntities(Entity entity, OpenGLShader *shader);
 
         void drawMesh(std::shared_ptr<OpenGLMesh> openGLMesh);
 
-        void applyLighting(OpenGLShader* shader);
-
-        std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4& projview);
-
-        std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4& proj, const glm::mat4& view);
-
-        glm::mat4 getLightSpaceMatrix(Camera camera, glm::vec3 lightDir, const float nearPlane, const float farPlane);
-
-        std::vector<glm::mat4> getLightSpaceMatrices(Camera camera, glm::vec3 lightDir);
+        void applyLighting(OpenGLShader *shader);
 
         std::pair<int, int> getViewportDimensions();
 
-        glm::vec3 getDirectionalLightDirection();
-
-        std::vector<float> getShadowCascadeLevels(Camera camera);
     };
 }
 
