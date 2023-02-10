@@ -60,13 +60,11 @@ namespace Dream {
 
         void printGLVersion();
 
-        void renderEntityAndChildren(Entity entity);
+        void drawEntities(Entity entity, OpenGLShader* shader);
 
-        void applyLighting();
+        void drawMesh(std::shared_ptr<OpenGLMesh> openGLMesh);
 
-        void renderScene(OpenGLShader* shader);
-
-        void renderSceneHelper(Entity entity, OpenGLShader* shader);
+        void applyLighting(OpenGLShader* shader);
 
         std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4& projview);
 
