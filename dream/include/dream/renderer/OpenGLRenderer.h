@@ -54,7 +54,7 @@ namespace Dream {
         OpenGLTexture *blackTexture;
         OpenGLSkybox *skybox;
 
-        const unsigned int SHADOW_WIDTH = 1024 * 8, SHADOW_HEIGHT = 1024 * 8, NUM_CASCADES = 4;
+        const unsigned int NUM_CASCADES = 4;
 
         void resizeFrameBuffer();
 

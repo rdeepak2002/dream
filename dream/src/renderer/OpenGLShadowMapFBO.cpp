@@ -7,6 +7,8 @@
 
 namespace Dream {
     OpenGLShadowMapFBO::OpenGLShadowMapFBO(int width, int height) {
+        this->width = width;
+        this->height = height;
         glGenFramebuffers(1, &depthMapFBO);
         // create depth texture
         glGenTextures(1, &depthMap);
@@ -52,5 +54,13 @@ namespace Dream {
 
     unsigned int OpenGLShadowMapFBO::getTexture() {
         return depthMap;
+    }
+
+    int OpenGLShadowMapFBO::getWidth() {
+        return width;
+    }
+
+    int OpenGLShadowMapFBO::getHeight() {
+        return height;
     }
 }

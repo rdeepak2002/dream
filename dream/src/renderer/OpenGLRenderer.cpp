@@ -17,7 +17,6 @@
  **********************************************************************************/
 
 #include "dream/renderer/OpenGLRenderer.h"
-#include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtx/string_cast.hpp>
 #include <glad/glad.h>
@@ -28,7 +27,6 @@
 #include "dream/util/Logger.h"
 #include "dream/window/Input.h"
 #include "dream/renderer/OpenGLCubeMesh.h"
-#include "dream/util/MathUtils.h"
 
 namespace Dream {
     OpenGLRenderer::OpenGLRenderer() : Renderer() {
@@ -64,6 +62,7 @@ namespace Dream {
         frameBuffer = new OpenGLFrameBuffer();
 
         for (int i = 0; i < NUM_CASCADES; ++i) {
+            const unsigned int SHADOW_WIDTH = 1024 * 8, SHADOW_HEIGHT = 1024 * 8;
             auto shadowMapFbo = new OpenGLShadowMapFBO((int) SHADOW_WIDTH, (int) SHADOW_HEIGHT);
             shadowMapFbos.push_back(shadowMapFbo);
         }
@@ -96,17 +95,16 @@ namespace Dream {
         glEnable(GL_BLEND);
         glEnable(GL_DEPTH_TEST);
 
-        Input::setPlayWindowActive(true);
-
-        // renderer camera
-        std::optional<Camera> maybeCamera;
-
-        // TODO: get main camera instead when game is playing
         // update renderer camera using scene camera entity's position and camera attributes like yaw, pitch, and fov
+        std::optional<Camera> maybeCamera;
         auto sceneCameraEntity = Project::getScene()->getSceneCamera();
-        if (sceneCameraEntity) {
+        auto mainCameraEntity = Project::getScene()->getMainCamera();
+        if (sceneCameraEntity && !Project::isPlaying()) {
             maybeCamera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};
             sceneCameraEntity.getComponent<Component::SceneCameraComponent>().updateRendererCamera(*maybeCamera, sceneCameraEntity);
+        } else if (mainCameraEntity && Project::isPlaying()) {
+            // TODO: get main camera instead when game is playing
+            Logger::fatal("TODO: load settings from main camera entity");
         }
 
         if (maybeCamera) {
@@ -119,11 +117,9 @@ namespace Dream {
             {
                 glEnable(GL_DEPTH_CLAMP);
                 for (int i = 0; i < NUM_CASCADES; ++i) {
-                    glm::mat4 lightSpaceMatrix = lightSpaceMatrices.at(i);
                     simpleDepthShader->use();
-                    // TODO: iterate through cascades and set each one for each shadow map fbo object
-                    simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
-                    glViewport(0, 0, (int) SHADOW_WIDTH, (int) SHADOW_HEIGHT);
+                    simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrices.at(i));
+                    glViewport(0, 0, (int) shadowMapFbos.at(i)->getWidth(), (int) shadowMapFbos.at(i)->getHeight());
                     shadowMapFbos.at(i)->bind();
                     glClear(GL_DEPTH_BUFFER_BIT);
                     drawEntities(Project::getScene()->getRootEntity(), simpleDepthShader);
@@ -228,7 +224,6 @@ namespace Dream {
     }
 
     void OpenGLRenderer::drawEntities(Entity entity, OpenGLShader* shader) {
-        // part 1
         // initialize bones for animated meshes
         std::vector<glm::mat4> finalBoneMatrices;
         if (entity.hasComponent<Component::AnimatorComponent>()) {
@@ -243,7 +238,6 @@ namespace Dream {
             finalBoneMatrices = entity.getComponent<Component::AnimatorComponent>().m_FinalBoneMatrices;
         }
 
-        // part 2
         // draw mesh of entity
         if (entity.hasComponent<Component::MeshComponent>()) {
             // load mesh of entity
@@ -299,7 +293,6 @@ namespace Dream {
                     }
 
                     if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().specularTextureGuid.empty()) {
-                        // specular texture
                         entity.getComponent<Component::MaterialComponent>().loadTextures();
                         auto specularTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().specularTextureGuid);
                         if (auto openGLTexture = std::dynamic_pointer_cast<OpenGLTexture>(specularTexture)) {
@@ -360,7 +353,6 @@ namespace Dream {
                     }
 
                     if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().ambientTextureGuid.empty()) {
-                        // specular texture
                         entity.getComponent<Component::MaterialComponent>().loadTextures();
                         auto ambientTexture = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().ambientTextureGuid);
                         if (auto openGLTexture = std::dynamic_pointer_cast<OpenGLTexture>(ambientTexture)) {
@@ -370,13 +362,13 @@ namespace Dream {
                             Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
                         }
                     } else {
-                        // default specular texture
+                        // default ambient texture
                         shader->setInt("texture_ambient", 4);
                         whiteTexture->bind(4);
                     }
                 }
 
-                // load shadow map
+                // pass in shadow maps
                 int shadowMapTexturesStart = 5;
                 for (int i = 0; i < NUM_CASCADES; ++i) {
                     int textureIndex = shadowMapTexturesStart + i;
@@ -385,50 +377,50 @@ namespace Dream {
                 }
             } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::DIFFUSE) {
                 // debug diffuse
-                singleTextureShader->setVec4("color", {1, 1, 1, 1});
+                shader->setVec4("color", {1, 1, 1, 1});
                 if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.empty()) {
                     entity.getComponent<Component::MaterialComponent>().loadTextures();
                     auto tex = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.at(0));
                     if (auto openGLTexture = std::dynamic_pointer_cast<OpenGLTexture>(tex)) {
-                        singleTextureShader->setInt("tex", 0);
+                        shader->setInt("tex", 0);
                         openGLTexture->bind(0);
                     } else {
                         Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
                     }
                 } else {
-                    singleTextureShader->setInt("tex", 0);
+                    shader->setInt("tex", 0);
                     blackTexture->bind(0);
                 }
             } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::SPECULAR) {
                 // debug specular
-                singleTextureShader->setVec4("color", {1, 1, 1, 1});
+                shader->setVec4("color", {1, 1, 1, 1});
                 if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().specularTextureGuid.empty()) {
                     entity.getComponent<Component::MaterialComponent>().loadTextures();
                     auto tex = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().specularTextureGuid);
                     if (auto openGLTexture = std::dynamic_pointer_cast<OpenGLTexture>(tex)) {
-                        singleTextureShader->setInt("tex", 0);
+                        shader->setInt("tex", 0);
                         openGLTexture->bind(0);
                     } else {
                         Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
                     }
                 } else {
-                    singleTextureShader->setInt("tex", 0);
+                    shader->setInt("tex", 0);
                     blackTexture->bind(0);
                 }
             } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::NORMAL) {
                 // debug normal
-                singleTextureShader->setVec4("color", {1, 1, 1, 1});
+                shader->setVec4("color", {1, 1, 1, 1});
                 if (entity.hasComponent<Component::MaterialComponent>() && !entity.getComponent<Component::MaterialComponent>().normalTextureGuid.empty()) {
                     entity.getComponent<Component::MaterialComponent>().loadTextures();
                     auto tex = Project::getResourceManager()->getTextureData(entity.getComponent<Component::MaterialComponent>().normalTextureGuid);
                     if (auto openGLTexture = std::dynamic_pointer_cast<OpenGLTexture>(tex)) {
-                        singleTextureShader->setInt("tex", 0);
+                        shader->setInt("tex", 0);
                         openGLTexture->bind(0);
                     } else {
                         Logger::fatal("Unable to dynamic cast Texture to type OpenGLTexture");
                     }
                 } else {
-                    singleTextureShader->setInt("texture", 0);
+                    shader->setInt("texture", 0);
                     blackTexture->bind(0);
                 }
             } else {
@@ -437,19 +429,11 @@ namespace Dream {
 
             // get transform of entity
             glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
-            if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
-                shader->setMat4("model", model);
-            } else {
-                singleTextureShader->setMat4("model", model);
-            }
+            shader->setMat4("model", model);
 
             // set bones for animation
             for (int i = 0; i < finalBoneMatrices.size(); i++) {
-                if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
-                    shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", finalBoneMatrices[i]);
-                } else {
-                    singleTextureShader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", finalBoneMatrices[i]);
-                }
+                shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", finalBoneMatrices[i]);
             }
 
             // draw mesh of entity
@@ -465,7 +449,6 @@ namespace Dream {
             }
         }
 
-        // part 3
         // repeat process for children
         Entity child = entity.getComponent<Component::HierarchyComponent>().first;
         while (child) {
