@@ -59,6 +59,8 @@ namespace Dream {
 
         directionalLightShadowTech = new DirectionalLightShadowTech();
 
+        skinningTech = new SkinningTech();
+
         lightingTech = new LightingTech();
 
         // TODO: maybe encapsulate this in directional light shadow tech?
@@ -89,6 +91,7 @@ namespace Dream {
         }
         delete this->lightingTech;
         delete this->directionalLightShadowTech;
+        delete this->skinningTech;
     }
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
@@ -137,7 +140,7 @@ namespace Dream {
                 glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                 glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-                this->outputRenderTextureFbo->bindFrameBuffer();
+                this->outputRenderTextureFbo->bindForWriting();
                 this->resizeFrameBuffer();
                 glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -213,7 +216,7 @@ namespace Dream {
         }
 
         // bind the default screen frame buffer
-        this->outputRenderTextureFbo->bindDefaultFrameBuffer();
+        this->outputRenderTextureFbo->unbind();
 
         // clear framebuffer and return its texture
         this->outputRenderTextureFbo->clear();
@@ -225,24 +228,7 @@ namespace Dream {
 
     void OpenGLRenderer::drawEntities(Entity entity, OpenGLShader* shader) {
         // set bones for animated meshes
-        {
-            std::vector<glm::mat4> finalBoneMatrices;
-            if (entity.hasComponent<Component::AnimatorComponent>()) {
-                if (entity.hasComponent<Component::MeshComponent>()) {
-                    entity.getComponent<Component::MeshComponent>().loadMesh();
-                } else {
-                    Logger::fatal("No mesh component for entity with animator so bones cannot be loaded");
-                }
-                if (entity.getComponent<Component::AnimatorComponent>().needsToLoadAnimations) {
-                    entity.getComponent<Component::AnimatorComponent>().loadStateMachine(entity);
-                }
-                finalBoneMatrices = entity.getComponent<Component::AnimatorComponent>().m_FinalBoneMatrices;
-            }
-
-            for (int i = 0; i < finalBoneMatrices.size(); i++) {
-                shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", finalBoneMatrices[i]);
-            }
-        }
+        skinningTech->setJointUniforms(entity, shader);
 
         // draw mesh of entity
         if (entity.hasComponent<Component::MeshComponent>()) {

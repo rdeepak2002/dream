@@ -32,6 +32,7 @@
 #include "dream/renderer/DirectionalLightShadowTech.h"
 #include "dream/renderer/LightingTech.h"
 #include "Camera.h"
+#include "SkinningTech.h"
 
 namespace Dream {
     class OpenGLRenderer : public Renderer {
@@ -54,6 +55,7 @@ namespace Dream {
         std::vector<OpenGLShadowMapFBO *> shadowMapFbos;
         LightingTech *lightingTech;
         DirectionalLightShadowTech *directionalLightShadowTech;
+        SkinningTech *skinningTech;
         OpenGLSkybox *skybox;
 
         void resizeFrameBuffer();
