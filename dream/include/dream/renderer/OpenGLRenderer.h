@@ -50,7 +50,7 @@ namespace Dream {
         OpenGLShader *physicsDebugShader;
         OpenGLShader *skyboxShader;
         OpenGLShader *simpleDepthShader;
-        OpenGLFrameBuffer *frameBuffer;
+        OpenGLFrameBuffer *outputRenderTextureFbo;
         std::vector<OpenGLShadowMapFBO *> shadowMapFbos;
         LightingTech *lightingTech;
         DirectionalLightShadowTech *directionalLightShadowTech;

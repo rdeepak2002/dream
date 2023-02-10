@@ -55,7 +55,7 @@ namespace Dream {
 
         skybox = new OpenGLSkybox();
 
-        frameBuffer = new OpenGLFrameBuffer();
+        outputRenderTextureFbo = new OpenGLFrameBuffer();
 
         directionalLightShadowTech = new DirectionalLightShadowTech();
 
@@ -83,7 +83,7 @@ namespace Dream {
         delete this->singleTextureShader;
         delete this->physicsDebugShader;
         delete this->simpleDepthShader;
-        delete this->frameBuffer;
+        delete this->outputRenderTextureFbo;
         for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
             delete shadowMapFbos.at(i);
         }
@@ -102,6 +102,7 @@ namespace Dream {
         auto mainCameraEntity = Project::getScene()->getMainCamera();
         if (sceneCameraEntity && !Project::isPlaying()) {
             maybeCamera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};
+            // TODO: make camera use global position of entity
             sceneCameraEntity.getComponent<Component::SceneCameraComponent>().updateRendererCamera(*maybeCamera, sceneCameraEntity);
         } else if (mainCameraEntity && Project::isPlaying()) {
             // TODO: get main camera instead when game is playing
@@ -114,8 +115,8 @@ namespace Dream {
             // light spaces matrices for shadow cascades
             auto lightSpaceMatrices = directionalLightShadowTech->getLightSpaceMatrices(camera, directionalLightShadowTech->getDirectionalLightDirection());
 
-            // render scene from light's point of view
             {
+                // render scene from light's point of view
                 glEnable(GL_DEPTH_CLAMP);
                 for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
                     simpleDepthShader->use();
@@ -136,7 +137,7 @@ namespace Dream {
                 glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                 glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-                this->frameBuffer->bindFrameBuffer();
+                this->outputRenderTextureFbo->bindFrameBuffer();
                 this->resizeFrameBuffer();
                 glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -149,11 +150,10 @@ namespace Dream {
                     lightingShader->setMat4("projection", camera.getProjectionMatrix());
                     lightingShader->setMat4("view", camera.getViewMatrix());
                     lightingShader->setFloat("farPlane", camera.zFar);
-                    // TODO: use global position for camera
                     glm::vec3 viewPos = camera.position;
                     lightingShader->setVec3("viewPos", viewPos);
-                    // TODO: make this an internal call in lighting tech
-                    lightingShader->setVec3("lightDir", directionalLightShadowTech->getDirectionalLightDirection());
+                    // TODO: rename uniform to shadowDirectionalLightDir
+                    lightingShader->setVec3("shadowDirectionalLightDir", directionalLightShadowTech->getDirectionalLightDirection());
                     for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
                         lightingShader->setMat4("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices.at(i));
                     }
@@ -213,13 +213,13 @@ namespace Dream {
         }
 
         // bind the default screen frame buffer
-        this->frameBuffer->bindDefaultFrameBuffer();
+        this->outputRenderTextureFbo->bindDefaultFrameBuffer();
 
         // clear framebuffer and return its texture
-        this->frameBuffer->clear();
+        this->outputRenderTextureFbo->clear();
 
         if (fullscreen) {
-            this->frameBuffer->renderScreenQuad();
+            this->outputRenderTextureFbo->renderScreenQuad();
         }
     }
 
@@ -299,8 +299,8 @@ namespace Dream {
         // resize framebuffer whenever there is a new viewport size
         GLint viewportWidth = this->getViewportDimensions().first;
         GLint viewportHeight = this->getViewportDimensions().second;
-        if (frameBuffer->getWidth() != viewportWidth || frameBuffer->getHeight() != viewportHeight) {
-            frameBuffer->resize(viewportWidth, viewportHeight);
+        if (outputRenderTextureFbo->getWidth() != viewportWidth || outputRenderTextureFbo->getHeight() != viewportHeight) {
+            outputRenderTextureFbo->resize(viewportWidth, viewportHeight);
         }
     }
 
@@ -317,6 +317,6 @@ namespace Dream {
     }
 
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
-        return this->frameBuffer->getTexture();
+        return this->outputRenderTextureFbo->getTexture();
     }
 }

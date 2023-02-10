@@ -64,7 +64,7 @@ uniform mat4 lightSpaceMatrices[NUM_CASCADES];
 uniform float cascadePlaneDistances[16];
 
 // light information
-uniform vec3 lightDir;
+uniform vec3 shadowDirectionalLightDir;
 uniform vec3 viewPos;
 uniform float farPlane;
 uniform DirLight dirLights[MAX_NR_DIR_LIGHTS];
@@ -161,7 +161,7 @@ float ShadowCalculation(int cascadeIndex, vec4 fragPosLightSpace)
     // calculate bias (based on depth map resolution and slope)
     vec3 normal = normalize(Normal);
 //    vec3 lightDir = normalize(lightPos - FragPos);
-    float bias = max(0.05f * (1.0 - dot(normal, normalize(lightDir))), 0.005);
+    float bias = max(0.05f * (1.0 - dot(normal, normalize(shadowDirectionalLightDir))), 0.005);
     if (cascadeIndex == 3)
     {
         bias = 0.00003f;
