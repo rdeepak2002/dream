@@ -49,7 +49,6 @@ in vec3 Normal;
 in vec2 TexCoord;
 
 // material information
-// TODO: encapsulate in struct
 uniform float shininess;
 uniform sampler2D texture_diffuse1;
 uniform vec4 diffuse_color;
