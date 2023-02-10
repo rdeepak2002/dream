@@ -30,6 +30,7 @@
 #include "dream/scene/Entity.h"
 #include "dream/renderer/OpenGLSkybox.h"
 #include "dream/renderer/DirectionalLightShadowTech.h"
+#include "dream/renderer/LightingTech.h"
 #include "Camera.h"
 
 namespace Dream {
@@ -51,6 +52,7 @@ namespace Dream {
         OpenGLShader *simpleDepthShader;
         OpenGLFrameBuffer *frameBuffer;
         std::vector<OpenGLShadowMapFBO *> shadowMapFbos;
+        LightingTech *lightingTech;
         DirectionalLightShadowTech *directionalLightShadowTech;
         OpenGLTexture *whiteTexture;
         OpenGLTexture *blackTexture;
@@ -63,8 +65,6 @@ namespace Dream {
         void drawEntities(Entity entity, OpenGLShader *shader);
 
         void drawMesh(std::shared_ptr<OpenGLMesh> openGLMesh);
-
-        void applyLighting(OpenGLShader *shader);
 
         std::pair<int, int> getViewportDimensions();
 

@@ -63,6 +63,8 @@ namespace Dream {
 
         directionalLightShadowTech = new DirectionalLightShadowTech();
 
+        lightingTech = new LightingTech();
+
         // TODO: maybe encapsulate this in directional light shadow tech?
         for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
             const unsigned int SHADOW_WIDTH = 1024 * 8, SHADOW_HEIGHT = 1024 * 8;
@@ -91,6 +93,8 @@ namespace Dream {
         }
         delete this->whiteTexture;
         delete this->blackTexture;
+        delete this->lightingTech;
+        delete this->directionalLightShadowTech;
     }
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
@@ -154,7 +158,8 @@ namespace Dream {
                     // TODO: use global position for camera
                     glm::vec3 viewPos = camera.position;
                     lightingShader->setVec3("viewPos", viewPos);
-                    applyLighting(lightingShader);
+                    // TODO: make this an internal call in lighting tech
+                    lightingTech->setLightShaderUniforms(lightingShader);
                     lightingShader->setVec3("lightDir", directionalLightShadowTech->getDirectionalLightDirection());
                     for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
                         lightingShader->setMat4("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices.at(i));
@@ -253,6 +258,7 @@ namespace Dream {
             // TODO: only load when necessary (add a flag internally - and reset it when fields are modified)
             entity.getComponent<Component::MeshComponent>().loadMesh();
 
+            // TODO: move this to lighting tech?
             if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
                 // final rendering (combine all variables to compute final color)
                 // set shininess
@@ -501,73 +507,5 @@ namespace Dream {
 
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
         return this->frameBuffer->getTexture();
-    }
-
-    void OpenGLRenderer::applyLighting(OpenGLShader* shader) {
-        std::vector<Entity> directionalLights;
-        std::vector<Entity> pointLights;
-        std::vector<Entity> spotLights;
-        for (auto lightEntityHandle : Project::getScene()->getEntitiesWithComponents<Component::LightComponent>()) {
-            Entity lightEntity = {lightEntityHandle, Project::getScene()};
-            if (lightEntity.getComponent<Component::LightComponent>().type == Component::LightComponent::DIRECTIONAL) {
-                directionalLights.push_back(lightEntity);
-            } else if (lightEntity.getComponent<Component::LightComponent>().type == Component::LightComponent::POINT) {
-                pointLights.push_back(lightEntity);
-            } else if (lightEntity.getComponent<Component::LightComponent>().type == Component::LightComponent::SPOTLIGHT) {
-                spotLights.push_back(lightEntity);
-            } else {
-                Logger::fatal("Unknown light type");
-            }
-        }
-
-        shader->setVec3("ambientColor", glm::vec3(0.15, 0.15, 0.15));
-
-        // define current number of point lights
-        shader->setInt("numberOfDirLights", (int) directionalLights.size());
-        shader->setInt("numberOfPointLights", (int) pointLights.size());
-        shader->setInt("numberOfSpotLights", (int) spotLights.size());
-
-        for (int i = 0; i < directionalLights.size(); i++) {
-            auto &lightEntity = directionalLights.at(i);
-            const auto &lightComponent = lightEntity.getComponent<Component::LightComponent>();
-            std::string prefix = "dirLights[" + std::to_string(i) + "]";
-
-            shader->setVec3(prefix + ".direction", lightEntity.getComponent<Component::TransformComponent>().getFront());
-            shader->setVec3(prefix + ".ambient", lightComponent.color);
-            shader->setVec3(prefix + ".diffuse", lightComponent.color);
-            shader->setVec3(prefix + ".specular", lightComponent.color);
-        }
-
-        for (int i = 0; i < pointLights.size(); i++) {
-            auto &lightEntity = pointLights.at(i);
-            const auto &lightComponent = lightEntity.getComponent<Component::LightComponent>();
-            std::string prefix = "pointLights[" + std::to_string(i) + "]";
-            // TODO: get global translation
-            auto lightPos = lightEntity.getComponent<Component::TransformComponent>().translation;
-            shader->setVec3(prefix + ".position", lightPos);
-            shader->setVec3(prefix + ".ambient", lightComponent.color);
-            shader->setVec3(prefix + ".diffuse", lightComponent.color);
-            shader->setVec3(prefix + ".specular", lightComponent.color);
-            shader->setFloat(prefix + ".constant", lightComponent.constant);
-            shader->setFloat(prefix + ".linear", lightComponent.linear);
-            shader->setFloat(prefix + ".quadratic", lightComponent.quadratic);
-        }
-
-        for (int i = 0; i < spotLights.size(); i++) {
-            auto &lightEntity = spotLights.at(i);
-            const auto &lightComponent = lightEntity.getComponent<Component::LightComponent>();
-            std::string prefix = "spotLights[" + std::to_string(i) + "]";
-            // TODO: get global translation
-            shader->setVec3(prefix + ".position", lightEntity.getComponent<Component::TransformComponent>().translation);
-            shader->setVec3(prefix + ".direction", lightEntity.getComponent<Component::TransformComponent>().getFront());
-            shader->setVec3(prefix + ".ambient", lightComponent.color);
-            shader->setVec3(prefix + ".diffuse", lightComponent.color);
-            shader->setVec3(prefix + ".specular", lightComponent.color);
-            shader->setFloat(prefix + ".constant", lightComponent.constant);
-            shader->setFloat(prefix + ".linear", lightComponent.linear);
-            shader->setFloat(prefix + ".quadratic", lightComponent.quadratic);
-            shader->setFloat(prefix + ".cutOff", glm::cos(glm::radians(lightComponent.cutOff)));
-            shader->setFloat(prefix + ".outerCutOff", glm::cos(glm::radians(lightComponent.outerCutOff)));
-        }
     }
 }
