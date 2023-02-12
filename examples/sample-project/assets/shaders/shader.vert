@@ -55,7 +55,8 @@ void main()
 
     mat3 normalMatrix = transpose(inverse(mat3(model)));
     vec3 T = normalize(normalMatrix * aTangent);
-    vec3 N = normalize(normalMatrix * aNormal);
+//    vec3 N = normalize(normalMatrix * aNormal);
+    vec3 N = normalize(mat3(transpose(inverse(model))) * totalNormal);
     T = normalize(T - dot(T, N) * N);
     vec3 B = cross(N, T);
     TBN = transpose(mat3(T, B, N));
