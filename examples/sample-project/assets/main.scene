@@ -6228,7 +6228,7 @@ Entities:
       scale: [1, 1, 1]
     SceneCameraComponent:
       fov: 45
-      zNear: 0.100000001
+      zNear: 0.001
       zFar: 1e+09
       yaw: 3.18519974
       pitch: -0.17999953
