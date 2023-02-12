@@ -100,7 +100,7 @@ namespace Dream {
                 } else {
                     // default diffuse texture
                     shader->setInt("texture_normal", 2);
-                    whiteTexture->bind(2);
+                    blackTexture->bind(2);
                 }
             }
 

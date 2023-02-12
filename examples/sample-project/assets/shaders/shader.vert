@@ -10,6 +10,7 @@ layout (location = 6) in vec4 weights;
 out vec3 FragPos;
 out vec3 Normal;
 out vec2 TexCoord;
+out mat3 TBN;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -51,6 +52,13 @@ void main()
 //    Normal = mat3(transpose(inverse(model))) * aNormal;
     Normal = normalize(mat3(transpose(inverse(model))) * totalNormal);
     TexCoord = vec2(aTexCoord.x, aTexCoord.y);
+
+    mat3 normalMatrix = transpose(inverse(mat3(model)));
+    vec3 T = normalize(normalMatrix * aTangent);
+    vec3 N = normalize(normalMatrix * aNormal);
+    T = normalize(T - dot(T, N) * N);
+    vec3 B = cross(N, T);
+    TBN = transpose(mat3(T, B, N));
 
     gl_Position = projection * view * model * totalPosition;
 }

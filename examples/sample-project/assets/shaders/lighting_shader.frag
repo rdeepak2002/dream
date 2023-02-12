@@ -47,6 +47,7 @@ uniform vec3 ambientColor;
 in vec3 FragPos;
 in vec3 Normal;
 in vec2 TexCoord;
+in mat3 TBN;
 
 // material information
 uniform float shininess;
@@ -198,6 +199,23 @@ vec3 CalcDirLight(DirLight light) {
     vec3 normal = normalize(Normal);
     vec3 viewDir = normalize(viewPos - FragPos);
     vec3 lightDir = normalize(-light.direction);
+
+    bool enableNormalMapping = true;
+    if (enableNormalMapping) {
+        vec3 TangentViewPos  = TBN * viewPos;
+        vec3 TangentFragPos  = TBN * FragPos;
+        normal = texture(texture_normal, TexCoord).rgb;
+        if (length(normal) <= 0.0f) {
+            // handle case where no normal map is associatd with the model, so we end up using a black texture for the normal map
+            normal = vec3(0.5, 0.5, 1);
+        }
+        normal = normalize(normal * 2.0 - 1.0);
+        viewDir = normalize(TangentViewPos - TangentFragPos);
+        vec3 lightPos = FragPos + normalize(-light.direction);
+        vec3 TangentLightPos = TBN * lightPos;
+        lightDir = normalize(TangentLightPos - TangentFragPos);
+    }
+
     float diff = max(dot(normal, lightDir), 0.0);
     vec3 halfwayDir = normalize(lightDir + viewDir);
     float spec = pow(max(dot(normal, halfwayDir), 0.0), shininess);
