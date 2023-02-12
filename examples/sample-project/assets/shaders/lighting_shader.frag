@@ -80,7 +80,7 @@ uniform mat4 view;
 float gamma = 2.2;
 
 // light function prototypes
-float ShadowCalculation(int cascadeIndex);
+float ShadowCalculation(int cascadeIndex, vec3 normal);
 vec3 CalcDirLight(DirLight light);
 vec3 CalcPointLight(PointLight light);
 vec3 CalcSpotLight(SpotLight light);
@@ -105,9 +105,9 @@ void main()
     FragColor = vec4(result, 1.0);
 }
 
-float ShadowCalculation(int cascadeIndex)
+float ShadowCalculation(int cascadeIndex, vec3 normal)
 {
-    vec3 normal = normalize(Normal);
+//    vec3 normal = normalize(Normal);
     vec4 fragPosLightSpace = lightSpaceMatrices[cascadeIndex] * vec4(FragPos, 1.0);
 
     // perform perspective divide
@@ -239,7 +239,7 @@ vec3 CalcDirLight(DirLight light) {
     }
 
     int cascadeIndex = layer;
-    float shadowFactor = ShadowCalculation(cascadeIndex);
+    float shadowFactor = ShadowCalculation(cascadeIndex, normal);
     shadow += shadowFactor;
 
     vec3 lighting = ambientColor * ambient + ((1.0 - shadow) * (diffuse + specular)) * vec3(diffuse_color) + shadowCascadeDebugColor;
