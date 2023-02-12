@@ -124,7 +124,7 @@ void main()
     FragColor = vec4(result, 1.0);
 }
 
-float ShadowCalculation(int cascadeIndex, vec4 fragPosLightSpace)
+float ShadowCalculation(int cascadeIndex, vec4 fragPosLightSpace, vec3 normal)
 {
 //    // perform perspective divide
 //    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
@@ -159,7 +159,7 @@ float ShadowCalculation(int cascadeIndex, vec4 fragPosLightSpace)
     // get depth of current fragment from light's perspective
     float currentDepth = projCoords.z;
     // calculate bias (based on depth map resolution and slope)
-    vec3 normal = normalize(Normal);
+//    vec3 normal = normalize(Normal);
 //    vec3 lightDir = normalize(lightPos - FragPos);
     float bias = max(0.05f * (1.0 - dot(normal, normalize(shadowDirectionalLightDir))), 0.005);
     if (cascadeIndex == 3)
@@ -291,7 +291,7 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
 
     int cascadeIndex = layer;
     vec4 FragPosLightSpace = lightSpaceMatrices[cascadeIndex] * vec4(FragPos, 1.0);
-    float shadowFactor = ShadowCalculation(cascadeIndex, FragPosLightSpace);
+    float shadowFactor = ShadowCalculation(cascadeIndex, FragPosLightSpace, normal);
     shadow += shadowFactor;
 
 //    for (int cascadeIndex = 0; cascadeIndex < NUM_CASCADES; cascadeIndex++) {
