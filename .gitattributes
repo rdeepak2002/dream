@@ -10,3 +10,6 @@ dream/include/imgui-texteditor/** linguist-vendored=false
 dream/include/imgui/** linguist-vendored=false
 dream/include/sol/** linguist-vendored=false
 dream/include/stb/** linguist-vendored=false
+dream/external/** linguist-vendored=false
+dream/assets/** linguist-vendored=false
+docs/** linguist-vendored=false
