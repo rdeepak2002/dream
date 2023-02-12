@@ -18,6 +18,9 @@
 
 #include "dream/scene/component/Component.h"
 #include "dream/util/Logger.h"
+#include "dream/util/MathUtils.h"
+#include "dream/window/Input.h"
+#include "dream/window/KeyCodes.h"
 #include "dream/util/YAMLUtils.h"
 
 namespace Dream::Component {
@@ -28,14 +31,8 @@ namespace Dream::Component {
             out << YAML::Key << k_fov << YAML::Value << entity.getComponent<CameraComponent>().fov;
             out << YAML::Key << k_zNear << YAML::Value << entity.getComponent<CameraComponent>().zNear;
             out << YAML::Key << k_zFar << YAML::Value << entity.getComponent<CameraComponent>().zFar;
-            out << YAML::Key << k_lookAt << YAML::Value
-                << YAML::convert<glm::vec3>().encode(entity.getComponent<CameraComponent>().lookAt);
-            out << YAML::Key << k_front << YAML::Value
-                << YAML::convert<glm::vec3>().encode(entity.getComponent<CameraComponent>().front);
-            out << YAML::Key << k_up << YAML::Value
-                << YAML::convert<glm::vec3>().encode(entity.getComponent<CameraComponent>().up);
-            out << YAML::Key << k_right << YAML::Value
-                << YAML::convert<glm::vec3>().encode(entity.getComponent<CameraComponent>().right);
+            out << YAML::Key << k_yaw << YAML::Value << entity.getComponent<CameraComponent>().yaw;
+            out << YAML::Key << k_pitch << YAML::Value << entity.getComponent<CameraComponent>().pitch;
             out << YAML::EndMap;
         }
     }
@@ -46,60 +43,76 @@ namespace Dream::Component {
                 Logger::fatal("No fov variable for camera component");
             }
 
-            // TODO: check other variables are defined too (zNear, zFar, etc.)
+            if (!node[componentName][k_zNear]) {
+                Logger::fatal("No near variable for camera component");
+            }
+
+            if (!node[componentName][k_zFar]) {
+                Logger::fatal("No far variable for camera component");
+            }
+
+            if (!node[componentName][k_yaw]) {
+                Logger::fatal("No yaw variable for camera component");
+            }
+
+            if (!node[componentName][k_pitch]) {
+                Logger::fatal("No pitch variable for camera component");
+            }
 
             auto fov = node[componentName][k_fov].as<float>();
             auto zNear = node[componentName][k_zNear].as<float>();
             auto zFar = node[componentName][k_zFar].as<float>();
-            glm::vec3 lookAt;
-            YAML::convert<glm::vec3>().decode(node[componentName][k_lookAt], lookAt);
-            glm::vec3 front;
-            YAML::convert<glm::vec3>().decode(node[componentName][k_front], front);
-            glm::vec3 up;
-            YAML::convert<glm::vec3>().decode(node[componentName][k_up], up);
-            glm::vec3 right;
-            YAML::convert<glm::vec3>().decode(node[componentName][k_right], right);
+            auto yaw = node[componentName][k_yaw].as<float>();
+            auto pitch = node[componentName][k_pitch].as<float>();
 
             entity.addComponent<CameraComponent>(fov);
+            entity.getComponent<CameraComponent>().fov = fov;
             entity.getComponent<CameraComponent>().zNear = zNear;
             entity.getComponent<CameraComponent>().zFar = zFar;
-            entity.getComponent<CameraComponent>().lookAt = lookAt;
-            entity.getComponent<CameraComponent>().front = front;
-            entity.getComponent<CameraComponent>().up = up;
-            entity.getComponent<CameraComponent>().right = right;
+            entity.getComponent<CameraComponent>().yaw = yaw;
+            entity.getComponent<CameraComponent>().pitch = pitch;
         }
-    }
-
-    glm::mat4 CameraComponent::getViewMatrix(Entity camera) {
-        glm::vec3 trans = camera.getComponent<TransformComponent>().translation;
-        glm::vec3 position = glm::vec3(-trans.x, -trans.y, trans.z);
-        if (glm::l2Norm(lookAt - position) <= 0.0f) {
-            lookAt = position + glm::vec3(1, 0, 0);
-        }
-        auto view = glm::lookAt(position, lookAt, up);
-        camera.getComponent<TransformComponent>().rotation = glm::conjugate(glm::toQuat(view));
-        return view;
     }
 
     CameraComponent::CameraComponent(float fov) {
         this->fov = fov;
-        this->up = {0, -1, 0};
-        this->front = {-1, 0, 0};
-        this->right = {0, 0, 1};
+        this->up = {0, 1, 0};
+        this->worldUp = {0, 1, 0};
+        updateCameraVectors();
     }
 
-    void CameraComponent::updateCameraVectors(Entity camera) {
-        glm::vec3 trans = camera.getComponent<TransformComponent>().translation;
-        glm::vec3 position = glm::vec3(-trans.x, -trans.y, trans.z);
+    void CameraComponent::updateCameraVectors() {
         glm::vec3 newFront;
-        if (glm::l2Norm(lookAt - position) <= 0.0f) {
-            newFront = {0, -1, 0};
-        } else {
-            // TODO: this is untested, verify it
-            newFront = glm::normalize(lookAt - position);
-        }
+        newFront.x = cos(yaw) * cos(pitch);
+        newFront.y = sin(pitch);
+        newFront.z = sin(yaw) * cos(pitch);
         front = glm::normalize(newFront);
         right = glm::normalize(glm::cross(front, worldUp));
-        up = glm::normalize(glm::cross(right, front));
+        up    = glm::normalize(glm::cross(right, front));
+    }
+
+    void CameraComponent::updateRendererCamera(Dream::Camera &camera, Entity &sceneCameraEntity) {
+        auto transformComponent = sceneCameraEntity.getComponent<TransformComponent>();
+        camera.yaw = yaw;
+        camera.pitch = pitch;
+        camera.fov = fov;
+        camera.position = transformComponent.translation;
+        camera.zFar = zFar;
+        camera.zNear = zNear;
+        camera.updateCameraVectors();
+    }
+
+    void CameraComponent::lookAt(Entity sceneCamera, glm::vec3 lookAtPos) {
+        glm::vec3 &position = sceneCamera.getComponent<TransformComponent>().translation;
+        glm::quat q = glm::conjugate(glm::toQuat(
+                glm::lookAt(position,
+                            glm::vec3(lookAtPos.x, lookAtPos.y, lookAtPos.z),
+                            glm::vec3(0, 1, 0)
+                )
+        ));
+        glm::vec3 eulerAngles = glm::eulerAngles(q);
+        yaw = eulerAngles.y + (float) M_PI_2;
+        pitch = eulerAngles.x;
+        sceneCamera.getComponent<TransformComponent>().rotation = glm::quat(glm::vec3(yaw, pitch, 0));
     }
 }

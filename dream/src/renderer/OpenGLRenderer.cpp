@@ -103,13 +103,13 @@ namespace Dream {
         std::optional<Camera> maybeCamera;
         auto sceneCameraEntity = Project::getScene()->getSceneCamera();
         auto mainCameraEntity = Project::getScene()->getMainCamera();
+        // TODO: make camera use global position of entity for camera position
         if (sceneCameraEntity && !Project::isPlaying()) {
             maybeCamera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};
-            // TODO: make camera use global position of entity
             sceneCameraEntity.getComponent<Component::SceneCameraComponent>().updateRendererCamera(*maybeCamera, sceneCameraEntity);
         } else if (mainCameraEntity && Project::isPlaying()) {
-            // TODO: get main camera instead when game is playing
-            Logger::fatal("TODO: load settings from main camera entity");
+            maybeCamera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};
+            mainCameraEntity.getComponent<Component::CameraComponent>().updateRendererCamera(*maybeCamera, mainCameraEntity);
         }
 
         if (maybeCamera) {
