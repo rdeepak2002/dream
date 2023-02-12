@@ -32,9 +32,9 @@ namespace Dream {
 
         void bindTexture();
 
-        void bindFrameBuffer();
+        void bindForWriting();
 
-        void bindDefaultFrameBuffer();
+        void unbind();
 
         void renderScreenQuad();
 

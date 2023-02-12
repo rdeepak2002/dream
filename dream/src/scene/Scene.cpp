@@ -100,7 +100,7 @@ namespace Dream {
             // TODO: move to component system
             Entity mainCamera = getMainCamera();
             if (mainCamera) {
-                mainCamera.getComponent<Component::CameraComponent>().updateCameraVectors(mainCamera);
+                mainCamera.getComponent<Component::CameraComponent>().updateCameraVectors();
             }
         } else {
             // TODO: move to component system

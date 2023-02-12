@@ -141,5 +141,6 @@ namespace Dream::Component {
         glm::vec3 eulerAngles = glm::eulerAngles(q);
         yaw = eulerAngles.y + (float) M_PI_2;
         pitch = eulerAngles.x;
+        sceneCamera.getComponent<TransformComponent>().rotation = glm::quat(glm::vec3(yaw, pitch, 0));
     }
 }

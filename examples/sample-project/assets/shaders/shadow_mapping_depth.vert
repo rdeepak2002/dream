@@ -6,6 +6,8 @@ layout (location = 4) in vec3 aBitangent;
 layout (location = 5) in ivec4 boneIds;
 layout (location = 6) in vec4 weights;
 
+out vec2 TexCoord;
+
 uniform mat4 lightSpaceMatrix;
 uniform mat4 model;
 
@@ -36,5 +38,6 @@ void main()
         }
     }
 
+    TexCoord = vec2(aTexCoord.x, aTexCoord.y);
     gl_Position = lightSpaceMatrix * model * totalPosition;
 }

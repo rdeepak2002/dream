@@ -101,7 +101,7 @@ int Dream::OpenGLFrameBuffer::getTexture() {
     return this->textureColorbuffer;
 }
 
-void Dream::OpenGLFrameBuffer::bindFrameBuffer() {
+void Dream::OpenGLFrameBuffer::bindForWriting() {
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 }
 
@@ -129,7 +129,7 @@ void Dream::OpenGLFrameBuffer::clear() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Dream::OpenGLFrameBuffer::bindDefaultFrameBuffer() {
+void Dream::OpenGLFrameBuffer::unbind() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
 }

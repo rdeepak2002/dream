@@ -150,4 +150,28 @@ namespace Dream::Component {
             SceneUtils::removeMeshReference(entity, oldGUID, true);
         }
     }
+
+    std::string MeshComponent::getMeshGuid() {
+        if (meshType == PRIMITIVE_CUBE) {
+            return "cube";
+        } else if (meshType == PRIMITIVE_SPHERE) {
+            return "sphere";
+        } else if (meshType != FROM_FILE) {
+            Logger::fatal("Unknown primitive type to find GUID for");
+        }
+
+        return guid;
+    }
+
+    std::string MeshComponent::getMeshFileID() {
+        if (meshType == PRIMITIVE_CUBE) {
+            return "";
+        } else if (meshType == PRIMITIVE_SPHERE) {
+            return "";
+        } else if (meshType != FROM_FILE) {
+            Logger::fatal("Unknown primitive type to find GUID for");
+        }
+
+        return fileId;
+    }
 }

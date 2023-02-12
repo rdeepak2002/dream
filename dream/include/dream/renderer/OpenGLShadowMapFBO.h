@@ -14,9 +14,11 @@ namespace Dream {
         void unbind();
         void bindForReading(int unit);
         unsigned int getTexture();
+        int getWidth();
+        int getHeight();
     private:
-        unsigned int depthMapFBO;
-        unsigned int depthMap;
+        unsigned int depthMapFBO, depthMap;
+        int width, height;
     };
 }
 

@@ -39,6 +39,7 @@ namespace Dream {
         }
         ignoredExtensions.insert(".dream-ignore");
         ignoredExtensions.insert(".meta");
+        ignoredExtensions.insert(".tmp");
         ignoredFileNames.insert(".DS_Store");
         // TODO: use specific renderer (not OpenGL)
         Texture *fileIconTexture = new OpenGLTexture(
