@@ -37,6 +37,8 @@ namespace Dream {
 
         SDL_Window *getSDL2Window();
 
+        void setWindowBorderColor(double r, double g, double b) override;
+
     private:
         bool firstLoad;
     protected:

@@ -36,6 +36,8 @@ namespace Dream {
 
         void setIsLoading(bool isLoading);
 
+        virtual void setWindowBorderColor(double r, double g, double b);
+
     protected:
         Window();
 

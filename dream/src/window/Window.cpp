@@ -46,4 +46,8 @@ namespace Dream {
     void Window::update(float dt) {
 
     }
+
+    void Window::setWindowBorderColor(double r, double g, double b) {
+
+    }
 }

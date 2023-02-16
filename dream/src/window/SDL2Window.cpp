@@ -25,6 +25,11 @@
 #include "dream/project/Project.h"
 #include "dream/Application.h"
 #include <SDL2/SDL_image.h>
+#ifdef __APPLE__
+#include <SDL_syswm.h>
+extern "C" void changeTitleBarColor(NSWindow* window, double red, double green, double blue);
+extern "C" void setWindowStyleMask(NSWindow* window);
+#endif
 
 #ifdef BORDERLESS
 static SDL_HitTestResult SDLCALL hitTest(SDL_Window *window, const SDL_Point *pt, void *data) {
@@ -85,6 +90,7 @@ namespace Dream {
     }
 
     void SDL2Window::update(float dt) {
+        setWindowBorderColor(0.15f, 0.1505f, 0.151f);
 #ifndef EMSCRIPTEN
         // draw Dream logo in launch screen
         if (!launchWindowRenderer) {
@@ -240,5 +246,17 @@ namespace Dream {
 
     void SDL2Window::pollEditorEvents(SDL_Event &Event) {
 
+    }
+
+    void SDL2Window::setWindowBorderColor(double r, double g, double b) {
+        Window::setWindowBorderColor(r, g, b);
+#ifdef __APPLE__
+        // change color of window border
+        SDL_SysWMinfo wmInfo;
+        SDL_VERSION(&wmInfo.version);
+        SDL_GetWindowWMInfo(sdlWindow, &wmInfo);
+        NSWindow *nsWindow = wmInfo.info.cocoa.window;
+        changeTitleBarColor(nsWindow, r, g, b);
+#endif
     }
 }

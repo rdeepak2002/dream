@@ -73,6 +73,11 @@ macro(DREAM_FIND_AND_LINK_LIBRARIES_PART_2)
     # Link QuickJS
     target_link_libraries(${PROJECT_NAME} quickjs)
 
+    if(APPLE)
+        target_link_libraries(${PROJECT_NAME} "-framework Foundation" objc)
+        target_link_libraries(${PROJECT_NAME} "-framework Cocoa" objc)
+    endif()
+
     if (EMSCRIPTEN)
         # Link lua library
         set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "... -L${CMAKE_CURRENT_SOURCE_DIR}/build.web/lua-5.4.4/src -s ...")
@@ -113,7 +118,8 @@ macro(DREAM_GLOB_SOURCE_CODE)
             src/scene/*.cpp
             src/scene/component/*.cpp
             src/scene/system/*.cpp
-            src/renderer/glad.c)
+            src/renderer/glad.c
+            src/window/cocoautils.mm)
 endmacro()
 
 macro(DREAM_FIND_AND_LINK_TEST_LIBRARIES)
