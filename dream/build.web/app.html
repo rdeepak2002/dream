@@ -72,7 +72,10 @@
     <p style="color: white;" id="output">Test</p>
 </div>
 
-<canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+<canvas ondrop="dropHandler(event);"
+        ondragover="dragOverHandler(event);"
+        id="canvas"
+        oncontextmenu="event.preventDefault()"></canvas>
 
 <script type='text/javascript'>
     const outputElement = document.getElementById('output');
@@ -179,6 +182,44 @@
             addScriptToDom(data);
         });
     });
+
+    function dropHandler(event) {
+        event.preventDefault();
+
+        const traverseFileTree = (item, path) => {
+            path = path || "";
+            if (item.isFile) {
+                // Get file
+                item.file(function(file) {
+                    console.log("TODO: import file ", path + file.name);
+                });
+            } else if (item.isDirectory) {
+                // Get folder contents
+                const dirReader = item.createReader();
+                dirReader.readEntries(function(entries) {
+                    for (let i = 0; i < entries.length; i++) {
+                        traverseFileTree(entries[i], path + item.name + "/");
+                    }
+                });
+            }
+        }
+
+        const items = event?.dataTransfer?.items;
+        if (items) {
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i].webkitGetAsEntry();
+                if (item) {
+                    traverseFileTree(item);
+                }
+            }
+        } else {
+            alert("Unable to import files in this browser.");
+        }
+    }
+
+    function dragOverHandler(event) {
+        event.preventDefault();
+    }
 </script>
 </body>
 </html>

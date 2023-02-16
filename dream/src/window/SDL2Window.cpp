@@ -74,6 +74,7 @@ namespace Dream {
         SDL_SetWindowHitTest(this->Window, hitTest, nullptr);
 #endif
         SDL_SetRelativeMouseMode(SDL_TRUE);
+        SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
     }
 
     SDL2Window::~SDL2Window() {
@@ -218,6 +219,9 @@ namespace Dream {
                 }
             } else if (Event.type == SDL_QUIT) {
                 this->shouldCloseFlag = true;
+            } else if (Event.type == SDL_DROPFILE) {
+                auto droppedFilePath = std::filesystem::path(Event.drop.file);
+                Project::getAssetImporter()->importAsset(droppedFilePath);
             }
         }
     }
