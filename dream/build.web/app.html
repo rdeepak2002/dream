@@ -186,35 +186,49 @@
     function dropHandler(event) {
         event.preventDefault();
 
-        const traverseFileTree = (item, path) => {
+        const traverseFileTree = async (item, path) => {
             path = path || "";
-            if (item.isFile) {
-                // Get file
-                item.file((file) => {
-                    const fileReader = new FileReader();
-                    fileReader.readAsArrayBuffer(file);
-                    // fileReader.readAsText(file, "UTF-8");
-                    fileReader.onload = (e) => {
-                        Module.FS.writeFile(file.name, new Uint8Array(e.target.result));
-                        // const uint8Arr = new Uint8Array(e.target.result);
-                        // const num_bytes = uint8Arr.length * uint8Arr.BYTES_PER_ELEMENT;
-                        // const data_ptr = Module._malloc(num_bytes);
-                        // const data_on_heap = new Uint8Array(Module.HEAPU8.buffer, data_ptr, num_bytes);
-                        // data_on_heap.set(uint8Arr);
-                        // const res1 = Module.ccall('load_file_return', 'number', ['string', 'string', 'number', 'number', 'number', 'number', 'number'], ['web_tmp/' + path + file.name, data_on_heap.byteOffset, uint8Arr.length]);
-                        // Module._free(data_ptr);
-                        // const res2 = Module.ccall('import_temporary_web_assets', 'number', [], []);
-                    };
-                });
-            } else if (item.isDirectory) {
-                // Get folder contents
-                const dirReader = item.createReader();
-                dirReader.readEntries(function(entries) {
-                    for (let i = 0; i < entries.length; i++) {
-                        traverseFileTree(entries[i], path + item.name + "/");
-                    }
-                });
-            }
+            return new Promise((resolve, reject) => {
+                if (item.isFile) {
+                    // Get file
+                    item.file((file) => {
+                        const fileReader = new FileReader();
+                        fileReader.readAsArrayBuffer(file);
+                        // fileReader.readAsText(file, "UTF-8");
+                        fileReader.onload = async (e) => {
+                            const webTemporaryFolderName = 'web_tmp';
+                            try {
+                                Module.FS.mkdir(webTemporaryFolderName);
+                            } catch (e) {
+                                // folder already exists
+                            }
+                            const dstFolder = `${webTemporaryFolderName}/${path}`;
+                            try {
+                                Module.FS.mkdir(dstFolder);
+                            } catch (e) {
+                                // folder already exists
+                            }
+                            const storedFilePath = `${dstFolder}/${file.name}`;
+                            Module.FS.writeFile(storedFilePath, new Uint8Array(e.target.result));
+                            // const res = Module.ccall('import_assets_from_folder', 'number', ['string'], [webTemporaryFolderName]);
+                            resolve(0);
+                        };
+
+                        fileReader.onerror = (error) => {
+                            reject(error);
+                        };
+                    });
+                } else if (item.isDirectory) {
+                    // Get folder contents
+                    const dirReader = item.createReader();
+                    dirReader.readEntries(async function (entries) {
+                        for (let i = 0; i < entries.length; i++) {
+                            await traverseFileTree(entries[i], path + item.name + "/");
+                        }
+                        resolve(0);
+                    });
+                }
+            });
         }
 
         const items = event?.dataTransfer?.items;
@@ -222,7 +236,10 @@
             for (let i = 0; i < items.length; i++) {
                 const item = items[i].webkitGetAsEntry();
                 if (item) {
-                    traverseFileTree(item);
+                    traverseFileTree(item).then((res) => {
+                        const webTemporaryFolderName = 'web_tmp';
+                        Module.ccall('import_assets_from_folder', 'number', ['string'], [webTemporaryFolderName]);
+                    });
                 }
             }
         } else {
