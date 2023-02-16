@@ -1,0 +1,60 @@
+newmtl Model001_Material001
+map_Kd bd_m_1900.png
+map_bump bd_m_1900_n.png
+
+newmtl Model001_Material002
+map_Kd bd_m_1900.png
+map_bump bd_m_1900_n.png
+
+newmtl Model001_Material003
+map_Kd bd_m_1900.png
+map_bump bd_m_1900_n.png
+
+newmtl Model001_Material004
+map_Kd bd_m_1900.png
+map_bump bd_m_1900_n.png
+
+newmtl Model001_Material005
+map_Kd bd_m_1900.png
+map_bump bd_m_1900_n.png
+
+newmtl Model001_Material006
+map_Kd bd_m_1900.png
+map_bump bd_m_1900_n.png
+
+newmtl Model001_Material007
+map_Kd bd_m_1900.png
+map_bump bd_m_1900_n.png
+
+newmtl Model001_Material008
+map_Kd am_m_1900.png
+map_bump am_m_1900_n.png
+
+newmtl Model001_Material009
+map_Kd am_m_1900.png
+map_bump am_m_1900_n.png
+
+newmtl Model001_Material010
+map_Kd am_m_1900.png
+map_bump am_m_1900_n.png
+
+newmtl Model001_Material011
+map_Kd hd_m_1900.png
+map_bump hd_m_1900_n.png
+
+newmtl Model001_Material012
+map_Kd hd_m_1900.png
+map_bump hd_m_1900_n.png
+
+newmtl Model001_Material013
+map_Kd hd_m_1900.png
+map_bump hd_m_1900_n.png
+
+newmtl Model001_Material014
+map_Kd lg_m_1900.png
+map_bump lg_m_1900_n.png
+
+newmtl Model001_Material015
+map_Kd lg_m_1900.png
+map_bump lg_m_1900_n.png
+

@@ -17,6 +17,8 @@
  **********************************************************************************/
 
 #include "dream/Application.h"
+#include "dream/project/Project.h"
+#include <fstream>
 #include <iostream>
 #include <quickjs.h>
 #include <quickjs-libc.h>
@@ -95,7 +97,41 @@ extern "C" {
         Dream::Input::activatePointerLock(false);
     }
 }
+
+extern "C" {
+    int load_file_return(char const *filename, char *buffer, size_t buffer_size) {
+        auto incomingFilepath = std::filesystem::path(filename);
+        if (!std::filesystem::exists(incomingFilepath.parent_path())) {
+            std::filesystem::create_directory(incomingFilepath.parent_path());
+        }
+        std::cout << "Received file " << filename << std::endl;
+
+        std::ofstream fileOutputStream(filename);
+        fileOutputStream << buffer;
+        fileOutputStream.close();
+
+        Dream::Project::getAssetImporter()->importAsset(filename);
+        return 0;
+    }
+}
 #endif
+
+//extern "C" {
+//    int load_file_return(char const *filename, char *buffer, size_t buffer_size) {
+//        auto incomingFilepath = std::filesystem::path(filename);
+//        if (!std::filesystem::exists(incomingFilepath.parent_path())) {
+//            std::filesystem::create_directory(incomingFilepath.parent_path());
+//        }
+//        std::cout << "Received file " << filename << std::endl;
+//
+//        std::ofstream fileOutputStream(filename);
+//        fileOutputStream << buffer;
+//        fileOutputStream.close();
+//
+//        Dream::Project::getAssetImporter()->importAsset(filename);
+//        return 0;
+//    }
+//}
 
 Dream::Application *application = nullptr;
 

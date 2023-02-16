@@ -1,0 +1,198 @@
+root twist: 0 0 0 0 0 0 1 1 1
+skirt left foot target2: 0 0 0 0 0 0 1 1 1
+skirt left foot target1: 0 0 0 0 0 0 1 1 1
+skirt left foot target: 0 0 0 0 0 0 1 1 1
+skirt right foot target2: 0 0 0 0 0 0 1 1 1
+skirt right foot target1: 0 0 0 0 0 0 1 1 1
+skirt right foot target: 0 0 0 0 0 0 1 1 1
+RootPos: 0 0 0 0 0 0 1 1 1
+pelvis: 0 0 0 0 0 0 1 1 1
+L Hip: 0 0 0 0 0 0 1 1 1
+skirt left thigh: 0 0 0 0 0 0 1 1 1
+skirt left knee: 0 0 0 0 0 0 1 1 1
+L Calf Skirt: 0 0 0 0 0 0 1 1 1
+skirt left calftwist: 0 0 0 0 0 0 1 1 1
+skirt left calftwist1: 0 0 0 0 0 0 1 1 1
+skirt left ankle: 0 0 0 0 0 0 1 1 1
+L FootTwist: 0 0 0 0 0 0 1 1 1
+skirt left toe0: 0 0 0 0 0 0 1 1 1
+skirt left kneetwist: 0 0 0 0 0 0 1 1 1
+L Knee Skirt: 0 0 0 0 0 0 1 1 1
+L Thigh Skirt: 0 0 0 0 0 0 1 1 1
+skirt left thightwist: 0 0 0 0 0 0 1 1 1
+skirt left thightwist1: 0 0 0 0 0 0 1 1 1
+L Wepon Case: 0 0 0 0 0 0 1 1 1
+R Hip: 0 0 0 0 0 0 1 1 1
+skirt right thigh: 0 0 0 0 0 0 1 1 1
+skirt right knee: 0 0 0 0 0 0 1 1 1
+R Calf Skirt: 0 0 0 0 0 0 1 1 1
+skirt right calftwist: 0 0 0 0 0 0 1 1 1
+skirt right calftwist1: 0 0 0 0 0 0 1 1 1
+skirt right ankle: 0 0 0 0 0 0 1 1 1
+R FootTwist: 0 0 0 0 0 0 1 1 1
+skirt right toe0: 0 0 0 0 0 0 1 1 1
+skirt right kneetwist: 0 0 0 0 0 0 1 1 1
+R Knee Skirt: 0 0 0 0 0 0 1 1 1
+R Thigh Skirt: 0 0 0 0 0 0 1 1 1
+skirt right thightwist: 0 0 0 0 0 0 1 1 1
+skirt right thightwist1: 0 0 0 0 0 0 1 1 1
+R Wepon Case: 0 0 0 0 0 0 1 1 1
+RootRotY: 0 0 0 0 0 0 1 1 1
+RootRotXZ: 0 0 0 0 0 0 1 1 1
+spine lower: 0 0 0 0 0 0 1 1 1
+spine middle: 0 0 0 0 0 0 1 1 1
+spine upper: 0 0 0 0 0 0 1 1 1
+B Wepon Case: 0 0 0 0 0 0 1 1 1
+B Wepon Case0 L: 0 0 0 0 0 0 1 1 1
+B Wepon Case0 R: 0 0 0 0 0 0 1 1 1
+Collar: 0 0 0 0 0 0 1 1 1
+arm left shoulder 1: 0 0 0 0 0 0 1 1 1
+arm left shoulder adj: 0 0 0 0 0 0 1 1 1
+arm left shoulder 2: 0 0 0 0 0 0 1 1 1
+arm left elbow: 0 0 0 0 0 0 1 1 1
+arm left forearm: 0 0 0 0 0 0 1 1 1
+arm left forearmtwist: 0 0 0 0 0 0 1 1 1
+arm left forearmtwist1: 0 0 0 0 0 0 1 1 1
+arm left wrist: 0 0 0 0 0 0 1 1 1
+arm left finger 0: 0 0 0 0 0 0 1 1 1
+arm left finger 01: 0 0 0 0 0 0 1 1 1
+arm left finger 02: 0 0 0 0 0 0 1 1 1
+arm left finger 1: 0 0 0 0 0 0 1 1 1
+arm left finger 11: 0 0 0 0 0 0 1 1 1
+arm left finger 12: 0 0 0 0 0 0 1 1 1
+arm left finger 2: 0 0 0 0 0 0 1 1 1
+arm left finger 21: 0 0 0 0 0 0 1 1 1
+arm left finger 22: 0 0 0 0 0 0 1 1 1
+arm left finger 3: 0 0 0 0 0 0 1 1 1
+arm left finger 31: 0 0 0 0 0 0 1 1 1
+arm left finger 32: 0 0 0 0 0 0 1 1 1
+arm left finger 4: 0 0 0 0 0 0 1 1 1
+arm left finger 41: 0 0 0 0 0 0 1 1 1
+arm left finger 42: 0 0 0 0 0 0 1 1 1
+L Shield: 0 0 0 0 0 0 1 1 1
+arm left weapon: 0 0 0 0 0 0 1 1 1
+arm left shoulder twist: 0 0 0 0 0 0 1 1 1
+arm left shoulder twist1: 0 0 0 0 0 0 1 1 1
+L Pectoral: 0 0 0 0 0 0 1 1 1
+L Po: 0 0 0 0 0 0 1 1 1
+head neck lower: 0 0 0 0 0 0 1 1 1
+head neck upper: 0 0 0 0 0 0 1 1 1
+arm right shoulder 1: 0 0 0 0 0 0 1 1 1
+arm right shoulder adj: 0 0 0 0 0 0 1 1 1
+arm right shoulder 2: 0 0 0 0 0 0 1 1 1
+arm right elbow: 0 0 0 0 0 0 1 1 1
+arm right forearm: 0 0 0 0 0 0 1 1 1
+arm right forearmtwist2: 0 0 0 0 0 0 1 1 1
+arm right forearmtwist3: 0 0 0 0 0 0 1 1 1
+arm right wrist: 0 0 0 0 0 0 1 1 1
+arm right finger 0: 0 0 0 0 0 0 1 1 1
+arm right finger 01: 0 0 0 0 0 0 1 1 1
+arm right finger 02: 0 0 0 0 0 0 1 1 1
+arm right finger 1: 0 0 0 0 0 0 1 1 1
+arm right finger 11: 0 0 0 0 0 0 1 1 1
+arm right finger 12: 0 0 0 0 0 0 1 1 1
+arm right finger 2: 0 0 0 0 0 0 1 1 1
+arm right finger 21: 0 0 0 0 0 0 1 1 1
+arm right finger 22: 0 0 0 0 0 0 1 1 1
+arm right finger 3: 0 0 0 0 0 0 1 1 1
+arm right finger 31: 0 0 0 0 0 0 1 1 1
+arm right finger 32: 0 0 0 0 0 0 1 1 1
+arm right finger 4: 0 0 0 0 0 0 1 1 1
+arm right finger 41: 0 0 0 0 0 0 1 1 1
+arm right finger 42: 0 0 0 0 0 0 1 1 1
+R Shield: 0 0 0 0 0 0 1 1 1
+arm right weapon: 0 0 0 0 0 0 1 1 1
+arm right shoulder twist2: 0 0 0 0 0 0 1 1 1
+arm right shoulder twist3: 0 0 0 0 0 0 1 1 1
+R Pectoral: 0 0 0 0 0 0 1 1 1
+R Po: 0 0 0 0 0 0 1 1 1
+ armor spine 1: 0 0 0 0 0 0 1 1 1
+ armor spine 2: 0 0 0 0 0 0 1 1 1
+R Hip end: 0 0 0 0 0 0 1 1 1
+L Knee end: 0 0 0 0 0 0 1 1 1
+R Finger22 end: 0 0 0 0 0 0 1 1 1
+R ForeArmTwist1 end: 0 0 0 0 0 0 1 1 1
+R Foot Target end: 0 0 0 0 0 0 1 1 1
+R Toe0 end: 0 0 0 0 0 0 1 1 1
+B Wepon Case end: 0 0 0 0 0 0 1 1 1
+L Finger02 end: 0 0 0 0 0 0 1 1 1
+R FootTwist end: 0 0 0 0 0 0 1 1 1
+L FootTwist end: 0 0 0 0 0 0 1 1 1
+R Shield end: 0 0 0 0 0 0 1 1 1
+L Elbow end: 0 0 0 0 0 0 1 1 1
+R Knee Skirt end: 0 0 0 0 0 0 1 1 1
+L Knee Skirt end: 0 0 0 0 0 0 1 1 1
+L Po end: 0 0 0 0 0 0 1 1 1
+R Po end: 0 0 0 0 0 0 1 1 1
+L UpArmTwist end: 0 0 0 0 0 0 1 1 1
+L Toe0 end: 0 0 0 0 0 0 1 1 1
+L ThighTwist1 end: 0 0 0 0 0 0 1 1 1
+L ForeArmTwist1 end: 0 0 0 0 0 0 1 1 1
+R Elbow end: 0 0 0 0 0 0 1 1 1
+B Wepon Case0 L end: 0 0 0 0 0 0 1 1 1
+L Finger12 end: 0 0 0 0 0 0 1 1 1
+R ForeArmTwist end: 0 0 0 0 0 0 1 1 1
+Collar end: 0 0 0 0 0 0 1 1 1
+L Finger42 end: 0 0 0 0 0 0 1 1 1
+R Shoulder end: 0 0 0 0 0 0 1 1 1
+R Pectoral end: 0 0 0 0 0 0 1 1 1
+L Finger22 end: 0 0 0 0 0 0 1 1 1
+L CalfTwist end: 0 0 0 0 0 0 1 1 1
+R CalfTwist end: 0 0 0 0 0 0 1 1 1
+R UpArmTwist1 end: 0 0 0 0 0 0 1 1 1
+L Calf Skirt end: 0 0 0 0 0 0 1 1 1
+L Foot Target end: 0 0 0 0 0 0 1 1 1
+L UpArmTwist1 end: 0 0 0 0 0 0 1 1 1
+R Finger12 end: 0 0 0 0 0 0 1 1 1
+L Thigh Skirt end: 0 0 0 0 0 0 1 1 1
+R Wepon Case end: 0 0 0 0 0 0 1 1 1
+R CalfTwist1 end: 0 0 0 0 0 0 1 1 1
+R Finger42 end: 0 0 0 0 0 0 1 1 1
+R Calf Skirt end: 0 0 0 0 0 0 1 1 1
+R Weapon end: 0 0 0 0 0 0 1 1 1
+L Shoulder end: 0 0 0 0 0 0 1 1 1
+L Hip end: 0 0 0 0 0 0 1 1 1
+SpineArmor1 end: 0 0 0 0 0 0 1 1 1
+SpineArmor2 end: 0 0 0 0 0 0 1 1 1
+R UpArmTwist end: 0 0 0 0 0 0 1 1 1
+L Weapon end: 0 0 0 0 0 0 1 1 1
+Head end: 0 0 0 0 0 0 1 1 1
+R Thigh Skirt end: 0 0 0 0 0 0 1 1 1
+R ThighTwist1 end: 0 0 0 0 0 0 1 1 1
+L Wepon Case end: 0 0 0 0 0 0 1 1 1
+R Finger02 end: 0 0 0 0 0 0 1 1 1
+L CalfTwist1 end: 0 0 0 0 0 0 1 1 1
+L ThighTwist end: 0 0 0 0 0 0 1 1 1
+R Knee end: 0 0 0 0 0 0 1 1 1
+L Finger32 end: 0 0 0 0 0 0 1 1 1
+L ForeArmTwist end: 0 0 0 0 0 0 1 1 1
+R Finger32 end: 0 0 0 0 0 0 1 1 1
+R ThighTwist end: 0 0 0 0 0 0 1 1 1
+L Shield end: 0 0 0 0 0 0 1 1 1
+B Wepon Case0 R end: 0 0 0 0 0 0 1 1 1
+L Pectoral end: 0 0 0 0 0 0 1 1 1
+root skeleton: 0 0 0 0 0 0 1 1 1
+leg left foot target2: 0 0 0 0 0 0 1 1 1
+leg left foot target1: 0 0 0 0 0 0 1 1 1
+leg left foot target: 0 0 0 0 0 0 1 1 1
+leg right foot target2: 0 0 0 0 0 0 1 1 1
+leg right foot target1: 0 0 0 0 0 0 1 1 1
+leg right foot target: 0 0 0 0 0 0 1 1 1
+leg left thigh: 0 0 0 0 0 0 1 1 1
+leg left knee: 0 0 0 0 0 0 1 1 1
+leg left calftwist: 0 0 0 0 0 0 1 1 1
+leg left calftwist1: 0 0 0 0 0 0 1 1 1
+leg left ankle: 0 0 0 0 0 0 1 1 1
+leg left toe0: 0 0 0 0 0 0 1 1 1
+leg left kneetwist: 0 0 0 0 0 0 1 1 1
+leg left thightwist: 0 0 0 0 0 0 1 1 1
+leg left thightwist1: 0 0 0 0 0 0 1 1 1
+leg right thigh: 0 0 0 0 0 0 1 1 1
+leg right knee: 0 0 0 0 0 0 1 1 1
+leg right calftwist: 0 0 0 0 0 0 1 1 1
+leg right calftwist1: 0 0 0 0 0 0 1 1 1
+leg right ankle: 0 0 0 0 0 0 1 1 1
+leg right toe0: 0 0 0 0 0 0 1 1 1
+leg right kneetwist: 0 0 0 0 0 0 1 1 1
+leg right thightwist: 0 0 0 0 0 0 1 1 1
+leg right thightwist1: 0 0 0 0 0 0 1 1 1
