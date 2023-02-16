@@ -190,19 +190,20 @@
             path = path || "";
             if (item.isFile) {
                 // Get file
-                item.file(function(file) {
-                    console.log("TODO: import file ", path + file.name);
+                item.file((file) => {
                     const fileReader = new FileReader();
                     fileReader.readAsArrayBuffer(file);
-                    fileReader.onload = (event) => {
-                        const uint8Arr = new Uint8Array(event.target.result);
-                        const num_bytes = uint8Arr.length * uint8Arr.BYTES_PER_ELEMENT;
-                        const data_ptr = Module._malloc(num_bytes);
-                        const data_on_heap = new Uint8Array(Module.HEAPU8.buffer, data_ptr, num_bytes);
-                        data_on_heap.set(uint8Arr);
-                        console.log(path + file.name, data_on_heap.byteOffset, uint8Arr.length);
-                        const res = Module.ccall('load_file_return', 'number', ['string', 'string', 'number'], [path + file.name, data_on_heap.byteOffset, uint8Arr.length]);
-                        Module._free(data_ptr);
+                    // fileReader.readAsText(file, "UTF-8");
+                    fileReader.onload = (e) => {
+                        Module.FS.writeFile(file.name, new Uint8Array(e.target.result));
+                        // const uint8Arr = new Uint8Array(e.target.result);
+                        // const num_bytes = uint8Arr.length * uint8Arr.BYTES_PER_ELEMENT;
+                        // const data_ptr = Module._malloc(num_bytes);
+                        // const data_on_heap = new Uint8Array(Module.HEAPU8.buffer, data_ptr, num_bytes);
+                        // data_on_heap.set(uint8Arr);
+                        // const res1 = Module.ccall('load_file_return', 'number', ['string', 'string', 'number', 'number', 'number', 'number', 'number'], ['web_tmp/' + path + file.name, data_on_heap.byteOffset, uint8Arr.length]);
+                        // Module._free(data_ptr);
+                        // const res2 = Module.ccall('import_temporary_web_assets', 'number', [], []);
                     };
                 });
             } else if (item.isDirectory) {

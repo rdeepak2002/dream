@@ -97,41 +97,48 @@ extern "C" {
         Dream::Input::activatePointerLock(false);
     }
 }
+#endif
 
+// TODO: only define whith emscripten build
 extern "C" {
     int load_file_return(char const *filename, char *buffer, size_t buffer_size) {
         auto incomingFilepath = std::filesystem::path(filename);
+        if (!std::filesystem::exists("web_tmp")) {
+            std::filesystem::create_directory("web_tmp");
+        }
         if (!std::filesystem::exists(incomingFilepath.parent_path())) {
             std::filesystem::create_directory(incomingFilepath.parent_path());
         }
         std::cout << "Received file " << filename << std::endl;
 
-        std::ofstream fileOutputStream(filename);
-        fileOutputStream << buffer;
+        std::string_view stringViewBuffer = {buffer, buffer_size};
+        std::cout << "string view stuff: " << stringViewBuffer << std::endl;
+
+        std::ofstream fileOutputStream(incomingFilepath);
+        fileOutputStream << stringViewBuffer;
         fileOutputStream.close();
 
-        Dream::Project::getAssetImporter()->importAsset(filename);
         return 0;
     }
 }
-#endif
 
-//extern "C" {
-//    int load_file_return(char const *filename, char *buffer, size_t buffer_size) {
-//        auto incomingFilepath = std::filesystem::path(filename);
-//        if (!std::filesystem::exists(incomingFilepath.parent_path())) {
-//            std::filesystem::create_directory(incomingFilepath.parent_path());
-//        }
-//        std::cout << "Received file " << filename << std::endl;
-//
-//        std::ofstream fileOutputStream(filename);
-//        fileOutputStream << buffer;
-//        fileOutputStream.close();
-//
-//        Dream::Project::getAssetImporter()->importAsset(filename);
-//        return 0;
-//    }
-//}
+// TODO: only define whith emscripten build
+extern "C" {
+    int import_temporary_web_assets() {
+        auto webTemporaryDirectory = std::filesystem::path("web_tmp");
+
+        if (std::filesystem::exists(webTemporaryDirectory)) {
+            for (const auto& dirEntry : std::filesystem::recursive_directory_iterator(webTemporaryDirectory)) {
+                Dream::Project::getAssetImporter()->importAsset(dirEntry);
+            }
+//            std::filesystem::remove(webTemporaryDirectory);
+        } else {
+            std::cout << "Web temporary directory not found" << std::endl;
+        }
+
+        return 0;
+    }
+}
 
 Dream::Application *application = nullptr;
 
