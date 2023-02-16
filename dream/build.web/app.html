@@ -185,6 +185,7 @@
 
     function dropHandler(event) {
         event.preventDefault();
+        const webTemporaryFolderName = 'web_tmp';
 
         const traverseFileTree = async (item, path) => {
             path = path || "";
@@ -196,7 +197,6 @@
                         fileReader.readAsArrayBuffer(file);
                         // fileReader.readAsText(file, "UTF-8");
                         fileReader.onload = async (e) => {
-                            const webTemporaryFolderName = 'web_tmp';
                             try {
                                 Module.FS.mkdir(webTemporaryFolderName);
                             } catch (e) {
@@ -208,13 +208,19 @@
                             } catch (e) {
                                 // folder already exists
                             }
-                            const storedFilePath = `${dstFolder}/${file.name}`;
-                            Module.FS.writeFile(storedFilePath, new Uint8Array(e.target.result));
+                            const storedFilePath = `${dstFolder}${file.name}`;
+                            try {
+                                Module.FS.writeFile(storedFilePath, new Uint8Array(e.target.result));
+                            } catch (e) {
+                                console.error('Error writing to file', storedFilePath);
+                            }
                             // const res = Module.ccall('import_assets_from_folder', 'number', ['string'], [webTemporaryFolderName]);
                             resolve(0);
                         };
 
                         fileReader.onerror = (error) => {
+                            console.log('yo');
+                            console.error(file);
                             reject(error);
                         };
                     });
@@ -223,6 +229,13 @@
                     const dirReader = item.createReader();
                     dirReader.readEntries(async function (entries) {
                         for (let i = 0; i < entries.length; i++) {
+                            const dstFolder = `${webTemporaryFolderName}/${path + item.name}/`;
+                            try {
+                                Module.FS.mkdir(dstFolder);
+                                console.log(dstFolder);
+                            } catch (e) {
+                                // folder already exists
+                            }
                             await traverseFileTree(entries[i], path + item.name + "/");
                         }
                         resolve(0);
@@ -236,8 +249,13 @@
             for (let i = 0; i < items.length; i++) {
                 const item = items[i].webkitGetAsEntry();
                 if (item) {
+                    try {
+                        Module.FS.mkdir(webTemporaryFolderName);
+                    } catch (e) {
+                        // folder already exists
+                    }
                     traverseFileTree(item).then((res) => {
-                        const webTemporaryFolderName = 'web_tmp';
+                        console.log('Importing to engine');
                         Module.ccall('import_assets_from_folder', 'number', ['string'], [webTemporaryFolderName]);
                     });
                 }
