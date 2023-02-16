@@ -17,7 +17,6 @@
  **********************************************************************************/
 
 #include "dream/Application.h"
-#include "dream/project/Project.h"
 #include <fstream>
 #include <iostream>
 #include <quickjs.h>
@@ -91,13 +90,13 @@ int test_quickjs() {
 #ifdef EMSCRIPTEN
 #include "emscripten.h"
 #include "dream/window/Input.h"
+#include "dream/project/Project.h"
 
 extern "C" {
     void disablePointerLock() {
         Dream::Input::activatePointerLock(false);
     }
 }
-#endif
 
 extern "C" {
     int import_assets_from_folder(char const *folderName) {
@@ -117,6 +116,7 @@ extern "C" {
         return 0;
     }
 }
+#endif
 
 Dream::Application *application = nullptr;
 
