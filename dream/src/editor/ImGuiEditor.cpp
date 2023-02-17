@@ -187,9 +187,9 @@ namespace Dream {
 
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking;
         if (!Project::isEditorFullscreen()) {
-#ifndef __APPLE__
+//#ifndef __APPLE__
             window_flags |= ImGuiWindowFlags_MenuBar;
-#endif
+//#endif
         }
         window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize |
                         ImGuiWindowFlags_NoMove;
