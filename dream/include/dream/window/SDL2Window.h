@@ -39,6 +39,10 @@ namespace Dream {
 
         void setWindowBorderColor(double r, double g, double b) override;
 
+        void setWindowStyleMask();
+
+        void setWindowMenu();
+
     private:
         bool firstLoad;
     protected:

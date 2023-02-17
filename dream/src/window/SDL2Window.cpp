@@ -29,6 +29,7 @@
 #include <SDL_syswm.h>
 extern "C" void changeTitleBarColor(NSWindow* window, double red, double green, double blue);
 extern "C" void setWindowStyleMask(NSWindow* window);
+extern "C" void addMenu(NSWindow* window);
 #endif
 
 #ifdef BORDERLESS
@@ -62,14 +63,14 @@ namespace Dream {
 #endif
 #ifndef EMSCRIPTEN
         // window when program launches to indicate loading
-        this->launchWindow = SDL_CreateWindow("Dream", 0, 0, 1248 / 2, 778 / 2,
+        this->launchWindow = SDL_CreateWindow("", 0, 0, 1248 / 2, 778 / 2,
                                               SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_BORDERLESS);
         SDL_SetWindowPosition(this->launchWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         SDL_ShowWindow(this->launchWindow);
         SDL_RaiseWindow(this->launchWindow);
 #endif
         // main window with editor
-        this->sdlWindow = SDL_CreateWindow("Dream", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
+        this->sdlWindow = SDL_CreateWindow("", 0, 0, this->windowWidth, this->windowHeight, WindowFlags);
         SDL_SetWindowPosition(this->sdlWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         SDL_RaiseWindow(this->sdlWindow);
 #ifndef EMSCRIPTEN
@@ -80,6 +81,10 @@ namespace Dream {
 #endif
         SDL_SetRelativeMouseMode(SDL_TRUE);
         SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
+
+        setWindowBorderColor(0.15f, 0.1505f, 0.151f);
+//        setWindowStyleMask();
+//        setWindowMenu();
     }
 
     SDL2Window::~SDL2Window() {
@@ -90,7 +95,6 @@ namespace Dream {
     }
 
     void SDL2Window::update(float dt) {
-        setWindowBorderColor(0.15f, 0.1505f, 0.151f);
 #ifndef EMSCRIPTEN
         // draw Dream logo in launch screen
         if (!launchWindowRenderer) {
@@ -228,6 +232,10 @@ namespace Dream {
             } else if (Event.type == SDL_DROPFILE) {
                 auto droppedFilePath = std::filesystem::path(Event.drop.file);
                 Project::getAssetImporter()->importAsset(droppedFilePath);
+            } else if (Event.type == SDL_WINDOWEVENT_RESIZED) {
+                setWindowBorderColor(0.15f, 0.1505f, 0.151f);
+//                setWindowStyleMask();
+//                setWindowMenu();
             }
         }
     }
@@ -256,7 +264,28 @@ namespace Dream {
         SDL_VERSION(&wmInfo.version);
         SDL_GetWindowWMInfo(sdlWindow, &wmInfo);
         NSWindow *nsWindow = wmInfo.info.cocoa.window;
-        changeTitleBarColor(nsWindow, r, g, b);
+        ::changeTitleBarColor(nsWindow, r, g, b);
+#endif
+    }
+
+    void SDL2Window::setWindowStyleMask() {
+#ifdef __APPLE__
+        // change color of window border
+        SDL_SysWMinfo wmInfo;
+        SDL_VERSION(&wmInfo.version);
+        SDL_GetWindowWMInfo(sdlWindow, &wmInfo);
+        NSWindow *nsWindow = wmInfo.info.cocoa.window;
+        ::setWindowStyleMask(nsWindow);
+#endif
+    }
+
+    void SDL2Window::setWindowMenu() {
+#ifdef __APPLE__
+        SDL_SysWMinfo wmInfo;
+        SDL_VERSION(&wmInfo.version);
+        SDL_GetWindowWMInfo(sdlWindow, &wmInfo);
+        NSWindow *nsWindow = wmInfo.info.cocoa.window;
+        ::addMenu(nsWindow);
 #endif
     }
 }

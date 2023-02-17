@@ -29,8 +29,9 @@
 #include <sstream>
 
 namespace Dream {
-    ImGuiEditorProjectView::ImGuiEditorProjectView(ImGuiTextEditor *textEditor) {
+    ImGuiEditorProjectView::ImGuiEditorProjectView(ImGuiTextEditor *textEditor, ImGuiFileBrowser *fileBrowser) {
         this->textEditor = textEditor;
+        this->fileBrowser = fileBrowser;
         auto assetsFolderPath = std::filesystem::path(Project::getPath()).append("assets");
         if (std::filesystem::exists(assetsFolderPath)) {
             currentPath = assetsFolderPath;
@@ -68,6 +69,12 @@ namespace Dream {
         ImGui::Begin("Project");
 
         if (ImGui::BeginPopupContextWindow()) {
+            if (ImGui::MenuItem("Import folder")) {
+                this->fileBrowser->selectDirectory();
+            }
+            if (ImGui::MenuItem("Import file")) {
+                this->fileBrowser->selectFile();
+            }
             if (ImGui::MenuItem("New script")) {
                 auto filename = "script";
                 auto extension = ".lua";
