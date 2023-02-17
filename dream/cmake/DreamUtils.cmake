@@ -109,6 +109,7 @@ macro(DREAM_GLOB_SOURCE_CODE)
             include/imgui/backends/imgui_impl_opengl3.cpp
             include/imgui-texteditor/*.cpp
             include/imgui-node-editor/*.cpp
+            include/ogldev/*.cpp
             src/*.cpp
             src/project/*.cpp
             src/editor/*.cpp
