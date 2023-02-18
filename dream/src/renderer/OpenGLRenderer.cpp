@@ -53,6 +53,10 @@ namespace Dream {
                                         Project::getPath().append("assets").append("shaders").append(
                                                 "shadow_mapping_depth.frag").c_str(), nullptr);
 
+        terrainShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("terrain_shader.vert").c_str(),
+                                             Project::getPath().append("assets").append("shaders").append(
+                                                     "terrain_shader.frag").c_str(), nullptr);
+
         skybox = new OpenGLSkybox();
 
         outputRenderTextureFbo = new OpenGLFrameBuffer();
@@ -92,6 +96,7 @@ namespace Dream {
         delete this->lightingTech;
         delete this->directionalLightShadowTech;
         delete this->skinningTech;
+        delete this->terrainShader;
     }
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
