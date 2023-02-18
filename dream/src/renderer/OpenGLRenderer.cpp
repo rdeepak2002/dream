@@ -59,7 +59,7 @@ namespace Dream {
 
         skybox = new OpenGLSkybox();
 
-        terrain = new OpenGLBaseTerrain(1.0);
+        terrain = new OpenGLBaseTerrain(4.0);
         terrain->loadFromFile(Project::getPath().append("assets").append("heightmap.save").c_str());
 
         outputRenderTextureFbo = new OpenGLFrameBuffer();
