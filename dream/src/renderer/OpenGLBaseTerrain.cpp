@@ -15,12 +15,8 @@
 
 namespace Dream {
 
-    OpenGLBaseTerrain::OpenGLBaseTerrain() {
-
-    }
-
-    void OpenGLBaseTerrain::initTerrain(float worldScale) {
-//        if (!m_terrainTech.Init()) {
+    OpenGLBaseTerrain::OpenGLBaseTerrain(float worldScale) {
+//        if (!m_terrainTech.init()) {
 //            printf("Error initializing tech\n");
 //            exit(0);
 //        }
@@ -28,14 +24,26 @@ namespace Dream {
         m_worldScale = worldScale;
     }
 
-    void OpenGLBaseTerrain::render(const Camera &camera) {
+    void OpenGLBaseTerrain::render(Camera &camera) {
+        auto projection = camera.getProjectionMatrix();
+        auto view = camera.getViewMatrix();
+//        Matrix4f VP = Camera.GetViewProjMatrix();
 
+//        m_terrainTech.enable();
+//        m_terrainTech.SetVP(VP);
+//        m_terrainTech.setProjection(projection);
+//        m_terrainTech.setView(view);
+
+        // TODO: pass in projection and view to shader
+
+
+        m_triangleList.render();
     }
 
     void OpenGLBaseTerrain::loadFromFile(const char *pFilename) {
         loadHeightMapFile(pFilename);
 
-//        m_triangleList.CreateTriangleList(m_terrainSize, m_terrainSize, this);
+        m_triangleList.createTriangleList(m_terrainSize, m_terrainSize, this);
     }
 
     float OpenGLBaseTerrain::getHeight(int x, int z) const {

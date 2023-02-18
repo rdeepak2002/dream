@@ -6,16 +6,15 @@
 #define DREAM_OPENGLBASETERRAIN_H
 
 #include "Camera.h"
+#include "OpenGLTriangleList.h"
 #include <ogldev/ogldev_array_2d.h>
 
 namespace Dream {
     class OpenGLBaseTerrain {
     public:
-        OpenGLBaseTerrain();
+        OpenGLBaseTerrain(float worldScale);
 
-        void initTerrain(float worldScale);
-
-        void render(const Camera& camera);
+        void render(Camera& camera);
 
         void loadFromFile(const char* pFilename);
 
@@ -27,8 +26,8 @@ namespace Dream {
         int m_terrainSize = 0;
         float m_worldScale = 1.0f;
         Array2D<float> m_heightMap;
-//        TriangleList m_triangleList;
-//        TerrainTechnique m_terrainTech;
+        OpenGLTriangleList m_triangleList;
+//        OpenGLTerrainTechnique m_terrainTech;
     };
 }
 
