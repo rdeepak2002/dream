@@ -14,7 +14,7 @@ namespace Dream {
     public:
         OpenGLBaseTerrain(float worldScale);
 
-        void render(Camera& camera);
+        void render();
 
         void loadFromFile(const char* pFilename);
 

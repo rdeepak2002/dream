@@ -4,6 +4,7 @@
 
 #include "dream/renderer/OpenGLTriangleList.h"
 #include "dream/renderer/OpenGLBaseTerrain.h"
+#include "dream/renderer/OpenGLRenderer.h"
 
 namespace Dream {
 

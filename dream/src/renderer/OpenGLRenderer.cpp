@@ -59,6 +59,9 @@ namespace Dream {
 
         skybox = new OpenGLSkybox();
 
+        terrain = new OpenGLBaseTerrain(1.0);
+        terrain->loadFromFile(Project::getPath().append("assets").append("heightmap.save").c_str());
+
         outputRenderTextureFbo = new OpenGLFrameBuffer();
 
         directionalLightShadowTech = new DirectionalLightShadowTech();
@@ -149,6 +152,14 @@ namespace Dream {
                 this->resizeFrameBuffer();
                 glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            }
+
+            {
+                // draw terrain
+                terrainShader->use();
+                terrainShader->setMat4("projection", camera.getProjectionMatrix());
+                terrainShader->setMat4("view", camera.getViewMatrix());
+                terrain->render();
             }
 
             {

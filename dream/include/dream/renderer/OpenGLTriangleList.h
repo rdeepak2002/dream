@@ -5,8 +5,8 @@
 #ifndef DREAM_OPENGLTRIANGLELIST_H
 #define DREAM_OPENGLTRIANGLELIST_H
 
-#include "dream/renderer/OpenGLRenderer.h"
 #include <vector>
+#include "glm/vec3.hpp"
 
 namespace Dream {
     class OpenGLBaseTerrain;
@@ -31,13 +31,11 @@ namespace Dream {
 
         void populateBuffers(const OpenGLBaseTerrain* pTerrain);
         void initVertices(const OpenGLBaseTerrain* pTerrain, std::vector<Vertex>& Vertices);
-        void initIndices(std::vector<uint>& Indices);
+        void initIndices(std::vector<unsigned int>& Indices);
 
         int m_width = 0;
         int m_depth = 0;
-        GLuint m_vao;
-        GLuint m_vb;
-        GLuint m_ib;
+        unsigned int m_vao, m_vb, m_ib;
     };
 }
 

@@ -33,6 +33,7 @@
 #include "dream/renderer/LightingTech.h"
 #include "Camera.h"
 #include "SkinningTech.h"
+#include "dream/renderer/OpenGLBaseTerrain.h"
 
 namespace Dream {
     class OpenGLRenderer : public Renderer {
@@ -58,6 +59,7 @@ namespace Dream {
         DirectionalLightShadowTech *directionalLightShadowTech;
         SkinningTech *skinningTech;
         OpenGLSkybox *skybox;
+        OpenGLBaseTerrain *terrain;
 
         void resizeFrameBuffer();
 

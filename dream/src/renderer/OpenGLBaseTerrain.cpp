@@ -24,9 +24,9 @@ namespace Dream {
         m_worldScale = worldScale;
     }
 
-    void OpenGLBaseTerrain::render(Camera &camera) {
-        auto projection = camera.getProjectionMatrix();
-        auto view = camera.getViewMatrix();
+    void OpenGLBaseTerrain::render() {
+//        auto projection = camera.getProjectionMatrix();
+//        auto view = camera.getViewMatrix();
 //        Matrix4f VP = Camera.GetViewProjMatrix();
 
 //        m_terrainTech.enable();
