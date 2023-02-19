@@ -125,7 +125,7 @@ namespace Dream {
         assert(Index == Vertices.size());
     }
 
-    void OpenGLTriangleList::initIndices(std::vector<uint> &Indices) {
+    void OpenGLTriangleList::initIndices(std::vector<unsigned int> &Indices) {
         int Index = 0;
 
         for (int z = 0; z < m_depth - 1; z++) {
