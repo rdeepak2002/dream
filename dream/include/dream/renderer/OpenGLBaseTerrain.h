@@ -12,7 +12,7 @@
 namespace Dream {
     class OpenGLBaseTerrain {
     public:
-        OpenGLBaseTerrain(float worldScale);
+        OpenGLBaseTerrain(float worldScale, float textureScale);
 
         void render();
 
@@ -21,9 +21,14 @@ namespace Dream {
         float getHeight(int x, int z) const;
 
         float getWorldScale() const;
+
+        float getSize() const;
+
+        float getTextureScale() const;
     protected:
         void loadHeightMapFile(const char* pFilename);
         int m_terrainSize = 0;
+        float m_textureScale = 1.0f;
         float m_worldScale = 1.0f;
         Array2D<float> m_heightMap;
         OpenGLTriangleList m_triangleList;

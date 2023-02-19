@@ -1,4 +1,10 @@
-layout (location = 0) in vec3 Position;
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec2 aTexCoord;
+layout (location = 2) in vec3 aNormal;
+layout (location = 3) in vec3 aTangent;
+layout (location = 4) in vec3 aBitangent;
+layout (location = 5) in ivec4 boneIds;
+layout (location = 6) in vec4 weights;
 
 uniform mat4 view;
 uniform mat4 projection;
@@ -7,7 +13,7 @@ out vec4 Color;
 
 void main()
 {
-    gl_Position =  projection * view * vec4(Position, 1.0);
+    gl_Position =  projection * view * vec4(aPos, 1.0);
 
-    Color = vec4(Position.y / 200.0);
+    Color = vec4(aPos.y / 200.0);
 }

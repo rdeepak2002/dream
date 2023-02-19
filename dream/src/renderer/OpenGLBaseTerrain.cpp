@@ -15,13 +15,14 @@
 
 namespace Dream {
 
-    OpenGLBaseTerrain::OpenGLBaseTerrain(float worldScale) {
+    OpenGLBaseTerrain::OpenGLBaseTerrain(float worldScale, float textureScale) {
 //        if (!m_terrainTech.init()) {
 //            printf("Error initializing tech\n");
 //            exit(0);
 //        }
 
         m_worldScale = worldScale;
+        m_textureScale = textureScale;
     }
 
     void OpenGLBaseTerrain::render() {
@@ -75,4 +76,11 @@ namespace Dream {
         m_heightMap.InitArray2D(m_terrainSize, m_terrainSize, (float*)p);
     }
 
+    float OpenGLBaseTerrain::getSize() const {
+        return m_terrainSize;
+    }
+
+    float OpenGLBaseTerrain::getTextureScale() const {
+        return m_textureScale;
+    }
 }

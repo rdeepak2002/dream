@@ -5,6 +5,9 @@
 #include "dream/renderer/OpenGLTriangleList.h"
 #include "dream/renderer/OpenGLBaseTerrain.h"
 #include "dream/renderer/OpenGLRenderer.h"
+#include <utility>
+#include <vector>
+#include <functional>
 
 namespace Dream {
 
@@ -33,23 +36,63 @@ namespace Dream {
 
     void OpenGLTriangleList::createGLState() {
         glGenVertexArrays(1, &m_vao);
-
         glBindVertexArray(m_vao);
-
         glGenBuffers(1, &m_vb);
-
         glBindBuffer(GL_ARRAY_BUFFER, m_vb);
-
         glGenBuffers(1, &m_ib);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ib);
 
-        int POS_LOC = 0;
+//        int POS_LOC = 0;
+//        size_t NumFloats = 0;
+//        glEnableVertexAttribArray(POS_LOC);
+//        glVertexAttribPointer(POS_LOC, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(NumFloats * sizeof(float)));
+//        NumFloats += 3;
 
-        size_t NumFloats = 0;
+        // calculate stride from number of non-empty vertex attribute arrays
+        size_t stride = 3 * sizeof(float);  // positions
+        stride += 2 * sizeof(float);        // uvs
+        stride += 3 * sizeof(float);        // normals
+        stride += 3 * sizeof(float);        // tangents
+        stride += 3 * sizeof(float);        // bitangents
+        stride += MAX_BONE_INFLUENCE * sizeof(int);          // for bone ids
+        stride += MAX_BONE_INFLUENCE * sizeof(float);        // for weights
 
-        glEnableVertexAttribArray(POS_LOC);
-        glVertexAttribPointer(POS_LOC, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(NumFloats * sizeof(float)));
-        NumFloats += 3;
+        // positions
+        size_t offset = 0;
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
+        offset += 3 * sizeof(float);
+
+        // uvs
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
+        offset += 2 * sizeof(float);
+
+        // normals
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
+        offset += 3 * sizeof(float);
+
+        // tangents
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
+        offset += 3 * sizeof(float);
+
+        // bitangents
+        glEnableVertexAttribArray(4);
+        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
+        offset += 3 * sizeof(float);
+
+        // bone ids
+        glEnableVertexAttribArray(5);
+        glVertexAttribIPointer(5, MAX_BONE_INFLUENCE, GL_INT, sizeof(Vertex), (void *) offsetof(Vertex, boneIDs));
+        offset += offsetof(Vertex, boneIDs);
+
+        // weights
+        glEnableVertexAttribArray(6);
+        glVertexAttribPointer(6, MAX_BONE_INFLUENCE, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+                              (void *) offsetof(Vertex, boneWeights));
+        offset += offsetof(Vertex, boneWeights);
     }
 
     void OpenGLTriangleList::populateBuffers(const OpenGLBaseTerrain *pTerrain) {
@@ -115,9 +158,13 @@ namespace Dream {
 
     void OpenGLTriangleList::Vertex::initVertex(const OpenGLBaseTerrain *pTerrain, int x, int z) {
         float y = pTerrain->getHeight(x, z);
+        float worldScale = pTerrain->getWorldScale();
+        position = { x * worldScale, y, z * worldScale };
 
-        float WorldScale = pTerrain->getWorldScale();
+        float size = (float) pTerrain->getSize();
+        float textureScale = pTerrain->getTextureScale();
+        uv = { textureScale * (float) x / size, textureScale * (float) z / size };
 
-        pos = { x * WorldScale, y, z * WorldScale };
+        // TODO: init other variables such as normals, etc.
     }
 }

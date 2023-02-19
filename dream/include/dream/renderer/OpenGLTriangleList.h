@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "glm/vec3.hpp"
+#include "Mesh.h"
 
 namespace Dream {
     class OpenGLBaseTerrain;
@@ -20,9 +21,16 @@ namespace Dream {
         void render();
 
     private:
-
         struct Vertex {
-            glm::vec3 pos;
+            glm::vec3 position;
+            glm::vec2 uv;
+            glm::vec3 normal;
+            glm::vec3 tangent;
+            glm::vec3 bitangent;
+            // bones that influence this vertex
+            int boneIDs[MAX_BONE_INFLUENCE];
+            // effect of each bone on this vertex
+            float boneWeights[MAX_BONE_INFLUENCE];
 
             void initVertex(const OpenGLBaseTerrain* pTerrain, int x, int z);
         };
