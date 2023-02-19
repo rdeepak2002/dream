@@ -83,4 +83,22 @@ namespace Dream {
     float OpenGLBaseTerrain::getTextureScale() const {
         return m_textureScale;
     }
+
+    float OpenGLBaseTerrain::getHeight(glm::vec2 vec) const {
+        float x = vec.x;
+        float y = vec.y;
+        if ((int) x < 0) {
+            x = 0;
+        }
+        if ((int) y < 0) {
+            y = 0;
+        }
+        if ((int) x >= m_terrainSize) {
+            x = m_terrainSize - 1;
+        }
+        if ((int) y >= m_terrainSize) {
+            y = m_terrainSize - 1;
+        }
+        return m_heightMap.Get((int) x, (int) y);
+    }
 }

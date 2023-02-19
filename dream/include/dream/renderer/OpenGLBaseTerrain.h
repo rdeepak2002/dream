@@ -18,6 +18,8 @@ namespace Dream {
 
         void loadFromFile(const char* pFilename);
 
+        float getHeight(glm::vec2 vec) const;
+
         float getHeight(int x, int z) const;
 
         float getWorldScale() const;

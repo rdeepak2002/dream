@@ -10,10 +10,12 @@ uniform mat4 view;
 uniform mat4 projection;
 
 out vec4 Color;
+//out vec3 Normal;
 
 void main()
 {
     gl_Position =  projection * view * vec4(aPos, 1.0);
+//    Normal = mat3(transpose(inverse(model))) * aNormal;
 
     Color = vec4(aPos.y / 200.0);
 }

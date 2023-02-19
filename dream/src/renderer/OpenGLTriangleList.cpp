@@ -166,5 +166,22 @@ namespace Dream {
         uv = { textureScale * (float) x / size, textureScale * (float) z / size };
 
         // TODO: init other variables such as normals, etc.
+
+        // TODO: below algo is wrong maybe wait for OglDev to post the correct one
+//        glm::vec3 P = {x, z, pTerrain->getHeight(x,z)};
+//        glm::vec3 off = {1.0, 1.0, 0.0};
+//        glm::vec2 Pxy = {P.x, P.y};
+//        glm::vec2 offXZ = {off.x, off.z};
+//        glm::vec2 offZY = {off.z, off.y};
+//        float hL = pTerrain->getHeight(Pxy - offXZ);
+//        float hR = pTerrain->getHeight(Pxy + offXZ);
+//        float hD = pTerrain->getHeight(Pxy - offZY);
+//        float hU = pTerrain->getHeight(Pxy + offZY);
+//        glm::vec3 N = {0, 0, 0};
+//        N.x = hL - hR;
+//        N.y = hD - hU;
+//        N.z = 2.0;
+//        N = normalize(N);
+//        normal = N;
     }
 }
