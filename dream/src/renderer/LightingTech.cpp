@@ -10,7 +10,6 @@
 namespace Dream {
     LightingTech::LightingTech() {
         whiteTexture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("white.png"));
-
         blackTexture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("black.png"));
     }
 

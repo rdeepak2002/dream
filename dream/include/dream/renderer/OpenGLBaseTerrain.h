@@ -5,8 +5,10 @@
 #ifndef DREAM_OPENGLBASETERRAIN_H
 #define DREAM_OPENGLBASETERRAIN_H
 
-#include "Camera.h"
-#include "OpenGLTriangleList.h"
+#include "dream/renderer/Camera.h"
+#include "dream/renderer/OpenGLTriangleList.h"
+#include "dream/renderer/OpenGLTexture.h"
+#include "dream/renderer/OpenGLShader.h"
 #include <ogldev/ogldev_array_2d.h>
 
 namespace Dream {
@@ -14,7 +16,9 @@ namespace Dream {
     public:
         OpenGLBaseTerrain(float worldScale, float textureScale);
 
-        void render();
+        ~OpenGLBaseTerrain();
+
+        void render(OpenGLShader* shader);
 
         void loadFromFile(const char* pFilename);
 
@@ -34,7 +38,15 @@ namespace Dream {
         float m_worldScale = 1.0f;
         Array2D<float> m_heightMap;
         OpenGLTriangleList m_triangleList;
-//        OpenGLTerrainTechnique m_terrainTech;
+
+        OpenGLTexture *textureDiffuse0;
+        OpenGLTexture *textureNormal0;
+
+        OpenGLTexture *textureDiffuse1;
+        OpenGLTexture *textureNormal1;
+
+        OpenGLTexture *textureDiffuse2;
+        OpenGLTexture *textureNormal2;
     };
 }
 

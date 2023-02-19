@@ -59,7 +59,7 @@ namespace Dream {
 
         skybox = new OpenGLSkybox();
 
-        terrain = new OpenGLBaseTerrain(4.0, 1.0);
+        terrain = new OpenGLBaseTerrain(4.0, 150.0);
         terrain->loadFromFile(Project::getPath().append("assets").append("heightmap.save").c_str());
 
         outputRenderTextureFbo = new OpenGLFrameBuffer();
@@ -159,7 +159,7 @@ namespace Dream {
                 terrainShader->use();
                 terrainShader->setMat4("projection", camera.getProjectionMatrix());
                 terrainShader->setMat4("view", camera.getViewMatrix());
-                terrain->render();
+                terrain->render(terrainShader);
             }
 
             {

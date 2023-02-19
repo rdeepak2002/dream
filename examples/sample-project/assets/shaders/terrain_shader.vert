@@ -9,7 +9,8 @@ layout (location = 6) in vec4 weights;
 uniform mat4 view;
 uniform mat4 projection;
 
-out vec4 Color;
+out vec3 FragPos;
+out vec2 TexCoord;
 //out vec3 Normal;
 
 void main()
@@ -17,5 +18,8 @@ void main()
     gl_Position =  projection * view * vec4(aPos, 1.0);
 //    Normal = mat3(transpose(inverse(model))) * aNormal;
 
-    Color = vec4(aPos.y / 200.0);
+//    FragPos = vec3(model * totalPosition);
+    FragPos = aPos;
+
+    TexCoord = aTexCoord;
 }
