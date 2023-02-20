@@ -18,8 +18,8 @@ uniform sampler2D textureNormal2;
 uniform float gMinHeight;
 uniform float gMaxHeight;
 
-uniform float gHeight0 = 80.0f;
-uniform float gHeight1 = 110.0f;
+uniform float gHeight0;
+uniform float gHeight1;
 
 void main()
 {
