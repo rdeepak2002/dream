@@ -3,6 +3,7 @@
 //
 
 #include "dream/renderer/OpenGLBaseTerrain.h"
+#include "dream/renderer/OpenGLTexture.h"
 #include "dream/project/Project.h"
 #include <ogldev/ogldev_util.h>
 
@@ -13,6 +14,9 @@
 #include <sys/stat.h>
 #include <cerrno>
 #include <string.h>
+
+//#define STB_IMAGE_IMPLEMENTATION
+//#include <stb_image_write.h>
 
 namespace Dream {
 
@@ -25,14 +29,14 @@ namespace Dream {
         m_worldScale = worldScale;
         m_textureScale = textureScale;
 
-        textureDiffuse0 = new OpenGLTexture(Project::getPath().append("assets").append("terrain-textures").append("grass_01_diffuse.jpg"));
-        textureNormal0 = new OpenGLTexture(Project::getPath().append("assets").append("terrain-textures").append("grass_01_normal.jpg"));
+        textureDiffuse0 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialAlb_Slice_0_.png"));
+        textureNormal0 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialCmb_Slice_0_.png"));
 
-        textureDiffuse1 = new OpenGLTexture(Project::getPath().append("assets").append("terrain-textures").append("dirt_rocks_01_diffuse.jpg"));
-        textureNormal1 = new OpenGLTexture(Project::getPath().append("assets").append("terrain-textures").append("dirt_rocks_01_normal.jpg"));
+        textureDiffuse1 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialAlb_Slice_73_.png"));
+        textureNormal1 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialCmb_Slice_73_.png"));
 
-        textureDiffuse2 = new OpenGLTexture(Project::getPath().append("assets").append("terrain-textures").append("gravel_01_diffuse.jpg"));
-        textureNormal2 = new OpenGLTexture(Project::getPath().append("assets").append("terrain-textures").append("gravel_01_normal.jpg"));
+        textureDiffuse2 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialAlb_Slice_0_.png"));
+        textureNormal2 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialCmb_Slice_0_.png"));
     }
 
     OpenGLBaseTerrain::~OpenGLBaseTerrain() {
@@ -57,6 +61,9 @@ namespace Dream {
 //        m_terrainTech.setView(view);
 
         // TODO: pass in projection and view to shader
+
+        shader->setFloat("gMinHeight", m_minHeight);
+        shader->setFloat("gMaxHeight", m_maxHeight);
 
         shader->setInt("textureDiffuse0", 0);
         textureDiffuse0->bind(0);
@@ -109,6 +116,13 @@ namespace Dream {
         }
 
         m_heightMap.InitArray2D(m_terrainSize, m_terrainSize, (float*)p);
+
+        m_minHeight = 0;
+        for (int x = 0; x < m_terrainSize; x++) {
+            for (int y = 0; y < m_terrainSize; y++) {
+                m_maxHeight = max(m_maxHeight, m_heightMap.Get(x, y));
+            }
+        }
     }
 
     float OpenGLBaseTerrain::getSize() const {
@@ -135,5 +149,25 @@ namespace Dream {
             y = m_terrainSize - 1;
         }
         return m_heightMap.Get((int) x, (int) y);
+    }
+
+    void OpenGLBaseTerrain::saveToFile(const char *pFilename) {
+        unsigned char* p = (unsigned char*)malloc(m_terrainSize * m_terrainSize);
+
+        float* src = m_heightMap.GetBaseAddr();
+
+        float Delta = m_maxHeight - m_minHeight;
+
+        for (int i = 0; i < m_terrainSize * m_terrainSize; i++) {
+            float f = (src[i] - m_minHeight) / Delta;
+            p[i] = (unsigned char)(f * 255.0f);
+        }
+
+        // TODO
+        // TODO
+        // TODO
+        // TODO
+//        stbi_write_png("heightmap.png", m_terrainSize, m_terrainSize, 1, p, m_terrainSize);
+        free(p);
     }
 }

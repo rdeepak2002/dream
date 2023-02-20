@@ -22,6 +22,8 @@ namespace Dream {
 
         void loadFromFile(const char* pFilename);
 
+        void saveToFile(const char* pFilename);
+
         float getHeight(glm::vec2 vec) const;
 
         float getHeight(int x, int z) const;
@@ -36,6 +38,8 @@ namespace Dream {
         int m_terrainSize = 0;
         float m_textureScale = 1.0f;
         float m_worldScale = 1.0f;
+        float m_minHeight = 0.0f;
+        float m_maxHeight = 0.0f;
         Array2D<float> m_heightMap;
         OpenGLTriangleList m_triangleList;
 

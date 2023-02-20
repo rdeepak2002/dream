@@ -15,18 +15,32 @@ uniform sampler2D textureNormal1;
 uniform sampler2D textureDiffuse2;
 uniform sampler2D textureNormal2;
 
+uniform float gMinHeight;
+uniform float gMaxHeight;
+
+uniform float gHeight0 = 80.0f;
+uniform float gHeight1 = 110.0f;
+
 void main()
 {
+    vec4 texColor;
     float height = FragPos.y;
 
-    if (height < 80.0) {
-        FragColor = texture(textureDiffuse0, TexCoord);
-        return;
-    } else if (height < 128.0) {
-        FragColor = texture(textureDiffuse1, TexCoord);
-        return;
+    if (height < gHeight0) {
+        texColor = texture(textureDiffuse0, TexCoord);
+    } else if (height < gHeight1) {
+        float Delta = gHeight1 - gHeight0;
+        float Factor = (height - gHeight0) / Delta;
+        vec4 Color0 = texture(textureDiffuse0, TexCoord);
+        vec4 Color1 = texture(textureDiffuse1, TexCoord);
+        texColor = mix(Color0, Color1, Factor);
     } else {
-        FragColor = texture(textureDiffuse2, TexCoord);
-        return;
+        float Delta = gMaxHeight - gHeight1;
+        float Factor = (height - gHeight1) / Delta;
+        vec4 Color0 = texture(textureDiffuse1, TexCoord);
+        vec4 Color1 = texture(textureDiffuse2, TexCoord);
+        texColor = mix(Color0, Color1, Factor);
     }
+
+    FragColor = texColor;
 }
