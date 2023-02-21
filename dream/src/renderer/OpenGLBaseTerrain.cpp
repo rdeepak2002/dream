@@ -64,8 +64,8 @@ namespace Dream {
 
         shader->setFloat("gMinHeight", m_minHeight);
         shader->setFloat("gMaxHeight", m_maxHeight);
-        shader->setFloat("gHeight0", 80.0f);
-        shader->setFloat("gHeight1", 110.0f);
+        shader->setFloat("gHeight0", 80.0f - 160.0f);
+        shader->setFloat("gHeight1", 110.0f - 160.0f);
 
         shader->setInt("textureDiffuse0", 0);
         textureDiffuse0->bind(0);

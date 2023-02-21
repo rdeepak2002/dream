@@ -135,7 +135,7 @@ namespace Dream {
                     glViewport(0, 0, (int) shadowMapFbos.at(i)->getWidth(), (int) shadowMapFbos.at(i)->getHeight());
                     shadowMapFbos.at(i)->bind();
                     glClear(GL_DEPTH_BUFFER_BIT);
-                    drawEntities(Project::getScene()->getRootEntity(), simpleDepthShader);
+                    drawEntities(Project::getScene()->getRootEntity(), camera, simpleDepthShader);
                     shadowMapFbos.at(i)->unbind();
                     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -152,14 +152,6 @@ namespace Dream {
                 this->resizeFrameBuffer();
                 glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            }
-
-            {
-                // draw terrain
-                terrainShader->use();
-                terrainShader->setMat4("projection", camera.getProjectionMatrix());
-                terrainShader->setMat4("view", camera.getViewMatrix());
-                terrain->render(terrainShader);
             }
 
             {
@@ -180,12 +172,12 @@ namespace Dream {
                     for (int i = 0; i < shadowCascadeLevels.size(); ++i) {
                         lightingShader->setFloat("cascadePlaneDistances[" + std::to_string(i) + "]", shadowCascadeLevels.at(i));
                     }
-                    drawEntities(Project::getScene()->getRootEntity(), lightingShader);
+                    drawEntities(Project::getScene()->getRootEntity(), camera, lightingShader);
                 } else {
                     singleTextureShader->use();
                     singleTextureShader->setMat4("projection", camera.getProjectionMatrix());
                     singleTextureShader->setMat4("view", camera.getViewMatrix());
-                    drawEntities(Project::getScene()->getRootEntity(), singleTextureShader);
+                    drawEntities(Project::getScene()->getRootEntity(), camera, singleTextureShader);
                 }
             }
 
@@ -242,7 +234,7 @@ namespace Dream {
         }
     }
 
-    void OpenGLRenderer::drawEntities(Entity entity, OpenGLShader* shader) {
+    void OpenGLRenderer::drawEntities(Entity entity, Camera camera, OpenGLShader* shader) {
         // set bones for animated meshes
         skinningTech->setJointUniforms(entity, shader);
 
@@ -272,10 +264,21 @@ namespace Dream {
             }
         }
 
+        if (entity.hasComponent<Component::TerrainComponent>()) {
+            // draw terrain
+            terrainShader->use();
+            glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
+            terrainShader->setMat4("model", model);
+            terrainShader->setMat4("projection", camera.getProjectionMatrix());
+            terrainShader->setMat4("view", camera.getViewMatrix());
+            terrain->render(terrainShader);
+            shader->use();
+        }
+
         // draw child entities
         Entity child = entity.getComponent<Component::HierarchyComponent>().first;
         while (child) {
-            drawEntities(child, shader);
+            drawEntities(child, camera, shader);
             child = child.getComponent<Component::HierarchyComponent>().next;
         }
     }

@@ -65,7 +65,7 @@ namespace Dream {
 
         void printGLVersion();
 
-        void drawEntities(Entity entity, OpenGLShader *shader);
+        void drawEntities(Entity entity, Camera camera, OpenGLShader *shader);
 
         void drawMesh(std::shared_ptr<OpenGLMesh> openGLMesh);
 
