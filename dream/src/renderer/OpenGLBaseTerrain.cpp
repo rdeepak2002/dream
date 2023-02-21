@@ -64,8 +64,8 @@ namespace Dream {
 
         shader->setFloat("gMinHeight", m_minHeight);
         shader->setFloat("gMaxHeight", m_maxHeight);
-        shader->setFloat("gHeight0", 80.0f - 160.0f);
-        shader->setFloat("gHeight1", 110.0f - 160.0f);
+        shader->setFloat("gHeight0", 80.0f);
+        shader->setFloat("gHeight1", 110.0f);
 
         shader->setInt("textureDiffuse0", 0);
         textureDiffuse0->bind(0);
@@ -119,10 +119,21 @@ namespace Dream {
 
         m_heightMap.InitArray2D(m_terrainSize, m_terrainSize, (float*)p);
 
+        for (int x = 0; x < m_terrainSize; x++) {
+            for (int y = 0; y < m_terrainSize; y++) {
+//                int cx = m_terrainSize / 2;
+//                int cy = m_terrainSize / 2;
+//                int dx = x - cx;
+//                int dy = y - cy;
+//                float dist = sqrt(dx * dx + dy * dy);
+//                m_heightMap.Set(x, y, 100.0f * sin(0.01 * dist) + 50.0f);
+//                m_heightMap.Set(x, y, 0.0f);
+            }
+        }
+
         m_minHeight = 0;
         for (int x = 0; x < m_terrainSize; x++) {
             for (int y = 0; y < m_terrainSize; y++) {
-//                m_heightMap.Set(x, y, 0.0f);
                 m_maxHeight = max(m_maxHeight, m_heightMap.Get(x, y));
             }
         }
