@@ -59,7 +59,6 @@ namespace Dream {
         DirectionalLightShadowTech *directionalLightShadowTech;
         SkinningTech *skinningTech;
         OpenGLSkybox *skybox;
-        OpenGLBaseTerrain *terrain;
 
         void resizeFrameBuffer();
 

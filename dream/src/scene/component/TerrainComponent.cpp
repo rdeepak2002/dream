@@ -24,6 +24,10 @@
 #include "dream/util/YAMLUtils.h"
 
 namespace Dream::Component {
+    TerrainComponent::~TerrainComponent() {
+//        delete terrain;
+    }
+
     void TerrainComponent::serialize(YAML::Emitter &out, Entity &entity) {
         if (entity.hasComponent<TerrainComponent>()) {
             auto &terrainComponent = entity.getComponent<TerrainComponent>();

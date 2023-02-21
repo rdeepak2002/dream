@@ -59,9 +59,6 @@ namespace Dream {
 
         skybox = new OpenGLSkybox();
 
-        terrain = new OpenGLBaseTerrain(4.0, 150.0);
-        terrain->loadFromFile(Project::getPath().append("assets").append("heightmap.save").c_str());
-
         outputRenderTextureFbo = new OpenGLFrameBuffer();
 
         directionalLightShadowTech = new DirectionalLightShadowTech();
@@ -264,14 +261,21 @@ namespace Dream {
             }
         }
 
-        if (entity.hasComponent<Component::TerrainComponent>()) {
-            // draw terrain
+        // render terrain
+        if (entity.hasComponent<Component::TerrainComponent>() && !entity.getComponent<Component::TerrainComponent>().guid.empty()) {
+            if (!entity.getComponent<Component::TerrainComponent>().terrain) {
+                // load terrain if necessary
+                entity.getComponent<Component::TerrainComponent>().terrain = new OpenGLBaseTerrain(4.0, 150.0);
+                auto terrainFilePath = Project::getResourceManager()->getFilePathFromGUID(entity.getComponent<Component::TerrainComponent>().guid);
+                entity.getComponent<Component::TerrainComponent>().terrain->loadFromFile(terrainFilePath.c_str());
+            }
+
             terrainShader->use();
             glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
             terrainShader->setMat4("model", model);
             terrainShader->setMat4("projection", camera.getProjectionMatrix());
             terrainShader->setMat4("view", camera.getViewMatrix());
-            terrain->render(terrainShader);
+            entity.getComponent<Component::TerrainComponent>().terrain->render(terrainShader);
             shader->use();
         }
 

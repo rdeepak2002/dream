@@ -91,6 +91,11 @@ namespace Dream {
         m_triangleList.createTriangleList(m_terrainSize, m_terrainSize, this);
     }
 
+    void OpenGLBaseTerrain::refreshTerrainTriangleList() {
+        // TODO: delete old opengl state buffers for the triangle list
+        m_triangleList.createTriangleList(m_terrainSize, m_terrainSize, this);
+    }
+
     float OpenGLBaseTerrain::getHeight(int x, int z) const {
         return m_heightMap.Get(x, z);
     }

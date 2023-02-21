@@ -22,6 +22,8 @@ namespace Dream {
 
         void loadFromFile(const char* pFilename);
 
+        void refreshTerrainTriangleList();
+
         void saveToFile(const char* pFilename);
 
         float getHeight(glm::vec2 vec) const;

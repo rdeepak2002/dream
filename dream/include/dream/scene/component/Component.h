@@ -30,6 +30,7 @@
 #include "dream/renderer/AnimationData.h"
 #include "dream/renderer/AssimpNodeData.h"
 #include "dream/renderer/Camera.h"
+#include "dream/renderer/OpenGLBaseTerrain.h"
 
 namespace Dream::Component {
     struct Component {
@@ -587,11 +588,17 @@ namespace Dream::Component {
     };
 
     struct TerrainComponent : public Component {
+        ~TerrainComponent();
+
         inline static std::string componentName = "TerrainComponent";
 
         // type of light
         inline static std::string k_guid = "guid";
         std::string guid = "";
+
+        // TODO: store in resource manager instance instead
+        // runtime OpenGL terrain reference
+        OpenGLBaseTerrain *terrain = nullptr;
 
         static void deserialize(YAML::Node node, Entity &entity);
 
