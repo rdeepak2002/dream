@@ -122,6 +122,7 @@ namespace Dream {
         m_minHeight = 0;
         for (int x = 0; x < m_terrainSize; x++) {
             for (int y = 0; y < m_terrainSize; y++) {
+//                m_heightMap.Set(x, y, 0.0f);
                 m_maxHeight = max(m_maxHeight, m_heightMap.Get(x, y));
             }
         }
@@ -154,22 +155,30 @@ namespace Dream {
     }
 
     void OpenGLBaseTerrain::saveToFile(const char *pFilename) {
-        unsigned char* p = (unsigned char*)malloc(m_terrainSize * m_terrainSize);
+//        void WriteBinaryFile(const char* pFilename, const void* pData, int size);
+//        WriteBinaryFile(pFilename, m_heightMap.GetBaseAddr(), m_heightMap.GetSize() * sizeof(float));
 
-        float* src = m_heightMap.GetBaseAddr();
+//        unsigned char* p = (unsigned char*)malloc(m_terrainSize * m_terrainSize);
+//        float* src = m_heightMap.GetBaseAddr();
+//        for (int i = 0; i < m_terrainSize * m_terrainSize; i++) {
+//            float f = src[i];
+//            p[i] = (unsigned char)(f * 255.0f);
+//        }
+//
+//        WriteBinaryFile(pFilename, p, m_terrainSize * m_terrainSize);
 
-        float Delta = m_maxHeight - m_minHeight;
-
-        for (int i = 0; i < m_terrainSize * m_terrainSize; i++) {
-            float f = (src[i] - m_minHeight) / Delta;
-            p[i] = (unsigned char)(f * 255.0f);
-        }
-
-        // TODO
-        // TODO
-        // TODO
-        // TODO
+//        unsigned char* p = (unsigned char*)malloc(m_terrainSize * m_terrainSize);
+//
+//        float* src = m_heightMap.GetBaseAddr();
+//
+//        float Delta = m_maxHeight - m_minHeight;
+//
+//        for (int i = 0; i < m_terrainSize * m_terrainSize; i++) {
+//            float f = (src[i] - m_minHeight) / Delta;
+//            p[i] = (unsigned char)(f * 255.0f);
+//        }
+//
 //        stbi_write_png("heightmap.png", m_terrainSize, m_terrainSize, 1, p, m_terrainSize);
-        free(p);
+//        free(p);
     }
 }
