@@ -29,6 +29,7 @@ namespace Dream {
         audioComponentSystem = new AudioComponentSystem();
         animatorComponentSystem = new AnimatorComponentSystem();
         luaScriptComponentSystem = new LuaScriptComponentSystem();
+        terrainComponentSystem = new TerrainComponentSystem();
     }
 
     Scene::~Scene() {
@@ -36,6 +37,7 @@ namespace Dream {
         delete audioComponentSystem;
         delete animatorComponentSystem;
         delete luaScriptComponentSystem;
+        delete terrainComponentSystem;
     }
 
     Entity Dream::Scene::createEntity(const std::string &name, bool rootEntity, bool addChildStart) {
@@ -64,6 +66,7 @@ namespace Dream {
             animatorComponentSystem->init();
             audioComponentSystem->init();
             luaScriptComponentSystem->init();
+            terrainComponentSystem->init();
             shouldInitComponentSystems = false;
         }
         if (Project::isPlaying() || Project::getConfig().animationConfig.playInEditor) {
@@ -80,11 +83,14 @@ namespace Dream {
         audioComponentSystem = nullptr;
         delete luaScriptComponentSystem;
         luaScriptComponentSystem = nullptr;
+        delete terrainComponentSystem;
+        terrainComponentSystem = nullptr;
 
         physicsComponentSystem = new PhysicsComponentSystem();
         audioComponentSystem = new AudioComponentSystem();
         animatorComponentSystem = new AnimatorComponentSystem();
         luaScriptComponentSystem = new LuaScriptComponentSystem();
+        terrainComponentSystem = new TerrainComponentSystem();
         shouldInitComponentSystems = true;
     }
 
@@ -93,8 +99,10 @@ namespace Dream {
             audioComponentSystem->update(dt);
             luaScriptComponentSystem->update(dt);
             physicsComponentSystem->update(dt);
+            terrainComponentSystem->update(dt);
         } else if (!Project::isPlaying()) {
             physicsComponentSystem->update(0.0);
+            terrainComponentSystem->update(dt);
         }
         if (Project::isPlaying()) {
             // TODO: move to component system

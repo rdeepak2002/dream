@@ -124,6 +124,13 @@ namespace Dream {
 
         m_heightMap.InitArray2D(m_terrainSize, m_terrainSize, (float*)p);
 
+        // TODO: remove this code that zeros out height
+        // TODO: remove this code that zeros out height
+        // TODO: remove this code that zeros out height
+        // TODO: remove this code that zeros out height
+        // TODO: remove this code that zeros out height
+        // TODO: remove this code that zeros out height
+        // TODO: remove this code that zeros out height
         for (int x = 0; x < m_terrainSize; x++) {
             for (int y = 0; y < m_terrainSize; y++) {
 //                int cx = m_terrainSize / 2;
@@ -196,5 +203,10 @@ namespace Dream {
 //
 //        stbi_write_png("heightmap.png", m_terrainSize, m_terrainSize, 1, p, m_terrainSize);
 //        free(p);
+    }
+
+    void OpenGLBaseTerrain::setHeight(int x, int z, float y) {
+        m_heightMap.Set(x, z, y);
+        this->refreshTerrainTriangleList();
     }
 }

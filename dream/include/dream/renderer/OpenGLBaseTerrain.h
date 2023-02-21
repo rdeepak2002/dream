@@ -30,6 +30,8 @@ namespace Dream {
 
         float getHeight(int x, int z) const;
 
+        void setHeight(int x, int z, float y);
+
         float getWorldScale() const;
 
         float getSize() const;
