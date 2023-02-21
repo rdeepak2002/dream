@@ -585,6 +585,18 @@ namespace Dream::Component {
 
         static void serialize(YAML::Emitter &out, Entity &entity);
     };
+
+    struct TerrainComponent : public Component {
+        inline static std::string componentName = "TerrainComponent";
+
+        // type of light
+        inline static std::string k_guid = "guid";
+        std::string guid = "";
+
+        static void deserialize(YAML::Node node, Entity &entity);
+
+        static void serialize(YAML::Emitter &out, Entity &entity);
+    };
 }
 
 #endif //DREAM_COMPONENT_H

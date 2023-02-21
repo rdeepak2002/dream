@@ -90,6 +90,7 @@ namespace Dream {
                 renderCollisionComponent();
                 renderRigidBodyComponent();
                 renderLightComponent();
+                renderTerrainComponent();
                 renderAddComponent();
                 renderRemoveComponent();
             }
@@ -122,6 +123,8 @@ namespace Dream {
                 selectedEntity.addComponent<Component::RigidBodyComponent>();
             } else if (componentID == Component::LightComponent::componentName) {
                 selectedEntity.addComponent<Component::LightComponent>();
+            } else if (componentID == Component::TerrainComponent::componentName) {
+                selectedEntity.addComponent<Component::TerrainComponent>();
             } else {
                 Logger::fatal("Unknown component to add " + componentID);
             }
@@ -172,6 +175,10 @@ namespace Dream {
 
         if (!selectedEntity.hasComponent<Component::LightComponent>()) {
             components.insert(std::make_pair("Light", Component::LightComponent::componentName));
+        }
+
+        if (!selectedEntity.hasComponent<Component::TerrainComponent>()) {
+            components.insert(std::make_pair("Terrain", Component::TerrainComponent::componentName));
         }
 
         if (!selectedEntity.hasComponent<Component::RootComponent>() && !components.empty()) {
@@ -1194,6 +1201,41 @@ namespace Dream {
                 // color input
                 {
                     renderVec3Control("Color", component.color, treeNodeWidth + 20, 1.0, 0.1, 3);
+                }
+                ImGui::TreePop();
+            }
+        }
+    }
+
+    void ImGuiEditorInspectorView::renderTerrainComponent() {
+        if (selectedEntity.hasComponent<Component::TerrainComponent>()) {
+            auto &component = selectedEntity.getComponent<Component::TerrainComponent>();
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Terrain",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+            ImGui::SameLine();
+            ImGui::Text("Terrain");
+            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                selectedEntity.removeComponent<Component::TerrainComponent>();
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+            auto cursorPosX1 = ImGui::GetCursorPosX();
+
+            if (treeNodeOpen) {
+                auto cursorPosX2 = ImGui::GetCursorPosX();
+                auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
+                // guid
+                {
+                    if (component.guid.empty()) {
+                        ImGui::Text("None");
+                    } else {
+                        ImGui::Text("%s", component.guid.c_str());
+                    }
                 }
                 ImGui::TreePop();
             }
