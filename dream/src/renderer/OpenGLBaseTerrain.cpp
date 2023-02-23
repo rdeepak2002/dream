@@ -64,8 +64,9 @@ namespace Dream {
 
         shader->setFloat("gMinHeight", m_minHeight);
         shader->setFloat("gMaxHeight", m_maxHeight);
-        shader->setFloat("gHeight0", 0.1f);
-        shader->setFloat("gHeight1", 1.0f);
+        shader->setFloat("gHeight0", 1.0f);
+        shader->setFloat("gHeight1", 3.0f);
+        shader->setFloat("gHeight2", 6.0f);
 
         shader->setInt("textureDiffuse0", 0);
         textureDiffuse0->bind(0);
@@ -103,7 +104,10 @@ namespace Dream {
     }
 
     float OpenGLBaseTerrain::getHeight(int x, int z) const {
-        return m_heightMap.Get(x, z);
+        if (x >= 0 && z >= 0 && x < getSize() && z < getSize()) {
+            return m_heightMap.Get(x, z);
+        }
+        return 0.0f;
     }
 
     float OpenGLBaseTerrain::getWorldScale() const {

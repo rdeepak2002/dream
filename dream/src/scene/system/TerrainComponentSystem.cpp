@@ -134,12 +134,10 @@ namespace Dream {
                         for (int i = 0; i < 5; ++i) {
                             for (int j = 0; j < 5; ++j) {
                                 float deltaHeight = 200.0f;
-                                float currentHeight = terrain->getHeight(x, z);
+                                float currentHeight = terrain->getHeight(startX + i, startZ + j);
                                 float newHeight = currentHeight + deltaHeight * dt * GKernel[i][j];
                                 terrain->setHeight(startX + i, startZ + j, newHeight);
-//                                    std::cout << GKernel[i][j] * deltaHeight << "\t";
                             }
-//                                std::cout << std::endl;
                         }
 
                         terrain->refreshTerrainTriangleList();

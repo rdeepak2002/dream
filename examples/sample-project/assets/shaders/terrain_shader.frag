@@ -20,6 +20,7 @@ uniform float gMaxHeight;
 
 uniform float gHeight0;
 uniform float gHeight1;
+uniform float gHeight2;
 
 void main()
 {
@@ -34,12 +35,15 @@ void main()
         vec4 Color0 = texture(textureDiffuse0, TexCoord);
         vec4 Color1 = texture(textureDiffuse1, TexCoord);
         texColor = mix(Color0, Color1, Factor);
-    } else {
-        float Delta = gMaxHeight - gHeight1;
+    } else if (height < gHeight2) {
+        float Delta = gHeight2 - gHeight1;
         float Factor = (height - gHeight1) / Delta;
         vec4 Color0 = texture(textureDiffuse1, TexCoord);
         vec4 Color1 = texture(textureDiffuse2, TexCoord);
         texColor = mix(Color0, Color1, Factor);
+    } else {
+        vec4 Color1 = texture(textureDiffuse2, TexCoord);
+        texColor = Color1;
     }
 
     FragColor = texColor;
