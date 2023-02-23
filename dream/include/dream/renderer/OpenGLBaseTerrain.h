@@ -18,6 +18,8 @@ namespace Dream {
 
         ~OpenGLBaseTerrain();
 
+        void setShaderUniforms(OpenGLShader* shader);
+
         void render(OpenGLShader* shader);
 
         void loadFromFile(const char* pFilename);

@@ -280,6 +280,7 @@ namespace Dream {
             terrainShader->setMat4("model", model);
             terrainShader->setMat4("projection", camera.getProjectionMatrix());
             terrainShader->setMat4("view", camera.getViewMatrix());
+            entity.getComponent<Component::TerrainComponent>().terrain->setShaderUniforms(terrainShader);
             entity.getComponent<Component::TerrainComponent>().terrain->render(terrainShader);
             shader->use();
         }

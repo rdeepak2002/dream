@@ -51,18 +51,7 @@ namespace Dream {
         delete textureNormal2;
     }
 
-    void OpenGLBaseTerrain::render(OpenGLShader* shader) {
-//        auto projection = camera.getProjectionMatrix();
-//        auto view = camera.getViewMatrix();
-//        Matrix4f VP = Camera.GetViewProjMatrix();
-
-//        m_terrainTech.enable();
-//        m_terrainTech.SetVP(VP);
-//        m_terrainTech.setProjection(projection);
-//        m_terrainTech.setView(view);
-
-        // TODO: pass in projection and view to shader
-
+    void OpenGLBaseTerrain::setShaderUniforms(OpenGLShader* shader) {
         shader->setFloat("gMinHeight", m_minHeight);
         shader->setFloat("gMaxHeight", m_maxHeight);
         shader->setFloat("gHeight0", 1.0f);
@@ -83,6 +72,21 @@ namespace Dream {
         textureDiffuse2->bind(4);
         shader->setInt("textureNormal2", 5);
         textureNormal2->bind(5);
+    }
+
+    void OpenGLBaseTerrain::render(OpenGLShader* shader) {
+//        auto projection = camera.getProjectionMatrix();
+//        auto view = camera.getViewMatrix();
+//        Matrix4f VP = Camera.GetViewProjMatrix();
+
+//        m_terrainTech.enable();
+//        m_terrainTech.SetVP(VP);
+//        m_terrainTech.setProjection(projection);
+//        m_terrainTech.setView(view);
+
+        // TODO: pass in projection and view to shader
+
+
 
         m_triangleList.render();
     }
