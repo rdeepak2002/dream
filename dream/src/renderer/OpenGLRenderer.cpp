@@ -157,25 +157,6 @@ namespace Dream {
             }
 
             {
-                // draw terrains
-                terrainShader->use();
-                terrainShader->setMat4("projection", camera.getProjectionMatrix());
-                terrainShader->setMat4("view", camera.getViewMatrix());
-                terrainShader->setFloat("farPlane", camera.zFar);
-                glm::vec3 viewPos = camera.position;
-                terrainShader->setVec3("viewPos", viewPos);
-                terrainShader->setVec3("shadowDirectionalLightDir", directionalLightShadowTech->getDirectionalLightDirection());
-                for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
-                    terrainShader->setMat4("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices.at(i));
-                }
-                auto shadowCascadeLevels = directionalLightShadowTech->getShadowCascadeLevels(camera);
-                for (int i = 0; i < shadowCascadeLevels.size(); ++i) {
-                    terrainShader->setFloat("cascadePlaneDistances[" + std::to_string(i) + "]", shadowCascadeLevels.at(i));
-                }
-                drawTerrains(camera, terrainShader);
-            }
-
-            {
                 // draw meshes
                 if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
                     lightingShader->use();
@@ -199,6 +180,28 @@ namespace Dream {
                     singleTextureShader->setMat4("view", camera.getViewMatrix());
                     drawEntities(Project::getScene()->getRootEntity(), camera, singleTextureShader);
                 }
+            }
+
+            {
+                glEnable(GL_CULL_FACE);
+                glCullFace(GL_BACK);
+                // draw terrains
+                terrainShader->use();
+                terrainShader->setMat4("projection", camera.getProjectionMatrix());
+                terrainShader->setMat4("view", camera.getViewMatrix());
+                terrainShader->setFloat("farPlane", camera.zFar);
+                glm::vec3 viewPos = camera.position;
+                terrainShader->setVec3("viewPos", viewPos);
+                terrainShader->setVec3("shadowDirectionalLightDir", directionalLightShadowTech->getDirectionalLightDirection());
+                for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
+                    terrainShader->setMat4("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices.at(i));
+                }
+                auto shadowCascadeLevels = directionalLightShadowTech->getShadowCascadeLevels(camera);
+                for (int i = 0; i < shadowCascadeLevels.size(); ++i) {
+                    terrainShader->setFloat("cascadePlaneDistances[" + std::to_string(i) + "]", shadowCascadeLevels.at(i));
+                }
+                drawTerrains(camera, terrainShader);
+                glDisable(GL_CULL_FACE);
             }
 
             {
