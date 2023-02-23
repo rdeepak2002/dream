@@ -106,8 +106,9 @@ namespace Dream {
                         if (x >= 0 && z >= 0 && x < terrain->getSize() && z < terrain->getSize()) {
                             float deltaHeight = 10.0f;
                             float currentHeight = terrain->getHeight(x, z);
+                            float newHeight = currentHeight + deltaHeight * dt;
                             // TODO: use Gaussian brush multiplied by scale like deltaHeight
-                            terrain->setHeight(x, z, currentHeight + deltaHeight * dt);
+                            terrain->setHeight(x, z, newHeight);
                         }
                     }
                 }

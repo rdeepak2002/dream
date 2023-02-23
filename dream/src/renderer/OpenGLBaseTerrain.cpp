@@ -32,11 +32,11 @@ namespace Dream {
         textureDiffuse0 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialAlb_Slice_0_.png"));
         textureNormal0 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialCmb_Slice_0_.png"));
 
-        textureDiffuse1 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialAlb_Slice_73_.png"));
-        textureNormal1 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialCmb_Slice_73_.png"));
+        textureDiffuse1 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialAlb_Slice_74_.png"));
+        textureNormal1 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialCmb_Slice_74_.png"));
 
-        textureDiffuse2 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialAlb_Slice_0_.png"));
-        textureNormal2 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialCmb_Slice_0_.png"));
+        textureDiffuse2 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialAlb_Slice_73_.png"));
+        textureNormal2 = new OpenGLTexture(Project::getPath().append("assets").append("botw-ground-textures").append("MaterialCmb_Slice_73_.png"));
     }
 
     OpenGLBaseTerrain::~OpenGLBaseTerrain() {
@@ -64,8 +64,8 @@ namespace Dream {
 
         shader->setFloat("gMinHeight", m_minHeight);
         shader->setFloat("gMaxHeight", m_maxHeight);
-        shader->setFloat("gHeight0", 1.0f);
-        shader->setFloat("gHeight1", 10.0f);
+        shader->setFloat("gHeight0", 0.1f);
+        shader->setFloat("gHeight1", 1.0f);
 
         shader->setInt("textureDiffuse0", 0);
         textureDiffuse0->bind(0);
@@ -93,6 +93,13 @@ namespace Dream {
 
     void OpenGLBaseTerrain::refreshTerrainTriangleList() {
         m_triangleList.createTriangleList(m_terrainSize, m_terrainSize, this);
+
+        m_minHeight = 0;
+        for (int x = 0; x < m_terrainSize; x++) {
+            for (int y = 0; y < m_terrainSize; y++) {
+                m_maxHeight = max(m_maxHeight, m_heightMap.Get(x, y));
+            }
+        }
     }
 
     float OpenGLBaseTerrain::getHeight(int x, int z) const {
@@ -126,7 +133,7 @@ namespace Dream {
         // TODO: remove this code that zeros out height
         for (int x = 0; x < m_terrainSize; x++) {
             for (int y = 0; y < m_terrainSize; y++) {
-//                m_heightMap.Set(x, y, 0.0f);
+                m_heightMap.Set(x, y, 0.0f);
             }
         }
 

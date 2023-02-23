@@ -270,7 +270,7 @@ namespace Dream {
             if (!entity.getComponent<Component::TerrainComponent>().terrain) {
                 // TODO: store in resource manager instead
                 // load terrain if necessary
-                entity.getComponent<Component::TerrainComponent>().terrain = new OpenGLBaseTerrain(4.0, 150.0);
+                entity.getComponent<Component::TerrainComponent>().terrain = new OpenGLBaseTerrain(4.0, 200.0);
                 auto terrainFilePath = Project::getResourceManager()->getFilePathFromGUID(entity.getComponent<Component::TerrainComponent>().guid);
                 entity.getComponent<Component::TerrainComponent>().terrain->loadFromFile(terrainFilePath.c_str());
             }
