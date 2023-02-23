@@ -56,6 +56,10 @@ namespace Dream {
     }
 
     void TerrainComponentSystem::update(float dt) {
+        auto sceneCameraEntity = Project::getScene()->getSceneCamera();
+        if (!sceneCameraEntity) {
+            return;
+        }
         // update all entities with terrain components
         auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::TerrainComponent>();
         for (auto entityHandle: rigidBodyEntities) {
@@ -64,19 +68,30 @@ namespace Dream {
                 // TODO: make renderer agnostic
                 OpenGLBaseTerrain *terrain = entity.getComponent<Component::TerrainComponent>().terrain;
                 if (terrain) {
-                    std::cout << Input::getRelativeMousePosition().x << ", " << Input::getRelativeMousePosition().y << std::endl;
-                    std::cout << "...." << std::endl;
+                    int viewportWidth = Input::getRendererDimensions().first;
+                    int viewportHeight = Input::getRendererDimensions().second;
 
+                    Camera camera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};
+                    sceneCameraEntity.getComponent<Component::SceneCameraComponent>().updateRendererCamera(camera, sceneCameraEntity);
+
+                    float mouseX = Input::getRelativeMousePosition().x;
+                    float mouseY = Input::getRelativeMousePosition().y;
+
+                    glm::mat4 proj = camera.getProjectionMatrix();
+                    glm::mat4 view = camera.getViewMatrix();
+
+                    glm::mat4 invVP = glm::inverse(proj * view);
+                    glm::vec4 screenPos = glm::vec4(mouseX, -mouseY, 1.0f, 1.0f);
+                    glm::vec4 worldPos = invVP * screenPos;
+
+                    glm::vec3 dir = glm::normalize(glm::vec3(worldPos));
 
                     // TODO: use raycasting to get x, z position of terrain to modify
-                    std::cout << Input::getMousePosition().x << ", " << Input::getMousePosition().y << std::endl;
-                    auto sceneCameraEntity = Project::getScene()->getSceneCamera();
-                    auto sceneCameraFront = sceneCameraEntity.getComponent<Component::SceneCameraComponent>().front;
+//                    auto sceneCameraFront = sceneCameraEntity.getComponent<Component::SceneCameraComponent>().front;
                     auto sceneCameraCenter = sceneCameraEntity.getComponent<Component::TransformComponent>().translation;
 
                     float d = 0;
-                    auto maybeIntersectionPoint = intersectRayWithPlane(sceneCameraCenter, glm::normalize(sceneCameraFront),
-                                                                   glm::vec3(0, 1, 0), d);
+                    auto maybeIntersectionPoint = intersectRayWithPlane(sceneCameraCenter, dir,glm::vec3(0, 1, 0), d);
 
                     if (maybeIntersectionPoint) {
                         glm::vec3 intersectionPoint = *maybeIntersectionPoint;

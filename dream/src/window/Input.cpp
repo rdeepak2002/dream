@@ -117,10 +117,13 @@ namespace Dream {
             return {0, 0};
         }
         glm::vec2 res = Input::getMousePosition();
-        res.x /= w;
-        res.y /= h;
-        res = res - glm::vec2{0.5, 0.5};
-        res = 2.0f * res;
+        res.x /= (w * 0.5f);
+        res.y /= (h * 0.5f);
+        res = res - glm::vec2{1.0, 1.0};
         return res;
+    }
+
+    std::pair<int, int> Input::getRendererDimensions() {
+        return {Input::getInstance().rendererWidth, Input::getInstance().rendererHeight};
     }
 }

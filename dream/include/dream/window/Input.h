@@ -72,6 +72,8 @@ namespace Dream {
 
         static void setRendererDimensions(int width, int height);
 
+        static std::pair<int, int> getRendererDimensions();
+
     private:
         Input() {}
 
