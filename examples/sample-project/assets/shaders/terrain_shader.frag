@@ -149,6 +149,7 @@ void main()
 
     result.rgb = pow(result.rgb, vec3(1.0 / gamma));
     FragColor = vec4(result, 1.0);
+//    FragColor = vec4(Normal, 1.0);
 
 //    vec4 texColor;
 //    float height = FragPos.y;

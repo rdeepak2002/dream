@@ -196,8 +196,8 @@ namespace Dream {
         float hU = pTerrain->getHeight(Pxy + offZY);
         glm::vec3 N = {0, 0, 0};
         N.x = hL - hR;
-        N.y = hD - hU;
-        N.z = 2.0;
+        N.y = 2.0;
+        N.z = hD - hU;
         N = normalize(N);
         normal = N;
 
