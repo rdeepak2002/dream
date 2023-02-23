@@ -43,7 +43,9 @@ namespace Dream {
 
         int m_width = 0;
         int m_depth = 0;
-        unsigned int m_vao, m_vb, m_ib;
+        unsigned int m_vao = -1;
+        unsigned int m_vb = -1;
+        unsigned int m_ib = -1;
     };
 }
 

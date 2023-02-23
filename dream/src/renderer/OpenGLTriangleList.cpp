@@ -16,6 +16,18 @@ namespace Dream {
     }
 
     void OpenGLTriangleList::createTriangleList(int width, int depth, const OpenGLBaseTerrain *pTerrain) {
+        if (m_vao != -1) {
+            glDeleteVertexArrays(1, &m_vao);
+        }
+
+        if (m_vb != -1) {
+            glDeleteBuffers(1, &m_vb);
+        }
+
+        if (m_ib != -1) {
+            glDeleteBuffers(1, &m_ib);
+        }
+
         m_width = width;
         m_depth = depth;
 

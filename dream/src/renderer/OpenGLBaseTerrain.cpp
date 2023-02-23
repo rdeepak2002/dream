@@ -92,8 +92,6 @@ namespace Dream {
     }
 
     void OpenGLBaseTerrain::refreshTerrainTriangleList() {
-        // TODO: delete old opengl state buffers for the triangle list
-        Logger::warn("TODO: Deallocate old GPU memory of terrain triangle list");
         m_triangleList.createTriangleList(m_terrainSize, m_terrainSize, this);
     }
 
@@ -125,12 +123,6 @@ namespace Dream {
 
         m_heightMap.InitArray2D(m_terrainSize, m_terrainSize, (float*)p);
 
-        // TODO: remove this code that zeros out height
-        // TODO: remove this code that zeros out height
-        // TODO: remove this code that zeros out height
-        // TODO: remove this code that zeros out height
-        // TODO: remove this code that zeros out height
-        // TODO: remove this code that zeros out height
         // TODO: remove this code that zeros out height
         for (int x = 0; x < m_terrainSize; x++) {
             for (int y = 0; y < m_terrainSize; y++) {
