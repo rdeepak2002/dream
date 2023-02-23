@@ -314,6 +314,23 @@ vec3 CalcDirLight(DirLight light) {
         layer = NUM_CASCADES - 1;
     }
 
+    if (layer == 0) {
+//        shadowCascadeDebugColor = vec3(1.0, 0.0, 0.0);
+        layer = 1;
+    }
+
+    if (layer == 1) {
+//        shadowCascadeDebugColor = vec3(0.0, 1.0, 0.0);
+    }
+
+    if (layer == 2) {
+//        shadowCascadeDebugColor = vec3(0.0, 0.0, 1.0);
+    }
+
+    if (layer == 3) {
+//        shadowCascadeDebugColor = vec3(1.0, 1.0, 0.0);
+    }
+
     int cascadeIndex = layer;
     float shadowFactor = ShadowCalculation(cascadeIndex, normal);
     shadow += shadowFactor;

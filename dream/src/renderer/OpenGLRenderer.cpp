@@ -356,7 +356,7 @@ namespace Dream {
     }
 
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
-//        return this->shadowMapFbos.at(1)->getTexture();
+//        return this->shadowMapFbos.at(0)->getTexture();
         return this->outputRenderTextureFbo->getTexture();
     }
 }
