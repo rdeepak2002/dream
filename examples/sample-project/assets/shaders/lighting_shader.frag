@@ -60,7 +60,6 @@ uniform vec4 ambient_color;
 uniform sampler2D texture_normal;
 uniform sampler2D texture_height;
 uniform sampler2D shadowMaps[NUM_CASCADES];
-//uniform mat4 lightSpaceMatrix;
 uniform mat4 lightSpaceMatrices[NUM_CASCADES];
 uniform float cascadePlaneDistances[16];
 
