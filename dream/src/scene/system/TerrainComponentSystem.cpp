@@ -80,7 +80,7 @@ namespace Dream {
 
     void TerrainComponentSystem::update(float dt) {
         auto sceneCameraEntity = Project::getScene()->getSceneCamera();
-        if (!sceneCameraEntity) {
+        if (!sceneCameraEntity || sceneCameraEntity.getComponent<Component::SceneCameraComponent>().mode != Component::SceneCameraComponent::Mode::TERRAIN_PAINT) {
             return;
         }
         // update all entities with terrain components

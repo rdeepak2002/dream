@@ -1237,6 +1237,22 @@ namespace Dream {
                         ImGui::Text("%s", component.guid.c_str());
                     }
                 }
+                // button to paint
+                {
+                    auto sceneCameraEntity = Project::getScene()->getSceneCamera();
+                    if (sceneCameraEntity) {
+                        auto &sceneCameraComponent = sceneCameraEntity.getComponent<Component::SceneCameraComponent>();
+                        if (sceneCameraComponent.mode == Component::SceneCameraComponent::MOVE_1) {
+                            if (ImGui::Button("Paint")) {
+                                sceneCameraComponent.mode = Component::SceneCameraComponent::TERRAIN_PAINT;
+                            }
+                        } else if (sceneCameraComponent.mode == Component::SceneCameraComponent::TERRAIN_PAINT) {
+                            if (ImGui::Button("Stop Painting")) {
+                                sceneCameraComponent.mode = Component::SceneCameraComponent::MOVE_1;
+                            }
+                        }
+                    }
+                }
                 ImGui::TreePop();
             }
         }

@@ -421,11 +421,19 @@ namespace Dream::Component {
         inline static std::string k_pitch = "pitch";
         float pitch;
 
+        enum Mode {
+            MOVE_1,
+            TERRAIN_PAINT
+        };
+
         // computed during runtime
         glm::vec3 front;
         glm::vec3 up;
         glm::vec3 right;
         glm::vec3 worldUp;
+
+        // runtime mode of scene camera
+        Mode mode = Mode::MOVE_1;
 
         explicit SceneCameraComponent(float fov);
 

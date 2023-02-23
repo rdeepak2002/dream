@@ -90,9 +90,11 @@ namespace Dream::Component {
         auto mouseScroll = Input::getMouseScroll();
         glm::vec3 &position = sceneCamera.getComponent<TransformComponent>().translation;
         if (Input::getButtonDown(Key::LeftMouse)) {
-            float padding = 0.01;
-            position -= mouseMoveSpeedScale * right * mouseMovement.x * padding;
-            position += mouseMoveSpeedScale * up * mouseMovement.y * padding;
+            if (mode == MOVE_1) {
+                float padding = 0.01;
+                position -= mouseMoveSpeedScale * right * mouseMovement.x * padding;
+                position += mouseMoveSpeedScale * up * mouseMovement.y * padding;
+            }
         }
         {
             float padding = 0.1;
