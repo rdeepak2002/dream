@@ -14,6 +14,7 @@
 #include <sys/stat.h>
 #include <cerrno>
 #include <string.h>
+#include <fstream>
 
 //#define STB_IMAGE_IMPLEMENTATION
 //#include <stb_image_write.h>
@@ -133,14 +134,6 @@ namespace Dream {
         }
 
         m_heightMap.InitArray2D(m_terrainSize, m_terrainSize, (float*)p);
-
-        // TODO: remove this code that zeros out height
-        for (int x = 0; x < m_terrainSize; x++) {
-            for (int y = 0; y < m_terrainSize; y++) {
-                m_heightMap.Set(x, y, 0.0f);
-            }
-        }
-
         m_minHeight = 0;
         for (int x = 0; x < m_terrainSize; x++) {
             for (int y = 0; y < m_terrainSize; y++) {
@@ -176,31 +169,11 @@ namespace Dream {
     }
 
     void OpenGLBaseTerrain::saveToFile(const char *pFilename) {
-//        void WriteBinaryFile(const char* pFilename, const void* pData, int size);
-//        WriteBinaryFile(pFilename, m_heightMap.GetBaseAddr(), m_heightMap.GetSize() * sizeof(float));
-
-//        unsigned char* p = (unsigned char*)malloc(m_terrainSize * m_terrainSize);
-//        float* src = m_heightMap.GetBaseAddr();
-//        for (int i = 0; i < m_terrainSize * m_terrainSize; i++) {
-//            float f = src[i];
-//            p[i] = (unsigned char)(f * 255.0f);
-//        }
-//
-//        WriteBinaryFile(pFilename, p, m_terrainSize * m_terrainSize);
-
-//        unsigned char* p = (unsigned char*)malloc(m_terrainSize * m_terrainSize);
-//
-//        float* src = m_heightMap.GetBaseAddr();
-//
-//        float Delta = m_maxHeight - m_minHeight;
-//
-//        for (int i = 0; i < m_terrainSize * m_terrainSize; i++) {
-//            float f = (src[i] - m_minHeight) / Delta;
-//            p[i] = (unsigned char)(f * 255.0f);
-//        }
-//
-//        stbi_write_png("heightmap.png", m_terrainSize, m_terrainSize, 1, p, m_terrainSize);
-//        free(p);
+        std::ofstream out;
+        out.open(pFilename, std::ios::out | std::ios::binary);
+        float* f = m_heightMap.GetBaseAddr();
+        out.write( reinterpret_cast<const char*>( f ), m_terrainSize * m_terrainSize * sizeof( float ));
+        out.close();
     }
 
     void OpenGLBaseTerrain::setHeight(int x, int z, float y) {

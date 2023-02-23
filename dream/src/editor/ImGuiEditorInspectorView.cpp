@@ -1230,13 +1230,13 @@ namespace Dream {
                 auto cursorPosX2 = ImGui::GetCursorPosX();
                 auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
                 // guid
-                {
-                    if (component.guid.empty()) {
-                        ImGui::Text("None");
-                    } else {
-                        ImGui::Text("%s", component.guid.c_str());
-                    }
-                }
+//                {
+//                    if (component.guid.empty()) {
+//                        ImGui::Text("None");
+//                    } else {
+//                        ImGui::Text("%s", component.guid.c_str());
+//                    }
+//                }
                 // button to paint
                 {
                     auto sceneCameraEntity = Project::getScene()->getSceneCamera();
@@ -1250,6 +1250,28 @@ namespace Dream {
                             if (ImGui::Button("Stop Painting")) {
                                 sceneCameraComponent.mode = Component::SceneCameraComponent::MOVE_1;
                             }
+                        }
+                    }
+                }
+                // button to clear
+                {
+                    if (ImGui::Button("Clear")) {
+                        if (component.terrain) {
+                            for (int x = 0; x < component.terrain->getSize(); ++x) {
+                                for (int z = 0; z < component.terrain->getSize(); ++z) {
+                                    component.terrain->setHeight(x, z, 0.0f);
+                                }
+                            }
+                            component.terrain->refreshTerrainTriangleList();
+                        }
+                    }
+                }
+                // save button
+                {
+                    if (ImGui::Button("Save")) {
+                        auto filePath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
+                        if (component.terrain) {
+                            component.terrain->saveToFile(filePath.c_str());
                         }
                     }
                 }
