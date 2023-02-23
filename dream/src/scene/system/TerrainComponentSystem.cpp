@@ -88,6 +88,7 @@ namespace Dream {
         for (auto entityHandle: rigidBodyEntities) {
             Entity entity = {entityHandle, Project::getScene()};
             if (!Project::isPlaying() && Input::getButtonDown(Key::LeftMouse)) {
+                glm::vec3 terrainTranslation = entity.getComponent<Component::TransformComponent>().translation;
                 // TODO: make renderer agnostic
                 OpenGLBaseTerrain *terrain = entity.getComponent<Component::TerrainComponent>().terrain;
                 if (terrain) {
@@ -119,8 +120,8 @@ namespace Dream {
                     if (maybeIntersectionPoint) {
                         glm::vec3 intersectionPoint = *maybeIntersectionPoint;
 
-                        float xCoordOnPlane = intersectionPoint.x / terrain->getWorldScale();
-                        float zCoordOnPlane = intersectionPoint.z / terrain->getWorldScale();
+                        float xCoordOnPlane = (intersectionPoint.x - terrainTranslation.x) / terrain->getWorldScale();
+                        float zCoordOnPlane = (intersectionPoint.z - terrainTranslation.z) / terrain->getWorldScale();
 
                         // get width and height, then project
                         int x = (int) xCoordOnPlane;
