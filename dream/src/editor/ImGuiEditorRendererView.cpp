@@ -165,6 +165,7 @@ namespace Dream {
         float height = vMax.y - vMin.y - buttonHeight;
         rendererViewportWidth = int(width);
         rendererViewportHeight = int(height);
+        Input::setEditorMousePositionOffset(ImGui::GetCursorScreenPos().x, ImGui::GetCursorScreenPos().y);
         ImGui::Image(reinterpret_cast<ImTextureID>(frameBufferTexture), ImVec2(width, height), ImVec2(0, 1),
                      ImVec2(1, 0));
         Input::setPlayWindowActive(true);

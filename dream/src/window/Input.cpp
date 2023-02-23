@@ -39,7 +39,7 @@ namespace Dream {
     }
 
     glm::vec2 Input::getMousePosition() {
-        return Input::getInstance().mousePosition;
+        return Input::getInstance().mousePosition - Input::getInstance().editorMousePositionOffset;
     }
 
     void Input::setMousePosition(double x, double y) {
@@ -99,5 +99,28 @@ namespace Dream {
 
     void Input::setPlayWindowActive(bool playWindowActive) {
         Input::getInstance().playWindowActive = playWindowActive;
+    }
+
+    void Input::setEditorMousePositionOffset(double x, double y) {
+        Input::getInstance().editorMousePositionOffset = {x , y};
+    }
+
+    void Input::setRendererDimensions(int width, int height) {
+        Input::getInstance().rendererWidth = width;
+        Input::getInstance().rendererHeight = height;
+    }
+
+    glm::vec2 Input::getRelativeMousePosition() {
+        float w = (float) Input::getInstance().rendererWidth;
+        float h = (float) Input::getInstance().rendererHeight;
+        if (w == 0 || h == 0) {
+            return {0, 0};
+        }
+        glm::vec2 res = Input::getMousePosition();
+        res.x /= w;
+        res.y /= h;
+        res = res - glm::vec2{0.5, 0.5};
+        res = 2.0f * res;
+        return res;
     }
 }

@@ -108,6 +108,10 @@ namespace Dream {
         std::optional<Camera> maybeCamera;
         auto sceneCameraEntity = Project::getScene()->getSceneCamera();
         auto mainCameraEntity = Project::getScene()->getMainCamera();
+
+        // update viewport width and height (so relative mouse position on a [-1, 1] range can be calculated)
+        Input::getInstance().setRendererDimensions(viewportWidth, viewportHeight);
+
         // TODO: make camera use global position of entity for camera position
         if (sceneCameraEntity && !Project::isPlaying()) {
             maybeCamera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};

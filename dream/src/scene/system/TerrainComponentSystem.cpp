@@ -64,6 +64,10 @@ namespace Dream {
                 // TODO: make renderer agnostic
                 OpenGLBaseTerrain *terrain = entity.getComponent<Component::TerrainComponent>().terrain;
                 if (terrain) {
+                    std::cout << Input::getRelativeMousePosition().x << ", " << Input::getRelativeMousePosition().y << std::endl;
+                    std::cout << "...." << std::endl;
+
+
                     // TODO: use raycasting to get x, z position of terrain to modify
                     std::cout << Input::getMousePosition().x << ", " << Input::getMousePosition().y << std::endl;
                     auto sceneCameraEntity = Project::getScene()->getSceneCamera();
