@@ -74,7 +74,7 @@ namespace Dream {
         textureNormal2->bind(5);
     }
 
-    void OpenGLBaseTerrain::render(OpenGLShader* shader) {
+    void OpenGLBaseTerrain::render() {
 //        auto projection = camera.getProjectionMatrix();
 //        auto view = camera.getViewMatrix();
 //        Matrix4f VP = Camera.GetViewProjMatrix();

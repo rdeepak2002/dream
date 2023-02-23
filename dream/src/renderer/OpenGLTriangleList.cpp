@@ -32,12 +32,11 @@ namespace Dream {
         m_depth = depth;
 
         createGLState();
-
         populateBuffers(pTerrain);
 
-        glBindVertexArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+//        glBindVertexArray(0);
+//        glBindBuffer(GL_ARRAY_BUFFER, 0);
+//        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
     void OpenGLTriangleList::render() {
@@ -118,9 +117,15 @@ namespace Dream {
         Indices.resize(NumQuads * 6);
         initIndices(Indices);
 
-        glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices[0]) * Vertices.size(), &Vertices[0], GL_STATIC_DRAW);
+//        glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices[0]) * Vertices.size(), &Vertices[0], GL_STATIC_DRAW);
+//        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices[0]) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
 
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices[0]) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
+        glBindVertexArray(m_vao);
+        glBindBuffer(GL_ARRAY_BUFFER, m_vb);
+        glBufferData(GL_ARRAY_BUFFER, Vertices.size() * sizeof(Vertex), &Vertices[0], GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ib);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices.size() * sizeof(unsigned int), &Indices[0], GL_STATIC_DRAW);
     }
 
     void OpenGLTriangleList::initVertices(const OpenGLBaseTerrain *pTerrain, std::vector<Vertex> &Vertices) {
@@ -180,20 +185,26 @@ namespace Dream {
         // TODO: init other variables such as normals, etc.
 
         // TODO: below algo is wrong maybe wait for OglDev to post the correct one
-//        glm::vec3 P = {x, z, pTerrain->getHeight(x,z)};
-//        glm::vec3 off = {1.0, 1.0, 0.0};
-//        glm::vec2 Pxy = {P.x, P.y};
-//        glm::vec2 offXZ = {off.x, off.z};
-//        glm::vec2 offZY = {off.z, off.y};
-//        float hL = pTerrain->getHeight(Pxy - offXZ);
-//        float hR = pTerrain->getHeight(Pxy + offXZ);
-//        float hD = pTerrain->getHeight(Pxy - offZY);
-//        float hU = pTerrain->getHeight(Pxy + offZY);
-//        glm::vec3 N = {0, 0, 0};
-//        N.x = hL - hR;
-//        N.y = hD - hU;
-//        N.z = 2.0;
-//        N = normalize(N);
-//        normal = N;
+        glm::vec3 P = {x, z, pTerrain->getHeight(x,z)};
+        glm::vec3 off = {1.0, 1.0, 0.0};
+        glm::vec2 Pxy = {P.x, P.y};
+        glm::vec2 offXZ = {off.x, off.z};
+        glm::vec2 offZY = {off.z, off.y};
+        float hL = pTerrain->getHeight(Pxy - offXZ);
+        float hR = pTerrain->getHeight(Pxy + offXZ);
+        float hD = pTerrain->getHeight(Pxy - offZY);
+        float hU = pTerrain->getHeight(Pxy + offZY);
+        glm::vec3 N = {0, 0, 0};
+        N.x = hL - hR;
+        N.y = hD - hU;
+        N.z = 2.0;
+        N = normalize(N);
+        normal = N;
+
+        // set default bone ids
+        for (int j = 0; j < MAX_BONE_INFLUENCE; ++j) {
+            boneWeights[j] = 0;
+            boneIDs[j] = -1;
+        }
     }
 }

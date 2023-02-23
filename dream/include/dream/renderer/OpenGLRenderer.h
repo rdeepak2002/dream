@@ -64,7 +64,7 @@ namespace Dream {
 
         void printGLVersion();
 
-        void drawTerrains(Camera camera);
+        void drawTerrains(Camera camera, OpenGLShader* shader);
 
         void drawEntities(Entity entity, Camera camera, OpenGLShader *shader);
 

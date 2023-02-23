@@ -136,6 +136,7 @@ namespace Dream {
                     glViewport(0, 0, (int) shadowMapFbos.at(i)->getWidth(), (int) shadowMapFbos.at(i)->getHeight());
                     shadowMapFbos.at(i)->bind();
                     glClear(GL_DEPTH_BUFFER_BIT);
+                    drawTerrains(camera, simpleDepthShader);
                     drawEntities(Project::getScene()->getRootEntity(), camera, simpleDepthShader);
                     shadowMapFbos.at(i)->unbind();
                     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -157,7 +158,21 @@ namespace Dream {
 
             {
                 // draw terrains
-                drawTerrains(camera);
+                terrainShader->use();
+                terrainShader->setMat4("projection", camera.getProjectionMatrix());
+                terrainShader->setMat4("view", camera.getViewMatrix());
+                terrainShader->setFloat("farPlane", camera.zFar);
+                glm::vec3 viewPos = camera.position;
+                terrainShader->setVec3("viewPos", viewPos);
+                terrainShader->setVec3("shadowDirectionalLightDir", directionalLightShadowTech->getDirectionalLightDirection());
+                for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
+                    terrainShader->setMat4("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices.at(i));
+                }
+                auto shadowCascadeLevels = directionalLightShadowTech->getShadowCascadeLevels(camera);
+                for (int i = 0; i < shadowCascadeLevels.size(); ++i) {
+                    terrainShader->setFloat("cascadePlaneDistances[" + std::to_string(i) + "]", shadowCascadeLevels.at(i));
+                }
+                drawTerrains(camera, terrainShader);
             }
 
             {
@@ -169,7 +184,6 @@ namespace Dream {
                     lightingShader->setFloat("farPlane", camera.zFar);
                     glm::vec3 viewPos = camera.position;
                     lightingShader->setVec3("viewPos", viewPos);
-                    // TODO: rename uniform to shadowDirectionalLightDir
                     lightingShader->setVec3("shadowDirectionalLightDir", directionalLightShadowTech->getDirectionalLightDirection());
                     for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
                         lightingShader->setMat4("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices.at(i));
@@ -240,17 +254,28 @@ namespace Dream {
         }
     }
 
-    void OpenGLRenderer::drawTerrains(Camera camera) {
+    void OpenGLRenderer::drawTerrains(Camera camera, OpenGLShader* shader) {
         auto terrainEntities = Project::getScene()->getEntitiesWithComponents<Component::TerrainComponent>();
         for (auto entityHandle: terrainEntities) {
             Entity entity = {entityHandle, Project::getScene()};
-            terrainShader->use();
-            glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
-            terrainShader->setMat4("model", model);
-            terrainShader->setMat4("projection", camera.getProjectionMatrix());
-            terrainShader->setMat4("view", camera.getViewMatrix());
-            entity.getComponent<Component::TerrainComponent>().terrain->setShaderUniforms(terrainShader);
-            entity.getComponent<Component::TerrainComponent>().terrain->render(terrainShader);
+            // render terrain
+            if (!entity.getComponent<Component::TerrainComponent>().guid.empty()) {
+                if (!entity.getComponent<Component::TerrainComponent>().terrain) {
+                    // TODO: store in resource manager instead
+                    // load terrain if necessary
+                    entity.getComponent<Component::TerrainComponent>().terrain = new OpenGLBaseTerrain(4.0, 200.0);
+                    auto terrainFilePath = Project::getResourceManager()->getFilePathFromGUID(entity.getComponent<Component::TerrainComponent>().guid);
+                    entity.getComponent<Component::TerrainComponent>().terrain->loadFromFile(terrainFilePath.c_str());
+                }
+                for (int i = 0; i < MAX_BONES; i++) {
+                    shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", glm::mat4(1.0));
+                }
+                glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
+                shader->setMat4("model", model);
+                lightingTech->setTextureAndColorUniforms(entity, shadowMapFbos, directionalLightShadowTech, shader);
+                entity.getComponent<Component::TerrainComponent>().terrain->setShaderUniforms(shader);
+                entity.getComponent<Component::TerrainComponent>().terrain->render();
+            }
         }
     }
 
@@ -281,17 +306,6 @@ namespace Dream {
                 } else {
                     Logger::fatal("Unable to dynamic cast Mesh to type OpenGLMesh for entity " + entity.getComponent<Component::IDComponent>().id);
                 }
-            }
-        }
-
-        // render terrain
-        if (entity.hasComponent<Component::TerrainComponent>() && !entity.getComponent<Component::TerrainComponent>().guid.empty()) {
-            if (!entity.getComponent<Component::TerrainComponent>().terrain) {
-                // TODO: store in resource manager instead
-                // load terrain if necessary
-                entity.getComponent<Component::TerrainComponent>().terrain = new OpenGLBaseTerrain(4.0, 200.0);
-                auto terrainFilePath = Project::getResourceManager()->getFilePathFromGUID(entity.getComponent<Component::TerrainComponent>().guid);
-                entity.getComponent<Component::TerrainComponent>().terrain->loadFromFile(terrainFilePath.c_str());
             }
         }
 
@@ -342,6 +356,7 @@ namespace Dream {
     }
 
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
+//        return this->shadowMapFbos.at(1)->getTexture();
         return this->outputRenderTextureFbo->getTexture();
     }
 }

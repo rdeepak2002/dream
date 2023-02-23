@@ -20,7 +20,7 @@ namespace Dream {
 
         void setShaderUniforms(OpenGLShader* shader);
 
-        void render(OpenGLShader* shader);
+        void render();
 
         void loadFromFile(const char* pFilename);
 
