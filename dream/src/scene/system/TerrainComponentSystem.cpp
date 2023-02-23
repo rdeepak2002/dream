@@ -84,8 +84,8 @@ namespace Dream {
             return;
         }
         // update all entities with terrain components
-        auto rigidBodyEntities = Project::getScene()->getEntitiesWithComponents<Component::TerrainComponent>();
-        for (auto entityHandle: rigidBodyEntities) {
+        auto terrainEntities = Project::getScene()->getEntitiesWithComponents<Component::TerrainComponent>();
+        for (auto entityHandle: terrainEntities) {
             Entity entity = {entityHandle, Project::getScene()};
             if (!Project::isPlaying() && Input::getButtonDown(Key::LeftMouse)) {
                 glm::vec3 terrainTranslation = entity.getComponent<Component::TransformComponent>().translation;

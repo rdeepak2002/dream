@@ -156,6 +156,11 @@ namespace Dream {
             }
 
             {
+                // draw terrains
+                drawTerrains(camera);
+            }
+
+            {
                 // draw meshes
                 if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
                     lightingShader->use();
@@ -235,6 +240,20 @@ namespace Dream {
         }
     }
 
+    void OpenGLRenderer::drawTerrains(Camera camera) {
+        auto terrainEntities = Project::getScene()->getEntitiesWithComponents<Component::TerrainComponent>();
+        for (auto entityHandle: terrainEntities) {
+            Entity entity = {entityHandle, Project::getScene()};
+            terrainShader->use();
+            glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
+            terrainShader->setMat4("model", model);
+            terrainShader->setMat4("projection", camera.getProjectionMatrix());
+            terrainShader->setMat4("view", camera.getViewMatrix());
+            entity.getComponent<Component::TerrainComponent>().terrain->setShaderUniforms(terrainShader);
+            entity.getComponent<Component::TerrainComponent>().terrain->render(terrainShader);
+        }
+    }
+
     void OpenGLRenderer::drawEntities(Entity entity, Camera camera, OpenGLShader* shader) {
         // set bones for animated meshes
         skinningTech->setJointUniforms(entity, shader);
@@ -274,15 +293,6 @@ namespace Dream {
                 auto terrainFilePath = Project::getResourceManager()->getFilePathFromGUID(entity.getComponent<Component::TerrainComponent>().guid);
                 entity.getComponent<Component::TerrainComponent>().terrain->loadFromFile(terrainFilePath.c_str());
             }
-
-            terrainShader->use();
-            glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
-            terrainShader->setMat4("model", model);
-            terrainShader->setMat4("projection", camera.getProjectionMatrix());
-            terrainShader->setMat4("view", camera.getViewMatrix());
-            entity.getComponent<Component::TerrainComponent>().terrain->setShaderUniforms(terrainShader);
-            entity.getComponent<Component::TerrainComponent>().terrain->render(terrainShader);
-            shader->use();
         }
 
         // draw child entities
