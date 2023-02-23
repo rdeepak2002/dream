@@ -200,7 +200,8 @@ namespace Dream {
     }
 
     void OpenGLBaseTerrain::setHeight(int x, int z, float y) {
-        m_heightMap.Set(x, z, y);
-        this->refreshTerrainTriangleList();
+        if (x >= 0 && z >= 0 && x < (int) getSize() && z < (int) getSize()) {
+            m_heightMap.Set(x, z, y);
+        }
     }
 }

@@ -24,6 +24,29 @@
 #include "dream/window/KeyCodes.h"
 
 namespace Dream {
+    void gaussianFilter(double GKernel[][5]) {
+        // initialising standard deviation to 1.0
+        double sigma = 1.0;
+        double r, s = 2.0 * sigma * sigma;
+
+        // sum is for normalization
+        double sum = 0.0;
+
+        // generating 5x5 kernel
+        for (int x = -2; x <= 2; x++) {
+            for (int y = -2; y <= 2; y++) {
+                r = sqrt(x * x + y * y);
+                GKernel[x + 2][y + 2] = (exp(-(r * r) / s)) / (M_PI * s);
+                sum += GKernel[x + 2][y + 2];
+            }
+        }
+
+        // normalising the Kernel
+        for (int i = 0; i < 5; ++i)
+            for (int j = 0; j < 5; ++j)
+                GKernel[i][j] /= sum;
+    }
+
     std::optional<glm::vec3> intersectRayWithPlane(
             glm::vec3 p, glm::vec3 v,  // ray
             glm::vec3 n, float d  // plane
@@ -103,13 +126,23 @@ namespace Dream {
                         int x = (int) xCoordOnPlane;
                         int z = (int) zCoordOnPlane;
 
-                        if (x >= 0 && z >= 0 && x < terrain->getSize() && z < terrain->getSize()) {
-                            float deltaHeight = 10.0f;
-                            float currentHeight = terrain->getHeight(x, z);
-                            float newHeight = currentHeight + deltaHeight * dt;
-                            // TODO: use Gaussian brush multiplied by scale like deltaHeight
-                            terrain->setHeight(x, z, newHeight);
+                        int startX = x - 5 / 2;
+                        int startZ = z - 5 / 2;
+
+                        double GKernel[5][5];
+                        gaussianFilter(GKernel);
+                        for (int i = 0; i < 5; ++i) {
+                            for (int j = 0; j < 5; ++j) {
+                                float deltaHeight = 200.0f;
+                                float currentHeight = terrain->getHeight(x, z);
+                                float newHeight = currentHeight + deltaHeight * dt * GKernel[i][j];
+                                terrain->setHeight(startX + i, startZ + j, newHeight);
+//                                    std::cout << GKernel[i][j] * deltaHeight << "\t";
+                            }
+//                                std::cout << std::endl;
                         }
+
+                        terrain->refreshTerrainTriangleList();
                     }
                 }
             }
