@@ -64,8 +64,8 @@ namespace Dream {
 
         shader->setFloat("gMinHeight", m_minHeight);
         shader->setFloat("gMaxHeight", m_maxHeight);
-        shader->setFloat("gHeight0", 80.0f);
-        shader->setFloat("gHeight1", 110.0f);
+        shader->setFloat("gHeight0", 2.0f);
+        shader->setFloat("gHeight1", 20.0f);
 
         shader->setInt("textureDiffuse0", 0);
         textureDiffuse0->bind(0);
@@ -93,6 +93,7 @@ namespace Dream {
 
     void OpenGLBaseTerrain::refreshTerrainTriangleList() {
         // TODO: delete old opengl state buffers for the triangle list
+        Logger::warn("TODO: Deallocate old GPU memory of terrain triangle list");
         m_triangleList.createTriangleList(m_terrainSize, m_terrainSize, this);
     }
 
@@ -133,12 +134,6 @@ namespace Dream {
         // TODO: remove this code that zeros out height
         for (int x = 0; x < m_terrainSize; x++) {
             for (int y = 0; y < m_terrainSize; y++) {
-//                int cx = m_terrainSize / 2;
-//                int cy = m_terrainSize / 2;
-//                int dx = x - cx;
-//                int dy = y - cy;
-//                float dist = sqrt(dx * dx + dy * dy);
-//                m_heightMap.Set(x, y, 100.0f * sin(0.01 * dist) + 50.0f);
 //                m_heightMap.Set(x, y, 0.0f);
             }
         }
