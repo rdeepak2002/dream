@@ -105,6 +105,7 @@ namespace Dream::Component {
                 }
 
                 if (terrain) {
+                    float scale = terrain->getWorldScale();
                     float minHeight = terrain->getMinHeight();
                     float maxHeight = terrain->getMaxHeight();
                     int width = (int) (terrain->getSize());
@@ -124,11 +125,12 @@ namespace Dream::Component {
                                 Logger::fatal("heightMapData is fixed at 257 by 257");
                             }
                             float height = terrain->getHeight(x, z);
-                            heightMapData[x][z] = height;
+                            heightMapData[z][x] = height;
                         }
                     }
 
                     auto *shape = new btHeightfieldTerrainShape(width, length, heightMapData, 1.0, minHeight, maxHeight, 1, PHY_FLOAT, true);
+                    shape->setLocalScaling(btVector3(scale, 1.0, scale));
                     Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->addChildShape(t, shape);
                 } else {
                     Logger::fatal("Terrain not initialized, so collider cannot be derived");

@@ -796,8 +796,17 @@ namespace Dream {
                             if (ImGui::Selectable("Cylinder")) {
                                 collider.type = Component::CollisionComponent::CYLINDER;
                             }
-                            if (ImGui::Selectable("Terrain")) {
-                                collider.type = Component::CollisionComponent::HEIGHT_MAP;
+                            if (selectedEntity.hasComponent<Component::TerrainComponent>()) {
+                                if (ImGui::Selectable("Terrain")) {
+                                    if (!selectedEntity.hasComponent<Component::TerrainComponent>()) {
+                                        Logger::error("Cannot add terrain collider to non-terrain entity");
+                                    }
+                                    collider.type = Component::CollisionComponent::HEIGHT_MAP;
+                                    collider.offset = selectedEntity.getComponent<Component::TransformComponent>().translation;
+                                    collider.offset.x *= -1;
+                                    collider.offset.y += 100.0f;
+                                    collider.offset.z *= -1;
+                                }
                             }
                             if (collider.type != oldColliderType) {
                                 updateColliderAndRigidBody();
