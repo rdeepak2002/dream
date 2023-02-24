@@ -8,6 +8,7 @@
 
 namespace Dream {
     void OpenGLPhysicsDebugDrawer::drawLine(const btVector3 &from, const btVector3 &to, const btVector3 &color) {
+        // TODO: fix fact that this causes crash when running for a long time
         // TODO: also pass along color to shader
 
         // draws a simple line of pixels between points but stores them for later draw
@@ -52,6 +53,7 @@ namespace Dream {
     #endif
 
     void OpenGLPhysicsDebugDrawer::doDrawing() {
+        // TODO: fix fact that this causes crash when running for a long time
         if (!lines.empty()) {
 //            if (lines.size() % 2 != 0) {
 //                Logger::error("Uneven number of physics debug lines to be drawn");
@@ -80,10 +82,11 @@ namespace Dream {
 
             glBindVertexArray(vao);
             glDrawArrays(GL_LINES, 0, (int) lines.size() * 2);
-            glBindVertexArray(0);
 
-            glDeleteBuffers(0, &vbo);
-            glDeleteBuffers(0, &vao);
+            glDeleteVertexArrays(1, &vao);
+            glDeleteBuffers(1, &vbo);
+
+            glBindVertexArray(0);
 
             lines.clear();
         }
