@@ -487,9 +487,12 @@ namespace Dream::Component {
         int colliderShapeIndex = -1;
 
         // runtime height map
+        float *heightMapData = nullptr;
 //        Array2D<float> heightMapData;
 //        std::vector<std::vector<float>> heightMapData;
-        float heightMapData[257][257];
+//        float heightMapData[257][257];
+
+        CollisionComponent();
 
         ~CollisionComponent();
 

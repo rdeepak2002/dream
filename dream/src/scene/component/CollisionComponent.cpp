@@ -22,6 +22,10 @@
 #include "dream/project/Project.h"
 
 namespace Dream::Component {
+    CollisionComponent::CollisionComponent() {
+
+    }
+
     CollisionComponent::~CollisionComponent() {
 
     }
@@ -110,11 +114,18 @@ namespace Dream::Component {
                     float maxHeight = terrain->getMaxHeight();
                     int width = (int) (terrain->getSize());
                     int length = (int) (terrain->getSize());
+                    if (heightMapData) {
+                        delete heightMapData;
+                    }
+                    heightMapData = (float*) malloc(257 * 257 * sizeof(float));
 
                     // TODO: don't fix size of heightMapData
                     for (int x = 0; x < 257; x++) {
                         for (int z = 0; z < 257; z++) {
-                            heightMapData[x][z] = 0.0f;
+                            if (x > 256 || z > 256) {
+                                Logger::fatal("heightMapData is fixed at 257 by 257");
+                            }
+                            heightMapData[x * 257 + z] = 0.0f;
                         }
                     }
 
@@ -125,7 +136,7 @@ namespace Dream::Component {
                                 Logger::fatal("heightMapData is fixed at 257 by 257");
                             }
                             float height = terrain->getHeight(x, z);
-                            heightMapData[z][x] = height;
+                            heightMapData[z * 257 + x] = height;
                         }
                     }
 
