@@ -93,23 +93,24 @@ namespace Dream::Component {
                 auto *shape = new btSphereShape(collider.radius);
                 Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->addChildShape(t, shape);
             } else if (collider.type == HEIGHT_MAP) {
-                Logger::fatal("Not implemented");
-//                auto *shape = new btHeightfieldTerrainShape(128, 128, data, 1, -1024, 1016, 2, PHY_UCHAR, true);
                 // TODO: get terrain from entity
                 OpenGLBaseTerrain *terrain = new OpenGLBaseTerrain(4.0, 200.0);
+                // TODO: don't fix file path
                 terrain->loadFromFile(Project::getPath().append("assets").append("heightmap.save").c_str());
 
                 if (terrain) {
-                    std::cout << terrain->getSize() << std::endl;
+                    heightMapData.InitArray2D(terrain->getSize(), terrain->getSize());
+
+                    for (int x = 0; x < terrain->getSize(); x++) {
+                        for (int z = 0; z < terrain->getSize(); z++) {
+                            float height = terrain->getHeight(x, z);
+                            heightMapData.Set(x, z, height);
+                        }
+                    }
+
                     int width = (int) (terrain->getSize());
                     int length = (int) (terrain->getSize());
-                    std::cout << terrain->getSize() << std::endl;
-
-                    width = 257;
-                    length = 257;
-                    auto *shape = new btHeightfieldTerrainShape(width, length, terrain->getHeightMap().GetBaseAddr(), 1, terrain->getMinHeight(), terrain->getMaxHeight(), 1, PHY_FIXEDPOINT88, true);
-//                auto *shape = new btHeightfieldTerrainShape(openGlBaseTerrain->getSize(), openGlBaseTerrain->getSize(), openGlBaseTerrain->getHeightMap().GetBaseAddr(), 1, openGlBaseTerrain->getMinHeight(), openGlBaseTerrain->getMaxHeight(), 2, PHY_FIXEDPOINT88, true);
-//                auto *shape = new btHeightfieldTerrainShape(128, 128, openGlBaseTerrain->getHeightMap().GetBaseAddr(), 1, -1024, 1016, 2, PHY_FIXEDPOINT88, true);
+                    auto *shape = new btHeightfieldTerrainShape(width, length, heightMapData.GetBaseAddr(), 1.0, terrain->getMinHeight(), terrain->getMaxHeight(), 1, PHY_FLOAT, true);
                     Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->addChildShape(t, shape);
                 }
             } else {

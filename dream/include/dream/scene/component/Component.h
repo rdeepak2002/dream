@@ -486,6 +486,9 @@ namespace Dream::Component {
         // runtime created collider shape
         int colliderShapeIndex = -1;
 
+        // runtime height map
+        Array2D<float> heightMapData;
+
         ~CollisionComponent();
 
         void updateColliderShape();
