@@ -25,19 +25,19 @@
 
 namespace Dream {
     Scene::Scene() {
+        terrainComponentSystem = new TerrainComponentSystem();
         physicsComponentSystem = new PhysicsComponentSystem();
         audioComponentSystem = new AudioComponentSystem();
         animatorComponentSystem = new AnimatorComponentSystem();
         luaScriptComponentSystem = new LuaScriptComponentSystem();
-        terrainComponentSystem = new TerrainComponentSystem();
     }
 
     Scene::~Scene() {
+        delete terrainComponentSystem;
         delete physicsComponentSystem;
         delete audioComponentSystem;
         delete animatorComponentSystem;
         delete luaScriptComponentSystem;
-        delete terrainComponentSystem;
     }
 
     Entity Dream::Scene::createEntity(const std::string &name, bool rootEntity, bool addChildStart) {
@@ -62,11 +62,11 @@ namespace Dream {
 
     void Scene::update(float dt) {
         if (shouldInitComponentSystems) {
+            terrainComponentSystem->init();
             physicsComponentSystem->init();
             animatorComponentSystem->init();
             audioComponentSystem->init();
             luaScriptComponentSystem->init();
-            terrainComponentSystem->init();
             shouldInitComponentSystems = false;
         }
         if (Project::isPlaying() || Project::getConfig().animationConfig.playInEditor) {
@@ -75,6 +75,8 @@ namespace Dream {
     }
 
     void Scene::resetComponentSystems() {
+        delete terrainComponentSystem;
+        terrainComponentSystem = nullptr;
         delete physicsComponentSystem;
         physicsComponentSystem = nullptr;
         delete animatorComponentSystem;
@@ -83,14 +85,12 @@ namespace Dream {
         audioComponentSystem = nullptr;
         delete luaScriptComponentSystem;
         luaScriptComponentSystem = nullptr;
-        delete terrainComponentSystem;
-        terrainComponentSystem = nullptr;
 
+        terrainComponentSystem = new TerrainComponentSystem();
         physicsComponentSystem = new PhysicsComponentSystem();
         audioComponentSystem = new AudioComponentSystem();
         animatorComponentSystem = new AnimatorComponentSystem();
         luaScriptComponentSystem = new LuaScriptComponentSystem();
-        terrainComponentSystem = new TerrainComponentSystem();
         shouldInitComponentSystems = true;
     }
 
@@ -98,11 +98,11 @@ namespace Dream {
         if (Project::isPlaying() && !shouldInitComponentSystems) {
             audioComponentSystem->update(dt);
             luaScriptComponentSystem->update(dt);
+            terrainComponentSystem->update(dt);
             physicsComponentSystem->update(dt);
-            terrainComponentSystem->update(dt);
         } else if (!Project::isPlaying()) {
-            physicsComponentSystem->update(0.0);
             terrainComponentSystem->update(dt);
+            physicsComponentSystem->update(0.0);
         }
         if (Project::isPlaying()) {
             // TODO: move to component system

@@ -1295,7 +1295,7 @@ namespace Dream {
 
     void ImGuiEditorInspectorView::updateColliderAndRigidBody() {
         if (selectedEntity.hasComponent<Component::CollisionComponent>()) {
-            selectedEntity.getComponent<Component::CollisionComponent>().updateColliderShape();
+            selectedEntity.getComponent<Component::CollisionComponent>().updateColliderShape(selectedEntity);
         }
         if (selectedEntity.hasComponent<Component::RigidBodyComponent>()) {
             selectedEntity.getComponent<Component::RigidBodyComponent>().updateRigidBody(selectedEntity);

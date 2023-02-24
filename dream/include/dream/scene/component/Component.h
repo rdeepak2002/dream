@@ -487,11 +487,13 @@ namespace Dream::Component {
         int colliderShapeIndex = -1;
 
         // runtime height map
-        Array2D<float> heightMapData;
+//        Array2D<float> heightMapData;
+//        std::vector<std::vector<float>> heightMapData;
+        float heightMapData[257][257];
 
         ~CollisionComponent();
 
-        void updateColliderShape();
+        void updateColliderShape(Entity &entity);
 
         static void deserialize(YAML::Node node, Entity &entity);
 
@@ -610,6 +612,8 @@ namespace Dream::Component {
         // TODO: store in resource manager instance instead
         // runtime OpenGL terrain reference
         OpenGLBaseTerrain *terrain = nullptr;
+
+        void initializeTerrain();
 
         static void deserialize(YAML::Node node, Entity &entity);
 

@@ -26,7 +26,7 @@ namespace Dream::Component {
 
     }
 
-    void CollisionComponent::updateColliderShape() {
+    void CollisionComponent::updateColliderShape(Entity &entity) {
         if (colliderShapeIndex == -1) {
             auto *colliderCompoundShape = new btCompoundShape();
             colliderShapeIndex = Project::getScene()->getPhysicsComponentSystem()->addColliderShape(colliderCompoundShape);
@@ -93,25 +93,45 @@ namespace Dream::Component {
                 auto *shape = new btSphereShape(collider.radius);
                 Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->addChildShape(t, shape);
             } else if (collider.type == HEIGHT_MAP) {
-                // TODO: get terrain from entity
-                OpenGLBaseTerrain *terrain = new OpenGLBaseTerrain(4.0, 200.0);
-                // TODO: don't fix file path
-                terrain->loadFromFile(Project::getPath().append("assets").append("heightmap.save").c_str());
+                if (!entity.hasComponent<TerrainComponent>()) {
+                    Logger::fatal("Entity does not have terrain component, so terrain collider cannot be attached");
+                }
+
+                OpenGLBaseTerrain *terrain = entity.getComponent<TerrainComponent>().terrain;
+
+                if (!terrain) {
+                    entity.getComponent<TerrainComponent>().initializeTerrain();
+                    terrain = entity.getComponent<TerrainComponent>().terrain;
+                }
 
                 if (terrain) {
-                    heightMapData.InitArray2D(terrain->getSize(), terrain->getSize());
+                    float minHeight = terrain->getMinHeight();
+                    float maxHeight = terrain->getMaxHeight();
+                    int width = (int) (terrain->getSize());
+                    int length = (int) (terrain->getSize());
 
-                    for (int x = 0; x < terrain->getSize(); x++) {
-                        for (int z = 0; z < terrain->getSize(); z++) {
-                            float height = terrain->getHeight(x, z);
-                            heightMapData.Set(x, z, height);
+                    // TODO: don't fix size of heightMapData
+                    for (int x = 0; x < 257; x++) {
+                        for (int z = 0; z < 257; z++) {
+                            heightMapData[x][z] = 0.0f;
                         }
                     }
 
-                    int width = (int) (terrain->getSize());
-                    int length = (int) (terrain->getSize());
-                    auto *shape = new btHeightfieldTerrainShape(width, length, heightMapData.GetBaseAddr(), 1.0, terrain->getMinHeight(), terrain->getMaxHeight(), 1, PHY_FLOAT, true);
+                    // TODO: don't fix size of heightMapData
+                    for (int x = 0; x < width; x++) {
+                        for (int z = 0; z < length; z++) {
+                            if (x > 256 || z > 256) {
+                                Logger::fatal("heightMapData is fixed at 257 by 257");
+                            }
+                            float height = terrain->getHeight(x, z);
+                            heightMapData[x][z] = height;
+                        }
+                    }
+
+                    auto *shape = new btHeightfieldTerrainShape(width, length, heightMapData, 1.0, minHeight, maxHeight, 1, PHY_FLOAT, true);
                     Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->addChildShape(t, shape);
+                } else {
+                    Logger::fatal("Terrain not initialized, so collider cannot be derived");
                 }
             } else {
                 Logger::fatal("Unknown collider type " + std::to_string(static_cast<int>(collider.type)));

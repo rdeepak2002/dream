@@ -22,6 +22,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include "dream/util/YAMLUtils.h"
+#include "dream/project/Project.h"
 
 namespace Dream::Component {
     TerrainComponent::~TerrainComponent() {
@@ -44,6 +45,15 @@ namespace Dream::Component {
             auto guid = node[componentName][k_guid].as<std::string>();
             entity.addComponent<TerrainComponent>();
             entity.getComponent<TerrainComponent>().guid = guid;
+        }
+    }
+
+    void TerrainComponent::initializeTerrain() {
+        if (!terrain && !guid.empty()) {
+            // TODO: store in resource manager instead
+            terrain = new OpenGLBaseTerrain(4.0, 200.0);
+            auto terrainFilePath = Project::getResourceManager()->getFilePathFromGUID(guid);
+            terrain->loadFromFile(terrainFilePath.c_str());
         }
     }
 }

@@ -3,6 +3,7 @@
 //
 
 #include "dream/renderer/OpenGLPhysicsDebugDrawer.h"
+#include "dream/util/Logger.h"
 #include <iostream>
 
 namespace Dream {
@@ -51,34 +52,40 @@ namespace Dream {
     #endif
 
     void OpenGLPhysicsDebugDrawer::doDrawing() {
-        unsigned int vao = 0;
-        unsigned int vbo = 0;
+        if (!lines.empty()) {
+//            if (lines.size() % 2 != 0) {
+//                Logger::error("Uneven number of physics debug lines to be drawn");
+//            }
 
-        // initialize object IDs if not configured before
-        glGenVertexArrays(1, &vao);
-        glGenBuffers(1, &vbo);
+            unsigned int vao = 0;
+            unsigned int vbo = 0;
 
-        // configure vertex attributes (only on vertex data size() > 0)
-        glBindVertexArray(vao);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, lines.size() * sizeof(lines) * 2, &lines[0], GL_STATIC_DRAW);
+            // initialize object IDs if not configured before
+            glGenVertexArrays(1, &vao);
+            glGenBuffers(1, &vbo);
 
-        // calculate stride from number of non-empty vertex attribute arrays
-        size_t stride = 3 * sizeof(float);  // positions
+            // configure vertex attributes (only on vertex data size() > 0)
+            glBindVertexArray(vao);
+            glBindBuffer(GL_ARRAY_BUFFER, vbo);
+            glBufferData(GL_ARRAY_BUFFER, lines.size() * sizeof(lines) * 2, &lines[0], GL_STATIC_DRAW);
 
-        // positions
-        size_t offset = 0;
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
-        offset += 3 * sizeof(float);
+            // calculate stride from number of non-empty vertex attribute arrays
+            size_t stride = 3 * sizeof(float);  // positions
 
-        glBindVertexArray(vao);
-        glDrawArrays(GL_LINES, 0, (int) lines.size() * 2);
-        glBindVertexArray(0);
+            // positions
+            size_t offset = 0;
+            glEnableVertexAttribArray(0);
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid *) offset);
+            offset += 3 * sizeof(float);
 
-        glDeleteBuffers(0, &vbo);
-        glDeleteBuffers(0, &vao);
+            glBindVertexArray(vao);
+            glDrawArrays(GL_LINES, 0, (int) lines.size() * 2);
+            glBindVertexArray(0);
 
-        lines.clear();
+            glDeleteBuffers(0, &vbo);
+            glDeleteBuffers(0, &vao);
+
+            lines.clear();
+        }
     }
 }

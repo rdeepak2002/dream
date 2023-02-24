@@ -78,7 +78,7 @@ namespace Dream::Component {
         btVector3 localInertia(0, 0, 0);
         if (entity.hasComponent<CollisionComponent>()) {
             if (entity.getComponent<CollisionComponent>().colliderShapeIndex == -1) {
-                entity.getComponent<CollisionComponent>().updateColliderShape();
+                entity.getComponent<CollisionComponent>().updateColliderShape(entity);
             }
             if (entity.getComponent<CollisionComponent>().colliderShapeIndex == -1) {
                 Logger::fatal("Unable to initialize compound collider shape");
