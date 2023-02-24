@@ -115,6 +115,7 @@ namespace Dream {
     void PhysicsComponentSystem::debugDrawWorld() {
         if (dynamicsWorld) {
             dynamicsWorld->debugDrawWorld();
+            openGlPhysicsDebugDrawer.doDrawing();
         }
     }
 

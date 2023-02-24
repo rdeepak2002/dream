@@ -39,6 +39,12 @@ namespace Dream {
         float getSize() const;
 
         float getTextureScale() const;
+
+        Array2D<float> getHeightMap();
+
+        float getMinHeight();
+
+        float getMaxHeight();
     protected:
         void loadHeightMapFile(const char* pFilename);
         int m_terrainSize = 0;

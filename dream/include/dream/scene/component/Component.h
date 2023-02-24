@@ -456,7 +456,7 @@ namespace Dream::Component {
             X, Y, Z
         };
         enum ColliderType {
-            BOX, CAPSULE, CONE, CYLINDER, MESH, SPHERE
+            BOX, CAPSULE, CONE, CYLINDER, MESH, SPHERE, HEIGHT_MAP
         };
         struct Collider {
             // type of collision primitive

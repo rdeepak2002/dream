@@ -769,6 +769,8 @@ namespace Dream {
                             dropdownPreview = "Mesh";
                         } else if (collider.type == Component::CollisionComponent::SPHERE) {
                             dropdownPreview = "Sphere";
+                        } else if (collider.type == Component::CollisionComponent::HEIGHT_MAP) {
+                            dropdownPreview = "Terrain";
                         } else {
                             Logger::fatal("Unknown collider type " + std::to_string(static_cast<int>(collider.type)));
                         }
@@ -793,6 +795,9 @@ namespace Dream {
                             }
                             if (ImGui::Selectable("Cylinder")) {
                                 collider.type = Component::CollisionComponent::CYLINDER;
+                            }
+                            if (ImGui::Selectable("Terrain")) {
+                                collider.type = Component::CollisionComponent::HEIGHT_MAP;
                             }
                             if (collider.type != oldColliderType) {
                                 updateColliderAndRigidBody();

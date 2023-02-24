@@ -92,6 +92,26 @@ namespace Dream::Component {
             } else if (collider.type == SPHERE) {
                 auto *shape = new btSphereShape(collider.radius);
                 Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->addChildShape(t, shape);
+            } else if (collider.type == HEIGHT_MAP) {
+                Logger::fatal("Not implemented");
+//                auto *shape = new btHeightfieldTerrainShape(128, 128, data, 1, -1024, 1016, 2, PHY_UCHAR, true);
+                // TODO: get terrain from entity
+                OpenGLBaseTerrain *terrain = new OpenGLBaseTerrain(4.0, 200.0);
+                terrain->loadFromFile(Project::getPath().append("assets").append("heightmap.save").c_str());
+
+                if (terrain) {
+                    std::cout << terrain->getSize() << std::endl;
+                    int width = (int) (terrain->getSize());
+                    int length = (int) (terrain->getSize());
+                    std::cout << terrain->getSize() << std::endl;
+
+                    width = 257;
+                    length = 257;
+                    auto *shape = new btHeightfieldTerrainShape(width, length, terrain->getHeightMap().GetBaseAddr(), 1, terrain->getMinHeight(), terrain->getMaxHeight(), 1, PHY_FIXEDPOINT88, true);
+//                auto *shape = new btHeightfieldTerrainShape(openGlBaseTerrain->getSize(), openGlBaseTerrain->getSize(), openGlBaseTerrain->getHeightMap().GetBaseAddr(), 1, openGlBaseTerrain->getMinHeight(), openGlBaseTerrain->getMaxHeight(), 2, PHY_FIXEDPOINT88, true);
+//                auto *shape = new btHeightfieldTerrainShape(128, 128, openGlBaseTerrain->getHeightMap().GetBaseAddr(), 1, -1024, 1016, 2, PHY_FIXEDPOINT88, true);
+                    Project::getScene()->getPhysicsComponentSystem()->getColliderShape(colliderShapeIndex)->addChildShape(t, shape);
+                }
             } else {
                 Logger::fatal("Unknown collider type " + std::to_string(static_cast<int>(collider.type)));
             }
