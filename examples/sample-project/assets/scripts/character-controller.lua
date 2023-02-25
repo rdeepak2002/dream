@@ -45,7 +45,7 @@ function update(entity, dt)
 	if MathUtils.magnitudeVec2(newMovementDirection) > 0 then
 		-- update linear velocity
 		local newLinearVelocity = entity:getRigidBody():getLinearVelocity()
-		local translationalSpeed = 4.0
+		local translationalSpeed = 1.0
 		if Input.getButtonDown(Key.LeftShift) then
 			translationalSpeed = 2.0
 		end
@@ -62,19 +62,20 @@ function update(entity, dt)
 		entity:getRigidBody():setRotation(newQuat)
 
 		-- update animation
-		entity:getAnimator():setVariable("speed", math.floor(translationalSpeed))
+		-- entity:getAnimator():setVariable("speed", math.floor(translationalSpeed))
 	else
 		-- update animation
-		entity:getAnimator():setVariable("speed", 0)
+		-- entity:getAnimator():setVariable("speed", 0)
 	end
 
 	-- attack when mouse down
 	if Input.getButtonDown(Key.LeftMouse) then
-		entity:getAnimator():setVariable("slashing", 1)
+		-- entity:getAnimator():setVariable("slashing", 1)
 	else
-		entity:getAnimator():setVariable("slashing", 0)
+		-- entity:getAnimator():setVariable("slashing", 0)
 	end
 end
+
 
 
 
