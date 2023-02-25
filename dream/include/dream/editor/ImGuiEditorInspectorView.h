@@ -110,6 +110,11 @@ namespace Dream {
         ImGui::FileBrowser *luaScriptSelectorBrowser;
         ImGui::FileBrowser *animatorSelectorBrowser;
         ImGui::FileBrowser *collisionMeshSelectorBrowser;
+
+        ImGui::FileBrowser *diffuseTextureBrowser;
+        ImGui::FileBrowser *normalTextureBrowser;
+        ImGui::FileBrowser *specularTextureBrowser;
+
         int colliderIndex;
         ImGuiTextEditor *imGuiTextEditor;
         ImGuiEditorAnimatorGraph *animatorGraphEditor;

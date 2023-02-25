@@ -26,14 +26,12 @@
 
 namespace Dream::Component {
     void MaterialComponent::loadTextures() {
-        if (shouldLoadTextures) {
-            if (!this->diffuseTextureGuids.empty()) {
-                if (!Project::getResourceManager()->hasTextureData(this->diffuseTextureGuids.at(0))) {
-                    std::string path = Project::getResourceManager()->getFilePathFromGUID(this->diffuseTextureGuids.at(0));
-                    Project::getResourceManager()->storeTextureData(new OpenGLTexture(path), this->diffuseTextureGuids.at(0));
-                }
+        // TODO: why do we not have to load the other textures??
+        if (!this->diffuseTextureGuids.empty()) {
+            if (!Project::getResourceManager()->hasTextureData(this->diffuseTextureGuids.at(0))) {
+                std::string path = Project::getResourceManager()->getFilePathFromGUID(this->diffuseTextureGuids.at(0));
+                Project::getResourceManager()->storeTextureData(new OpenGLTexture(path), this->diffuseTextureGuids.at(0));
             }
-            shouldLoadTextures = false;
         }
     }
 

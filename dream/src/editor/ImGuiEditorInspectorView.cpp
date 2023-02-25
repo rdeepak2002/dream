@@ -419,6 +419,40 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderMaterialComponent() {
         if (selectedEntity.hasComponent<Component::MaterialComponent>()) {
             float cursorPosX1 = ImGui::GetCursorPosX();
+
+            // update file browsers
+            {
+                if (diffuseTextureBrowser) {
+                    diffuseTextureBrowser->Display();
+                    if (diffuseTextureBrowser->HasSelected()) {
+                        std::filesystem::path selectedFilePath = diffuseTextureBrowser->GetSelected();
+                        if (selectedEntity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.empty()) {
+                            selectedEntity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.emplace_back("");
+                        }
+                        selectedEntity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.at(0) = IDUtils::getGUIDForFile(selectedFilePath);
+                        diffuseTextureBrowser->ClearSelected();
+                    }
+                }
+
+                if (normalTextureBrowser) {
+                    normalTextureBrowser->Display();
+                    if (normalTextureBrowser->HasSelected()) {
+                        std::filesystem::path selectedFilePath = normalTextureBrowser->GetSelected();
+                        selectedEntity.getComponent<Component::MaterialComponent>().normalTextureGuid = IDUtils::getGUIDForFile(selectedFilePath);
+                        normalTextureBrowser->ClearSelected();
+                    }
+                }
+
+                if (specularTextureBrowser) {
+                    specularTextureBrowser->Display();
+                    if (specularTextureBrowser->HasSelected()) {
+                        std::filesystem::path selectedFilePath = specularTextureBrowser->GetSelected();
+                        selectedEntity.getComponent<Component::MaterialComponent>().specularTextureGuid = IDUtils::getGUIDForFile(selectedFilePath);
+                        specularTextureBrowser->ClearSelected();
+                    }
+                }
+            }
+
             auto &component = selectedEntity.getComponent<Component::MaterialComponent>();
             bool treeNodeOpen = ImGui::TreeNodeEx("##Material",
                                                   ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
@@ -448,8 +482,54 @@ namespace Dream {
                     ImGui::SameLine();
                     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-                    if (ImGui::ImageButton("##Select Material", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
-                        Logger::debug("TODO: allow selection of diffuse texture"); // TODO
+                    if (ImGui::ImageButton("##Select Material Diffuse", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
+                        delete diffuseTextureBrowser;
+                        diffuseTextureBrowser = new ImGui::FileBrowser();
+                        diffuseTextureBrowser->SetTitle("select diffuse texture");
+                        diffuseTextureBrowser->SetPwd(Project::getPath());
+                        diffuseTextureBrowser->Open();
+                    }
+                    ImGui::PopStyleVar();
+                    ImGui::PopStyleColor();
+                }
+                // normal texture input
+                {
+                    std::string diffuseTexturePath = StringUtils::getFilePathRelativeToProjectFolder(
+                            Project::getResourceManager()->getFilePathFromGUID(component.normalTextureGuid));
+                    ImGui::Text("Normal Texture");
+                    float cursorPosX3 = ImGui::GetCursorPosX();
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 18);
+                    ImGui::InputText("##NormalTexturePath", &diffuseTexturePath, ImGuiInputTextFlags_ReadOnly);
+                    ImGui::SameLine();
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                    if (ImGui::ImageButton("##Select Material Normal", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
+                        delete normalTextureBrowser;
+                        normalTextureBrowser = new ImGui::FileBrowser();
+                        normalTextureBrowser->SetTitle("select normal texture");
+                        normalTextureBrowser->SetPwd(Project::getPath());
+                        normalTextureBrowser->Open();
+                    }
+                    ImGui::PopStyleVar();
+                    ImGui::PopStyleColor();
+                }
+                // specular texture input
+                {
+                    std::string diffuseTexturePath = StringUtils::getFilePathRelativeToProjectFolder(
+                            Project::getResourceManager()->getFilePathFromGUID(component.specularTextureGuid));
+                    ImGui::Text("Specular Texture");
+                    float cursorPosX3 = ImGui::GetCursorPosX();
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 18);
+                    ImGui::InputText("##SpecularTexturePath", &diffuseTexturePath, ImGuiInputTextFlags_ReadOnly);
+                    ImGui::SameLine();
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                    if (ImGui::ImageButton("##Select Material Specular", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
+                        delete specularTextureBrowser;
+                        specularTextureBrowser = new ImGui::FileBrowser();
+                        specularTextureBrowser->SetTitle("select specular texture");
+                        specularTextureBrowser->SetPwd(Project::getPath());
+                        specularTextureBrowser->Open();
                     }
                     ImGui::PopStyleVar();
                     ImGui::PopStyleColor();
