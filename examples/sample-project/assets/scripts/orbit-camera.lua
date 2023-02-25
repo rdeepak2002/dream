@@ -34,7 +34,7 @@ function update(entity, dt)
 	end
 
 	-- set position of camera based off spherical coordinate values
-	self.radius = 2.5
+	self.radius = 1.5
 	local lookAtOffset = vec3:new(0, 0.6, 0)
 	local targetTranslation = targetEntity:getTransform().translation + lookAtOffset
 
@@ -64,11 +64,11 @@ function update(entity, dt)
 		self.phi = self.phi - mouseMovement.x * dt * 0.2
 
 		if self.phi < 0.0001 then
-		    self.phi = 0.0001
+		    -- self.phi = 0.0001
 		end
 
         if self.phi > 3.14 then
-            self.phi = 3.14
+            -- self.phi = 3.14
         end
 
         -- Logger.debug(tostring(self.phi))

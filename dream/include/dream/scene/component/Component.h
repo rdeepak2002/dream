@@ -346,36 +346,6 @@ namespace Dream::Component {
         static void serialize(YAML::Emitter &out, Entity &entity);
     };
 
-//    struct CameraComponent : public Component {
-//        inline static std::string componentName = "CameraComponent";
-//        inline static std::string k_fov = "fov";
-//        float fov = 45.0f;
-//        inline static std::string k_zNear = "zNear";
-//        float zNear = 0.1f;
-//        inline static std::string k_zFar = "zFar";
-//        float zFar = 100.0f;
-//        inline static std::string k_lookAt = "lookAt";
-//        glm::vec3 lookAt = {0, 0, 0};
-//        inline static std::string k_front = "front";
-//        glm::vec3 front;
-//        inline static std::string k_up = "up";
-//        glm::vec3 up;
-//        inline static std::string k_right = "right";
-//        glm::vec3 right;
-//        inline static std::string k_worldUp = "worldUp";
-//        glm::vec3 worldUp = {0, -1.f, 0};
-//
-//        explicit CameraComponent(float fov);
-//
-//        glm::mat4 getViewMatrix(Entity camera);
-//
-//        void updateCameraVectors(Entity camera);
-//
-//        static void deserialize(YAML::Node node, Entity &entity);
-//
-//        static void serialize(YAML::Emitter &out, Entity &entity);
-//    };
-
     struct CameraComponent : public Component {
         inline static std::string componentName = "CameraComponent";
         inline static std::string k_fov = "fov";
