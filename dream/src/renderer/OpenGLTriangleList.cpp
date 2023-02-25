@@ -202,7 +202,7 @@ namespace Dream {
         normal = N;
 
         // tangent using this https://community.khronos.org/t/tangent-space-vector-for-my-terrain-mesh/46426/13
-        tangent = {x, 0, hR - hL};
+        tangent = glm::normalize(glm::vec3(x, 0, hR - hL));
 
         // set default bone ids
         for (int j = 0; j < MAX_BONE_INFLUENCE; ++j) {
