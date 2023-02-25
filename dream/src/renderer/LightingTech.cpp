@@ -222,7 +222,7 @@ namespace Dream {
             }
         }
 
-        shader->setVec3("ambientColor", glm::vec3(0.15, 0.15, 0.15));
+        shader->setVec3("ambientColor", glm::vec3(0.3, 0.3, 0.3));
 
         // define current number of point lights
         shader->setInt("numberOfDirLights", (int) directionalLights.size());
