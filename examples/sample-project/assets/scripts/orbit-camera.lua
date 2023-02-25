@@ -25,17 +25,17 @@ function update(entity, dt)
 		self.phi = 0.1
 	end
 	if self.theta == nil then
-		self.minTheta = 1.59
-		self.maxTheta = 2.6
-		self.theta = 1.9
+		self.minTheta = 1.2
+		self.maxTheta = 1.9
+		self.theta = 1.8
 	end
 	if self.radius == nil then
 		self.radius = 3.3
 	end
 
 	-- set position of camera based off spherical coordinate values
-	self.radius = 3.6
-	local lookAtOffset = vec3:new(0, 1.2, 0)
+	self.radius = 2.5
+	local lookAtOffset = vec3:new(0, 0.6, 0)
 	local targetTranslation = targetEntity:getTransform().translation + lookAtOffset
 
 	local xPos = targetTranslation.x - self.radius * math.sin(self.theta) * math.cos(self.phi)
@@ -61,12 +61,13 @@ function update(entity, dt)
 	if Input.pointerLockActivated() then
 		local mouseMovement = Input.getMouseMovement()
 		self.theta = self.theta + mouseMovement.y * dt * 0.2
-		self.phi = self.phi - mouseMovement.x * dt * 0.2
+		-- self.phi = self.phi - mouseMovement.x * dt * 0.2
 	end
 
 	-- bound phi and theta
-	self.theta = math.min(self.theta, 2.41)
-	self.theta = math.max(self.theta, 1.1)
+	self.theta = math.min(self.theta, 1.9)
+	self.theta = math.max(self.theta, 1.2)
+	-- Logger.debug(tostring(self.theta))
 	while self.phi > 2 * math.pi do
 		self.phi = self.phi - 2 * math.pi
 	end
