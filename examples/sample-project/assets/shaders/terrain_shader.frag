@@ -218,6 +218,7 @@ float ShadowCalculation(int cascadeIndex, vec3 normal)
     else if (cascadeIndex == 0) {
         bias = 0.0003f;
     }
+//    bias = 0.0f;
 
     float shadow = 0.0;
     float b;
@@ -320,7 +321,6 @@ vec3 CalcDirLight(DirLight light) {
 
     if (layer == 0) {
 //        shadowCascadeDebugColor = vec3(1.0, 0.0, 0.0);
-        layer = 1;
     }
 
     if (layer == 1) {
