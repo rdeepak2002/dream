@@ -33,12 +33,12 @@ Entities:
       isEmbedded: false
       shininess: 20
       diffuseTextureGuids:
-        - E82E8113-AA13-4D2D-B27A-4508D9A88FD6
+        - 99ABA5E2-35E5-4B1F-8D89-5489830EA45F
       diffuseColor: [1, 1, 1, 1]
-      specularTextureGuid: ""
+      specularTextureGuid: 04E6F2F7-76B3-4EE1-B9B3-D7C48D401C7B
       specularColor: [1, 1, 1, 1]
       heightTextureGuid: ""
-      normalTextureGuid: DBB24D50-EB37-440C-8971-DD61C0CC9D60
+      normalTextureGuid: 9C60EB17-E3EC-411B-B5C6-4EDAD2207532
       ambientTextureGuid: ""
       ambientColor: [1, 1, 1, 1]
     CollisionComponent:
@@ -73,7 +73,7 @@ Entities:
       scale: [1, 1, 1]
     CollisionComponent:
       - type: 6
-        offset: [512, 99.5999985, 512]
+        offset: [512, 99.6900024, 512]
         halfExtents: [1, 1, 1]
         axis: 1
         height: 1
@@ -2113,9 +2113,9 @@ Entities:
       first: 132F879E-6274-4100-A523-9A43B87498B7
       parent: 9C152D7C-6958-494F-B5A1-A4A072E32983
     TransformComponent:
-      translation: [0.505119741, 81.2948303, 0.51358521]
-      rotation: [0.88349396, 0.0776339322, -0.461134106, 0.0276900232]
-      scale: [0.99999994, 0.99999994, 0.99999994]
+      translation: [0.0916649103, 81.0089874, 0.221940249]
+      rotation: [0.884682178, 0.0743394792, -0.45929876, 0.0292540547]
+      scale: [0.999999881, 0.99999994, 0.999999881]
     BoneComponent:
       boneID: 0
   - Entity: 132F879E-6274-4100-A523-9A43B87498B7
@@ -2128,9 +2128,9 @@ Entities:
       next: 174E6D03-6F70-4D5E-AAFC-D0F34C77A98B
       parent: C119EE4D-19C9-41BF-BD39-3B7C7C951E6C
     TransformComponent:
-      translation: [-9.85770035, -5.87590075, -0.583700478]
-      rotation: [0.237242982, -0.248965979, 0.210491329, 0.915109336]
-      scale: [0.99999994, 0.99999994, 1]
+      translation: [-9.85770035, -5.87591457, -0.583700001]
+      rotation: [0.241714031, -0.247509658, 0.214934066, 0.913299859]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 62
   - Entity: AE40BB4F-5435-4ADA-B1A0-69FB8283A402
@@ -2142,8 +2142,8 @@ Entities:
       first: C376C0FB-24AF-4793-8B7B-6611FB557D50
       parent: 132F879E-6274-4100-A523-9A43B87498B7
     TransformComponent:
-      translation: [1.41233068e-06, 41.7019997, 8.94226162e-07]
-      rotation: [0.935249746, -0.351058275, -0.00674729981, -0.0449489728]
+      translation: [2.85466456e-07, 41.7020035, 2.92985169e-06]
+      rotation: [0.927327394, -0.371524066, -0.00872974936, -0.0442440473]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 63
@@ -2156,9 +2156,9 @@ Entities:
       first: 40BD9262-8FAF-4E60-A1D3-859583D24176
       parent: AE40BB4F-5435-4ADA-B1A0-69FB8283A402
     TransformComponent:
-      translation: [-3.63382742e-06, 36.9810028, 1.44821243e-07]
-      rotation: [0.810886681, 0.51129061, 0.0885175392, 0.270572215]
-      scale: [1, 1, 0.99999994]
+      translation: [-4.5789393e-06, 36.9810028, 1.01723208e-06]
+      rotation: [0.803684115, 0.523035288, 0.0876353905, 0.269899994]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 64
   - Entity: 40BD9262-8FAF-4E60-A1D3-859583D24176
@@ -2170,9 +2170,9 @@ Entities:
       first: C509DF9E-826F-42B7-9628-D8B8290D272A
       parent: C376C0FB-24AF-4793-8B7B-6611FB557D50
     TransformComponent:
-      translation: [-6.59612624e-07, 16.7000046, -1.67560961e-06]
-      rotation: [0.930244207, 0.365925908, -0.0270522721, -0.00349127036]
-      scale: [1, 0.99999994, 0.99999994]
+      translation: [-1.78590881e-06, 16.7000046, -2.03002651e-06]
+      rotation: [0.930292785, 0.365631104, -0.0293499585, -0.00279771513]
+      scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 65
   - Entity: C509DF9E-826F-42B7-9628-D8B8290D272A
@@ -2184,8 +2184,8 @@ Entities:
       first: B6960BAD-1191-4FB8-93C7-A67442F4CE46
       parent: 40BD9262-8FAF-4E60-A1D3-859583D24176
     TransformComponent:
-      translation: [2.52239079e-06, 7.11999846, -3.19366507e-08]
-      rotation: [1, 3.42686035e-09, -3.29552421e-08, 3.54600616e-08]
+      translation: [2.56669296e-06, 7.12000036, -1.04637557e-07]
+      rotation: [1, 3.60878971e-09, -3.24804503e-08, 3.5917104e-08]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 66
@@ -2211,9 +2211,9 @@ Entities:
       next: C2A6E8EB-803D-480F-8537-AC9BC7607CE3
       parent: C119EE4D-19C9-41BF-BD39-3B7C7C951E6C
     TransformComponent:
-      translation: [9.78909969, -5.87590218, -0.583699942]
-      rotation: [-0.183780208, 0.371141851, 0.421417713, 0.806774855]
-      scale: [1.00000036, 1.00000024, 1.00000012]
+      translation: [9.78910065, -5.87591362, -0.583700538]
+      rotation: [-0.185842231, 0.370239258, 0.422302186, 0.806254566]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 57
   - Entity: 26FD27E9-FF66-4A44-B931-61AD908F7FFA
@@ -2225,9 +2225,9 @@ Entities:
       first: BAA6BE1C-2507-42E3-AFBB-013685BCF797
       parent: 174E6D03-6F70-4D5E-AAFC-D0F34C77A98B
     TransformComponent:
-      translation: [1.91619904e-07, 41.7019997, -4.78099992e-07]
-      rotation: [0.907593608, -0.399627537, 0.128445059, -0.00857598614]
-      scale: [1, 1, 1]
+      translation: [6.2782533e-07, 41.701992, -3.0589822e-06]
+      rotation: [0.904675364, -0.405581474, 0.130329341, -0.00896840543]
+      scale: [0.99999994, 0.99999994, 1]
     BoneComponent:
       boneID: 58
   - Entity: BAA6BE1C-2507-42E3-AFBB-013685BCF797
@@ -2239,9 +2239,9 @@ Entities:
       first: 4D8A9D8E-DA01-4078-8CEB-788A132A453C
       parent: 26FD27E9-FF66-4A44-B931-61AD908F7FFA
     TransformComponent:
-      translation: [-4.12963885e-07, 36.9810028, -1.06521793e-06]
-      rotation: [0.900004685, 0.421823651, -0.0156941246, -0.108674295]
-      scale: [1, 0.99999994, 0.99999994]
+      translation: [-2.67562029e-07, 36.9810028, 1.73376725e-06]
+      rotation: [0.899021268, 0.423315853, -0.0165392607, -0.110864252]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 59
   - Entity: 4D8A9D8E-DA01-4078-8CEB-788A132A453C
@@ -2253,9 +2253,9 @@ Entities:
       first: 8192F7EB-7FD0-4FD2-A72A-6B37C036A580
       parent: BAA6BE1C-2507-42E3-AFBB-013685BCF797
     TransformComponent:
-      translation: [1.05251979e-06, 16.7000008, 2.36187543e-06]
-      rotation: [0.924198389, 0.376718968, 0.0615843572, -0.0121450052]
-      scale: [1, 1, 1]
+      translation: [1.88506601e-06, 16.7000027, -1.26994735e-07]
+      rotation: [0.924192429, 0.376751006, 0.0614375807, -0.0123480987]
+      scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 60
   - Entity: 8192F7EB-7FD0-4FD2-A72A-6B37C036A580
@@ -2267,8 +2267,8 @@ Entities:
       first: 79940336-BD5E-4B6E-976A-06EAB8A03D63
       parent: 4D8A9D8E-DA01-4078-8CEB-788A132A453C
     TransformComponent:
-      translation: [-8.27934514e-07, 7.12000132, -3.69327552e-07]
-      rotation: [1, -3.25962857e-09, -2.72726974e-09, 1.121139e-08]
+      translation: [6.15860131e-07, 7.1199975, -2.60276181e-07]
+      rotation: [1, -3.25962901e-09, -4.55366495e-10, 2.93665092e-11]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 61
@@ -2293,9 +2293,9 @@ Entities:
       prev: 174E6D03-6F70-4D5E-AAFC-D0F34C77A98B
       parent: C119EE4D-19C9-41BF-BD39-3B7C7C951E6C
     TransformComponent:
-      translation: [0.0173000675, 10.5747995, -1.11720049]
-      rotation: [0.998994887, 0.013169108, 0.0342048369, -0.0258051101]
-      scale: [0.99999994, 1, 1]
+      translation: [0.017299857, 10.5747919, -1.11720085]
+      rotation: [0.99907279, 0.0107287634, 0.0329828523, -0.0255071949]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 1
   - Entity: AF2A5D89-6815-4A47-BD72-BC3AC09D2B0E
@@ -2307,9 +2307,9 @@ Entities:
       first: A26AC7EC-A09F-4024-917F-75C7634BFBBD
       parent: C2A6E8EB-803D-480F-8537-AC9BC7607CE3
     TransformComponent:
-      translation: [-1.40396082e-07, 12.406004, -2.06481928e-07]
-      rotation: [0.999646544, 0.0122016277, 0.0100212349, 0.0213881452]
-      scale: [1, 1, 1]
+      translation: [1.16822036e-06, 12.4060001, -1.33781015e-07]
+      rotation: [0.999548972, 0.0183540713, 0.00982256699, 0.0216455925]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 2
   - Entity: A26AC7EC-A09F-4024-917F-75C7634BFBBD
@@ -2321,9 +2321,9 @@ Entities:
       first: 4BE701C7-0A9D-4F0E-A6D5-2DCE9CB89EE4
       parent: AF2A5D89-6815-4A47-BD72-BC3AC09D2B0E
     TransformComponent:
-      translation: [7.80394544e-07, 14.1783066, 1.34513857e-06]
-      rotation: [0.998321056, 0.0559297986, 0.0109390039, 0.0103538539]
-      scale: [1, 0.99999994, 1]
+      translation: [8.0648249e-08, 14.1783152, -1.56289809e-06]
+      rotation: [0.997959256, 0.062084496, 0.0105469106, 0.0105629889]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 3
   - Entity: 4BE701C7-0A9D-4F0E-A6D5-2DCE9CB89EE4
@@ -2336,9 +2336,9 @@ Entities:
       next: C57C128F-95F5-4AE3-A31D-0E1D945DDCBB
       parent: A26AC7EC-A09F-4024-917F-75C7634BFBBD
     TransformComponent:
-      translation: [-5.93499851, 13.6705914, -1.66259491]
-      rotation: [0.399820268, 0.418139637, -0.48659265, 0.654622495]
-      scale: [0.999999762, 0.999999702, 0.999999821]
+      translation: [-5.93499994, 13.6706085, -1.66259921]
+      rotation: [0.398173124, 0.423159778, -0.469622731, 0.664716899]
+      scale: [0.999999642, 0.999999702, 0.999999702]
     BoneComponent:
       boneID: 33
   - Entity: 9C74FD21-A69A-440B-B181-EAFC52C3617F
@@ -2350,9 +2350,9 @@ Entities:
       first: B533AE7A-9945-48B3-ABC2-E03371AB544E
       parent: 4BE701C7-0A9D-4F0E-A6D5-2DCE9CB89EE4
     TransformComponent:
-      translation: [1.27304077e-06, 12.6078987, -1.19888705e-06]
-      rotation: [0.907105625, 0.420199603, -0.00267798477, -0.0241772961]
-      scale: [0.99999994, 1, 1]
+      translation: [2.00004979e-06, 12.6078987, -6.50605398e-06]
+      rotation: [0.923233569, 0.383843064, -0.0168734416, -0.00442591589]
+      scale: [0.99999994, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 34
   - Entity: B533AE7A-9945-48B3-ABC2-E03371AB544E
@@ -2364,9 +2364,9 @@ Entities:
       first: 37E7A35F-AD8B-41FC-A0E1-61E94A3DB79C
       parent: 9C74FD21-A69A-440B-B181-EAFC52C3617F
     TransformComponent:
-      translation: [-2.55493177e-07, 25.5743103, 2.97106908e-06]
-      rotation: [0.835280657, 0.00899445545, 0.00655877357, -0.549711049]
-      scale: [1, 0.99999994, 1]
+      translation: [-8.37100515e-07, 25.5743179, -5.46223691e-06]
+      rotation: [0.812423944, 0.0197706036, 0.0150509579, -0.582537532]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 35
   - Entity: 37E7A35F-AD8B-41FC-A0E1-61E94A3DB79C
@@ -2378,9 +2378,9 @@ Entities:
       first: 98B3E45C-2ECF-422E-8815-98E3176AEC28
       parent: B533AE7A-9945-48B3-ABC2-E03371AB544E
     TransformComponent:
-      translation: [-7.35620051e-06, 21.6034069, -7.23730409e-06]
-      rotation: [0.95771426, 0.11135871, 0.00321342051, -0.265277714]
-      scale: [1, 0.99999994, 1]
+      translation: [1.94951599e-06, 21.603405, -2.00283876e-06]
+      rotation: [0.96229738, 0.090440169, 0.00213852967, -0.256514728]
+      scale: [0.99999994, 0.99999994, 1]
     BoneComponent:
       boneID: 36
   - Entity: 98B3E45C-2ECF-422E-8815-98E3176AEC28
@@ -2393,8 +2393,8 @@ Entities:
       next: 93155174-C6FD-4971-B02F-48DBBFBB2326
       parent: 37E7A35F-AD8B-41FC-A0E1-61E94A3DB79C
     TransformComponent:
-      translation: [-4.71269369, 8.98550987, -0.221012235]
-      rotation: [0.725288749, 0.687569022, 0.0245613232, -0.0245311521]
+      translation: [-4.71270227, 8.98551083, -0.221008167]
+      rotation: [0.726170719, 0.686636448, 0.0245299023, -0.0245929305]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 53
@@ -2407,8 +2407,8 @@ Entities:
       first: A9C9B3A5-03E8-48CE-843C-CB5286562DAC
       parent: 98B3E45C-2ECF-422E-8815-98E3176AEC28
     TransformComponent:
-      translation: [-2.20584116e-06, 3.56250381, 2.55493177e-07]
-      rotation: [0.889353454, 0.45721969, 7.03613864e-07, -0.000781559094]
+      translation: [-8.31271791e-06, 3.56249762, 8.37100515e-07]
+      rotation: [0.889355421, 0.457215995, -7.61080128e-06, -0.000721615506]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 54
@@ -2421,9 +2421,9 @@ Entities:
       first: A253806D-755C-4264-BCEE-11E81FA2BC30
       parent: 35BA5B25-3D1E-446B-8D6C-33EB9E4A471A
     TransformComponent:
-      translation: [-1.60885611e-06, 2.33520555, -3.80497409e-06]
-      rotation: [0.974511981, 0.22433503, -3.25530746e-05, -0.000372588256]
-      scale: [0.99999994, 0.99999994, 1]
+      translation: [4.49802064e-06, 2.33520103, -3.66411587e-06]
+      rotation: [0.974898756, 0.222648561, 2.43202976e-05, -0.000332979718]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 55
   - Entity: A253806D-755C-4264-BCEE-11E81FA2BC30
@@ -2435,8 +2435,8 @@ Entities:
       first: F6FE73C1-92C5-4A30-A89B-7F6E8D771E5E
       parent: A9C9B3A5-03E8-48CE-843C-CB5286562DAC
     TransformComponent:
-      translation: [6.8452141e-06, 2.03729725, 8.00378439e-06]
-      rotation: [1, -3.9328043e-09, 3.59189478e-09, 2.56941687e-17]
+      translation: [-3.62371657e-06, 2.03729653, 4.51414007e-06]
+      rotation: [1, 8.94991081e-10, -9.51911994e-10, 7.18026273e-18]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 56
@@ -2462,9 +2462,9 @@ Entities:
       next: 956461E0-31D4-4F0D-B0D7-5144F1A42B4C
       parent: 37E7A35F-AD8B-41FC-A0E1-61E94A3DB79C
     TransformComponent:
-      translation: [-2.24169636, 9.30841255, -0.14300333]
-      rotation: [0.770123184, 0.636612833, 0.0199980568, 0.0351351462]
-      scale: [1, 1.00000012, 1.00000024]
+      translation: [-2.24170208, 9.3084116, -0.14299868]
+      rotation: [0.770096838, 0.636613011, 0.0197449196, 0.0358443633]
+      scale: [1, 0.99999994, 0.999999881]
     BoneComponent:
       boneID: 49
   - Entity: 13E589B6-4954-436F-B18F-DACABA39BCB1
@@ -2476,9 +2476,9 @@ Entities:
       first: 558EE4CE-63B8-4E43-BDF4-BD82BC1A99CF
       parent: 93155174-C6FD-4971-B02F-48DBBFBB2326
     TransformComponent:
-      translation: [-8.68927145e-07, 4.01939726, 3.49090556e-07]
-      rotation: [0.802514553, 0.59651351, -0.000821678841, -0.0118878176]
-      scale: [0.99999994, 0.99999994, 0.999999881]
+      translation: [-6.10339293e-06, 4.01939678, 5.82869149e-08]
+      rotation: [0.802510142, 0.596519589, -0.000899752136, -0.0118781924]
+      scale: [1, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 50
   - Entity: 558EE4CE-63B8-4E43-BDF4-BD82BC1A99CF
@@ -2490,9 +2490,9 @@ Entities:
       first: 31F03415-5B53-4440-A5F9-7D98E235F545
       parent: 13E589B6-4954-436F-B18F-DACABA39BCB1
     TransformComponent:
-      translation: [-7.44094814e-06, 2.79080844, -5.10861173e-06]
-      rotation: [0.942166448, 0.33498466, 0.00404183799, 0.00955693051]
-      scale: [1, 0.99999994, 0.99999994]
+      translation: [7.09923415e-06, 2.79081059, -4.55753536e-07]
+      rotation: [0.942166388, 0.334984541, 0.00404135371, 0.00956352986]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 51
   - Entity: 31F03415-5B53-4440-A5F9-7D98E235F545
@@ -2504,8 +2504,8 @@ Entities:
       first: 1D8E8B95-1A77-4E39-ADCD-F39291C8105D
       parent: 558EE4CE-63B8-4E43-BDF4-BD82BC1A99CF
     TransformComponent:
-      translation: [-3.5756525e-06, 2.54069495, -5.7220459e-06]
-      rotation: [1, -5.08892484e-09, -7.18378868e-09, 3.22628013e-09]
+      translation: [4.56684938e-06, 2.54069901, -5.7220459e-06]
+      rotation: [1, -3.9529735e-09, 1.90382377e-09, 2.09032835e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 52
@@ -2531,9 +2531,9 @@ Entities:
       next: 1FA98932-C266-4535-9105-5B7648542AA3
       parent: 37E7A35F-AD8B-41FC-A0E1-61E94A3DB79C
     TransformComponent:
-      translation: [3.86529518e-06, 9.70070839, -6.79461664e-06]
-      rotation: [0.827945769, 0.560693204, 0.00975006074, -0.00582027016]
-      scale: [1, 1, 1]
+      translation: [-2.53238522e-06, 9.70070934, -2.72336547e-06]
+      rotation: [0.827868462, 0.56081599, 0.00950983167, -0.00537141273]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 45
   - Entity: C729192B-32A2-42F1-8B66-B0CC8936E3C1
@@ -2545,9 +2545,9 @@ Entities:
       first: AA621D63-61A9-4FA7-8EBC-937E2E4817E5
       parent: 956461E0-31D4-4F0D-B0D7-5144F1A42B4C
     TransformComponent:
-      translation: [5.29580666e-06, 4.01468992, -3.32015929e-07]
-      rotation: [0.739543676, 0.671732724, -0.0282227937, -0.0324620083]
-      scale: [1, 1.00000012, 1]
+      translation: [-1.10187364e-06, 4.01468945, 5.40394979e-07]
+      rotation: [0.739549458, 0.671732605, -0.0282425079, -0.0323156379]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 46
   - Entity: AA621D63-61A9-4FA7-8EBC-937E2E4817E5
@@ -2559,9 +2559,9 @@ Entities:
       first: 71372FA6-F039-4D1B-904B-EC9CE922358C
       parent: C729192B-32A2-42F1-8B66-B0CC8936E3C1
     TransformComponent:
-      translation: [6.38732956e-07, 2.99671268, -6.8298462e-08]
-      rotation: [0.959456205, 0.281505734, -0.00441510137, 0.0133729018]
-      scale: [1, 0.99999994, 1]
+      translation: [2.0927514e-06, 2.99671507, -2.39472774e-06]
+      rotation: [0.959463477, 0.281481713, -0.00441824831, 0.01335523]
+      scale: [1, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 47
   - Entity: 71372FA6-F039-4D1B-904B-EC9CE922358C
@@ -2573,8 +2573,8 @@ Entities:
       first: 56D7BF8D-D554-4EF6-B12D-98965F1E67AE
       parent: AA621D63-61A9-4FA7-8EBC-937E2E4817E5
     TransformComponent:
-      translation: [5.50070217e-06, 2.82500172, -1.39636222e-06]
-      rotation: [1, -1.32213227e-08, 1.72924985e-09, 2.32219341e-10]
+      translation: [6.08230903e-06, 2.82500362, -2.33147674e-07]
+      rotation: [1, -1.15173933e-08, -2.81455681e-09, -7.71944286e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 48
@@ -2600,9 +2600,9 @@ Entities:
       next: 63719B27-5879-431D-9822-A86CE99E582A
       parent: 37E7A35F-AD8B-41FC-A0E1-61E94A3DB79C
     TransformComponent:
-      translation: [2.34190273, 9.90970802, -0.291003108]
-      rotation: [0.864316523, 0.502307653, 0.0155179203, 0.0200796239]
-      scale: [1, 0.99999994, 0.99999994]
+      translation: [2.34189963, 9.90970707, -0.290998429]
+      rotation: [0.861197174, 0.507620037, 0.0146267246, 0.0211529769]
+      scale: [0.99999994, 0.99999994, 0.999999881]
     BoneComponent:
       boneID: 41
   - Entity: C6B06C9C-11E5-4221-9032-D695AEC308DC
@@ -2614,9 +2614,9 @@ Entities:
       first: 9F6E3E83-CEA2-4C36-9093-859E3C6B2726
       parent: 1FA98932-C266-4535-9105-5B7648542AA3
     TransformComponent:
-      translation: [-5.68789665e-06, 3.77679253, 1.69865416e-06]
-      rotation: [0.83535701, 0.548359156, -0.021106543, -0.0321784467]
-      scale: [1, 0.99999994, 1]
+      translation: [-4.52468203e-06, 3.77679062, 6.80841367e-07]
+      rotation: [0.834156096, 0.550183475, -0.0211604033, -0.0321563892]
+      scale: [0.99999994, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 42
   - Entity: 9F6E3E83-CEA2-4C36-9093-859E3C6B2726
@@ -2628,9 +2628,9 @@ Entities:
       first: 848FB2F7-A1AA-4EA6-BCA3-37AC398C9F96
       parent: C6B06C9C-11E5-4221-9032-D695AEC308DC
     TransformComponent:
-      translation: [6.2988272e-07, 2.54301167, -5.10986354e-07]
-      rotation: [0.868289411, 0.495764583, -0.012677948, 0.0114127463]
-      scale: [1, 0.99999994, 1]
+      translation: [-2.27815372e-06, 2.54300976, -1.67420103e-06]
+      rotation: [0.868288755, 0.495764583, -0.0127071021, 0.0114305736]
+      scale: [1, 1.00000012, 1.00000012]
     BoneComponent:
       boneID: 43
   - Entity: 848FB2F7-A1AA-4EA6-BCA3-37AC398C9F96
@@ -2642,8 +2642,8 @@ Entities:
       first: 84B996E8-52A8-433B-A53D-17FA4BE978A7
       parent: 9F6E3E83-CEA2-4C36-9093-859E3C6B2726
     TransformComponent:
-      translation: [-2.25643907e-06, 2.52900958, -1.75430318e-06]
-      rotation: [1, -9.54544532e-09, 3.22628013e-09, 1.26481137e-09]
+      translation: [-1.96563542e-06, 2.52900743, -4.66233951e-06]
+      rotation: [1, -1.59378288e-09, 2.09032835e-09, 1.26243282e-08]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 44
@@ -2668,9 +2668,9 @@ Entities:
       prev: 1FA98932-C266-4535-9105-5B7648542AA3
       parent: 37E7A35F-AD8B-41FC-A0E1-61E94A3DB79C
     TransformComponent:
-      translation: [2.37040949, 3.54560757, 1.90899658]
-      rotation: [0.880806208, 0.461029172, -0.107829563, -0.00231397781]
-      scale: [1, 1, 1]
+      translation: [2.37039638, 3.54560852, 1.9090029]
+      rotation: [0.880806148, 0.461029321, -0.107829608, -0.00231398642]
+      scale: [0.99999994, 0.99999994, 1]
     BoneComponent:
       boneID: 37
   - Entity: EB685B07-7189-47BD-BF99-DF93634BAD66
@@ -2682,8 +2682,8 @@ Entities:
       first: 89105329-F4D2-463D-8CD6-209DBB13462B
       parent: 63719B27-5879-431D-9822-A86CE99E582A
     TransformComponent:
-      translation: [-1.23813179e-05, 2.8080008, 4.06133995e-06]
-      rotation: [0.982943594, -0.0969369933, -0.15572457, -0.0132304607]
+      translation: [-1.9942212e-05, 2.80799699, 2.80892806e-07]
+      rotation: [0.982943535, -0.0969370008, -0.15572463, -0.0132304747]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 38
@@ -2696,9 +2696,9 @@ Entities:
       first: B3ADC8D6-32F7-47BC-B6C9-2BDB1A7094A9
       parent: EB685B07-7189-47BD-BF99-DF93634BAD66
     TransformComponent:
-      translation: [2.50308176e-06, 2.37901521, -1.10671976e-06]
-      rotation: [0.973173141, -0.128395081, 0.135643482, 0.134348765]
-      scale: [1, 1, 0.99999994]
+      translation: [-1.56816895e-06, 2.37901664, 1.80131656e-06]
+      rotation: [0.973173141, -0.128395081, 0.135643512, 0.13434881]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 39
   - Entity: B3ADC8D6-32F7-47BC-B6C9-2BDB1A7094A9
@@ -2710,8 +2710,8 @@ Entities:
       first: F5FA2BD6-F69A-42D7-8428-E2F6BC972A7F
       parent: 89105329-F4D2-463D-8CD6-209DBB13462B
     TransformComponent:
-      translation: [1.33691412e-06, 2.44529438, 3.58481611e-06]
-      rotation: [1, 3.55732332e-09, 1.17737038e-08, 3.72529008e-09]
+      translation: [2.20932498e-06, 2.44528913, 3.87561977e-06]
+      rotation: [1, -1.80257587e-08, 4.14187462e-10, 3.7252903e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 40
@@ -2737,9 +2737,9 @@ Entities:
       next: E9833548-4692-4877-8CCA-7AE4FD4ED61E
       parent: A26AC7EC-A09F-4024-917F-75C7634BFBBD
     TransformComponent:
-      translation: [5.93500185, 13.6702023, -1.66259789]
-      rotation: [0.50151825, 0.578294694, 0.400809616, -0.503394663]
-      scale: [1.00000024, 1.00000036, 1.00000024]
+      translation: [5.9350009, 13.6702156, -1.66260123]
+      rotation: [0.490082115, 0.59272176, 0.384916812, -0.510234654]
+      scale: [1.00000012, 1.00000024, 1.00000012]
     BoneComponent:
       boneID: 9
   - Entity: 7608D4E4-CCD8-4E2B-B7E7-32069FF1B2B3
@@ -2751,9 +2751,9 @@ Entities:
       first: 4E9314C0-F3C8-4B14-BB9A-470944594DE2
       parent: C57C128F-95F5-4AE3-A31D-0E1D945DDCBB
     TransformComponent:
-      translation: [-6.38732899e-07, 12.6078968, 4.21373807e-06]
-      rotation: [0.92619288, 0.347724259, 0.0322172008, 0.142185375]
-      scale: [1, 1, 1]
+      translation: [-2.09275117e-06, 12.6078949, 1.67909948e-05]
+      rotation: [0.939792097, 0.315615386, 0.0237046015, 0.128902555]
+      scale: [0.99999994, 0.99999994, 1]
     BoneComponent:
       boneID: 10
   - Entity: 4E9314C0-F3C8-4B14-BB9A-470944594DE2
@@ -2765,9 +2765,9 @@ Entities:
       first: FC2B4BD4-8567-4681-A9BE-3C472E4A5345
       parent: 7608D4E4-CCD8-4E2B-B7E7-32069FF1B2B3
     TransformComponent:
-      translation: [-3.30371086e-06, 25.574295, -5.99398754e-06]
-      rotation: [0.689590216, 0.164828554, -0.203291282, 0.675255179]
-      scale: [1, 1.00000012, 1]
+      translation: [-2.14049624e-06, 25.5743027, 9.85299721e-07]
+      rotation: [0.66501534, 0.175996646, -0.200221732, 0.697632492]
+      scale: [1.00000012, 1.00000012, 1]
     BoneComponent:
       boneID: 11
   - Entity: FC2B4BD4-8567-4681-A9BE-3C472E4A5345
@@ -2779,9 +2779,9 @@ Entities:
       first: 93DFA397-B860-4C05-A591-3B17940A816E
       parent: 4E9314C0-F3C8-4B14-BB9A-470944594DE2
     TransformComponent:
-      translation: [-2.15857312e-06, 21.6034012, 1.31545775e-07]
-      rotation: [0.998553276, 0.0377943814, 0.000460483338, 0.0382448845]
-      scale: [1, 0.99999994, 1]
+      translation: [-2.59477883e-06, 21.6034012, -5.53912514e-06]
+      rotation: [0.999045074, 0.0358609594, 0.000491841987, 0.02495303]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 12
   - Entity: 93DFA397-B860-4C05-A591-3B17940A816E
@@ -2794,9 +2794,9 @@ Entities:
       next: 21231A06-BF5C-479E-8A21-FC35F1BD603A
       parent: FC2B4BD4-8567-4681-A9BE-3C472E4A5345
     TransformComponent:
-      translation: [4.71270275, 8.98551178, -0.221599028]
-      rotation: [0.726231813, 0.67932725, -0.105365224, 0.000200178125]
-      scale: [1, 1, 1.00000012]
+      translation: [4.71270037, 8.98551178, -0.221602678]
+      rotation: [0.728248358, 0.677158713, -0.105404466, 0.000555533741]
+      scale: [0.99999994, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 29
   - Entity: 9799F30C-EAE5-4D93-B235-235B4E4BC6DA
@@ -2808,8 +2808,8 @@ Entities:
       first: A5F44BF8-F58E-4D5E-BB25-6ACDDB4296B1
       parent: 93DFA397-B860-4C05-A591-3B17940A816E
     TransformComponent:
-      translation: [8.39904806e-06, 3.56249619, -1.1920929e-06]
-      rotation: [0.800269723, 0.599639595, 4.83221884e-05, 0.000865936396]
+      translation: [-3.96010773e-06, 3.56249523, -1.1920929e-06]
+      rotation: [0.802806258, 0.596239328, 4.84735756e-05, 0.000861196488]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 30
@@ -2822,9 +2822,9 @@ Entities:
       first: 42D81F2C-AAEA-4AFF-8CD3-6FDDFCD69D11
       parent: 9799F30C-EAE5-4D93-B235-235B4E4BC6DA
     TransformComponent:
-      translation: [-2.5106803e-07, 2.3352046, -2.50750713e-06]
-      rotation: [0.911768496, 0.410704136, 7.77703735e-06, 0.000585408765]
-      scale: [0.99999994, 1, 1]
+      translation: [1.34835204e-06, 2.33520818, -6.17283547e-07]
+      rotation: [0.912390471, 0.409320623, 2.0768859e-05, 0.00057867734]
+      scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 31
   - Entity: 42D81F2C-AAEA-4AFF-8CD3-6FDDFCD69D11
@@ -2836,8 +2836,8 @@ Entities:
       first: 295C42B2-F19B-488D-8555-8BF9FB80F1DA
       parent: A5F44BF8-F58E-4D5E-BB25-6ACDDB4296B1
     TransformComponent:
-      translation: [-3.84062241e-06, 2.03730083, -4.4572289e-06]
-      rotation: [1, -6.2524661e-09, -5.63734659e-09, 9.98020222e-10]
+      translation: [-8.78428364e-06, 2.03730249, 5.02270723e-08]
+      rotation: [1, 2.83514678e-09, 6.10387185e-10, 3.26992367e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 32
@@ -2863,9 +2863,9 @@ Entities:
       next: 44D7A8E4-FB86-4451-BB38-7A46ACB0C74A
       parent: FC2B4BD4-8567-4681-A9BE-3C472E4A5345
     TransformComponent:
-      translation: [2.24170589, 9.3084116, -0.143494993]
-      rotation: [0.704496145, 0.70780468, -0.0517826155, 0.0040444131]
-      scale: [1, 0.999999881, 0.999999821]
+      translation: [2.2416954, 9.30841064, -0.143495858]
+      rotation: [0.706915915, 0.705388486, -0.0517604277, 0.00421978021]
+      scale: [0.99999994, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 25
   - Entity: 89416279-717A-4E15-8A2D-43DD50340AB9
@@ -2877,9 +2877,9 @@ Entities:
       first: 0B5C5735-B3A0-4843-9851-3DA8401BD227
       parent: 21231A06-BF5C-479E-8A21-FC35F1BD603A
     TransformComponent:
-      translation: [-4.78102129e-06, 4.01939344, 2.55493177e-07]
-      rotation: [0.857873619, 0.51373291, -0.00520087732, 0.0102162119]
-      scale: [0.99999994, 0.99999994, 1]
+      translation: [-3.18160096e-06, 4.01939392, 8.37100515e-07]
+      rotation: [0.861238658, 0.50806886, -0.00526391994, 0.0103107635]
+      scale: [0.99999994, 1, 0.99999994]
     BoneComponent:
       boneID: 26
   - Entity: 0B5C5735-B3A0-4843-9851-3DA8401BD227
@@ -2891,9 +2891,9 @@ Entities:
       first: 1505A348-FA5F-42FD-AC55-B8DE7EEB9618
       parent: 89416279-717A-4E15-8A2D-43DD50340AB9
     TransformComponent:
-      translation: [-4.50912466e-07, 2.79080892, 1.26861573e-06]
-      rotation: [0.807344675, 0.589990973, -0.00683967536, -0.00764559349]
-      scale: [1, 1, 0.99999994]
+      translation: [4.49274967e-06, 2.79080701, -1.8540257e-07]
+      rotation: [0.808072925, 0.588992774, -0.00684620207, -0.00767311407]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 27
   - Entity: 1505A348-FA5F-42FD-AC55-B8DE7EEB9618
@@ -2905,8 +2905,8 @@ Entities:
       first: 6BF7BB69-CA56-447C-A3BB-3A2AE43888B0
       parent: 0B5C5735-B3A0-4843-9851-3DA8401BD227
     TransformComponent:
-      translation: [7.4036252e-06, 2.54069662, 1.45581032e-06]
-      rotation: [1, 1.25771784e-08, -1.4970305e-09, 2.72726997e-09]
+      translation: [5.8042051e-06, 2.54069543, -1.74302966e-06]
+      rotation: [1, 1.47070853e-08, -4.90488539e-09, 4.55366689e-10]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 28
@@ -2932,9 +2932,9 @@ Entities:
       next: AC3E3938-3C42-4FC0-8269-7BD23EC8742B
       parent: FC2B4BD4-8567-4681-A9BE-3C472E4A5345
     TransformComponent:
-      translation: [4.93185416e-06, 9.70080566, 1.32806372e-06]
-      rotation: [0.725853443, 0.685873091, -0.0490653142, 0.0175331254]
-      scale: [1, 0.99999994, 0.99999994]
+      translation: [-6.66116193e-07, 9.70080566, -2.16157991e-06]
+      rotation: [0.726908922, 0.684733331, -0.0493014976, 0.0176947191]
+      scale: [0.99999994, 0.999999881, 0.999999881]
     BoneComponent:
       boneID: 21
   - Entity: 96F10465-4B34-404D-B528-219EFBCD5395
@@ -2946,9 +2946,9 @@ Entities:
       first: 166BF267-C904-4072-9DBC-A0EEAD53046F
       parent: 44D7A8E4-FB86-4451-BB38-7A46ACB0C74A
     TransformComponent:
-      translation: [-3.40240319e-07, 4.01460314, 2.16284184e-06]
-      rotation: [0.787624955, 0.614663482, 0.0258084238, 0.0342009552]
-      scale: [0.99999994, 1, 0.999999881]
+      translation: [4.31261788e-06, 4.01460361, 2.74444892e-06]
+      rotation: [0.789626122, 0.612090349, 0.025709644, 0.0342784114]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 22
   - Entity: 166BF267-C904-4072-9DBC-A0EEAD53046F
@@ -2960,9 +2960,9 @@ Entities:
       first: B3E49D7C-C843-4559-AE93-4BF196D9C9F1
       parent: 96F10465-4B34-404D-B528-219EFBCD5395
     TransformComponent:
-      translation: [2.20331594e-06, 2.99670148, -5.10986354e-07]
-      rotation: [0.833338261, 0.552588284, 0.00842689723, -0.011068224]
-      scale: [1, 1, 1.00000012]
+      translation: [3.1484276e-06, 2.99669957, -1.67420103e-06]
+      rotation: [0.834137619, 0.551380455, 0.00842370838, -0.0110949902]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 23
   - Entity: B3E49D7C-C843-4559-AE93-4BF196D9C9F1
@@ -2974,8 +2974,8 @@ Entities:
       first: 020FE3B9-F408-412C-8140-278ADD823700
       parent: 166BF267-C904-4072-9DBC-A0EEAD53046F
     TransformComponent:
-      translation: [4.00600402e-06, 2.8249867, -6.98181111e-07]
-      rotation: [1, 1.2467245e-08, 5.80551353e-17, 4.65661243e-09]
+      translation: [3.70958617e-07, 2.82498479, -1.16573837e-07]
+      rotation: [1, 1.77920167e-08, 8.28505359e-17, 4.65661287e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 24
@@ -3001,9 +3001,9 @@ Entities:
       next: F6CF38F8-5C5D-449E-B03E-ED3C7D82BA56
       parent: FC2B4BD4-8567-4681-A9BE-3C472E4A5345
     TransformComponent:
-      translation: [-2.34189868, 9.90970707, -0.291395038]
-      rotation: [0.759070516, 0.646654785, 0.0206280444, 0.0722774863]
-      scale: [1, 1, 1]
+      translation: [-2.34190559, 9.90970612, -0.29140231]
+      rotation: [0.757808924, 0.648114502, 0.0204723142, 0.072486043]
+      scale: [0.99999994, 0.999999881, 0.99999994]
     BoneComponent:
       boneID: 17
   - Entity: AF153794-CB2D-455A-9394-96A442BC70F4
@@ -3015,8 +3015,8 @@ Entities:
       first: 2AEF5715-2107-41EC-A921-2FFF62AAE8E1
       parent: AC3E3938-3C42-4FC0-8269-7BD23EC8742B
     TransformComponent:
-      translation: [-5.77684295e-06, 3.77670503, 5.02136345e-07]
-      rotation: [0.834720671, 0.549332082, 0.0210691988, 0.0321220569]
+      translation: [-1.2465327e-05, 3.77670336, -2.69670409e-06]
+      rotation: [0.837541044, 0.545022428, 0.0209021736, 0.0322291516]
       scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 18
@@ -3029,8 +3029,8 @@ Entities:
       first: 1F777F80-F805-4313-8C6E-9992580B1D05
       parent: AF153794-CB2D-455A-9394-96A442BC70F4
     TransformComponent:
-      translation: [3.14813997e-06, 2.54299593, 3.32015929e-07]
-      rotation: [0.821439624, 0.570041895, 0.00983387884, -0.0138733974]
+      translation: [-2.68803035e-07, 2.54299736, -5.40394979e-07]
+      rotation: [0.822708726, 0.56820333, 0.00995247811, -0.0140105579]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 19
@@ -3043,8 +3043,8 @@ Entities:
       first: E4AF6F65-52EA-4C94-836E-60D740E8A83C
       parent: 2AEF5715-2107-41EC-A921-2FFF62AAE8E1
     TransformComponent:
-      translation: [2.83921008e-06, 2.52909946, 2.63082848e-06]
-      rotation: [1, 7.86405785e-09, -1.36363498e-09, -9.98020333e-10]
+      translation: [-3.99467535e-06, 2.52909803, -1.14961858e-06]
+      rotation: [1, 5.09517539e-09, -2.27683317e-10, -3.26992367e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 20
@@ -3069,7 +3069,7 @@ Entities:
       prev: AC3E3938-3C42-4FC0-8269-7BD23EC8742B
       parent: FC2B4BD4-8567-4681-A9BE-3C472E4A5345
     TransformComponent:
-      translation: [-2.37040377, 3.54560876, 1.90819621]
+      translation: [-2.37040615, 3.54560828, 1.90819144]
       rotation: [0.899777114, 0.345468044, 0.079099305, 0.254551083]
       scale: [1, 1, 1]
     BoneComponent:
@@ -3083,8 +3083,8 @@ Entities:
       first: 472BC225-D136-41A9-A25C-EB6D888B3F01
       parent: F6CF38F8-5C5D-449E-B03E-ED3C7D82BA56
     TransformComponent:
-      translation: [-5.25405903e-06, 2.80839586, 2.92047116e-06]
-      rotation: [0.98045373, -0.00234071165, 0.108121246, -0.164361745]
+      translation: [-9.61611386e-06, 2.80839849, 8.84845576e-07]
+      rotation: [0.98045373, -0.00234071747, 0.108121246, -0.164361745]
       scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 14
@@ -3097,9 +3097,9 @@ Entities:
       first: CE90C705-0798-46D0-9F4E-1E23FD5D3612
       parent: 5C0278C8-21F8-42DA-9838-2B54023F4526
     TransformComponent:
-      translation: [1.61770618e-06, 2.37899899, -9.85168481e-06]
-      rotation: [0.850558937, 0.266848117, 0.436774045, -0.120706178]
-      scale: [1, 1, 1]
+      translation: [-1.27115655e-07, 2.37899971, -8.39766653e-06]
+      rotation: [0.850917339, 0.263578415, 0.438074201, -0.120652698]
+      scale: [0.99999994, 1, 0.99999994]
     BoneComponent:
       boneID: 15
   - Entity: CE90C705-0798-46D0-9F4E-1E23FD5D3612
@@ -3111,8 +3111,8 @@ Entities:
       first: 5FD48EA6-39E3-498D-8A87-20EC3AAD4E5F
       parent: 472BC225-D136-41A9-A25C-EB6D888B3F01
     TransformComponent:
-      translation: [-2.69912721e-06, 2.44500375, 4.91256651e-06]
-      rotation: [1, -4.77272266e-09, 7.4505806e-09, -1.36536356e-08]
+      translation: [-1.24510893e-06, 2.44500422, -2.35752418e-06]
+      rotation: [1, -7.96891386e-10, 7.4505806e-09, -1.0813757e-08]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 16
@@ -3137,9 +3137,9 @@ Entities:
       prev: C57C128F-95F5-4AE3-A31D-0E1D945DDCBB
       parent: A26AC7EC-A09F-4024-917F-75C7634BFBBD
     TransformComponent:
-      translation: [0.0244019777, 15.8622971, -1.67579889]
-      rotation: [0.995954454, -0.0193480402, 0.0863258913, -0.0157566089]
-      scale: [0.99999994, 0.99999994, 1]
+      translation: [0.0244005267, 15.8623085, -1.67580009]
+      rotation: [0.996095121, -0.0176256169, 0.0854070485, -0.013766896]
+      scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 4
   - Entity: 58202493-0A7D-4618-BC31-6F39C81E8700
@@ -3151,9 +3151,9 @@ Entities:
       first: 12203396-2F48-44D0-A723-B56BF614C125
       parent: E9833548-4692-4877-8CCA-7AE4FD4ED61E
     TransformComponent:
-      translation: [1.53045605e-07, 5.56399822, 0.988101363]
-      rotation: [0.976600051, -0.0486123823, 0.203693002, -0.0489732586]
-      scale: [0.99999994, 1, 1]
+      translation: [-2.75499087e-06, 5.56400156, 0.988099098]
+      rotation: [0.976798236, -0.0348798409, 0.204792678, -0.0520443916]
+      scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 5
   - Entity: 12203396-2F48-44D0-A723-B56BF614C125
@@ -3166,9 +3166,9 @@ Entities:
       next: 94A3524C-7250-4E06-ADCB-FB9DF6B50072
       parent: 58202493-0A7D-4618-BC31-6F39C81E8700
     TransformComponent:
-      translation: [-2.37750053, 7.93569899, 7.06370258]
-      rotation: [0.49999994, 0.500000179, -0.499999821, 0.50000006]
-      scale: [1, 1, 1]
+      translation: [-2.37750053, 7.93569374, 7.06370306]
+      rotation: [0.499999821, 0.500000238, -0.499999821, 0.49999994]
+      scale: [1.00000036, 1.00000036, 1.00000036]
     BoneComponent:
       boneID: 8
   - Entity: 67310DD4-CDE3-4A32-A334-FBE00181F6AF
@@ -3193,7 +3193,7 @@ Entities:
       next: E768F7A0-889B-4F9F-9A40-73E14F3CDCA3
       parent: 58202493-0A7D-4618-BC31-6F39C81E8700
     TransformComponent:
-      translation: [2.28439999, 7.93570375, 7.06370401]
+      translation: [2.28439999, 7.93569422, 7.06370401]
       rotation: [0.50000006, 0.500000119, 0.499999851, -0.50000006]
       scale: [0.99999994, 0.99999994, 0.99999994]
     BoneComponent:
@@ -3219,8 +3219,8 @@ Entities:
       prev: 94A3524C-7250-4E06-ADCB-FB9DF6B50072
       parent: 58202493-0A7D-4618-BC31-6F39C81E8700
     TransformComponent:
-      translation: [-5.34229173e-07, 18.3118973, 3.08690429]
-      rotation: [1, -5.77938497e-09, -5.00987429e-09, -4.99010167e-10]
+      translation: [5.56284419e-07, 18.3118916, 3.08690524]
+      rotation: [1, -8.33527558e-09, -3.16395288e-09, -1.63496172e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 6
@@ -6299,12 +6299,12 @@ Entities:
       prev: 0A1BF857-F0DD-44C1-8BB4-F24D9BA1396B
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [-51.6319733, 19.3629875, -22.4610119]
-      rotation: [-0.140218571, 0.980793774, 0.0191881657, 0.134216413]
+      translation: [-53.9189339, 19.350832, -23.7172279]
+      rotation: [-0.0709274188, 0.983366549, 0.0120291915, 0.166777596]
       scale: [1, 1, 1]
     SceneCameraComponent:
       fov: 45
       zNear: 0.00100000005
       zFar: 1e+09
-      yaw: 3.42559695
-      pitch: -0.271999896
+      yaw: 3.28559756
+      pitch: -0.335999995
