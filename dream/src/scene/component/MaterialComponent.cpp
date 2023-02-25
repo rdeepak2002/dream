@@ -33,6 +33,30 @@ namespace Dream::Component {
                 Project::getResourceManager()->storeTextureData(new OpenGLTexture(path), this->diffuseTextureGuids.at(0));
             }
         }
+        if (!this->normalTextureGuid.empty()) {
+            if (!Project::getResourceManager()->hasTextureData(this->normalTextureGuid)) {
+                std::string path = Project::getResourceManager()->getFilePathFromGUID(this->normalTextureGuid);
+                Project::getResourceManager()->storeTextureData(new OpenGLTexture(path), this->normalTextureGuid);
+            }
+        }
+        if (!this->specularTextureGuid.empty()) {
+            if (!Project::getResourceManager()->hasTextureData(this->specularTextureGuid)) {
+                std::string path = Project::getResourceManager()->getFilePathFromGUID(this->specularTextureGuid);
+                Project::getResourceManager()->storeTextureData(new OpenGLTexture(path), this->specularTextureGuid);
+            }
+        }
+        if (!this->heightTextureGuid.empty()) {
+            if (!Project::getResourceManager()->hasTextureData(this->heightTextureGuid)) {
+                std::string path = Project::getResourceManager()->getFilePathFromGUID(this->heightTextureGuid);
+                Project::getResourceManager()->storeTextureData(new OpenGLTexture(path), this->heightTextureGuid);
+            }
+        }
+        if (!this->ambientTextureGuid.empty()) {
+            if (!Project::getResourceManager()->hasTextureData(this->ambientTextureGuid)) {
+                std::string path = Project::getResourceManager()->getFilePathFromGUID(this->ambientTextureGuid);
+                Project::getResourceManager()->storeTextureData(new OpenGLTexture(path), this->ambientTextureGuid);
+            }
+        }
     }
 
     void MaterialComponent::serialize(YAML::Emitter &out, Entity &entity) {
