@@ -104,9 +104,15 @@ namespace Dream::Component {
 
     void CameraComponent::lookAt(Entity sceneCamera, glm::vec3 lookAtPos) {
         glm::vec3 &position = sceneCamera.getComponent<TransformComponent>().translation;
+//        glm::quat q = glm::conjugate(glm::toQuat(
+//                glm::lookAt(position,
+//                            glm::vec3(lookAtPos.x, lookAtPos.y, lookAtPos.z),
+//                            glm::vec3(0, 1, 0)
+//                )
+//        ));
         glm::quat q = glm::conjugate(glm::toQuat(
-                glm::lookAt(position,
-                            glm::vec3(lookAtPos.x, lookAtPos.y, lookAtPos.z),
+                glm::lookAt(glm::vec3(lookAtPos.x, lookAtPos.y, lookAtPos.z),
+                            position,
                             glm::vec3(0, 1, 0)
                 )
         ));

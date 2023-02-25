@@ -54,7 +54,7 @@ function update(entity, dt)
 		yPos = targetTranslation.y - self.radius * math.cos(self.theta)
 		zPos = targetTranslation.z + self.radius * math.sin(self.theta) * math.sin(self.phi)
 
-		entity:getTransform().translation = vec3:new(xPos, yPos, zPos);
+		-- entity:getTransform().translation = vec3:new(xPos, yPos, zPos);
 	end
 
 	-- rotate around object using mouse input when pointer locked
@@ -72,8 +72,9 @@ function update(entity, dt)
 	end
 
 	-- make camera look at target (player)
-	lookAt = vec3:new(-1 * targetTranslation.x, -1 * targetTranslation.y, targetTranslation.z)
-	entity:getCamera().lookAt = lookAt
+	lookAt = vec3:new(targetTranslation.x, targetTranslation.y, targetTranslation.z)
+	-- entity:getCamera().lookAt = lookAt
+	entity:getCamera():lookAt(entity, lookAt)
 end
 
 
