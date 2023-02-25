@@ -48,6 +48,7 @@ uniform vec3 ambientColor;
 in vec3 FragPos;
 in vec2 TexCoord;
 in vec3 Normal;
+in mat3 TBN;
 
 // terrain textures
 uniform sampler2D textureDiffuse0;
@@ -74,7 +75,7 @@ uniform vec4 diffuse_color;
 uniform vec4 specular_color;
 //uniform sampler2D texture_ambient;
 uniform vec4 ambient_color;
-uniform sampler2D texture_normal;
+//uniform sampler2D texture_normal;
 uniform sampler2D texture_height;
 uniform sampler2D shadowMaps[NUM_CASCADES];
 uniform mat4 lightSpaceMatrices[NUM_CASCADES];
@@ -131,6 +132,32 @@ vec4 getSpecularTextureColor() {
     return vec4(0.0, 0.0, 0.0, 1.0);
 }
 
+vec4 getNormalTextureColor() {
+    vec4 texColor;
+    float height = FragPos.y;
+
+    if (height < gHeight0) {
+        texColor = texture(textureNormal0, TexCoord);
+    } else if (height < gHeight1) {
+        float Delta = gHeight1 - gHeight0;
+        float Factor = (height - gHeight0) / Delta;
+        vec4 Color0 = texture(textureNormal0, TexCoord);
+        vec4 Color1 = texture(textureNormal1, TexCoord);
+        texColor = mix(Color0, Color1, Factor);
+    } else if (height < gHeight2) {
+        float Delta = gHeight2 - gHeight1;
+        float Factor = (height - gHeight1) / Delta;
+        vec4 Color0 = texture(textureNormal1, TexCoord);
+        vec4 Color1 = texture(textureNormal2, TexCoord);
+        texColor = mix(Color0, Color1, Factor);
+    } else {
+        vec4 Color1 = texture(textureNormal2, TexCoord);
+        texColor = Color1;
+    }
+
+    return texColor;
+}
+
 void main()
 {
     vec4 tc = getTextureColor();
@@ -149,31 +176,6 @@ void main()
 
     result.rgb = pow(result.rgb, vec3(1.0 / gamma));
     FragColor = vec4(result, 1.0);
-//    FragColor = vec4(Normal, 1.0);
-
-//    vec4 texColor;
-//    float height = FragPos.y;
-//
-//    if (height < gHeight0) {
-//        texColor = texture(textureDiffuse0, TexCoord);
-//    } else if (height < gHeight1) {
-//        float Delta = gHeight1 - gHeight0;
-//        float Factor = (height - gHeight0) / Delta;
-//        vec4 Color0 = texture(textureDiffuse0, TexCoord);
-//        vec4 Color1 = texture(textureDiffuse1, TexCoord);
-//        texColor = mix(Color0, Color1, Factor);
-//    } else if (height < gHeight2) {
-//        float Delta = gHeight2 - gHeight1;
-//        float Factor = (height - gHeight1) / Delta;
-//        vec4 Color0 = texture(textureDiffuse1, TexCoord);
-//        vec4 Color1 = texture(textureDiffuse2, TexCoord);
-//        texColor = mix(Color0, Color1, Factor);
-//    } else {
-//        vec4 Color1 = texture(textureDiffuse2, TexCoord);
-//        texColor = Color1;
-//    }
-//
-//    FragColor = texColor;
 }
 
 
@@ -272,21 +274,23 @@ vec3 CalcDirLight(DirLight light) {
     vec3 viewDir = normalize(viewPos - FragPos);
     vec3 lightDir = normalize(-light.direction);
 
-//    bool enableNormalMapping = true;
-//    if (enableNormalMapping) {
-//        vec3 TangentViewPos  = TBN * viewPos;
-//        vec3 TangentFragPos  = TBN * FragPos;
+    bool enableNormalMapping = true;
+    if (enableNormalMapping) {
+        vec3 TangentViewPos  = TBN * viewPos;
+        vec3 TangentFragPos  = TBN * FragPos;
 //        normal = texture(texture_normal, TexCoord).rgb;
-//        if (length(normal) <= 0.0f) {
-//            // handle case where no normal map is associatd with the model, so we end up using a black texture for the normal map
-//            normal = vec3(0.5, 0.5, 1);
-//        }
-//        normal = normalize(normal * 2.0 - 1.0);
-//        viewDir = normalize(TangentViewPos - TangentFragPos);
-//        vec3 lightPos = FragPos + normalize(-light.direction);
-//        vec3 TangentLightPos = TBN * lightPos;
-//        lightDir = normalize(TangentLightPos - TangentFragPos);
-//    }
+        normal = vec3(getNormalTextureColor());
+        normal.b = 1.0f;
+        if (length(normal) <= 0.0f) {
+            // handle case where no normal map is associatd with the model, so we end up using a black texture for the normal map
+            normal = vec3(0.5, 0.5, 1);
+        }
+        normal = normalize(normal * 2.0 - 1.0);
+        viewDir = normalize(TangentViewPos - TangentFragPos);
+        vec3 lightPos = FragPos + normalize(-light.direction);
+        vec3 TangentLightPos = TBN * lightPos;
+        lightDir = normalize(TangentLightPos - TangentFragPos);
+    }
 
     vec4 texColor = getTextureColor();
     vec4 specularTextureColor = getSpecularTextureColor();

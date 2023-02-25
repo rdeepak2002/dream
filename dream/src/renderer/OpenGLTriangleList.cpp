@@ -184,7 +184,7 @@ namespace Dream {
 
         // TODO: init other variables such as normals, etc.
 
-        // TODO: below algo is wrong maybe wait for OglDev to post the correct one
+        // TODO: below algo might be wrong maybe wait for OglDev to post the correct one
         glm::vec3 P = {x, z, pTerrain->getHeight(x,z)};
         glm::vec3 off = {1.0, 1.0, 0.0};
         glm::vec2 Pxy = {P.x, P.y};
@@ -200,6 +200,9 @@ namespace Dream {
         N.z = hD - hU;
         N = normalize(N);
         normal = N;
+
+        // tangent using this https://community.khronos.org/t/tangent-space-vector-for-my-terrain-mesh/46426/13
+        tangent = {x, 0, hR - hL};
 
         // set default bone ids
         for (int j = 0; j < MAX_BONE_INFLUENCE; ++j) {
