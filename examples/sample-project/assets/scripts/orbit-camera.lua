@@ -54,20 +54,29 @@ function update(entity, dt)
 		yPos = targetTranslation.y - self.radius * math.cos(self.theta)
 		zPos = targetTranslation.z + self.radius * math.sin(self.theta) * math.sin(self.phi)
 
-		-- entity:getTransform().translation = vec3:new(xPos, yPos, zPos);
+		entity:getTransform().translation = vec3:new(xPos, yPos, zPos);
 	end
 
 	-- rotate around object using mouse input when pointer locked
 	if Input.pointerLockActivated() then
 		local mouseMovement = Input.getMouseMovement()
 		self.theta = self.theta + mouseMovement.y * dt * 0.2
-		-- self.phi = self.phi - mouseMovement.x * dt * 0.2
+		self.phi = self.phi - mouseMovement.x * dt * 0.2
+
+		if self.phi < 0.0001 then
+		    self.phi = 0.0001
+		end
+
+        if self.phi > 3.14 then
+            self.phi = 3.14
+        end
+
+        -- Logger.debug(tostring(self.phi))
 	end
 
 	-- bound phi and theta
 	self.theta = math.min(self.theta, 1.9)
 	self.theta = math.max(self.theta, 1.2)
-	-- Logger.debug(tostring(self.theta))
 	while self.phi > 2 * math.pi do
 		self.phi = self.phi - 2 * math.pi
 	end
