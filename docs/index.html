@@ -102,6 +102,13 @@
                     disablePointerLock();
                 }
             }
+            let onMouseMovement = Module.cwrap('setMouseMovement', null, ['number', 'number']);
+            let updatePosition = (event) => {
+                if (event && event.movementX && event.movementY) {
+                    onMouseMovement(event.movementX * 0.5, event.movementY * 0.5);
+                }
+            }
+            window.addEventListener("mousemove", updatePosition, false);
         },
         totalDependencies: 0,
         monitorRunDependencies: function(left) {
