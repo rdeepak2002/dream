@@ -216,7 +216,8 @@ namespace Dream {
                     Input::setButtonDown(Key::RightMouse, state);
                 }
             } else if (Event.type == SDL_MOUSEMOTION) {
-                Input::setMouseMovement((float) Event.motion.xrel * dt * 40.0f, (float) Event.motion.yrel * dt * 40.0f);
+                Input::setMouseMovement((float) Event.motion.xrel, (float) Event.motion.yrel);
+//                Input::setMouseMovement((float) Event.motion.xrel * dt * 40.0f, (float) Event.motion.yrel * dt * 40.0f);
                 Input::setMousePosition(Event.motion.x, Event.motion.y);
             } else if (Event.type == SDL_MOUSEWHEEL) {
                 Input::setMouseScroll(Event.wheel.x, Event.wheel.y);

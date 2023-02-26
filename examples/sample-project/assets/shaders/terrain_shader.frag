@@ -207,7 +207,7 @@ float ShadowCalculation(int cascadeIndex, vec3 normal)
     float bias = max(0.05f * (1.0 - dot(normal, normalize(shadowDirectionalLightDir))), 0.005);
     if (cascadeIndex == 3)
     {
-        bias = 0.00003f;
+        bias = 0.0003f;
     }
     else if (cascadeIndex == 2) {
         bias = 0.0003f;

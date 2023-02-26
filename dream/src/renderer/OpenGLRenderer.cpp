@@ -69,7 +69,16 @@ namespace Dream {
 
         // TODO: maybe encapsulate this in directional light shadow tech?
         for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
-            const unsigned int SHADOW_WIDTH = 1024 * 8, SHADOW_HEIGHT = 1024 * 8;
+            int scale = 1;
+            if (i == 0) {
+                scale = 8;
+            } else if (i == 1) {
+                scale = 4;
+            } else {
+                scale = 2;
+            }
+
+            const unsigned int SHADOW_WIDTH = 1024 * scale, SHADOW_HEIGHT = 1024 * scale;
             auto shadowMapFbo = new OpenGLShadowMapFBO((int) SHADOW_WIDTH, (int) SHADOW_HEIGHT);
             shadowMapFbos.push_back(shadowMapFbo);
         }
