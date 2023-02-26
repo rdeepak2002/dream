@@ -112,6 +112,7 @@ namespace Dream {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
         glEnable(GL_DEPTH_TEST);
+//        glEnable(GL_MULTISAMPLE);
 
         // update renderer camera using scene camera entity's position and camera attributes like yaw, pitch, and fov
         std::optional<Camera> maybeCamera;

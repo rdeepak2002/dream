@@ -23,6 +23,8 @@
 
 namespace Dream {
     SDL2OpenGLWindow::SDL2OpenGLWindow() : SDL2Window(SDL_WINDOW_OPENGL) {
+//        SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+//        SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,16);
 #ifdef EMSCRIPTEN
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
