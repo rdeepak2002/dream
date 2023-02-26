@@ -138,7 +138,9 @@ namespace Dream {
 
             {
                 // render scene from light's point of view
+#ifndef EMSCRIPTEN
                 glEnable(GL_DEPTH_CLAMP);
+#endif
                 for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
                     simpleDepthShader->use();
                     simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrices.at(i));
@@ -151,7 +153,9 @@ namespace Dream {
                     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
                 }
+#ifndef EMSCRIPTEN
                 glDisable(GL_DEPTH_CLAMP);
+#endif
             }
 
             {
