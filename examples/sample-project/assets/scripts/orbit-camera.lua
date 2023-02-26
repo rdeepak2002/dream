@@ -24,6 +24,7 @@ function update(entity, dt)
 	if self.phi == nil then
 		self.phi = 0.1
 		self.phi = 3.13
+		self.phi = 0.1
 	end
 	if self.theta == nil then
 		self.minTheta = 1.2
@@ -87,6 +88,7 @@ function update(entity, dt)
 	-- entity:getCamera().lookAt = lookAt
 	entity:getCamera():lookAt(entity, lookAt)
 end
+
 
 
 

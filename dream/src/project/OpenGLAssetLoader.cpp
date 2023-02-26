@@ -17,6 +17,7 @@
  **********************************************************************************/
 
 #include "dream/project/OpenGLAssetLoader.h"
+#include "dream/util/MathUtils.h"
 
 #include <iostream>
 #include <filesystem>
@@ -87,6 +88,18 @@ namespace Dream {
                 dreamNode = rootEntity;
             } else {
                 dreamNode = Project::getScene()->createEntity(node->mName.C_Str());
+            }
+            // get transform of assimp node
+            glm::mat4 transform = AssimpGLMHelpers::convertMatrixToGLMFormat(node->mTransformation);
+            glm::vec3 pos;
+            glm::quat rot;
+            glm::vec3 scale;
+            Dream::MathUtils::decomposeMatrix(transform, pos, rot, scale);
+            if (dreamNode.hasComponent<Component::TransformComponent>()) {
+                auto &transformComponent = dreamNode.getComponent<Component::TransformComponent>();
+                transformComponent.translation = pos;
+                transformComponent.rotation = rot;
+                transformComponent.scale = scale;
             }
             nodeEntities.push_back(dreamNode);
         }

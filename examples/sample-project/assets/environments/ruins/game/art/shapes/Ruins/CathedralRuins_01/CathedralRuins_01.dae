@@ -7211,22 +7211,22 @@
   </library_lights>
   <library_images>
     <image id="_td_FloorBrick_color_02A_jpg">
-      <init_from>file:///C:/Users/RonMain/Documents/3dsmax/sceneassets/Ruins_Textures/2td_FloorBrick_color_02A.jpg</init_from>
+      <init_from>2td_FloorBrick_color_02A.jpg</init_from>
     </image>
     <image id="_td_BrickDebris_01_jpg">
-      <init_from>file:///C:/Users/RonMain/Documents/3dsmax/sceneassets/Ruins_Textures/3td_BrickDebris_01.jpg</init_from>
+      <init_from>3td_BrickDebris_01.jpg</init_from>
     </image>
     <image id="_td_BrickOldColor_34_jpg">
-      <init_from>file:///C:/Users/RonMain/Documents/3dsmax/sceneassets/Ruins_Textures/3td_BrickOldColor_34.jpg</init_from>
+      <init_from>3td_BrickOldColor_34.jpg</init_from>
     </image>
     <image id="_td_BrickOldRound_03_jpg">
-      <init_from>file:///C:/Users/RonMain/Documents/3dsmax/sceneassets/Ruins_Textures/3td_BrickOldRound_03.jpg</init_from>
+      <init_from>3td_BrickOldRound_03.jpg</init_from>
     </image>
     <image id="_td_ConcreteDirty_01_jpg">
-      <init_from>file:///C:/Users/RonMain/Documents/3dsmax/sceneassets/Ruins_Textures/3td_ConcreteDirty_01.jpg</init_from>
+      <init_from>3td_ConcreteDirty_01.jpg</init_from>
     </image>
     <image id="_td_WoodDebris_17_jpg">
-      <init_from>file:///C:/Users/RonMain/Documents/3dsmax/sceneassets/Ruins_Textures/3td_WoodDebris_17.jpg</init_from>
+      <init_from>3td_WoodDebris_17.jpg</init_from>
     </image>
   </library_images>
   <library_visual_scenes>
