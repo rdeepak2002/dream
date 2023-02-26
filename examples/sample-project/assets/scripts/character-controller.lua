@@ -7,28 +7,28 @@ function update(entity, dt)
 	end
 	
 	-- check if user is close to either door
-	local entityTranslation = entity:getTransform().translation
-	local door1Entity = Scene.getEntityByTag("Door 1")
-	if not door1Entity:isValid() then
-		Logger.error("Door1 entity cannot be found by character controller")
-		return
-	end
-	local door1Translation = door1Entity:getTransform().translation
+	-- local entityTranslation = entity:getTransform().translation
+	-- local door1Entity = Scene.getEntityByTag("Door 1")
+	-- if not door1Entity:isValid() then
+	-- 	Logger.error("Door1 entity cannot be found by character controller")
+	-- 	return
+	-- end
+	-- local door1Translation = door1Entity:getTransform().translation
 
-	if MathUtils.distance(entityTranslation, door1Translation) < 1 then
-		entity:getRigidBody():setTranslation(vec3:new(0.3, 0.03, -5.59))
-	end
+	-- if MathUtils.distance(entityTranslation, door1Translation) < 1 then
+	-- 	entity:getRigidBody():setTranslation(vec3:new(0.3, 0.03, -5.59))
+	-- end
 
-	local door2Entity = Scene.getEntityByTag("Door 2")
-	if not door2Entity:isValid() then
-		Logger.error("Door2 entity cannot be found by character controller")
-		return
-	end
-	local door2Translation = door2Entity:getTransform().translation
+	-- local door2Entity = Scene.getEntityByTag("Door 2")
+	-- if not door2Entity:isValid() then
+	-- 	Logger.error("Door2 entity cannot be found by character controller")
+	-- 	return
+	-- end
+	-- local door2Translation = door2Entity:getTransform().translation
 
-	if MathUtils.distance(entityTranslation, door2Translation) < 1 then
-		entity:getRigidBody():setTranslation(vec3:new(0.3, 0.03, 5.6))
-	end
+	-- if MathUtils.distance(entityTranslation, door2Translation) < 1 then
+	-- 	entity:getRigidBody():setTranslation(vec3:new(0.3, 0.03, 5.6))
+	-- end
 
 	-- get forward vector of camera and project onto xz plane
 	local cameraTranslation = cameraEntity:getTransform().translation
@@ -104,6 +104,7 @@ function update(entity, dt)
 		-- entity:getAnimator():setVariable("slashing", 0)
 	end
 end
+
 
 
 

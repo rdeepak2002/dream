@@ -30,14 +30,14 @@ namespace Dream {
         m_worldScale = worldScale;
         m_textureScale = textureScale;
 
-        textureDiffuse0 = new OpenGLTexture(Project::getPath().append("assets").append("terrain").append("ground-textures").append("MaterialAlb_Slice_0_.png"));
-        textureNormal0 = new OpenGLTexture(Project::getPath().append("assets").append("terrain").append("ground-textures").append("MaterialCmb_Slice_0_.png"));
+        textureDiffuse0 = new OpenGLTexture(Project::getPath().append("assets").append("environments").append("terrain").append("ground-textures").append("MaterialAlb_Slice_0_.png"));
+        textureNormal0 = new OpenGLTexture(Project::getPath().append("assets").append("environments").append("terrain").append("ground-textures").append("MaterialCmb_Slice_0_.png"));
 
-        textureDiffuse1 = new OpenGLTexture(Project::getPath().append("assets").append("terrain").append("ground-textures").append("MaterialAlb_Slice_74_.png"));
-        textureNormal1 = new OpenGLTexture(Project::getPath().append("assets").append("terrain").append("ground-textures").append("MaterialCmb_Slice_74_.png"));
+        textureDiffuse1 = new OpenGLTexture(Project::getPath().append("assets").append("environments").append("terrain").append("ground-textures").append("MaterialAlb_Slice_74_.png"));
+        textureNormal1 = new OpenGLTexture(Project::getPath().append("assets").append("environments").append("terrain").append("ground-textures").append("MaterialCmb_Slice_74_.png"));
 
-        textureDiffuse2 = new OpenGLTexture(Project::getPath().append("assets").append("terrain").append("ground-textures").append("MaterialAlb_Slice_73_.png"));
-        textureNormal2 = new OpenGLTexture(Project::getPath().append("assets").append("terrain").append("ground-textures").append("MaterialCmb_Slice_73_.png"));
+        textureDiffuse2 = new OpenGLTexture(Project::getPath().append("assets").append("environments").append("terrain").append("ground-textures").append("MaterialAlb_Slice_73_.png"));
+        textureNormal2 = new OpenGLTexture(Project::getPath().append("assets").append("environments").append("terrain").append("ground-textures").append("MaterialCmb_Slice_73_.png"));
     }
 
     OpenGLBaseTerrain::~OpenGLBaseTerrain() {

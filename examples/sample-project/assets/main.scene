@@ -8,7 +8,1280 @@ Entities:
     TagComponent:
       tag: root
     HierarchyComponent:
-      first: EED07A27-EDE9-4F0E-B370-FF977B165220
+      first: B0F9D0C3-7625-4DAD-90A6-E1228E1950F2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: B0F9D0C3-7625-4DAD-90A6-E1228E1950F2
+    IDComponent:
+      id: B0F9D0C3-7625-4DAD-90A6-E1228E1950F2
+    TagComponent:
+      tag: environment
+    HierarchyComponent:
+      first: 0A1BF857-F0DD-44C1-8BB4-F24D9BA1396B
+      next: EED07A27-EDE9-4F0E-B370-FF977B165220
+      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 0A1BF857-F0DD-44C1-8BB4-F24D9BA1396B
+    IDComponent:
+      id: 0A1BF857-F0DD-44C1-8BB4-F24D9BA1396B
+    TagComponent:
+      tag: sun
+    HierarchyComponent:
+      next: 42D1CE87-1A8A-4DC0-A944-92EC7320484D
+      parent: B0F9D0C3-7625-4DAD-90A6-E1228E1950F2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [0.6468274, 0.736304939, -0.149256378, -0.131118417]
+      scale: [1, 1, 1]
+    LightComponent:
+      type: 0
+      cutOff: 0.976296008
+      outerCutOff: 0.953716934
+      constant: 1
+      linear: 0.699999988
+      quadratic: 1.79999995
+      color: [1, 1, 1]
+  - Entity: 42D1CE87-1A8A-4DC0-A944-92EC7320484D
+    IDComponent:
+      id: 42D1CE87-1A8A-4DC0-A944-92EC7320484D
+    TagComponent:
+      tag: terrain
+    HierarchyComponent:
+      prev: 0A1BF857-F0DD-44C1-8BB4-F24D9BA1396B
+      next: 4822342A-DFFD-41B0-889E-6B474089F722
+      parent: B0F9D0C3-7625-4DAD-90A6-E1228E1950F2
+    TransformComponent:
+      translation: [-505, 0, -505]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    CollisionComponent:
+      - type: 6
+        offset: [512, 11.4049997, 512]
+        halfExtents: [1, 1, 1]
+        axis: 1
+        height: 1
+        radius: 1
+        assetGUID: ""
+    RigidBodyComponent:
+      type: 0
+      mass: 1
+      linearDamping: 0
+      angularDamping: 0
+      linearFactor: [1, 1, 1]
+      angularFactor: [1, 1, 1]
+      friction: 0.800000012
+      restitution: 0.200000003
+    TerrainComponent:
+      guid: D0F86FFD-35C1-44B0-922F-61D192F72181
+  - Entity: 4822342A-DFFD-41B0-889E-6B474089F722
+    IDComponent:
+      id: 4822342A-DFFD-41B0-889E-6B474089F722
+    TagComponent:
+      tag: speaking stones
+    HierarchyComponent:
+      first: 6006B808-F76B-4846-94B9-92EF818206AF
+      prev: 42D1CE87-1A8A-4DC0-A944-92EC7320484D
+      parent: B0F9D0C3-7625-4DAD-90A6-E1228E1950F2
+    TransformComponent:
+      translation: [0, -0.289999992, 0]
+      rotation: [0.620791197, -0.620297849, 0.339139849, 0.338870287]
+      scale: [0.100000001, 0.100000001, 0.100000001]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: ""
+    CollisionComponent:
+      []
+    RigidBodyComponent:
+      type: 0
+      mass: 1
+      linearDamping: 0
+      angularDamping: 0
+      linearFactor: [1, 1, 1]
+      angularFactor: [1, 1, 1]
+      friction: 0.5
+      restitution: 0.5
+  - Entity: 6006B808-F76B-4846-94B9-92EF818206AF
+    IDComponent:
+      id: 6006B808-F76B-4846-94B9-92EF818206AF
+    TagComponent:
+      tag: colliders
+    HierarchyComponent:
+      next: FE59AA60-4CA2-4C7E-996A-81A5658269AB
+      parent: 4822342A-DFFD-41B0-889E-6B474089F722
+    TransformComponent:
+      translation: [0, -0.100000001, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    CollisionComponent:
+      - type: 3
+        offset: [0, 0, 0]
+        halfExtents: [0.800000012, 0.200000003, 0.800000012]
+        axis: 1
+        height: 1
+        radius: 1
+        assetGUID: ""
+      - type: 3
+        offset: [0, 0, 0]
+        halfExtents: [1.04999995, 0.150000006, 1.04999995]
+        axis: 1
+        height: 1
+        radius: 1
+        assetGUID: ""
+      - type: 0
+        offset: [-1.10000002, 0, 0.100000001]
+        halfExtents: [0.100000001, 1, 0.5]
+        axis: 1
+        height: 1
+        radius: 1
+        assetGUID: ""
+      - type: 0
+        offset: [-0.200000003, 0, -1.10000002]
+        halfExtents: [0.300000012, 1, 0.100000001]
+        axis: 1
+        height: 1
+        radius: 1
+        assetGUID: ""
+      - type: 0
+        offset: [-0.699999988, 0, -0.899999976]
+        halfExtents: [0.100000001, 1, 0.100000001]
+        axis: 1
+        height: 1
+        radius: 1
+        assetGUID: ""
+      - type: 0
+        offset: [-0.899999976, 0, -0.600000024]
+        halfExtents: [0.100000001, 1, 0.100000001]
+        axis: 1
+        height: 1
+        radius: 1
+        assetGUID: ""
+      - type: 0
+        offset: [-0.800000012, 0, 0.850000024]
+        halfExtents: [0.100000001, 1, 0.100000001]
+        axis: 1
+        height: 1
+        radius: 1
+        assetGUID: ""
+    RigidBodyComponent:
+      type: 0
+      mass: 1
+      linearDamping: 0
+      angularDamping: 0
+      linearFactor: [1, 1, 1]
+      angularFactor: [1, 1, 1]
+      friction: 0.5
+      restitution: 0.5
+  - Entity: FE59AA60-4CA2-4C7E-996A-81A5658269AB
+    IDComponent:
+      id: FE59AA60-4CA2-4C7E-996A-81A5658269AB
+    TagComponent:
+      tag: node-Base01
+    HierarchyComponent:
+      first: BCEA6CC3-2144-4633-A0EE-D7DB78A36098
+      prev: 6006B808-F76B-4846-94B9-92EF818206AF
+      next: 7C49775E-16EE-4120-9BF7-4FFD158F04D0
+      parent: 4822342A-DFFD-41B0-889E-6B474089F722
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: BCEA6CC3-2144-4633-A0EE-D7DB78A36098
+    IDComponent:
+      id: BCEA6CC3-2144-4633-A0EE-D7DB78A36098
+    TagComponent:
+      tag: node-col-2
+    HierarchyComponent:
+      next: 4448DA82-6547-4793-8B10-1A0E0BB6C392
+      parent: FE59AA60-4CA2-4C7E-996A-81A5658269AB
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 4448DA82-6547-4793-8B10-1A0E0BB6C392
+    IDComponent:
+      id: 4448DA82-6547-4793-8B10-1A0E0BB6C392
+    TagComponent:
+      tag: node-col-1
+    HierarchyComponent:
+      prev: BCEA6CC3-2144-4633-A0EE-D7DB78A36098
+      next: 50E68D38-83DE-4C04-A36F-0E5484C37043
+      parent: FE59AA60-4CA2-4C7E-996A-81A5658269AB
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 50E68D38-83DE-4C04-A36F-0E5484C37043
+    IDComponent:
+      id: 50E68D38-83DE-4C04-A36F-0E5484C37043
+    TagComponent:
+      tag: node-detail300
+    HierarchyComponent:
+      prev: 4448DA82-6547-4793-8B10-1A0E0BB6C392
+      next: 0AC96002-DAFB-4383-A845-8E546CBC082A
+      parent: FE59AA60-4CA2-4C7E-996A-81A5658269AB
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 0AC96002-DAFB-4383-A845-8E546CBC082A
+    IDComponent:
+      id: 0AC96002-DAFB-4383-A845-8E546CBC082A
+    TagComponent:
+      tag: node-Start01
+    HierarchyComponent:
+      first: F5CF4A6C-ED67-48A8-96C8-8812CDBF4742
+      prev: 50E68D38-83DE-4C04-A36F-0E5484C37043
+      parent: FE59AA60-4CA2-4C7E-996A-81A5658269AB
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: F5CF4A6C-ED67-48A8-96C8-8812CDBF4742
+    IDComponent:
+      id: F5CF4A6C-ED67-48A8-96C8-8812CDBF4742
+    TagComponent:
+      tag: node-collision-2
+    HierarchyComponent:
+      first: 544E694F-249D-47DC-9DFC-D89FBA7C57CA
+      next: 8CE029CA-3DD6-450F-8362-C42F844C8C8A
+      parent: 0AC96002-DAFB-4383-A845-8E546CBC082A
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 544E694F-249D-47DC-9DFC-D89FBA7C57CA
+    IDComponent:
+      id: 544E694F-249D-47DC-9DFC-D89FBA7C57CA
+    TagComponent:
+      tag: geom-collision-2
+    HierarchyComponent:
+      parent: F5CF4A6C-ED67-48A8-96C8-8812CDBF4742
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 40008b9a5380fcacce3976bf7c08af5b
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - B1F48F66-0D36-4D6E-AAEF-BCEF7AFD166C
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: EC0FFB36-7B8D-4FDE-BF50-579DA289192B
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 8CE029CA-3DD6-450F-8362-C42F844C8C8A
+    IDComponent:
+      id: 8CE029CA-3DD6-450F-8362-C42F844C8C8A
+    TagComponent:
+      tag: node-collision-1
+    HierarchyComponent:
+      first: 3FA86ADB-0C70-4B64-87BA-724480EFAE40
+      prev: F5CF4A6C-ED67-48A8-96C8-8812CDBF4742
+      next: 0B710E75-8759-4883-AFA7-3C981685DDF9
+      parent: 0AC96002-DAFB-4383-A845-8E546CBC082A
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 3FA86ADB-0C70-4B64-87BA-724480EFAE40
+    IDComponent:
+      id: 3FA86ADB-0C70-4B64-87BA-724480EFAE40
+    TagComponent:
+      tag: geom-collision-1
+    HierarchyComponent:
+      parent: 8CE029CA-3DD6-450F-8362-C42F844C8C8A
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: fe73f687e5bc5280214e0486b273a5f9
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - B1F48F66-0D36-4D6E-AAEF-BCEF7AFD166C
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: EC0FFB36-7B8D-4FDE-BF50-579DA289192B
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    IDComponent:
+      id: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TagComponent:
+      tag: node-SpeakingStonesOne100
+    HierarchyComponent:
+      first: 3C084ECE-9212-41B9-B868-49408C25EC43
+      prev: 8CE029CA-3DD6-450F-8362-C42F844C8C8A
+      next: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+      parent: 0AC96002-DAFB-4383-A845-8E546CBC082A
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 3C084ECE-9212-41B9-B868-49408C25EC43
+    IDComponent:
+      id: 3C084ECE-9212-41B9-B868-49408C25EC43
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      next: 87BF8214-6422-4CE4-94E5-BFFDF3E59FF1
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 320722549d1751cf3f247855f937b982
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 87BF8214-6422-4CE4-94E5-BFFDF3E59FF1
+    IDComponent:
+      id: 87BF8214-6422-4CE4-94E5-BFFDF3E59FF1
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: 3C084ECE-9212-41B9-B868-49408C25EC43
+      next: 2C5DE10C-BCE7-42CD-A613-CE0E59731650
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 06eb61b839a0cefee4967c67ccb099dc
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 2C5DE10C-BCE7-42CD-A613-CE0E59731650
+    IDComponent:
+      id: 2C5DE10C-BCE7-42CD-A613-CE0E59731650
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: 87BF8214-6422-4CE4-94E5-BFFDF3E59FF1
+      next: 7136306A-D66A-4B30-8D71-69C58B2A241F
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 94f6d7e04a4d452035300f18b984988c
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 7136306A-D66A-4B30-8D71-69C58B2A241F
+    IDComponent:
+      id: 7136306A-D66A-4B30-8D71-69C58B2A241F
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: 2C5DE10C-BCE7-42CD-A613-CE0E59731650
+      next: E9B4A929-6DE3-4121-A600-8A96B1E590C1
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: f90f2aca5c640289d0a29417bcb63a37
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: E9B4A929-6DE3-4121-A600-8A96B1E590C1
+    IDComponent:
+      id: E9B4A929-6DE3-4121-A600-8A96B1E590C1
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: 7136306A-D66A-4B30-8D71-69C58B2A241F
+      next: 575865A3-C0F2-4E12-A97D-F6EB48EA9FB3
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 92c8c96e4c37100777c7190b76d28233
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 575865A3-C0F2-4E12-A97D-F6EB48EA9FB3
+    IDComponent:
+      id: 575865A3-C0F2-4E12-A97D-F6EB48EA9FB3
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: E9B4A929-6DE3-4121-A600-8A96B1E590C1
+      next: 670AA615-3B09-4660-A1DA-9B8908A08551
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 39059724f73a9969845dfe4146c5660e
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 670AA615-3B09-4660-A1DA-9B8908A08551
+    IDComponent:
+      id: 670AA615-3B09-4660-A1DA-9B8908A08551
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: 575865A3-C0F2-4E12-A97D-F6EB48EA9FB3
+      next: 10AB05CE-77FD-418E-8A58-2A7C572CEB0D
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: a4f23670e1833f3fdb077ca70bbd5d66
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 10AB05CE-77FD-418E-8A58-2A7C572CEB0D
+    IDComponent:
+      id: 10AB05CE-77FD-418E-8A58-2A7C572CEB0D
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: 670AA615-3B09-4660-A1DA-9B8908A08551
+      next: BEF1C1AE-3ED0-4378-8B17-3998525B5B90
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 6c9882bbac1c7093bd25041881277658
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - B1F48F66-0D36-4D6E-AAEF-BCEF7AFD166C
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: EC0FFB36-7B8D-4FDE-BF50-579DA289192B
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: BEF1C1AE-3ED0-4378-8B17-3998525B5B90
+    IDComponent:
+      id: BEF1C1AE-3ED0-4378-8B17-3998525B5B90
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: 10AB05CE-77FD-418E-8A58-2A7C572CEB0D
+      next: 7ED6AFA9-507E-42C5-B490-C1A7E3ED266C
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 335f5352088d7d9bf74191e006d8e24c
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 73C5B28C-6420-4CAD-8ECA-84828B4BBBA7
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 7ED6AFA9-507E-42C5-B490-C1A7E3ED266C
+    IDComponent:
+      id: 7ED6AFA9-507E-42C5-B490-C1A7E3ED266C
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: BEF1C1AE-3ED0-4378-8B17-3998525B5B90
+      next: B337D325-4461-4923-91A8-07EA73D64EDB
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 6da9003b743b65f4c0ccd295cc484e57
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: B337D325-4461-4923-91A8-07EA73D64EDB
+    IDComponent:
+      id: B337D325-4461-4923-91A8-07EA73D64EDB
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: 7ED6AFA9-507E-42C5-B490-C1A7E3ED266C
+      next: 636BBD29-C6EC-45FF-94DE-59665385CBEB
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: ec8ce6abb3e952a85b8551ba726a1227
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 636BBD29-C6EC-45FF-94DE-59665385CBEB
+    IDComponent:
+      id: 636BBD29-C6EC-45FF-94DE-59665385CBEB
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: B337D325-4461-4923-91A8-07EA73D64EDB
+      next: A767F9E2-396D-401E-BC01-D07AD29ADEA5
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 6f3ef77ac0e3619e98159e9b6febf557
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 73C5B28C-6420-4CAD-8ECA-84828B4BBBA7
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: A767F9E2-396D-401E-BC01-D07AD29ADEA5
+    IDComponent:
+      id: A767F9E2-396D-401E-BC01-D07AD29ADEA5
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: 636BBD29-C6EC-45FF-94DE-59665385CBEB
+      next: 3C0EC479-0213-41E5-B7F9-9C9BFBA0A54F
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 3644a684f98ea8fe223c713b77189a77
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 73C5B28C-6420-4CAD-8ECA-84828B4BBBA7
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 3C0EC479-0213-41E5-B7F9-9C9BFBA0A54F
+    IDComponent:
+      id: 3C0EC479-0213-41E5-B7F9-9C9BFBA0A54F
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: A767F9E2-396D-401E-BC01-D07AD29ADEA5
+      next: 7B64B3AF-0273-4765-B7AA-EC867B169496
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: cfecdb276f634854f3ef915e2e980c31
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 73C5B28C-6420-4CAD-8ECA-84828B4BBBA7
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 7B64B3AF-0273-4765-B7AA-EC867B169496
+    IDComponent:
+      id: 7B64B3AF-0273-4765-B7AA-EC867B169496
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: 3C0EC479-0213-41E5-B7F9-9C9BFBA0A54F
+      next: 4CC0F1CC-7A19-40AB-BF67-649AD7F517DF
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 045117b0e0a11a242b9765e79cbf113f
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 73C5B28C-6420-4CAD-8ECA-84828B4BBBA7
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 4CC0F1CC-7A19-40AB-BF67-649AD7F517DF
+    IDComponent:
+      id: 4CC0F1CC-7A19-40AB-BF67-649AD7F517DF
+    TagComponent:
+      tag: geom-SpeakingStonesOne100
+    HierarchyComponent:
+      prev: 7B64B3AF-0273-4765-B7AA-EC867B169496
+      parent: 0B710E75-8759-4883-AFA7-3C981685DDF9
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 149e9677a5989fd342ae44213df68868
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - B1F48F66-0D36-4D6E-AAEF-BCEF7AFD166C
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: EC0FFB36-7B8D-4FDE-BF50-579DA289192B
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    IDComponent:
+      id: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TagComponent:
+      tag: node-SpeakingStonesOne300
+    HierarchyComponent:
+      first: 00710A70-E211-4C4B-9269-61219F9769B3
+      prev: 0B710E75-8759-4883-AFA7-3C981685DDF9
+      parent: 0AC96002-DAFB-4383-A845-8E546CBC082A
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+  - Entity: 00710A70-E211-4C4B-9269-61219F9769B3
+    IDComponent:
+      id: 00710A70-E211-4C4B-9269-61219F9769B3
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      next: 88F45F93-6AF1-48B7-BF5E-89699FE70174
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: b73ce398c39f506af761d2277d853a92
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 88F45F93-6AF1-48B7-BF5E-89699FE70174
+    IDComponent:
+      id: 88F45F93-6AF1-48B7-BF5E-89699FE70174
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: 00710A70-E211-4C4B-9269-61219F9769B3
+      next: 8EC8EED0-01F0-4415-AA05-987C799317B1
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 7ef605fc8dba5425d6965fbd4c8fbe1f
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 8EC8EED0-01F0-4415-AA05-987C799317B1
+    IDComponent:
+      id: 8EC8EED0-01F0-4415-AA05-987C799317B1
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: 88F45F93-6AF1-48B7-BF5E-89699FE70174
+      next: CE1D6211-DFC4-4E77-A5FB-62F1DEE8CECE
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 1385974ed5904a438616ff7bdb3f7439
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 73C5B28C-6420-4CAD-8ECA-84828B4BBBA7
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: CE1D6211-DFC4-4E77-A5FB-62F1DEE8CECE
+    IDComponent:
+      id: CE1D6211-DFC4-4E77-A5FB-62F1DEE8CECE
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: 8EC8EED0-01F0-4415-AA05-987C799317B1
+      next: D21856BD-DB7A-4A6D-A985-DC4359E6E0CC
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 9b8619251a19057cff70779273e95aa6
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 73C5B28C-6420-4CAD-8ECA-84828B4BBBA7
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: D21856BD-DB7A-4A6D-A985-DC4359E6E0CC
+    IDComponent:
+      id: D21856BD-DB7A-4A6D-A985-DC4359E6E0CC
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: CE1D6211-DFC4-4E77-A5FB-62F1DEE8CECE
+      next: 01DE5865-2566-43E7-8E3C-DC412BA841C5
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: da4fb5c6e93e74d3df8527599fa62642
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 01DE5865-2566-43E7-8E3C-DC412BA841C5
+    IDComponent:
+      id: 01DE5865-2566-43E7-8E3C-DC412BA841C5
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: D21856BD-DB7A-4A6D-A985-DC4359E6E0CC
+      next: E2011F5E-945F-413D-949C-9289664BDE7E
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 5f93f983524def3dca464469d2cf9f3e
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: E2011F5E-945F-413D-949C-9289664BDE7E
+    IDComponent:
+      id: E2011F5E-945F-413D-949C-9289664BDE7E
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: 01DE5865-2566-43E7-8E3C-DC412BA841C5
+      next: 2AA78773-F592-4AA6-9DC4-EB985FAB39CB
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: f899139df5e1059396431415e770c6dd
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 73C5B28C-6420-4CAD-8ECA-84828B4BBBA7
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 2AA78773-F592-4AA6-9DC4-EB985FAB39CB
+    IDComponent:
+      id: 2AA78773-F592-4AA6-9DC4-EB985FAB39CB
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: E2011F5E-945F-413D-949C-9289664BDE7E
+      next: C77F447A-2491-4EAC-B35A-736478002DB3
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 8613985ec49eb8f757ae6439e879bb2a
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: C77F447A-2491-4EAC-B35A-736478002DB3
+    IDComponent:
+      id: C77F447A-2491-4EAC-B35A-736478002DB3
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: 2AA78773-F592-4AA6-9DC4-EB985FAB39CB
+      next: BC899561-903D-402A-85FA-78722C15FA93
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: f033ab37c30201f73f142449d037028d
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: BC899561-903D-402A-85FA-78722C15FA93
+    IDComponent:
+      id: BC899561-903D-402A-85FA-78722C15FA93
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: C77F447A-2491-4EAC-B35A-736478002DB3
+      next: 934E23FF-28BE-468C-9FE9-9B5203E19D6F
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 7cbbc409ec990f19c78c75bd1e06f215
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 934E23FF-28BE-468C-9FE9-9B5203E19D6F
+    IDComponent:
+      id: 934E23FF-28BE-468C-9FE9-9B5203E19D6F
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: BC899561-903D-402A-85FA-78722C15FA93
+      next: 7AABF660-E5BF-447C-B38B-65C403568AA3
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 072b030ba126b2f4b2374f342be9ed44
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 73C5B28C-6420-4CAD-8ECA-84828B4BBBA7
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 7AABF660-E5BF-447C-B38B-65C403568AA3
+    IDComponent:
+      id: 7AABF660-E5BF-447C-B38B-65C403568AA3
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: 934E23FF-28BE-468C-9FE9-9B5203E19D6F
+      next: 5931CEC5-C3BC-42DD-8C72-BE45CE9CC231
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: c0c7c76d30bd3dcaefc96f40275bdc0a
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 5931CEC5-C3BC-42DD-8C72-BE45CE9CC231
+    IDComponent:
+      id: 5931CEC5-C3BC-42DD-8C72-BE45CE9CC231
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: 7AABF660-E5BF-447C-B38B-65C403568AA3
+      next: B5C39AA5-CE76-4463-B53B-64B425553879
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: d645920e395fedad7bbbed0eca3fe2e0
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 1EB498D7-9AC4-40EA-97AC-B817E6E0D82B
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: B5C39AA5-CE76-4463-B53B-64B425553879
+    IDComponent:
+      id: B5C39AA5-CE76-4463-B53B-64B425553879
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: 5931CEC5-C3BC-42DD-8C72-BE45CE9CC231
+      next: 6C037AB0-9907-4940-BF72-C10AE4A38974
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 34173cb38f07f89ddbebc2ac9128303f
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - 73C5B28C-6420-4CAD-8ECA-84828B4BBBA7
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: ""
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 6C037AB0-9907-4940-BF72-C10AE4A38974
+    IDComponent:
+      id: 6C037AB0-9907-4940-BF72-C10AE4A38974
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: B5C39AA5-CE76-4463-B53B-64B425553879
+      next: 7056B984-A6AB-400B-8DEA-AF48C4D7D93E
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: 98f13708210194c475687be6106a3b84
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - B1F48F66-0D36-4D6E-AAEF-BCEF7AFD166C
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: EC0FFB36-7B8D-4FDE-BF50-579DA289192B
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 7056B984-A6AB-400B-8DEA-AF48C4D7D93E
+    IDComponent:
+      id: 7056B984-A6AB-400B-8DEA-AF48C4D7D93E
+    TagComponent:
+      tag: geom-SpeakingStonesOne300
+    HierarchyComponent:
+      prev: 6C037AB0-9907-4940-BF72-C10AE4A38974
+      parent: 85CA1F47-3BF6-4B69-90CB-705140C103E2
+    TransformComponent:
+      translation: [0, 0, 0]
+      rotation: [1, 0, 0, 0]
+      scale: [1, 1, 1]
+    MeshComponent:
+      meshType: 2
+      guid: 941900F1-6888-4B9C-9CF4-7D2C9F67C5FA
+      fileId: d3d9446802a44259755d38e6d163e820
+    MaterialComponent:
+      isEmbedded: false
+      shininess: 9.99999905
+      diffuseTextureGuids:
+        - B1F48F66-0D36-4D6E-AAEF-BCEF7AFD166C
+      diffuseColor: [1, 1, 1, 1]
+      specularTextureGuid: ""
+      specularColor: [0.899999976, 0.899999976, 0.899999976, 1]
+      heightTextureGuid: ""
+      normalTextureGuid: EC0FFB36-7B8D-4FDE-BF50-579DA289192B
+      ambientTextureGuid: ""
+      ambientColor: [0.588235319, 0.588235319, 0.588235319, 1]
+  - Entity: 7C49775E-16EE-4120-9BF7-4FFD158F04D0
+    IDComponent:
+      id: 7C49775E-16EE-4120-9BF7-4FFD158F04D0
+    TagComponent:
+      tag: $ColladaAutoName$_0
+    HierarchyComponent:
+      prev: FE59AA60-4CA2-4C7E-996A-81A5658269AB
+      parent: 4822342A-DFFD-41B0-889E-6B474089F722
     TransformComponent:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
@@ -20,10 +1293,11 @@ Entities:
       tag: knight
     HierarchyComponent:
       first: 9CB4A866-D2AA-4709-9CEF-B1BE78BB1C84
-      next: D6B5E2D4-C8C7-4F9E-B138-EA8D7E99B8AC
+      prev: B0F9D0C3-7625-4DAD-90A6-E1228E1950F2
+      next: 08156642-4707-4AEF-A0B2-2BAE9EECF8B8
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [-1.39999998, 0.639999986, -0.5]
+      translation: [0, 0.200000003, 0]
       rotation: [0.87758255, 0, 0.479425579, 0]
       scale: [0.0115, 0.0115, 0.0115]
     MeshComponent:
@@ -646,9 +1920,9 @@ Entities:
       first: D77709E3-D7AF-4550-B647-359E392214EA
       parent: EB00DA33-1AB5-4A06-A77C-4298B52131C5
     TransformComponent:
-      translation: [-0.0593554229, 42.486084, 0.31098789]
-      rotation: [0.997940242, -0.034596879, -0.0461578853, -0.0280674994]
-      scale: [1, 1, 1]
+      translation: [0.169172555, 42.486084, 0.0454690494]
+      rotation: [0.997640967, -0.0306557231, -0.0512068309, -0.033920452]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 0
   - Entity: D77709E3-D7AF-4550-B647-359E392214EA
@@ -661,9 +1935,9 @@ Entities:
       next: 335AE07E-9B24-405D-8ABE-0517BC7D2CAB
       parent: 67ED1AEC-6B83-498C-91E7-D9E76CE2F9AB
     TransformComponent:
-      translation: [-4.34968901, -1.6396724, 1.30204046]
-      rotation: [-0.0155172301, -0.0917551294, -0.0161469784, 0.995529771]
-      scale: [0.999999762, 0.999999762, 1]
+      translation: [-4.34968901, -1.63967228, 1.30204046]
+      rotation: [-0.0180526897, -0.0894082561, -0.00704931328, 0.995806456]
+      scale: [1.00000012, 1, 1]
     BoneComponent:
       boneID: 60
   - Entity: 7418A560-BFB3-40EC-B641-C8295A77BA37
@@ -676,8 +1950,8 @@ Entities:
       parent: D77709E3-D7AF-4550-B647-359E392214EA
     TransformComponent:
       translation: [5.96046448e-08, 18.2879658, -2.38418579e-07]
-      rotation: [0.988161683, -0.127419919, 0.0825948715, -0.0218801852]
-      scale: [1, 1, 0.99999994]
+      rotation: [0.987911105, -0.129450738, 0.0824641362, -0.0217675176]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 61
   - Entity: DF2FEC69-404C-4446-B7A0-FC53780CF3BC
@@ -690,8 +1964,8 @@ Entities:
       parent: 7418A560-BFB3-40EC-B641-C8295A77BA37
     TransformComponent:
       translation: [4.76837158e-07, 19.3514576, 2.38418579e-07]
-      rotation: [0.839313984, 0.541248918, 0.0437075943, 0.0262925494]
-      scale: [1, 1, 1]
+      rotation: [0.841306686, 0.538199604, 0.0422816984, 0.0275055878]
+      scale: [0.99999994, 0.99999994, 0.99999994]
     BoneComponent:
       boneID: 62
   - Entity: 9D08838D-C575-4AD1-9711-0FFD5C969E94
@@ -704,7 +1978,7 @@ Entities:
       parent: DF2FEC69-404C-4446-B7A0-FC53780CF3BC
     TransformComponent:
       translation: [-4.35509719e-07, 6.68880463, 1.1920929e-07]
-      rotation: [0.927314937, 0.373090655, -0.0283297226, 0.00936821848]
+      rotation: [0.926576436, 0.374923587, -0.0283009745, 0.00935052056]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 63
@@ -745,8 +2019,8 @@ Entities:
       parent: 67ED1AEC-6B83-498C-91E7-D9E76CE2F9AB
     TransformComponent:
       translation: [4.34969044, -1.63967156, -1.17613864]
-      rotation: [-0.0895599574, 0.130262733, 0.137805104, 0.977762938]
-      scale: [1.00000238, 1.00000238, 1.00000012]
+      rotation: [-0.0919283032, 0.131466255, 0.147571117, 0.975955188]
+      scale: [1.00000226, 1.00000226, 1.00000012]
     BoneComponent:
       boneID: 55
   - Entity: 81CB7F0F-E0DD-4C09-8B05-F0B0A379DFD9
@@ -759,7 +2033,7 @@ Entities:
       parent: 335AE07E-9B24-405D-8ABE-0517BC7D2CAB
     TransformComponent:
       translation: [-4.76837158e-07, 18.5408649, 3.57627869e-07]
-      rotation: [0.972010493, -0.232882768, -0.011955223, 0.0286054257]
+      rotation: [0.970403671, -0.239418074, -0.0153587963, 0.0275662914]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 56
@@ -773,8 +2047,8 @@ Entities:
       parent: 81CB7F0F-E0DD-4C09-8B05-F0B0A379DFD9
     TransformComponent:
       translation: [8.94069672e-07, 19.3843689, -2.08616257e-07]
-      rotation: [0.86399883, 0.498813629, -0.0464054421, -0.0503745452]
-      scale: [1, 1, 1]
+      rotation: [0.862952948, 0.500862777, -0.0455559827, -0.0487167463]
+      scale: [0.99999994, 1.00000012, 1]
     BoneComponent:
       boneID: 57
   - Entity: E6559E7C-94E5-4DA4-AA75-8B4E16DC2AFE
@@ -787,8 +2061,8 @@ Entities:
       parent: D6138ED4-C645-44E4-8BCC-8C0940637722
     TransformComponent:
       translation: [-3.84869054e-07, 6.6868372, 8.94069672e-07]
-      rotation: [0.933658481, 0.356903702, 0.0285038967, -0.00944228191]
-      scale: [1, 1, 1]
+      rotation: [0.9336586, 0.356903374, 0.028506875, -0.00943447463]
+      scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 58
   - Entity: 379BC9CA-375F-44D9-BBE1-85121EC25393
@@ -801,7 +2075,7 @@ Entities:
       parent: E6559E7C-94E5-4DA4-AA75-8B4E16DC2AFE
     TransformComponent:
       translation: [-3.09199095e-07, 2.76682448, -2.98023224e-08]
-      rotation: [1, 7.28759986e-08, 5.58793589e-09, 2.91038305e-09]
+      rotation: [1, 7.28759986e-08, 5.58793678e-09, 2.91038327e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 59
@@ -827,8 +2101,8 @@ Entities:
       parent: 67ED1AEC-6B83-498C-91E7-D9E76CE2F9AB
     TransformComponent:
       translation: [4.95929271e-07, 2.9380188, 0.12477386]
-      rotation: [0.998335302, 0.0495282151, 0.0147714978, 0.0255995113]
-      scale: [1, 1, 1]
+      rotation: [0.998276293, 0.0516526513, 0.0124122202, 0.0249490943]
+      scale: [0.99999994, 1, 0.99999994]
     BoneComponent:
       boneID: 1
   - Entity: 60B6A8B7-FBCC-40C5-8305-9511EB1974CB
@@ -841,7 +2115,7 @@ Entities:
       parent: DC396913-6581-497F-849A-B825C9F055FF
     TransformComponent:
       translation: [-2.6775524e-08, 3.43077087, -3.53902578e-08]
-      rotation: [0.999853075, 0.00944487564, 0.00392910326, 0.01375385]
+      rotation: [0.999858558, 0.010047406, 0.00288808555, 0.01317262]
       scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 2
@@ -854,8 +2128,8 @@ Entities:
       first: BB510741-EC1D-4E5E-B428-9C5DA5BEE4E4
       parent: 60B6A8B7-FBCC-40C5-8305-9511EB1974CB
     TransformComponent:
-      translation: [2.60770321e-08, 3.92088842, -2.79396772e-08]
-      rotation: [0.999853969, 0.00922066811, 0.0041261958, 0.0137839103]
+      translation: [2.60770321e-08, 3.9208889, -2.79396772e-08]
+      rotation: [0.999859929, 0.00982466713, 0.00308386749, 0.0131946495]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 3
@@ -869,9 +2143,9 @@ Entities:
       next: 8FABD752-E467-4194-AB85-0F3B916C0D8C
       parent: 8ADD6555-0308-446B-9D90-6519C5A637ED
     TransformComponent:
-      translation: [-2.54648352, 3.32640219, 0.211716786]
-      rotation: [0.43611443, 0.690973461, -0.320152581, 0.479439527]
-      scale: [0.999999881, 0.999999702, 0.999999702]
+      translation: [-2.54648352, 3.32640219, 0.211716801]
+      rotation: [0.438126177, 0.689992011, -0.321639389, 0.478021592]
+      scale: [0.999999881, 0.999999762, 0.999999821]
     BoneComponent:
       boneID: 31
   - Entity: E1A0FAA7-3AD4-48B0-B0E5-29B658CCD256
@@ -884,8 +2158,8 @@ Entities:
       parent: BB510741-EC1D-4E5E-B428-9C5DA5BEE4E4
     TransformComponent:
       translation: [7.15255737e-07, 6.49533463, 1.69873238e-06]
-      rotation: [0.863208711, 0.330929339, -0.327503234, -0.195187584]
-      scale: [0.99999994, 0.99999994, 1]
+      rotation: [0.862983048, 0.332237631, -0.325846553, -0.196729332]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 32
   - Entity: 916F8FF1-0951-4D59-8196-F2F821E45D6F
@@ -897,9 +2171,9 @@ Entities:
       first: DC07E450-2BED-44B6-8C7E-76A7BBF2F65E
       parent: E1A0FAA7-3AD4-48B0-B0E5-29B658CCD256
     TransformComponent:
-      translation: [-1.78813934e-06, 9.04770947, -2.14576721e-06]
-      rotation: [0.998315215, -0.0186570659, 0.0120743671, -0.0535994396]
-      scale: [1, 1, 0.99999994]
+      translation: [-1.78813946e-06, 9.04770947, -2.14576721e-06]
+      rotation: [0.998237729, -0.0190879814, 0.0122528067, -0.0548356734]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 33
   - Entity: DC07E450-2BED-44B6-8C7E-76A7BBF2F65E
@@ -912,7 +2186,7 @@ Entities:
       parent: 916F8FF1-0951-4D59-8196-F2F821E45D6F
     TransformComponent:
       translation: [-9.53674316e-07, 9.26695347, -3.33786011e-06]
-      rotation: [0.938956022, 0.0827579424, 0.330212772, 0.0497217402]
+      rotation: [0.938806057, 0.0864629894, 0.330007225, 0.0475664884]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 34
@@ -927,7 +2201,7 @@ Entities:
       parent: DC07E450-2BED-44B6-8C7E-76A7BBF2F65E
     TransformComponent:
       translation: [-1.32939374, 4.22100449, 0.0371030569]
-      rotation: [0.975756645, 0.218634635, -0.00758073106, -0.00635842513]
+      rotation: [0.975756645, 0.218634635, -0.00758073013, -0.00635842513]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 51
@@ -940,7 +2214,7 @@ Entities:
       first: 08E781B1-13A5-4245-B3D6-D7182FFD536A
       parent: E3194739-5569-4363-8587-22CDBCB40580
     TransformComponent:
-      translation: [-0.000811219215, 1.20100963, 2.98023224e-06]
+      translation: [-0.000811219215, 1.20100963, 2.98023247e-06]
       rotation: [0.988369584, 0.151470438, 6.59384023e-05, 0.0135014364]
       scale: [0.99999994, 0.99999994, 1]
     BoneComponent:
@@ -955,8 +2229,8 @@ Entities:
       parent: 7CE9F171-DF05-4FDF-8C8C-46C52CD14501
     TransformComponent:
       translation: [-0.00018787384, 0.995505273, 9.53674316e-07]
-      rotation: [0.989533365, 0.143698424, -7.77898676e-05, 0.0132106533]
-      scale: [1, 0.99999994, 1]
+      rotation: [0.989533365, 0.143698424, -7.77897512e-05, 0.0132106533]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 53
   - Entity: 1493D9FD-3FA5-4636-AB4E-D1BE480A9A75
@@ -995,9 +2269,9 @@ Entities:
       next: 967CCF28-409B-4051-BE16-122D5742C46C
       parent: DC07E450-2BED-44B6-8C7E-76A7BBF2F65E
     TransformComponent:
-      translation: [-0.482649863, 4.39909887, -0.108794093]
-      rotation: [0.985569179, 0.167757735, -0.000354815129, -0.0225984287]
-      scale: [1, 0.99999994, 1]
+      translation: [-0.482649863, 4.39909935, -0.108794093]
+      rotation: [0.985569179, 0.167757705, -0.000354815013, -0.0225984249]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 47
   - Entity: 52485194-941D-4193-8BA4-6C58F9BAF5B0
@@ -1009,9 +2283,9 @@ Entities:
       first: FD6A3B3B-864B-41F0-98CD-9CCE13612099
       parent: 2E1D405D-2D13-42B2-A5CD-CC905E22FF96
     TransformComponent:
-      translation: [7.71284103e-05, 1.32551467, 7.15255737e-07]
+      translation: [7.71284103e-05, 1.32551479, 7.15255737e-07]
       rotation: [0.983229995, 0.181576312, -8.94054683e-05, 0.0169950258]
-      scale: [1, 0.99999994, 1]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 48
   - Entity: FD6A3B3B-864B-41F0-98CD-9CCE13612099
@@ -1024,8 +2298,8 @@ Entities:
       parent: 52485194-941D-4193-8BA4-6C58F9BAF5B0
     TransformComponent:
       translation: [0.000954076648, 1.28327441, -1.54972076e-06]
-      rotation: [0.987764597, 0.155373558, 5.08047651e-06, 0.0134234875]
-      scale: [1, 1, 0.99999994]
+      rotation: [0.987764597, 0.155373529, 5.08035873e-06, 0.0134234857]
+      scale: [1, 1, 1]
     BoneComponent:
       boneID: 49
   - Entity: 707A9E93-30D4-4036-A057-4215B884B394
@@ -1038,7 +2312,7 @@ Entities:
       parent: FD6A3B3B-864B-41F0-98CD-9CCE13612099
     TransformComponent:
       translation: [-0.00103187561, 1.13333666, 2.62260437e-06]
-      rotation: [1, -7.4505806e-09, -6.05359629e-09, -4.65661376e-09]
+      rotation: [1, -7.4505806e-09, -6.05359674e-09, -4.65661376e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 50
@@ -1064,8 +2338,8 @@ Entities:
       next: 49EC29C9-A4AD-4ED1-B830-ACBEC1803399
       parent: DC07E450-2BED-44B6-8C7E-76A7BBF2F65E
     TransformComponent:
-      translation: [0.456053317, 4.42261219, -0.087127924]
-      rotation: [0.992197633, 0.120784648, -2.11482875e-05, -0.0309022143]
+      translation: [0.456053317, 4.42261219, -0.0871279314]
+      rotation: [0.992197633, 0.120784655, -2.11485221e-05, -0.0309022143]
       scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 43
@@ -1079,7 +2353,7 @@ Entities:
       parent: 967CCF28-409B-4051-BE16-122D5742C46C
     TransformComponent:
       translation: [0.000350117683, 1.47176826, -1.43051147e-06]
-      rotation: [0.988378108, 0.151458442, 1.02575905e-05, 0.0130023267]
+      rotation: [0.988378108, 0.151458442, 1.02575905e-05, 0.0130023286]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 44
@@ -1092,8 +2366,8 @@ Entities:
       first: EFB30BDC-18E3-4561-9A0E-B150FD4E1341
       parent: 46885CE0-E538-4AD8-AD1A-0DDE1CE58D75
     TransformComponent:
-      translation: [-0.000550895929, 1.36051846, 1.1920929e-07]
-      rotation: [0.986987352, 0.160150304, 2.64255541e-05, 0.0144168511]
+      translation: [-0.000550895929, 1.36051857, 1.1920929e-07]
+      rotation: [0.986987352, 0.160150304, 2.64255541e-05, 0.0144168502]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 45
@@ -1107,7 +2381,7 @@ Entities:
       parent: 916578C4-1F83-4C92-BDC5-A45063387F87
     TransformComponent:
       translation: [0.000201109797, 1.26030552, -2.38418579e-07]
-      rotation: [1, -4.84287703e-08, 3.49245988e-09, 4.42378223e-09]
+      rotation: [1, -4.84287703e-08, 3.4924601e-09, 4.42378223e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 46
@@ -1134,7 +2408,7 @@ Entities:
       parent: DC07E450-2BED-44B6-8C7E-76A7BBF2F65E
     TransformComponent:
       translation: [1.35598898, 4.43079615, 0.0390129089]
-      rotation: [0.996865034, 0.0498250313, 0.00146907603, -0.0614451505]
+      rotation: [0.996865034, 0.049825035, 0.00146907603, -0.0614451505]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 39
@@ -1162,7 +2436,7 @@ Entities:
       parent: A8372692-2BC6-40B2-A780-D6B1B6DCCF67
     TransformComponent:
       translation: [0.000342845917, 1.20933533, -2.14576721e-06]
-      rotation: [0.99751991, 0.0701840147, -1.39177428e-05, 0.00531293079]
+      rotation: [0.99751991, 0.0701840073, -1.39177719e-05, 0.00531293079]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 41
@@ -1175,7 +2449,7 @@ Entities:
       first: DCA5917C-F67B-4F26-BF84-AB452F34E854
       parent: 61306EF9-3CF4-4BA4-8345-F71D79021671
     TransformComponent:
-      translation: [-0.0014077425, 1.05205667, -2.56299973e-06]
+      translation: [-0.00140774262, 1.05205667, -2.56299973e-06]
       rotation: [1, 6.51925802e-09, 1.2143066e-17, 1.86264515e-09]
       scale: [1, 1, 1]
     BoneComponent:
@@ -1230,7 +2504,7 @@ Entities:
       parent: F801EE98-2435-4936-A98A-A6526D7235B9
     TransformComponent:
       translation: [0.01426809, 1.36205661, -1.41561031e-07]
-      rotation: [0.983971894, -0.158694461, 0.080261901, 0.0131676635]
+      rotation: [0.983971894, -0.158694461, 0.0802619159, 0.0131676635]
       scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 37
@@ -1244,7 +2518,7 @@ Entities:
       parent: 4F160001-453B-4A88-9907-851767337A72
     TransformComponent:
       translation: [-0.0111395624, 1.25974798, -7.15255737e-07]
-      rotation: [1, -1.30385169e-08, -4.75447486e-08, 3.08282324e-08]
+      rotation: [1, -1.30385169e-08, -4.75447521e-08, 3.08282324e-08]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 38
@@ -1271,8 +2545,8 @@ Entities:
       parent: 8ADD6555-0308-446B-9D90-6519C5A637ED
     TransformComponent:
       translation: [2.54648328, 3.31235743, -0.11899595]
-      rotation: [0.440359384, 0.656934917, 0.349775344, -0.502172649]
-      scale: [1, 1.00000012, 1]
+      rotation: [0.439867169, 0.660550117, 0.345139772, -0.501067817]
+      scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 7
   - Entity: EBF516C7-7F78-4413-A654-DEC2916B1873
@@ -1284,8 +2558,8 @@ Entities:
       first: 5354DA7D-A3C7-4182-BE58-0E0C736EFBCF
       parent: 8FABD752-E467-4194-AB85-0F3B916C0D8C
     TransformComponent:
-      translation: [-2.38418579e-07, 6.49533415, -4.32133675e-06]
-      rotation: [0.887871504, 0.453812987, -0.0273295809, 0.0706473887]
+      translation: [-2.38418579e-07, 6.49533463, -4.32133675e-06]
+      rotation: [0.890953481, 0.448020488, -0.0235891212, 0.0701647997]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 8
@@ -1299,8 +2573,8 @@ Entities:
       parent: EBF516C7-7F78-4413-A654-DEC2916B1873
     TransformComponent:
       translation: [2.38418579e-07, 9.05715752, 5.96046448e-07]
-      rotation: [0.999913514, 0.00441582734, 0.00256300415, 0.0121217351]
-      scale: [1, 1, 0.99999994]
+      rotation: [0.999922633, 0.00415840512, 0.0026681493, 0.011415137]
+      scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 9
   - Entity: 7287CAF8-5FA8-43B4-9E25-DB6C10CBA1ED
@@ -1313,8 +2587,8 @@ Entities:
       parent: 5354DA7D-A3C7-4182-BE58-0E0C736EFBCF
     TransformComponent:
       translation: [-4.76837158e-07, 9.26717377, -1.31130219e-06]
-      rotation: [0.9903633, 0.057302136, -0.111323588, -0.0591951422]
-      scale: [1, 1, 1]
+      rotation: [0.989752889, 0.0574393198, -0.115682609, -0.0608888566]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 10
   - Entity: 82C78A1C-8B44-44C9-8E13-48A2643E6374
@@ -1327,9 +2601,9 @@ Entities:
       next: D54B2DD2-2303-46E6-A0F9-9CFB52DE58EE
       parent: 7287CAF8-5FA8-43B4-9E25-DB6C10CBA1ED
     TransformComponent:
-      translation: [1.38599515, 4.16855574, 0.0154403448]
-      rotation: [0.973871768, 0.226921245, 0.00660711061, -0.00607167138]
-      scale: [0.99999994, 0.99999994, 0.99999994]
+      translation: [1.38599515, 4.16855574, 0.0154403457]
+      rotation: [0.973871768, 0.22692126, 0.00660711015, -0.00607167138]
+      scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 27
   - Entity: C278560E-9833-4678-9833-BB2788F071FA
@@ -1355,9 +2629,9 @@ Entities:
       first: AC9BFEC4-C532-456B-AA8D-CFD2BD36FAB7
       parent: C278560E-9833-4678-9833-BB2788F071FA
     TransformComponent:
-      translation: [-0.000105336308, 0.952973247, 1.25169754e-06]
-      rotation: [0.98953861, 0.143341288, 3.70285088e-05, -0.0163281281]
-      scale: [1, 0.99999994, 0.99999994]
+      translation: [-0.000105336308, 0.952973306, 1.25169754e-06]
+      rotation: [0.98953861, 0.143341258, 3.70285088e-05, -0.0163281262]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 29
   - Entity: AC9BFEC4-C532-456B-AA8D-CFD2BD36FAB7
@@ -1370,7 +2644,7 @@ Entities:
       parent: 40199FDF-C4EA-41D6-98C7-C781983D8C6E
     TransformComponent:
       translation: [-0.000400185585, 0.893251717, 9.53674316e-07]
-      rotation: [1, 3.74857265e-08, 1.86264493e-09, -1.86264515e-09]
+      rotation: [1, 3.74857265e-08, 1.86264504e-09, -1.86264515e-09]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 30
@@ -1396,8 +2670,8 @@ Entities:
       next: F71C83F6-C20D-4599-B73E-F81B194C4FA6
       parent: 7287CAF8-5FA8-43B4-9E25-DB6C10CBA1ED
     TransformComponent:
-      translation: [0.397318065, 4.23233986, -0.0556349158]
-      rotation: [0.984229028, 0.17649205, 0.00170925411, 0.0118709579]
+      translation: [0.397318095, 4.23233986, -0.0556349158]
+      rotation: [0.984229028, 0.176492006, 0.00170925341, 0.0118709542]
       scale: [0.99999994, 1, 1]
     BoneComponent:
       boneID: 23
@@ -1425,7 +2699,7 @@ Entities:
       parent: 2EA29421-091C-4067-9D01-2F94A8FC0DEE
     TransformComponent:
       translation: [0.000706493855, 1.28664339, 8.34465027e-07]
-      rotation: [0.98774296, 0.155050442, 3.60533522e-06, -0.0179794282]
+      rotation: [0.98774296, 0.155050397, 3.60533522e-06, -0.0179794244]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 25
@@ -1438,7 +2712,7 @@ Entities:
       first: 39E06CF0-A2BB-4158-8735-44C973FC2C8B
       parent: BF645ED4-B2BD-43E5-B219-78441CCD1ACE
     TransformComponent:
-      translation: [-0.000725746155, 1.20624065, 4.47034836e-07]
+      translation: [-0.000725746155, 1.20624077, 4.47034836e-07]
       rotation: [1, -5.58793545e-08, 5.96046448e-08, -3.72529119e-09]
       scale: [1, 1, 1]
     BoneComponent:
@@ -1507,7 +2781,7 @@ Entities:
       first: 7893460C-61EB-4547-9014-5098975FAC6C
       parent: B0358E18-459E-4353-973E-E4516237F4AF
     TransformComponent:
-      translation: [0.000188291073, 1.19842362, 1.54972076e-06]
+      translation: [0.000188291087, 1.19842362, 1.54972076e-06]
       rotation: [1, 4.82192263e-07, 4.14438546e-08, -3.25962901e-09]
       scale: [1, 1, 1]
     BoneComponent:
@@ -1535,7 +2809,7 @@ Entities:
       parent: 7287CAF8-5FA8-43B4-9E25-DB6C10CBA1ED
     TransformComponent:
       translation: [-1.36872196, 4.20377064, 0.0405466557]
-      rotation: [0.996788621, 0.0596910901, -0.00148624042, 0.0533591099]
+      rotation: [0.996788621, 0.0596910939, -0.0014862403, 0.0533591099]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 15
@@ -1548,9 +2822,9 @@ Entities:
       first: 3B2A264C-74EE-43A5-9C4A-28E61AAF5096
       parent: 93EF25F8-1206-4809-B381-8E853D56B149
     TransformComponent:
-      translation: [-0.000681996346, 1.31612957, -1.49011612e-06]
-      rotation: [0.98841542, 0.150855288, 5.1973846e-05, -0.0166628081]
-      scale: [1, 1, 1]
+      translation: [-0.000681996346, 1.31612957, -1.49011623e-06]
+      rotation: [0.98841542, 0.150855288, 5.19737296e-05, -0.0166628063]
+      scale: [1, 1, 0.99999994]
     BoneComponent:
       boneID: 16
   - Entity: 3B2A264C-74EE-43A5-9C4A-28E61AAF5096
@@ -1563,7 +2837,7 @@ Entities:
       parent: E0FABF77-BDC4-430F-A825-A8BD44423414
     TransformComponent:
       translation: [-0.00028014183, 1.26335669, -1.07288361e-06]
-      rotation: [0.997519612, 0.0700156316, 9.30712031e-06, -0.00724357087]
+      rotation: [0.997519612, 0.0700156465, 9.30712031e-06, -0.00724357134]
       scale: [0.99999994, 0.99999994, 1]
     BoneComponent:
       boneID: 17
@@ -1616,7 +2890,7 @@ Entities:
       first: 092D9D24-75A8-446C-AD8B-04F9006BD413
       parent: 65FB670F-EFFC-4FB8-900A-50F314D0807D
     TransformComponent:
-      translation: [0.00747060776, 1.53042793, 4.76837158e-07]
+      translation: [0.00747060822, 1.53042793, 4.76837158e-07]
       rotation: [0.956623435, -0.0691972375, 0.103763461, -0.263280213]
       scale: [1, 1, 1]
     BoneComponent:
@@ -1645,7 +2919,7 @@ Entities:
       parent: 092D9D24-75A8-446C-AD8B-04F9006BD413
     TransformComponent:
       translation: [-0.0137188435, 1.08866906, 2.14576721e-06]
-      rotation: [1, 3.72529008e-09, -7.2177504e-09, 2.68882139e-17]
+      rotation: [1, 3.7252903e-09, -7.21775084e-09, 2.68882172e-17]
       scale: [1, 1, 1]
     BoneComponent:
       boneID: 14
@@ -1671,8 +2945,8 @@ Entities:
       parent: 8ADD6555-0308-446B-9D90-6519C5A637ED
     TransformComponent:
       translation: [-1.3038516e-07, 4.41100883, 1.29453838e-07]
-      rotation: [0.999657929, 0.025651224, -0.00136187521, 0.00492409756]
-      scale: [1, 0.99999994, 0.99999994]
+      rotation: [0.999623001, 0.027028637, -0.00103989465, 0.00471737981]
+      scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 4
   - Entity: 68B30D5F-E48E-4B2B-8DD7-1A02F8EE3F68
@@ -1685,8 +2959,8 @@ Entities:
       parent: F1DCCAB4-5EE7-4320-8005-3C9BC79E2996
     TransformComponent:
       translation: [-2.38418579e-07, 3.3332839, 0.762750447]
-      rotation: [0.997641385, -0.0676955134, 0.011236215, -0.00166413037]
-      scale: [1, 1, 0.99999994]
+      rotation: [0.997717261, -0.0667028353, 0.0104931006, -0.000976312615]
+      scale: [1, 0.99999994, 1]
     BoneComponent:
       boneID: 5
   - Entity: 9BA8C8D5-9714-4F2A-9D0C-FB47B5C6EE38
@@ -1714,3354 +2988,14 @@ Entities:
       translation: [0, 0, 0]
       rotation: [1, 0, 0, 0]
       scale: [1, 1, 1]
-  - Entity: D6B5E2D4-C8C7-4F9E-B138-EA8D7E99B8AC
-    IDComponent:
-      id: D6B5E2D4-C8C7-4F9E-B138-EA8D7E99B8AC
-    TagComponent:
-      tag: boxes
-    HierarchyComponent:
-      first: 374157C2-E3AA-42F1-A0CB-D4E45F5C6E8D
-      prev: EED07A27-EDE9-4F0E-B370-FF977B165220
-      next: DB378078-2828-4463-9C39-9F57CFEEAC25
-      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-  - Entity: 374157C2-E3AA-42F1-A0CB-D4E45F5C6E8D
-    IDComponent:
-      id: 374157C2-E3AA-42F1-A0CB-D4E45F5C6E8D
-    TagComponent:
-      tag: box 2
-    HierarchyComponent:
-      next: 4FD19855-DCAC-401C-9AB0-7A33DF668492
-      parent: D6B5E2D4-C8C7-4F9E-B138-EA8D7E99B8AC
-    TransformComponent:
-      translation: [4.5, 1.42999995, -13.8000002]
-      rotation: [0.968912423, 0, -0.247403964, 0]
-      scale: [0.5, 0.5, 0.5]
-    MeshComponent:
-      meshType: 1
-      guid: ""
-      fileId: ""
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 20
-      diffuseTextureGuids:
-        - 99ABA5E2-35E5-4B1F-8D89-5489830EA45F
-      diffuseColor: [1, 1, 1, 1]
-      specularTextureGuid: 04E6F2F7-76B3-4EE1-B9B3-D7C48D401C7B
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 9C60EB17-E3EC-411B-B5C6-4EDAD2207532
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-    CollisionComponent:
-      - type: 0
-        offset: [0, 0, 0]
-        halfExtents: [0.25, 0.25, 0.25]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-    RigidBodyComponent:
-      type: 1
-      mass: 1
-      linearDamping: 0
-      angularDamping: 0
-      linearFactor: [1, 1, 1]
-      angularFactor: [1, 1, 1]
-      friction: 0.5
-      restitution: 0.5
-  - Entity: 4FD19855-DCAC-401C-9AB0-7A33DF668492
-    IDComponent:
-      id: 4FD19855-DCAC-401C-9AB0-7A33DF668492
-    TagComponent:
-      tag: box 1
-    HierarchyComponent:
-      prev: 374157C2-E3AA-42F1-A0CB-D4E45F5C6E8D
-      parent: D6B5E2D4-C8C7-4F9E-B138-EA8D7E99B8AC
-    TransformComponent:
-      translation: [4.5, 0.629999995, -13.8000002]
-      rotation: [1, 0, 0, 0]
-      scale: [0.5, 0.5, 0.5]
-    MeshComponent:
-      meshType: 1
-      guid: ""
-      fileId: ""
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 20
-      diffuseTextureGuids:
-        - 99ABA5E2-35E5-4B1F-8D89-5489830EA45F
-      diffuseColor: [1, 1, 1, 1]
-      specularTextureGuid: 04E6F2F7-76B3-4EE1-B9B3-D7C48D401C7B
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 9C60EB17-E3EC-411B-B5C6-4EDAD2207532
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-    CollisionComponent:
-      - type: 0
-        offset: [0, 0, 0]
-        halfExtents: [0.25, 0.25, 0.25]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-    RigidBodyComponent:
-      type: 1
-      mass: 1
-      linearDamping: 0
-      angularDamping: 0
-      linearFactor: [1, 1, 1]
-      angularFactor: [1, 1, 1]
-      friction: 0.5
-      restitution: 0.5
-  - Entity: DB378078-2828-4463-9C39-9F57CFEEAC25
-    IDComponent:
-      id: DB378078-2828-4463-9C39-9F57CFEEAC25
-    TagComponent:
-      tag: Door 1
-    HierarchyComponent:
-      prev: D6B5E2D4-C8C7-4F9E-B138-EA8D7E99B8AC
-      next: A2501CB0-FFC9-4CF7-8E3B-872907BC4CCA
-      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
-    TransformComponent:
-      translation: [-0.300000012, 1.20000005, -3.25]
-      rotation: [1, 0, 0, 0]
-      scale: [0.699999988, 1, 0.100000001]
-    CollisionComponent:
-      - type: 0
-        offset: [0, 0, 0]
-        halfExtents: [0.349999994, 0.5, 0.0500000007]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-    RigidBodyComponent:
-      type: 0
-      mass: 1
-      linearDamping: 0
-      angularDamping: 0
-      linearFactor: [1, 1, 1]
-      angularFactor: [1, 1, 1]
-      friction: 1
-      restitution: 0
-  - Entity: A2501CB0-FFC9-4CF7-8E3B-872907BC4CCA
-    IDComponent:
-      id: A2501CB0-FFC9-4CF7-8E3B-872907BC4CCA
-    TagComponent:
-      tag: Door 2
-    HierarchyComponent:
-      prev: DB378078-2828-4463-9C39-9F57CFEEAC25
-      next: 42D1CE87-1A8A-4DC0-A944-92EC7320484D
-      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
-    TransformComponent:
-      translation: [-0.300000012, 1.20000005, 2.9000001]
-      rotation: [1, 0, 0, 0]
-      scale: [0.699999988, 1, 0.100000001]
-    CollisionComponent:
-      - type: 0
-        offset: [0, 0, 0]
-        halfExtents: [0.349999994, 0.5, 0.0500000007]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-    RigidBodyComponent:
-      type: 0
-      mass: 1
-      linearDamping: 0
-      angularDamping: 0
-      linearFactor: [1, 1, 1]
-      angularFactor: [1, 1, 1]
-      friction: 1
-      restitution: 0
-  - Entity: 42D1CE87-1A8A-4DC0-A944-92EC7320484D
-    IDComponent:
-      id: 42D1CE87-1A8A-4DC0-A944-92EC7320484D
-    TagComponent:
-      tag: terrain
-    HierarchyComponent:
-      prev: A2501CB0-FFC9-4CF7-8E3B-872907BC4CCA
-      next: BD1D8AE9-A72C-492F-9CAB-87901FF9667F
-      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
-    TransformComponent:
-      translation: [-505, 0, -505]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    CollisionComponent:
-      - type: 6
-        offset: [512, 11.4049997, 512]
-        halfExtents: [1, 1, 1]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-    RigidBodyComponent:
-      type: 0
-      mass: 1
-      linearDamping: 0
-      angularDamping: 0
-      linearFactor: [1, 1, 1]
-      angularFactor: [1, 1, 1]
-      friction: 0.800000012
-      restitution: 0.200000003
-    TerrainComponent:
-      guid: D0F86FFD-35C1-44B0-922F-61D192F72181
-  - Entity: BD1D8AE9-A72C-492F-9CAB-87901FF9667F
-    IDComponent:
-      id: BD1D8AE9-A72C-492F-9CAB-87901FF9667F
-    TagComponent:
-      tag: sponza
-    HierarchyComponent:
-      first: 88162319-64F8-4415-A2BF-F3936AC30FE7
-      prev: 42D1CE87-1A8A-4DC0-A944-92EC7320484D
-      next: 08156642-4707-4AEF-A0B2-2BAE9EECF8B8
-      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
-    TransformComponent:
-      translation: [0, 0.649999976, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    CollisionComponent:
-      - type: 0
-        offset: [0, -0.112999998, 0]
-        halfExtents: [7, 0.100000001, 3.4000001]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 0
-        offset: [-8, 0, 0]
-        halfExtents: [1, 2.5, 3.4000001]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 0
-        offset: [7.4000001, 0, 0]
-        halfExtents: [1, 2.5, 3.4000001]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 0
-        offset: [0.200000003, 0, -4.0999999]
-        halfExtents: [8.5, 2.0999999, 1]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 0
-        offset: [0, 0, 3.79999995]
-        halfExtents: [8.39999962, 2.29999995, 1]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 0
-        offset: [-0.300000012, 0, 0.899999976]
-        halfExtents: [4.9000001, 1.5, 0.300000012]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 0
-        offset: [-0.300000012, 0, -1.29999995]
-        halfExtents: [4.9000001, 1.5, 0.300000012]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 1
-        offset: [-7.69999981, 1, -0.200000003]
-        halfExtents: [1, 1, 1]
-        axis: 1
-        height: 0.300000012
-        radius: 1
-        assetGUID: ""
-      - type: 1
-        offset: [7.0999999, 1, -0.200000003]
-        halfExtents: [1, 1, 1]
-        axis: 1
-        height: 0.300000012
-        radius: 1
-        assetGUID: ""
-      - type: 3
-        offset: [-6, -0.129999995, 2]
-        halfExtents: [0.400000006, 0.800000012, 0.400000006]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 3
-        offset: [-6, -0.129999995, -2.25]
-        halfExtents: [0.400000006, 0.800000012, 0.400000006]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 3
-        offset: [5.5999999, -0.129999995, -2.25]
-        halfExtents: [0.400000006, 0.800000012, 0.400000006]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 3
-        offset: [5.5999999, -0.129999995, 2]
-        halfExtents: [0.400000006, 0.800000012, 0.400000006]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 0
-        offset: [-0.300000012, 0, 4.19999981]
-        halfExtents: [9, 6.30000019, 1]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 0
-        offset: [-0.300000012, 0, -4.69999981]
-        halfExtents: [9, 6.30000019, 1]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 0
-        offset: [7.75, 0, -0.25999999]
-        halfExtents: [1, 4.69999981, 5.42000008]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-      - type: 0
-        offset: [-8.35000038, 0, -0.25999999]
-        halfExtents: [1, 4.69999981, 5.42000008]
-        axis: 1
-        height: 1
-        radius: 1
-        assetGUID: ""
-    RigidBodyComponent:
-      type: 0
-      mass: 1
-      linearDamping: 0
-      angularDamping: 0
-      linearFactor: [1, 1, 1]
-      angularFactor: [1, 1, 1]
-      friction: 1
-      restitution: 0
-  - Entity: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    IDComponent:
-      id: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TagComponent:
-      tag: mesh
-    HierarchyComponent:
-      first: FFF49BAC-5741-4331-B656-82905515FC39
-      parent: BD1D8AE9-A72C-492F-9CAB-87901FF9667F
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [0.00499999989, 0.00499999989, 0.00499999989]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: ""
-  - Entity: FFF49BAC-5741-4331-B656-82905515FC39
-    IDComponent:
-      id: FFF49BAC-5741-4331-B656-82905515FC39
-    TagComponent:
-      tag: meshes[0]-102
-    HierarchyComponent:
-      next: C49B488D-7194-4FA9-9ED5-25748BB5607E
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: e515df0d202ae52fcebb14295743063b
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - B702321F-D4DD-47BC-9A14-B0B967533BCB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C12E90E5-6F71-4641-87A7-E13826B6DB23
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: C49B488D-7194-4FA9-9ED5-25748BB5607E
-    IDComponent:
-      id: C49B488D-7194-4FA9-9ED5-25748BB5607E
-    TagComponent:
-      tag: meshes[0]-101
-    HierarchyComponent:
-      prev: FFF49BAC-5741-4331-B656-82905515FC39
-      next: F2829EE4-1FFA-4B56-837A-FBC62552976A
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 65cc2c8205a05d7379fa3a6386f710e1
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 36C4B16B-37EB-400E-BBE1-6AFEB845B431
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 9EB37125-D1FC-43CF-A987-838C33F3BABB
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: F2829EE4-1FFA-4B56-837A-FBC62552976A
-    IDComponent:
-      id: F2829EE4-1FFA-4B56-837A-FBC62552976A
-    TagComponent:
-      tag: meshes[0]-100
-    HierarchyComponent:
-      prev: C49B488D-7194-4FA9-9ED5-25748BB5607E
-      next: 1E8D1CE9-1EF3-449F-8560-EFAB3346B017
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 1e48c4420b7073bc11916c6c1de226bb
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - B702321F-D4DD-47BC-9A14-B0B967533BCB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C12E90E5-6F71-4641-87A7-E13826B6DB23
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 1E8D1CE9-1EF3-449F-8560-EFAB3346B017
-    IDComponent:
-      id: 1E8D1CE9-1EF3-449F-8560-EFAB3346B017
-    TagComponent:
-      tag: meshes[0]-99
-    HierarchyComponent:
-      prev: F2829EE4-1FFA-4B56-837A-FBC62552976A
-      next: DA74EAC5-D1B0-4936-AEEF-92790BF9E498
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: a9b7ba70783b617e9998dc4dd82eb3c5
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - E4E40A00-6461-4C70-B4B6-CEB1393ACCC9
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: B8E490AA-1281-46E4-AC8F-5BEDEF7877D3
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: DA74EAC5-D1B0-4936-AEEF-92790BF9E498
-    IDComponent:
-      id: DA74EAC5-D1B0-4936-AEEF-92790BF9E498
-    TagComponent:
-      tag: meshes[0]-98
-    HierarchyComponent:
-      prev: 1E8D1CE9-1EF3-449F-8560-EFAB3346B017
-      next: AD50F391-EC0D-4C55-A2C4-7292D1772095
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 4fac9ba115140ac4f1c22da82aa0bc7f
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - C801ED56-4F42-4E04-AB80-6813B315967A
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 3832F988-278F-4095-AC7A-C2A199B17EC5
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: AD50F391-EC0D-4C55-A2C4-7292D1772095
-    IDComponent:
-      id: AD50F391-EC0D-4C55-A2C4-7292D1772095
-    TagComponent:
-      tag: meshes[0]-97
-    HierarchyComponent:
-      prev: DA74EAC5-D1B0-4936-AEEF-92790BF9E498
-      next: 67D31879-9F66-40C6-93FB-90178C10E4DF
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: d79aac075930c83c2f1e369a511148fe
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - E4E40A00-6461-4C70-B4B6-CEB1393ACCC9
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: B8E490AA-1281-46E4-AC8F-5BEDEF7877D3
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 67D31879-9F66-40C6-93FB-90178C10E4DF
-    IDComponent:
-      id: 67D31879-9F66-40C6-93FB-90178C10E4DF
-    TagComponent:
-      tag: meshes[0]-96
-    HierarchyComponent:
-      prev: AD50F391-EC0D-4C55-A2C4-7292D1772095
-      next: 1959AFE6-4B03-4C09-B5FB-EEFFB52C8634
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 89fcd07f20b6785b92134bd6c1d0fa42
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - C801ED56-4F42-4E04-AB80-6813B315967A
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 3832F988-278F-4095-AC7A-C2A199B17EC5
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 1959AFE6-4B03-4C09-B5FB-EEFFB52C8634
-    IDComponent:
-      id: 1959AFE6-4B03-4C09-B5FB-EEFFB52C8634
-    TagComponent:
-      tag: meshes[0]-95
-    HierarchyComponent:
-      prev: 67D31879-9F66-40C6-93FB-90178C10E4DF
-      next: D0063F01-6A43-4A73-BEC7-820478DC680E
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 437d7d1d97917cd627a34a6a0fb41136
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - C317DA58-70D6-43AB-9D59-9F949A33BA82
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 1453CF10-6EBB-45FA-94CA-B6C218DAB539
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: D0063F01-6A43-4A73-BEC7-820478DC680E
-    IDComponent:
-      id: D0063F01-6A43-4A73-BEC7-820478DC680E
-    TagComponent:
-      tag: meshes[0]-94
-    HierarchyComponent:
-      prev: 1959AFE6-4B03-4C09-B5FB-EEFFB52C8634
-      next: F99D09FD-CA39-45DB-8E06-E315A66FFC9D
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: a3d68b461bd9d3533ee1dd3ce4628ed4
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 076A9E75-089B-462F-A290-CD5923EDFE43
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C33984E3-BFB7-4319-8DFC-305FD6B546DD
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: F99D09FD-CA39-45DB-8E06-E315A66FFC9D
-    IDComponent:
-      id: F99D09FD-CA39-45DB-8E06-E315A66FFC9D
-    TagComponent:
-      tag: meshes[0]-93
-    HierarchyComponent:
-      prev: D0063F01-6A43-4A73-BEC7-820478DC680E
-      next: E30F1EDD-A2F9-49DD-8C69-C9015A3D9822
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 8d6dc35e506fc23349dd10ee68dabb64
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 0CFCC773-464C-4432-AC8D-01A939D36427
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: DD52DDF1-B6F1-4F55-836A-63A965BC8890
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: E30F1EDD-A2F9-49DD-8C69-C9015A3D9822
-    IDComponent:
-      id: E30F1EDD-A2F9-49DD-8C69-C9015A3D9822
-    TagComponent:
-      tag: meshes[0]-92
-    HierarchyComponent:
-      prev: F99D09FD-CA39-45DB-8E06-E315A66FFC9D
-      next: 7E4F59FE-BCB1-4FF5-B01C-E83AB4678718
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 1cc3633c579a90cfdd895e64021e2163
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 076A9E75-089B-462F-A290-CD5923EDFE43
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C33984E3-BFB7-4319-8DFC-305FD6B546DD
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 7E4F59FE-BCB1-4FF5-B01C-E83AB4678718
-    IDComponent:
-      id: 7E4F59FE-BCB1-4FF5-B01C-E83AB4678718
-    TagComponent:
-      tag: meshes[0]-91
-    HierarchyComponent:
-      prev: E30F1EDD-A2F9-49DD-8C69-C9015A3D9822
-      next: 4C969982-A4CD-41F8-A223-986DB318516A
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 6d0f846348a856321729a2f36734d1a7
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 0CFCC773-464C-4432-AC8D-01A939D36427
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: DD52DDF1-B6F1-4F55-836A-63A965BC8890
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 4C969982-A4CD-41F8-A223-986DB318516A
-    IDComponent:
-      id: 4C969982-A4CD-41F8-A223-986DB318516A
-    TagComponent:
-      tag: meshes[0]-90
-    HierarchyComponent:
-      prev: 7E4F59FE-BCB1-4FF5-B01C-E83AB4678718
-      next: 15BEC5F1-B309-4BEF-A9D6-C13D51D4BAB4
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: e205ee2a5de471a70c1fd1b46033a75f
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 076A9E75-089B-462F-A290-CD5923EDFE43
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C33984E3-BFB7-4319-8DFC-305FD6B546DD
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 15BEC5F1-B309-4BEF-A9D6-C13D51D4BAB4
-    IDComponent:
-      id: 15BEC5F1-B309-4BEF-A9D6-C13D51D4BAB4
-    TagComponent:
-      tag: meshes[0]-89
-    HierarchyComponent:
-      prev: 4C969982-A4CD-41F8-A223-986DB318516A
-      next: 4FA1B967-9F47-4947-B9B9-0990F1D34501
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: acf4b89d3d503d8252c9c4ba75ddbf6d
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 0CFCC773-464C-4432-AC8D-01A939D36427
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: DD52DDF1-B6F1-4F55-836A-63A965BC8890
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 4FA1B967-9F47-4947-B9B9-0990F1D34501
-    IDComponent:
-      id: 4FA1B967-9F47-4947-B9B9-0990F1D34501
-    TagComponent:
-      tag: meshes[0]-88
-    HierarchyComponent:
-      prev: 15BEC5F1-B309-4BEF-A9D6-C13D51D4BAB4
-      next: 47B58B10-3E93-444E-9713-63D118F789BA
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 024d7f84fff11dd7e8d9c510137a2381
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 076A9E75-089B-462F-A290-CD5923EDFE43
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C33984E3-BFB7-4319-8DFC-305FD6B546DD
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 47B58B10-3E93-444E-9713-63D118F789BA
-    IDComponent:
-      id: 47B58B10-3E93-444E-9713-63D118F789BA
-    TagComponent:
-      tag: meshes[0]-87
-    HierarchyComponent:
-      prev: 4FA1B967-9F47-4947-B9B9-0990F1D34501
-      next: 194AC101-E1F1-4495-A459-01AC1D7160C1
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 1f50893f80d6830d62765ffad7721742
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 0CFCC773-464C-4432-AC8D-01A939D36427
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: DD52DDF1-B6F1-4F55-836A-63A965BC8890
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 194AC101-E1F1-4495-A459-01AC1D7160C1
-    IDComponent:
-      id: 194AC101-E1F1-4495-A459-01AC1D7160C1
-    TagComponent:
-      tag: meshes[0]-86
-    HierarchyComponent:
-      prev: 47B58B10-3E93-444E-9713-63D118F789BA
-      next: 637A3985-982B-4A9D-BDB2-D9A76257736D
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 22fb0cee7e1f3bde58293de743871417
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 076A9E75-089B-462F-A290-CD5923EDFE43
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C33984E3-BFB7-4319-8DFC-305FD6B546DD
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 637A3985-982B-4A9D-BDB2-D9A76257736D
-    IDComponent:
-      id: 637A3985-982B-4A9D-BDB2-D9A76257736D
-    TagComponent:
-      tag: meshes[0]-85
-    HierarchyComponent:
-      prev: 194AC101-E1F1-4495-A459-01AC1D7160C1
-      next: 8EC1F8A1-AEDC-4BE3-8467-017EB2B16FCD
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: fc49306d97602c8ed1be1dfbf0835ead
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 0CFCC773-464C-4432-AC8D-01A939D36427
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: DD52DDF1-B6F1-4F55-836A-63A965BC8890
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 8EC1F8A1-AEDC-4BE3-8467-017EB2B16FCD
-    IDComponent:
-      id: 8EC1F8A1-AEDC-4BE3-8467-017EB2B16FCD
-    TagComponent:
-      tag: meshes[0]-84
-    HierarchyComponent:
-      prev: 637A3985-982B-4A9D-BDB2-D9A76257736D
-      next: 95DBB840-7F43-4B73-9E92-377FD0EEEB47
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 1efa39bcaec6f3900149160693694536
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 076A9E75-089B-462F-A290-CD5923EDFE43
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C33984E3-BFB7-4319-8DFC-305FD6B546DD
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 95DBB840-7F43-4B73-9E92-377FD0EEEB47
-    IDComponent:
-      id: 95DBB840-7F43-4B73-9E92-377FD0EEEB47
-    TagComponent:
-      tag: meshes[0]-83
-    HierarchyComponent:
-      prev: 8EC1F8A1-AEDC-4BE3-8467-017EB2B16FCD
-      next: 1A8663F7-7865-4E42-AA50-D642460BE392
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: fa83a11a198d5a7f0bf77a1987bcd006
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 0CFCC773-464C-4432-AC8D-01A939D36427
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: DD52DDF1-B6F1-4F55-836A-63A965BC8890
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 1A8663F7-7865-4E42-AA50-D642460BE392
-    IDComponent:
-      id: 1A8663F7-7865-4E42-AA50-D642460BE392
-    TagComponent:
-      tag: meshes[0]-82
-    HierarchyComponent:
-      prev: 95DBB840-7F43-4B73-9E92-377FD0EEEB47
-      next: 619DE77E-3AE4-43B1-98EA-EA19F7A7D92F
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 8e82ab7243b7c66d768f1b8ce1c967eb
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 076A9E75-089B-462F-A290-CD5923EDFE43
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C33984E3-BFB7-4319-8DFC-305FD6B546DD
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 619DE77E-3AE4-43B1-98EA-EA19F7A7D92F
-    IDComponent:
-      id: 619DE77E-3AE4-43B1-98EA-EA19F7A7D92F
-    TagComponent:
-      tag: meshes[0]-81
-    HierarchyComponent:
-      prev: 1A8663F7-7865-4E42-AA50-D642460BE392
-      next: 0F6A9CEF-3726-483A-AAA8-7669AC9028C0
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: e2a2dcc36a08a345332c751b2f2e476c
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 0CFCC773-464C-4432-AC8D-01A939D36427
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: DD52DDF1-B6F1-4F55-836A-63A965BC8890
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 0F6A9CEF-3726-483A-AAA8-7669AC9028C0
-    IDComponent:
-      id: 0F6A9CEF-3726-483A-AAA8-7669AC9028C0
-    TagComponent:
-      tag: meshes[0]-80
-    HierarchyComponent:
-      prev: 619DE77E-3AE4-43B1-98EA-EA19F7A7D92F
-      next: D80BCB85-3C78-40C5-9120-CB5AFE90BF44
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: b6edc1cd1f36e45daf6d7824d7bb2283
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 53B83C48-26C2-409E-B15C-23CE8D7D2B6E
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 4F53886B-224E-4E81-A20C-C34C50D61479
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: D80BCB85-3C78-40C5-9120-CB5AFE90BF44
-    IDComponent:
-      id: D80BCB85-3C78-40C5-9120-CB5AFE90BF44
-    TagComponent:
-      tag: meshes[0]-79
-    HierarchyComponent:
-      prev: 0F6A9CEF-3726-483A-AAA8-7669AC9028C0
-      next: 056B1FB7-53A4-44F4-8976-4577F02F89FE
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 7a53928fa4dd31e82c6ef826f341daec
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 52357350-3596-4241-BE4B-FCB9196A34A8
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 5F5AED6E-C54A-4C74-A75B-6E33183DA3B2
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 056B1FB7-53A4-44F4-8976-4577F02F89FE
-    IDComponent:
-      id: 056B1FB7-53A4-44F4-8976-4577F02F89FE
-    TagComponent:
-      tag: meshes[0]-78
-    HierarchyComponent:
-      prev: D80BCB85-3C78-40C5-9120-CB5AFE90BF44
-      next: B1FDF0DA-EDC4-4C0B-88E7-5FB3C7B57EB8
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 2dace78f80bc92e6d7493423d729448e
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 53B83C48-26C2-409E-B15C-23CE8D7D2B6E
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 4F53886B-224E-4E81-A20C-C34C50D61479
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: B1FDF0DA-EDC4-4C0B-88E7-5FB3C7B57EB8
-    IDComponent:
-      id: B1FDF0DA-EDC4-4C0B-88E7-5FB3C7B57EB8
-    TagComponent:
-      tag: meshes[0]-77
-    HierarchyComponent:
-      prev: 056B1FB7-53A4-44F4-8976-4577F02F89FE
-      next: 3A8CB6B9-81ED-43AB-BC60-5F1B16F84515
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: a8e864d04c95572d1aece099af852d0a
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 52357350-3596-4241-BE4B-FCB9196A34A8
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 5F5AED6E-C54A-4C74-A75B-6E33183DA3B2
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 3A8CB6B9-81ED-43AB-BC60-5F1B16F84515
-    IDComponent:
-      id: 3A8CB6B9-81ED-43AB-BC60-5F1B16F84515
-    TagComponent:
-      tag: meshes[0]-76
-    HierarchyComponent:
-      prev: B1FDF0DA-EDC4-4C0B-88E7-5FB3C7B57EB8
-      next: DFEB1D63-2300-44A3-8704-F5744E0FDF06
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 4ea06fbc83cdd0a06020c35d50e1e89a
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 53B83C48-26C2-409E-B15C-23CE8D7D2B6E
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 4F53886B-224E-4E81-A20C-C34C50D61479
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: DFEB1D63-2300-44A3-8704-F5744E0FDF06
-    IDComponent:
-      id: DFEB1D63-2300-44A3-8704-F5744E0FDF06
-    TagComponent:
-      tag: meshes[0]-75
-    HierarchyComponent:
-      prev: 3A8CB6B9-81ED-43AB-BC60-5F1B16F84515
-      next: C910AD96-838A-495F-B7A1-F7A6270D5CD9
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 2ca65f58e35d9ad45bf7f3ae5cfd08f1
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 52357350-3596-4241-BE4B-FCB9196A34A8
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 5F5AED6E-C54A-4C74-A75B-6E33183DA3B2
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: C910AD96-838A-495F-B7A1-F7A6270D5CD9
-    IDComponent:
-      id: C910AD96-838A-495F-B7A1-F7A6270D5CD9
-    TagComponent:
-      tag: meshes[0]-74
-    HierarchyComponent:
-      prev: DFEB1D63-2300-44A3-8704-F5744E0FDF06
-      next: 9F4DDB6F-518E-4706-851F-D0CE30193497
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: b137fdd1f79d56c7edf3365fea7520f2
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 53B83C48-26C2-409E-B15C-23CE8D7D2B6E
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 4F53886B-224E-4E81-A20C-C34C50D61479
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 9F4DDB6F-518E-4706-851F-D0CE30193497
-    IDComponent:
-      id: 9F4DDB6F-518E-4706-851F-D0CE30193497
-    TagComponent:
-      tag: meshes[0]-73
-    HierarchyComponent:
-      prev: C910AD96-838A-495F-B7A1-F7A6270D5CD9
-      next: AC0CA8FE-954F-4205-A99F-8365238E3569
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: edfbe1afcf9246bb0d40eb4d8027d90f
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 52357350-3596-4241-BE4B-FCB9196A34A8
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 5F5AED6E-C54A-4C74-A75B-6E33183DA3B2
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: AC0CA8FE-954F-4205-A99F-8365238E3569
-    IDComponent:
-      id: AC0CA8FE-954F-4205-A99F-8365238E3569
-    TagComponent:
-      tag: meshes[0]-72
-    HierarchyComponent:
-      prev: 9F4DDB6F-518E-4706-851F-D0CE30193497
-      next: A1F83C99-B340-4BB5-A0A9-4DEB7FD9AB67
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: d5cfead94f5350c12c322b5b664544c1
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 92F3F085-2ABC-46DA-889D-5372D7D80CD9
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 33C36336-6AC4-4304-8C3C-C20DC8EDCD79
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: A1F83C99-B340-4BB5-A0A9-4DEB7FD9AB67
-    IDComponent:
-      id: A1F83C99-B340-4BB5-A0A9-4DEB7FD9AB67
-    TagComponent:
-      tag: meshes[0]-71
-    HierarchyComponent:
-      prev: AC0CA8FE-954F-4205-A99F-8365238E3569
-      next: 2F1B1BB1-6ECE-420E-9A7D-0F7C684DD4FD
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 5f2c22cb4a5380af7ca75622a6426917
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - E46754C4-3CCA-43FE-83FA-1E70822FAD84
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 2681E5CB-E3A8-45B3-BF33-E026BD1208A8
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 2F1B1BB1-6ECE-420E-9A7D-0F7C684DD4FD
-    IDComponent:
-      id: 2F1B1BB1-6ECE-420E-9A7D-0F7C684DD4FD
-    TagComponent:
-      tag: meshes[0]-70
-    HierarchyComponent:
-      prev: A1F83C99-B340-4BB5-A0A9-4DEB7FD9AB67
-      next: 32FBF37B-082A-468F-833E-064578CE7311
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: e70611883d2760c8bbafb4acb29e3446
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - FD6F749B-8B0C-4488-9A62-07CF88BEEBFB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 8EC0E7F7-2B7C-421F-B298-A84E939411AF
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 32FBF37B-082A-468F-833E-064578CE7311
-    IDComponent:
-      id: 32FBF37B-082A-468F-833E-064578CE7311
-    TagComponent:
-      tag: meshes[0]-69
-    HierarchyComponent:
-      prev: 2F1B1BB1-6ECE-420E-9A7D-0F7C684DD4FD
-      next: DBBF93F2-F631-4D5E-AEC5-4A237FEE9748
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: e5841df2166dd424a57127423d276bbe
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 92F3F085-2ABC-46DA-889D-5372D7D80CD9
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 33C36336-6AC4-4304-8C3C-C20DC8EDCD79
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: DBBF93F2-F631-4D5E-AEC5-4A237FEE9748
-    IDComponent:
-      id: DBBF93F2-F631-4D5E-AEC5-4A237FEE9748
-    TagComponent:
-      tag: meshes[0]-68
-    HierarchyComponent:
-      prev: 32FBF37B-082A-468F-833E-064578CE7311
-      next: 63989D61-B8F6-4484-87B2-E6CA4A8D6B91
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: c06d06da9666a219db15cf575aff2824
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - E46754C4-3CCA-43FE-83FA-1E70822FAD84
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 2681E5CB-E3A8-45B3-BF33-E026BD1208A8
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 63989D61-B8F6-4484-87B2-E6CA4A8D6B91
-    IDComponent:
-      id: 63989D61-B8F6-4484-87B2-E6CA4A8D6B91
-    TagComponent:
-      tag: meshes[0]-67
-    HierarchyComponent:
-      prev: DBBF93F2-F631-4D5E-AEC5-4A237FEE9748
-      next: F472C002-88B9-46A0-AC85-AEE98B5E3092
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: fccb3cdc9acc14a6e70a12f74560c026
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - FD6F749B-8B0C-4488-9A62-07CF88BEEBFB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 8EC0E7F7-2B7C-421F-B298-A84E939411AF
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: F472C002-88B9-46A0-AC85-AEE98B5E3092
-    IDComponent:
-      id: F472C002-88B9-46A0-AC85-AEE98B5E3092
-    TagComponent:
-      tag: meshes[0]-66
-    HierarchyComponent:
-      prev: 63989D61-B8F6-4484-87B2-E6CA4A8D6B91
-      next: 8A0CA21E-7254-47BF-913E-92A7BC4D2C3E
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 17c276c8e723eb46aef576537e9d56d0
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - E46754C4-3CCA-43FE-83FA-1E70822FAD84
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 2681E5CB-E3A8-45B3-BF33-E026BD1208A8
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 8A0CA21E-7254-47BF-913E-92A7BC4D2C3E
-    IDComponent:
-      id: 8A0CA21E-7254-47BF-913E-92A7BC4D2C3E
-    TagComponent:
-      tag: meshes[0]-65
-    HierarchyComponent:
-      prev: F472C002-88B9-46A0-AC85-AEE98B5E3092
-      next: 70F8186E-6188-4CC9-96E2-A51AE844D38C
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 68264bdb65b97eeae6788aa3348e553c
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - FD6F749B-8B0C-4488-9A62-07CF88BEEBFB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 8EC0E7F7-2B7C-421F-B298-A84E939411AF
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 70F8186E-6188-4CC9-96E2-A51AE844D38C
-    IDComponent:
-      id: 70F8186E-6188-4CC9-96E2-A51AE844D38C
-    TagComponent:
-      tag: meshes[0]-64
-    HierarchyComponent:
-      prev: 8A0CA21E-7254-47BF-913E-92A7BC4D2C3E
-      next: 3399E112-0B6B-4B68-95A8-0B214A50C244
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 884d247c6f65a96a7da4d1105d584ddd
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - E46754C4-3CCA-43FE-83FA-1E70822FAD84
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 2681E5CB-E3A8-45B3-BF33-E026BD1208A8
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 3399E112-0B6B-4B68-95A8-0B214A50C244
-    IDComponent:
-      id: 3399E112-0B6B-4B68-95A8-0B214A50C244
-    TagComponent:
-      tag: meshes[0]-63
-    HierarchyComponent:
-      prev: 70F8186E-6188-4CC9-96E2-A51AE844D38C
-      next: E43B01E9-5C6B-4F4D-AF7B-FFB0453DEBE7
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 4ffce04d92a4d6cb21c1494cdfcd6dc1
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 92F3F085-2ABC-46DA-889D-5372D7D80CD9
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 33C36336-6AC4-4304-8C3C-C20DC8EDCD79
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: E43B01E9-5C6B-4F4D-AF7B-FFB0453DEBE7
-    IDComponent:
-      id: E43B01E9-5C6B-4F4D-AF7B-FFB0453DEBE7
-    TagComponent:
-      tag: meshes[0]-62
-    HierarchyComponent:
-      prev: 3399E112-0B6B-4B68-95A8-0B214A50C244
-      next: 806ADBD8-94C4-4EA8-A3D8-F4E3D63996B1
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 9cc138f8dc04cbf16240daa92d8d50e2
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 921A1FB6-BCC8-43BB-91FF-21FC01CE3C41
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FFAE2D2-E3B9-472F-AE50-1FE32C2B3CE4
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 806ADBD8-94C4-4EA8-A3D8-F4E3D63996B1
-    IDComponent:
-      id: 806ADBD8-94C4-4EA8-A3D8-F4E3D63996B1
-    TagComponent:
-      tag: meshes[0]-61
-    HierarchyComponent:
-      prev: E43B01E9-5C6B-4F4D-AF7B-FFB0453DEBE7
-      next: DCB320AF-9833-48BE-89D1-B20CFC45D469
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: b73dfe25b4b8714c029b37a6ad3006fa
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 1080ABC8-D364-4A1B-9E35-10B8B54C481E
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: B56FB69B-B02E-4DDB-8CBC-484BC7DE2DFB
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: DCB320AF-9833-48BE-89D1-B20CFC45D469
-    IDComponent:
-      id: DCB320AF-9833-48BE-89D1-B20CFC45D469
-    TagComponent:
-      tag: meshes[0]-60
-    HierarchyComponent:
-      prev: 806ADBD8-94C4-4EA8-A3D8-F4E3D63996B1
-      next: 54571B6C-1080-4692-8168-F8B35B8C8E25
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 00ac8ed3b4327bdd4ebbebcb2ba10a00
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - CBDD1B23-1D9E-462F-8111-3E2700323424
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 7A7665C5-8A22-42A9-94C3-91AAE9910236
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 54571B6C-1080-4692-8168-F8B35B8C8E25
-    IDComponent:
-      id: 54571B6C-1080-4692-8168-F8B35B8C8E25
-    TagComponent:
-      tag: meshes[0]-59
-    HierarchyComponent:
-      prev: DCB320AF-9833-48BE-89D1-B20CFC45D469
-      next: CDA7CCA9-0595-4B3C-A661-79BD85707D66
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: d490d7b4576290fa60eb31b5fc917ad1
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - C50663E5-E199-44F6-9114-11543F5FD085
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 5CD576C8-89AD-43FA-8799-5E16EC4ADA38
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: CDA7CCA9-0595-4B3C-A661-79BD85707D66
-    IDComponent:
-      id: CDA7CCA9-0595-4B3C-A661-79BD85707D66
-    TagComponent:
-      tag: meshes[0]-58
-    HierarchyComponent:
-      prev: 54571B6C-1080-4692-8168-F8B35B8C8E25
-      next: A84DFA62-5D4B-4E22-AF7E-B1C9D3444798
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 08b255a5d42b89b0585260b6f2360bdd
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 1080ABC8-D364-4A1B-9E35-10B8B54C481E
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: B56FB69B-B02E-4DDB-8CBC-484BC7DE2DFB
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: A84DFA62-5D4B-4E22-AF7E-B1C9D3444798
-    IDComponent:
-      id: A84DFA62-5D4B-4E22-AF7E-B1C9D3444798
-    TagComponent:
-      tag: meshes[0]-57
-    HierarchyComponent:
-      prev: CDA7CCA9-0595-4B3C-A661-79BD85707D66
-      next: BB5B98EF-5596-45F0-9B17-A7C15EF223E9
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 069d3bb002acd8d7dd095917f9efe4cb
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - C50663E5-E199-44F6-9114-11543F5FD085
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 5CD576C8-89AD-43FA-8799-5E16EC4ADA38
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: BB5B98EF-5596-45F0-9B17-A7C15EF223E9
-    IDComponent:
-      id: BB5B98EF-5596-45F0-9B17-A7C15EF223E9
-    TagComponent:
-      tag: meshes[0]-56
-    HierarchyComponent:
-      prev: A84DFA62-5D4B-4E22-AF7E-B1C9D3444798
-      next: 3090B31D-453B-42BC-9557-21FEEA0CE401
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: a86c450b76fb8c371afead6410d55534
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - CBDD1B23-1D9E-462F-8111-3E2700323424
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 7A7665C5-8A22-42A9-94C3-91AAE9910236
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 3090B31D-453B-42BC-9557-21FEEA0CE401
-    IDComponent:
-      id: 3090B31D-453B-42BC-9557-21FEEA0CE401
-    TagComponent:
-      tag: meshes[0]-55
-    HierarchyComponent:
-      prev: BB5B98EF-5596-45F0-9B17-A7C15EF223E9
-      next: E369C520-3E72-4B4D-960D-6B05CE2ECD1F
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: a9a6653e48976138166de32772b1bf40
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 1080ABC8-D364-4A1B-9E35-10B8B54C481E
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: B56FB69B-B02E-4DDB-8CBC-484BC7DE2DFB
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: E369C520-3E72-4B4D-960D-6B05CE2ECD1F
-    IDComponent:
-      id: E369C520-3E72-4B4D-960D-6B05CE2ECD1F
-    TagComponent:
-      tag: meshes[0]-54
-    HierarchyComponent:
-      prev: 3090B31D-453B-42BC-9557-21FEEA0CE401
-      next: C1282E91-A5F0-4C6B-995B-AB39339914F7
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 01f78be6f7cad02658508fe4616098a9
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - C50663E5-E199-44F6-9114-11543F5FD085
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 5CD576C8-89AD-43FA-8799-5E16EC4ADA38
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: C1282E91-A5F0-4C6B-995B-AB39339914F7
-    IDComponent:
-      id: C1282E91-A5F0-4C6B-995B-AB39339914F7
-    TagComponent:
-      tag: meshes[0]-53
-    HierarchyComponent:
-      prev: E369C520-3E72-4B4D-960D-6B05CE2ECD1F
-      next: AE097E6F-E853-47EB-B3CA-D6CE49D151AC
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 9b72e31dac81715466cd580a448cf823
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 5FB6D6CA-FF4C-4A54-B7DD-0B108E84695D
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: B89629B9-6526-4D4E-8D09-4776E8558C62
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: AE097E6F-E853-47EB-B3CA-D6CE49D151AC
-    IDComponent:
-      id: AE097E6F-E853-47EB-B3CA-D6CE49D151AC
-    TagComponent:
-      tag: meshes[0]-52
-    HierarchyComponent:
-      prev: C1282E91-A5F0-4C6B-995B-AB39339914F7
-      next: BB1A51EA-4A9D-4E54-B5E1-CA1897DEFFAA
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: d64a340bcb633f536d56e51874281454
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 921A1FB6-BCC8-43BB-91FF-21FC01CE3C41
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FFAE2D2-E3B9-472F-AE50-1FE32C2B3CE4
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: BB1A51EA-4A9D-4E54-B5E1-CA1897DEFFAA
-    IDComponent:
-      id: BB1A51EA-4A9D-4E54-B5E1-CA1897DEFFAA
-    TagComponent:
-      tag: meshes[0]-51
-    HierarchyComponent:
-      prev: AE097E6F-E853-47EB-B3CA-D6CE49D151AC
-      next: 186388B9-8082-4B61-A67B-FFD705567596
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: cf67355a3333e6e143439161adc2d82e
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - B702321F-D4DD-47BC-9A14-B0B967533BCB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C12E90E5-6F71-4641-87A7-E13826B6DB23
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 186388B9-8082-4B61-A67B-FFD705567596
-    IDComponent:
-      id: 186388B9-8082-4B61-A67B-FFD705567596
-    TagComponent:
-      tag: meshes[0]-50
-    HierarchyComponent:
-      prev: BB1A51EA-4A9D-4E54-B5E1-CA1897DEFFAA
-      next: 7E20A928-6C00-41DB-B67A-3FA271B1F379
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 087408522c31eeb1f982bc0eaf81d35f
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 0A2E25E5-31BB-419D-8C50-FE3ACF3A40FB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: ""
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 7E20A928-6C00-41DB-B67A-3FA271B1F379
-    IDComponent:
-      id: 7E20A928-6C00-41DB-B67A-3FA271B1F379
-    TagComponent:
-      tag: meshes[0]-49
-    HierarchyComponent:
-      prev: 186388B9-8082-4B61-A67B-FFD705567596
-      next: 66A1E220-3625-4508-ADE2-4BA1B5D53353
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: cee631121c2ec9232f3a2f028ad5c89b
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - FD231C5D-5035-43AF-9EE3-A24619C0EB82
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: FEBBF5D0-7E4C-4A25-904E-1A4F903D8724
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 66A1E220-3625-4508-ADE2-4BA1B5D53353
-    IDComponent:
-      id: 66A1E220-3625-4508-ADE2-4BA1B5D53353
-    TagComponent:
-      tag: meshes[0]-48
-    HierarchyComponent:
-      prev: 7E20A928-6C00-41DB-B67A-3FA271B1F379
-      next: 02770456-46AC-4DE0-AE03-489257BF9DA4
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: c410003ef13d451727aeff9082c29a5c
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 02770456-46AC-4DE0-AE03-489257BF9DA4
-    IDComponent:
-      id: 02770456-46AC-4DE0-AE03-489257BF9DA4
-    TagComponent:
-      tag: meshes[0]-47
-    HierarchyComponent:
-      prev: 66A1E220-3625-4508-ADE2-4BA1B5D53353
-      next: ED0522EE-0A1D-4376-BF30-54FE7C5EBDB0
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 6ea2ef7311b482724a9b7b0bc0dd85c6
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 63155B4F-7B9F-4747-AB64-9BF207D78D8E
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 33E32F6E-AEC7-426B-9DAC-57FA56FEBE80
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: ED0522EE-0A1D-4376-BF30-54FE7C5EBDB0
-    IDComponent:
-      id: ED0522EE-0A1D-4376-BF30-54FE7C5EBDB0
-    TagComponent:
-      tag: meshes[0]-46
-    HierarchyComponent:
-      prev: 02770456-46AC-4DE0-AE03-489257BF9DA4
-      next: 31D7DF3E-E0CE-49F0-9992-129EAC5104EA
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 26337353b7962f533d78c762373b3318
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - C7406E99-A768-4E37-81C6-48E05BBD07CE
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 5EC06FB9-BBAF-4AA4-81E5-B01B3B5CDA67
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 31D7DF3E-E0CE-49F0-9992-129EAC5104EA
-    IDComponent:
-      id: 31D7DF3E-E0CE-49F0-9992-129EAC5104EA
-    TagComponent:
-      tag: meshes[0]-45
-    HierarchyComponent:
-      prev: ED0522EE-0A1D-4376-BF30-54FE7C5EBDB0
-      next: 552D6525-87C3-468E-B452-2339335B1B27
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 98b297950041a42470269d56260243a1
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - B702321F-D4DD-47BC-9A14-B0B967533BCB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C12E90E5-6F71-4641-87A7-E13826B6DB23
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 552D6525-87C3-468E-B452-2339335B1B27
-    IDComponent:
-      id: 552D6525-87C3-468E-B452-2339335B1B27
-    TagComponent:
-      tag: meshes[0]-44
-    HierarchyComponent:
-      prev: 31D7DF3E-E0CE-49F0-9992-129EAC5104EA
-      next: EC5B8AD9-2CEE-4048-BF14-C21D5FB66AD3
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: f5f8590cd58a54e94377e6ae2eded4d9
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - FFF00821-9415-40E5-A04B-3708046CFD39
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 93EA5A1D-BD68-42E0-8D16-74B299B8F577
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: EC5B8AD9-2CEE-4048-BF14-C21D5FB66AD3
-    IDComponent:
-      id: EC5B8AD9-2CEE-4048-BF14-C21D5FB66AD3
-    TagComponent:
-      tag: meshes[0]-43
-    HierarchyComponent:
-      prev: 552D6525-87C3-468E-B452-2339335B1B27
-      next: 27C5EA5D-5750-4DFB-AA41-B34ADD82C692
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: a8abb4bb284b5b27aa7cb790dc20f80b
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - B702321F-D4DD-47BC-9A14-B0B967533BCB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C12E90E5-6F71-4641-87A7-E13826B6DB23
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 27C5EA5D-5750-4DFB-AA41-B34ADD82C692
-    IDComponent:
-      id: 27C5EA5D-5750-4DFB-AA41-B34ADD82C692
-    TagComponent:
-      tag: meshes[0]-42
-    HierarchyComponent:
-      prev: EC5B8AD9-2CEE-4048-BF14-C21D5FB66AD3
-      next: 44DF5287-64B0-49DD-9C72-22EC09CCE520
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: f74909ace68e51891440e4da0b65a70c
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 1101280F-1895-4419-BAF1-48CFFBCAE402
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: DEF1DD6D-8290-401D-9120-F8167FFA5F26
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 44DF5287-64B0-49DD-9C72-22EC09CCE520
-    IDComponent:
-      id: 44DF5287-64B0-49DD-9C72-22EC09CCE520
-    TagComponent:
-      tag: meshes[0]-41
-    HierarchyComponent:
-      prev: 27C5EA5D-5750-4DFB-AA41-B34ADD82C692
-      next: E58F76D8-9649-4AF7-BFF5-D214C06802AA
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: b6f0479ae87d244975439c6124592772
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - B702321F-D4DD-47BC-9A14-B0B967533BCB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C12E90E5-6F71-4641-87A7-E13826B6DB23
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: E58F76D8-9649-4AF7-BFF5-D214C06802AA
-    IDComponent:
-      id: E58F76D8-9649-4AF7-BFF5-D214C06802AA
-    TagComponent:
-      tag: meshes[0]-40
-    HierarchyComponent:
-      prev: 44DF5287-64B0-49DD-9C72-22EC09CCE520
-      next: B157F559-0DE9-41F1-AB5A-A8F0ADCE484E
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 1068c6e4c8051cfd4e9ea8072e3189e2
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 1101280F-1895-4419-BAF1-48CFFBCAE402
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: DEF1DD6D-8290-401D-9120-F8167FFA5F26
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: B157F559-0DE9-41F1-AB5A-A8F0ADCE484E
-    IDComponent:
-      id: B157F559-0DE9-41F1-AB5A-A8F0ADCE484E
-    TagComponent:
-      tag: meshes[0]-39
-    HierarchyComponent:
-      prev: E58F76D8-9649-4AF7-BFF5-D214C06802AA
-      next: DF2992A1-8229-429F-8537-B7544128ACBD
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 18d8042386b79e2c279fd162df0205c8
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - B702321F-D4DD-47BC-9A14-B0B967533BCB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C12E90E5-6F71-4641-87A7-E13826B6DB23
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: DF2992A1-8229-429F-8537-B7544128ACBD
-    IDComponent:
-      id: DF2992A1-8229-429F-8537-B7544128ACBD
-    TagComponent:
-      tag: meshes[0]-38
-    HierarchyComponent:
-      prev: B157F559-0DE9-41F1-AB5A-A8F0ADCE484E
-      next: 10C50173-A4FE-4F3A-8022-69FCAF58E392
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: a01a0380ca3c61428c26a231f0e49a09
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 1101280F-1895-4419-BAF1-48CFFBCAE402
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: DEF1DD6D-8290-401D-9120-F8167FFA5F26
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 10C50173-A4FE-4F3A-8022-69FCAF58E392
-    IDComponent:
-      id: 10C50173-A4FE-4F3A-8022-69FCAF58E392
-    TagComponent:
-      tag: meshes[0]-37
-    HierarchyComponent:
-      prev: DF2992A1-8229-429F-8537-B7544128ACBD
-      next: 46C4F9EE-531C-40ED-95C8-C81C3E239B42
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: bca82e41ee7b0833588399b1fcd177c7
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - B702321F-D4DD-47BC-9A14-B0B967533BCB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C12E90E5-6F71-4641-87A7-E13826B6DB23
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 46C4F9EE-531C-40ED-95C8-C81C3E239B42
-    IDComponent:
-      id: 46C4F9EE-531C-40ED-95C8-C81C3E239B42
-    TagComponent:
-      tag: meshes[0]-36
-    HierarchyComponent:
-      prev: 10C50173-A4FE-4F3A-8022-69FCAF58E392
-      next: 51B4CA35-7291-4AA1-9975-F8B73DAE179E
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: d709f38ef758b5066ef31b18039b8ce5
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 51B4CA35-7291-4AA1-9975-F8B73DAE179E
-    IDComponent:
-      id: 51B4CA35-7291-4AA1-9975-F8B73DAE179E
-    TagComponent:
-      tag: meshes[0]-35
-    HierarchyComponent:
-      prev: 46C4F9EE-531C-40ED-95C8-C81C3E239B42
-      next: C1832CFF-BCC9-44B2-B4E3-C9F55886A879
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: e7b24b112a44fdd9ee93bdf998c6ca0e
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - B702321F-D4DD-47BC-9A14-B0B967533BCB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C12E90E5-6F71-4641-87A7-E13826B6DB23
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: C1832CFF-BCC9-44B2-B4E3-C9F55886A879
-    IDComponent:
-      id: C1832CFF-BCC9-44B2-B4E3-C9F55886A879
-    TagComponent:
-      tag: meshes[0]-34
-    HierarchyComponent:
-      prev: 51B4CA35-7291-4AA1-9975-F8B73DAE179E
-      next: 32E0863C-93C6-4F33-8408-BD86F2C718CC
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 9de6d14fff9806d4bcd1ef555be766cd
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 32E0863C-93C6-4F33-8408-BD86F2C718CC
-    IDComponent:
-      id: 32E0863C-93C6-4F33-8408-BD86F2C718CC
-    TagComponent:
-      tag: meshes[0]-33
-    HierarchyComponent:
-      prev: C1832CFF-BCC9-44B2-B4E3-C9F55886A879
-      next: 57BBFDF1-02A6-4DD9-9D44-3E6F527EDA68
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 40008b9a5380fcacce3976bf7c08af5b
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 8DDDC22C-7FFA-46C2-94CA-916FE5C1A3D3
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FB2A115-F176-493C-9538-D12504DCF847
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 57BBFDF1-02A6-4DD9-9D44-3E6F527EDA68
-    IDComponent:
-      id: 57BBFDF1-02A6-4DD9-9D44-3E6F527EDA68
-    TagComponent:
-      tag: meshes[0]-32
-    HierarchyComponent:
-      prev: 32E0863C-93C6-4F33-8408-BD86F2C718CC
-      next: FD17943E-E76D-4EC2-87A6-3579234EE977
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: fe73f687e5bc5280214e0486b273a5f9
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: FD17943E-E76D-4EC2-87A6-3579234EE977
-    IDComponent:
-      id: FD17943E-E76D-4EC2-87A6-3579234EE977
-    TagComponent:
-      tag: meshes[0]-31
-    HierarchyComponent:
-      prev: 57BBFDF1-02A6-4DD9-9D44-3E6F527EDA68
-      next: 2AA5129D-FDC6-454D-9AFD-63745F2A3FDF
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 320722549d1751cf3f247855f937b982
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 8DDDC22C-7FFA-46C2-94CA-916FE5C1A3D3
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FB2A115-F176-493C-9538-D12504DCF847
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 2AA5129D-FDC6-454D-9AFD-63745F2A3FDF
-    IDComponent:
-      id: 2AA5129D-FDC6-454D-9AFD-63745F2A3FDF
-    TagComponent:
-      tag: meshes[0]-30
-    HierarchyComponent:
-      prev: FD17943E-E76D-4EC2-87A6-3579234EE977
-      next: 1349A356-779D-476E-A93A-E4130E1455AE
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 06eb61b839a0cefee4967c67ccb099dc
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 1349A356-779D-476E-A93A-E4130E1455AE
-    IDComponent:
-      id: 1349A356-779D-476E-A93A-E4130E1455AE
-    TagComponent:
-      tag: meshes[0]-29
-    HierarchyComponent:
-      prev: 2AA5129D-FDC6-454D-9AFD-63745F2A3FDF
-      next: 803F8C79-A4D5-43F2-8BEC-584584102114
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 94f6d7e04a4d452035300f18b984988c
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 8DDDC22C-7FFA-46C2-94CA-916FE5C1A3D3
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FB2A115-F176-493C-9538-D12504DCF847
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 803F8C79-A4D5-43F2-8BEC-584584102114
-    IDComponent:
-      id: 803F8C79-A4D5-43F2-8BEC-584584102114
-    TagComponent:
-      tag: meshes[0]-28
-    HierarchyComponent:
-      prev: 1349A356-779D-476E-A93A-E4130E1455AE
-      next: A8C1253D-0957-4EFE-8B02-0E60327EBA72
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: f90f2aca5c640289d0a29417bcb63a37
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: A8C1253D-0957-4EFE-8B02-0E60327EBA72
-    IDComponent:
-      id: A8C1253D-0957-4EFE-8B02-0E60327EBA72
-    TagComponent:
-      tag: meshes[0]-27
-    HierarchyComponent:
-      prev: 803F8C79-A4D5-43F2-8BEC-584584102114
-      next: AA05DCFF-8D28-4846-B314-5559D0C6A8BE
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 92c8c96e4c37100777c7190b76d28233
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 8DDDC22C-7FFA-46C2-94CA-916FE5C1A3D3
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FB2A115-F176-493C-9538-D12504DCF847
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: AA05DCFF-8D28-4846-B314-5559D0C6A8BE
-    IDComponent:
-      id: AA05DCFF-8D28-4846-B314-5559D0C6A8BE
-    TagComponent:
-      tag: meshes[0]-26
-    HierarchyComponent:
-      prev: A8C1253D-0957-4EFE-8B02-0E60327EBA72
-      next: 74AE4DD6-C95C-4A40-8A32-66416A52CF0D
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 39059724f73a9969845dfe4146c5660e
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 74AE4DD6-C95C-4A40-8A32-66416A52CF0D
-    IDComponent:
-      id: 74AE4DD6-C95C-4A40-8A32-66416A52CF0D
-    TagComponent:
-      tag: meshes[0]-25
-    HierarchyComponent:
-      prev: AA05DCFF-8D28-4846-B314-5559D0C6A8BE
-      next: 2A2E7749-F964-4619-BAFE-25D0900124AD
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: a4f23670e1833f3fdb077ca70bbd5d66
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 8DDDC22C-7FFA-46C2-94CA-916FE5C1A3D3
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FB2A115-F176-493C-9538-D12504DCF847
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 2A2E7749-F964-4619-BAFE-25D0900124AD
-    IDComponent:
-      id: 2A2E7749-F964-4619-BAFE-25D0900124AD
-    TagComponent:
-      tag: meshes[0]-24
-    HierarchyComponent:
-      prev: 74AE4DD6-C95C-4A40-8A32-66416A52CF0D
-      next: AB09955D-14E4-4164-B661-398E1F2CF94D
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 6c9882bbac1c7093bd25041881277658
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: AB09955D-14E4-4164-B661-398E1F2CF94D
-    IDComponent:
-      id: AB09955D-14E4-4164-B661-398E1F2CF94D
-    TagComponent:
-      tag: meshes[0]-23
-    HierarchyComponent:
-      prev: 2A2E7749-F964-4619-BAFE-25D0900124AD
-      next: D92AAAE4-1918-45E7-8E8C-C9512B19FB32
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 335f5352088d7d9bf74191e006d8e24c
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 8DDDC22C-7FFA-46C2-94CA-916FE5C1A3D3
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FB2A115-F176-493C-9538-D12504DCF847
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: D92AAAE4-1918-45E7-8E8C-C9512B19FB32
-    IDComponent:
-      id: D92AAAE4-1918-45E7-8E8C-C9512B19FB32
-    TagComponent:
-      tag: meshes[0]-22
-    HierarchyComponent:
-      prev: AB09955D-14E4-4164-B661-398E1F2CF94D
-      next: 808482CD-C055-4F98-A0AD-380D97BF4E47
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 6da9003b743b65f4c0ccd295cc484e57
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 808482CD-C055-4F98-A0AD-380D97BF4E47
-    IDComponent:
-      id: 808482CD-C055-4F98-A0AD-380D97BF4E47
-    TagComponent:
-      tag: meshes[0]-21
-    HierarchyComponent:
-      prev: D92AAAE4-1918-45E7-8E8C-C9512B19FB32
-      next: DE58967B-B4B6-48F5-9018-1347C01ECF06
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: ec8ce6abb3e952a85b8551ba726a1227
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 8DDDC22C-7FFA-46C2-94CA-916FE5C1A3D3
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FB2A115-F176-493C-9538-D12504DCF847
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: DE58967B-B4B6-48F5-9018-1347C01ECF06
-    IDComponent:
-      id: DE58967B-B4B6-48F5-9018-1347C01ECF06
-    TagComponent:
-      tag: meshes[0]-20
-    HierarchyComponent:
-      prev: 808482CD-C055-4F98-A0AD-380D97BF4E47
-      next: CC0720A5-8956-4C38-BEC9-7A26F6BBD032
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 6f3ef77ac0e3619e98159e9b6febf557
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: CC0720A5-8956-4C38-BEC9-7A26F6BBD032
-    IDComponent:
-      id: CC0720A5-8956-4C38-BEC9-7A26F6BBD032
-    TagComponent:
-      tag: meshes[0]-19
-    HierarchyComponent:
-      prev: DE58967B-B4B6-48F5-9018-1347C01ECF06
-      next: 9F94E5A5-1E13-4202-9F09-CD9966BF9C29
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 3644a684f98ea8fe223c713b77189a77
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 8DDDC22C-7FFA-46C2-94CA-916FE5C1A3D3
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FB2A115-F176-493C-9538-D12504DCF847
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 9F94E5A5-1E13-4202-9F09-CD9966BF9C29
-    IDComponent:
-      id: 9F94E5A5-1E13-4202-9F09-CD9966BF9C29
-    TagComponent:
-      tag: meshes[0]-18
-    HierarchyComponent:
-      prev: CC0720A5-8956-4C38-BEC9-7A26F6BBD032
-      next: 257E517A-3559-404D-8589-C6B925BD4F90
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: cfecdb276f634854f3ef915e2e980c31
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 257E517A-3559-404D-8589-C6B925BD4F90
-    IDComponent:
-      id: 257E517A-3559-404D-8589-C6B925BD4F90
-    TagComponent:
-      tag: meshes[0]-17
-    HierarchyComponent:
-      prev: 9F94E5A5-1E13-4202-9F09-CD9966BF9C29
-      next: DFF2782F-6086-4210-A7DD-CEF5FC9594D0
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 045117b0e0a11a242b9765e79cbf113f
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 8DDDC22C-7FFA-46C2-94CA-916FE5C1A3D3
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FB2A115-F176-493C-9538-D12504DCF847
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: DFF2782F-6086-4210-A7DD-CEF5FC9594D0
-    IDComponent:
-      id: DFF2782F-6086-4210-A7DD-CEF5FC9594D0
-    TagComponent:
-      tag: meshes[0]-16
-    HierarchyComponent:
-      prev: 257E517A-3559-404D-8589-C6B925BD4F90
-      next: C3EDEA88-EE89-4FE2-AC71-D44E6A5DB327
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 149e9677a5989fd342ae44213df68868
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: C3EDEA88-EE89-4FE2-AC71-D44E6A5DB327
-    IDComponent:
-      id: C3EDEA88-EE89-4FE2-AC71-D44E6A5DB327
-    TagComponent:
-      tag: meshes[0]-15
-    HierarchyComponent:
-      prev: DFF2782F-6086-4210-A7DD-CEF5FC9594D0
-      next: 5477D0C4-A10D-4FD8-8DA1-DA1EBA759933
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: b73ce398c39f506af761d2277d853a92
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - B702321F-D4DD-47BC-9A14-B0B967533BCB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C12E90E5-6F71-4641-87A7-E13826B6DB23
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 5477D0C4-A10D-4FD8-8DA1-DA1EBA759933
-    IDComponent:
-      id: 5477D0C4-A10D-4FD8-8DA1-DA1EBA759933
-    TagComponent:
-      tag: meshes[0]-14
-    HierarchyComponent:
-      prev: C3EDEA88-EE89-4FE2-AC71-D44E6A5DB327
-      next: 6A33FC47-87E8-4E11-8CEB-8CCECB6C6861
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 7ef605fc8dba5425d6965fbd4c8fbe1f
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 8DDDC22C-7FFA-46C2-94CA-916FE5C1A3D3
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FB2A115-F176-493C-9538-D12504DCF847
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 6A33FC47-87E8-4E11-8CEB-8CCECB6C6861
-    IDComponent:
-      id: 6A33FC47-87E8-4E11-8CEB-8CCECB6C6861
-    TagComponent:
-      tag: meshes[0]-13
-    HierarchyComponent:
-      prev: 5477D0C4-A10D-4FD8-8DA1-DA1EBA759933
-      next: E00F1D50-2740-4C1A-9318-39F6304CCC1B
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 1385974ed5904a438616ff7bdb3f7439
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - B702321F-D4DD-47BC-9A14-B0B967533BCB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C12E90E5-6F71-4641-87A7-E13826B6DB23
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: E00F1D50-2740-4C1A-9318-39F6304CCC1B
-    IDComponent:
-      id: E00F1D50-2740-4C1A-9318-39F6304CCC1B
-    TagComponent:
-      tag: meshes[0]-12
-    HierarchyComponent:
-      prev: 6A33FC47-87E8-4E11-8CEB-8CCECB6C6861
-      next: D7059CE6-D7AA-48A8-9A6B-69F269E5B4E2
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 9b8619251a19057cff70779273e95aa6
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - FFF00821-9415-40E5-A04B-3708046CFD39
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 93EA5A1D-BD68-42E0-8D16-74B299B8F577
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: D7059CE6-D7AA-48A8-9A6B-69F269E5B4E2
-    IDComponent:
-      id: D7059CE6-D7AA-48A8-9A6B-69F269E5B4E2
-    TagComponent:
-      tag: meshes[0]-11
-    HierarchyComponent:
-      prev: E00F1D50-2740-4C1A-9318-39F6304CCC1B
-      next: F85E36AC-D11D-40DF-85D7-81D7032AC7CE
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: da4fb5c6e93e74d3df8527599fa62642
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: F85E36AC-D11D-40DF-85D7-81D7032AC7CE
-    IDComponent:
-      id: F85E36AC-D11D-40DF-85D7-81D7032AC7CE
-    TagComponent:
-      tag: meshes[0]-10
-    HierarchyComponent:
-      prev: D7059CE6-D7AA-48A8-9A6B-69F269E5B4E2
-      next: 1E4ED482-C61B-4F4B-8287-5C91EA715BD4
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 5f93f983524def3dca464469d2cf9f3e
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 8DDDC22C-7FFA-46C2-94CA-916FE5C1A3D3
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FB2A115-F176-493C-9538-D12504DCF847
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 1E4ED482-C61B-4F4B-8287-5C91EA715BD4
-    IDComponent:
-      id: 1E4ED482-C61B-4F4B-8287-5C91EA715BD4
-    TagComponent:
-      tag: meshes[0]-9
-    HierarchyComponent:
-      prev: F85E36AC-D11D-40DF-85D7-81D7032AC7CE
-      next: FC3B7872-4F04-4B56-83A0-BD77E56FA1A1
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: f899139df5e1059396431415e770c6dd
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - C7406E99-A768-4E37-81C6-48E05BBD07CE
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 5EC06FB9-BBAF-4AA4-81E5-B01B3B5CDA67
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: FC3B7872-4F04-4B56-83A0-BD77E56FA1A1
-    IDComponent:
-      id: FC3B7872-4F04-4B56-83A0-BD77E56FA1A1
-    TagComponent:
-      tag: meshes[0]-8
-    HierarchyComponent:
-      prev: 1E4ED482-C61B-4F4B-8287-5C91EA715BD4
-      next: 9A6EBBF9-B70A-44B5-881B-157AC2527AA9
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 8613985ec49eb8f757ae6439e879bb2a
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 9A6EBBF9-B70A-44B5-881B-157AC2527AA9
-    IDComponent:
-      id: 9A6EBBF9-B70A-44B5-881B-157AC2527AA9
-    TagComponent:
-      tag: meshes[0]-7
-    HierarchyComponent:
-      prev: FC3B7872-4F04-4B56-83A0-BD77E56FA1A1
-      next: 93FCCC95-5692-4116-811D-EB50EFA27FBB
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: f033ab37c30201f73f142449d037028d
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 63155B4F-7B9F-4747-AB64-9BF207D78D8E
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 33E32F6E-AEC7-426B-9DAC-57FA56FEBE80
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 93FCCC95-5692-4116-811D-EB50EFA27FBB
-    IDComponent:
-      id: 93FCCC95-5692-4116-811D-EB50EFA27FBB
-    TagComponent:
-      tag: meshes[0]-6
-    HierarchyComponent:
-      prev: 9A6EBBF9-B70A-44B5-881B-157AC2527AA9
-      next: 861606E3-8382-4AC0-859D-FE8BDFE95837
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 7cbbc409ec990f19c78c75bd1e06f215
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 8DDDC22C-7FFA-46C2-94CA-916FE5C1A3D3
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 6FB2A115-F176-493C-9538-D12504DCF847
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 861606E3-8382-4AC0-859D-FE8BDFE95837
-    IDComponent:
-      id: 861606E3-8382-4AC0-859D-FE8BDFE95837
-    TagComponent:
-      tag: meshes[0]-5
-    HierarchyComponent:
-      prev: 93FCCC95-5692-4116-811D-EB50EFA27FBB
-      next: 23849431-B37A-4771-9BB4-28A51D3D82B0
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 072b030ba126b2f4b2374f342be9ed44
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 48397C50-A097-486E-A62F-E032D5D8CD45
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: 18AA6453-A6BB-4777-96A9-EF534B47465B
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 23849431-B37A-4771-9BB4-28A51D3D82B0
-    IDComponent:
-      id: 23849431-B37A-4771-9BB4-28A51D3D82B0
-    TagComponent:
-      tag: meshes[0]-4
-    HierarchyComponent:
-      prev: 861606E3-8382-4AC0-859D-FE8BDFE95837
-      next: E1D94F19-E482-40D0-970E-E070A551EC48
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: c0c7c76d30bd3dcaefc96f40275bdc0a
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - B702321F-D4DD-47BC-9A14-B0B967533BCB
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C12E90E5-6F71-4641-87A7-E13826B6DB23
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: E1D94F19-E482-40D0-970E-E070A551EC48
-    IDComponent:
-      id: E1D94F19-E482-40D0-970E-E070A551EC48
-    TagComponent:
-      tag: meshes[0]-3
-    HierarchyComponent:
-      prev: 23849431-B37A-4771-9BB4-28A51D3D82B0
-      next: 1F8BF4D4-C129-4B19-B75E-383807923F1C
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: d645920e395fedad7bbbed0eca3fe2e0
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - E4E40A00-6461-4C70-B4B6-CEB1393ACCC9
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: B8E490AA-1281-46E4-AC8F-5BEDEF7877D3
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 1F8BF4D4-C129-4B19-B75E-383807923F1C
-    IDComponent:
-      id: 1F8BF4D4-C129-4B19-B75E-383807923F1C
-    TagComponent:
-      tag: meshes[0]-2
-    HierarchyComponent:
-      prev: E1D94F19-E482-40D0-970E-E070A551EC48
-      next: 8D5F0CFB-DC95-4D4C-89D8-3F2F38464B8B
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 34173cb38f07f89ddbebc2ac9128303f
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 076A9E75-089B-462F-A290-CD5923EDFE43
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: C33984E3-BFB7-4319-8DFC-305FD6B546DD
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 8D5F0CFB-DC95-4D4C-89D8-3F2F38464B8B
-    IDComponent:
-      id: 8D5F0CFB-DC95-4D4C-89D8-3F2F38464B8B
-    TagComponent:
-      tag: meshes[0]-1
-    HierarchyComponent:
-      prev: 1F8BF4D4-C129-4B19-B75E-383807923F1C
-      next: 621C1CF7-3B01-4E78-9A9A-E9582FB52B5A
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: 98f13708210194c475687be6106a3b84
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 0CFCC773-464C-4432-AC8D-01A939D36427
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: DD52DDF1-B6F1-4F55-836A-63A965BC8890
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
-  - Entity: 621C1CF7-3B01-4E78-9A9A-E9582FB52B5A
-    IDComponent:
-      id: 621C1CF7-3B01-4E78-9A9A-E9582FB52B5A
-    TagComponent:
-      tag: meshes[0]-0
-    HierarchyComponent:
-      prev: 8D5F0CFB-DC95-4D4C-89D8-3F2F38464B8B
-      parent: 88162319-64F8-4415-A2BF-F3936AC30FE7
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [1, 0, 0, 0]
-      scale: [1, 1, 1]
-    MeshComponent:
-      meshType: 2
-      guid: 298173B9-1D28-4962-B1C5-2FF74A5793B2
-      fileId: d3d9446802a44259755d38e6d163e820
-    MaterialComponent:
-      isEmbedded: false
-      shininess: 0
-      diffuseTextureGuids:
-        - 5FB6D6CA-FF4C-4A54-B7DD-0B108E84695D
-      diffuseColor: [0.588, 0.588, 0.588, 1]
-      specularTextureGuid: ""
-      specularColor: [1, 1, 1, 1]
-      heightTextureGuid: ""
-      normalTextureGuid: B89629B9-6526-4D4E-8D09-4776E8558C62
-      ambientTextureGuid: ""
-      ambientColor: [1, 1, 1, 1]
   - Entity: 08156642-4707-4AEF-A0B2-2BAE9EECF8B8
     IDComponent:
       id: 08156642-4707-4AEF-A0B2-2BAE9EECF8B8
     TagComponent:
       tag: camera
     HierarchyComponent:
-      prev: BD1D8AE9-A72C-492F-9CAB-87901FF9667F
-      next: 0A1BF857-F0DD-44C1-8BB4-F24D9BA1396B
+      prev: EED07A27-EDE9-4F0E-B370-FF977B165220
+      next: 79EAEF8C-93C0-40F5-BCE7-6CFF909B408F
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
       translation: [-3.20000005, 8.39999962, -23.2000008]
@@ -5071,46 +3005,25 @@ Entities:
       guid: D2D845B2-2043-44FB-AA8C-9B2CBFE8AD85
     CameraComponent:
       fov: 45
-      zNear: 0.00100000005
+      zNear: 0.0500000007
       zFar: 1e+09
       yaw: 3.18519974
       pitch: -0.17999953
-  - Entity: 0A1BF857-F0DD-44C1-8BB4-F24D9BA1396B
-    IDComponent:
-      id: 0A1BF857-F0DD-44C1-8BB4-F24D9BA1396B
-    TagComponent:
-      tag: sun
-    HierarchyComponent:
-      prev: 08156642-4707-4AEF-A0B2-2BAE9EECF8B8
-      next: 79EAEF8C-93C0-40F5-BCE7-6CFF909B408F
-      parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
-    TransformComponent:
-      translation: [0, 0, 0]
-      rotation: [0.6468274, 0.736304939, -0.149256378, -0.131118417]
-      scale: [1, 1, 1]
-    LightComponent:
-      type: 0
-      cutOff: 0.976296008
-      outerCutOff: 0.953716934
-      constant: 1
-      linear: 0.699999988
-      quadratic: 1.79999995
-      color: [1, 1, 1]
   - Entity: 79EAEF8C-93C0-40F5-BCE7-6CFF909B408F
     IDComponent:
       id: 79EAEF8C-93C0-40F5-BCE7-6CFF909B408F
     TagComponent:
       tag: scene camera
     HierarchyComponent:
-      prev: 0A1BF857-F0DD-44C1-8BB4-F24D9BA1396B
+      prev: 08156642-4707-4AEF-A0B2-2BAE9EECF8B8
       parent: 92D6F1FA-ACBF-4C0C-9120-BE2BC0979653
     TransformComponent:
-      translation: [0.0366013572, 1.42492056, 0.0906142592]
-      rotation: [-0.169906229, 0.978076816, 0.0206076857, 0.118629552]
+      translation: [1.07637954, 1.07873666, 3.20449281]
+      rotation: [-0.608801901, 0.78443408, 0.0726054311, 0.0935512334]
       scale: [1, 1, 1]
     SceneCameraComponent:
       fov: 45
-      zNear: 0.00100000005
+      zNear: 0.0500000007
       zFar: 1e+09
-      yaw: 3.48558903
-      pitch: -0.241398051
+      yaw: 4.46159077
+      pitch: -0.237397805

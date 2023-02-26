@@ -101,10 +101,15 @@ namespace Dream {
         return md5.hexdigest();
     }
 
-    std::string IDUtils::getGUIDForFile(std::string filepath) {
+    std::string IDUtils::getGUIDForFile(std::string filepath, bool crashOnFail) {
         std::string metaFilePath = filepath + ".meta";
         if (!std::filesystem::exists(metaFilePath)) {
-            Logger::fatal("Cannot find meta file for " + metaFilePath);
+            if (crashOnFail) {
+                Logger::fatal("Cannot find meta file for " + metaFilePath);
+            } else {
+                Logger::warn("Cannot find meta file for " + metaFilePath);
+                return "";
+            }
         }
         YAML::Node doc = YAML::LoadFile(metaFilePath);
         return doc["guid"].as<std::string>();

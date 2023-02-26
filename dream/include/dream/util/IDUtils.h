@@ -40,7 +40,7 @@ namespace Dream {
 
         static std::string newFileID(std::string uniqueIdentifier);
 
-        static std::string getGUIDForFile(std::string filepath);
+        static std::string getGUIDForFile(std::string filepath, bool crashOnFail=true);
     };
 }
 
