@@ -99,6 +99,12 @@ extern "C" {
 }
 
 extern "C" {
+    void setMouseMovement(float moveX, float moveY) {
+        Dream::Input::setMouseMovement(moveX, moveY);
+    }
+}
+
+extern "C" {
     int import_assets_from_folder(char const *folderName) {
         bool deleteFileAfterImporting = true;
         if (std::filesystem::exists(folderName)) {

@@ -76,7 +76,11 @@ namespace Dream {
 //        if (Input::getMouseMovement() != glm::vec2(0, 0)) {
 //            Input::setMouseMovement(Input::getMouseMovement().x / (94.0f * dt), Input::getMouseMovement().y / (94.0f * dt));
 //        }
+#ifndef EMSCRIPTEN
         Input::setMouseMovement(0, 0);
+#else
+        Input::setMouseMovement(Input::getMouseMovement().x / (94.0f * dt), Input::getMouseMovement().y / (94.0f * dt));
+#endif
         Input::setMouseScroll(0, 0);
     }
 
