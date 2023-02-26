@@ -87,9 +87,14 @@ function update(entity, dt)
 
 		-- update animation
 		-- entity:getAnimator():setVariable("speed", math.floor(translationalSpeed))
+		if Input.getButtonDown(Key.LeftShift) then
+			entity:getAnimator():setVariable("speed", 2)
+		else
+			entity:getAnimator():setVariable("speed", 1)
+		end
 	else
 		-- update animation
-		-- entity:getAnimator():setVariable("speed", 0)
+		entity:getAnimator():setVariable("speed", 0)
 	end
 
 	-- attack when mouse down
@@ -99,6 +104,7 @@ function update(entity, dt)
 		-- entity:getAnimator():setVariable("slashing", 0)
 	end
 end
+
 
 
 

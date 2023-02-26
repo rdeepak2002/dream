@@ -279,9 +279,10 @@ namespace Dream {
                 if (!entity.getComponent<Component::TerrainComponent>().terrain) {
                     // TODO: store in resource manager instead
                     // load terrain if necessary
-                    entity.getComponent<Component::TerrainComponent>().terrain = new OpenGLBaseTerrain(4.0, 200.0);
-                    auto terrainFilePath = Project::getResourceManager()->getFilePathFromGUID(entity.getComponent<Component::TerrainComponent>().guid);
-                    entity.getComponent<Component::TerrainComponent>().terrain->loadFromFile(terrainFilePath.c_str());
+//                    entity.getComponent<Component::TerrainComponent>().terrain = new OpenGLBaseTerrain(4.0, 200.0);
+//                    auto terrainFilePath = Project::getResourceManager()->getFilePathFromGUID(entity.getComponent<Component::TerrainComponent>().guid);
+//                    entity.getComponent<Component::TerrainComponent>().terrain->loadFromFile(terrainFilePath.c_str());
+                    entity.getComponent<Component::TerrainComponent>().initializeTerrain();
                 }
                 for (int i = 0; i < MAX_BONES; i++) {
                     shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", glm::mat4(1.0));

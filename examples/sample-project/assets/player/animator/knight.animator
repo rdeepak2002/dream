@@ -34,7 +34,7 @@ Transitions:
         Variable1: 0
         Operator: ">"
         Variable2Idx: -1
-        Variable2: 2
+        Variable2: 1
     Blend: true
   - To: 5
     From: 1
@@ -43,7 +43,7 @@ Transitions:
         Variable1: 0
         Operator: <
         Variable2Idx: -1
-        Variable2: 4
+        Variable2: 2
     Blend: true
   - To: 0
     From: 5
