@@ -72,12 +72,9 @@ namespace Dream {
         Input::getInstance().mouseScroll = {x, y};
     }
 
-    void Input::resetMouseDynamicState() {
-//        if (abs(Input::getMouseMovement().x) < 0.00001f && abs(Input::getMouseMovement().y) < 0.00001f) {
-//            Input::setMouseMovement(0.0f, 0.0f);
-//        }
+    void Input::resetMouseDynamicState(float dt) {
         if (Input::getMouseMovement() != glm::vec2(0, 0)) {
-            Input::setMouseMovement(Input::getMouseMovement().x / 1.5f, Input::getMouseMovement().y / 1.5f);
+            Input::setMouseMovement(Input::getMouseMovement().x / (94.0f * dt), Input::getMouseMovement().y / (94.0f * dt));
         }
         Input::setMouseScroll(0, 0);
     }

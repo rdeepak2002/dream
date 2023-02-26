@@ -119,7 +119,7 @@ namespace Dream {
                 sceneCamera.getComponent<Component::SceneCameraComponent>().updateCameraVectors();
             }
         }
-        Input::resetMouseDynamicState();
+        Input::resetMouseDynamicState(dt);
     }
 
     Entity Scene::getRootEntity() {

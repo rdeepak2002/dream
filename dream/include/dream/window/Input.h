@@ -54,7 +54,7 @@ namespace Dream {
 
         static void setMouseScroll(double x, double y);
 
-        static void resetMouseDynamicState();
+        static void resetMouseDynamicState(float dt);
 
         static void activatePointerLock(bool enablePointerLock);
 
