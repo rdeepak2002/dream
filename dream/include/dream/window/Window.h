@@ -26,7 +26,7 @@ namespace Dream {
     public:
         virtual void update(float dt);
 
-        virtual void pollEvents();
+        virtual void pollEvents(float dt);
 
         virtual void swapBuffers();
 
@@ -35,6 +35,8 @@ namespace Dream {
         virtual std::pair<int, int> getWindowDimensions();
 
         void setIsLoading(bool isLoading);
+
+        virtual void setWindowBorderColor(double r, double g, double b);
 
     protected:
         Window();

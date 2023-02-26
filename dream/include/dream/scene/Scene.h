@@ -26,6 +26,7 @@
 #include "dream/scene/system/AnimatorComponentSystem.h"
 #include "dream/scene/system/AudioComponentSystem.h"
 #include "dream/scene/system/PhysicsComponentSystem.h"
+#include "dream/scene/system/TerrainComponentSystem.h"
 
 namespace Dream {
     class Entity;
@@ -78,6 +79,7 @@ namespace Dream {
         AudioComponentSystem *audioComponentSystem;
         AnimatorComponentSystem *animatorComponentSystem;
         LuaScriptComponentSystem *luaScriptComponentSystem;
+        TerrainComponentSystem *terrainComponentSystem;
         bool shouldInitComponentSystems;
     };
 }

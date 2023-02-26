@@ -22,11 +22,12 @@
 #include <filesystem>
 #include <set>
 #include "dream/editor/ImGuiTextEditor.h"
+#include "dream/editor/ImGuiFileBrowser.h"
 
 namespace Dream {
     class ImGuiEditorProjectView {
     public:
-        ImGuiEditorProjectView(ImGuiTextEditor *fileBrowser);
+        ImGuiEditorProjectView(ImGuiTextEditor *textEditor, ImGuiFileBrowser *fileBrowser);
 
         ~ImGuiEditorProjectView();
 
@@ -38,6 +39,7 @@ namespace Dream {
         unsigned int fileIcon, folderIcon;
         std::set<std::string> ignoredExtensions;
         std::set<std::string> ignoredFileNames;
+        ImGuiFileBrowser *fileBrowser;
 
         std::vector<std::string> split(const std::string &str, const char &ch);
     };

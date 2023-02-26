@@ -14,6 +14,12 @@ Deepak Ramalingam
 
 Cross-platform and web compatible real-time 3D engine
 
+Link to web build: [https://rdeepak2002.github.io/dream/](https://rdeepak2002.github.io/dream/)
+
+[![](https://markdown-videos.deta.dev/youtube/EN5q0AlnRS8)](https://youtu.be/EN5q0AlnRS8)
+
+## Screenshots
+
 ![Screenshot](docs/images/screenshot-0.png "Editor Screenshot")
 
 ![Screenshot](docs/images/screenshot-1.png "Play View and Console Screenshot")

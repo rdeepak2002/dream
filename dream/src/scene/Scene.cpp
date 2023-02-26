@@ -25,6 +25,7 @@
 
 namespace Dream {
     Scene::Scene() {
+        terrainComponentSystem = new TerrainComponentSystem();
         physicsComponentSystem = new PhysicsComponentSystem();
         audioComponentSystem = new AudioComponentSystem();
         animatorComponentSystem = new AnimatorComponentSystem();
@@ -32,6 +33,7 @@ namespace Dream {
     }
 
     Scene::~Scene() {
+        delete terrainComponentSystem;
         delete physicsComponentSystem;
         delete audioComponentSystem;
         delete animatorComponentSystem;
@@ -60,6 +62,7 @@ namespace Dream {
 
     void Scene::update(float dt) {
         if (shouldInitComponentSystems) {
+            terrainComponentSystem->init();
             physicsComponentSystem->init();
             animatorComponentSystem->init();
             audioComponentSystem->init();
@@ -72,6 +75,8 @@ namespace Dream {
     }
 
     void Scene::resetComponentSystems() {
+        delete terrainComponentSystem;
+        terrainComponentSystem = nullptr;
         delete physicsComponentSystem;
         physicsComponentSystem = nullptr;
         delete animatorComponentSystem;
@@ -81,6 +86,7 @@ namespace Dream {
         delete luaScriptComponentSystem;
         luaScriptComponentSystem = nullptr;
 
+        terrainComponentSystem = new TerrainComponentSystem();
         physicsComponentSystem = new PhysicsComponentSystem();
         audioComponentSystem = new AudioComponentSystem();
         animatorComponentSystem = new AnimatorComponentSystem();
@@ -92,8 +98,10 @@ namespace Dream {
         if (Project::isPlaying() && !shouldInitComponentSystems) {
             audioComponentSystem->update(dt);
             luaScriptComponentSystem->update(dt);
+            terrainComponentSystem->update(dt);
             physicsComponentSystem->update(dt);
         } else if (!Project::isPlaying()) {
+            terrainComponentSystem->update(dt);
             physicsComponentSystem->update(0.0);
         }
         if (Project::isPlaying()) {
@@ -111,7 +119,7 @@ namespace Dream {
                 sceneCamera.getComponent<Component::SceneCameraComponent>().updateCameraVectors();
             }
         }
-        Input::resetMouseDynamicState();
+        Input::resetMouseDynamicState(dt);
     }
 
     Entity Scene::getRootEntity() {

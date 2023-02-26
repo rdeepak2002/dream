@@ -72,7 +72,10 @@
     <p style="color: white;" id="output">Test</p>
 </div>
 
-<canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+<canvas ondrop="dropHandler(event);"
+        ondragover="dragOverHandler(event);"
+        id="canvas"
+        oncontextmenu="event.preventDefault()"></canvas>
 
 <script type='text/javascript'>
     const outputElement = document.getElementById('output');
@@ -102,6 +105,13 @@
                     disablePointerLock();
                 }
             }
+            let onMouseMovement = Module.cwrap('setMouseMovement', null, ['number', 'number']);
+            let updatePosition = (event) => {
+                if (event && event.movementX && event.movementY) {
+                    onMouseMovement(event.movementX * 0.5, event.movementY * 0.5);
+                }
+            }
+            window.addEventListener("mousemove", updatePosition, false);
         },
         totalDependencies: 0,
         monitorRunDependencies: function(left) {
@@ -179,6 +189,92 @@
             addScriptToDom(data);
         });
     });
+
+    function dropHandler(event) {
+        event.preventDefault();
+        const webTemporaryFolderName = 'web_tmp';
+
+        const traverseFileTree = async (item, path) => {
+            path = path || "";
+            return new Promise((resolve, reject) => {
+                if (item.isFile) {
+                    // Get file
+                    item.file((file) => {
+                        const fileReader = new FileReader();
+                        fileReader.readAsArrayBuffer(file);
+                        // fileReader.readAsText(file, "UTF-8");
+                        fileReader.onload = async (e) => {
+                            try {
+                                Module.FS.mkdir(webTemporaryFolderName);
+                            } catch (e) {
+                                // folder already exists
+                            }
+                            const dstFolder = `${webTemporaryFolderName}/${path}`;
+                            try {
+                                Module.FS.mkdir(dstFolder);
+                            } catch (e) {
+                                // folder already exists
+                            }
+                            const storedFilePath = `${dstFolder}${file.name}`;
+                            try {
+                                Module.FS.writeFile(storedFilePath, new Uint8Array(e.target.result));
+                            } catch (e) {
+                                console.error('Error writing to file', storedFilePath);
+                            }
+                            // const res = Module.ccall('import_assets_from_folder', 'number', ['string'], [webTemporaryFolderName]);
+                            resolve(0);
+                        };
+
+                        fileReader.onerror = (error) => {
+                            console.log('yo');
+                            console.error(file);
+                            reject(error);
+                        };
+                    });
+                } else if (item.isDirectory) {
+                    // Get folder contents
+                    const dirReader = item.createReader();
+                    dirReader.readEntries(async function (entries) {
+                        for (let i = 0; i < entries.length; i++) {
+                            const dstFolder = `${webTemporaryFolderName}/${path + item.name}/`;
+                            try {
+                                Module.FS.mkdir(dstFolder);
+                                console.log(dstFolder);
+                            } catch (e) {
+                                // folder already exists
+                            }
+                            await traverseFileTree(entries[i], path + item.name + "/");
+                        }
+                        resolve(0);
+                    });
+                }
+            });
+        }
+
+        const items = event?.dataTransfer?.items;
+        if (items) {
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i].webkitGetAsEntry();
+                if (item) {
+                    try {
+                        Module.FS.mkdir(webTemporaryFolderName);
+                    } catch (e) {
+                        // folder already exists
+                    }
+                    traverseFileTree(item).then((res) => {
+                        console.log('Importing to engine');
+                        Module.ccall('import_assets_from_folder', 'number', ['string'], [webTemporaryFolderName]);
+                    });
+                }
+            }
+        } else {
+            alert("Unable to import files in this browser.");
+        }
+    }
+
+    function dragOverHandler(event) {
+        event.preventDefault();
+    }
 </script>
 </body>
 </html>

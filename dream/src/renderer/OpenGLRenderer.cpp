@@ -53,6 +53,10 @@ namespace Dream {
                                         Project::getPath().append("assets").append("shaders").append(
                                                 "shadow_mapping_depth.frag").c_str(), nullptr);
 
+        terrainShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("terrain_shader.vert").c_str(),
+                                             Project::getPath().append("assets").append("shaders").append(
+                                                     "terrain_shader.frag").c_str(), nullptr);
+
         skybox = new OpenGLSkybox();
 
         outputRenderTextureFbo = new OpenGLFrameBuffer();
@@ -65,7 +69,16 @@ namespace Dream {
 
         // TODO: maybe encapsulate this in directional light shadow tech?
         for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
-            const unsigned int SHADOW_WIDTH = 1024 * 8, SHADOW_HEIGHT = 1024 * 8;
+            int scale = 1;
+            if (i == 0) {
+                scale = 8;
+            } else if (i == 1) {
+                scale = 4;
+            } else {
+                scale = 2;
+            }
+
+            const unsigned int SHADOW_WIDTH = 1024 * scale, SHADOW_HEIGHT = 1024 * scale;
             auto shadowMapFbo = new OpenGLShadowMapFBO((int) SHADOW_WIDTH, (int) SHADOW_HEIGHT);
             shadowMapFbos.push_back(shadowMapFbo);
         }
@@ -92,6 +105,7 @@ namespace Dream {
         delete this->lightingTech;
         delete this->directionalLightShadowTech;
         delete this->skinningTech;
+        delete this->terrainShader;
     }
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
@@ -103,6 +117,10 @@ namespace Dream {
         std::optional<Camera> maybeCamera;
         auto sceneCameraEntity = Project::getScene()->getSceneCamera();
         auto mainCameraEntity = Project::getScene()->getMainCamera();
+
+        // update viewport width and height (so relative mouse position on a [-1, 1] range can be calculated)
+        Input::getInstance().setRendererDimensions(viewportWidth, viewportHeight);
+
         // TODO: make camera use global position of entity for camera position
         if (sceneCameraEntity && !Project::isPlaying()) {
             maybeCamera = {(float) viewportWidth * 2.0f, (float) viewportHeight * 2.0f};
@@ -120,19 +138,24 @@ namespace Dream {
 
             {
                 // render scene from light's point of view
+#ifndef EMSCRIPTEN
                 glEnable(GL_DEPTH_CLAMP);
+#endif
                 for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
                     simpleDepthShader->use();
                     simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrices.at(i));
                     glViewport(0, 0, (int) shadowMapFbos.at(i)->getWidth(), (int) shadowMapFbos.at(i)->getHeight());
                     shadowMapFbos.at(i)->bind();
                     glClear(GL_DEPTH_BUFFER_BIT);
-                    drawEntities(Project::getScene()->getRootEntity(), simpleDepthShader);
+                    drawTerrains(camera, simpleDepthShader);
+                    drawEntities(Project::getScene()->getRootEntity(), camera, simpleDepthShader);
                     shadowMapFbos.at(i)->unbind();
                     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
                 }
+#ifndef EMSCRIPTEN
                 glDisable(GL_DEPTH_CLAMP);
+#endif
             }
 
             {
@@ -155,7 +178,6 @@ namespace Dream {
                     lightingShader->setFloat("farPlane", camera.zFar);
                     glm::vec3 viewPos = camera.position;
                     lightingShader->setVec3("viewPos", viewPos);
-                    // TODO: rename uniform to shadowDirectionalLightDir
                     lightingShader->setVec3("shadowDirectionalLightDir", directionalLightShadowTech->getDirectionalLightDirection());
                     for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
                         lightingShader->setMat4("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices.at(i));
@@ -164,13 +186,35 @@ namespace Dream {
                     for (int i = 0; i < shadowCascadeLevels.size(); ++i) {
                         lightingShader->setFloat("cascadePlaneDistances[" + std::to_string(i) + "]", shadowCascadeLevels.at(i));
                     }
-                    drawEntities(Project::getScene()->getRootEntity(), lightingShader);
+                    drawEntities(Project::getScene()->getRootEntity(), camera, lightingShader);
                 } else {
                     singleTextureShader->use();
                     singleTextureShader->setMat4("projection", camera.getProjectionMatrix());
                     singleTextureShader->setMat4("view", camera.getViewMatrix());
-                    drawEntities(Project::getScene()->getRootEntity(), singleTextureShader);
+                    drawEntities(Project::getScene()->getRootEntity(), camera, singleTextureShader);
                 }
+            }
+
+            {
+                glEnable(GL_CULL_FACE);
+                glCullFace(GL_BACK);
+                // draw terrains
+                terrainShader->use();
+                terrainShader->setMat4("projection", camera.getProjectionMatrix());
+                terrainShader->setMat4("view", camera.getViewMatrix());
+                terrainShader->setFloat("farPlane", camera.zFar);
+                glm::vec3 viewPos = camera.position;
+                terrainShader->setVec3("viewPos", viewPos);
+                terrainShader->setVec3("shadowDirectionalLightDir", directionalLightShadowTech->getDirectionalLightDirection());
+                for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
+                    terrainShader->setMat4("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices.at(i));
+                }
+                auto shadowCascadeLevels = directionalLightShadowTech->getShadowCascadeLevels(camera);
+                for (int i = 0; i < shadowCascadeLevels.size(); ++i) {
+                    terrainShader->setFloat("cascadePlaneDistances[" + std::to_string(i) + "]", shadowCascadeLevels.at(i));
+                }
+                drawTerrains(camera, terrainShader);
+                glDisable(GL_CULL_FACE);
             }
 
             {
@@ -226,7 +270,33 @@ namespace Dream {
         }
     }
 
-    void OpenGLRenderer::drawEntities(Entity entity, OpenGLShader* shader) {
+    void OpenGLRenderer::drawTerrains(Camera camera, OpenGLShader* shader) {
+        auto terrainEntities = Project::getScene()->getEntitiesWithComponents<Component::TerrainComponent>();
+        for (auto entityHandle: terrainEntities) {
+            Entity entity = {entityHandle, Project::getScene()};
+            // render terrain
+            if (!entity.getComponent<Component::TerrainComponent>().guid.empty()) {
+                if (!entity.getComponent<Component::TerrainComponent>().terrain) {
+                    // TODO: store in resource manager instead
+                    // load terrain if necessary
+//                    entity.getComponent<Component::TerrainComponent>().terrain = new OpenGLBaseTerrain(4.0, 200.0);
+//                    auto terrainFilePath = Project::getResourceManager()->getFilePathFromGUID(entity.getComponent<Component::TerrainComponent>().guid);
+//                    entity.getComponent<Component::TerrainComponent>().terrain->loadFromFile(terrainFilePath.c_str());
+                    entity.getComponent<Component::TerrainComponent>().initializeTerrain();
+                }
+                for (int i = 0; i < MAX_BONES; i++) {
+                    shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", glm::mat4(1.0));
+                }
+                glm::mat4 model = entity.getComponent<Component::TransformComponent>().getTransform(entity);
+                shader->setMat4("model", model);
+                lightingTech->setTextureAndColorUniforms(entity, shadowMapFbos, directionalLightShadowTech, shader);
+                entity.getComponent<Component::TerrainComponent>().terrain->setShaderUniforms(shader);
+                entity.getComponent<Component::TerrainComponent>().terrain->render();
+            }
+        }
+    }
+
+    void OpenGLRenderer::drawEntities(Entity entity, Camera camera, OpenGLShader* shader) {
         // set bones for animated meshes
         skinningTech->setJointUniforms(entity, shader);
 
@@ -259,7 +329,7 @@ namespace Dream {
         // draw child entities
         Entity child = entity.getComponent<Component::HierarchyComponent>().first;
         while (child) {
-            drawEntities(child, shader);
+            drawEntities(child, camera, shader);
             child = child.getComponent<Component::HierarchyComponent>().next;
         }
     }
@@ -303,6 +373,7 @@ namespace Dream {
     }
 
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
+//        return this->shadowMapFbos.at(0)->getTexture();
         return this->outputRenderTextureFbo->getTexture();
     }
 }

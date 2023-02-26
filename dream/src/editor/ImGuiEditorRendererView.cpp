@@ -50,6 +50,12 @@ namespace Dream {
                         "CollapseIcon.png"), false);
         collapseIcon = collapseIconTexture->ID();
         delete collapseIconTexture;
+        // TODO: use specific renderer (not OpenGL)
+        Texture *wrenchIconTexture = new OpenGLTexture(
+                Application::getResourcesRoot().append("assets").append("icons").append(
+                        "WrenchIconDark.png"), false);
+        wrenchIcon = wrenchIconTexture->ID();
+        delete wrenchIconTexture;
     }
 
     void ImGuiEditorRendererView::update(int &rendererViewportWidth, int &rendererViewportHeight,
@@ -79,6 +85,65 @@ namespace Dream {
             }
         }
         ImGui::SameLine();
+        // TODO: instead of "gizmos" show wrench or gear icon
+        auto gizmosTextWidth = ImGui::CalcTextSize("  ").x + 10.0f;
+        ImGui::SetCursorPosX(ImGui::GetWindowContentRegionWidth() - btnWidth - gizmosTextWidth);
+        {
+            ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 2.0);
+            ImGui::Image((void *) (intptr_t) wrenchIcon, ImVec2(btnWidth, btnWidth)), ImVec2(1, 1), ImColor(255, 255, 255, 255), ImColor(255, 255, 255, 128);
+            ImGui::SameLine();
+            ImGui::SetCursorPosX(ImGui::GetWindowContentRegionWidth() - btnWidth - gizmosTextWidth);
+            // gizmos debug panel
+            ImGui::PushItemWidth(gizmosTextWidth);
+            ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.0, 0.0, 0.0, 0.0));
+            ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, ImVec4(0.0, 0.0, 0.0, 0.0));
+            if (ImGui::BeginCombo("##gizmos", "  ", ImGuiComboFlags_NoArrowButton)) {
+                ImGui::PopStyleColor();
+                ImGui::PopStyleColor();
+                ImGui::Checkbox("Physics debugger", &(Project::getConfig().physicsConfig.physicsDebugger));
+                ImGui::Checkbox("Physics debugger depth test", &(Project::getConfig().physicsConfig.depthTest));
+                ImGui::Checkbox("Physics debugger while playing", &(Project::getConfig().physicsConfig.physicsDebuggerWhilePlaying));
+                ImGui::Checkbox("Play animation in editor", &(Project::getConfig().animationConfig.playInEditor));
+                // drop-down for rendering debugger views
+                {
+                    ImGui::PushItemWidth(ImGui::GetWindowContentRegionWidth());
+                    std::string dropdownPreview = "";
+                    if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
+                        dropdownPreview = "Final Render";
+                    } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::DIFFUSE) {
+                        dropdownPreview = "Diffuse Render";
+                    } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::SPECULAR) {
+                        dropdownPreview = "Specular Render";
+                    } else if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::NORMAL) {
+                        dropdownPreview = "Normal Render";
+                    } else {
+                        Logger::fatal("Unknown rendering config type " + std::to_string(static_cast<int>(Project::getConfig().renderingConfig.renderingType)));
+                    }
+                    if (ImGui::BeginCombo("##Change Rendering Type", dropdownPreview.c_str())) {
+                        if (ImGui::Selectable("Final Render")) {
+                            Project::getConfig().renderingConfig.renderingType = Config::RenderingConfig::FINAL;
+                        }
+                        if (ImGui::Selectable("Diffuse Render")) {
+                            Project::getConfig().renderingConfig.renderingType = Config::RenderingConfig::DIFFUSE;
+                        }
+                        if (ImGui::Selectable("Specular Render")) {
+                            Project::getConfig().renderingConfig.renderingType = Config::RenderingConfig::SPECULAR;
+                        }
+                        if (ImGui::Selectable("Normal Render")) {
+                            Project::getConfig().renderingConfig.renderingType = Config::RenderingConfig::NORMAL;
+                        }
+                        ImGui::EndCombo();
+                    }
+                    ImGui::PopItemWidth();
+                }
+                ImGui::EndCombo();
+            } else {
+                ImGui::PopStyleColor();
+                ImGui::PopStyleColor();
+            }
+            ImGui::PopItemWidth();
+        }
+        ImGui::SameLine();
         ImGui::SetCursorPosX(ImGui::GetWindowContentRegionWidth() - btnWidth);
         if (Project::isEditorFullscreen()) {
             if (ImGui::ImageButton("CollapseBtn", (void *) (intptr_t) collapseIcon, ImVec2(btnWidth, btnWidth))) {
@@ -100,6 +165,7 @@ namespace Dream {
         float height = vMax.y - vMin.y - buttonHeight;
         rendererViewportWidth = int(width);
         rendererViewportHeight = int(height);
+        Input::setEditorMousePositionOffset(ImGui::GetCursorScreenPos().x, ImGui::GetCursorScreenPos().y);
         ImGui::Image(reinterpret_cast<ImTextureID>(frameBufferTexture), ImVec2(width, height), ImVec2(0, 1),
                      ImVec2(1, 0));
         Input::setPlayWindowActive(true);

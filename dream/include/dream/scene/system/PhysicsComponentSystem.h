@@ -20,6 +20,7 @@
 #define DREAM_PHYSICSCOMPONENTSYSTEM_H
 
 #include <btBulletDynamicsCommon.h>
+#include <BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h>
 #include <glm/glm.hpp>
 #include <vector>
 #include "dream/renderer/OpenGLPhysicsDebugDrawer.h"

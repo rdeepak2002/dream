@@ -33,6 +33,7 @@
 #include "dream/renderer/LightingTech.h"
 #include "Camera.h"
 #include "SkinningTech.h"
+#include "dream/renderer/OpenGLBaseTerrain.h"
 
 namespace Dream {
     class OpenGLRenderer : public Renderer {
@@ -51,6 +52,7 @@ namespace Dream {
         OpenGLShader *physicsDebugShader;
         OpenGLShader *skyboxShader;
         OpenGLShader *simpleDepthShader;
+        OpenGLShader *terrainShader;
         OpenGLFrameBuffer *outputRenderTextureFbo;
         std::vector<OpenGLShadowMapFBO *> shadowMapFbos;
         LightingTech *lightingTech;
@@ -62,7 +64,9 @@ namespace Dream {
 
         void printGLVersion();
 
-        void drawEntities(Entity entity, OpenGLShader *shader);
+        void drawTerrains(Camera camera, OpenGLShader* shader);
+
+        void drawEntities(Entity entity, Camera camera, OpenGLShader *shader);
 
         void drawMesh(std::shared_ptr<OpenGLMesh> openGLMesh);
 

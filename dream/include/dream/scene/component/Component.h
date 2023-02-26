@@ -30,6 +30,7 @@
 #include "dream/renderer/AnimationData.h"
 #include "dream/renderer/AssimpNodeData.h"
 #include "dream/renderer/Camera.h"
+#include "dream/renderer/OpenGLBaseTerrain.h"
 
 namespace Dream::Component {
     struct Component {
@@ -345,36 +346,6 @@ namespace Dream::Component {
         static void serialize(YAML::Emitter &out, Entity &entity);
     };
 
-//    struct CameraComponent : public Component {
-//        inline static std::string componentName = "CameraComponent";
-//        inline static std::string k_fov = "fov";
-//        float fov = 45.0f;
-//        inline static std::string k_zNear = "zNear";
-//        float zNear = 0.1f;
-//        inline static std::string k_zFar = "zFar";
-//        float zFar = 100.0f;
-//        inline static std::string k_lookAt = "lookAt";
-//        glm::vec3 lookAt = {0, 0, 0};
-//        inline static std::string k_front = "front";
-//        glm::vec3 front;
-//        inline static std::string k_up = "up";
-//        glm::vec3 up;
-//        inline static std::string k_right = "right";
-//        glm::vec3 right;
-//        inline static std::string k_worldUp = "worldUp";
-//        glm::vec3 worldUp = {0, -1.f, 0};
-//
-//        explicit CameraComponent(float fov);
-//
-//        glm::mat4 getViewMatrix(Entity camera);
-//
-//        void updateCameraVectors(Entity camera);
-//
-//        static void deserialize(YAML::Node node, Entity &entity);
-//
-//        static void serialize(YAML::Emitter &out, Entity &entity);
-//    };
-
     struct CameraComponent : public Component {
         inline static std::string componentName = "CameraComponent";
         inline static std::string k_fov = "fov";
@@ -420,11 +391,19 @@ namespace Dream::Component {
         inline static std::string k_pitch = "pitch";
         float pitch;
 
+        enum Mode {
+            MOVE_1,
+            TERRAIN_PAINT
+        };
+
         // computed during runtime
         glm::vec3 front;
         glm::vec3 up;
         glm::vec3 right;
         glm::vec3 worldUp;
+
+        // runtime mode of scene camera
+        Mode mode = Mode::MOVE_1;
 
         explicit SceneCameraComponent(float fov);
 
@@ -447,7 +426,7 @@ namespace Dream::Component {
             X, Y, Z
         };
         enum ColliderType {
-            BOX, CAPSULE, CONE, CYLINDER, MESH, SPHERE
+            BOX, CAPSULE, CONE, CYLINDER, MESH, SPHERE, HEIGHT_MAP
         };
         struct Collider {
             // type of collision primitive
@@ -477,9 +456,17 @@ namespace Dream::Component {
         // runtime created collider shape
         int colliderShapeIndex = -1;
 
+        // runtime height map
+        float *heightMapData = nullptr;
+//        Array2D<float> heightMapData;
+//        std::vector<std::vector<float>> heightMapData;
+//        float heightMapData[257][257];
+
+        CollisionComponent();
+
         ~CollisionComponent();
 
-        void updateColliderShape();
+        void updateColliderShape(Entity &entity);
 
         static void deserialize(YAML::Node node, Entity &entity);
 
@@ -525,6 +512,8 @@ namespace Dream::Component {
         ~RigidBodyComponent();
 
         void updateRigidBody(Entity &entity);
+
+        void setTranslation(glm::vec3 translation);
 
         void setLinearVelocity(glm::vec3 newLinearVelocity);
 
@@ -580,6 +569,26 @@ namespace Dream::Component {
         // color of light (multiplied by material's ambient, diffuse, specular, etc. to compute final color)
         inline static std::string k_color = "color";
         glm::vec3 color = {1, 1, 1};
+
+        static void deserialize(YAML::Node node, Entity &entity);
+
+        static void serialize(YAML::Emitter &out, Entity &entity);
+    };
+
+    struct TerrainComponent : public Component {
+        ~TerrainComponent();
+
+        inline static std::string componentName = "TerrainComponent";
+
+        // type of light
+        inline static std::string k_guid = "guid";
+        std::string guid = "";
+
+        // TODO: store in resource manager instance instead
+        // runtime OpenGL terrain reference
+        OpenGLBaseTerrain *terrain = nullptr;
+
+        void initializeTerrain();
 
         static void deserialize(YAML::Node node, Entity &entity);
 

@@ -39,7 +39,7 @@ namespace Dream {
     }
 
     glm::vec2 Input::getMousePosition() {
-        return Input::getInstance().mousePosition;
+        return Input::getInstance().mousePosition - Input::getInstance().editorMousePositionOffset;
     }
 
     void Input::setMousePosition(double x, double y) {
@@ -72,8 +72,15 @@ namespace Dream {
         Input::getInstance().mouseScroll = {x, y};
     }
 
-    void Input::resetMouseDynamicState() {
+    void Input::resetMouseDynamicState(float dt) {
+//        if (Input::getMouseMovement() != glm::vec2(0, 0)) {
+//            Input::setMouseMovement(Input::getMouseMovement().x / (94.0f * dt), Input::getMouseMovement().y / (94.0f * dt));
+//        }
+#ifndef EMSCRIPTEN
         Input::setMouseMovement(0, 0);
+#else
+        Input::setMouseMovement(Input::getMouseMovement().x / (94.0f * dt), Input::getMouseMovement().y / (94.0f * dt));
+#endif
         Input::setMouseScroll(0, 0);
     }
 
@@ -99,5 +106,31 @@ namespace Dream {
 
     void Input::setPlayWindowActive(bool playWindowActive) {
         Input::getInstance().playWindowActive = playWindowActive;
+    }
+
+    void Input::setEditorMousePositionOffset(double x, double y) {
+        Input::getInstance().editorMousePositionOffset = {x , y};
+    }
+
+    void Input::setRendererDimensions(int width, int height) {
+        Input::getInstance().rendererWidth = width;
+        Input::getInstance().rendererHeight = height;
+    }
+
+    glm::vec2 Input::getRelativeMousePosition() {
+        float w = (float) Input::getInstance().rendererWidth;
+        float h = (float) Input::getInstance().rendererHeight;
+        if (w == 0 || h == 0) {
+            return {0, 0};
+        }
+        glm::vec2 res = Input::getMousePosition();
+        res.x /= (w * 0.5f);
+        res.y /= (h * 0.5f);
+        res = res - glm::vec2{1.0, 1.0};
+        return res;
+    }
+
+    std::pair<int, int> Input::getRendererDimensions() {
+        return {Input::getInstance().rendererWidth, Input::getInstance().rendererHeight};
     }
 }

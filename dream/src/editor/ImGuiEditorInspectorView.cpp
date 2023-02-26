@@ -90,6 +90,7 @@ namespace Dream {
                 renderCollisionComponent();
                 renderRigidBodyComponent();
                 renderLightComponent();
+                renderTerrainComponent();
                 renderAddComponent();
                 renderRemoveComponent();
             }
@@ -122,6 +123,8 @@ namespace Dream {
                 selectedEntity.addComponent<Component::RigidBodyComponent>();
             } else if (componentID == Component::LightComponent::componentName) {
                 selectedEntity.addComponent<Component::LightComponent>();
+            } else if (componentID == Component::TerrainComponent::componentName) {
+                selectedEntity.addComponent<Component::TerrainComponent>();
             } else {
                 Logger::fatal("Unknown component to add " + componentID);
             }
@@ -172,6 +175,10 @@ namespace Dream {
 
         if (!selectedEntity.hasComponent<Component::LightComponent>()) {
             components.insert(std::make_pair("Light", Component::LightComponent::componentName));
+        }
+
+        if (!selectedEntity.hasComponent<Component::TerrainComponent>()) {
+            components.insert(std::make_pair("Terrain", Component::TerrainComponent::componentName));
         }
 
         if (!selectedEntity.hasComponent<Component::RootComponent>() && !components.empty()) {
@@ -412,6 +419,40 @@ namespace Dream {
     void ImGuiEditorInspectorView::renderMaterialComponent() {
         if (selectedEntity.hasComponent<Component::MaterialComponent>()) {
             float cursorPosX1 = ImGui::GetCursorPosX();
+
+            // update file browsers
+            {
+                if (diffuseTextureBrowser) {
+                    diffuseTextureBrowser->Display();
+                    if (diffuseTextureBrowser->HasSelected()) {
+                        std::filesystem::path selectedFilePath = diffuseTextureBrowser->GetSelected();
+                        if (selectedEntity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.empty()) {
+                            selectedEntity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.emplace_back("");
+                        }
+                        selectedEntity.getComponent<Component::MaterialComponent>().diffuseTextureGuids.at(0) = IDUtils::getGUIDForFile(selectedFilePath);
+                        diffuseTextureBrowser->ClearSelected();
+                    }
+                }
+
+                if (normalTextureBrowser) {
+                    normalTextureBrowser->Display();
+                    if (normalTextureBrowser->HasSelected()) {
+                        std::filesystem::path selectedFilePath = normalTextureBrowser->GetSelected();
+                        selectedEntity.getComponent<Component::MaterialComponent>().normalTextureGuid = IDUtils::getGUIDForFile(selectedFilePath);
+                        normalTextureBrowser->ClearSelected();
+                    }
+                }
+
+                if (specularTextureBrowser) {
+                    specularTextureBrowser->Display();
+                    if (specularTextureBrowser->HasSelected()) {
+                        std::filesystem::path selectedFilePath = specularTextureBrowser->GetSelected();
+                        selectedEntity.getComponent<Component::MaterialComponent>().specularTextureGuid = IDUtils::getGUIDForFile(selectedFilePath);
+                        specularTextureBrowser->ClearSelected();
+                    }
+                }
+            }
+
             auto &component = selectedEntity.getComponent<Component::MaterialComponent>();
             bool treeNodeOpen = ImGui::TreeNodeEx("##Material",
                                                   ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
@@ -441,8 +482,54 @@ namespace Dream {
                     ImGui::SameLine();
                     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
                     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
-                    if (ImGui::ImageButton("##Select Material", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
-                        Logger::debug("TODO: allow selection of diffuse texture"); // TODO
+                    if (ImGui::ImageButton("##Select Material Diffuse", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
+                        delete diffuseTextureBrowser;
+                        diffuseTextureBrowser = new ImGui::FileBrowser();
+                        diffuseTextureBrowser->SetTitle("select diffuse texture");
+                        diffuseTextureBrowser->SetPwd(Project::getPath());
+                        diffuseTextureBrowser->Open();
+                    }
+                    ImGui::PopStyleVar();
+                    ImGui::PopStyleColor();
+                }
+                // normal texture input
+                {
+                    std::string diffuseTexturePath = StringUtils::getFilePathRelativeToProjectFolder(
+                            Project::getResourceManager()->getFilePathFromGUID(component.normalTextureGuid));
+                    ImGui::Text("Normal Texture");
+                    float cursorPosX3 = ImGui::GetCursorPosX();
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 18);
+                    ImGui::InputText("##NormalTexturePath", &diffuseTexturePath, ImGuiInputTextFlags_ReadOnly);
+                    ImGui::SameLine();
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                    if (ImGui::ImageButton("##Select Material Normal", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
+                        delete normalTextureBrowser;
+                        normalTextureBrowser = new ImGui::FileBrowser();
+                        normalTextureBrowser->SetTitle("select normal texture");
+                        normalTextureBrowser->SetPwd(Project::getPath());
+                        normalTextureBrowser->Open();
+                    }
+                    ImGui::PopStyleVar();
+                    ImGui::PopStyleColor();
+                }
+                // specular texture input
+                {
+                    std::string diffuseTexturePath = StringUtils::getFilePathRelativeToProjectFolder(
+                            Project::getResourceManager()->getFilePathFromGUID(component.specularTextureGuid));
+                    ImGui::Text("Specular Texture");
+                    float cursorPosX3 = ImGui::GetCursorPosX();
+                    ImGui::SetNextItemWidth(ImGui::GetWindowContentRegionWidth() - (cursorPosX2) - 18);
+                    ImGui::InputText("##SpecularTexturePath", &diffuseTexturePath, ImGuiInputTextFlags_ReadOnly);
+                    ImGui::SameLine();
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+                    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+                    if (ImGui::ImageButton("##Select Material Specular", (void *) (intptr_t) selectIcon, ImVec2(18, 18))) {
+                        delete specularTextureBrowser;
+                        specularTextureBrowser = new ImGui::FileBrowser();
+                        specularTextureBrowser->SetTitle("select specular texture");
+                        specularTextureBrowser->SetPwd(Project::getPath());
+                        specularTextureBrowser->Open();
                     }
                     ImGui::PopStyleVar();
                     ImGui::PopStyleColor();
@@ -762,6 +849,8 @@ namespace Dream {
                             dropdownPreview = "Mesh";
                         } else if (collider.type == Component::CollisionComponent::SPHERE) {
                             dropdownPreview = "Sphere";
+                        } else if (collider.type == Component::CollisionComponent::HEIGHT_MAP) {
+                            dropdownPreview = "Terrain";
                         } else {
                             Logger::fatal("Unknown collider type " + std::to_string(static_cast<int>(collider.type)));
                         }
@@ -786,6 +875,18 @@ namespace Dream {
                             }
                             if (ImGui::Selectable("Cylinder")) {
                                 collider.type = Component::CollisionComponent::CYLINDER;
+                            }
+                            if (selectedEntity.hasComponent<Component::TerrainComponent>()) {
+                                if (ImGui::Selectable("Terrain")) {
+                                    if (!selectedEntity.hasComponent<Component::TerrainComponent>()) {
+                                        Logger::error("Cannot add terrain collider to non-terrain entity");
+                                    }
+                                    collider.type = Component::CollisionComponent::HEIGHT_MAP;
+                                    collider.offset = selectedEntity.getComponent<Component::TransformComponent>().translation;
+                                    collider.offset.x *= -1;
+                                    collider.offset.y += 100.0f;
+                                    collider.offset.z *= -1;
+                                }
                             }
                             if (collider.type != oldColliderType) {
                                 updateColliderAndRigidBody();
@@ -1200,6 +1301,79 @@ namespace Dream {
         }
     }
 
+    void ImGuiEditorInspectorView::renderTerrainComponent() {
+        if (selectedEntity.hasComponent<Component::TerrainComponent>()) {
+            auto &component = selectedEntity.getComponent<Component::TerrainComponent>();
+            bool treeNodeOpen = ImGui::TreeNodeEx("##Terrain",
+                                                  ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth |
+                                                  ImGuiTreeNodeFlags_AllowItemOverlap);
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+            ImGui::SameLine();
+            ImGui::Text("Terrain");
+            ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 5);
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+            if (ImGui::Button("X", ImVec2(0.f, 0.f))) {
+                selectedEntity.removeComponent<Component::TerrainComponent>();
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+            auto cursorPosX1 = ImGui::GetCursorPosX();
+
+            if (treeNodeOpen) {
+                auto cursorPosX2 = ImGui::GetCursorPosX();
+                auto treeNodeWidth = ImGui::GetWindowContentRegionWidth() - (cursorPosX2 - cursorPosX1);
+                // guid
+//                {
+//                    if (component.guid.empty()) {
+//                        ImGui::Text("None");
+//                    } else {
+//                        ImGui::Text("%s", component.guid.c_str());
+//                    }
+//                }
+                // button to paint
+                {
+                    auto sceneCameraEntity = Project::getScene()->getSceneCamera();
+                    if (sceneCameraEntity) {
+                        auto &sceneCameraComponent = sceneCameraEntity.getComponent<Component::SceneCameraComponent>();
+                        if (sceneCameraComponent.mode == Component::SceneCameraComponent::MOVE_1) {
+                            if (ImGui::Button("Paint")) {
+                                sceneCameraComponent.mode = Component::SceneCameraComponent::TERRAIN_PAINT;
+                            }
+                        } else if (sceneCameraComponent.mode == Component::SceneCameraComponent::TERRAIN_PAINT) {
+                            if (ImGui::Button("Stop Painting")) {
+                                sceneCameraComponent.mode = Component::SceneCameraComponent::MOVE_1;
+                            }
+                        }
+                    }
+                }
+                // button to clear
+                {
+                    if (ImGui::Button("Clear")) {
+                        if (component.terrain) {
+                            for (int x = 0; x < component.terrain->getSize(); ++x) {
+                                for (int z = 0; z < component.terrain->getSize(); ++z) {
+                                    component.terrain->setHeight(x, z, 0.0f);
+                                }
+                            }
+                            component.terrain->refreshTerrainTriangleList();
+                        }
+                    }
+                }
+                // save button
+                {
+                    if (ImGui::Button("Save")) {
+                        auto filePath = Project::getResourceManager()->getFilePathFromGUID(component.guid);
+                        if (component.terrain) {
+                            component.terrain->saveToFile(filePath.c_str());
+                        }
+                    }
+                }
+                ImGui::TreePop();
+            }
+        }
+    }
+
     Entity ImGuiEditorInspectorView::getSelectedEntity() {
         return selectedEntity;
     }
@@ -1210,7 +1384,7 @@ namespace Dream {
 
     void ImGuiEditorInspectorView::updateColliderAndRigidBody() {
         if (selectedEntity.hasComponent<Component::CollisionComponent>()) {
-            selectedEntity.getComponent<Component::CollisionComponent>().updateColliderShape();
+            selectedEntity.getComponent<Component::CollisionComponent>().updateColliderShape(selectedEntity);
         }
         if (selectedEntity.hasComponent<Component::RigidBodyComponent>()) {
             selectedEntity.getComponent<Component::RigidBodyComponent>().updateRigidBody(selectedEntity);

@@ -152,12 +152,56 @@ namespace Dream {
                 glm::vec3(0.0f, 1.0f, 0.0f),
         };
 
+        std::vector<glm::vec3> tangents = std::vector<glm::vec3>{
+                glm::vec3(0.0f, 1.0f, 0.0f),
+                glm::vec3(0.0f, 1.0f, 0.0f),
+                glm::vec3(0.0f, 1.0f, 0.0f),
+                glm::vec3(0.0f, 1.0f, 0.0f),
+                glm::vec3(0.0f, 1.0f, 0.0f),
+                glm::vec3(0.0f, 1.0f, 0.0f),
+
+                glm::vec3(0.0f, -1.0f, 0.0f),
+                glm::vec3(0.0f, -1.0f, 0.0f),
+                glm::vec3(0.0f, -1.0f, 0.0f),
+                glm::vec3(0.0f, -1.0f, 0.0f),
+                glm::vec3(0.0f, -1.0f, 0.0f),
+                glm::vec3(0.0f, -1.0f, 0.0f),
+
+                glm::vec3(0.0f, 1.0f, 0.0f),
+                glm::vec3(0.0f, 1.0f, 0.0f),
+                glm::vec3(0.0f, 1.0f, 0.0f),
+                glm::vec3(0.0f, 1.0f, 0.0f),
+                glm::vec3(0.0f, 1.0f, 0.0f),
+                glm::vec3(0.0f, 1.0f, 0.0f),
+
+                glm::vec3(0.0f, -1.0f, 0.0f),
+                glm::vec3(0.0f, -1.0f, 0.0f),
+                glm::vec3(0.0f, -1.0f, 0.0f),
+                glm::vec3(0.0f, -1.0f, 0.0f),
+                glm::vec3(0.0f, -1.0f, 0.0f),
+                glm::vec3(0.0f, -1.0f, 0.0f),
+
+                glm::vec3(0.0f, 0.0f, 1.0f),
+                glm::vec3(0.0f, 0.0f, 1.0f),
+                glm::vec3(0.0f, 0.0f, 1.0f),
+                glm::vec3(0.0f, 0.0f, 1.0f),
+                glm::vec3(0.0f, 0.0f, 1.0f),
+                glm::vec3(0.0f, 0.0f, 1.0f),
+
+                glm::vec3(0.0f, 0.0f, -1.0f),
+                glm::vec3(0.0f, 0.0f, -1.0f),
+                glm::vec3(0.0f, 0.0f, -1.0f),
+                glm::vec3(0.0f, 0.0f, -1.0f),
+                glm::vec3(0.0f, 0.0f, -1.0f),
+                glm::vec3(0.0f, 0.0f, -1.0f),
+        };
+
         for (int i = 0; i < positions.size(); ++i) {
             Vertex vertex = {
                     .position = positions[i],
                     .uv = uv[i],
                     .normal = normals[i],
-                    .tangent = {0, 0, 0},
+                    .tangent = tangents[i],
                     .bitangent = {0, 0, 0}
             };
             for (int j = 0; j < MAX_BONE_INFLUENCE; ++j) {

@@ -60,7 +60,6 @@ uniform vec4 ambient_color;
 uniform sampler2D texture_normal;
 uniform sampler2D texture_height;
 uniform sampler2D shadowMaps[NUM_CASCADES];
-//uniform mat4 lightSpaceMatrix;
 uniform mat4 lightSpaceMatrices[NUM_CASCADES];
 uniform float cascadePlaneDistances[16];
 
@@ -133,7 +132,8 @@ float ShadowCalculation(int cascadeIndex, vec3 normal)
     float bias = max(0.05f * (1.0 - dot(normal, normalize(shadowDirectionalLightDir))), 0.005);
     if (cascadeIndex == 3)
     {
-        bias = 0.00003f;
+//        bias = 0.00003f;
+        bias = 0.0003f;
     }
     else if (cascadeIndex == 2) {
         bias = 0.0003f;

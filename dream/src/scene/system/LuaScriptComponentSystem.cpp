@@ -248,6 +248,8 @@ namespace Dream {
         );
 
         lua.new_usertype<Component::RigidBodyComponent>("RigidBodyComponent",
+                                                        "setTranslation",
+                                                        sol::as_function(&Component::RigidBodyComponent::setTranslation),
                                                         "setLinearVelocity",
                                                         sol::as_function(&Component::RigidBodyComponent::setLinearVelocity),
                                                         "getLinearVelocity",

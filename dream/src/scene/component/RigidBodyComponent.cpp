@@ -78,7 +78,7 @@ namespace Dream::Component {
         btVector3 localInertia(0, 0, 0);
         if (entity.hasComponent<CollisionComponent>()) {
             if (entity.getComponent<CollisionComponent>().colliderShapeIndex == -1) {
-                entity.getComponent<CollisionComponent>().updateColliderShape();
+                entity.getComponent<CollisionComponent>().updateColliderShape(entity);
             }
             if (entity.getComponent<CollisionComponent>().colliderShapeIndex == -1) {
                 Logger::fatal("Unable to initialize compound collider shape");
@@ -196,6 +196,14 @@ namespace Dream::Component {
             Logger::warn("Rigid body not initialized");
         } else {
             Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->getWorldTransform().setRotation(btQuaternion(rot.x, rot.y, rot.z, rot.w));
+        }
+    }
+
+    void RigidBodyComponent::setTranslation(glm::vec3 translation) {
+        if (rigidBodyIndex == -1) {
+            Logger::warn("Rigid body not initialized");
+        } else {
+            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->getWorldTransform().setOrigin(btVector3(translation.x, translation.y, translation.z));
         }
     }
 

@@ -37,10 +37,10 @@ namespace Dream {
         this->inspectorView->setAnimatorGraphEditor(animatorGraphEditor);
         this->sceneView = new ImGuiEditorSceneView();
         this->sceneView->setInspectorView(inspectorView);
-        this->projectView = new ImGuiEditorProjectView(textEditor);
+        this->projectView = new ImGuiEditorProjectView(textEditor, this->fileBrowser);
         this->consoleView = new ImGuiEditorConsoleView();
         this->rendererView = new ImGuiEditorRendererView();
-        this->menu = new ImGuiEditorMenu(this->fileBrowser);
+        this->menu = new ImGuiEditorMenu();
 
         // setup Dear ImGui context
         IMGUI_CHECKVERSION();
@@ -187,7 +187,9 @@ namespace Dream {
 
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking;
         if (!Project::isEditorFullscreen()) {
+//#ifndef __APPLE__
             window_flags |= ImGuiWindowFlags_MenuBar;
+//#endif
         }
         window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize |
                         ImGuiWindowFlags_NoMove;

@@ -78,6 +78,7 @@ namespace Dream::Component {
         this->fov = fov;
         this->up = {0, 1, 0};
         this->worldUp = {0, 1, 0};
+        this->front = {1, 0, 0};
         updateCameraVectors();
     }
 
@@ -86,33 +87,44 @@ namespace Dream::Component {
         newFront.x = cos(yaw) * cos(pitch);
         newFront.y = sin(pitch);
         newFront.z = sin(yaw) * cos(pitch);
-        front = glm::normalize(newFront);
+//        front = glm::normalize(newFront);
         right = glm::normalize(glm::cross(front, worldUp));
         up    = glm::normalize(glm::cross(right, front));
     }
 
     void CameraComponent::updateRendererCamera(Dream::Camera &camera, Entity &sceneCameraEntity) {
+        auto eulerAngles = glm::eulerAngles(sceneCameraEntity.getComponent<TransformComponent>().rotation);
         auto transformComponent = sceneCameraEntity.getComponent<TransformComponent>();
-        camera.yaw = yaw;
-        camera.pitch = pitch;
+//        camera.yaw = eulerAngles.x;
+//        camera.pitch = eulerAngles.y;
         camera.fov = fov;
         camera.position = transformComponent.translation;
         camera.zFar = zFar;
         camera.zNear = zNear;
-        camera.updateCameraVectors();
+//        camera.updateCameraVectors();
+        camera.front = front;
     }
 
     void CameraComponent::lookAt(Entity sceneCamera, glm::vec3 lookAtPos) {
         glm::vec3 &position = sceneCamera.getComponent<TransformComponent>().translation;
-        glm::quat q = glm::conjugate(glm::toQuat(
-                glm::lookAt(position,
-                            glm::vec3(lookAtPos.x, lookAtPos.y, lookAtPos.z),
-                            glm::vec3(0, 1, 0)
-                )
-        ));
-        glm::vec3 eulerAngles = glm::eulerAngles(q);
-        yaw = eulerAngles.y + (float) M_PI_2;
-        pitch = eulerAngles.x;
-        sceneCamera.getComponent<TransformComponent>().rotation = glm::quat(glm::vec3(yaw, pitch, 0));
+//        glm::quat q = glm::conjugate(glm::toQuat(
+//                glm::lookAt(position,
+//                            glm::vec3(lookAtPos.x, lookAtPos.y, lookAtPos.z),
+//                            glm::vec3(0, 1, 0)
+//                )
+//        ));
+//        glm::quat q = glm::conjugate(glm::toQuat(
+//                glm::lookAt(glm::vec3(lookAtPos.x, lookAtPos.y, lookAtPos.z),
+//                            position,
+//                            glm::vec3(0, 1, 0)
+//                )
+//        ));
+//        glm::vec3 eulerAngles = glm::eulerAngles(q);
+//        yaw = eulerAngles.x;
+//        pitch = eulerAngles.y;
+        front = glm::vec3(lookAtPos.x, lookAtPos.y, lookAtPos.z) - position;
+        pitch = asin(-front.y);
+        yaw = atan2(front.x, front.z);
+        sceneCamera.getComponent<TransformComponent>().rotation = glm::quat(glm::vec3(yaw, pitch, 0.0f));
     }
 }

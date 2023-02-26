@@ -38,6 +38,12 @@ namespace Dream {
 
         static glm::vec2 getMousePosition();
 
+        /**
+         * Mouse position on a relative [-1, 1] range
+         * @return 2D vector mouse position on a relative [-1, 1] range
+         */
+        static glm::vec2 getRelativeMousePosition();
+
         static void setMousePosition(double x, double y);
 
         static glm::vec2 getMouseMovement();
@@ -48,7 +54,7 @@ namespace Dream {
 
         static void setMouseScroll(double x, double y);
 
-        static void resetMouseDynamicState();
+        static void resetMouseDynamicState(float dt);
 
         static void activatePointerLock(bool enablePointerLock);
 
@@ -62,6 +68,12 @@ namespace Dream {
 
         static void setPlayWindowActive(bool playWindowActive);
 
+        static void setEditorMousePositionOffset(double x, double y);
+
+        static void setRendererDimensions(int width, int height);
+
+        static std::pair<int, int> getRendererDimensions();
+
     private:
         Input() {}
 
@@ -69,6 +81,9 @@ namespace Dream {
         glm::vec2 mousePosition;
         glm::vec2 mouseMovement;
         glm::vec2 mouseScroll;
+        glm::vec2 editorMousePositionOffset = glm::vec2(0, 0);    // position of the top left of the editor
+        int rendererWidth = 1;
+        int rendererHeight = 1;
         bool enablePointerLock = false;
         bool editorRendererActive = false;
         bool playWindowActive = false;

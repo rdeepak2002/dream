@@ -20,6 +20,7 @@
 #define DREAM_SDL2WINDOW_H
 
 #include "dream/window/Window.h"
+#include "glm/vec2.hpp"
 #include <SDL2/SDL.h>
 
 namespace Dream {
@@ -29,13 +30,19 @@ namespace Dream {
 
         void update(float dt) override;
 
-        void pollEvents() override;
+        void pollEvents(float dt) override;
 
         void swapBuffers() override;
 
         std::pair<int, int> getWindowDimensions() override;
 
         SDL_Window *getSDL2Window();
+
+        void setWindowBorderColor(double r, double g, double b) override;
+
+        void setWindowStyleMask();
+
+        void setWindowMenu();
 
     private:
         bool firstLoad;

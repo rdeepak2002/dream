@@ -19,7 +19,7 @@
 #include "dream/window/Window.h"
 
 namespace Dream {
-    void Window::pollEvents() {
+    void Window::pollEvents(float dt) {
 
     }
 
@@ -44,6 +44,10 @@ namespace Dream {
     }
 
     void Window::update(float dt) {
+
+    }
+
+    void Window::setWindowBorderColor(double r, double g, double b) {
 
     }
 }

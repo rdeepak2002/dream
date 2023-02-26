@@ -23,19 +23,20 @@ function update(entity, dt)
 	-- define spherical coordinate values
 	if self.phi == nil then
 		self.phi = 0.1
+		self.phi = 3.13
 	end
 	if self.theta == nil then
-		self.minTheta = 1.59
-		self.maxTheta = 2.6
-		self.theta = 1.9
+		self.minTheta = 1.2
+		self.maxTheta = 1.9
+		self.theta = 1.8
 	end
 	if self.radius == nil then
 		self.radius = 3.3
 	end
 
 	-- set position of camera based off spherical coordinate values
-	self.radius = 3.6
-	local lookAtOffset = vec3:new(0, 1.2, 0)
+	self.radius = 1.5
+	local lookAtOffset = vec3:new(0, 0.6, 0)
 	local targetTranslation = targetEntity:getTransform().translation + lookAtOffset
 
 	local xPos = targetTranslation.x - self.radius * math.sin(self.theta) * math.cos(self.phi)
@@ -62,19 +63,31 @@ function update(entity, dt)
 		local mouseMovement = Input.getMouseMovement()
 		self.theta = self.theta + mouseMovement.y * dt * 0.2
 		self.phi = self.phi - mouseMovement.x * dt * 0.2
+
+		if self.phi < 0.0001 then
+		    -- self.phi = 0.0001
+		end
+
+        if self.phi > 3.14 then
+            -- self.phi = 3.14
+        end
+
+        -- Logger.debug(tostring(self.phi))
 	end
 
 	-- bound phi and theta
-	self.theta = math.min(self.theta, 2.41)
-	self.theta = math.max(self.theta, 1.1)
+	self.theta = math.min(self.theta, 1.9)
+	self.theta = math.max(self.theta, 1.2)
 	while self.phi > 2 * math.pi do
 		self.phi = self.phi - 2 * math.pi
 	end
 
 	-- make camera look at target (player)
-	lookAt = vec3:new(-1 * targetTranslation.x, -1 * targetTranslation.y, targetTranslation.z)
-	entity:getCamera().lookAt = lookAt
+	lookAt = vec3:new(targetTranslation.x, targetTranslation.y, targetTranslation.z)
+	-- entity:getCamera().lookAt = lookAt
+	entity:getCamera():lookAt(entity, lookAt)
 end
+
 
 
 

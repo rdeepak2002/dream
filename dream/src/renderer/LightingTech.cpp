@@ -10,7 +10,6 @@
 namespace Dream {
     LightingTech::LightingTech() {
         whiteTexture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("white.png"));
-
         blackTexture = new OpenGLTexture(Project::getPath().append("assets").append("textures").append("black.png"));
     }
 
@@ -223,7 +222,7 @@ namespace Dream {
             }
         }
 
-        shader->setVec3("ambientColor", glm::vec3(0.15, 0.15, 0.15));
+        shader->setVec3("ambientColor", glm::vec3(0.25, 0.25, 0.25));
 
         // define current number of point lights
         shader->setInt("numberOfDirLights", (int) directionalLights.size());

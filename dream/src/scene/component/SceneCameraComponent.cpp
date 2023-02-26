@@ -82,17 +82,23 @@ namespace Dream::Component {
     }
 
     void SceneCameraComponent::processInput(Entity sceneCamera, float dt) {
+        float mouseMoveSpeedScale = 1.0f;
+        if (Input::getButtonDown(Key::LeftShift)) {
+            mouseMoveSpeedScale = 10.0f;
+        }
         auto mouseMovement = Input::getMouseMovement();
         auto mouseScroll = Input::getMouseScroll();
         glm::vec3 &position = sceneCamera.getComponent<TransformComponent>().translation;
         if (Input::getButtonDown(Key::LeftMouse)) {
-            float padding = 0.01;
-            position -= right * mouseMovement.x * padding;
-            position += up * mouseMovement.y * padding;
+            if (mode == MOVE_1) {
+                float padding = 0.01;
+                position -= mouseMoveSpeedScale * right * mouseMovement.x * padding;
+                position += mouseMoveSpeedScale * up * mouseMovement.y * padding;
+            }
         }
         {
             float padding = 0.1;
-            position += front * mouseScroll.y * padding;
+            position += mouseMoveSpeedScale * front * mouseScroll.y * padding;
         }
         if (Input::getButtonDown(Key::RightMouse)) {
             float padding = 0.004;

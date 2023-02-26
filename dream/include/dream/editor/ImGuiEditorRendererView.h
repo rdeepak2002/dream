@@ -27,7 +27,7 @@ namespace Dream {
         void update(int &rendererViewportWidth, int &rendererViewportHeight, unsigned int frameBufferTexture);
 
     private:
-        unsigned int playIcon, stopIcon, expandIcon, collapseIcon;
+        unsigned int playIcon, stopIcon, expandIcon, collapseIcon, wrenchIcon;
     };
 }
 

@@ -98,7 +98,7 @@ namespace Dream {
 
     std::vector<float> DirectionalLightShadowTech::getShadowCascadeLevels(Camera camera) {
         float cameraFarPlane = camera.zFar;
-        std::vector<float> shadowCascadeLevels{8.0f, 10.0f * 2, 36.0f * 2, 500.0f * 2};
+        std::vector<float> shadowCascadeLevels{0.01f, 10.0f * 2, 36.0f * 2, 500.0f * 2};
 //        std::vector<float> shadowCascadeLevels{ cameraFarPlane / 26.0f, cameraFarPlane / 15.0f, cameraFarPlane / 7.0f, cameraFarPlane - 0.001f };
 //        std::vector<float> shadowCascadeLevels{ cameraFarPlane / 26.0f, cameraFarPlane / 15.0f, cameraFarPlane / 7.0f, cameraFarPlane / 2.0f };
         if (numCascades != shadowCascadeLevels.size()) {

@@ -17,6 +17,7 @@
  **********************************************************************************/
 
 #include "dream/Application.h"
+#include <fstream>
 #include <iostream>
 #include <quickjs.h>
 #include <quickjs-libc.h>
@@ -89,10 +90,36 @@ int test_quickjs() {
 #ifdef EMSCRIPTEN
 #include "emscripten.h"
 #include "dream/window/Input.h"
+#include "dream/project/Project.h"
 
 extern "C" {
     void disablePointerLock() {
         Dream::Input::activatePointerLock(false);
+    }
+}
+
+extern "C" {
+    void setMouseMovement(float moveX, float moveY) {
+        Dream::Input::setMouseMovement(moveX, moveY);
+    }
+}
+
+extern "C" {
+    int import_assets_from_folder(char const *folderName) {
+        bool deleteFileAfterImporting = true;
+        if (std::filesystem::exists(folderName)) {
+            for (const auto& dirEntry : std::filesystem::directory_iterator(folderName)) {
+                Dream::Project::getAssetImporter()->importAsset(dirEntry);
+            }
+        } else {
+            return 1;
+        }
+
+        if (deleteFileAfterImporting) {
+            std::filesystem::remove_all(folderName);
+        }
+
+        return 0;
     }
 }
 #endif
