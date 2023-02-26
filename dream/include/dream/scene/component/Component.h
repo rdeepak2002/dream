@@ -513,6 +513,8 @@ namespace Dream::Component {
 
         void updateRigidBody(Entity &entity);
 
+        void setTranslation(glm::vec3 translation);
+
         void setLinearVelocity(glm::vec3 newLinearVelocity);
 
         glm::vec3 getLinearVelocity();

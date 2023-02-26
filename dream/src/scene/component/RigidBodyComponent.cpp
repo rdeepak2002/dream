@@ -199,6 +199,14 @@ namespace Dream::Component {
         }
     }
 
+    void RigidBodyComponent::setTranslation(glm::vec3 translation) {
+        if (rigidBodyIndex == -1) {
+            Logger::warn("Rigid body not initialized");
+        } else {
+            Project::getScene()->getPhysicsComponentSystem()->getRigidBody(rigidBodyIndex)->getWorldTransform().setOrigin(btVector3(translation.x, translation.y, translation.z));
+        }
+    }
+
     glm::quat RigidBodyComponent::getRotation() {
         if (rigidBodyIndex == -1) {
             Logger::warn("Rigid body not initialized");
