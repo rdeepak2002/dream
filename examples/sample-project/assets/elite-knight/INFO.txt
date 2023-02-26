@@ -1,0 +1,6 @@
+Workflow:
+1. Upload knight-no-bones-no-belt to Mixamo
+2. Download the skinned animation
+3. Open skinned animation in Blender
+4. Export skinned animation as an FBX (using Blender) and path mode set to copy and textures embedded and scale to 0.01
+5. Use this Blender-exported FBX
