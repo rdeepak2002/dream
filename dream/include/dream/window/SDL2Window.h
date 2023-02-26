@@ -20,6 +20,7 @@
 #define DREAM_SDL2WINDOW_H
 
 #include "dream/window/Window.h"
+#include "glm/vec2.hpp"
 #include <SDL2/SDL.h>
 
 namespace Dream {
@@ -29,7 +30,7 @@ namespace Dream {
 
         void update(float dt) override;
 
-        void pollEvents() override;
+        void pollEvents(float dt) override;
 
         void swapBuffers() override;
 
@@ -45,6 +46,7 @@ namespace Dream {
 
     private:
         bool firstLoad;
+        glm::vec2 oldMousePosition = {0, 0};
     protected:
         SDL2Window(Uint32 flags);
 

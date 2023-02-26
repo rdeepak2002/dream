@@ -26,7 +26,7 @@ namespace Dream {
     public:
         virtual void update(float dt);
 
-        virtual void pollEvents();
+        virtual void pollEvents(float dt);
 
         virtual void swapBuffers();
 

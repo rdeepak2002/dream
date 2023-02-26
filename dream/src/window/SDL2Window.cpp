@@ -126,7 +126,7 @@ namespace Dream {
         }
     }
 
-    void SDL2Window::pollEvents() {
+    void SDL2Window::pollEvents(float dt) {
         SDL_Event Event;
         while (SDL_PollEvent(&Event)) {
             this->pollEditorEvents(Event);
@@ -216,8 +216,15 @@ namespace Dream {
                     Input::setButtonDown(Key::RightMouse, state);
                 }
             } else if (Event.type == SDL_MOUSEMOTION) {
-                Input::setMouseMovement(Event.motion.xrel, Event.motion.yrel);
+//                glm::vec2 currentRelMotion = {Event.motion.xrel, Event.motion.yrel};
+//                glm::vec2 relMotionDifference = (currentRelMotion - oldRelMotion) * dt * 40.0f;
+//                glm::vec2 relMotionDifference = (currentRelMotion - oldRelMotion);
+//                Input::setMouseMovement(relMotionDifference.x, relMotionDifference.y);
+                glm::vec2 currentMousePosition = {Event.motion.x, Event.motion.y};
+                glm::vec2 mouseMove = (currentMousePosition - oldMousePosition) * dt * 40.0f;
+                Input::setMouseMovement(mouseMove.x, mouseMove.y);
                 Input::setMousePosition(Event.motion.x, Event.motion.y);
+                oldMousePosition = currentMousePosition;
             } else if (Event.type == SDL_MOUSEWHEEL) {
                 Input::setMouseScroll(Event.wheel.x, Event.wheel.y);
             } else if (Event.type == SDL_WINDOWEVENT) {

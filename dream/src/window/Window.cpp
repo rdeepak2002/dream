@@ -19,7 +19,7 @@
 #include "dream/window/Window.h"
 
 namespace Dream {
-    void Window::pollEvents() {
+    void Window::pollEvents(float dt) {
 
     }
 

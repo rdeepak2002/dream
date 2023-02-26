@@ -54,7 +54,7 @@ namespace Dream {
         // update startup logo and other window-specific logic
         this->window->update(dt);
         // poll for input
-        this->window->pollEvents();
+        this->window->pollEvents(dt);
         // fixed update (physics, scripts, etc.)
         while (lag >= timestep) {
             this->fixedUpdate();
