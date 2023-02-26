@@ -216,15 +216,8 @@ namespace Dream {
                     Input::setButtonDown(Key::RightMouse, state);
                 }
             } else if (Event.type == SDL_MOUSEMOTION) {
-//                glm::vec2 currentRelMotion = {Event.motion.xrel, Event.motion.yrel};
-//                glm::vec2 relMotionDifference = (currentRelMotion - oldRelMotion) * dt * 40.0f;
-//                glm::vec2 relMotionDifference = (currentRelMotion - oldRelMotion);
-//                Input::setMouseMovement(relMotionDifference.x, relMotionDifference.y);
-                glm::vec2 currentMousePosition = {Event.motion.x, Event.motion.y};
-                glm::vec2 mouseMove = (currentMousePosition - oldMousePosition) * dt * 40.0f;
-                Input::setMouseMovement(mouseMove.x, mouseMove.y);
+                Input::setMouseMovement((float) Event.motion.xrel * dt * 40.0f, (float) Event.motion.yrel * dt * 40.0f);
                 Input::setMousePosition(Event.motion.x, Event.motion.y);
-                oldMousePosition = currentMousePosition;
             } else if (Event.type == SDL_MOUSEWHEEL) {
                 Input::setMouseScroll(Event.wheel.x, Event.wheel.y);
             } else if (Event.type == SDL_WINDOWEVENT) {

@@ -46,7 +46,6 @@ namespace Dream {
 
     private:
         bool firstLoad;
-        glm::vec2 oldMousePosition = {0, 0};
     protected:
         SDL2Window(Uint32 flags);
 
