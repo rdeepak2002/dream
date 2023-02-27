@@ -6,10 +6,14 @@
 
 namespace Dream {
     OpenGLQuadMesh::OpenGLQuadMesh() {
-        glm::vec3 pos1(-1.0,  1.0, 0.0);
-        glm::vec3 pos2(-1.0, -1.0, 0.0);
-        glm::vec3 pos3( 1.0, -1.0, 0.0);
-        glm::vec3 pos4( 1.0,  1.0, 0.0);
+//        glm::vec3 pos1(-1.0,  1.0, 0.0);
+//        glm::vec3 pos2(-1.0, -1.0, 0.0);
+//        glm::vec3 pos3( 1.0, -1.0, 0.0);
+//        glm::vec3 pos4( 1.0,  1.0, 0.0);
+        glm::vec3 pos1(-1.0,  1.0 + 1.0, 0.0);
+        glm::vec3 pos2(-1.0, -1.0 + 1.0, 0.0);
+        glm::vec3 pos3( 1.0, -1.0 + 1.0, 0.0);
+        glm::vec3 pos4( 1.0,  1.0 + 1.0, 0.0);
 
         glm::vec2 uv1(0.0, 1.0);
         glm::vec2 uv2(0.0, 0.0);
