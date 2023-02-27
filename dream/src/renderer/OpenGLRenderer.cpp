@@ -28,6 +28,7 @@
 #include "dream/window/Input.h"
 #include "dream/renderer/OpenGLCubeMesh.h"
 #include "dream/renderer/OpenGLQuadMesh.h"
+#include "dream/util/MathUtils.h"
 
 namespace Dream {
     OpenGLRenderer::OpenGLRenderer() : Renderer() {
@@ -307,6 +308,13 @@ namespace Dream {
     }
 
     void OpenGLRenderer::getMeshesForModel(Entity entity, std::vector<Entity> &vec) {
+        // add primitives
+        if (entity.hasComponent<Component::MeshComponent>()) {
+            auto meshComponent = entity.getComponent<Component::MeshComponent>();
+            if (meshComponent.meshType != Component::MeshComponent::FROM_FILE) {
+                vec.push_back(entity);
+            }
+        }
         // get child meshes for a model and store them in the parameter vector
         Entity child = entity.getComponent<Component::HierarchyComponent>().first;
         while (child) {
@@ -326,80 +334,104 @@ namespace Dream {
     }
 
     void OpenGLRenderer::drawInstancedMeshes(Camera camera, OpenGLShader* shader) {
-        unsigned int amount = 600;
-
         // TODO: this is getting a specific instanced model, instead generalize
-//        auto modelEntity = Project::getScene()->getEntityByID("449B6699-4DDA-4A61-B996-6294C85F94BF");
-        auto modelEntity = Project::getScene()->getEntityByTag("forest tree");
-        std::vector<Entity> instancedMeshEntities;
-        getMeshesForModel(modelEntity, instancedMeshEntities);
+        std::vector<Entity> modelEntities;
+        std::vector<unsigned int> amounts;
+        std::vector<glm::vec3> offsets;
+        std::vector<float> displacements;
 
-        for (int i = 0; i < instancedMeshEntities.size(); ++i) {
-            Entity entity = instancedMeshEntities.at(i);
-            glm::mat4* modelMatrices = new glm::mat4[amount];
-            for (unsigned int i = 0; i < amount; i++)
-            {
-                glm::mat4 model = glm::mat4(1.0f);
-                srand(3 * i * i + 4 * i + 9);
-                model = glm::translate(model, glm::vec3( rand() % 80 - 40,  0,  rand() % 80 - 40));
-                model = glm::scale(model, modelEntity.getComponent<Component::TransformComponent>().scale);
-                model = model * glm::toMat4(modelEntity.getComponent<Component::TransformComponent>().rotation);
-                modelMatrices[i] = model;
-            }
+        modelEntities.push_back(Project::getScene()->getEntityByTag("forest tree"));
+        amounts.push_back(600);
+        offsets.emplace_back(0, 0, 0);
+        displacements.emplace_back(80);
 
-            unsigned int instancingModelMatricesBuffer;
-            glGenBuffers(1, &instancingModelMatricesBuffer);
-            glBindBuffer(GL_ARRAY_BUFFER, instancingModelMatricesBuffer);
-            glBufferData(GL_ARRAY_BUFFER, amount * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
+        // TODO: render grass less frequently for ones far away
+        // do not cast shadows for grass
+        if (shader != simpleDepthShader) {
+            modelEntities.push_back(Project::getScene()->getEntityByTag("grass"));
+            amounts.push_back(5000);
+            offsets.emplace_back(0, 0.14, 0);
+            displacements.emplace_back(20);
+        }
 
-            auto modelGUID = entity.getComponent<Component::MeshComponent>().guid;
-            auto meshFileID = entity.getComponent<Component::MeshComponent>().fileId;
-            auto mesh = Project::getResourceManager()->getMeshData(modelGUID, meshFileID);
-            if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
-                glBindVertexArray(openGLMesh->getVAO());
-            } else {
-                Logger::fatal("Error getting instanced mesh (1)");
-            }
+        for (int j = 0; j < modelEntities.size(); ++j) {
+            auto amount = amounts.at(j);
+            auto modelEntity = modelEntities.at(j);
+            auto offset = offsets.at(j);
+            auto displacement = displacements.at(j);
+            std::vector<Entity> instancedMeshEntities;
+            getMeshesForModel(modelEntity, instancedMeshEntities);
 
-            // set attribute pointers for matrix (4 times vec4)
-            glEnableVertexAttribArray(7);
-            glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)0);
-            glEnableVertexAttribArray(8);
-            glVertexAttribPointer(8, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4)));
-            glEnableVertexAttribArray(9);
-            glVertexAttribPointer(9, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
-            glEnableVertexAttribArray(10);
-            glVertexAttribPointer(10, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
+            for (int i = 0; i < instancedMeshEntities.size(); ++i) {
+                Entity entity = instancedMeshEntities.at(i);
+                auto* modelMatrices = new glm::mat4[amount];
+                for (unsigned int i = 0; i < amount; i++)
+                {
+                    // TODO: have boolean if we want to filter only the closest things to our player (like only draw grass close to player and sample a few from farther ones)
+                    // TODO: make sure you also update amount
+                    glm::mat4 model = glm::mat4(1.0f);
+                    srand(3 * i * i + 4 * i + 9);
+                    model = glm::translate(model, glm::vec3(MathUtils::randomFloat(-displacement / 2, displacement / 2),  0,  MathUtils::randomFloat(-displacement / 2, displacement / 2)) + offset);
+                    model = glm::scale(model, modelEntity.getComponent<Component::TransformComponent>().scale);
+                    model = model * glm::toMat4(modelEntity.getComponent<Component::TransformComponent>().rotation);
+                    modelMatrices[i] = model;
+                }
 
-            glVertexAttribDivisor(7, 1);
-            glVertexAttribDivisor(8, 1);
-            glVertexAttribDivisor(9, 1);
-            glVertexAttribDivisor(10, 1);
+                // TODO: cache this buffer rather than creating it every frame to improve performance?
+                unsigned int instancingModelMatricesBuffer;
+                glGenBuffers(1, &instancingModelMatricesBuffer);
+                glBindBuffer(GL_ARRAY_BUFFER, instancingModelMatricesBuffer);
+                glBufferData(GL_ARRAY_BUFFER, amount * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
 
-            glBindVertexArray(0);
-
-            // TODO: clean up this method and use the instanced meshes
-            for (int i = 0; i < MAX_BONES; i++) {
-                shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", glm::mat4(1.0));
-            }
-
-            lightingTech->setTextureAndColorUniforms(entity, shadowMapFbos, directionalLightShadowTech, shader);
-
-            // TODO: basically look for all meshes (not model parent) w/ a particular GUID and loop calling this below chunk of code for each unique GUID
-            {
-                // run code for all mesh's with GUID a, then run this code for all meshes with GUID b, etc.
+                auto modelGUID = entity.getComponent<Component::MeshComponent>().getMeshGuid();
+                auto meshFileID = entity.getComponent<Component::MeshComponent>().getMeshFileID();
                 auto mesh = Project::getResourceManager()->getMeshData(modelGUID, meshFileID);
                 if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
                     glBindVertexArray(openGLMesh->getVAO());
-                    glDrawElementsInstanced(GL_TRIANGLES, static_cast<unsigned int>(openGLMesh->getIndices().size()), GL_UNSIGNED_INT, 0, amount);
                 } else {
-                    Logger::fatal("Error getting instanced mesh (2)");
+                    Logger::fatal("Error getting instanced mesh (1)");
                 }
-                glBindVertexArray(0);
-            }
 
-            delete[] modelMatrices;
-            glDeleteBuffers(1, &instancingModelMatricesBuffer);
+                // set attribute pointers for matrix (4 times vec4)
+                glEnableVertexAttribArray(7);
+                glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)0);
+                glEnableVertexAttribArray(8);
+                glVertexAttribPointer(8, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4)));
+                glEnableVertexAttribArray(9);
+                glVertexAttribPointer(9, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
+                glEnableVertexAttribArray(10);
+                glVertexAttribPointer(10, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
+
+                glVertexAttribDivisor(7, 1);
+                glVertexAttribDivisor(8, 1);
+                glVertexAttribDivisor(9, 1);
+                glVertexAttribDivisor(10, 1);
+
+                glBindVertexArray(0);
+
+                // TODO: clean up this method and use the instanced meshes
+                for (int i = 0; i < MAX_BONES; i++) {
+                    shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", glm::mat4(1.0));
+                }
+
+                lightingTech->setTextureAndColorUniforms(entity, shadowMapFbos, directionalLightShadowTech, shader);
+
+                // TODO: basically look for all meshes (not model parent) w/ a particular GUID and loop calling this below chunk of code for each unique GUID
+                {
+                    // run code for all mesh's with GUID a, then run this code for all meshes with GUID b, etc.
+                    auto mesh = Project::getResourceManager()->getMeshData(modelGUID, meshFileID);
+                    if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
+                        glBindVertexArray(openGLMesh->getVAO());
+                        glDrawElementsInstanced(GL_TRIANGLES, static_cast<unsigned int>(openGLMesh->getIndices().size()), GL_UNSIGNED_INT, 0, amount);
+                    } else {
+                        Logger::fatal("Error getting instanced mesh (2)");
+                    }
+                    glBindVertexArray(0);
+                }
+
+                delete[] modelMatrices;
+                glDeleteBuffers(1, &instancingModelMatricesBuffer);
+            }
         }
     }
 

@@ -111,4 +111,11 @@ namespace Dream {
     float MathUtils::distance(glm::vec3 p1, glm::vec3 p2) {
         return glm::distance(p1, p2);
     }
+
+    float MathUtils::randomFloat(float a, float b) {
+        float random = ((float) rand()) / (float) RAND_MAX;
+        float diff = b - a;
+        float r = random * diff;
+        return a + r;
+    }
 }
