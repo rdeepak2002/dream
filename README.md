@@ -16,7 +16,7 @@ Cross-platform and web compatible real-time 3D engine
 
 Link to web build: [https://rdeepak2002.github.io/dream/](https://rdeepak2002.github.io/dream/)
 
-[![](https://markdown-videos.deta.dev/youtube/EN5q0AlnRS8)](https://youtu.be/EN5q0AlnRS8)
+[![](https://markdown-videos.deta.dev/youtube/bcXhjQ1Pl3U)](https://youtu.be/bcXhjQ1Pl3U)
 
 ## Screenshots
 
