@@ -360,7 +360,28 @@ namespace Dream {
             pointsAcrossTerrain.push_back(p);
         }
 
-        auto pointsAcrossTerrainCloseToCamera = pointsAcrossTerrain;
+//        auto pointsAcrossTerrainCloseToCamera = pointsAcrossTerrain;
+        std::vector<glm::vec3> pointsAcrossTerrainCloseToCamera;
+        float keepDistance = 10.0f; // distance where a grass point should always be kept regardless of proability
+        for (int i = 0; i < pointsAcrossTerrain.size(); ++i) {
+            float a1 = camera.position.x;
+            float b1 = camera.position.y;
+            float c1 = camera.position.z;
+
+            float a2 = pointsAcrossTerrain.at(i).x;
+            float b2 = pointsAcrossTerrain.at(i).y;
+            float c2 = pointsAcrossTerrain.at(i).z;
+
+            srand(3 * a1 * a1 + 5.5 * b1 + 1.2 * c1 + 3 * a2 * a2 + 5.5 * b2 + 1.2 * c2);
+
+            // TODO: skew probability based off distance
+//            if (rand() % 10 < 3 || MathUtils::distance(pointsAcrossTerrain.at(i), camera.position) < keepDistance) {
+//                pointsAcrossTerrainCloseToCamera.push_back(pointsAcrossTerrain.at(i));
+//            }
+            if (MathUtils::distance(pointsAcrossTerrain.at(i), camera.position) < keepDistance) {
+                pointsAcrossTerrainCloseToCamera.push_back(pointsAcrossTerrain.at(i));
+            }
+        }
 
         modelEntities.push_back(Project::getScene()->getEntityByTag("forest tree"));
         amounts.push_back(600);
@@ -387,6 +408,10 @@ namespace Dream {
             auto offset = offsets.at(j);
             auto displacement = displacements.at(j);
             auto isBillboard = isBillboards.at(j);
+
+            if (amount == 0) {
+                continue;
+            }
 
             std::vector<Entity> instancedMeshEntities;
             getMeshesForModel(modelEntity, instancedMeshEntities);
