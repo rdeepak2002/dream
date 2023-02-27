@@ -100,15 +100,19 @@ namespace Dream {
         // TODO: clean this up
         ///
         sphereMesh = new OpenGLSphereMesh();
-        modelMatrices = new glm::mat4[amount];
+
+        glm::mat4* modelMatrices = new glm::mat4[amount];
+        unsigned int instancingModelMatricesBuffer;
         for (unsigned int i = 0; i < amount; i++)
         {
             glm::mat4 model = glm::mat4(1.0f);
+            // TODO: remove this random translation and instead get translation of all model entities (not mesh entities) with a GUID
+            model = glm::translate(model, glm::vec3( rand() % 100 - 50,  rand() % 50,  rand() % 100 - 50));
             modelMatrices[i] = model;
         }
 
-        glGenBuffers(1, &buffer);
-        glBindBuffer(GL_ARRAY_BUFFER, buffer);
+        glGenBuffers(1, &instancingModelMatricesBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, instancingModelMatricesBuffer);
         glBufferData(GL_ARRAY_BUFFER, amount * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
 
         glBindVertexArray(sphereMesh->getVAO());
@@ -337,9 +341,13 @@ namespace Dream {
 
         lightingTech->setTextureAndColorUniforms(Project::getScene()->getRootEntity(), shadowMapFbos, directionalLightShadowTech, shader);
 
-        glBindVertexArray(sphereMesh->getVAO());
-        glDrawElementsInstanced(GL_TRIANGLES, static_cast<unsigned int>(sphereMesh->getIndices().size()), GL_UNSIGNED_INT, 0, amount);
-        glBindVertexArray(0);
+        // TODO: basically look for all meshes (not model parent) w/ a particular GUID and loop calling this below chunk of code for each unique GUID
+        {
+            // run code for all mesh's with GUID a, then run this code for all meshes with GUID b, etc.
+            glBindVertexArray(sphereMesh->getVAO());
+            glDrawElementsInstanced(GL_TRIANGLES, static_cast<unsigned int>(sphereMesh->getIndices().size()), GL_UNSIGNED_INT, 0, amount);
+            glBindVertexArray(0);
+        }
 
         // TODO: realize we have to instance each of the sub-meshes for an overall mesh (that's why the example code does a for loop over all meshes)
     }
