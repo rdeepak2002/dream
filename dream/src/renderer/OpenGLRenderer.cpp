@@ -365,52 +365,12 @@ namespace Dream {
         }
 
         // grasses farther away are less likely to appear in scene
+        // TODO: lmao we are just rendering all grass
         std::vector<glm::vec3> pointsAcrossTerrainCloseToCamera;
         float keepDistance1 = 10.0f;
         float keepDistance2 = 20.0f;
         float keepDistance3 = 30.0f;
-
-        // TODO: this is a dumb approach, instead just use lower resolution texture for far away grass
-        for (int i = 0; i < pointsAcrossTerrain.size(); ++i) {
-            float a1 = 0;
-            float b1 = 0;
-            float c1 = 0;
-
-            float a2 = pointsAcrossTerrain.at(i).x;
-            float b2 = pointsAcrossTerrain.at(i).y;
-            float c2 = pointsAcrossTerrain.at(i).z;
-
-            // 100k seeded rands does slow things down...
-            srand(3 * a1 * a1 + 5.5 * b1 + 1.2 * c1 + 3 * a2 * a2 + 5.5 * b2 + 1.2 * c2);
-
-            float distToPoint = MathUtils::distance(pointsAcrossTerrain.at(i), camera.position);
-            int expectedRenderLayer = -1;
-
-            if (distToPoint < keepDistance1) {
-                expectedRenderLayer = 0;
-            } else if (distToPoint < keepDistance2) {
-                expectedRenderLayer = 1;
-            } else if (distToPoint < keepDistance3) {
-                expectedRenderLayer = 2;
-            }
-
-            int renderLayer = -1;
-            if (expectedRenderLayer == 0) {
-                renderLayer = 0;
-            } else if (expectedRenderLayer == 1) {
-                if ((rand() % 5) + 1 ==  1) {
-                    renderLayer = 1;
-                }
-            } else if (expectedRenderLayer == 2) {
-                if ((rand() % 20) + 1 ==  1) {
-                    renderLayer = 2;
-                }
-            }
-
-            if (renderLayer != -1) {
-                pointsAcrossTerrainCloseToCamera.push_back(pointsAcrossTerrain.at(i));
-            }
-        }
+        pointsAcrossTerrainCloseToCamera = pointsAcrossTerrain;
 
         modelEntities.push_back(Project::getScene()->getEntityByTag("forest tree"));
         amounts.push_back(600);
