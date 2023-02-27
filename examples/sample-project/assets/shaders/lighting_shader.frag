@@ -155,7 +155,8 @@ float ShadowCalculation(int cascadeIndex, vec3 normal)
         bias = 0.0003f;
     }
     else if (cascadeIndex == 1) {
-        bias = 0.0003f;
+//        bias = 0.0003f;
+        bias = 0.0012;
     }
     else if (cascadeIndex == 0) {
         bias = 0.0003f;
