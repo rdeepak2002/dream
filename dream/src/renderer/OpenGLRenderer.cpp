@@ -365,7 +365,8 @@ namespace Dream {
         }
 
         modelEntities.push_back(Project::getScene()->getEntityByTag("forest tree"));
-        amounts.push_back(600);
+//        amounts.push_back(600);
+        amounts.push_back(300);
         offsets.emplace_back(0, 0, 0);
         displacements.emplace_back(80);
         isBillboards.emplace_back(false);

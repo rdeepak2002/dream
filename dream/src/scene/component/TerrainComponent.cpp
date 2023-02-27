@@ -51,7 +51,7 @@ namespace Dream::Component {
     void TerrainComponent::initializeTerrain() {
         if (!terrain && !guid.empty()) {
             // TODO: store in resource manager instead
-            terrain = new OpenGLBaseTerrain(4.0, 200.0);
+            terrain = new OpenGLBaseTerrain(4.0, 300.0);
             auto terrainFilePath = Project::getResourceManager()->getFilePathFromGUID(guid);
             terrain->loadFromFile(terrainFilePath.c_str());
         }
