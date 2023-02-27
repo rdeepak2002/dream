@@ -7,20 +7,27 @@
 namespace Dream {
     OpenGLQuadMesh::OpenGLQuadMesh() {
         std::vector<glm::vec3> positions ={
-            { -1.0f,  1.0f, 0.0f },
-            { -1.0f, -1.0f, 0.0f },
-            {  1.0f,  1.0f, 0.0f },
-            {  1.0f, -1.0f, 0.0f },
+                {-1.0f, 1.0f, 0.0f},
+                {-1.0f, -1.0f, 0.0f},
+                {1.0f, -1.0f, 0.0f},
+
+                {-1.0f, 1.0f, 0.0f},
+                {1.0f, -1.0f, 0.0f},
+                {1.0f, 1.0f, 0.0f}
         };
 
         std::vector<glm::vec2> uv = {
             { 0.0f, 1.0f },
             { 0.0f, 0.0f },
-            { 1.0f, 1.0f },
             { 1.0f, 0.0f },
+            { 0.0f, 1.0f },
+            { 1.0f, 0.0f },
+            { 1.0f, 1.0f }
         };
 
         std::vector<glm::vec3> normals ={
+                { 0.0f, 0.0f, 1.0f },
+                { 0.0f, 0.0f, 1.0f },
                 { 0.0f, 0.0f, 1.0f },
                 { 0.0f, 0.0f, 1.0f },
                 { 0.0f, 0.0f, 1.0f },
