@@ -339,19 +339,22 @@ namespace Dream {
         std::vector<unsigned int> amounts;
         std::vector<glm::vec3> offsets;
         std::vector<float> displacements;
+        std::vector<bool> isBillboards;
 
         modelEntities.push_back(Project::getScene()->getEntityByTag("forest tree"));
         amounts.push_back(600);
         offsets.emplace_back(0, 0, 0);
         displacements.emplace_back(80);
+        isBillboards.emplace_back(false);
 
         // TODO: render grass less frequently for ones far away
         // do not cast shadows for grass
         if (shader != simpleDepthShader) {
             modelEntities.push_back(Project::getScene()->getEntityByTag("grass"));
-            amounts.push_back(5000);
+            amounts.push_back(4000);
             offsets.emplace_back(0, 0.14, 0);
-            displacements.emplace_back(20);
+            displacements.emplace_back(10);
+            isBillboards.emplace_back(true);
         }
 
         for (int j = 0; j < modelEntities.size(); ++j) {
@@ -359,8 +362,11 @@ namespace Dream {
             auto modelEntity = modelEntities.at(j);
             auto offset = offsets.at(j);
             auto displacement = displacements.at(j);
+            auto isBillboard = isBillboards.at(j);
+
             std::vector<Entity> instancedMeshEntities;
             getMeshesForModel(modelEntity, instancedMeshEntities);
+            shader->setBool("billboard", isBillboard);
 
             for (int i = 0; i < instancedMeshEntities.size(); ++i) {
                 Entity entity = instancedMeshEntities.at(i);
