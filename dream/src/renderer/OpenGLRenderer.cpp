@@ -384,15 +384,24 @@ namespace Dream {
             srand(3 * a1 * a1 + 5.5 * b1 + 1.2 * c1 + 3 * a2 * a2 + 5.5 * b2 + 1.2 * c2);
 
             float distToPoint = MathUtils::distance(pointsAcrossTerrain.at(i), camera.position);
-            int renderLayer = -1;
+            int expectedRenderLayer = -1;
 
             if (distToPoint < keepDistance1) {
-                renderLayer = 0;
+                expectedRenderLayer = 0;
             } else if (distToPoint < keepDistance2) {
+                expectedRenderLayer = 1;
+            } else if (distToPoint < keepDistance3) {
+                expectedRenderLayer = 2;
+            }
+
+            int renderLayer = -1;
+            if (expectedRenderLayer == 0) {
+                renderLayer = 0;
+            } else if (expectedRenderLayer == 1) {
                 if ((rand() % 5) + 1 ==  1) {
                     renderLayer = 1;
                 }
-            } else if (distToPoint < keepDistance3) {
+            } else if (expectedRenderLayer == 2) {
                 if ((rand() % 20) + 1 ==  1) {
                     renderLayer = 2;
                 }
