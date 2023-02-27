@@ -301,6 +301,8 @@ namespace Dream {
     void OpenGLRenderer::drawInstancedMeshes(Camera camera, OpenGLShader* shader) {
         unsigned int amount = 1000;
         static bool needToSetup = true;
+        auto modelGUID = "C90A51A0-E1FA-43A1-BBD0-0F2617ED363C";
+        auto meshFileID = "d3d9446802a44259755d38e6d163e820";
 
         if (needToSetup) {
             glm::mat4* modelMatrices = new glm::mat4[amount];
@@ -317,9 +319,7 @@ namespace Dream {
             glBindBuffer(GL_ARRAY_BUFFER, instancingModelMatricesBuffer);
             glBufferData(GL_ARRAY_BUFFER, amount * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
 
-            auto guid = "C90A51A0-E1FA-43A1-BBD0-0F2617ED363C";
-            auto fileId = "d3d9446802a44259755d38e6d163e820";
-            auto mesh = Project::getResourceManager()->getMeshData(guid, fileId);
+            auto mesh = Project::getResourceManager()->getMeshData(modelGUID, meshFileID);
             if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
                 glBindVertexArray(openGLMesh->getVAO());
             } else {
@@ -360,9 +360,7 @@ namespace Dream {
         // TODO: basically look for all meshes (not model parent) w/ a particular GUID and loop calling this below chunk of code for each unique GUID
         {
             // run code for all mesh's with GUID a, then run this code for all meshes with GUID b, etc.
-            auto guid = "C90A51A0-E1FA-43A1-BBD0-0F2617ED363C";
-            auto fileId = "d3d9446802a44259755d38e6d163e820";
-            auto mesh = Project::getResourceManager()->getMeshData(guid, fileId);
+            auto mesh = Project::getResourceManager()->getMeshData(modelGUID, meshFileID);
             if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
                 glBindVertexArray(openGLMesh->getVAO());
                 glDrawElementsInstanced(GL_TRIANGLES, static_cast<unsigned int>(openGLMesh->getIndices().size()), GL_UNSIGNED_INT, 0, amount);
