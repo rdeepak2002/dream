@@ -27,6 +27,7 @@
 #include "dream/util/Logger.h"
 #include "dream/window/Input.h"
 #include "dream/renderer/OpenGLCubeMesh.h"
+#include "dream/renderer/OpenGLQuadMesh.h"
 
 namespace Dream {
     OpenGLRenderer::OpenGLRenderer() : Renderer() {
@@ -94,6 +95,10 @@ namespace Dream {
 
         if (!Project::getResourceManager()->hasMeshData("cube")) {
             Project::getResourceManager()->storeMeshData(new OpenGLCubeMesh(), "cube");
+        }
+
+        if (!Project::getResourceManager()->hasMeshData("quad")) {
+            Project::getResourceManager()->storeMeshData(new OpenGLQuadMesh(), "quad");
         }
     }
 

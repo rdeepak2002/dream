@@ -132,7 +132,7 @@ namespace Dream::Component {
     struct MeshComponent : public Component {
         inline static std::string componentName = "MeshComponent";
         enum MeshType {
-            PRIMITIVE_SPHERE, PRIMITIVE_CUBE, FROM_FILE
+            PRIMITIVE_SPHERE, PRIMITIVE_CUBE, FROM_FILE, PRIMITIVE_QUAD
         };
         inline static std::string k_meshType = "meshType";
         MeshType meshType = PRIMITIVE_CUBE;

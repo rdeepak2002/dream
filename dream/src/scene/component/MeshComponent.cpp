@@ -76,6 +76,9 @@ namespace Dream::Component {
             } else if (meshType == PRIMITIVE_SPHERE) {
                 this->guid = "";
                 this->fileId = "";
+            } else if (meshType == PRIMITIVE_QUAD) {
+                this->guid = "";
+                this->fileId = "";
             } else {
                 Logger::fatal("Unknown primitive mesh type");
             }
@@ -140,6 +143,9 @@ namespace Dream::Component {
             // TODO: handle freeing of memory (but note other meshes share this memory)
             this->guid = "";
             this->fileId = "";
+        } else if (newMeshType == PRIMITIVE_QUAD) {
+            this->guid = "";
+            this->fileId = "";
         } else {
             Logger::fatal("Unknown new mesh type");
         }
@@ -156,7 +162,9 @@ namespace Dream::Component {
             return "cube";
         } else if (meshType == PRIMITIVE_SPHERE) {
             return "sphere";
-        } else if (meshType != FROM_FILE) {
+        } else if (meshType == PRIMITIVE_QUAD) {
+            return "quad";
+        }else if (meshType != FROM_FILE) {
             Logger::fatal("Unknown primitive type to find GUID for");
         }
 
@@ -168,7 +176,9 @@ namespace Dream::Component {
             return "";
         } else if (meshType == PRIMITIVE_SPHERE) {
             return "";
-        } else if (meshType != FROM_FILE) {
+        } else if (meshType == PRIMITIVE_QUAD) {
+            return "";
+        }else if (meshType != FROM_FILE) {
             Logger::fatal("Unknown primitive type to find GUID for");
         }
 

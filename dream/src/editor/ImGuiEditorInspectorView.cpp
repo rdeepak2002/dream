@@ -362,6 +362,8 @@ namespace Dream {
                     dropdownPreview = "Sphere";
                 } else if (component.meshType == Component::MeshComponent::MeshType::PRIMITIVE_CUBE) {
                     dropdownPreview = "Cube";
+                } else if (component.meshType == Component::MeshComponent::MeshType::PRIMITIVE_QUAD) {
+                    dropdownPreview = "Quad";
                 }
 
                 if (!(component.meshType == Component::MeshComponent::FROM_FILE && !component.fileId.empty())) {
@@ -381,6 +383,11 @@ namespace Dream {
                         if (!alreadyChangedMeshType && dropdownPreview != "Cube" && ImGui::Selectable("Cube")) {
                             selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(
                                     Component::MeshComponent::PRIMITIVE_CUBE, selectedEntity);
+                            alreadyChangedMeshType = true;
+                        }
+                        if (!alreadyChangedMeshType && dropdownPreview != "Quad" && ImGui::Selectable("Quad")) {
+                            selectedEntity.getComponent<Component::MeshComponent>().changeMeshType(
+                                    Component::MeshComponent::PRIMITIVE_QUAD, selectedEntity);
                             alreadyChangedMeshType = true;
                         }
                         ImGui::EndCombo();
