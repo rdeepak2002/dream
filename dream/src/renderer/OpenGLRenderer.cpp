@@ -370,7 +370,7 @@ namespace Dream {
         float keepDistance2 = 20.0f;
         float keepDistance3 = 30.0f;
 
-        // TODO: this is computing 100k distances which is not good... (possible solution: do this random discarding on the GPU)
+        // TODO: this is a dumb approach, instead just use lower resolution texture for far away grass
         for (int i = 0; i < pointsAcrossTerrain.size(); ++i) {
             float a1 = 0;
             float b1 = 0;
