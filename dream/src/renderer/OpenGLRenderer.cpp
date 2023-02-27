@@ -344,7 +344,7 @@ namespace Dream {
 
         static std::vector<glm::vec3> pointsAcrossTerrain;
         static bool initializePoints = true;
-        int maxNumPoints = 100000;
+        int maxNumPoints = 250000;
         float grassSpawnRadius = 40.0f;
 
         if (initializePoints) {
@@ -371,16 +371,15 @@ namespace Dream {
         isBillboards.emplace_back(false);
         centerAroundCamera.emplace_back(false);
 
-        // TODO: render grass less frequently for ones far away
         // do not cast shadows for grass
-//        if (shader != simpleDepthShader) {
+        if (shader != simpleDepthShader) {
             modelEntities.push_back(Project::getScene()->getEntityByTag("grass"));
             amounts.push_back(4000);
             offsets.emplace_back(0, 0.14, 0);
             displacements.emplace_back(10);
             isBillboards.emplace_back(true);
             centerAroundCamera.emplace_back(true);
-//        }
+        }
 
         for (int j = 0; j < modelEntities.size(); ++j) {
             auto isCenteredAroundCamera = centerAroundCamera.at(j);
