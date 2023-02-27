@@ -343,30 +343,38 @@ namespace Dream {
         std::vector<bool> centerAroundCamera;
 
         static std::vector<glm::vec3> pointsAcrossTerrain;
+        static bool initializePoints = true;
         int maxNumPoints = 100000;
         float grassSpawnRadius = 40.0f;
 
-        for (int i = pointsAcrossTerrain.size() - 1; i >= 0; --i) {
-            // remove grass near spawn (or other invalid areas)
-            if (MathUtils::distance(pointsAcrossTerrain.at(i), glm::vec3(0, 0, 0)) < 2.0f) {
-                pointsAcrossTerrain.erase(pointsAcrossTerrain.begin() + i);
+        if (initializePoints) {
+            while (pointsAcrossTerrain.size() < maxNumPoints) {
+                // generate points somewhere around camera
+                int i = pointsAcrossTerrain.size();
+                glm::vec3 p = glm::vec3(MathUtils::randomFloat(-grassSpawnRadius, grassSpawnRadius), 0, MathUtils::randomFloat(-grassSpawnRadius, grassSpawnRadius)) + glm::vec3(camera.position.x, 0, camera.position.z);
+
+                // remove grass near spawn (or other invalid areas)
+                while (MathUtils::distance(p, glm::vec3(0, 0, 0)) < 2.0f) {
+                    p = glm::vec3(MathUtils::randomFloat(-grassSpawnRadius, grassSpawnRadius), 0, MathUtils::randomFloat(-grassSpawnRadius, grassSpawnRadius)) + glm::vec3(camera.position.x, 0, camera.position.z);
+                }
+
+                pointsAcrossTerrain.push_back(p);
             }
+
+            initializePoints = false;
         }
 
-        while (pointsAcrossTerrain.size() < maxNumPoints) {
-            // generate points somewhere around camera
-            int i = pointsAcrossTerrain.size();
-            glm::vec3 p = glm::vec3(MathUtils::randomFloat(-grassSpawnRadius, grassSpawnRadius), 0, MathUtils::randomFloat(-grassSpawnRadius, grassSpawnRadius)) + glm::vec3(camera.position.x, 0, camera.position.z);
-            pointsAcrossTerrain.push_back(p);
-        }
-
-//        auto pointsAcrossTerrainCloseToCamera = pointsAcrossTerrain;
+        // grasses farther away are less likely to appear in scene
         std::vector<glm::vec3> pointsAcrossTerrainCloseToCamera;
-        float keepDistance = 10.0f; // distance where a grass point should always be kept regardless of proability
+        float keepDistance1 = 10.0f;
+        float keepDistance2 = 20.0f;
+        float keepDistance3 = 30.0f;
+
+        // TODO: this is computing 100k distances which is not good...
         for (int i = 0; i < pointsAcrossTerrain.size(); ++i) {
-            float a1 = camera.position.x;
-            float b1 = camera.position.y;
-            float c1 = camera.position.z;
+            float a1 = 0;
+            float b1 = 0;
+            float c1 = 0;
 
             float a2 = pointsAcrossTerrain.at(i).x;
             float b2 = pointsAcrossTerrain.at(i).y;
@@ -374,12 +382,18 @@ namespace Dream {
 
             srand(3 * a1 * a1 + 5.5 * b1 + 1.2 * c1 + 3 * a2 * a2 + 5.5 * b2 + 1.2 * c2);
 
-            // TODO: skew probability based off distance
-//            if (rand() % 10 < 3 || MathUtils::distance(pointsAcrossTerrain.at(i), camera.position) < keepDistance) {
-//                pointsAcrossTerrainCloseToCamera.push_back(pointsAcrossTerrain.at(i));
-//            }
-            if (MathUtils::distance(pointsAcrossTerrain.at(i), camera.position) < keepDistance) {
+            float distToPoint = MathUtils::distance(pointsAcrossTerrain.at(i), camera.position);
+
+            if (distToPoint < keepDistance1) {
                 pointsAcrossTerrainCloseToCamera.push_back(pointsAcrossTerrain.at(i));
+            } else if (distToPoint < keepDistance2) {
+                if ((rand() % 5) + 1 ==  1) {
+                    pointsAcrossTerrainCloseToCamera.push_back(pointsAcrossTerrain.at(i));
+                }
+            } else if (distToPoint < keepDistance3) {
+                if ((rand() % 20) + 1 ==  1) {
+                    pointsAcrossTerrainCloseToCamera.push_back(pointsAcrossTerrain.at(i));
+                }
             }
         }
 
