@@ -342,18 +342,25 @@ namespace Dream {
         std::vector<bool> isBillboards;
         std::vector<bool> centerAroundCamera;
 
-        std::vector<glm::vec3> pointsAcrossTerrainCloseToCamera;
-        for (int i = 0; i < 100000; ++i) {
-            srand(3 * i * i + 4 * i + 9);
-            float radius = 20.0f;
-            float searchRadius = 10.0f;
-            glm::vec3 p = glm::vec3(MathUtils::randomFloat(-radius, radius), 0, MathUtils::randomFloat(-radius, radius));
+        static std::vector<glm::vec3> pointsAcrossTerrain;
+        int maxNumPoints = 100000;
+        float grassSpawnRadius = 40.0f;
 
-            // TODO: percentage of selecting the point is based off the distance from the camera
-            if (MathUtils::distance(camera.position, p) < searchRadius) {
-                pointsAcrossTerrainCloseToCamera.emplace_back(p);
+        for (int i = pointsAcrossTerrain.size() - 1; i >= 0; --i) {
+            // remove grass near spawn (or other invalid areas)
+            if (MathUtils::distance(pointsAcrossTerrain.at(i), glm::vec3(0, 0, 0)) < 2.0f) {
+                pointsAcrossTerrain.erase(pointsAcrossTerrain.begin() + i);
             }
         }
+
+        while (pointsAcrossTerrain.size() < maxNumPoints) {
+            // generate points somewhere around camera
+            int i = pointsAcrossTerrain.size();
+            glm::vec3 p = glm::vec3(MathUtils::randomFloat(-grassSpawnRadius, grassSpawnRadius), 0, MathUtils::randomFloat(-grassSpawnRadius, grassSpawnRadius)) + glm::vec3(camera.position.x, 0, camera.position.z);
+            pointsAcrossTerrain.push_back(p);
+        }
+
+        auto pointsAcrossTerrainCloseToCamera = pointsAcrossTerrain;
 
         modelEntities.push_back(Project::getScene()->getEntityByTag("forest tree"));
         amounts.push_back(600);
