@@ -91,10 +91,10 @@ vec3 CalcSpotLight(SpotLight light);
 float getFogFactor()
 {
     float d = distance(viewPos, FragPos);
-    if (d>=fogMax) return 1;
-    if (d<=fogMin) return 0;
+    if (d>=fogMax) return 1.0f;
+    if (d<=fogMin) return 0.0f;
 
-    return 1 - (fogMax - d) / (fogMax - fogMin);
+    return 1.0f - float(fogMax - d) / float(fogMax - fogMin);
 }
 
 void main()
