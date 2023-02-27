@@ -321,7 +321,7 @@ namespace Dream {
     }
 
     void OpenGLRenderer::drawInstancedMeshes(Camera camera, OpenGLShader* shader) {
-        unsigned int amount = 1000;
+        unsigned int amount = 600;
 
         // TODO: this is getting a specific instanced model, instead generalize
 //        auto modelEntity = Project::getScene()->getEntityByID("449B6699-4DDA-4A61-B996-6294C85F94BF");
@@ -336,7 +336,7 @@ namespace Dream {
             {
                 glm::mat4 model = glm::mat4(1.0f);
                 srand(3 * i * i + 4 * i + 9);
-                model = glm::translate(model, glm::vec3( rand() % 400 - 200,  0,  rand() % 400 - 200));
+                model = glm::translate(model, glm::vec3( rand() % 80 - 40,  0,  rand() % 80 - 40));
                 model = glm::scale(model, modelEntity.getComponent<Component::TransformComponent>().scale);
                 model = model * glm::toMat4(modelEntity.getComponent<Component::TransformComponent>().rotation);
                 modelMatrices[i] = model;
