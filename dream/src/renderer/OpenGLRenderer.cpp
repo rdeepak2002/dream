@@ -39,7 +39,7 @@ namespace Dream {
 
         instancedLightingShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shader_instanced.vert").c_str(),
                                           Project::getPath().append("assets").append("shaders").append(
-                                                  "lighting_shader_instanced.frag").c_str(), nullptr);
+                                                  "lighting_shader.frag").c_str(), nullptr);
 
         singleTextureShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shader.vert").c_str(),
                                                Project::getPath().append("assets").append("shaders").append(

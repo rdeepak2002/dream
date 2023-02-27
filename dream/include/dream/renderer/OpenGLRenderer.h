@@ -63,7 +63,7 @@ namespace Dream {
 
         ///
         // TODO: clean this up
-        unsigned int amount = 0;
+        unsigned int amount = 1;
         unsigned int buffer = -1;
         glm::mat4* modelMatrices = nullptr;
         OpenGLMesh* sphereMesh = nullptr;
