@@ -149,12 +149,15 @@ namespace Dream {
 #endif
                 for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
                     simpleDepthShader->use();
+                    simpleDepthShader->setBool("instanced", false);
                     simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrices.at(i));
                     glViewport(0, 0, (int) shadowMapFbos.at(i)->getWidth(), (int) shadowMapFbos.at(i)->getHeight());
                     shadowMapFbos.at(i)->bind();
                     glClear(GL_DEPTH_BUFFER_BIT);
                     drawTerrains(camera, simpleDepthShader);
                     drawEntities(Project::getScene()->getRootEntity(), camera, simpleDepthShader);
+                    simpleDepthShader->setBool("instanced", true);
+                    drawInstancedMeshes(camera, simpleDepthShader);
                     shadowMapFbos.at(i)->unbind();
                     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
