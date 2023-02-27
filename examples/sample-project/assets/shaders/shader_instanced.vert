@@ -19,6 +19,7 @@ uniform mat4 projection;
 const int MAX_BONES = 200;
 const int MAX_BONE_INFLUENCE = 4;
 uniform mat4 finalBonesMatrices[MAX_BONES];
+uniform bool billboard;
 
 void main()
 {
@@ -61,5 +62,19 @@ void main()
     vec3 B = cross(N, T);
     TBN = transpose(mat3(T, B, N));
 
-    gl_Position = projection * view * aInstanceMatrix * totalPosition;
+    mat4 modelView = view * aInstanceMatrix;
+
+    if (billboard) {
+        float scale = 0.12;
+
+        modelView[0][0] = scale;
+        modelView[0][1] = 0.0;
+        modelView[0][2] = 0.0;
+
+        modelView[2][0] = 0.0;
+        modelView[2][1] = 0.0;
+        modelView[2][2] = scale;
+    }
+
+    gl_Position = projection * modelView * totalPosition;
 }
