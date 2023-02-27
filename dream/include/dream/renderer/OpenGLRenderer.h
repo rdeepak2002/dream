@@ -61,12 +61,6 @@ namespace Dream {
         SkinningTech *skinningTech;
         OpenGLSkybox *skybox;
 
-        ///
-        // TODO: clean this up
-        unsigned int amount = 1000;
-        OpenGLMesh* sphereMesh = nullptr;
-        ///
-
         void resizeFrameBuffer();
 
         void printGLVersion();

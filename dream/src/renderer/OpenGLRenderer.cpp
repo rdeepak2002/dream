@@ -95,44 +95,6 @@ namespace Dream {
         if (!Project::getResourceManager()->hasMeshData("cube")) {
             Project::getResourceManager()->storeMeshData(new OpenGLCubeMesh(), "cube");
         }
-
-
-        // TODO: clean this up
-        ///
-        sphereMesh = new OpenGLSphereMesh();
-
-        glm::mat4* modelMatrices = new glm::mat4[amount];
-        unsigned int instancingModelMatricesBuffer;
-        for (unsigned int i = 0; i < amount; i++)
-        {
-            glm::mat4 model = glm::mat4(1.0f);
-            // TODO: remove this random translation and instead get translation of all model entities (not mesh entities) with a GUID
-            model = glm::translate(model, glm::vec3( rand() % 100 - 50,  rand() % 50,  rand() % 100 - 50));
-            modelMatrices[i] = model;
-        }
-
-        glGenBuffers(1, &instancingModelMatricesBuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, instancingModelMatricesBuffer);
-        glBufferData(GL_ARRAY_BUFFER, amount * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
-
-        glBindVertexArray(sphereMesh->getVAO());
-        // set attribute pointers for matrix (4 times vec4)
-        glEnableVertexAttribArray(7);
-        glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)0);
-        glEnableVertexAttribArray(8);
-        glVertexAttribPointer(8, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4)));
-        glEnableVertexAttribArray(9);
-        glVertexAttribPointer(9, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
-        glEnableVertexAttribArray(10);
-        glVertexAttribPointer(10, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
-
-        glVertexAttribDivisor(7, 1);
-        glVertexAttribDivisor(8, 1);
-        glVertexAttribDivisor(9, 1);
-        glVertexAttribDivisor(10, 1);
-
-        glBindVertexArray(0);
-        ///
     }
 
     OpenGLRenderer::~OpenGLRenderer() {
@@ -334,6 +296,57 @@ namespace Dream {
     }
 
     void OpenGLRenderer::drawInstancedMeshes(Camera camera, OpenGLShader* shader) {
+        unsigned int amount = 1000;
+        static bool needToSetup = true;
+
+        if (needToSetup) {
+            glm::mat4* modelMatrices = new glm::mat4[amount];
+            for (unsigned int i = 0; i < amount; i++)
+            {
+                glm::mat4 model = glm::mat4(1.0f);
+                // TODO: remove this random translation and instead get translation of all model entities (not mesh entities) with a GUID
+                model = glm::translate(model, glm::vec3( rand() % 100 - 50,  0,  rand() % 100 - 50));
+                modelMatrices[i] = model;
+            }
+
+            unsigned int instancingModelMatricesBuffer;
+            glGenBuffers(1, &instancingModelMatricesBuffer);
+            glBindBuffer(GL_ARRAY_BUFFER, instancingModelMatricesBuffer);
+            glBufferData(GL_ARRAY_BUFFER, amount * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
+
+            auto guid = "C90A51A0-E1FA-43A1-BBD0-0F2617ED363C";
+            auto fileId = "d3d9446802a44259755d38e6d163e820";
+            auto mesh = Project::getResourceManager()->getMeshData(guid, fileId);
+            if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
+                glBindVertexArray(openGLMesh->getVAO());
+            } else {
+                Logger::fatal("Error getting instanced mesh (1)");
+            }
+
+//        glBindVertexArray(sphereMesh->getVAO());
+
+
+            // set attribute pointers for matrix (4 times vec4)
+            glEnableVertexAttribArray(7);
+            glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)0);
+            glEnableVertexAttribArray(8);
+            glVertexAttribPointer(8, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4)));
+            glEnableVertexAttribArray(9);
+            glVertexAttribPointer(9, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
+            glEnableVertexAttribArray(10);
+            glVertexAttribPointer(10, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
+
+            glVertexAttribDivisor(7, 1);
+            glVertexAttribDivisor(8, 1);
+            glVertexAttribDivisor(9, 1);
+            glVertexAttribDivisor(10, 1);
+
+            glBindVertexArray(0);
+
+            needToSetup = false;
+        }
+
+
         // TODO: clean up this method and use the instanced meshes
         for (int i = 0; i < MAX_BONES; i++) {
             shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", glm::mat4(1.0));
@@ -344,8 +357,15 @@ namespace Dream {
         // TODO: basically look for all meshes (not model parent) w/ a particular GUID and loop calling this below chunk of code for each unique GUID
         {
             // run code for all mesh's with GUID a, then run this code for all meshes with GUID b, etc.
-            glBindVertexArray(sphereMesh->getVAO());
-            glDrawElementsInstanced(GL_TRIANGLES, static_cast<unsigned int>(sphereMesh->getIndices().size()), GL_UNSIGNED_INT, 0, amount);
+            auto guid = "C90A51A0-E1FA-43A1-BBD0-0F2617ED363C";
+            auto fileId = "d3d9446802a44259755d38e6d163e820";
+            auto mesh = Project::getResourceManager()->getMeshData(guid, fileId);
+            if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
+                glBindVertexArray(openGLMesh->getVAO());
+                glDrawElementsInstanced(GL_TRIANGLES, static_cast<unsigned int>(openGLMesh->getIndices().size()), GL_UNSIGNED_INT, 0, amount);
+            } else {
+                Logger::fatal("Error getting instanced mesh (2)");
+            }
             glBindVertexArray(0);
         }
 
