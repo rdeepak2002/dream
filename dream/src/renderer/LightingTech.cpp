@@ -272,4 +272,15 @@ namespace Dream {
             shader->setFloat(prefix + ".outerCutOff", glm::cos(glm::radians(lightComponent.outerCutOff)));
         }
     }
+
+    void LightingTech::applyFog(OpenGLShader *shader) {
+        shader->setVec4("fogColor", glm::vec4(0.8f, 0.8f, 0.8f, 0.0f));
+        if (!Project::isPlaying()) {
+            shader->setFloat("fogMin", 99999999999.0f);
+            shader->setFloat("fogMax", 9999999999999999999999.0f);
+        } else {
+            shader->setFloat("fogMin", 10.0f);
+            shader->setFloat("fogMax", 200.0f);
+        }
+    }
 }

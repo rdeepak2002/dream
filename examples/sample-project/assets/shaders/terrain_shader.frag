@@ -94,6 +94,10 @@ uniform int numberOfSpotLights;
 
 uniform mat4 view;
 
+uniform vec4 fogColor;
+uniform float fogMin;
+uniform float fogMax;
+
 float gamma = 2.2;
 
 // light function prototypes
@@ -158,6 +162,15 @@ vec4 getNormalTextureColor() {
     return texColor;
 }
 
+float getFogFactor()
+{
+    float d = distance(viewPos, FragPos);
+    if (d>=fogMax) return 1;
+    if (d<=fogMin) return 0;
+
+    return 1 - (fogMax - d) / (fogMax - fogMin);
+}
+
 void main()
 {
     vec4 tc = getTextureColor();
@@ -175,7 +188,10 @@ void main()
     }
 
     result.rgb = pow(result.rgb, vec3(1.0 / gamma));
-    FragColor = vec4(result, 1.0);
+//    FragColor = vec4(result, 1.0);
+
+    float alpha = getFogFactor();
+    FragColor = vec4(mix(result.rgb, vec3(fogColor), alpha), 1.0);
 }
 
 

@@ -182,6 +182,7 @@ namespace Dream {
                 // draw meshes
                 if (Project::getConfig().renderingConfig.renderingType == Config::RenderingConfig::FINAL) {
                     lightingShader->use();
+                    lightingTech->applyFog(lightingShader);
                     lightingShader->setMat4("projection", camera.getProjectionMatrix());
                     lightingShader->setMat4("view", camera.getViewMatrix());
                     lightingShader->setFloat("farPlane", camera.zFar);
@@ -207,6 +208,7 @@ namespace Dream {
             {
                 // draw instanced meshes
                 instancedLightingShader->use();
+                lightingTech->applyFog(instancedLightingShader);
                 instancedLightingShader->setMat4("projection", camera.getProjectionMatrix());
                 instancedLightingShader->setMat4("view", camera.getViewMatrix());
                 instancedLightingShader->setFloat("farPlane", camera.zFar);
@@ -228,6 +230,7 @@ namespace Dream {
                 glCullFace(GL_BACK);
                 // draw terrains
                 terrainShader->use();
+                lightingTech->applyFog(terrainShader);
                 terrainShader->setMat4("projection", camera.getProjectionMatrix());
                 terrainShader->setMat4("view", camera.getViewMatrix());
                 terrainShader->setFloat("farPlane", camera.zFar);

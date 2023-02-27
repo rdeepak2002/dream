@@ -16,6 +16,7 @@ namespace Dream {
     public:
         LightingTech();
         ~LightingTech();
+        void applyFog(OpenGLShader *shader);
         void setTextureAndColorUniforms(Entity entity, std::vector<OpenGLShadowMapFBO *> shadowMapFbos, DirectionalLightShadowTech* directionalLightShadowTech, OpenGLShader *shader);
     private:
         void setLightShaderUniforms(OpenGLShader *shader);
