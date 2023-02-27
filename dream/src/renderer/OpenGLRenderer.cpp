@@ -364,14 +364,6 @@ namespace Dream {
             initializePoints = false;
         }
 
-        // grasses farther away are less likely to appear in scene
-        // TODO: lmao we are just rendering all grass
-        std::vector<glm::vec3> pointsAcrossTerrainCloseToCamera;
-        float keepDistance1 = 10.0f;
-        float keepDistance2 = 20.0f;
-        float keepDistance3 = 30.0f;
-        pointsAcrossTerrainCloseToCamera = pointsAcrossTerrain;
-
         modelEntities.push_back(Project::getScene()->getEntityByTag("forest tree"));
         amounts.push_back(600);
         offsets.emplace_back(0, 0, 0);
@@ -392,7 +384,7 @@ namespace Dream {
 
         for (int j = 0; j < modelEntities.size(); ++j) {
             auto isCenteredAroundCamera = centerAroundCamera.at(j);
-            auto amount = isCenteredAroundCamera ? pointsAcrossTerrainCloseToCamera.size() : amounts.at(j);
+            auto amount = isCenteredAroundCamera ? pointsAcrossTerrain.size() : amounts.at(j);
             auto modelEntity = modelEntities.at(j);
             auto offset = offsets.at(j);
             auto displacement = displacements.at(j);
@@ -417,7 +409,7 @@ namespace Dream {
                     // TODO: it is slow calling srand every loop, instead call this once and store positions in some array
                     srand(3 * i * i + 4 * i + 9);
                     if (isCenteredAroundCamera) {
-                        model = glm::translate(model, pointsAcrossTerrainCloseToCamera.at(i) + offset);
+                        model = glm::translate(model, pointsAcrossTerrain.at(i) + offset);
                     } else {
                         model = glm::translate(model, glm::vec3(MathUtils::randomFloat(-displacement / 2, displacement / 2),  0,  MathUtils::randomFloat(-displacement / 2, displacement / 2)) + offset);
                     }

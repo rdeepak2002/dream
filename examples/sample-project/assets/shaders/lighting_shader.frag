@@ -79,6 +79,7 @@ uniform mat4 view;
 uniform vec4 fogColor;
 uniform float fogMin;
 uniform float fogMax;
+uniform bool enableNormalMapping;
 
 float gamma = 2.2;
 
@@ -217,7 +218,6 @@ vec3 CalcDirLight(DirLight light) {
     vec3 viewDir = normalize(viewPos - FragPos);
     vec3 lightDir = normalize(-light.direction);
 
-    bool enableNormalMapping = true;
     if (enableNormalMapping) {
         vec3 TangentViewPos  = TBN * viewPos;
         vec3 TangentFragPos  = TBN * FragPos;
@@ -270,7 +270,6 @@ vec3 CalcPointLight(PointLight light) {
     vec3 lightDir = normalize(light.position - FragPos);
 
     // normal mapping
-    bool enableNormalMapping = true;
     if (enableNormalMapping) {
         vec3 TangentViewPos  = TBN * viewPos;
         vec3 TangentFragPos  = TBN * FragPos;

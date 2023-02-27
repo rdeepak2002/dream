@@ -206,6 +206,7 @@ namespace Dream {
     }
 
     void LightingTech::setLightShaderUniforms(OpenGLShader* shader) {
+        shader->setBool("enableNormalMapping", true);
         std::vector<Entity> directionalLights;
         std::vector<Entity> pointLights;
         std::vector<Entity> spotLights;
