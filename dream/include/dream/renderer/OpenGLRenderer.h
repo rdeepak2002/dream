@@ -65,6 +65,8 @@ namespace Dream {
 
         void printGLVersion();
 
+        void getMeshesForModel(Entity entity, std::vector<Entity> &vec);
+
         void drawInstancedMeshes(Camera camera, OpenGLShader* shader);
 
         void drawTerrains(Camera camera, OpenGLShader* shader);

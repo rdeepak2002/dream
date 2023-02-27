@@ -301,12 +301,32 @@ namespace Dream {
         }
     }
 
+    void OpenGLRenderer::getMeshesForModel(Entity entity, std::vector<Entity> &vec) {
+        // get child meshes for a model and store them in the parameter vector
+        Entity child = entity.getComponent<Component::HierarchyComponent>().first;
+        while (child) {
+            if (child.hasComponent<Component::MeshComponent>()) {
+                auto meshComponent = child.getComponent<Component::MeshComponent>();
+                if (!meshComponent.guid.empty() && !meshComponent.fileId.empty()) {
+                    vec.push_back(child);
+                }
+                if (meshComponent.guid.empty() || !meshComponent.fileId.empty()) {
+                    getMeshesForModel(child, vec);
+                }
+            } else {
+                getMeshesForModel(child, vec);
+            }
+            child = child.getComponent<Component::HierarchyComponent>().next;
+        }
+    }
+
     void OpenGLRenderer::drawInstancedMeshes(Camera camera, OpenGLShader* shader) {
         unsigned int amount = 2000;
 
+        // TODO: this is getting a specific instanced model, instead generalize
+        auto modelEntity = Project::getScene()->getEntityByID("449B6699-4DDA-4A61-B996-6294C85F94BF");
         std::vector<Entity> instancedMeshEntities;
-        instancedMeshEntities.push_back(Project::getScene()->getEntityByID("5A79E889-9BE7-4C84-8C7A-D104B80706CF"));
-        instancedMeshEntities.push_back(Project::getScene()->getEntityByID("58D0F43E-5D45-4702-A431-BC03B2EA47DB"));
+        getMeshesForModel(modelEntity, instancedMeshEntities);
 
         for (int i = 0; i < instancedMeshEntities.size(); ++i) {
             Entity entity = instancedMeshEntities.at(i);
