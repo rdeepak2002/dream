@@ -373,14 +373,14 @@ namespace Dream {
 
         // TODO: render grass less frequently for ones far away
         // do not cast shadows for grass
-        if (shader != simpleDepthShader) {
+//        if (shader != simpleDepthShader) {
             modelEntities.push_back(Project::getScene()->getEntityByTag("grass"));
             amounts.push_back(4000);
             offsets.emplace_back(0, 0.14, 0);
             displacements.emplace_back(10);
             isBillboards.emplace_back(true);
             centerAroundCamera.emplace_back(true);
-        }
+//        }
 
         for (int j = 0; j < modelEntities.size(); ++j) {
             auto isCenteredAroundCamera = centerAroundCamera.at(j);
@@ -400,55 +400,66 @@ namespace Dream {
 
             for (int i = 0; i < instancedMeshEntities.size(); ++i) {
                 Entity entity = instancedMeshEntities.at(i);
-                auto* modelMatrices = new glm::mat4[amount];
-                for (unsigned int i = 0; i < amount; i++)
-                {
-                    // TODO: have boolean if we want to filter only the closest things to our player (like only draw grass close to player and sample a few from farther ones)
-                    // TODO: make sure you also update amount
-                    glm::mat4 model = glm::mat4(1.0f);
-                    // TODO: it is slow calling srand every loop, instead call this once and store positions in some array
-                    srand(3 * i * i + 4 * i + 9);
-                    if (isCenteredAroundCamera) {
-                        model = glm::translate(model, pointsAcrossTerrain.at(i) + offset);
-                    } else {
-                        model = glm::translate(model, glm::vec3(MathUtils::randomFloat(-displacement / 2, displacement / 2),  0,  MathUtils::randomFloat(-displacement / 2, displacement / 2)) + offset);
-                    }
-                    model = glm::scale(model, modelEntity.getComponent<Component::TransformComponent>().scale);
-                    model = model * glm::toMat4(modelEntity.getComponent<Component::TransformComponent>().rotation);
-                    modelMatrices[i] = model;
-                }
-
-                // TODO: cache this buffer rather than creating it every frame to improve performance?
-                unsigned int instancingModelMatricesBuffer;
-                glGenBuffers(1, &instancingModelMatricesBuffer);
-                glBindBuffer(GL_ARRAY_BUFFER, instancingModelMatricesBuffer);
-                glBufferData(GL_ARRAY_BUFFER, amount * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
-
                 auto modelGUID = entity.getComponent<Component::MeshComponent>().getMeshGuid();
                 auto meshFileID = entity.getComponent<Component::MeshComponent>().getMeshFileID();
-                auto mesh = Project::getResourceManager()->getMeshData(modelGUID, meshFileID);
-                if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
-                    glBindVertexArray(openGLMesh->getVAO());
-                } else {
-                    Logger::fatal("Error getting instanced mesh (1)");
+
+                static int count = 0;
+//                static std::unordered_set<std::string>
+
+                if (count < 3) {
+                    auto* modelMatrices = new glm::mat4[amount];
+                    for (unsigned int i = 0; i < amount; i++)
+                    {
+                        // TODO: have boolean if we want to filter only the closest things to our player (like only draw grass close to player and sample a few from farther ones)
+                        // TODO: make sure you also update amount
+                        glm::mat4 model = glm::mat4(1.0f);
+                        // TODO: it is slow calling srand every loop, instead call this once and store positions in some array
+                        srand(3 * i * i + 4 * i + 9);
+                        if (isCenteredAroundCamera) {
+                            model = glm::translate(model, pointsAcrossTerrain.at(i) + offset);
+                        } else {
+                            model = glm::translate(model, glm::vec3(MathUtils::randomFloat(-displacement / 2, displacement / 2),  0,  MathUtils::randomFloat(-displacement / 2, displacement / 2)) + offset);
+                        }
+                        model = glm::scale(model, modelEntity.getComponent<Component::TransformComponent>().scale);
+                        model = model * glm::toMat4(modelEntity.getComponent<Component::TransformComponent>().rotation);
+                        modelMatrices[i] = model;
+                    }
+
+                    // TODO: cache this buffer rather than creating it every frame to improve performance?
+                    unsigned int instancingModelMatricesBuffer;
+                    glGenBuffers(1, &instancingModelMatricesBuffer);
+                    glBindBuffer(GL_ARRAY_BUFFER, instancingModelMatricesBuffer);
+                    glBufferData(GL_ARRAY_BUFFER, amount * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
+
+                    auto mesh = Project::getResourceManager()->getMeshData(modelGUID, meshFileID);
+                    if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
+                        glBindVertexArray(openGLMesh->getVAO());
+                    } else {
+                        Logger::fatal("Error getting instanced mesh (1)");
+                    }
+
+                    // set attribute pointers for matrix (4 times vec4)
+                    glEnableVertexAttribArray(7);
+                    glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)0);
+                    glEnableVertexAttribArray(8);
+                    glVertexAttribPointer(8, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4)));
+                    glEnableVertexAttribArray(9);
+                    glVertexAttribPointer(9, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
+                    glEnableVertexAttribArray(10);
+                    glVertexAttribPointer(10, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
+
+                    glVertexAttribDivisor(7, 1);
+                    glVertexAttribDivisor(8, 1);
+                    glVertexAttribDivisor(9, 1);
+                    glVertexAttribDivisor(10, 1);
+
+                    glBindVertexArray(0);
+
+                    delete[] modelMatrices;
+                    glDeleteBuffers(1, &instancingModelMatricesBuffer);
+
+                    count++;
                 }
-
-                // set attribute pointers for matrix (4 times vec4)
-                glEnableVertexAttribArray(7);
-                glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)0);
-                glEnableVertexAttribArray(8);
-                glVertexAttribPointer(8, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4)));
-                glEnableVertexAttribArray(9);
-                glVertexAttribPointer(9, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
-                glEnableVertexAttribArray(10);
-                glVertexAttribPointer(10, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
-
-                glVertexAttribDivisor(7, 1);
-                glVertexAttribDivisor(8, 1);
-                glVertexAttribDivisor(9, 1);
-                glVertexAttribDivisor(10, 1);
-
-                glBindVertexArray(0);
 
                 // TODO: clean up this method and use the instanced meshes
                 for (int i = 0; i < MAX_BONES; i++) {
@@ -469,9 +480,6 @@ namespace Dream {
                     }
                     glBindVertexArray(0);
                 }
-
-                delete[] modelMatrices;
-                glDeleteBuffers(1, &instancingModelMatricesBuffer);
             }
         }
     }
