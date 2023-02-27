@@ -37,6 +37,10 @@ namespace Dream {
                                                Project::getPath().append("assets").append("shaders").append(
                                                        "lighting_shader.frag").c_str(), nullptr);
 
+        instancedLightingShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shader_instanced.vert").c_str(),
+                                          Project::getPath().append("assets").append("shaders").append(
+                                                  "lighting_shader_instanced.frag").c_str(), nullptr);
+
         singleTextureShader = new OpenGLShader(Project::getPath().append("assets").append("shaders").append("shader.vert").c_str(),
                                                Project::getPath().append("assets").append("shaders").append(
                                           "shader_single_texture.frag").c_str(), nullptr);
@@ -91,10 +95,45 @@ namespace Dream {
         if (!Project::getResourceManager()->hasMeshData("cube")) {
             Project::getResourceManager()->storeMeshData(new OpenGLCubeMesh(), "cube");
         }
+
+
+        // TODO: clean this up
+        ///
+        sphereMesh = new OpenGLSphereMesh();
+        modelMatrices = new glm::mat4[amount];
+        for (unsigned int i = 0; i < amount; i++)
+        {
+            glm::mat4 model = glm::mat4(1.0f);
+            modelMatrices[i] = model;
+        }
+
+        glGenBuffers(1, &buffer);
+        glBindBuffer(GL_ARRAY_BUFFER, buffer);
+        glBufferData(GL_ARRAY_BUFFER, amount * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
+
+        glBindVertexArray(sphereMesh->getVAO());
+        // set attribute pointers for matrix (4 times vec4)
+        glEnableVertexAttribArray(7);
+        glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)0);
+        glEnableVertexAttribArray(8);
+        glVertexAttribPointer(8, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4)));
+        glEnableVertexAttribArray(9);
+        glVertexAttribPointer(9, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
+        glEnableVertexAttribArray(10);
+        glVertexAttribPointer(10, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
+
+        glVertexAttribDivisor(7, 1);
+        glVertexAttribDivisor(8, 1);
+        glVertexAttribDivisor(9, 1);
+        glVertexAttribDivisor(10, 1);
+
+        glBindVertexArray(0);
+        ///
     }
 
     OpenGLRenderer::~OpenGLRenderer() {
         delete this->lightingShader;
+        delete this->instancedLightingShader;
         delete this->singleTextureShader;
         delete this->physicsDebugShader;
         delete this->simpleDepthShader;
@@ -197,6 +236,25 @@ namespace Dream {
             }
 
             {
+                // draw instanced meshes
+                instancedLightingShader->use();
+                instancedLightingShader->setMat4("projection", camera.getProjectionMatrix());
+                instancedLightingShader->setMat4("view", camera.getViewMatrix());
+                instancedLightingShader->setFloat("farPlane", camera.zFar);
+                glm::vec3 viewPos = camera.position;
+                instancedLightingShader->setVec3("viewPos", viewPos);
+                instancedLightingShader->setVec3("shadowDirectionalLightDir", directionalLightShadowTech->getDirectionalLightDirection());
+                for (int i = 0; i < directionalLightShadowTech->getNumCascades(); ++i) {
+                    instancedLightingShader->setMat4("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices.at(i));
+                }
+                auto shadowCascadeLevels = directionalLightShadowTech->getShadowCascadeLevels(camera);
+                for (int i = 0; i < shadowCascadeLevels.size(); ++i) {
+                    instancedLightingShader->setFloat("cascadePlaneDistances[" + std::to_string(i) + "]", shadowCascadeLevels.at(i));
+                }
+                drawInstancedMeshes(camera, instancedLightingShader);
+            }
+
+            {
                 glEnable(GL_CULL_FACE);
                 glCullFace(GL_BACK);
                 // draw terrains
@@ -269,6 +327,21 @@ namespace Dream {
         if (fullscreen) {
             this->outputRenderTextureFbo->renderScreenQuad();
         }
+    }
+
+    void OpenGLRenderer::drawInstancedMeshes(Camera camera, OpenGLShader* shader) {
+        // TODO: clean up this method and use the instanced meshes
+        for (int i = 0; i < MAX_BONES; i++) {
+            shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", glm::mat4(1.0));
+        }
+
+        lightingTech->setTextureAndColorUniforms(Project::getScene()->getRootEntity(), shadowMapFbos, directionalLightShadowTech, shader);
+
+        glBindVertexArray(sphereMesh->getVAO());
+        glDrawElementsInstanced(GL_TRIANGLES, static_cast<unsigned int>(sphereMesh->getIndices().size()), GL_UNSIGNED_INT, 0, amount);
+        glBindVertexArray(0);
+
+        // TODO: realize we have to instance each of the sub-meshes for an overall mesh (that's why the example code does a for loop over all meshes)
     }
 
     void OpenGLRenderer::drawTerrains(Camera camera, OpenGLShader* shader) {

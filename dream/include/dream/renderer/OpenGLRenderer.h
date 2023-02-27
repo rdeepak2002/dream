@@ -48,6 +48,7 @@ namespace Dream {
 
     private:
         OpenGLShader *lightingShader;
+        OpenGLShader *instancedLightingShader;
         OpenGLShader *singleTextureShader;
         OpenGLShader *physicsDebugShader;
         OpenGLShader *skyboxShader;
@@ -60,9 +61,19 @@ namespace Dream {
         SkinningTech *skinningTech;
         OpenGLSkybox *skybox;
 
+        ///
+        // TODO: clean this up
+        unsigned int amount = 0;
+        unsigned int buffer = -1;
+        glm::mat4* modelMatrices = nullptr;
+        OpenGLMesh* sphereMesh = nullptr;
+        ///
+
         void resizeFrameBuffer();
 
         void printGLVersion();
+
+        void drawInstancedMeshes(Camera camera, OpenGLShader* shader);
 
         void drawTerrains(Camera camera, OpenGLShader* shader);
 
@@ -71,7 +82,6 @@ namespace Dream {
         void drawMesh(std::shared_ptr<OpenGLMesh> openGLMesh);
 
         std::pair<int, int> getViewportDimensions();
-
     };
 }
 
