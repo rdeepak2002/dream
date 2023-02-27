@@ -370,7 +370,7 @@ namespace Dream {
         float keepDistance2 = 20.0f;
         float keepDistance3 = 30.0f;
 
-        // TODO: this is computing 100k distances which is not good...
+        // TODO: this is computing 100k distances which is not good... (possible solution: do this random discarding on the GPU)
         for (int i = 0; i < pointsAcrossTerrain.size(); ++i) {
             float a1 = 0;
             float b1 = 0;
@@ -380,20 +380,26 @@ namespace Dream {
             float b2 = pointsAcrossTerrain.at(i).y;
             float c2 = pointsAcrossTerrain.at(i).z;
 
+            // 100k seeded rands does slow things down...
             srand(3 * a1 * a1 + 5.5 * b1 + 1.2 * c1 + 3 * a2 * a2 + 5.5 * b2 + 1.2 * c2);
 
             float distToPoint = MathUtils::distance(pointsAcrossTerrain.at(i), camera.position);
+            int renderLayer = -1;
 
             if (distToPoint < keepDistance1) {
-                pointsAcrossTerrainCloseToCamera.push_back(pointsAcrossTerrain.at(i));
+                renderLayer = 0;
             } else if (distToPoint < keepDistance2) {
                 if ((rand() % 5) + 1 ==  1) {
-                    pointsAcrossTerrainCloseToCamera.push_back(pointsAcrossTerrain.at(i));
+                    renderLayer = 1;
                 }
             } else if (distToPoint < keepDistance3) {
                 if ((rand() % 20) + 1 ==  1) {
-                    pointsAcrossTerrainCloseToCamera.push_back(pointsAcrossTerrain.at(i));
+                    renderLayer = 2;
                 }
+            }
+
+            if (renderLayer != -1) {
+                pointsAcrossTerrainCloseToCamera.push_back(pointsAcrossTerrain.at(i));
             }
         }
 
@@ -439,6 +445,7 @@ namespace Dream {
                     // TODO: have boolean if we want to filter only the closest things to our player (like only draw grass close to player and sample a few from farther ones)
                     // TODO: make sure you also update amount
                     glm::mat4 model = glm::mat4(1.0f);
+                    // TODO: it is slow calling srand every loop, instead call this once and store positions in some array
                     srand(3 * i * i + 4 * i + 9);
                     if (isCenteredAroundCamera) {
                         model = glm::translate(model, pointsAcrossTerrainCloseToCamera.at(i) + offset);
