@@ -403,10 +403,9 @@ namespace Dream {
                 auto modelGUID = entity.getComponent<Component::MeshComponent>().getMeshGuid();
                 auto meshFileID = entity.getComponent<Component::MeshComponent>().getMeshFileID();
 
-                static int count = 0;
-//                static std::unordered_set<std::string>
+                static std::unordered_set<std::string> processedMeshEntities;
 
-                if (count < 3) {
+                if (!processedMeshEntities.count(entity.getID())) {
                     auto* modelMatrices = new glm::mat4[amount];
                     for (unsigned int i = 0; i < amount; i++)
                     {
@@ -458,7 +457,7 @@ namespace Dream {
                     delete[] modelMatrices;
                     glDeleteBuffers(1, &instancingModelMatricesBuffer);
 
-                    count++;
+                    processedMeshEntities.insert(entity.getID());
                 }
 
                 // TODO: clean up this method and use the instanced meshes
