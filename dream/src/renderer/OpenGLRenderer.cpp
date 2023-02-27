@@ -340,12 +340,27 @@ namespace Dream {
         std::vector<glm::vec3> offsets;
         std::vector<float> displacements;
         std::vector<bool> isBillboards;
+        std::vector<bool> centerAroundCamera;
+
+        std::vector<glm::vec3> pointsAcrossTerrainCloseToCamera;
+        for (int i = 0; i < 100000; ++i) {
+            srand(3 * i * i + 4 * i + 9);
+            float radius = 20.0f;
+            float searchRadius = 10.0f;
+            glm::vec3 p = glm::vec3(MathUtils::randomFloat(-radius, radius), 0, MathUtils::randomFloat(-radius, radius));
+
+            // TODO: percentage of selecting the point is based off the distance from the camera
+            if (MathUtils::distance(camera.position, p) < searchRadius) {
+                pointsAcrossTerrainCloseToCamera.emplace_back(p);
+            }
+        }
 
         modelEntities.push_back(Project::getScene()->getEntityByTag("forest tree"));
         amounts.push_back(600);
         offsets.emplace_back(0, 0, 0);
         displacements.emplace_back(80);
         isBillboards.emplace_back(false);
+        centerAroundCamera.emplace_back(false);
 
         // TODO: render grass less frequently for ones far away
         // do not cast shadows for grass
@@ -355,10 +370,12 @@ namespace Dream {
             offsets.emplace_back(0, 0.14, 0);
             displacements.emplace_back(10);
             isBillboards.emplace_back(true);
+            centerAroundCamera.emplace_back(true);
         }
 
         for (int j = 0; j < modelEntities.size(); ++j) {
-            auto amount = amounts.at(j);
+            auto isCenteredAroundCamera = centerAroundCamera.at(j);
+            auto amount = isCenteredAroundCamera ? pointsAcrossTerrainCloseToCamera.size() : amounts.at(j);
             auto modelEntity = modelEntities.at(j);
             auto offset = offsets.at(j);
             auto displacement = displacements.at(j);
@@ -377,7 +394,11 @@ namespace Dream {
                     // TODO: make sure you also update amount
                     glm::mat4 model = glm::mat4(1.0f);
                     srand(3 * i * i + 4 * i + 9);
-                    model = glm::translate(model, glm::vec3(MathUtils::randomFloat(-displacement / 2, displacement / 2),  0,  MathUtils::randomFloat(-displacement / 2, displacement / 2)) + offset);
+                    if (isCenteredAroundCamera) {
+                        model = glm::translate(model, pointsAcrossTerrainCloseToCamera.at(i) + offset);
+                    } else {
+                        model = glm::translate(model, glm::vec3(MathUtils::randomFloat(-displacement / 2, displacement / 2),  0,  MathUtils::randomFloat(-displacement / 2, displacement / 2)) + offset);
+                    }
                     model = glm::scale(model, modelEntity.getComponent<Component::TransformComponent>().scale);
                     model = model * glm::toMat4(modelEntity.getComponent<Component::TransformComponent>().rotation);
                     modelMatrices[i] = model;
