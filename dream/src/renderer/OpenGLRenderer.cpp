@@ -299,18 +299,22 @@ namespace Dream {
     }
 
     void OpenGLRenderer::drawInstancedMeshes(Camera camera, OpenGLShader* shader) {
-        unsigned int amount = 1000;
-        static bool needToSetup = true;
-        auto modelGUID = "C90A51A0-E1FA-43A1-BBD0-0F2617ED363C";
-        auto meshFileID = "d3d9446802a44259755d38e6d163e820";
+        unsigned int amount = 2000;
 
-        if (needToSetup) {
+        std::vector<Entity> instancedMeshEntities;
+        instancedMeshEntities.push_back(Project::getScene()->getEntityByID("5A79E889-9BE7-4C84-8C7A-D104B80706CF"));
+        instancedMeshEntities.push_back(Project::getScene()->getEntityByID("58D0F43E-5D45-4702-A431-BC03B2EA47DB"));
+
+        for (int i = 0; i < instancedMeshEntities.size(); ++i) {
+            Entity entity = instancedMeshEntities.at(i);
             glm::mat4* modelMatrices = new glm::mat4[amount];
             for (unsigned int i = 0; i < amount; i++)
             {
                 glm::mat4 model = glm::mat4(1.0f);
-                // TODO: remove this random translation and instead get translation of all model entities (not mesh entities) with a GUID
-                model = glm::translate(model, glm::vec3( rand() % 100 - 50,  0,  rand() % 100 - 50));
+                srand(3 * i * i + 4 * i + 9);
+                model = glm::translate(model, glm::vec3( rand() % 400 - 200,  0,  rand() % 400 - 200));
+                model = glm::scale(model, glm::vec3(3.0, 3.0, 3.0));
+                model = glm::rotate(model,  static_cast<float>((rand() % 360)), glm::vec3(0.0f, 1.0f, 0.0f));
                 modelMatrices[i] = model;
             }
 
@@ -319,15 +323,14 @@ namespace Dream {
             glBindBuffer(GL_ARRAY_BUFFER, instancingModelMatricesBuffer);
             glBufferData(GL_ARRAY_BUFFER, amount * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
 
+            auto modelGUID = entity.getComponent<Component::MeshComponent>().guid;
+            auto meshFileID = entity.getComponent<Component::MeshComponent>().fileId;
             auto mesh = Project::getResourceManager()->getMeshData(modelGUID, meshFileID);
             if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
                 glBindVertexArray(openGLMesh->getVAO());
             } else {
                 Logger::fatal("Error getting instanced mesh (1)");
             }
-
-//        glBindVertexArray(sphereMesh->getVAO());
-
 
             // set attribute pointers for matrix (4 times vec4)
             glEnableVertexAttribArray(7);
@@ -346,31 +349,29 @@ namespace Dream {
 
             glBindVertexArray(0);
 
-            needToSetup = false;
-        }
-
-
-        // TODO: clean up this method and use the instanced meshes
-        for (int i = 0; i < MAX_BONES; i++) {
-            shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", glm::mat4(1.0));
-        }
-
-        lightingTech->setTextureAndColorUniforms(Project::getScene()->getRootEntity(), shadowMapFbos, directionalLightShadowTech, shader);
-
-        // TODO: basically look for all meshes (not model parent) w/ a particular GUID and loop calling this below chunk of code for each unique GUID
-        {
-            // run code for all mesh's with GUID a, then run this code for all meshes with GUID b, etc.
-            auto mesh = Project::getResourceManager()->getMeshData(modelGUID, meshFileID);
-            if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
-                glBindVertexArray(openGLMesh->getVAO());
-                glDrawElementsInstanced(GL_TRIANGLES, static_cast<unsigned int>(openGLMesh->getIndices().size()), GL_UNSIGNED_INT, 0, amount);
-            } else {
-                Logger::fatal("Error getting instanced mesh (2)");
+            // TODO: clean up this method and use the instanced meshes
+            for (int i = 0; i < MAX_BONES; i++) {
+                shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", glm::mat4(1.0));
             }
-            glBindVertexArray(0);
-        }
 
-        // TODO: realize we have to instance each of the sub-meshes for an overall mesh (that's why the example code does a for loop over all meshes)
+            lightingTech->setTextureAndColorUniforms(entity, shadowMapFbos, directionalLightShadowTech, shader);
+
+            // TODO: basically look for all meshes (not model parent) w/ a particular GUID and loop calling this below chunk of code for each unique GUID
+            {
+                // run code for all mesh's with GUID a, then run this code for all meshes with GUID b, etc.
+                auto mesh = Project::getResourceManager()->getMeshData(modelGUID, meshFileID);
+                if (auto openGLMesh = std::dynamic_pointer_cast<OpenGLMesh>(mesh)) {
+                    glBindVertexArray(openGLMesh->getVAO());
+                    glDrawElementsInstanced(GL_TRIANGLES, static_cast<unsigned int>(openGLMesh->getIndices().size()), GL_UNSIGNED_INT, 0, amount);
+                } else {
+                    Logger::fatal("Error getting instanced mesh (2)");
+                }
+                glBindVertexArray(0);
+            }
+
+            delete[] modelMatrices;
+            glDeleteBuffers(1, &instancingModelMatricesBuffer);
+        }
     }
 
     void OpenGLRenderer::drawTerrains(Camera camera, OpenGLShader* shader) {
