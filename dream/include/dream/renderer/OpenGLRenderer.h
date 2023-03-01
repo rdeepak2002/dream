@@ -54,14 +54,13 @@ namespace Dream {
         OpenGLShader *skyboxShader;
         OpenGLShader *simpleDepthShader;
         OpenGLShader *terrainShader;
+        OpenGLFrameBuffer *hdrFrameBuffer;
         OpenGLFrameBuffer *outputRenderTextureFbo;
         std::vector<OpenGLShadowMapFBO *> shadowMapFbos;
         LightingTech *lightingTech;
         DirectionalLightShadowTech *directionalLightShadowTech;
         SkinningTech *skinningTech;
         OpenGLSkybox *skybox;
-
-        void resizeFrameBuffer();
 
         void printGLVersion();
 

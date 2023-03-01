@@ -67,6 +67,8 @@ namespace Dream {
 
         outputRenderTextureFbo = new OpenGLFrameBuffer();
 
+        hdrFrameBuffer = new OpenGLFrameBuffer();
+
         directionalLightShadowTech = new DirectionalLightShadowTech();
 
         skinningTech = new SkinningTech();
@@ -117,6 +119,7 @@ namespace Dream {
         delete this->directionalLightShadowTech;
         delete this->skinningTech;
         delete this->terrainShader;
+        delete this->hdrFrameBuffer;
     }
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
@@ -179,7 +182,14 @@ namespace Dream {
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                 glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
                 this->outputRenderTextureFbo->bindForWriting();
-                this->resizeFrameBuffer();
+                {
+                    // resize framebuffer whenever there is a new viewport size
+                    GLint viewportWidth = this->getViewportDimensions().first;
+                    GLint viewportHeight = this->getViewportDimensions().second;
+                    if (outputRenderTextureFbo->getWidth() != viewportWidth || outputRenderTextureFbo->getHeight() != viewportHeight) {
+                        outputRenderTextureFbo->resize(viewportWidth, viewportHeight);
+                    }
+                }
                 glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             }
@@ -302,8 +312,35 @@ namespace Dream {
         // clear framebuffer and return its texture
         this->outputRenderTextureFbo->clear();
 
+        {
+            // bind HDR frame buffer
+            glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+            this->hdrFrameBuffer->bindForWriting();
+            {
+                // resize framebuffer whenever there is a new viewport size
+                GLint viewportWidth = this->getViewportDimensions().first;
+                GLint viewportHeight = this->getViewportDimensions().second;
+                if (hdrFrameBuffer->getWidth() != viewportWidth || hdrFrameBuffer->getHeight() != viewportHeight) {
+                    hdrFrameBuffer->resize(viewportWidth, viewportHeight);
+                }
+            }
+            glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        }
+
+        this->outputRenderTextureFbo->renderScreenQuad();
+
+        // bind the default screen frame buffer
+        this->hdrFrameBuffer->unbind();
+
+        // clear framebuffer and return its texture
+        this->hdrFrameBuffer->clear();
+
         if (fullscreen) {
             this->outputRenderTextureFbo->renderScreenQuad();
+//            this->hdrFrameBuffer->renderScreenQuad();
         }
     }
 
@@ -564,15 +601,6 @@ namespace Dream {
         }
     }
 
-    void OpenGLRenderer::resizeFrameBuffer() {
-        // resize framebuffer whenever there is a new viewport size
-        GLint viewportWidth = this->getViewportDimensions().first;
-        GLint viewportHeight = this->getViewportDimensions().second;
-        if (outputRenderTextureFbo->getWidth() != viewportWidth || outputRenderTextureFbo->getHeight() != viewportHeight) {
-            outputRenderTextureFbo->resize(viewportWidth, viewportHeight);
-        }
-    }
-
     void OpenGLRenderer::printGLVersion() {
         Logger::info("GL Vendor: " + std::string((const char *) glGetString(GL_VENDOR)));
         Logger::info("GL Renderer: " + std::string((const char *) glGetString(GL_RENDERER)));
@@ -587,6 +615,7 @@ namespace Dream {
 
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
 //        return this->shadowMapFbos.at(0)->getTexture();
-        return this->outputRenderTextureFbo->getTexture();
+//        return this->outputRenderTextureFbo->getTexture();
+        return this->hdrFrameBuffer->getTexture();
     }
 }
