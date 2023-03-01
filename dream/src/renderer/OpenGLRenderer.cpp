@@ -67,7 +67,7 @@ namespace Dream {
 
         outputRenderTextureFbo = new OpenGLFrameBuffer();
 
-        hdrFrameBuffer = new OpenGLFrameBuffer();
+        outputRenderTextureFboSecondPass = new OpenGLFrameBuffer();
 
         directionalLightShadowTech = new DirectionalLightShadowTech();
 
@@ -119,7 +119,7 @@ namespace Dream {
         delete this->directionalLightShadowTech;
         delete this->skinningTech;
         delete this->terrainShader;
-        delete this->hdrFrameBuffer;
+        delete this->outputRenderTextureFboSecondPass;
     }
 
     void OpenGLRenderer::render(int viewportWidth, int viewportHeight, bool fullscreen) {
@@ -317,13 +317,13 @@ namespace Dream {
             glViewport(0, 0, viewportWidth * 2, viewportHeight * 2);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-            this->hdrFrameBuffer->bindForWriting();
+            this->outputRenderTextureFboSecondPass->bindForWriting();
             {
                 // resize framebuffer whenever there is a new viewport size
                 GLint viewportWidth = this->getViewportDimensions().first;
                 GLint viewportHeight = this->getViewportDimensions().second;
-                if (hdrFrameBuffer->getWidth() != viewportWidth || hdrFrameBuffer->getHeight() != viewportHeight) {
-                    hdrFrameBuffer->resize(viewportWidth, viewportHeight);
+                if (outputRenderTextureFboSecondPass->getWidth() != viewportWidth || outputRenderTextureFboSecondPass->getHeight() != viewportHeight) {
+                    outputRenderTextureFboSecondPass->resize(viewportWidth, viewportHeight);
                 }
             }
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -333,10 +333,10 @@ namespace Dream {
         this->outputRenderTextureFbo->renderScreenQuad();
 
         // bind the default screen frame buffer
-        this->hdrFrameBuffer->unbind();
+        this->outputRenderTextureFboSecondPass->unbind();
 
         // clear framebuffer and return its texture
-        this->hdrFrameBuffer->clear();
+        this->outputRenderTextureFboSecondPass->clear();
 
         if (fullscreen) {
             this->outputRenderTextureFbo->renderScreenQuad();
@@ -616,6 +616,6 @@ namespace Dream {
     unsigned int OpenGLRenderer::getOutputRenderTexture() {
 //        return this->shadowMapFbos.at(0)->getTexture();
 //        return this->outputRenderTextureFbo->getTexture();
-        return this->hdrFrameBuffer->getTexture();
+        return this->outputRenderTextureFboSecondPass->getTexture();
     }
 }
